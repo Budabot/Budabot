@@ -178,7 +178,7 @@ class WhoisController {
 		$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = ? ORDER BY dt DESC";
 		$data = $this->db->query($sql, $charid, $dimension);
 
-		$blob = "<header2> :::::: Name History :::::: <end>\n\n";
+		$blob = "<header2>Name History<end>\n\n";
 		if (count($data) > 0) {
 			forEach ($data as $row) {
 				$blob .= "<green>{$row->name}<end> " . $this->util->date($row->dt) . "\n";
@@ -226,7 +226,7 @@ class WhoisController {
 
 				$blob .= "<pagebreak>" . $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
 
-				$blob .= "\n<pagebreak><header2> :::::: Options :::::: <end>\n\n";
+				$blob .= "\n<pagebreak><header2>Options<end>\n\n";
 
 				$blob .= $this->text->make_chatcmd('History', "/tell <myname> history $name") . "\n";
 				$blob .= $this->text->make_chatcmd('Online Status', "/tell <myname> is $name") . "\n";
@@ -280,7 +280,7 @@ class WhoisController {
 
 				$blob .= "Source: $whois->source\n\n";
 
-				$blob .= "<pagebreak><header2> :::::: Options :::::: <end>\n\n";
+				$blob .= "<pagebreak><header2>Options<end>\n\n";
 
 				$blob .= $this->text->make_chatcmd("History", "/tell <myname> history {$name} {$i}") . "\n";
 

@@ -245,8 +245,8 @@ class EventsController {
 	public function getEvents() {
 		$data = $this->db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");
 		if (count($data) > 0) {
-			$upcoming_title = "<header2> ::: Upcoming Events ::: <end>\n\n";
-			$past_title = "<header2> ::: Past Events ::: <end>\n\n";
+			$upcoming_title = "<header2>Upcoming Events<end>\n\n";
+			$past_title = "<header2>Past Events<end>\n\n";
 			$updated = 0;
 			forEach ($data as $row) {
 				if ($row->event_attendees == '') {

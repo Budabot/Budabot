@@ -147,7 +147,7 @@ class TrickleController {
 
 			if ($result->groupName != $groupName) {
 				$groupName = $result->groupName;
-				$msg .= "\n<tab><header2>::: $groupName :::<end>\n";
+				$msg .= "\n<tab><header2>$groupName<end>\n";
 			}
 
 			$amount = $result->amount / 4;

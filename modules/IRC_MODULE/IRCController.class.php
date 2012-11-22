@@ -185,7 +185,7 @@ class IRCController {
 					}
 				}
 			}
-			$blob = "\n\n<header2> ::: IRC ($numirc) ::: <end>\n" . $blob;
+			$blob = "\n\n<header2>IRC ($numirc)<end>\n" . $blob;
 		}
 		return array($numirc, $blob);
 	}

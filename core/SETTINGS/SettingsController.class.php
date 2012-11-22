@@ -252,7 +252,7 @@ class SettingsController {
 			// show help topic if there is one
 			$help = $this->helpManager->find($settingName, $sender);
 			if ($help !== false) {
-				$blob .= "\n\n<header2> ::: Help ($settingName) ::: <end>\n\n" . $help;
+				$blob .= "\n\n<header2>Help ($settingName)<end>\n\n" . $help;
 			}
 
 			$msg = $this->text->make_blob("Settings Info for {$settingName}", $blob);

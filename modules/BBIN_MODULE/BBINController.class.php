@@ -111,7 +111,7 @@ class BBINController {
 			$numbbinmembers = count($data);
 
 			if ($numbbinmembers >= 1) {
-				$blob .= "\n\n<header2> ::: BBIN ($numbbinmembers) ::: <end>\n";
+				$blob .= "\n\n<header2>BBIN ($numbbinmembers)<end>\n";
 
 				$blob .= $this->onlineController->createListByProfession($data, false, true);
 			}
@@ -121,7 +121,7 @@ class BBINController {
 			$numbbinguests = count($data);
 
 			if ($numbbinguests >= 1) {
-				$blob .= "\n\n<header2> ::: BBIN Guests ($numbbinguests) ::: <end>\n";
+				$blob .= "\n\n<header2>BBIN Guests ($numbbinguests)<end>\n";
 
 				$blob .= $this->onlineController->createListByProfession($data, false, true);
 			}

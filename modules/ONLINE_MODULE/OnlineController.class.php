@@ -317,7 +317,7 @@ class OnlineController {
 		$numguild = count($data);
 
 		if ($numguild >= 1) {
-			$blob .= "<header2> ::: Guild Channel ($numguild) ::: <end>\n";
+			$blob .= "<header2>Guild Channel ($numguild)<end>\n";
 
 			// create the list with alts shown
 			$blob .= $this->createList($data, true, $this->settingManager->get("online_show_org_guild"));
@@ -331,7 +331,7 @@ class OnlineController {
 			if ($numguild >= 1) {
 				$blob .= "\n\n";
 			}
-			$blob .= "<header2> ::: Private Channel ($numguest) ::: <end>\n";
+			$blob .= "<header2>Private Channel ($numguest)<end>\n";
 
 			// create the list of guests, without showing alts
 			$blob .= $this->createList($data, true, $this->settingManager->get("online_show_org_priv"));

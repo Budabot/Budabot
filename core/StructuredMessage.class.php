@@ -21,7 +21,7 @@ class StructuredMessage {
 		$output = '';
 
 		if (!$blob && !empty($this->header)) {
-			$output .= "<header> :::::: $this->header :::::: <end>\n\n";
+			$output .= "<header>$this->header<end>\n\n";
 		}
 
 		forEach ($this->content as $item) {

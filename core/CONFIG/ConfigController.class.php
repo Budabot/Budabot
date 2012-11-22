@@ -416,13 +416,13 @@ class ConfigController {
 			}
 	
 			if ($subcmd_list) {
-				$blob .= "<header> ::: Subcommands ::: <end>\n\n";
+				$blob .= "<header>Subcommands<end>\n\n";
 				$blob .= $subcmd_list;
 			}
 	
 			$help = $this->helpManager->find($cmd, $sender);
 			if ($help) {
-				$blob .= "<header> ::: Help ($cmd) ::: <end>\n\n" . $help;
+				$blob .= "<header>Help ($cmd)<end>\n\n" . $help;
 			}
 	
 			$msg = $this->text->make_blob(ucfirst($cmd)." config", $blob);

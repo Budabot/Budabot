@@ -45,13 +45,13 @@ class Text {
 
 		if ($num == 1) {
 			$page = $pages[0];
-			$headerMarkup = "<header> :::::: $header :::::: <end>\n\n";
+			$headerMarkup = "<header>$header<end>\n\n";
 			$page = "<a href=\"text://".$this->settingManager->get("default_window_color").$headerMarkup.$page."\">$name</a>";
 			return $page;
 		} else {
 			$i = 1;
 			forEach ($pages as $key => $page) {
-				$headerMarkup = "<header> :::::: $header (Page $i / $num) :::::: <end>\n\n";
+				$headerMarkup = "<header>$header (Page $i / $num)<end>\n\n";
 				$page = "<a href=\"text://".$this->settingManager->get("default_window_color").$headerMarkup.$page."\">$name</a> (Page <highlight>$i / $num<end>)";
 				$pages[$key] = $page;
 				$i++;
@@ -77,7 +77,7 @@ class Text {
 			$i = 1;
 			forEach ($pages as $key => $page) {
 				if ($i > 1) {
-					$header = "<header> :::::: $name (Page $i / $num) :::::: <end>\n\n";
+					$header = "<header>$name (Page $i / $num)<end>\n\n";
 				} else {
 					$header = '';
 				}
