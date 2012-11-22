@@ -227,6 +227,9 @@ class ItemsController {
 			} else {
 				$blob .= "Search: $search\n\n";
 			}
+			if ($num == $this->settingManager->get("maxitems")) {
+				$blob .= "*Note: Results have been limited to the first " . $this->settingManager->get("maxitems") . " results.\n\n";
+			}
 			$blob .= $this->formatSearchResults($data, $ql, true);
 			$xrdbLink = $this->text->make_chatcmd("XRDB", "/start http://www.xyphos.com/viewtopic.php?f=6&t=10000091");
 			$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start http://budabot.com/forum/viewtopic.php?f=7&t=873");
