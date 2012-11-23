@@ -61,11 +61,16 @@
 	<!-- ============================================  -->
 	<!-- (DEFAULT) Target: build_linux                 --> 
 	<!-- ============================================  -->
-	<target name="build_linux" depends="clean">
+	<target name="build_linux">
 		<echo>Create release package of Budabot.</echo>
 		<property name="build.basename"    value="Budabot${budabot.version}_build${svn.revision}_linux" override="true" />
 		<property name="build.contentsdir" value="${project.basedir}/build/contents_linux" override="true" />
 		<property name="build.archivedir"  value="${build.contentsdir}/${build.basename}" override="true" />
+		<property name="build.archivepath"  value="build/${build.basename}.zip" override="true" />
+
+		<!-- init build dir for the archive -->
+		<delete dir="${build.contentsdir}" quiet="true" />
+		<delete file="${build.archivepath}" quiet="true" />
 
 		<!-- Include Bot Manager -->
 		<phing dir="botmanager" target="copy">
@@ -78,17 +83,24 @@
 				<patternset refid="linux_files" />
 			</fileset>
 		</copy>
-		<zip basedir="${build.contentsdir}" destfile="build/${build.basename}.zip" />
+
+		<!-- Compress the files into an archive -->
+		<zip basedir="${build.contentsdir}" destfile="${build.archivepath}" />
 	</target>
 
 	<!-- ============================================  -->
 	<!-- (DEFAULT) Target: Build_win32                 --> 
 	<!-- ============================================  -->
-	<target name="build_win32" depends="clean">
+	<target name="build_win32">
 		<echo>Create release package of Budabot (Windows version).</echo>
 		<property name="build.basename"    value="Budabot${budabot.version}_build${svn.revision}_win32" override="true" />
 		<property name="build.contentsdir" value="${project.basedir}/build/contents_win32" override="true" />
 		<property name="build.archivedir"  value="${build.contentsdir}/${build.basename}" override="true" />
+		<property name="build.archivepath"  value="build/${build.basename}.zip" override="true" />
+
+		<!-- init build dir for the archive -->
+		<delete dir="${build.contentsdir}" quiet="true" />
+		<delete file="${build.archivepath}" quiet="true" />
 
 		<!-- Include Bot Manager -->
 		<phing dir="botmanager" target="build" />
@@ -103,7 +115,7 @@
 		</copy>
 
 		<!-- Compress the files into an archive -->
-		<zip basedir="${build.contentsdir}" destfile="build/${build.basename}.zip" />
+		<zip basedir="${build.contentsdir}" destfile="${build.archivepath}" />
 	</target>
 
 	<!-- ============================================  -->
@@ -157,7 +169,8 @@
 	<target name="check_style">
 		<echo>Checks project's coding style using PHP-CodeSniffer</echo>
 
-		<!-- create dir for checkstyle report -->
+		<!-- init build dir for checkstyle report -->
+		<delete file="build/checkstyle.xml" quiet="true" />
 		<mkdir dir="build" />
 
 		<!-- run the checker -->
