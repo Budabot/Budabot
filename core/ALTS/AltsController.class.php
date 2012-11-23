@@ -63,17 +63,6 @@ class AltsController implements AltsInterface {
 	public $defaultAltsInheritAdmin = "0";
 
 	/**
-	 * @Setting("validate_from_validated_alt")
-	 * @Description("Validate alts from any validated alt")
-	 * @Visibility("edit")
-	 * @Type("options")
-	 * @Options("true;false")
-	 * @Intoptions("1;0")
-	 * @AccessLevel("mod")
-	 */
-	public $defaultValidateFromValidatedAlt = "1";
-
-	/**
 	 * @Setup
 	 * This handler is called on bot startup.
 	 */
@@ -129,7 +118,7 @@ class AltsController implements AltsInterface {
 			}
 	
 			$validated = 0;
-			if ($sender == $senderAltInfo->main || ($this->settingManager->get("validate_from_validated_alt") == 1 && $senderAltInfo->is_validated($sender))) {
+			if ($senderAltInfo->is_validated($sender)) {
 				$validated = 1;
 			}
 	
@@ -363,7 +352,7 @@ class AltsController implements AltsInterface {
 		$altInfo = $this->get_alt_info($sender);
 		$alt = ucfirst(strtolower($args[1]));
 	
-		if (!$altInfo->is_validated($sender) || ($sender != $altInfo->main && $this->settingManager->get('validate_from_validated_alt') == 0)) {
+		if (!$altInfo->is_validated($sender)) {
 			$sendto->reply("<highlight>$alt<end> cannot be validated from your current character.");
 			return;
 		}
@@ -397,7 +386,7 @@ class AltsController implements AltsInterface {
 		if ($this->chatBot->is_ready() && $this->settingManager->get('alts_inherit_admin') == 1) {
 			$altInfo = $this->get_alt_info($eventObj->sender);
 		
-			if ($altInfo->hasUnvalidatedAlts() && ($eventObj->sender == $altInfo->main || ($this->settingManager->get('validate_from_validated_alt') == 1 && $altInfo->is_validated($eventObj->sender)))) {
+			if ($altInfo->hasUnvalidatedAlts() && $altInfo->is_validated($eventObj->sender)) {
 				$msg = "You have unvalidated alts. Please validate them.";
 				$this->chatBot->sendTell($msg, $eventObj->sender);
 				$this->chatBot->sendTell($altInfo->get_alts_blob(true), $eventObj->sender);
