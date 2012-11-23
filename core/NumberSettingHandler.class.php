@@ -22,6 +22,10 @@ class NumberSettingHandler extends SettingHandler {
 	 * @return String of new value or false if $newValue is invalid
 	 */
 	function save($newValue) {
-	
+		if (preg_match("/^[0-9]+$/i", $newValue)) {
+			return $newValue;
+		} else {
+			throw new Exception("You must enter a number for this setting.");
+		}
 	}
 }

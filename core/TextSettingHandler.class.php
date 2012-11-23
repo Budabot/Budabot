@@ -22,6 +22,10 @@ class TextSettingHandler extends SettingHandler {
 	 * @return String of new value or false if $newValue is invalid
 	 */
 	function save($newValue) {
-	
+		if (strlen($newValue) > 255) {
+			throw new Exception("Your text can not be longer than 255 characters.");
+		} else {
+			return $newValue;
+		}
 	}
 }

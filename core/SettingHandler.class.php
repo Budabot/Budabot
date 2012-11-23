@@ -39,25 +39,26 @@ class SettingHandler {
 			$options_map = array_combine($intoptions, $options);
 		}
 		if ($options) {
-			$blob .= "Predefined Options:\n";
+			$msg = "Predefined Options:\n";
 			if ($intoptions) {
 				forEach ($options_map as $key => $label) {
-					$save_link = $this->text->make_chatcmd('Select', "/tell <myname> settings save {$row->name} {$key}");
-					$blob .= "<tab> <highlight>{$label}<end> ({$save_link})\n";
+					$save_link = $this->text->make_chatcmd('Select', "/tell <myname> settings save {$this->row->name} {$key}");
+					$msg .= "<tab> <highlight>{$label}<end> ({$save_link})\n";
 				}
 			} else {
 				forEach ($options as $char) {
-					$save_link = $this->text->make_chatcmd('Select', "/tell <myname> settings save {$row->name} {$char}");
-					$blob .= "<tab> <highlight>{$char}<end> ({$save_link})\n";
+					$save_link = $this->text->make_chatcmd('Select', "/tell <myname> settings save {$this->row->name} {$char}");
+					$msg .= "<tab> <highlight>{$char}<end> ({$save_link})\n";
 				}
 			}
 		}
+		return $msg;
 	}
 	
 	/**
 	 * @return String of new value or false if $newValue is invalid
 	 */
 	public function save($newValue) {
-	
+		return $newValue;
 	}
 }

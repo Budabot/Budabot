@@ -31,6 +31,11 @@ class TimeSettingHandler extends SettingHandler {
 	 * @return String of new value or false if $newValue is invalid
 	 */
 	function save($newValue) {
-	
+		$time = $this->util->parseTime($newValue);
+		if ($time > 0) {
+			return $time;
+		} else {
+			throw new Exception("This is not a valid time for this setting.");
+		}
 	}
 }

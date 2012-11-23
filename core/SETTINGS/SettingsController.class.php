@@ -208,63 +208,24 @@ class SettingsController {
 	 * @Matches("/^settings save ([a-z0-9_]+) (.+)$/i")
 	 */
 	public function saveCommand($message, $channel, $sender, $sendto, $args) {
-		$name_setting = strtolower($args[1]);
+		$name = strtolower($args[1]);
 		$change_to_setting = $args[2];
-		$row = $this->db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $name_setting);
+		$row = $this->db->queryRow("SELECT * FROM settings_<myname> WHERE `name` = ?", $name);
 		if ($row === null) {
-			$msg = "Could not find setting <highlight>{$name_setting}<end>.";
+			$msg = "Could not find setting <highlight>{$name}<end>.";
 		} else {
-			$options = explode(";", $row->options);
-			$new_setting = "";
-			if ($row->type == "color") {
-				if (preg_match("/^#([0-9a-f]{6})$/i", $change_to_setting)) {
-					$new_setting = "<font color='$change_to_setting'>";
+			$settingHandler = $this->settingManager->getSettingHandler($row);
+			try {
+				$new_setting = $settingHandler->save($change_to_setting);
+				if ($this->settingManager->save($name, $new_setting)) {
+					$msg = "Setting <highlight>$name<end> has been saved.";
 				} else {
-					$msg = "<highlight>{$change_to_setting}<end> is not a valid HTML-Color (example: '#FF33DD').";
+					$msg = "Error! Setting <highlight>$name<end> could not be saved.";
 				}
-			} else if ($row->type == "text") {
-				if (strlen($change_to_setting) > 255) {
-					$msg = "Your text can not be longer than 255 characters.";
-				} else {
-					$new_setting = $change_to_setting;
-				}
-			} else if ($row->type == "number") {
-				if (preg_match("/^[0-9]+$/i", $change_to_setting)) {
-					$new_setting = $change_to_setting;
-				} else {
-					$msg = "You must enter a number for this setting.";
-				}
-			} else if ($row->type == "options") {
-				if ($row->intoptions != '') {
-					$intoptions = explode(";", $row->intoptions);
-					if (in_array($change_to_setting, $intoptions)) {
-						$new_setting = $change_to_setting;
-					} else {
-						$msg = "This is not a correct option for this setting.";
-					}
-				} else {
-					if (in_array($change_to_setting, $options)) {
-						$new_setting = $change_to_setting;
-					} else {
-						$msg = "This is not a correct option for this setting.";
-					}
-				}
-			} else if ($row->type == "time") {
-				$time = $this->util->parseTime($change_to_setting);
-				if ($time > 0) {
-					$new_setting = $time;
-				} else {
-					$msg = "This is not a valid time for this setting.";
-				}
+			} catch (Exception $e) {
+				$msg = $e->getMessage();
 			}
+			$sendto->reply($msg);
 		}
-		if ($new_setting != "") {
-			if ($this->settingManager->save($name_setting, $new_setting)) {
-				$msg = "Setting successfull saved.";
-			} else {
-				$msg = "Error! Setting could not be saved.";
-			}
-		}
-		$sendto->reply($msg);
 	}
 }
