@@ -28,6 +28,7 @@
 		<exclude name="Generic.PHP.ClosingPHPTag" />
 		<exclude name="Generic.Formatting.SpaceAfterCast" />
 		<exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall" />
+		<exclude name="Generic.Files.EndFileNewline" />
 	</rule>
 
 	<!-- Additional sniffs and properties -->
