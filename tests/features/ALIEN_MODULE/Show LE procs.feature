@@ -1,7 +1,7 @@
-Feature: ALIEN_MODULE module
+Feature: Show LE procs
 	In order to spank alien butt!
 	As an alium hunter
-	I need to be able to have helpful commands for alien content
+	I need to see list of LE procs availalable to different professions
 
 	Background:
 		Given "ALIEN_MODULE" module is enabled
