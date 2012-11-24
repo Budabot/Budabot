@@ -54,7 +54,9 @@ class BosslootController {
 		$search = strtolower($args[1]);
 
 		// Find boss by name or key
-		$bosses = $this->db->query("SELECT * FROM boss_namedb b LEFT JOIN
+		$bosses = $this->db->query("SELECT bossid, bossname,
+				COALESCE(w.answer, b.location) as location
+			FROM boss_namedb b LEFT JOIN
 			whereis w ON b.bossname = w.name WHERE bossname LIKE ? OR keyname
 			LIKE ?", "%{$search}%", "%{$search}%");
 		$count = count($bosses);
@@ -70,11 +72,11 @@ class BosslootController {
 			//If single match found, output full loot table
 			$row = $bosses[0];
 
-			$blob .= "Location: <highlight>{$row->answer}<end>\n\n";
+			$blob .= "Location: <highlight>{$row->location}<end>\n\n";
 			$blob .= "Loot:\n\n";
 
 			$data = $this->db->query("SELECT * FROM boss_lootdb b LEFT JOIN
-				aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid)
+				aodb a ON (b.itemname = a.name)
 				WHERE b.bossid = ?", $row->bossid);
 			forEach ($data as $row2) {
 				$blob .= $this->text->make_image($row2->icon) . "\n";
@@ -98,7 +100,7 @@ class BosslootController {
 
 		$blob = "Bosses that drop items matching '$search':\n\n";
 
-		$loot = $this->db->query("SELECT DISTINCT b2.bossid, b2.bossname, w.answer
+		$loot = $this->db->query("SELECT DISTINCT b2.bossid, b2.bossname, COALESCE(w.answer, b2.location) as location
 			FROM boss_lootdb b1 JOIN boss_namedb b2 ON b2.bossid = b1.bossid
 			LEFT JOIN whereis w ON w.name = b2.bossname WHERE b1.itemname LIKE ?", "%{$search}%");
 		$count = count($loot);
@@ -116,11 +118,11 @@ class BosslootController {
 
 	public function getBossLootOutput($row) {
 		$data = $this->db->query("SELECT * FROM boss_lootdb b LEFT JOIN
-			aodb a ON (b.itemid = a.lowid OR b.itemid = a.highid) WHERE
-			b.bossid = ?", $row->bossid);
+			aodb a ON (b.itemname = a.name)
+			WHERE b.bossid = ?", $row->bossid);
 			
 		$blob = '<pagebreak>' . $this->text->make_chatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
-		$blob .= "Location: <highlight>{$row->answer}<end>\n";
+		$blob .= "Location: <highlight>{$row->location}<end>\n";
 		$blob .= "Loot: ";
 		forEach ($data as $row2) {
 			$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';

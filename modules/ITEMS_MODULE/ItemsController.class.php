@@ -308,9 +308,9 @@ class ItemsController {
 	
 	public function findByName($name, $ql = null) {
 		if ($ql === null) {
-			return $this->db->queryRow("SELECT * FROM aodb WHERE name = ? ORDER BY highql DESC", $name);
+			return $this->db->queryRow("SELECT * FROM aodb WHERE name = ? ORDER BY highql DESC, highid DESC", $name);
 		} else {
-			return $this->db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ?", $name, $ql, $ql);
+			return $this->db->queryRow("SELECT * FROM aodb WHERE name = ? AND lowql <= ? AND highql >= ? ORDER BY highid DESC", $name, $ql, $ql);
 		}
 	}
 
