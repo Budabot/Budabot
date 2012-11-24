@@ -208,14 +208,8 @@ class DB {
 
 		$settingName = $name . "_db_version";
 
-		$core_dir = "./core/$module";
-		$modules_dir = "./modules/$module";
-		$dir = '';
-		if (is_dir($modules_dir)) {
-			$dir = $modules_dir;
-		} else if (is_dir($core_dir)) {
-			$dir = $core_dir;
-		} else {
+		$dir = $this->util->verify_filename($module);
+		if (empty($dir)) {
 			$msg = "Could not find module '$module'.";
 			LegacyLogger::log('ERROR', 'SQL', $msg);
 			return $msg;
