@@ -8,6 +8,8 @@ interface IAOChatModel {
 	public function getAccountCharacters();
 }
 
+const HEADER_LENGTH = 4;
+
 class AOChatServer extends EventEmitter {
 
 	private $serverSocket;
@@ -25,19 +27,18 @@ class AOChatServer extends EventEmitter {
 			$that->client = $conn;
 			$that->client->write($that->packetToData(new AOChatServerPacket('out', AOCP_LOGIN_SEED, 'testloginseed')));
 
-			$that->client->on('data', function ($data) use ($that) {
-				if (strlen($data) < 4) {
-					print 'Error: Packet length not available\n';
-					$that->client->close();
-					return;
+			$buffer = '';
+			$that->client->on('data', function ($data) use ($that, &$buffer) {
+				try {
+					$buffer .= $data;
+					list($len, $type) = $that->getPacketHeader($buffer);
+					$contents = $that->getPacketContents($buffer, $len);
+					$buffer = substr($buffer, HEADER_LENGTH + $len);
+
+					$packet = new AOChatServerPacket('in', $type, $contents);
+					$that->emit('packet', array($packet));
+				} catch (Exception $e) {
 				}
-				$head = substr($data, 0, 4);
-				list(, $type, $len) = unpack('n2', $head);
-
-				$data = substr($data, 4);
-
-				$packet = new AOChatServerPacket('in', $type, $data);
-				$that->emit('packet', array($packet));
 			});
 		});
 		
@@ -118,6 +119,22 @@ class AOChatServer extends EventEmitter {
 		});
 		
 		$this->serverSocket->listen($port);
+	}
+
+	public function getPacketHeader($buffer) {
+		if (strlen($buffer) < HEADER_LENGTH) {
+			throw new Exception();
+		}
+		$headerData = substr($buffer, 0, HEADER_LENGTH);
+		list(, $type, $len) = unpack('n2', $headerData);
+		return array($len, $type);
+	}
+
+	public function getPacketContents($buffer, $length) {
+		if ((strlen($buffer) - HEADER_LENGTH) < $length) {
+			throw new Exception();
+		}
+		return substr($buffer, HEADER_LENGTH, $length);
 	}
 
 	public function setModel(IAOChatModel $model) {
