@@ -39,6 +39,11 @@ class Text {
 		$header = str_replace('"', '&quot;', $header);
 
 		$content = $this->format_message($content);
+		
+		// if the content is blank, add a space so the blob will at least appear
+		if ($content == '') {
+			$content = ' ';
+		}
 
 		$pages = $this->paginate($content, $this->settingManager->get("max_blob_size"), array("<pagebreak>", "\n", " "));
 		$num = count($pages);
