@@ -16,6 +16,8 @@ use Behat\Gherkin\Node\PyStringNode,
 
 define('ROOT_PATH', __DIR__ . '/../../..');
 
+const MESSAGE_TIMEOUT = 30;
+
 /**
  * Faked LegacyLogger class, needed for ConfigFile class.
  */
@@ -110,14 +112,14 @@ class FeatureContext extends BehatContext
 		foreach ($table->getHash() as $hash) {
 			$phrases []= $hash['profession'];
 		}
-		self::$chatServer->waitForTellMessageWithPhrases(15, $phrases);
+		self::$chatServer->waitForTellMessageWithPhrases(MESSAGE_TIMEOUT, $phrases);
 	}
 
 	/**
 	 * @Then /^the response should contain phrase "([^"]*)"$/
 	 */
 	public function theResponseShouldContainPhrase($phrase) {
-		self::$chatServer->waitForTellMessageWithPhrases(15, array($phrase));
+		self::$chatServer->waitForTellMessageWithPhrases(MESSAGE_TIMEOUT, array($phrase));
 	}
 
 	/**
@@ -182,14 +184,14 @@ class FeatureContext extends BehatContext
 		self::$botProcess = $process;
 
 		// wait for the bot instance to be ready
-		self::$chatServer->waitPrivateMessage(60 * 5 /* 5 minutes */,
+		self::$chatServer->waitPrivateMessage(MESSAGE_TIMEOUT,
 			"Logon Complete :: All systems ready to use.");
 
 		self::$chatServer->buddyLogin(self::$superAdmin);
 
 		// check that the bot is ready to accept commands
 		self::$chatServer->sendTellMessageToBot(self::$superAdmin, "hello botty");
-		self::$chatServer->waitForTellMessageWithPhrases(60, array("Unknown command"));
+		self::$chatServer->waitForTellMessageWithPhrases(MESSAGE_TIMEOUT, array("Unknown command"));
 	}
 
 	/**

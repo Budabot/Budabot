@@ -57,7 +57,7 @@ class ServerController implements IAOChatModel {
 			}
 		});
 		if (!$result) {
-			throw new Exception("Failed to receive message: $message");
+			throw new Exception("Failed to receive message from bot: $value");
 		}
 	}
 
