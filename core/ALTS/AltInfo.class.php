@@ -46,7 +46,7 @@ class AltInfo {
 
 		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE ? ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
 		$data = $db->query($sql, $this->main);
-		$count = count($data);
+		$count = count($data) + 1;
 		forEach ($data as $row) {
 			$blob .= "{$row->alt}";
 			if ($row->profession !== null) {
@@ -68,7 +68,7 @@ class AltInfo {
 			$blob .= "\n";
 		}
 
-		$msg = $text->make_blob("Alts of {$this->main}", $blob);
+		$msg = $text->make_blob("Alts of {$this->main} ($count)", $blob);
 
 		if ($firstPageOnly && is_array($msg)) {
 			return $msg[0];
