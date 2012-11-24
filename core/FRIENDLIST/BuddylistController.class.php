@@ -64,7 +64,7 @@ class BuddylistController {
 			$msg = "There are no players on the friendlist.";
 		} else {
 			$count = 0;
-			forEach ($this->buddylistManager->buddyList as $key => $value) {
+			forEach ($this->getSortedBuddyList() as $value) {
 				if (!isset($value['name'])) {
 					// skip the buddies that have been added but the server hasn't sent back an update yet
 					continue;
@@ -112,7 +112,7 @@ class BuddylistController {
 		} else {
 			$count = 0;
 			$blob = "Friendlist Search: '{$search}'\n\n";
-			forEach ($this->buddylistManager->buddyList as $key => $value) {
+			forEach ($this->getSortedBuddyList() as $value) {
 				$removed = '';
 				if (preg_match("/$search/i", $value['name'])) {
 					$count++;
@@ -174,5 +174,13 @@ class BuddylistController {
 
 		$msg = "All buddies have been removed from the buddy list.";
 		$sendto->reply($msg);
+	}
+	
+	public function getSortedBuddyList() {
+		$buddies = $this->buddylistManager->buddyList;
+		usort($buddies, function ($entry1, $entry2) {
+			return $entry1['name'] > $entry2['name'];
+		});
+		return $buddies;
 	}
 }
