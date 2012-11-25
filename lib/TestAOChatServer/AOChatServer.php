@@ -29,14 +29,12 @@ class AOChatServer extends EventEmitter {
 
 			$buffer = '';
 			$that->client->on('data', function ($data) use ($that, &$buffer) {
+				$buffer .= $data;
 				try {
-					$buffer .= $data;
-					list($len, $type) = $that->getPacketHeader($buffer);
-					$contents = $that->getPacketContents($buffer, $len);
-					$buffer = substr($buffer, HEADER_LENGTH + $len);
-
-					$packet = new AOChatServerPacket('in', $type, $contents);
-					$that->emit('packet', array($packet));
+					while (strlen($buffer)) {
+						$length = $that->readAndEmitPacketFromBuffer($buffer);
+						$buffer = substr($buffer, $length);
+					}
 				} catch (Exception $e) {
 				}
 			});
@@ -119,6 +117,15 @@ class AOChatServer extends EventEmitter {
 		});
 		
 		$this->serverSocket->listen($port);
+	}
+
+	public function readAndEmitPacketFromBuffer($buffer) {
+		list($length, $type) = $this->getPacketHeader($buffer);
+		$contents = $this->getPacketContents($buffer, $length);
+
+		$packet = new AOChatServerPacket('in', $type, $contents);
+		$this->emit('packet', array($packet));
+		return HEADER_LENGTH + $length;
 	}
 
 	public function getPacketHeader($buffer) {
