@@ -95,7 +95,7 @@ class GuidesController {
 	public function guidesShowCommand($message, $channel, $sender, $sendto, $args) {
 		// get the filename and read in the file
 		$fileName = strtolower($args[1]);
-		$info = $this->getTopicContents($this->path, $fileName, $this->fileExt);
+		$info = $this->getTopicContents($fileName);
 
 		if (!$info) {
 			$msg = "No guide named <highlight>$fileName<end> was found.";
@@ -105,9 +105,9 @@ class GuidesController {
 		$sendto->reply($msg);
 	}
 
-	private function getTopicContents($path, $fileName, $fileExt) {
+	public function getTopicContents($fileName) {
 		// get the filename and read in the file
-		$file = "$path$fileName$fileExt";
+		$file = $this->path . $fileName $this->fileExt";
 		return file_get_contents($file);
 	}
 }
