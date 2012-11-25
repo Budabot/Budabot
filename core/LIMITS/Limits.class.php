@@ -74,7 +74,7 @@ class Limits {
 			}
 		}
 
-		if ($this->settingManager->get("tell_req_lvl") == 0 || $this->settingManager->get("tell_req_faction") != "all") {
+		if ($this->settingManager->get("tell_req_lvl") != 0 || $this->settingManager->get("tell_req_faction") != "all") {
 			// get player info which is needed for following checks
 			$whois = $this->playerManager->get_by_name($sender);
 			if ($whois === null) {
