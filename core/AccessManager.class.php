@@ -1,7 +1,7 @@
 <?php
 
 /**
- * The AccessLevel class provides functionality for checking character's level of access.
+ * The AccessLevel class provides functionality for checking a player's access level.
  *
  * @Instance
  */

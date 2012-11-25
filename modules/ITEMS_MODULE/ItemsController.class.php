@@ -24,6 +24,9 @@
  *	)
  */
 class ItemsController {
+	
+	public $moduleName;
+
 	/** @Inject */
 	public $db;
 
@@ -41,8 +44,6 @@ class ItemsController {
 	
 	/** @Logger */
 	public $logger;
-
-	public $moduleName;
 
 	/**
 	 * @Setting("maxitems")

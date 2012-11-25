@@ -107,7 +107,7 @@ class GuidesController {
 
 	public function getTopicContents($fileName) {
 		// get the filename and read in the file
-		$file = $this->path . $fileName $this->fileExt";
+		$file = $this->path . $fileName . $this->fileExt;
 		return file_get_contents($file);
 	}
 }
