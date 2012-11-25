@@ -16,7 +16,7 @@
  *		help        = 'guides.txt'
  *	)
  */
-class GuidesController {
+class GuideController {
 
 	/**
 	 * Name of the module.
