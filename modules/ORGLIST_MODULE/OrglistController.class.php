@@ -148,6 +148,7 @@ class OrglistController {
 		$sendto->reply("Checking online status for " . count($org->members) ." members of '$org->orgname'...");
 		
 		$this->checkOnline($org->members);
+		$this->addOrgMembersToBuddylist();
 
 		unset($org);
 		
@@ -161,7 +162,7 @@ class OrglistController {
 		$forms = $this->orgrankmap;
 		forEach ($members as $member) {
 			forEach ($forms as $name => $ranks) {
-				if (!in_array($member->guild_rank, $ranks)) {
+				if ($ranks[$member->guild_rank_id] != $member->guild_rank) {
 					unset($forms[$name]);
 				}
 			}
@@ -194,14 +195,17 @@ class OrglistController {
 				}
 			}
 		}
-
+	}
+	
+	public function addOrgMembersToBuddylist() {
 		forEach ($this->orglist["check"] as $name => $value) {
-			$this->orglist["added"][$name] = 1;
-			unset($this->orglist["check"][$name]);
-			$this->buddylistManager->add($name, 'onlineorg');
 			if (!$this->checkBuddylistSize()) {
 				break;
 			}
+
+			$this->orglist["added"][$name] = 1;
+			unset($this->orglist["check"][$name]);
+			$this->buddylistManager->add($name, 'onlineorg');
 		}
 	}
 	
@@ -307,14 +311,7 @@ class OrglistController {
 			$this->buddylistManager->remove($sender, 'onlineorg');
 			unset($this->orglist["added"][$sender]);
 
-			forEach ($this->orglist["check"] as $name => $value) {
-				if (!$this->checkBuddylistSize()) {
-					break;
-				}
-				$this->orglist["added"][$name] = 1;
-				unset($this->orglist["check"][$name]);
-				$this->buddylistManager->add($name, 'onlineorg');
-			}
+			$this->addOrgMembersToBuddylist();
 
 			if (count($this->orglist["added"]) == 0) {
 				$this->orglistEnd();
