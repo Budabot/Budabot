@@ -32,6 +32,7 @@ INSERT INTO fun (type, content) VALUES ('fc', 'then maybe you need to read the A
 INSERT INTO fun (type, content) VALUES ('fc', 'oh for god''s sake. grow up -- Anarrina');
 INSERT INTO fun (type, content) VALUES ('fc', 'alot of players of video games dont see the big picture... heheh -- ShadowGod');
 INSERT INTO fun (type, content) VALUES ('fc', 'you are a poor liar. -- Anarrina');
-INSERT INTO fun (type, content) VALUES ('fc', '"ShadowGod, Anarrina, the !fc command needed a new batch, thanks =)" --Argure ~ "yeah.. i''m done with this now --ShadowGod" You were banned from #anarchyonline by ShadowGod (find other people to troll)');
+INSERT INTO fun (type, content) VALUES ('fc', '"ShadowGod, Anarrina, the !fc command needed a new batch, thanks =)" --Argure ~ "yeah.. i''m done with this now --ShadowGod" You were banned from #anarchyonline by ShadowGod (find other people to troll)');
 INSERT INTO fun (type, content) VALUES ('fc', 'Argure: after your insensitive jackass stunt last night in #ao you''re no longer welcome in my channel at least. 4chan may be more suited for your childish behavior. --Vhab');
 INSERT INTO fun (type, content) VALUES ('fc', 'The only way to win the game - is to quit it completely. --Artyomis');
+INSERT INTO fun (type, content) VALUES ('fc', 'The account is unfortunately not eligible to be reopened.  I''m sorry for any difficulty this may cause.  If you''d like, you''re free to create a new account if you would like to return to the game. --GM discussing a closed account');
