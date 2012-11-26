@@ -255,3 +255,6 @@ INSERT INTO `boss_namedb` VALUES (254, 'Syros');
 INSERT INTO `boss_namedb` VALUES (255, 'Tuq''usk');
 INSERT INTO `boss_namedb` VALUES (256, 'Ushap''ing');
 INSERT INTO `boss_namedb` VALUES (257, 'Waywaqa');
+INSERT INTO `boss_namedb` VALUES (258, 'Ground Chief Vortexx');
+INSERT INTO `boss_namedb` VALUES (259, 'Mitaar Hero');
+INSERT INTO `boss_namedb` VALUES (260, '12-man');
