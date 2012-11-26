@@ -868,7 +868,6 @@ INSERT INTO `boss_lootdb` VALUES (207,'Plaster Circuit - Brawl');
 INSERT INTO `boss_lootdb` VALUES (207,'Reinforced NCU Component Belt');
 INSERT INTO `boss_lootdb` VALUES (207,'Cold Ray Orb');
 INSERT INTO `boss_lootdb` VALUES (207,'Superior Cold Ray Orb');
-INSERT INTO `boss_lootdb` VALUES (208,'Kaehler Uniform Sleeves');
 INSERT INTO `boss_lootdb` VALUES (209,'Fork of Ghasap (Lord Version)');
 INSERT INTO `boss_lootdb` VALUES (209,'Corroded Blade');
 INSERT INTO `boss_lootdb` VALUES (209,'Dreadful Pitchfork');
