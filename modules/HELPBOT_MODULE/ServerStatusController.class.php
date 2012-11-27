@@ -88,7 +88,7 @@ class ServerStatusController {
 				$link .= "$playfield->long_name: <highlight>$playfield->numPlayers<end> ({$playfield->percent}%)\n";
 			}
 
-			$msg = $this->text->make_blob("$server->name Server Status", $link);
+			$msg = $this->text->make_blob("$server->name Server Status ($server->totalPlayers)", $link);
 		}
 
 		$sendto->reply($msg);
