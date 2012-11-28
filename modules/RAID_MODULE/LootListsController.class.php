@@ -791,7 +791,11 @@ class LootListsController {
 		forEach ($data as $row) {
 			$blob .= "<pagebreak>";
 			$blob .= $this->text->make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->icon}>");
-			$blob .= "\nItem: <highlight>{$row->name}<end>\n";
+			$blob .= "\nItem: <highlight>{$row->name}<end>";
+			if (!empty($row->comment)) {
+				$blob .= " ($row->comment)";
+			}
+			$blob .= "\n";
 			$blob .= $this->text->make_chatcmd("Add to Loot List", "/tell <myname> loot $row->id");
 			$blob .= "\n\n";
 		}

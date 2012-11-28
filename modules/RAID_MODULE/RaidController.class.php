@@ -441,18 +441,18 @@ class RaidController {
 				$rem = $this->text->make_chatcmd("Remove", "/tell <myname> rem");
 				$added_players = count($item->users);
 
-				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
+				$list .= "<header2>Slot #$key<end>\n";
 				if ($item->icon != "") {
 					$list .= $this->text->make_image($item->icon) . "\n";
 				}
 
 				if ($item->multiloot > 1) {
-					$ml = " <yellow>(x".$item->multiloot.")<end>";
+					$ml = " <highlight>(x".$item->multiloot.")<end>";
 				} else {
 					$ml = "";
 				}
 
-				$list .= "Item: <orange>{$item->display}<end>".$ml."\n";
+				$list .= "Item: {$item->display}".$ml."\n";
 
 				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 				$list .= "Players added:";
@@ -616,18 +616,18 @@ class RaidController {
 				$rem = $this->text->make_chatcmd("Remove", "/tell <myname> rem");
 				$added_players = count($item->users);
 
-				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
+				$list .= "<header2>Slot #$key<end>\n";
 				if ($item->icon != "") {
 					$list .= $this->text->make_image($item->icon) . "\n";
 				}
 
 				if ($item->multiloot > 1) {
-					$ml = " <yellow>(x".$item->multiloot.")<end>";
+					$ml = " <highlight>(x".$item->multiloot.")<end>";
 				} else {
 					$ml = "";
 				}
 
-				$list .= "Item: <orange>{$item->display}<end>".$ml."\n";
+				$list .= "Item: {$item->display}".$ml."\n";
 				if ($item->minlvl != "") {
 					$list .= "MinLvl set to <highlight>{$item->minlvl}<end>\n";
 				}
@@ -665,7 +665,12 @@ class RaidController {
 		}
 
 		forEach ($data as $row) {
-			$row->display = $this->text->make_item($row->lowid, $row->highid, $row->ql, $row->name);
+			$item = $this->text->make_item($row->lowid, $row->highid, $row->ql, $row->name);
+			if (empty($row->comment)) {
+				$row->display = $item;
+			} else {
+				$row->display = $item . " ($row->comment)";
+			}
 			$this->loot[$count] = $row;
 			$count++;
 		}
