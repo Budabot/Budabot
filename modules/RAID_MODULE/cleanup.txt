@@ -1,0 +1,1 @@
+querysql select r.name from raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE icon is null

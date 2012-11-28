@@ -82,6 +82,7 @@ class RaidController {
 	public $text;
 	
 	private $loot = array();
+	private $residual = array();
 	
 	/**
 	 * @Setup
@@ -110,9 +111,8 @@ class RaidController {
 	 * @Matches("/^loot clear$/i")
 	 */
 	public function lootClearCommand($message, $channel, $sender, $sendto, $args) {
-		global $residual;
 		$this->loot = array();
-		$residual = "";
+		$this->residual = array();
 		$msg = "Loot has been cleared by <highlight>$sender<end>.";
 		$this->chatBot->sendPrivate($msg);
 
@@ -128,7 +128,7 @@ class RaidController {
 	public function lootAddByIdCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
 
-		$sql = "SELECT * FROM raid_loot WHERE id = ?";
+		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE id = ?";
 		$item = $this->db->queryRow($sql, $id);
 
 		if ($item === null) {
@@ -139,9 +139,9 @@ class RaidController {
 
 		$dontadd = 0;
 		forEach ($this->loot as $key => $value) {
-			if ($value["name"] == $item->name){
-				$this->loot[$key]["multiloot"] = $value["multiloot"]+1;
-				$total = $value["multiloot"]+1;
+			if ($value->name == $item->name){
+				$this->loot[$key]->multiloot = $value->multiloot + 1;
+				$total = $value->multiloot + 1;
 				$dontadd = 1;
 				$slot = $key;
 			}
@@ -153,10 +153,10 @@ class RaidController {
 			} else {
 				$nextloot = 1;
 			}
-			$this->loot[$nextloot]["name"] = $item->name;
-			$this->loot[$nextloot]["linky"] = $this->text->make_item($item->lowid, $item->highid, $item->ql, $item->name);
-			$this->loot[$nextloot]["icon"] = $item->imageid;
-			$this->loot[$nextloot]["multiloot"] = 1;
+			$this->loot[$nextloot]->name = $item->name;
+			$this->loot[$nextloot]->display = $this->text->make_item($item->lowid, $item->highid, $item->ql, $item->name);
+			$this->loot[$nextloot]->icon = $item->icon;
+			$this->loot[$nextloot]->multiloot = 1;
 			$msg = "<highlight>".$item->name."<end> will be rolled in Slot <highlight>#".$nextloot;
 		} else {
 			$msg = "<highlight>".$item->name."<end> will be rolled in Slot <highlight>#".$slot."<end> as multiloot. Total: <yellow>".$total."<end>";
@@ -170,7 +170,6 @@ class RaidController {
 	 * @Matches("/^loot (.+)$/i")
 	 */
 	public function lootAddCommand($message, $channel, $sender, $sendto, $args) {
-		global $residual;
 		$lootitem = $args[1];
 
 		//Check if the item is a link
@@ -190,18 +189,18 @@ class RaidController {
 
 		//Check if the item is already on the list (i.e. SMART LOOT)
 		forEach ($this->loot as $key => $item) {
-			if (strtolower($item["name"]) == strtolower($item_name)) {
-				if ($item["multiloot"]) {
+			if (strtolower($item->name) == strtolower($item_name)) {
+				if ($item->multiloot) {
 					if ($multiloot) {
-						$this->loot[$key]["multiloot"] = $item["multiloot"] + $multiloot;
+						$this->loot[$key]->multiloot = $item->multiloot + $multiloot;
 					} else {
-						$this->loot[$key]["multiloot"] = $item["multiloot"] + 1;
+						$this->loot[$key]->multiloot = $item->multiloot + 1;
 					}
 				} else {
 					if ($multiloot) {
-						$this->loot[$key]["multiloot"] = 1 + $multiloot;
+						$this->loot[$key]->multiloot = 1 + $multiloot;
 					} else {
-						$this->loot[$key]["multiloot"] = 2;
+						$this->loot[$key]->multiloot = 2;
 					}
 				}
 				$dontadd = 1;
@@ -235,38 +234,36 @@ class RaidController {
 		//Save item
 		if (!$dontadd) {
 			if (isset($item_highid)) {
-				$this->loot[$num_loot]["linky"] = $this->text->make_item($item_lowid, $item_highid, $item_ql, $item_name);
+				$this->loot[$num_loot]->display = $this->text->make_item($item_lowid, $item_highid, $item_ql, $item_name);
 			}
 
-			$this->loot[$num_loot]["name"] = $item_name;
-			$this->loot[$num_loot]["icon"] = $looticon;
+			$this->loot[$num_loot]->name = $item_name;
+			$this->loot[$num_loot]->icon = $looticon;
 
 			//Save the person who has added the loot item
-			$this->loot[$num_loot]["added_by"] = $sender;
+			$this->loot[$num_loot]->added_by = $sender;
 
 			//Save multiloot
-			$this->loot[$num_loot]["multiloot"] = $multiloot;
+			$this->loot[$num_loot]->multiloot = $multiloot;
 
 			//Send info
 			if ($multiloot) {
-				$this->chatBot->sendPrivate($multiloot."x <highlight>{$this->loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+				$this->chatBot->sendPrivate($multiloot."x <highlight>{$this->loot[$num_loot]->name}<end> will be rolled in Slot <highlight>#$num_loot<end>");
 			} else {
-				$this->chatBot->sendPrivate("<highlight>{$this->loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+				$this->chatBot->sendPrivate("<highlight>{$this->loot[$num_loot]->name}<end> will be rolled in Slot <highlight>#$num_loot<end>");
 			}
 			$this->chatBot->sendPrivate("To add use <symbol>add $num_loot, or <symbol>rem to remove yourself");
 		} else {
 			//Send info in case of SMART
 			if ($multiloot) {
-				$this->chatBot->sendPrivate($multiloot."x <highlight>{$this->loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$this->loot[$itmref]["multiloot"]}<end>");
+				$this->chatBot->sendPrivate($multiloot."x <highlight>{$this->loot[$itmref]->name}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$this->loot[$itmref]->multiloot}<end>");
 			} else {
-				$this->chatBot->sendPrivate("<highlight>{$this->loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$this->loot[$itmref]["multiloot"]}<end>");
+				$this->chatBot->sendPrivate("<highlight>{$this->loot[$itmref]->name}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$this->loot[$itmref]->multiloot}<end>");
 			}
 			$this->chatBot->sendPrivate("To add use <symbol>add $itmref, or <symbol>rem to remove yourself");
 			$dontadd = 0;
 			$itmref = 0;
-			if (is_array($residual)) {
-				$residual = "";
-			}
+			$this->residual = array();
 		}
 	}
 	
@@ -275,7 +272,6 @@ class RaidController {
 	 * @Matches("/^multiloot (.+)$/i")
 	 */
 	public function multilootCommand($message, $channel, $sender, $sendto, $args) {
-		global $residual;
 		$input = $args[1];
 
 		//Check if it is a valid multiloot
@@ -303,18 +299,18 @@ class RaidController {
 
 		//Check if the item is already on the list (i.e. SMART LOOT)
 		forEach ($this->loot as $key => $item) {
-			if (strtolower($item["name"]) == strtolower($item_name)) {
-				if ($item["multiloot"]) {
+			if (strtolower($item->name) == strtolower($item_name)) {
+				if ($item->multiloot) {
 					if ($multiloot){
-						$this->loot[$key]["multiloot"] = $item["multiloot"] + $multiloot;
+						$this->loot[$key]->multiloot = $item->multiloot + $multiloot;
 					} else {
-						$this->loot[$key]["multiloot"] = $item["multiloot"] + 1;
+						$this->loot[$key]->multiloot = $item->multiloot + 1;
 					}
 				} else {
 					if($multiloot){
-						$this->loot[$key]["multiloot"] = 1 + $multiloot;
+						$this->loot[$key]->multiloot = 1 + $multiloot;
 					} else{
-						$this->loot[$key]["multiloot"] = 2;
+						$this->loot[$key]->multiloot = 2;
 					}
 				}
 				$dontadd = 1;
@@ -349,35 +345,36 @@ class RaidController {
 		//Save item
 		if (!$dontadd) {
 			if (isset($item_highid)) {
-				$this->loot[$num_loot]["linky"] = $this->text->make_item($item_lowid, $item_highid, $item_ql, $item_name);
+				$this->loot[$num_loot]->display = $this->text->make_item($item_lowid, $item_highid, $item_ql, $item_name);
 			}
 
-			$this->loot[$num_loot]["name"] = $item_name;
-			$this->loot[$num_loot]["icon"] = $looticon;
+			$this->loot[$num_loot]->name = $item_name;
+			$this->loot[$num_loot]->icon = $looticon;
 
 			//Save the person who has added the loot item
-			$this->loot[$num_loot]["added_by"] = $sender;
+			$this->loot[$num_loot]->added_by = $sender;
 
 			//Save multiloot
-			$this->loot[$num_loot]["multiloot"] = $multiloot;
+			$this->loot[$num_loot]->multiloot = $multiloot;
 
 			//Send info
 			if ($multiloot) {
-				$this->chatBot->sendPrivate($multiloot."x <highlight>{$this->loot[$num_loot]["name"]}<end> will be rolled in Slot <highlight>#$num_loot<end>");
+				$msg = $multiloot."x <highlight>{$this->loot[$num_loot]->name}<end> will be rolled in Slot <highlight>#$num_loot<end>";
+				$this->chatBot->sendPrivate($msg);
 			}
 			$this->chatBot->sendPrivate("To add use <symbol>add $num_loot, or <symbol>rem to remove yourself");
 		} else {
 			//Send info in case of SMART
 			if ($multiloot) {
-				$this->chatBot->sendPrivate($multiloot."x <highlight>{$this->loot[$itmref]["name"]}<end> added to Slot <highlight>#$itmref<end> as multiloot. Total: <yellow>{$this->loot[$itmref]["multiloot"]}<end>");
+				$msg = $multiloot."x <highlight>{$this->loot[$itmref]->name}<end> added to Slot <highlight>#$itmref<end> as multiloot.";
+				$msg .= " Total: <yellow>{$this->loot[$itmref]->multiloot}<end>";
+				$this->chatBot->sendPrivate($msg);
 			}
 
 			$this->chatBot->sendPrivate("To add use <symbol>add $itmref, or <symbol>rem to remove yourself");
 			$dontadd = 0;
 			$itmref = 0;
-			if (is_array($residual)) {
-				$residual = "";
-			}
+			$this->residual = array();
 		}
 	}
 	
@@ -413,26 +410,24 @@ class RaidController {
 	 * @Matches("/^reroll$/i")
 	 */
 	public function rerollCommand($message, $channel, $sender, $sendto, $args) {
-		global $residual;
-
 		//Check if a residual list exits
-		if (!is_array($residual)) {
+		if (empty($this->residual)) {
 			$msg = "There are no remaining items to re-add.";
 			$sendto->reply($msg);
 			return;
 		}
 
 		// Readd remaining loot
-		forEach ($residual as $key => $item) {
-			$this->loot[$key]["name"] = $item["name"];
-			$this->loot[$key]["icon"] = $item["icon"];
-			$this->loot[$key]["linky"] = $item["linky"];
-			$this->loot[$key]["multiloot"] = $item["multiloot"];
-			$this->loot[$key]["added_by"] = $sender;
+		forEach ($this->residual as $key => $item) {
+			$this->loot[$key]->name = $item["name"];
+			$this->loot[$key]->icon = $item["icon"];
+			$this->loot[$key]->display = $item["linky"];
+			$this->loot[$key]->multiloot = $item["multiloot"];
+			$this->loot[$key]->added_by = $sender;
 		}
 
 		//Reset residual list
-		$residual = "";
+		$this->residual = array();
 		//Show winner list
 		$msg = "All remaining items have been re-added by <highlight>$sender<end>. Check <symbol>list.";
 		$this->chatBot->sendPrivate($msg);
@@ -444,31 +439,25 @@ class RaidController {
 			forEach ($this->loot as $key => $item) {
 				$add = $this->text->make_chatcmd("Add", "/tell <myname> add $key");
 				$rem = $this->text->make_chatcmd("Remove", "/tell <myname> rem");
-				$added_players = count($item["users"]);
+				$added_players = count($item->users);
 
 				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
-				if ($item["icon"] != "") {
-					$list .= $this->text->make_image($item["icon"]) . "\n";
+				if ($item->icon != "") {
+					$list .= $this->text->make_image($item->icon) . "\n";
 				}
 
-				if ($item["multiloot"] > 1) {
-					$ml = " <yellow>(x".$item["multiloot"].")<end>";
+				if ($item->multiloot > 1) {
+					$ml = " <yellow>(x".$item->multiloot.")<end>";
 				} else {
 					$ml = "";
 				}
 
-				if ($item["linky"]) {
-					$itmnm = $item["linky"];
-				} else {
-					$itmnm = $item["name"];
-				}
-
-				$list .= "Item: <orange>$itmnm<end>".$ml."\n";
+				$list .= "Item: <orange>{$item->display}<end>".$ml."\n";
 
 				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 				$list .= "Players added:";
-				if (count($item["users"]) > 0) {
-					forEach ($item["users"] as $key => $value) {
+				if (count($item->users) > 0) {
+					forEach ($item->users as $key => $value) {
 						$list .= " [<yellow>$key<end>]";
 					}
 				} else {
@@ -490,7 +479,6 @@ class RaidController {
 	 */
 	public function flatrollCommand($message, $channel, $sender, $sendto, $args) {
 		global $loot_winners;
-		global $residual;
 		//Check if a loot list exits
 		if (empty($this->loot)) {
 			$msg = "There is nothing to roll atm.";
@@ -504,40 +492,40 @@ class RaidController {
 		//Roll the loot
 		$resnum = 1;
 		forEach ($this->loot as $key => $item) {
-			$list .= "Item: <orange>{$item["name"]}<end>\n";
+			$list .= "Item: <orange>{$item->name}<end>\n";
 			$list .= "Winner(s): ";
-			$users = count($item["users"]);
+			$users = count($item->users);
 			if ($users == 0) {
 				$list .= "<highlight>None added.<end>\n\n";
-				$residual[$resnum]["name"] = $item["name"];
-				$residual[$resnum]["icon"] = $item["icon"];
-				$residual[$resnum]["linky"] = $item["linky"];
-				$residual[$resnum]["multiloot"] = $item["multiloot"];
+				$this->residual[$resnum]["name"] = $item->name;
+				$this->residual[$resnum]["icon"] = $item->icon;
+				$this->residual[$resnum]["linky"] = $item->display;
+				$this->residual[$resnum]["multiloot"] = $item->multiloot;
 				$resnum++;
 			} else {
-				if ($item["multiloot"] > 1) {
-					if ($item["multiloot"] > count($item["users"])) {
-						$arrolnum = count($item["users"]);
+				if ($item->multiloot > 1) {
+					if ($item->multiloot > count($item->users)) {
+						$arrolnum = count($item->users);
 					} else {
-						$arrolnum = $item["multiloot"];
+						$arrolnum = $item->multiloot;
 					}
 
 					for ($i = 0; $i < $arrolnum; $i++) {
-						$winner = array_rand($item["users"], 1);
-						unset($item["users"][$winner]);
+						$winner = array_rand($item->users, 1);
+						unset($item->users[$winner]);
 						$list .= "<red>$winner<end> ";
 					}
 
-					if ($arrolnum < $item["multiloot"]) {
-						$newmultiloot = $item["multiloot"]-$arrolnum;
-						$residual[$resnum]["name"] = $item["name"];
-						$residual[$resnum]["icon"] = $item["icon"];
-						$residual[$resnum]["linky"] = $item["linky"];
-						$residual[$resnum]["multiloot"] = $newmultiloot;
+					if ($arrolnum < $item->multiloot) {
+						$newmultiloot = $item->multiloot - $arrolnum;
+						$this->residual[$resnum]["name"] = $item->name;
+						$this->residual[$resnum]["icon"] = $item->icon;
+						$this->residual[$resnum]["linky"] = $item->display;
+						$this->residual[$resnum]["multiloot"] = $newmultiloot;
 						$resnum++;
 					}
 				} else {
-					$winner = array_rand($item["users"], 1);
+					$winner = array_rand($item->users, 1);
 					$list .= "<red>$winner<end>";
 				}
 				$list .= "\n\n";
@@ -549,7 +537,7 @@ class RaidController {
 		$this->loot = array();
 		//Show winner list
 		$msg = $this->text->make_blob("Winner List", $list);
-		if (is_array($residual)) {
+		if (!empty($this->residual)) {
 			$rerollmsg = " (There are item(s) left to be rolled. To re-add, type <symbol>reroll)";
 		} else {
 			$rerollmsg = "";
@@ -580,19 +568,19 @@ class RaidController {
 			//Remove the player from other slots if set
 			$found = false;
 			forEach ($this->loot as $key => $item) {
-				if ($this->loot[$key]["users"][$sender] == true) {
-					unset($this->loot[$key]["users"][$sender]);
+				if ($this->loot[$key]->users[$sender] == true) {
+					unset($this->loot[$key]->users[$sender]);
 					$found = true;
 				}
 			}
 
 			//Add the player to the choosen slot
-			$this->loot[$slot]["users"][$sender] = true;
+			$this->loot[$slot]->users[$sender] = true;
 
 			if ($found == false) {
-				$msg = "$sender has added to <highlight>\"{$this->loot[$slot]["name"]}\"<end>.";
+				$msg = "$sender has added to <highlight>\"{$this->loot[$slot]->name}\"<end>.";
 			} else {
-				$msg = "$sender has moved to <highlight>\"{$this->loot[$slot]["name"]}\"<end>.";
+				$msg = "$sender has moved to <highlight>\"{$this->loot[$slot]->name}\"<end>.";
 			}
 
 			$this->chatBot->sendPrivate($msg);
@@ -608,8 +596,8 @@ class RaidController {
 	public function remCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($this->loot) > 0) {
 			forEach ($this->loot as $key => $item) {
-				if ($this->loot[$key]["users"][$sender] == true) {
-					unset($this->loot[$key]["users"][$sender]);
+				if ($this->loot[$key]->users[$sender] == true) {
+					unset($this->loot[$key]->users[$sender]);
 				}
 			}
 
@@ -626,34 +614,28 @@ class RaidController {
 			forEach ($this->loot as $key => $item) {
 				$add = $this->text->make_chatcmd("Add", "/tell <myname> add $key");
 				$rem = $this->text->make_chatcmd("Remove", "/tell <myname> rem");
-				$added_players = count($item["users"]);
+				$added_players = count($item->users);
 
 				$list .= "<u>Slot #<font color='#FF00AA'>$key</font></u>\n";
-				if ($item["icon"] != "") {
-					$list .= $this->text->make_image($item["icon"]) . "\n";
+				if ($item->icon != "") {
+					$list .= $this->text->make_image($item->icon) . "\n";
 				}
 
-				if ($item["multiloot"] > 1) {
-					$ml = " <yellow>(x".$item["multiloot"].")<end>";
+				if ($item->multiloot > 1) {
+					$ml = " <yellow>(x".$item->multiloot.")<end>";
 				} else {
 					$ml = "";
 				}
 
-				if ($item["linky"]) {
-					$itmnm = $item["linky"];
-				} else {
-					$itmnm = $item["name"];
-				}
-
-				$list .= "Item: <orange>$itmnm<end>".$ml."\n";
-				if ($item["minlvl"] != "") {
-					$list .= "MinLvl set to <highlight>{$item["minlvl"]}<end>\n";
+				$list .= "Item: <orange>{$item->display}<end>".$ml."\n";
+				if ($item->minlvl != "") {
+					$list .= "MinLvl set to <highlight>{$item->minlvl}<end>\n";
 				}
 
 				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 				$list .= "Players added:";
-				if (count($item["users"]) > 0) {
-					forEach ($item["users"] as $key => $value) {
+				if (count($item->users) > 0) {
+					forEach ($item->users as $key => $value) {
 						$list .= " [<yellow>$key<end>]";
 					}
 				} else {
@@ -675,7 +657,7 @@ class RaidController {
 		$this->loot = array();
 		$count = 1;
 
-		$sql = "SELECT * FROM raid_loot WHERE raid = ? AND category = ?";
+		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE raid = ? AND category = ?";
 		$data = $this->db->query($sql, $raid, $category);
 
 		if (count($data) == 0) {
@@ -683,10 +665,8 @@ class RaidController {
 		}
 
 		forEach ($data as $row) {
-			$this->loot[$count]['name'] = $row->name;
-			$this->loot[$count]['linky'] = $this->text->make_item($row->lowid, $row->highid, $row->ql, $row->name);
-			$this->loot[$count]['icon'] = $row->imageid;
-			$this->loot[$count]['multiloot'] = $row->multiloot;
+			$row->display = $this->text->make_item($row->lowid, $row->highid, $row->ql, $row->name);
+			$this->loot[$count] = $row;
 			$count++;
 		}
 

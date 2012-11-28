@@ -780,7 +780,7 @@ class LootListsController {
 	}
 	
 	public function find_raid_loot($raid, $category) {
-		$sql = "SELECT * FROM raid_loot WHERE raid = ? AND category = ?";
+		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE raid = ? AND category = ?";
 		$data = $this->db->query($sql, $raid, $category);
 
 		if (count($data) == 0) {
@@ -790,7 +790,7 @@ class LootListsController {
 		$blob = "\n";
 		forEach ($data as $row) {
 			$blob .= "<pagebreak>";
-			$blob .= $this->text->make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->imageid}>");
+			$blob .= $this->text->make_item($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->icon}>");
 			$blob .= "\nItem: <highlight>{$row->name}<end>\n";
 			$blob .= $this->text->make_chatcmd("Add to Loot List", "/tell <myname> loot $row->id");
 			$blob .= "\n\n";
