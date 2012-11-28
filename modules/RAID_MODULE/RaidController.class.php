@@ -419,10 +419,7 @@ class RaidController {
 
 		// Readd remaining loot
 		forEach ($this->residual as $key => $item) {
-			$this->loot[$key]->name = $item["name"];
-			$this->loot[$key]->icon = $item["icon"];
-			$this->loot[$key]->display = $item["linky"];
-			$this->loot[$key]->multiloot = $item["multiloot"];
+			$this->loot[$key] = $item;
 			$this->loot[$key]->added_by = $sender;
 		}
 
@@ -434,43 +431,9 @@ class RaidController {
 		if ($channel != 'priv') {
 			$sendto->reply($msg);
 		}
-		if (!empty($this->loot)) {
-			$list = "\n\nUse <symbol>flatroll to roll.\n\n";
-			forEach ($this->loot as $key => $item) {
-				$add = $this->text->make_chatcmd("Add", "/tell <myname> add $key");
-				$rem = $this->text->make_chatcmd("Remove", "/tell <myname> rem");
-				$added_players = count($item->users);
 
-				$list .= "<header2>Slot #$key<end>\n";
-				if ($item->icon != "") {
-					$list .= $this->text->make_image($item->icon) . "\n";
-				}
-
-				if ($item->multiloot > 1) {
-					$ml = " <highlight>(x".$item->multiloot.")<end>";
-				} else {
-					$ml = "";
-				}
-
-				$list .= "Item: {$item->display}".$ml."\n";
-
-				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
-				$list .= "Players added:";
-				if (count($item->users) > 0) {
-					forEach ($item->users as $key => $value) {
-						$list .= " [<yellow>$key<end>]";
-					}
-				} else {
-					$list .= " None added yet.";
-				}
-
-				$list .= "\n\n";
-			}
-			$msg2 = $this->text->make_blob("Loot List", $list);
-		} else {
-			$msg2 = "No List exists yet.";
-		}
-		$sendto->reply($msg2);
+		$msg = $this->get_current_loot_list();
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -497,10 +460,7 @@ class RaidController {
 			$users = count($item->users);
 			if ($users == 0) {
 				$list .= "<highlight>None added.<end>\n\n";
-				$this->residual[$resnum]["name"] = $item->name;
-				$this->residual[$resnum]["icon"] = $item->icon;
-				$this->residual[$resnum]["linky"] = $item->display;
-				$this->residual[$resnum]["multiloot"] = $item->multiloot;
+				$this->residual[$resnum] = $item;
 				$resnum++;
 			} else {
 				if ($item->multiloot > 1) {
@@ -518,10 +478,8 @@ class RaidController {
 
 					if ($arrolnum < $item->multiloot) {
 						$newmultiloot = $item->multiloot - $arrolnum;
-						$this->residual[$resnum]["name"] = $item->name;
-						$this->residual[$resnum]["icon"] = $item->icon;
-						$this->residual[$resnum]["linky"] = $item->display;
-						$this->residual[$resnum]["multiloot"] = $newmultiloot;
+						$this->residual[$resnum] = $item;
+						$this->residual[$resnum]->multiloot = $newmultiloot;
 						$resnum++;
 					}
 				} else {
@@ -628,9 +586,6 @@ class RaidController {
 				}
 
 				$list .= "Item: {$item->display}".$ml."\n";
-				if ($item->minlvl != "") {
-					$list .= "MinLvl set to <highlight>{$item->minlvl}<end>\n";
-				}
 
 				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 				$list .= "Players added:";
