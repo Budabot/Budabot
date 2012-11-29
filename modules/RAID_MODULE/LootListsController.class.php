@@ -31,6 +31,12 @@
  *		help        = 'dbloot.txt'
  *	)
  *	@DefineCommand(
+ *		command     = '7',
+ *		accessLevel = 'all',
+ *		description = 'Shows the Sector 7 loot list',
+ *		help        = 'apf.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = '13',
  *		accessLevel = 'rl',
  *		description = 'Adds APF 13 loot to the loot list',
@@ -272,6 +278,18 @@ class LootListsController {
 	}
 	
 	/**
+	 * @HandlesCommand("7")
+	 * @Matches("/^7$/i")
+	 */
+	public function apf7Command($message, $channel, $sender, $sendto, $args) {
+		$raid = "APF";
+		$category = "Sector 7";
+		$blob = $this->find_raid_loot($raid, $category);
+		$msg = $this->text->make_blob("$raid $category Loot", $blob);
+		$sendto->reply($msg);
+	}
+	
+	/**
 	 * @HandlesCommand("13")
 	 * @Matches("/^13$/i")
 	 */
@@ -307,7 +325,7 @@ class LootListsController {
 	
 	/**
 	 * @HandlesCommand("apf")
-	 * @Matches("/^apf (13|28|35)$/i")
+	 * @Matches("/^apf (7|13|28|35)$/i")
 	 */
 	public function apfCommand($message, $channel, $sender, $sendto, $args) {
 		$sector = $args[1];
@@ -354,6 +372,12 @@ class LootListsController {
 		$list = '';
 
 		switch($sector) {
+			case "7":
+				$raid = "APF";
+				$category = "Sector 7";
+				$list = $this->find_raid_loot($raid, $category);
+				
+				break;
 			case "13":
 				//CRU
 				$list .= $this->text->make_image(257196) . "\n";

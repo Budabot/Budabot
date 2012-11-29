@@ -1,3 +1,7 @@
-To see the loot of a specific sector:
-<highlight><tab><symbol>apf 'sector number'<end>
-<tab>(Allowed Sector numbers are 13, 28 and 35)
+To add apf loot to the loot list:
+<highlight><tab><symbol>13<end>
+<highlight><tab><symbol>13<end>
+<highlight><tab><symbol>28<end>
+<highlight><tab><symbol>35<end>
+
+Note: <symbol>7 will show you a list of possible loots that you can add.  The other three commands will automatically add all loot to the loot list.

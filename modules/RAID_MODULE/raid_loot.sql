@@ -135,6 +135,48 @@ INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'Profession Gems', 1, 'Worshipper''s Gem', 'MP', 1);
 
 -- APF
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 300, 'Cell Templates', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 300, 'Mitochondria Samples', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 300, 'Plasmid Cultures', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 1, 'Power Core Mainboard', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 1, 'Power Core Stabilizer', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 1, 'Inactive Power Core', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Basic Belt', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Viral Belt Control Component', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Viral Belt NCU Slots', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Viral Belt Nanobot Power Unit', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Active Viral CPU Upgrade', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Active Viral Computer Deck Range Increaser', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Active Viral NCU Coolant Sink', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Viral Memory Storage Unit (Damage)', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Passive Viral CPU Upgrade', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Passive Viral Computer Deck Range Increaser', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 200, 'Passive Viral NCU Coolant Sink', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Viral Memory Storage Unit (XP)', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Axe', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Cannon', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Carbine', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Crossbow', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Energy Pistol', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Energy Rapier', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Grenade Gun', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Hammer', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Nunchacko', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Pistol', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Rapier', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Rifle', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Shotgun', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Sledgehammer', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Submachine Gun', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 150, 'Special Edition Kyr''Ozch Sword', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 1, 'Kyr''Ozch Storage Box', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 1, 'Kyr''Ozch Storage Container', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 300, 'Arithmetic Lead Viralbots', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 300, 'Enduring Lead Viralbots', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 300, 'Observant Lead Viralbots', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 300, 'Strong Lead Viralbots', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 7', 300, 'Supple Lead Viralbots', '', 1);
+
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Gelatinous Lump', '', 3);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Biotech Matrix', '', 3);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 250, 'Action Probability Estimator', '', 1);
@@ -142,6 +184,7 @@ INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('AP
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Kyr''Ozch Video Processing Unit', 'All Bounties', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Intrusion Countermeasure Electronics Upgrade', 'All ICE', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Kyr''Ozch Helmet', '2500 Token board', 1);
+
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Crystalline Matrix', '', 3);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Kyr''ozch Circuitry', '', 3);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 250, 'Inertial Adjustment Processing Unit', '', 1);
@@ -149,6 +192,7 @@ INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('AP
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Kyr''Ozch Video Processing Unit', 'All Bounties', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Intrusion Countermeasure Electronics Upgrade', 'All ICE', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Kyr''Ozch Helmet', '2500 Token board', 1);
+
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 1, 'Alpha Program Chip', '', 3);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 1, 'Beta Program Chip', '', 3);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 1, 'Odd Kyr''ozch Nanobots', '', 3);
