@@ -113,36 +113,47 @@ class ServerStatusController {
 	public function getServerInfo($dimension) {
 		$server = $this->serverStatusManager->lookup($dimension);
 
-		$totalp = $this->getTotalPercent($server->data);
-
-		$y = $this->findLowestGreaterThanZero($server->data);
-		
-		$sum = round($totalp / $y);
-		do {
-			$total = $sum;
-			$y = $totalp / $total;  // percent per person
-			$sum = 0;
-			forEach ($server->data as $playfield) {
-				$num = round($playfield->percent / $y);
-				if ($playfield->percent > 0 && $num == 0) {
-					$num = 1;
-				}
-				$sum += $num;
+		$list = array_filter(
+			array_unique(
+				array_map(function ($playfield) {
+					return $playfield->percent;
+				}, $server->data)
+			), function ($per) {
+				return $per == 0.0 ? false : true;
 			}
-		} while ($total != $sum);
+		);
+		sort($list);
 		
-		$server->totalPlayers = round($total / $totalp * 100);
+		$roundingVariation = 0.05;
+		$per = array_shift($list);
+		$y = $this->calc($per - $roundingVariation, $per + $roundingVariation, 2, $list);
+		
+		$server->totalPlayers = round(100 / $y);
 		
 		$this->addNumPlayers($server->data, $y);
 		
 		return $server;
 	}
 	
-	public function getTotalPercent($arr) {
-		$totalp = 0;
-		forEach ($arr as $playfield) {
-			$totalp += $playfield->percent;
+	public function calc($min, $max, $num, $list) {
+		if (empty($list)) {
+			return ($min + $max) / 2;
 		}
-		return $totalp;
+		
+		$roundingVariation = 0.05;
+		$base = $list[0];
+		$currentMin = ($base - $roundingVariation) / $num;
+		$currentMax = ($base + $roundingVariation) / $num;
+		$newMin = max($currentMin, $min);
+		$newMax = min($currentMax, $max);
+		
+		if ($base > round($num * $max, 1)) {
+			return $this->calc($min, $max, $num + 1, $list);
+		} else if ($base < round($num * $min, 1)) {
+			return $this->calc($min / $num * ($num - 1), $max / $num * ($num - 1), $num - 1, $list);
+		} else {
+			array_shift($list);
+			return $this->calc($newMin, $newMax, $num + 1, $list);
+		}
 	}
 }
