@@ -302,12 +302,12 @@ class IRCController {
 	}
 	
 	public function channelMessage(&$irc, &$obj) {
+		$this->logger->log_chat("Inc. IRC Msg.", $obj->nick, $obj->message);
+	
 		$ircIgnore = explode(",", strtolower($this->setting->irc_ignore));
 		if (in_array(strtolower($obj->nick), $ircIgnore)) {
 			return;
 		}
-		
-		$this->logger->log_chat("Inc. IRC Msg.", -1, $obj->message);
 		
 		if ($obj->message == "!online") {
 			$this->handleOnlineCmd($obj);
