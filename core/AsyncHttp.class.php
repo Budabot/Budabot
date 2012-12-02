@@ -19,6 +19,7 @@ class AsyncHttp {
 	private $uri;
 	private $callback;
 	private $data;
+	private $headers = array();
 	
 	// stream
 	private $stream;
@@ -95,11 +96,19 @@ class AsyncHttp {
 			$path .= "?{$query}";
 		}
 		$this->request  = strtoupper($method) . " $path HTTP/1.0\r\n";
-		$this->request .= "Host: $host\r\n";
+
+		$headers = array();
+		$headers['Host'] = $host;
 		if ($method == 'post' && $query) {
-			$this->request .= "Content-Type: application/x-www-form-urlencoded\r\n";
-			$this->request .= "Content-Length: " . strlen($query) . "\r\n";
+			$headers['Content-Type'] = 'application/x-www-form-urlencoded';
+			$headers['Content-Length'] = strlen($query);
 		}
+
+		$headers = array_merge($headers, $this->headers);
+		forEach ($headers as $header => $value) {
+			$this->request .= "$header: $value\r\n";
+		}
+
 		$this->request .= "\r\n";
 		if ($method == 'post') {
 			$this->request .= $query;
@@ -128,7 +137,11 @@ class AsyncHttp {
 		);
 		$this->socketManager->addSocketNotifier($this->notifier);
 	}
-	
+
+	public function withHeader($header, $value) {
+		$this->headers[$header] = $value;
+	}
+
 	/**
 	 * Handler method which will be called when activity occurs in the SocketNotifier.
 	 *
@@ -165,18 +178,23 @@ class AsyncHttp {
 						}
 						$this->responseHeaders = $headers;
 						
-						$this->responseBodyLength = isset($headers['content-length'])? intval($headers['content-length']): 0;
+						$this->responseBodyLength = isset($headers['content-length'])? intval($headers['content-length']): null;
 					}
 				}
 				else {
 					$this->responseBody .= $data;
 				}
-				if ($this->responseBodyLength <= strlen($this->responseBody)) {
+				if ($this->responseBodyLength !== null && $this->responseBodyLength <= strlen($this->responseBody)) {
 					$this->responseBody = substr($this->responseBody, 0, $this->responseBodyLength);
 					$this->close();
 					$this->callCallback();
 					break;
 				}
+			}
+
+			if (feof($this->stream)) {
+				$this->close();
+				$this->callCallback();
 			}
 			break;
 

@@ -399,6 +399,7 @@ class Util {
 		$http = new AsyncHttp();
 		Registry::injectDependencies($http);
 		$this->timer->callLater(0, array($http, 'execute'), 'get', $uri, $params, $callback, $data);
+		return $http;
 	}
 
 	/**
@@ -418,6 +419,7 @@ class Util {
 		$http = new AsyncHttp();
 		Registry::injectDependencies($http);
 		$this->timer->callLater(0, array($http, 'execute'), 'post', $uri, $params, $callback, $data);
+		return $http;
 	}
 
 	/**
