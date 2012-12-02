@@ -10,6 +10,11 @@
  *      description = "Provides web browser link to bot's HTTP API",
  *		accessLevel = 'all'
  * )
+ * @DefineCommand(
+ *		command     = 'httpapi updateipaddress',
+ *		accessLevel = 'admin',
+ *		description = "Updates API's IP-address from whatismyip.com"
+ *	)
  */
 class HttpApiController {
 
@@ -20,7 +25,13 @@ class HttpApiController {
 	public $settingManager;
 
 	/** @Inject */
+	public $setting;
+
+	/** @Inject */
 	public $text;
+
+	/** @Inject */
+	public $util;
 
 	/** @Logger */
 	public $logger;
@@ -42,12 +53,12 @@ class HttpApiController {
 	public $defaultPort = "80";
 
 	/**
-	 * @Setting("httpapi_base_uri")
-	 * @Description("Server's base uri, leave empty for default value")
+	 * @Setting("httpapi_address")
+	 * @Description("Server's IP-address or host name")
 	 * @Visibility("edit")
 	 * @Type("text")
 	 */
-	public $defaultBaseUri = "";
+	public $defaultAddress = "localhost";
 	
 	/**
 	 * @Setting("httpapi_enabled")
@@ -98,15 +109,15 @@ class HttpApiController {
 		// listen or stop listening when httpapi_enabled setting is changed
 		$this->settingManager->registerChangeListener('httpapi_enabled', function($name, $oldValue, $newValue) use ($that) {
 			if ($newValue == 1) {
-				$port = $that->settingManager->get('httpapi_port');
+				$port = $that->setting->httpapi_port;
 				$that->listen($port);
 			} else {
 				$that->stopListening();
 			}
 		});
 
-		if ($this->settingManager->get('httpapi_enabled') == 1) {
-			$port = $this->settingManager->get('httpapi_port');
+		if ($this->setting->httpapi_enabled == 1) {
+			$port = $this->setting->httpapi_port;
 			$that->listen($port);
 		}
 		
@@ -166,18 +177,15 @@ class HttpApiController {
 	 */
 	public function getUri($path) {
 		$path    = ltrim($path, '/');
-		$baseUri = $this->settingManager->get('httpapi_base_uri');
-		if ($baseUri) {
-			$baseUri = rtrim($baseUri, '/');
-			return "$baseUri/$path";
-		} else {
-			$port = $this->settingManager->get('httpapi_port');
-			if ($port == 80) {
-				return "http://localhost/$path";
-			} else {
-				return "http://localhost:$port/$path";
-			}
+		$address = $this->setting->httpapi_address;
+		if (!$address) {
+			$address = 'localhost';
 		}
+		$port = $this->setting->httpapi_port;
+		if ($port == 80) {
+			return "http://$address/$path";
+		}
+		return "http://$address:$port/$path";
 	}
 	
 	public function stopListening() {
@@ -218,6 +226,24 @@ class HttpApiController {
 		$link = $this->text->make_chatcmd( $uri, "/start $uri" );
 		$msg  = $this->text->make_blob('HTTP API', "Open $link to web browser.");
 		$sendto->reply($msg);
+	}
+
+	/**
+	 * This command handler checks from whatismyip.com bot's public IP-address
+	 * and updates the API's address.
+	 *
+	 * @HandlesCommand("httpapi updateipaddress")
+	 */
+	public function updateIpAddressCommand($message, $channel, $sender, $sendto, $args) {
+		$setting = $this->setting;
+		$this->util->httpGet('http://automation.whatismyip.com/n09230945.asp', array(), function($response) use ($setting, $sendto) {
+			if ($response->error) {
+				$sendto->reply("Failed, error was: {$response->error}");
+			} else {
+				$setting->httpapi_address = $response->body;
+				$sendto->reply("Success, updated httpapi_address setting to: '{$setting->httpapi_address}'");
+			}
+		})->withHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
 	}
 
 	public function isRequestBodyFullyReceived($session) {
