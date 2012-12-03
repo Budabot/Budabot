@@ -321,7 +321,7 @@ class AlienBioController {
 
 		$blob .= "<highlight>Adds {$specials} to:<end>\n";
 		forEach ($data as $row) {
-			$blob .= $this->itemsController->getItem($maxaitype, $row->name) . "\n";
+			$blob .= $this->itemsController->getItem($row->name, $maxaitype) . "\n";
 		}
 
 		$blob .= $this->getWeaponInfo($maxaitype);
