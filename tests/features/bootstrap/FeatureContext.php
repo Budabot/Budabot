@@ -93,6 +93,7 @@ class FeatureContext extends BehatContext
 	public function moduleIsEnabled($module) {
 		if (!isset(self::$enabledModules[$module])) {
 			self::$chatServer->sendTellMessageToBot(self::$superAdmin, "!config mod $module enable all");
+			self::$chatServer->waitForTellMessageWithPhrases(MESSAGE_TIMEOUT, array("Updated status of the module"));
 			self::$enabledModules[$module] = true;
 		}
 	}
