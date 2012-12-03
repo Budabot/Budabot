@@ -66,31 +66,26 @@ class xml {
 			$timeout = $settingManager->get('xml_timeout');
 		}
 
-		//Remove any http tags
-		$url = str_replace("http://", "", $url);
-		//Put an / at the end of the url if not there
-		if (!strstr($url, '/')) {
-			$url .= '/';
-		}
+		$util = Registry::getInstance('util');
+		$data = null;
 
-		preg_match("/^(.+)(\.de|\.biz|\.com|\.org|\.info)\/(.*)$/i", $url, $tmp);
-		$host = $tmp[1].$tmp[2];
-		$uri = "/".$tmp[3];
-		$fp = @fsockopen($host, 80, $errno, $errstr, $timeout);
-		@stream_set_timeout($fp, $timeout);
-		if ($fp) {
-			@fputs($fp, "GET $uri HTTP/1.0\nHost: $host\r\n\r\n");
-			$data = '';
-			while ($indata = fread($fp,1024)) {
-				$data .= $indata;
+		$loop = new EventLoop();
+		Registry::injectDependencies($loop);
+
+		// TODO: httpGet() should have timeout as built-in functionality so we wouldn't need hacks like this
+		$timer = Registry::getInstance('timer');
+		$timer->callLater($timeout, array($loop, 'quit'));
+
+		$util->httpGet($url, array(), function($response) use(&$data, $loop) {
+			if(!$response->error) {
+				$data = $response->body;
 			}
+			$loop->quit();
+		});
 
-			fclose($fp);
-			return $data;
-		} else {
-			fclose($fp);
-			return null;
-		}
+		$loop->exec();
+
+		return $data;
 	}
 } //end class xml
 
