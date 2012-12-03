@@ -38,6 +38,9 @@ class EventManager {
 		'sendguild','sendpriv','setup','allpackets'
 	);
 
+	private $lastCronTime = 0;
+	private $areConnectEventsFired = false;
+
 	/**
 	 * @name: register
 	 * @description: Registers an event on the bot so it can be configured
@@ -288,6 +291,12 @@ class EventManager {
 	 */
 	public function crons() {
 		$time = time();
+
+		if ($this->lastCronTime == $time) {
+			return;
+		}
+		$this->lastCronTime = $time;
+
 		$this->logger->log('DEBUG', "Executing cron events at '$time'");
 		forEach ($this->cronevents as $key => $event) {
 			if ($event['nextevent'] <= $time) {
@@ -307,6 +316,12 @@ class EventManager {
 	** Execute Events that needs to be executed right after login
 	*/
 	public function executeConnectEvents() {
+
+		if ($this->areConnectEventsFired) {
+			return;
+		}
+		$this->areConnectEventsFired = true;
+
 		$this->logger->log('DEBUG', "Executing connected events");
 
 		$eventObj = new stdClass;

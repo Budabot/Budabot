@@ -35,16 +35,10 @@ class Budabot extends AOChat {
 	public $text;
 	
 	/** @Inject */
-	public $timer;
-	
-	/** @Inject */
 	public $limits;
 
 	/** @Inject */
 	public $buddylistManager;
-	
-	/** @Inject */
-	public $socketManager;
 	
 	/** @Inject */
 	public $relayController;
@@ -186,32 +180,14 @@ class Budabot extends AOChat {
 	}
 
 	public function run() {
-		$start = time();
-		$exec_connected_events = false;
-		$time = 0;
-		while (true) {
-			while ($this->processNextPacket()) {
+		$loop = new EventLoop();
+		Registry::injectDependencies($loop);
+		$loop->exec();
+	}
 
-			}
-			if ($this->is_ready()) {
-				// check monitored sockets and notify socket-notifiers if any activity occur in their sockets
-				$this->socketManager->checkMonitoredSockets();
+	public function processAllPackets() {
+		while ($this->processNextPacket()) {
 
-				if ($exec_connected_events == false) {
-					$this->eventManager->executeConnectEvents();
-					$exec_connected_events = true;
-				}
-
-				$this->timer->executeTimerEvents();
-
-				// execute cron events at most once every second
-				if ($time < time()) {
-					$this->eventManager->crons();
-					$time = time();
-				}
-
-				usleep(10000);
-			}
 		}
 	}
 	
