@@ -411,13 +411,13 @@ class OnlineController {
 						} else if ($row->profession == "Agent") {
 							$blob .= $this->text->make_image(16186);
 						} else if ($row->profession == "Bureaucrat") {
-							$blob .= $this->text->make_image(46271);
+							$blob .= $this->text->make_image(296548);
 						} else if ($row->profession == "Doctor") {
 							$blob .= $this->text->make_image(44235);
 						} else if ($row->profession == "Enforcer") {
 							$blob .= $this->text->make_image(117926);
 						} else if ($row->profession == "Engineer") {
-							$blob .= $this->text->make_image(16307);
+							$blob .= $this->text->make_image(287091);
 						} else if ($row->profession == "Fixer") {
 							$blob .= $this->text->make_image(16300);
 						} else if ($row->profession == "Keeper") {
@@ -425,7 +425,7 @@ class OnlineController {
 						} else if ($row->profession == "Martial Artist") {
 							$blob .= $this->text->make_image(16289);
 						} else if ($row->profession == "Meta-Physicist") {
-							$blob .= $this->text->make_image(16283);
+							$blob .= $this->text->make_image(16308);
 						} else if ($row->profession == "Nano-Technician") {
 							$blob .= $this->text->make_image(45190);
 						} else if ($row->profession == "Soldier") {
