@@ -179,6 +179,16 @@ class SystemController {
 	public $defaultXmlTimeout = "5s";
 
 	/**
+	 * @Setting("http_timeout")
+	 * @Description("Max time to wait for response from when making http queries")
+	 * @Visibility("edit")
+	 * @Type("time")
+	 * @Options("1s;2s;5s;10s;30s")
+	 * @AccessLevel("mod")
+	 */
+	public $defaultHttpTimeout = "5s";
+
+	/**
 	 * @Setting("logon_delay")
 	 * @Description("Time to wait before executing connect events and cron jobs")
 	 * @Visibility("edit")

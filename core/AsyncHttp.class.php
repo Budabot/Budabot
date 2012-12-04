@@ -10,7 +10,13 @@
 class AsyncHttp {
 
 	/** @Inject */
+	public $setting;
+
+	/** @Inject */
 	public $socketManager;
+
+	/** @Inject */
+	public $timer;
 
 	/** @Logger */
 	public $logger;
@@ -20,6 +26,7 @@ class AsyncHttp {
 	private $callback;
 	private $data;
 	private $headers = array();
+	private $timeout = null;
 	
 	// stream
 	private $stream;
@@ -32,6 +39,8 @@ class AsyncHttp {
 	private $responseBodyLength = 0;
 
 	private $errorString = false;
+	private $timeoutEvent = null;
+	private $finished;
 	
 	/**
 	 * Executes HTTP query to $uri.
@@ -46,7 +55,13 @@ class AsyncHttp {
 		$this->uri      = $uri;
 		$this->callback = $callback;
 		$this->data     = $data;
-		
+
+		$this->finished = false;
+
+		if ($this->timeout === null) {
+			$this->timeout = $this->setting->http_timeout;
+		}
+
 		// parse URI's contents
 		$components = parse_url($uri);
 		
@@ -115,6 +130,9 @@ class AsyncHttp {
 		}
 		$this->logger->log('DEBUG', "Sending request: {$this->request}");
 
+		$this->timeoutEvent = $this->timer->callLater($this->timeout, array($this, 'abortWithMessage'),
+			"Timeout error after waiting {$this->timeout} seconds");
+
 		// start connection
 		$flags = STREAM_CLIENT_ASYNC_CONNECT|STREAM_CLIENT_CONNECT;
 		// don't use asyncronous stream on Windows with SSL
@@ -124,8 +142,7 @@ class AsyncHttp {
 		}
 		$this->stream = stream_socket_client("$scheme://$host:$port", $errno, $errstr, 10, $flags);
 		if ($this->stream === false) {
-			$this->setError("Failed to create socket stream, reason: $errstr ($errno)");
-			$this->callCallback();
+			$this->abortWithMessage("Failed to create socket stream, reason: $errstr ($errno)");
 			return;
 		}
 		stream_set_blocking($this->stream, 0);
@@ -142,20 +159,28 @@ class AsyncHttp {
 		$this->headers[$header] = $value;
 	}
 
+	public function withTimeout($timeout) {
+		$this->timeout = $timeout;
+	}
+
 	/**
 	 * Handler method which will be called when activity occurs in the SocketNotifier.
 	 *
 	 * @param int $type type of activity, see SocketNotifier::ACTIVITY_* constants.
 	 */
 	public function onStreamActivity($type) {
+		if ($this->finished) {
+			return;
+		}
+
+		$this->timeoutEvent->restart();
+
 		switch ($type) {
 		case SocketNotifier::ACTIVITY_READ:
 			while(true) {
 				$data = fread($this->stream, 8192);
 				if ($data === false) {
-					$this->setError("Failed to read from the stream for uri '{$this->uri}'");
-					$this->close();
-					$this->callCallback();
+					$this->abortWithMessage("Failed to read from the stream for uri '{$this->uri}'");
 					break;
 				}
 				if (strlen($data) == 0) {
@@ -186,15 +211,13 @@ class AsyncHttp {
 				}
 				if ($this->responseBodyLength !== null && $this->responseBodyLength <= strlen($this->responseBody)) {
 					$this->responseBody = substr($this->responseBody, 0, $this->responseBodyLength);
-					$this->close();
-					$this->callCallback();
+					$this->finish();
 					break;
 				}
 			}
 
 			if (feof($this->stream)) {
-				$this->close();
-				$this->callCallback();
+				$this->finish();
 			}
 			break;
 
@@ -202,9 +225,7 @@ class AsyncHttp {
 			if ($this->request) {
 				$written = fwrite($this->stream, $this->request);
 				if ($written === false) {
-					$this->setError("Cannot write request headers for uri '{$this->uri}' to stream");
-					$this->close();
-					$this->callCallback();
+					$this->abortWithMessage("Cannot write request headers for uri '{$this->uri}' to stream");
 				} else if ($written > 0) {
 					$this->request = substr($this->request, $written);
 				}
@@ -212,10 +233,24 @@ class AsyncHttp {
 			break;
 
 		case SocketNotifier::ACTIVITY_ERROR:
-			$this->close();
-			$this->callCallback();
+			$this->abortWithMessage('Socket error occurred');
 			break;
 		}
+	}
+
+	/**
+	 * @internal
+	 */
+	public function abortWithMessage($errorString) {
+		$this->setError($errorString);
+		$this->finish();
+	}
+
+	private function finish() {
+		$this->finished = true;
+		$this->timeoutEvent->abort();
+		$this->close();
+		$this->callCallback();
 	}
 
 	/**
