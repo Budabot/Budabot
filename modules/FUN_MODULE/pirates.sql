@@ -6,7 +6,7 @@ INSERT INTO fun (type, content) VALUES ('pirates', 'Elizabeth Swann: It never wo
 INSERT INTO fun (type, content) VALUES ('pirates', 'Will Turner: We''re going to steal a ship? That ship?<br>Jack Sparrow: Commandeer. We''re going to commandeer that ship. ');
 INSERT INTO fun (type, content) VALUES ('pirates', 'Norrington: You actually were telling the truth.<br>Jack Sparrow: I do that quite a lot. Yet people are always surprised.');
 INSERT INTO fun (type, content) VALUES ('pirates', 'Elizabeth Swann: Why doesn''t your compass work?<br>Jack Sparrow: ...My compass works fine.');
-INSERT INTO fun (type, content) VALUES ('pirates', 'Will Turner: I''d die for her.<brJack Sparrow: Oh good. No worries then.');
+INSERT INTO fun (type, content) VALUES ('pirates', 'Will Turner: I''d die for her.<br>Jack Sparrow: Oh good. No worries then.');
 INSERT INTO fun (type, content) VALUES ('pirates', 'Jack Sparrow: Do us a favor... I know it''s difficult for you... but please, stay here, and try not to do anything... stupid.');
 INSERT INTO fun (type, content) VALUES ('pirates', 'Jack Sparrow: [to Pintel and Ragetti] Guard the boat, mind the tide... don''t touch my dirt.');
 INSERT INTO fun (type, content) VALUES ('pirates', 'Will Turner: I row over, search the ship until I find your bloody key.<br>Jack Sparrow: And if there are crewmen?<br>Will Turner: I cut down anyone in my path.<br>Jack Sparrow: [turns to Gibbs] I like it. Simple, easy to remember. ');
