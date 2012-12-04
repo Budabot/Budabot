@@ -72,16 +72,12 @@ class xml {
 		$loop = new EventLoop();
 		Registry::injectDependencies($loop);
 
-		// TODO: httpGet() should have timeout as built-in functionality so we wouldn't need hacks like this
-		$timer = Registry::getInstance('timer');
-		$timer->callLater($timeout, array($loop, 'quit'));
-
 		$util->httpGet($url, array(), function($response) use(&$data, $loop) {
 			if(!$response->error) {
 				$data = $response->body;
 			}
 			$loop->quit();
-		});
+		})->withTimeout($timeout);
 
 		$loop->exec();
 
