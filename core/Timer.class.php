@@ -14,18 +14,18 @@ class Timer {
 		// execute timer events
 		while (count($this->timerEvents) > 0 && $this->timerEvents[0]->time <= time()) {
 			$timerEvent = array_shift($this->timerEvents);
-			call_user_func_array($timerEvent->callback, $timerEvent->args);
+			$timerEvent->callCallback();
 		}
 	}
-	
+
 	/**
-	 * Calls given callback asyncronously after $delay seconds.
+	 * Calls given callback asynchronously after $delay seconds.
 	 *
 	 * The callback has following signature:
 	 * <code>
-	 * function callback($data)
+	 * function callback(...)
 	 * </code>
-	 *  * $data - optional value which is same as given as argument to this method.
+	 *  * ... - optional values which are same as given as arguments to this method.
 	 *
 	 * Example usage:
 	 * <code>
@@ -37,30 +37,50 @@ class Timer {
 	 *
 	 * @param integer  $delay time in seconds to delay the call
 	 * @param callback $callback callback which is called after timeout
-	 * @param ... any additional parameters are passed to the callback
+	 * @internal param $ ... any additional parameters are passed to the callback
+	 * @return TimerEvent
 	 */
 	public function callLater($delay, $callback) {
 		$additionalArgs = func_get_args();
 		array_shift($additionalArgs); // remove $delay
 		array_shift($additionalArgs); // remove $callback
-		$this->addTimerEvent($delay, $callback, $additionalArgs);
+		return $this->addTimerEvent($delay, $callback, $additionalArgs);
 	}
 
 	/**
 	 * @internal
-	 *
+	 */
+	public function abortEvent( $event ) {
+		$key = array_search($event, $this->timerEvents, true);
+		if ($key !== false) {
+			unset($this->timerEvents[$key]);
+			$this->sortEventsByTime();
+		}
+	}
+
+	/**
+	 * @internal
+	 */
+	public function restartEvent( $event ) {
+		$key = array_search($event, $this->timerEvents, true);
+		if ($key === false) {
+			$this->timerEvents []= $event;
+		}
+		$this->sortEventsByTime();
+	}
+
+	/**
 	 * Adds new timer event.
 	 * $callback will be called with arguments $args array after $delay seconds.
-	 * 
-	 * You shouldn't call this method, use callLater() instead.
 	 */
-	public function addTimerEvent($delay, $callback, $args) {
-		$timerEvent = new stdClass;
-		$timerEvent->callback = $callback;
-		$timerEvent->args = $args;
-		$timerEvent->time = time() + intval($delay);
+	private function addTimerEvent($delay, $callback, $args) {
+		$event = new TimerEvent($this, $delay, $callback, $args);
+		$this->restartEvent($event);
+		$this->sortEventsByTime();
+		return $event;
+	}
 
-		$this->timerEvents []= $timerEvent;
+	private function sortEventsByTime() {
 		usort($this->timerEvents, create_function('$a, $b',
 			'if ($a->time == $b->time) {
 				return 0;
