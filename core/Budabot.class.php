@@ -679,7 +679,7 @@ class Budabot extends AOChat {
 			$this->logger->log('DEBUG', "[" . $channel . "]: " . $message);
 		}
 
-		if ($sender) {
+		if ($this->util->isValidSender($sender)) {
 			// ignore messages that are sent from the bot self
 			if ($sender == $this->vars["name"]) {
 				return;
