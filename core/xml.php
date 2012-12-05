@@ -67,21 +67,12 @@ class xml {
 		}
 
 		$util = Registry::getInstance('util');
-		$data = null;
+		$response = $util->httpGet($url)->withTimeout($timeout)->waitAndReturnResponse();
 
-		$loop = new EventLoop();
-		Registry::injectDependencies($loop);
-
-		$util->httpGet($url, array(), function($response) use(&$data, $loop) {
-			if(!$response->error) {
-				$data = $response->body;
-			}
-			$loop->quit();
-		})->withTimeout($timeout);
-
-		$loop->exec();
-
-		return $data;
+		if($response->error) {
+			return null;
+		}
+		return $response->body;
 	}
 } //end class xml
 

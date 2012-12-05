@@ -27,6 +27,7 @@ class AsyncHttp {
 	private $data;
 	private $headers = array();
 	private $timeout = null;
+	private $queryParams = array();
 	
 	// stream
 	private $stream;
@@ -41,20 +42,21 @@ class AsyncHttp {
 	private $errorString = false;
 	private $timeoutEvent = null;
 	private $finished;
-	
+	private $loop;
+
 	/**
-	 * Executes HTTP query to $uri.
-	 *
-	 * @param string   $method   http method to use (get/post)
-	 * @param string   $uri      URI which should be requested
-	 * @param array    $params   array of key/value pair parameters passed as a query
-	 * @param callback $callback callbakc which will be called when request is done
-	 * @param mixed    $data     extra data which will be passed as second argument to the callback
+	 * @param string   $method http method to use (get/post)
+	 * @param string   $uri    URI which should be requested
 	 */
-	public function execute($method, $uri, $params, $callback, $data) {
-		$this->uri      = $uri;
-		$this->callback = $callback;
-		$this->data     = $data;
+	public function __construct($method, $uri) {
+		$this->method = $method;
+		$this->uri    = $uri;
+	}
+
+	/**
+	 * Executes HTTP query.
+	 */
+	public function execute() {
 
 		$this->finished = false;
 
@@ -63,10 +65,10 @@ class AsyncHttp {
 		}
 
 		// parse URI's contents
-		$components = parse_url($uri);
+		$components = parse_url($this->uri);
 		
 		if (is_array($components) == false) {
-			$this->setError("Variable '$uri' is not URI.");
+			$this->setError("Variable '{$this->uri}' is not URI.");
 			$this->callCallback();
 			return;
 		}
@@ -86,7 +88,7 @@ class AsyncHttp {
 				$port = 443;
 			}
 		} else {
-			$this->setError("Unknown scheme '$components[scheme]' provided in uri: '$uri'");
+			$this->setError("Unknown scheme '$components[scheme]' provided in uri: '{$this->uri}'");
 			$this->callCallback();
 			return;
 		}
@@ -94,27 +96,27 @@ class AsyncHttp {
 		if (isset($components['host'])) {
 			$host = $components['host'];
 		} else {
-			$this->setError("Host not specified in uri: '$uri'");
+			$this->setError("Host not specified in uri: '{$this->uri}'");
 			$this->callCallback();
 			return;
 		}
 
 		// combine uri's query and passed in $params array to single query string
 		if (isset($components['query'])) {
-			parse_str($components['query'], $params);
+			parse_str($components['query'], $this->queryParams);
 		}
-		$query = http_build_query($params);
+		$query = http_build_query($this->queryParams);
 
 		$path  = isset($components['path'])? $components['path']: '/';
 		// with get-method we'll add the query to path
-		if ($method == 'get' && $query) {
+		if ($this->method == 'get' && $query) {
 			$path .= "?{$query}";
 		}
-		$this->request  = strtoupper($method) . " $path HTTP/1.0\r\n";
+		$this->request  = strtoupper($this->method) . " $path HTTP/1.0\r\n";
 
 		$headers = array();
 		$headers['Host'] = $host;
-		if ($method == 'post' && $query) {
+		if ($this->method == 'post' && $query) {
 			$headers['Content-Type'] = 'application/x-www-form-urlencoded';
 			$headers['Content-Length'] = strlen($query);
 		}
@@ -125,7 +127,7 @@ class AsyncHttp {
 		}
 
 		$this->request .= "\r\n";
-		if ($method == 'post') {
+		if ($this->method == 'post') {
 			$this->request .= $query;
 		}
 		$this->logger->log('DEBUG', "Sending request: {$this->request}");
@@ -155,15 +157,75 @@ class AsyncHttp {
 		$this->socketManager->addSocketNotifier($this->notifier);
 	}
 
+	/**
+	 * @param $header
+	 * @param $value
+	 * @return AsyncHttp
+	 */
 	public function withHeader($header, $value) {
 		$this->headers[$header] = $value;
-	}
-
-	public function withTimeout($timeout) {
-		$this->timeout = $timeout;
+		return $this;
 	}
 
 	/**
+	 * @param $timeout
+	 * @return AsyncHttp
+	 */
+	public function withTimeout($timeout) {
+		$this->timeout = $timeout;
+		return $this;
+	}
+
+	/**
+	 * Defines a callback which will be called later on when the remote
+	 * server has responded or an error has occurred.
+	 *
+	 * The callback has following signature:
+	 * <code>function callback($response, $data)</code>
+	 *  * $response - Response as an object, it has properties:
+	 *                $error: error message, if any
+	 *                $headers: received HTTP headers as an array
+	 *                $body: received contents
+	 *  * $data     - optional value which is same as given as argument to
+	 *                this method.
+	 *
+	 * @param callable $callback callback which will be called when request is done
+	 * @param mixed    $data     extra data which will be passed as second argument to the callback
+	 * @return AsyncHttp
+	 */
+	public function withCallback($callback, $data = null) {
+		$this->callback = $callback;
+		$this->data     = $data;
+		return $this;
+	}
+
+	/**
+	 * @param array $params array of key/value pair parameters passed as a query
+	 * @return AsyncHttp
+	 */
+	public function withQueryParams($params) {
+		$this->queryParams = $params;
+		return $this;
+	}
+
+	/**
+	 * Waits until response is fully received from remote server and returns
+	 * the response. Note that this blocks execution, but do not freeze the bot
+	 * as the execution will return to event loop while waiting.
+	 *
+	 * @return mixed
+	 */
+	public function waitAndReturnResponse() {
+		// run in event loop, waiting for loop->quit()
+		$this->loop = new EventLoop();
+		Registry::injectDependencies($this->loop);
+		$this->loop->exec();
+
+		return $this->buildResponse();
+	}
+
+	/**
+	 * @internal
 	 * Handler method which will be called when activity occurs in the SocketNotifier.
 	 *
 	 * @param int $type type of activity, see SocketNotifier::ACTIVITY_* constants.
@@ -251,6 +313,9 @@ class AsyncHttp {
 		$this->timeoutEvent->abort();
 		$this->close();
 		$this->callCallback();
+		if ($this->loop) {
+			$this->loop->quit();
+		}
 	}
 
 	/**
@@ -277,11 +342,16 @@ class AsyncHttp {
 	 */
 	private function callCallback() {
 		if ($this->callback !== null) {
-			$response = new StdClass();
-			$response->error   = $this->errorString;
-			$response->headers = $this->responseHeaders;
-			$response->body    = $this->responseBody;
+			$response = $this->buildResponse();
 			call_user_func($this->callback, $response, $this->data);
 		}
+	}
+
+	private function buildResponse() {
+		$response = new StdClass();
+		$response->error   = $this->errorString;
+		$response->headers = $this->responseHeaders;
+		$response->body    = $this->responseBody;
+		return $response;
 	}
 }

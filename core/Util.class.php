@@ -363,67 +363,51 @@ class Util {
 	}
 	
 	/**
-	 * Requests contents of given $uri and on completion calls $callback.
+	 * Requests contents of given $uri using GET method and returns AsyncHttp
+	 * object which has additional methods for controlling how the query is done.
 	 *
-	 * Uses GET HTTP method.
-	 * 
-	 * This method is asyncronous, the execution should return immediately
-	 * from this method. The callback will be called later on when the remote
-	 * server has responded.
+	 * This method is asynchronous, the execution should return immediately
+	 * from this method.
 	 *
 	 * You can get both HTTP and HTTPS URIs with method.
 	 *
-	 * The callback has following signature:
-	 * <code>function callback($response, $data)</code>
-	 *  * $response - Response as an object, it has properties:
-	 *                $error: error message, if any
-	 *                $headers: received HTTP headers as an array
-	 *                $body: received contents
-	 *  * $data     - optional value which is same as given as argument to
-	 *                this method.
+	 * For more info, see AsyncHttp class.
 	 *
 	 * Example usage:
 	 * <code>
-	 * $this->util->httpGet( "http://www.google.com/", array(), function($response) {
+	 * $this->util->httpGet("http://www.google.com/")->withCallback(function($response) {
 	 *     print $response->body;
 	 * });
 	 * </code>
 	 *
-	 * @param string   $uri the requested URI
-	 * @param array    $params optional array of key/value pair parameters passed as a query
-	 * @param callback $callback optional callback which is called when response is gotten
-	 * @param mixed    $data optional parameter which will be passed to the
-	 *                 callback as second argument
+	 * @param string $uri the requested URI
+	 * @return AsyncHttp
 	 */
-	public function httpGet($uri, $params = array(), $callback = null, $data = null) {
-		$http = new AsyncHttp();
+	public function httpGet($uri) {
+		$http = new AsyncHttp('get', $uri);
 		Registry::injectDependencies($http);
-		$this->timer->callLater(0, array($http, 'execute'), 'get', $uri, $params, $callback, $data);
+		$this->timer->callLater(0, array($http, 'execute'));
 		return $http;
 	}
 
 	/**
-	 * Requests contents of given $uri and on completion calls $callback.
+	 * Requests contents of given $uri using POST method and returns AsyncHttp
+	 * object which has additional methods for controlling how the query is done.
 	 *
-	 * This method works exactly as httpGet(), but it uses HTTP POST method
-	 * instead GET method. Parameters in $params are passed as url-encoded
-	 * query in the request's body.
+	 * See httpGet() for code example.
 	 *
-	 * @param string   $uri the requested URI
-	 * @param array    $params optional array of key/value pair parameters passed as a query
-	 * @param callback $callback optional callback which is called when response is gotten
-	 * @param mixed    $data optional parameter which will be passed to the
-	 *                 callback as second argument
+	 * @param string $uri the requested URI
+	 * @return AsyncHttp
 	 */
-	public function httpPost($uri, $params = array(), $callback = null, $data = null) {
-		$http = new AsyncHttp();
+	public function httpPost($uri) {
+		$http = new AsyncHttp('post', $uri);
 		Registry::injectDependencies($http);
-		$this->timer->callLater(0, array($http, 'execute'), 'post', $uri, $params, $callback, $data);
+		$this->timer->callLater(0, array($http, 'execute'));
 		return $http;
 	}
 
 	/**
-	 * Finds all occurences of multiple strings in a string and returns them in an array
+	 * Finds all occurrences of multiple strings in a string and returns them in an array
 	 * with the key indicating the offset and the value indicating the string found.
 	 *
 	 * @param string   $haystack the string to search

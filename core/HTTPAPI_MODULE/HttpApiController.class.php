@@ -236,14 +236,16 @@ class HttpApiController {
 	 */
 	public function updateIpAddressCommand($message, $channel, $sender, $sendto, $args) {
 		$setting = $this->setting;
-		$this->util->httpGet('http://automation.whatismyip.com/n09230945.asp', array(), function($response) use ($setting, $sendto) {
+		$this->util->httpGet('http://automation.whatismyip.com/n09230945.asp')
+			->withHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0')
+			->withCallback(function($response) use ($setting, $sendto) {
 			if ($response->error) {
 				$sendto->reply("Failed, error was: {$response->error}");
 			} else {
 				$setting->httpapi_address = $response->body;
 				$sendto->reply("Success, updated httpapi_address setting to: '{$setting->httpapi_address}'");
 			}
-		})->withHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0');
+		});
 	}
 
 	public function isRequestBodyFullyReceived($session) {
