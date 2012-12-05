@@ -35,6 +35,9 @@ class Budabot extends AOChat {
 	public $text;
 	
 	/** @Inject */
+	public $util;
+	
+	/** @Inject */
 	public $limits;
 
 	/** @Inject */
