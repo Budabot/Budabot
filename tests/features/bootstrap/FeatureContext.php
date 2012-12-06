@@ -130,9 +130,15 @@ class FeatureContext extends BehatContext
 		// delete old DB-file if it exists
 		@unlink(ROOT_PATH . '/data/' . self::$vars['SuperAdmin']);
 
+		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
+			$phpExec = realpath(ROOT_PATH . "\win32\php.exe") . " -c php-win.ini";
+		} else {
+			$phpExec = "php";
+		}
+
 		// start budabot instance
 		$process = new Process();
-		$process->setCommand("php -f test_main.php");
+		$process->setCommand("$phpExec -f test_main.php");
 		
 		$path = self::$parameters['budabot_log'];
 		if (is_string($path)) {
