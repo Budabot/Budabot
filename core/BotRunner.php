@@ -17,7 +17,6 @@ class BotRunner {
 	public $version = "3.0_RC3";
 
 	private $argv = array();
-	private $vars = array();
 
 	public function __construct($argv) {
 		$this->argv = $argv;
