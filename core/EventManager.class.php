@@ -305,8 +305,8 @@ class EventManager {
 				$eventObj = new stdClass;
 				$eventObj->type = strtolower($event['time']);
 
-				$this->callEventHandler($eventObj, $event['filename']);
 				$this->cronevents[$key]['nextevent'] = $time + $event['time'];
+				$this->callEventHandler($eventObj, $event['filename']);
 			}
 		}
 	}
