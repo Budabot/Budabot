@@ -30,7 +30,10 @@ class AOUController {
 	
 	/** @Inject */
 	public $itemsController;
-	
+
+	/** @Inject */
+	public $http;
+
 	private $url = "http://www.ao-universe.com/mobile/parser.php?bot=budabot";
 	
 	/**
@@ -42,7 +45,11 @@ class AOUController {
 	public function aouView($message, $channel, $sender, $sendto, $args) {
 		$guideid = $args[1];
 
-		$guide = file_get_contents($this->url . "&mode=view&id=" . $guideid);
+		$params = array(
+			'mode' => 'view',
+			'id' => $guideid
+		);
+		$guide = $this->http->get($this->url)->withQueryParams($params)->waitAndReturnResponse()->body;
 
 		$dom = new DOMDocument;
 		$dom->loadXML($guide);
@@ -86,7 +93,11 @@ class AOUController {
 		$search = $args[1];
 		$searchTerms = explode(" ", $search);
 
-		$results = file_get_contents($this->url . "&mode=search&search=" . rawurlencode($search));
+		$params = array(
+			'mode' => 'search',
+			'search' => $search
+		);
+		$results = $this->http->get($this->url)->withQueryParams($params)->waitAndReturnResponse()->body;
 
 		$dom = new DOMDocument;
 		$dom->loadXML($results);
