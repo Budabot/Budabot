@@ -213,7 +213,7 @@ class AsyncHttp {
 	}
 
 	private function processResponse() {
-		$this->responseData = $this->readAllFromSocket();
+		$this->responseData .= $this->readAllFromSocket();
 
 		if (!$this->areHeadersReceived()) {
 			$this->processHeaders();
