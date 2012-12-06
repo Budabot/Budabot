@@ -104,6 +104,7 @@ Contacts:      Tyrence, Marebone
 
 		// Load the config
 		$configFilePath = $this->argv[1];
+		global $configFile;
 		$configFile = new ConfigFile($configFilePath);
 		$configFile->load();
 		$vars = $configFile->getVars();
