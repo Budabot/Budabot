@@ -159,8 +159,8 @@ class PrivateChannelController {
 	 */
 	public function membersCommand($message, $channel, $sender, $sendto, $args) {
 		$data = $this->db->query("SELECT * FROM members_<myname> ORDER BY `name`");
-		$autoguests = count($data);
-		if ($autoguests != 0) {
+		$count = count($data);
+		if ($count != 0) {
 			$list = '';
 			forEach ($data as $row) {
 				$online = $this->buddylistManager->is_online($row->name);
@@ -177,7 +177,7 @@ class PrivateChannelController {
 				$list .= "<tab>- $row->name {$status}\n";
 			}
 
-			$msg = $this->text->make_blob("Members ($autoguests)", $list);
+			$msg = $this->text->make_blob("Members ($count)", $list);
 			$sendto->reply($msg);
 		} else {
 			$sendto->reply("There are no members of this bot.");
@@ -193,7 +193,7 @@ class PrivateChannelController {
 			$msg = $this->getChatlist();
 			$sendto->reply($msg);
 		} else {
-			$sendto->reply("No character are in the private channel.");
+			$sendto->reply("No characters are in the private channel.");
 		}
 	}
 	

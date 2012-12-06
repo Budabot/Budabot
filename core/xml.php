@@ -69,7 +69,7 @@ class xml {
 		$http = Registry::getInstance('http');
 		$response = $http->get($url)->withTimeout($timeout)->waitAndReturnResponse();
 
-		if($response->error) {
+		if ($response->error) {
 			return null;
 		}
 		return $response->body;

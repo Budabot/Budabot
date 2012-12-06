@@ -45,7 +45,7 @@ class ServerStatusController {
 	 */
 	public function recordPopulationEvent($eventObj) {
 		$serverInfo = $this->getServerInfo($this->chatBot->vars['dimension']);
-		$this->db->exec("INSERT INTO population_history_<myname> (dt, server_num, population) VALUES (?, ?, ?)", time(), $this->chatBot->vars['dimension'], $server->totalPlayers);
+		$this->db->exec("INSERT INTO population_history_<myname> (dt, server_num, population) VALUES (?, ?, ?)", time(), $this->chatBot->vars['dimension'], $serverInfo->totalPlayers);
 	}
 
 	/**
