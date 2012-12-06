@@ -99,7 +99,7 @@ Contacts:      Tyrence, Marebone
 		}
 	}
 
-	private function getConfigVars() {
+	protected function getConfigVars() {
 		require_once 'ConfigFile.class.php';
 
 		// Load the config
@@ -206,7 +206,7 @@ Contacts:      Tyrence, Marebone
 		}
 	}
 
-	private function getServerAndPort() {
+	protected function getServerAndPort() {
 		global $vars;
 		// Choose server
 		if ($vars['use_proxy'] === 1) {
@@ -227,15 +227,6 @@ Contacts:      Tyrence, Marebone
 			sleep(10);
 			die();
 		}
-
-		// override $server and $port if overriding variables are present (used for integration tests)
-		if (isset($vars['override_chat_server_host'])) {
-			$server = $vars['override_chat_server_host'];
-		}
-		if (isset($vars['override_chat_server_port'])) {
-			$port = $vars['override_chat_server_port'];
-		}
-
 		return array($server, $port);
 	}
 
@@ -252,12 +243,8 @@ Contacts:      Tyrence, Marebone
 		unset($vars['password']);
 	}
 
-	private function startBot() {
-		global $vars;
+	protected function startBot() {
 		$chatBot = Registry::getInstance('chatBot');
-		if (isset($vars['disable_flood_limiting']) && $vars['disable_flood_limiting']) {
-			$chatBot->chatqueue->increment = 0;
-		}
 		$chatBot->run();
 	}
 }

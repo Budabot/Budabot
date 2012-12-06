@@ -35,7 +35,6 @@ class LegacyLogger {
 require_once ROOT_PATH . '/lib/vendor/autoload.php';
 require_once ROOT_PATH . '/lib/Process.class.php';
 require_once ROOT_PATH . '/lib/TestAOChatServer/AOChatServerStub.php';
-require_once ROOT_PATH . '/core/ConfigFile.class.php';
 
 /**
  * Features context.
@@ -46,18 +45,11 @@ class FeatureContext extends BehatContext
 	private static $botProcess = null;
 	private static $parameters = array();
 	private static $enabledModules = array();
-
-	// this is the port where the fake aochat test server will listen for bot
-	// to connect
-	private static $chatServerPort  = 7000;
+	private static $vars = array();
 
 	// this is the port where the fake aochat server will listen for json-rpc
 	// calls made from this test suite
 	private static $chatJsonRpcPort = 8000;
-
-	private static $botName    = 'Testbot';
-	private static $superAdmin = 'Adminnoob';
-	private static $dbFileName = 'test_budabot.db';
 
 	/**
 	 * Initializes context.
@@ -75,6 +67,9 @@ class FeatureContext extends BehatContext
 	 * Prepare system for test suite before it runs.
 	 */
 	public static function prepareSuite() {
+		self::$vars = json_decode(file_get_contents(
+			ROOT_PATH . '/tests/BehatBotConfig.json'), true);
+
 		self::startAOChatServer();
 		self::startBudabot();
 	}
@@ -92,7 +87,7 @@ class FeatureContext extends BehatContext
 	 */
 	public function moduleIsEnabled($module) {
 		if (!isset(self::$enabledModules[$module])) {
-			self::$chatServer->sendTellMessageToBot(self::$superAdmin, "!config mod $module enable all");
+			self::$chatServer->sendTellMessageToBot(self::$vars['SuperAdmin'], "!config mod $module enable all");
 			self::$chatServer->waitForTellMessageWithPhrases(MESSAGE_TIMEOUT, array("Updated status of the module"));
 			self::$enabledModules[$module] = true;
 		}
@@ -102,7 +97,7 @@ class FeatureContext extends BehatContext
 	 * @When /^I give command "([^"]*)"$/
 	 */
 	public function iGiveCommand($command) {
-		self::$chatServer->sendTellMessageToBot(self::$superAdmin, $command);
+		self::$chatServer->sendTellMessageToBot(self::$vars['SuperAdmin'], $command);
 	}
 
 	/**
@@ -132,29 +127,12 @@ class FeatureContext extends BehatContext
 			return;
 		}
 
-		$configPath = ROOT_PATH . '/conf/test_config.php';
-
 		// delete old DB-file if it exists
-		@unlink(ROOT_PATH . '/data/' . self::$dbFileName);
-		// delete old config-file if it exists
-		@unlink($configPath);
-
-		// build new config file for the bot
-		$config = new ConfigFile($configPath);
-		$config->load();
-		$config->setVar('login', 'testdummy');
-		$config->setVar('password', '1234');
-		$config->setVar('name', self::$botName);
-		$config->setVar('SuperAdmin', self::$superAdmin);
-		$config->setVar('DB Name', self::$dbFileName);
-		$config->setVar('override_chat_server_host', '127.0.0.1');
-		$config->setVar('override_chat_server_port', self::$chatServerPort);
-		$config->setVar('disable_flood_limiting', 1);
-		$config->save();
+		@unlink(ROOT_PATH . '/data/' . self::$vars['SuperAdmin']);
 
 		// start budabot instance
 		$process = new Process();
-		$process->setCommand("php -f mainloop.php $configPath");
+		$process->setCommand("php -f test_main.php");
 		
 		$path = self::$parameters['budabot_log'];
 		if (is_string($path)) {
@@ -188,10 +166,10 @@ class FeatureContext extends BehatContext
 		self::$chatServer->waitPrivateMessage(MESSAGE_TIMEOUT,
 			"Logon Complete :: All systems ready to use.");
 
-		self::$chatServer->buddyLogin(self::$superAdmin);
+		self::$chatServer->buddyLogin(self::$vars['SuperAdmin']);
 
 		// check that the bot is ready to accept commands
-		self::$chatServer->sendTellMessageToBot(self::$superAdmin, "hello botty");
+		self::$chatServer->sendTellMessageToBot(self::$vars['SuperAdmin'], "hello botty");
 		self::$chatServer->waitForTellMessageWithPhrases(MESSAGE_TIMEOUT, array("Unknown command"));
 	}
 
@@ -205,14 +183,14 @@ class FeatureContext extends BehatContext
 		}
 
 		$server = new AOChatServerStub();
-		$server->startServer(self::$chatServerPort, self::$chatJsonRpcPort, self::$parameters['aochatserver_log']);
+		$server->startServer(self::$vars['override_chat_server_port'], self::$chatJsonRpcPort, self::$parameters['aochatserver_log']);
 
 		// make sure that the server is stopped on exit
 		register_shutdown_function(function() use ($server) {
 			$server->stopServer();
 		});
 		
-		$server->setAccountCharacters(array(self::$botName));
+		$server->setAccountCharacters(array(self::$vars['name']));
 
 		self::$chatServer = $server;
 	}

@@ -1,0 +1,24 @@
+{
+	"login": "testdummy",
+	"password": "1234",
+	"dimension": 1,
+	"name": "Testbot",
+	"my_guild": "",
+	"SuperAdmin": "Adminnoob",
+	"DB Type": "sqlite",
+	"DB Name": "test_budabot.db",
+	"DB Host": "./data/",
+	"override_chat_server_host": "127.0.0.1",
+	"override_chat_server_port": 7000,
+	"disable_flood_limiting": 1,
+	"show_aoml_markup": 0,
+	"cachefolder": "./cache/",
+	"default_module_status": 0,
+	"use_proxy": 0,
+	"proxy_server": "127.0.0.1",
+	"proxy_port": 9993,
+	"API Port": 5250,
+	"module_load_paths": [
+		"./modules"
+	]
+}
