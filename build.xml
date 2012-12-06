@@ -10,8 +10,8 @@
 	<!-- include custom task for running Behat -->
 	<taskdef classname="lib.PhingTasks.BehatTask" name="behat" />
 
-	<svnlastrevision workingcopy="."       propertyname="svn.revision" />
-	<budabotversion  sourcefile="main.php" propertyname="budabot.version" />
+	<svnlastrevision workingcopy="." propertyname="svn.revision" />
+	<budabotversion  sourcefile="core/BotRunner.php" propertyname="budabot.version" />
 
 	<patternset id="common_files">
 		<include name="conf/log4php.xml" />
