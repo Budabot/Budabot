@@ -215,8 +215,7 @@ class OrglistController {
 		$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
 		$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
 
-		$blob = $this->orgmatesformat($this->orglist, $orgcolor, $this->orglist["start"], $this->orglist["org"]);
-		$msg = $this->text->make_blob("Orglist for '".$this->orglist["org"]."'", $blob);
+		$msg = $this->orgmatesformat($this->orglist, $orgcolor, $this->orglist["start"], $this->orglist["org"]);
 		$this->orglist["sendto"]->reply($msg);
 
 		// in case it was ended early
@@ -280,8 +279,8 @@ class OrglistController {
 		$header .= $color["onlineH"]."$totalonline</font> online out of a total of ".$color["onlineH"]."$totalcount</font> members. ";
 		$header .= "(".$color["onlineH"]."$totaltime</font> seconds)\n\n";
 		$blob = $header . $blob;
-
-		return $blob;
+		
+		return $this->text->make_blob("Orglist for '".$this->orglist["org"]."' ($totalonline / $totalcount)", $blob);
 	}
 	
 	/**
