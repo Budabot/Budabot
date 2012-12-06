@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS population_history_<myname> (dt BIGINT NOT NULL, server_num INT NOT NULL, population INT NOT NULL);

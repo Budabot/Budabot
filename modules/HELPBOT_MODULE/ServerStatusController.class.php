@@ -24,12 +24,29 @@ class ServerStatusController {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Inject */
+	public $db;
 
 	/** @Inject */
 	public $text;
 	
 	/** @Inject */
 	public $serverStatusManager;
+	
+	/** @Setup */
+	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, 'population_history');
+	}
+	
+	/**
+	 * @Event("1hr")
+	 * @Description("Record population and store it in the database")
+	 */
+	public function recordPopulationEvent($eventObj) {
+		$serverInfo = $this->getServerInfo($this->chatBot->vars['dimension']);
+		$this->db->exec("INSERT INTO population_history_<myname> (dt, server_num, population) VALUES (?, ?, ?)", time(), $this->chatBot->vars['dimension'], $server->totalPlayers);
+	}
 
 	/**
 	 * @HandlesCommand("server")
@@ -94,16 +111,6 @@ class ServerStatusController {
 		$sendto->reply($msg);
 	}
 	
-	public function findLowestGreaterThanZero($arr) {
-		$val = 100;
-		forEach ($arr as $playfield) {
-			if ($playfield->percent > 0 && $playfield->percent < $val) {
-				$val = $playfield->percent;
-			}
-		}
-		return $val;
-	}
-	
 	public function addNumPlayers($arr, $y) {
 		forEach ($arr as $playfield) {
 			$playfield->numPlayers = $num = round($playfield->percent / $y);
@@ -126,7 +133,7 @@ class ServerStatusController {
 		
 		$roundingVariation = 0.05;
 		$per = array_shift($list);
-		$y = $this->calc($per - $roundingVariation, $per + $roundingVariation, 2, $list);
+		$y = $this->calcPercentPerPlayer($per - $roundingVariation, $per + $roundingVariation, 2, $list);
 		
 		$server->totalPlayers = round(100 / $y);
 		
@@ -135,7 +142,7 @@ class ServerStatusController {
 		return $server;
 	}
 	
-	public function calc($min, $max, $num, $list) {
+	public function calcPercentPerPlayer($min, $max, $num, $list) {
 		if (empty($list)) {
 			return ($min + $max) / 2;
 		}
@@ -148,12 +155,12 @@ class ServerStatusController {
 		$newMax = min($currentMax, $max);
 		
 		if ($base > round($num * $max, 1)) {
-			return $this->calc($min, $max, $num + 1, $list);
+			return $this->calcPercentPerPlayer($min, $max, $num + 1, $list);
 		} else if ($base < round($num * $min, 1)) {
-			return $this->calc($min / $num * ($num - 1), $max / $num * ($num - 1), $num - 1, $list);
+			return $this->calcPercentPerPlayer($min / $num * ($num - 1), $max / $num * ($num - 1), $num - 1, $list);
 		} else {
 			array_shift($list);
-			return $this->calc($newMin, $newMax, $num + 1, $list);
+			return $this->calcPercentPerPlayer($newMin, $newMax, $num + 1, $list);
 		}
 	}
 }
