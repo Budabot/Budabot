@@ -3,8 +3,8 @@
 /**
  * The AsyncHttp class provides means to make HTTP and HTTPS requests.
  *
- * This class should not be instanced as it is, but instead Util class's
- * httpGet() method should be used to create and use instance of the
+ * This class should not be instanced as it is, but instead Http class's
+ * get() or post() method should be used to create instance of the
  * AsyncHttp class. 
  */
 class AsyncHttp {

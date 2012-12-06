@@ -66,8 +66,8 @@ class xml {
 			$timeout = $settingManager->get('xml_timeout');
 		}
 
-		$util = Registry::getInstance('util');
-		$response = $util->httpGet($url)->withTimeout($timeout)->waitAndReturnResponse();
+		$http = Registry::getInstance('http');
+		$response = $http->get($url)->withTimeout($timeout)->waitAndReturnResponse();
 
 		if($response->error) {
 			return null;

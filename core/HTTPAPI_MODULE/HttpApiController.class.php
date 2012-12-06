@@ -31,14 +31,14 @@ class HttpApiController {
 	public $text;
 
 	/** @Inject */
-	public $util;
+	public $http;
 
 	/** @Logger */
 	public $logger;
 
 	private $loop;
 	private $socket;
-	private $http;
+	private $httpServer;
 	
 	/** @internal */
 	public $handlers = array();
@@ -76,10 +76,10 @@ class HttpApiController {
 	public function setup() {
 		$this->loop = new ReactLoopAdapter($this->socketManager);
 		$this->socket = new React\Socket\Server($this->loop);
-		$this->http = new React\Http\Server($this->socket);
+		$this->httpServer = new React\Http\Server($this->socket);
 
 		$that = $this;
-		$this->http->on('request', function ($request, $response) use ($that) {
+		$this->httpServer->on('request', function ($request, $response) use ($that) {
 			$session = new StdClass();
 			$session->request  = $request;
 			$session->response = $response;
@@ -236,7 +236,7 @@ class HttpApiController {
 	 */
 	public function updateIpAddressCommand($message, $channel, $sender, $sendto, $args) {
 		$setting = $this->setting;
-		$this->util->httpGet('http://automation.whatismyip.com/n09230945.asp')
+		$this->http->get('http://automation.whatismyip.com/n09230945.asp')
 			->withHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0')
 			->withCallback(function($response) use ($setting, $sendto) {
 			if ($response->error) {
