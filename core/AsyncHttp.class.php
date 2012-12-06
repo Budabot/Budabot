@@ -32,11 +32,10 @@ class AsyncHttp {
 	// stream
 	private $stream;
 	private $notifier;
-	private $headerReceived = false;
 	private $requestData = '';
-	private $headerData = '';
+	private $responseData = '';
+	private $headersEndPos = false;
 	private $responseHeaders = array();
-	private $responseBody = '';
 
 	private $request;
 	private $errorString = false;
@@ -45,36 +44,33 @@ class AsyncHttp {
 	private $loop;
 
 	/**
+	 * @internal
 	 * @param string   $method http method to use (get/post)
 	 * @param string   $uri    URI which should be requested
 	 */
 	public function __construct($method, $uri) {
-		$this->method = $method;
-		$this->uri    = $uri;
+		$this->method   = $method;
+		$this->uri      = $uri;
+		$this->finished = false;
 	}
 
 	/**
+	 * @internal
 	 * Executes HTTP query.
 	 */
 	public function execute() {
-
 		if (!$this->buildRequest()) {
 			return;
 		}
 
-		$this->finished = false;
-
-		$this->logger->log('DEBUG', "Sending request: {$this->request->getData()}");
-
 		$this->initTimeout();
-		$this->timeoutEvent = $this->timer->callLater($this->timeout, array($this, 'abortWithMessage'),
-			"Timeout error after waiting {$this->timeout} seconds");
 
 		if (!$this->createStream()) {
 			return;
 		}
-
 		$this->setupStreamNotify();
+
+		$this->logger->log('DEBUG', "Sending request: {$this->request->getData()}");
 	}
 
 	private function buildRequest() {
@@ -139,7 +135,7 @@ class AsyncHttp {
 		$response = new StdClass();
 		$response->error   = $this->errorString;
 		$response->headers = $this->responseHeaders;
-		$response->body    = $this->responseBody;
+		$response->body    = $this->getResponseBody();
 		return $response;
 	}
 
@@ -147,6 +143,8 @@ class AsyncHttp {
 		if ($this->timeout === null) {
 			$this->timeout = $this->setting->http_timeout;
 		}
+		$this->timeoutEvent = $this->timer->callLater($this->timeout, array($this, 'abortWithMessage'),
+			"Timeout error after waiting {$this->timeout} seconds");
 	}
 
 	private function createStream() {
@@ -201,51 +199,11 @@ class AsyncHttp {
 
 		switch ($type) {
 			case SocketNotifier::ACTIVITY_READ:
-				while(true) {
-					$data = fread($this->stream, 8192);
-					if ($data === false) {
-						$this->abortWithMessage("Failed to read from the stream for uri '{$this->uri}'");
-						break;
-					}
-					if (strlen($data) == 0) {
-						break; // nothing to read, stop looping
-					}
-					if ($this->headerReceived == false) {
-						$this->headerData .= $data;
-
-						$headersEndPos = strpos($this->headerData, "\r\n\r\n");
-						if ($headersEndPos !== false) {
-							$this->headerReceived = true;
-							$this->responseBody = substr($this->headerData, $headersEndPos + 4);
-							$this->headerData = substr($this->headerData, 0, $headersEndPos);
-
-							$this->responseHeaders = $this->extractHeadersFromHeaderData();
-						}
-					}
-					else {
-						$this->responseBody .= $data;
-					}
-					if ($this->getBodyLength() !== null && $this->getBodyLength() <= strlen($this->responseBody)) {
-						$this->responseBody = substr($this->responseBody, 0, $this->getBodyLength());
-						$this->finish();
-						break;
-					}
-				}
-
-				if (feof($this->stream)) {
-					$this->finish();
-				}
+				$this->processResponse();
 				break;
 
 			case SocketNotifier::ACTIVITY_WRITE:
-				if ($this->requestData) {
-					$written = fwrite($this->stream, $this->requestData);
-					if ($written === false) {
-						$this->abortWithMessage("Cannot write request headers for uri '{$this->uri}' to stream");
-					} else if ($written > 0) {
-						$this->requestData = substr($this->requestData, $written);
-					}
-				}
+				$this->processRequest();
 				break;
 
 			case SocketNotifier::ACTIVITY_ERROR:
@@ -254,18 +212,89 @@ class AsyncHttp {
 		}
 	}
 
+	private function processResponse() {
+		$this->responseData = $this->readAllFromSocket();
+
+		if (!$this->areHeadersReceived()) {
+			$this->processHeaders();
+		}
+
+		if ($this->isBodyLengthKnown() && $this->isBodyFullyReceived()) {
+			$this->finish();
+		}
+
+		if ($this->isStreamClosed()) {
+			$this->finish();
+		}
+	}
+
+	private function processHeaders() {
+		$this->headersEndPos = strpos($this->responseData, "\r\n\r\n");
+		if ($this->headersEndPos !== false) {
+			$headerData = substr($this->responseData, 0, $this->headersEndPos);
+			$this->responseHeaders = $this->extractHeadersFromHeaderData($headerData);
+		}
+	}
+
+	private function getResponseBody() {
+		return substr($this->responseData, $this->headersEndPos + 4);
+	}
+
+	private function areHeadersReceived() {
+		return $this->headersEndPos !== false;
+	}
+
+	private function isStreamClosed() {
+		return feof($this->stream);
+	}
+
+	private function isBodyFullyReceived() {
+		return $this->getBodyLength() <= strlen($this->getResponseBody());
+	}
+
+	private function isBodyLengthKnown() {
+		return $this->getBodyLength() !== null;
+	}
+
+	private function readAllFromSocket() {
+		$data = '';
+		while (true) {
+			$chunk = fread($this->stream, 8192);
+			if ($chunk === false) {
+				$this->abortWithMessage("Failed to read from the stream for uri '{$this->uri}'");
+				break;
+			}
+			if (strlen($chunk) == 0) {
+				break; // nothing to read, stop looping
+			}
+			$data .= $chunk;
+		}
+		return $data;
+	}
+
 	private function getBodyLength() {
 		return isset($this->responseHeaders['content-length']) ? intval($this->responseHeaders['content-length']) : null;
 	}
 
-	private function extractHeadersFromHeaderData() {
+	private function extractHeadersFromHeaderData($data) {
 		$headers = array();
-		forEach (explode("\r\n", $this->headerData) as $line) {
+		forEach (explode("\r\n", $data) as $line) {
 			if (preg_match('/([^:]+):(.+)/', $line, $matches)) {
 				$headers[strtolower(trim($matches[1]))] = trim($matches[2]);
 			}
 		}
 		return $headers;
+	}
+
+	private function processRequest() {
+		if ($this->requestData) {
+			$written = fwrite($this->stream, $this->requestData);
+			if ($written === false) {
+				$this->abortWithMessage("Cannot write request headers for uri '{$this->uri}' to stream");
+			} else if ($written > 0) {
+				$this->requestData = substr($this->requestData, $written);
+			}
+		}
 	}
 
 	/**
