@@ -107,8 +107,8 @@ class HttpRequest {
 		$queryStr = isset($this->uriComponents['query']) ? $this->uriComponents['query'] : null;
 
 		if ($this->method == 'get') {
-			$queryArray = $this->queryParams;
 			parse_str($queryStr, $queryArray);
+			$queryArray = array_merge($queryArray, $this->queryParams);
 			$queryStr = http_build_query($queryArray);
 		} else if ($this->method == 'post') {
 		} else {
