@@ -14,6 +14,10 @@ class HttpRequest {
 	private $streamHost    = null;
 	private $uriComponents = array();
 
+	// user for integration tests
+	/** @internal */
+	static public $overridePathPrefix = null;
+
 	public function __construct($method, $uri, $queryParams, $extraHeaders) {
 		$this->method = $method;
 		$this->uri = $uri;
@@ -114,6 +118,11 @@ class HttpRequest {
 		} else {
 			throw new InvalidHttpRequest("Invalid http method: '{$this->method}'");
 		}
+
+		if (self::$overridePathPrefix) {
+			$path = self::$overridePathPrefix . $path;
+		}
+
 		return "$path?$queryStr";
 	}
 

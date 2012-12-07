@@ -43,6 +43,12 @@ class AsyncHttp {
 	private $finished;
 	private $loop;
 
+	// user for integration tests
+	/** @internal */
+	static public $overrideAddress = null;
+	/** @internal */
+	static public $overridePort    = null;
+
 	/**
 	 * @internal
 	 * @param string   $method http method to use (get/post)
@@ -159,14 +165,14 @@ class AsyncHttp {
 
 	private function getStreamUri() {
 		$scheme = $this->request->getScheme();
-		$host = $this->request->getHost();
-		$port = $this->request->getPort();
+		$host = self::$overrideAddress? self::$overrideAddress: $this->request->getHost();
+		$port = self::$overridePort? self::$overridePort: $this->request->getPort();
 		return "$scheme://$host:$port";
 	}
 
 	private function getStreamFlags() {
 		$flags = STREAM_CLIENT_ASYNC_CONNECT | STREAM_CLIENT_CONNECT;
-		// don't use asyncronous stream on Windows with SSL
+		// don't use asynchronous stream on Windows with SSL
 		// see bug: https://bugs.php.net/bug.php?id=49295
 		if ($this->request->getScheme() == 'ssl' && strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			$flags = STREAM_CLIENT_CONNECT;
