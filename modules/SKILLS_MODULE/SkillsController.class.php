@@ -90,7 +90,10 @@ class SkillsController {
 	
 	/** @Inject */
 	public $db;
-	
+
+	/** @Inject */
+	public $http;
+
 	/** @Inject */
 	public $text;
 	
@@ -431,20 +434,23 @@ class SkillsController {
 	 * @Matches('|^inits <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
 	 */
 	public function initsCommand($message, $channel, $sender, $sendto, $args) {
-		$url = "http://inits.xyphos.com/?";
-		$url .= "lowid={$args[1]}&";
-		$url .= "highid={$args[2]}&";
-		$url .= "ql={$args[3]}&";
-		$url .= "output=aoml";
-
 		$msg = "Calculating Inits... Please wait.";
 		$sendto->reply($msg);
 
-		$msg = file_get_contents($url, 0);
-		if (empty($msg)) {
-			$msg = "Unable to query Central Items Database.";
-		}
-		$sendto->reply($msg);
+		$params = array(
+			'lowid'  => $args[1],
+			'highid' => $args[2],
+			'ql'     => $args[3],
+			'output' => 'aoml'
+		);
+		$this->http->get("http://inits.xyphos.com/")->withQueryParams($params)
+			->withCallback(function($response) use ($sendto) {
+			if ($response->error) {
+				$sendto->reply("Unable to query Central Items Database.");
+			} else {
+				$sendto->reply($response->body);
+			}
+		});
 	}
 	
 	/**
@@ -562,13 +568,13 @@ class SkillsController {
 	 * @Matches('|^specials <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
 	 */
 	public function specialsCommand($message, $channel, $sender, $sendto, $args) {
-		$url = "http://itemxml.xyphos.com/?";
-		$url .= "id={$args[1]}&";  // use low id for id
-		//$url .= "id={$args[2]}&";  // use high id for id
-		$url .= "ql={$args[3]}&";
+		$params = array(
+			'id'  => $args[1], // low id
+			'ql' => $args[3]
+		);
+		$response = $this->http->get("http://itemxml.xyphos.com/")->withQueryParams($params)->waitAndReturnResponse();
 
-		$data = file_get_contents($url, 0);
-		if (empty($data) || '<error>' == substr($data, 0, 7)) {
+		if ($response->error || '<error>' == substr($response->body, 0, 7)) {
 			$msg = "Unable to query Items XML Database.";
 			$sendto->reply($msg);
 			return;
@@ -576,7 +582,7 @@ class SkillsController {
 
 		$doc = new DOMDocument();
 		$doc->prevservWhiteSpace = false;
-		$doc->loadXML($data);
+		$doc->loadXML($response->body);
 
 		$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
 		$attributes = $doc->getElementsByTagName('attributes')->item(0)->getElementsByTagName('attribute');
