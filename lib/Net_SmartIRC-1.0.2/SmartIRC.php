@@ -420,8 +420,10 @@ class Net_SmartIRC_base
         $this->_messagebuffer[SMARTIRC_MEDIUM] = array();
         $this->_messagebuffer[SMARTIRC_LOW] = array();
         
-        $this->replycodes = &$GLOBALS['SMARTIRC_replycodes'];
-        $this->nreplycodes = &$GLOBALS['SMARTIRC_nreplycodes'];
+		global $SMARTIRC_replycodes;
+		global $SMARTIRC_nreplycodes;
+        $this->replycodes = $SMARTIRC_replycodes;
+        $this->nreplycodes = $SMARTIRC_nreplycodes;
         
         // hack till PHP allows (PHP5) $object->somemethod($param)->memberofobject
         $this->channel = &$this->_channels;

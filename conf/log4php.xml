@@ -39,6 +39,7 @@
 	</appender>
  
 	<!-- <logger name="Foo">
+		<level value="DEBUG" />
 		<appender_ref ref="myFileAppender" />
 	</logger> -->
     
