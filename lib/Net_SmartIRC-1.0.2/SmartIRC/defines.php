@@ -87,6 +87,7 @@ define('SMARTIRC_TYPE_CTCP_REPLY',     536870912);
 //define('SMARTIRC_TYPE_DCC',            536870912);
 define('SMARTIRC_TYPE_ALL',            1073741823);
 
+global $SMARTIRC_replycodes;
 $SMARTIRC_replycodes = array(
 'RPL_WELCOME' =>              '001',
 'RPL_YOURHOST' =>             '002',
@@ -227,6 +228,7 @@ $SMARTIRC_replycodes = array(
 'ERR_USERSDONTMATCH' =>       '502',
 );
 
+global $SMARTIRC_nreplycodes;
 $SMARTIRC_nreplycodes = array();
 
 foreach ($SMARTIRC_replycodes as $key => $value) {
