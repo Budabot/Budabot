@@ -128,7 +128,7 @@ class FeatureContext extends BehatContext
 		}
 
 		// delete old DB-file if it exists
-		@unlink(ROOT_PATH . '/data/' . self::$vars['SuperAdmin']);
+		@unlink(ROOT_PATH . '/data/' . self::$vars['DB Name']);
 
 		if (strtoupper(substr(PHP_OS, 0, 3)) === 'WIN') {
 			$phpExec = realpath(ROOT_PATH . "\win32\php.exe") . " -c php-win.ini";
