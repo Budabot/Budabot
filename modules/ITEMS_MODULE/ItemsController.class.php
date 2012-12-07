@@ -34,6 +34,9 @@ class ItemsController {
 	public $chatBot;
 
 	/** @Inject */
+	public $http;
+
+	/** @Inject */
 	public $settingManager;
 
 	/** @Inject */
@@ -131,7 +134,7 @@ class ItemsController {
 		$this->logger->log('DEBUG', "Starting items db update");
 
 		// get list of files in ITEMS_MODULE
-		$data = file_get_contents("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE");
+		$data = $this->http->get("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE/")->waitAndReturnResponse()->body;
 		$data = str_replace("<hr noshade>", "", $data);  // not valid xml
 
 		try {
@@ -160,7 +163,8 @@ class ItemsController {
 			// if server version is greater than current version, download and load server version
 			if ($currentVersion === false || $this->util->compare_version_numbers($latestVersion, $currentVersion) > 0) {
 				// download server version and save to ITEMS_MODULE directory
-				$contents = file_get_contents("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE/aodb{$latestVersion}.sql");
+				$contents = $this->http->get("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE/aodb{$latestVersion}.sql")
+					->waitAndReturnResponse()->body;
 				$fh = fopen("./modules/ITEMS_MODULE/aodb{$latestVersion}.sql", 'w');
 				fwrite($fh, $contents);
 				fclose($fh);
@@ -267,9 +271,8 @@ class ItemsController {
 	}
 	
 	public function doXyphosLookup($id) {
-		$url = "http://itemxml.xyphos.com/?id={$id}";
-		$data = file_get_contents($url);
-		
+		$data = $this->http->get('http://itemxml.xyphos.com/')->withQueryParams(array('id' => $id))
+			->waitAndReturnResponse()->body;
 		if (empty($data) || '<error>' == substr($data, 0, 7)) {
 			return null;
 		}
