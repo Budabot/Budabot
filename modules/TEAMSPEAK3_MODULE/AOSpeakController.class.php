@@ -26,6 +26,9 @@ class AOSpeakController {
 	public $chatBot;
 
 	/** @Inject */
+	public $http;
+
+	/** @Inject */
 	public $text;
 
 	/** @Inject */
@@ -37,7 +40,7 @@ class AOSpeakController {
 	 */
 	public function aospeakOrgCommand($message, $channel, $sender, $sendto, $args) {
 		$url = "http://api.aospeak.com/org/" . $this->chatBot->vars['dimension'] . "/" . $this->chatBot->vars['my_guild_id'];
-		$results = file_get_contents($url);
+		$results = $this->http->get($url)->waitAndReturnResponse()->body;
 
 		if ($results == "ORG_NOT_FOUND") {
 			$msg = "Your org is not currently set up on AOSpeak. Please have your org president set up a channel first.";
@@ -80,7 +83,7 @@ class AOSpeakController {
 			$title = "AOSpeak Online";
 			$url = "http://api.aospeak.com/online/";
 		}
-		$results = file_get_contents($url);
+		$results = $this->http->get($url)->waitAndReturnResponse()->body;
 
 		$users = json_decode($results);
 		$count = count($users);
