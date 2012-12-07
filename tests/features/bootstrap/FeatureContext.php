@@ -138,7 +138,7 @@ class FeatureContext extends BehatContext
 
 		// start budabot instance
 		$process = new Process();
-		$process->setCommand("$phpExec -f test_main.php");
+		$process->setCommand("$phpExec -f tests/helpers/test_main.php");
 		
 		$path = self::$parameters['budabot_log'];
 		if (is_string($path)) {

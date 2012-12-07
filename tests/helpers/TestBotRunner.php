@@ -1,6 +1,6 @@
 <?php
 
-require_once 'BotRunner.php';
+require_once __DIR__ . '/../../core/BotRunner.php';
 
 class TestBotRunner extends BotRunner {
 
