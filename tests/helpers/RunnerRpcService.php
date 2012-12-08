@@ -27,8 +27,9 @@ class RunnerRpcService {
 			$path = substr($request->getPath(), 6);
 			$key = "$host+$path";
 			if (isset($that->resultsMap[$key])) {
-				$response->writeHead(200);
-				$response->end($that->resultsMap[$key]);
+				$responseBody = $that->resultsMap[$key];
+				$response->writeHead(200, array('Content-Length' => strlen($responseBody)));
+				$response->end($responseBody);
 				return;
 			}
 			LegacyLogger::log('ERROR', 'Tests', "Http-query '$key' not found");
