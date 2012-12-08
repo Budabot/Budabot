@@ -12,7 +12,8 @@ define('ROOT_PATH', __DIR__ . '/../../..');
 // load all composer dependencies
 require_once ROOT_PATH . '/lib/vendor/autoload.php';
 require_once ROOT_PATH . '/tests/helpers/ContextHelpers.php';
-
+require_once 'PHPUnit/Autoload.php';
+require_once 'PHPUnit/Framework/Assert/Functions.php';
 
 /**
  * Features context.
@@ -116,7 +117,55 @@ class FeatureContext extends BehatContext
 			'http://aodevnet.com/recipes/api/show/id/20/format/json/bot/budabot',
 			file_get_contents(ROOT_PATH . '/tests/testdata/recipebook/recipe_20_blood_plasma.json')
 		);
+		// empty response for usage upload
+		ContextHelpers::$runnerRpcStub->givenRequestToUriReturnsResult(
+			'http://stats.jkbff.com/submitUsage.php', ''
+		);
+	}
 
+	/**
+	 * @Given /^stats service is online$/
+	 */
+	public function statsServiceIsOnline() {
+		//throw new PendingException();
+	}
+
+	/**
+	 * @When /^"([^"]*)" event is sent to "([^"]*)" module$/
+	 */
+	public function eventIsSentToModule($type, $module) {
+		ContextHelpers::$runnerRpcStub->triggerEventInModule($module, $type);
+	}
+
+	/**
+	 * @Then /^the received stats post contains all necessary information$/
+	 */
+	public function theStatsPostContainsAllNecessaryInformation() {
+		$request = ContextHelpers::waitReceivedRequestForUri('http://stats.jkbff.com/submitUsage.php');
+		parse_str($request, $params);
+		$stats = json_decode($params['stats']);
+
+		assertObjectHasAttribute('dimension', $stats->settings);
+		assertObjectHasAttribute('is_guild_bot', $stats->settings);
+		assertObjectHasAttribute('guildsize', $stats->settings);
+		assertObjectHasAttribute('using_chat_proxy', $stats->settings);
+		assertObjectHasAttribute('symbol', $stats->settings);
+		assertObjectHasAttribute('spam_protection', $stats->settings);
+		assertObjectHasAttribute('db_type', $stats->settings);
+		assertObjectHasAttribute('bot_version', $stats->settings);
+		assertObjectHasAttribute('using_svn', $stats->settings);
+		assertObjectHasAttribute('os', $stats->settings);
+		assertObjectHasAttribute('relay_enabled', $stats->settings);
+		assertObjectHasAttribute('relay_type', $stats->settings);
+		assertObjectHasAttribute('alts_inherit_admin', $stats->settings);
+		assertObjectHasAttribute('bbin_status', $stats->settings);
+		assertObjectHasAttribute('irc_status', $stats->settings);
+		assertObjectHasAttribute('first_and_last_alt_only', $stats->settings);
+		assertObjectHasAttribute('aodb_db_version', $stats->settings);
+		assertObjectHasAttribute('guild_admin_access_level', $stats->settings);
+		assertObjectHasAttribute('guild_admin_rank', $stats->settings);
+		assertObjectHasAttribute('max_blob_size', $stats->settings);
+		assertObjectHasAttribute('logon_delay', $stats->settings);
 	}
 
 }
