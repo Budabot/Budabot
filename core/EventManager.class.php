@@ -229,49 +229,6 @@ class EventManager {
 		return null;
 	}
 
-	public function update_status($type, $module, $filename, $status) {
-		$type = strtolower($type);
-
-		if ($type == 'all' || $type == '' || $type == null) {
-			$type_sql = '';
-		} else {
-			$type_sql = "AND `type` = '$type'";
-		}
-
-		if ($filename == '' || $filename == null) {
-			$filename_sql = '';
-		} else {
-			$cmd_sql = "AND `file` = '$filename'";
-		}
-
-		if ($module == '' || $module == null) {
-			$module_sql = '';
-		} else {
-			$module_sql = "AND `module` = '$module'";
-		}
-
-		if ($status == 0) {
-			$status_sql = "`status` = 1";
-		} else {
-			$status_sql = "`status` = 0";
-		}
-
-		$data = $this->db->query("SELECT * FROM eventcfg_<myname> WHERE $status_Sql $module_sql $filename_sql $type_sql");
-		if (count($data) == 0) {
-			return 0;
-		}
-
-		forEach ($data as $row) {
-			if ($status == 1) {
-				$this->activate($row->type, $row->filename);
-			} else if ($status == 0) {
-				$this->deactivate($row->type, $row->filename);
-			}
-		}
-
-		return $this->db->exec("UPDATE eventcfg_<myname> SET status = '$status' WHERE $status_Sql $module_sql $filename_sql $type_sql");
-	}
-
 	/**
 	 * @name: loadEvents
 	 * @description: Loads the active events into memory and activates them
