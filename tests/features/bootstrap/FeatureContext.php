@@ -96,4 +96,21 @@ class FeatureContext extends BehatContext
 			'http://automation.whatismyip.com/n09230945.asp', $address
 		);
 	}
+
+	/**
+	 * @Given /^RecipeBook service is online$/
+	 */
+	public function recipebookServiceIsOnline() {
+		// test data for command '!rb blood plasma'
+		ContextHelpers::$runnerRpcStub->givenRequestToUriReturnsResult(
+			'http://aodevnet.com/recipes/api/search/kw/blood%20plasma/mode/default/format/json/bot/budabot',
+			file_get_contents(ROOT_PATH . '/tests/testdata/recipebook/search_blood_plasma.json')
+		);
+		ContextHelpers::$runnerRpcStub->givenRequestToUriReturnsResult(
+			'http://aodevnet.com/recipes/api/search/kw/non-existing%20thingy/mode/default/format/json/bot/budabot',
+			file_get_contents(ROOT_PATH . '/tests/testdata/recipebook/search_non_existing_thingy.json')
+		);
+
+	}
+
 }

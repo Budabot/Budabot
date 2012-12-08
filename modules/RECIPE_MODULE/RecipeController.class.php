@@ -45,6 +45,9 @@ class RecipeController {
 	public $db;
 
 	/** @Inject */
+	public $http;
+
+	/** @Inject */
 	public $text;
 	
 	/** @Inject */
@@ -73,26 +76,25 @@ class RecipeController {
 			
 			$url = "/search/kw/" . rawurlencode($search) . "/mode/default/format/json/bot/budabot";
 		}
-		
-		$curl = new MyCurl($this->baseUrl . $url);
-		$curl->createCurl();
-		$contents = $curl->__toString();
 
-		$obj = json_decode($contents);
-		if (!empty($obj->error)) {
-			$msg = "Error searching for recipe: " . $obj->error;
-		} else {
-			$blob = '';
-			$count = count($obj);
-			forEach ($obj as $recipe) {
-				$blob .= $this->text->make_chatcmd($recipe->recipe_name, "/tell <myname> rbshow $recipe->recipe_id") . "\n";
+		$that = $this;
+		$this->http->get($this->baseUrl . $url)->withCallback(function($response) use ($that, $search, $sendto) {
+			$obj = json_decode($response->body);
+			if (!empty($obj->error)) {
+				$msg = "Error searching for recipe: " . $obj->error;
+			} else {
+				$blob = '';
+				$count = count($obj);
+				forEach ($obj as $recipe) {
+					$blob .= $that->text->make_chatcmd($recipe->recipe_name, "/tell <myname> rbshow $recipe->recipe_id") . "\n";
+				}
+
+				$blob .= $that->getAORecipebookFooter();
+
+				$msg = $that->text->make_blob("Recipes matching '$search' ($count)", $blob);
 			}
-
-			$blob .= $this->getAORecipebookFooter();
-
-			$msg = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
-		}
-		$sendto->reply($msg);
+			$sendto->reply($msg);
+		});
 	}
 	
 	/**
@@ -124,7 +126,7 @@ class RecipeController {
 		$sendto->reply($msg);
 	}
 	
-	private function getAORecipebookFooter() {
+	public function getAORecipebookFooter() {
 		return "\n\n<header>Powered by " . $this->text->make_chatcmd("AORecipebook.com", "/start http://aorecipebook.com") . "<end>\n" .
 			"For more information, " . $this->text->make_chatcmd("/tell recipebook about", "/tell recipebook about");
 	}
