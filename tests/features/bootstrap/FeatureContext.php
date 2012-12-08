@@ -131,6 +131,16 @@ class FeatureContext extends BehatContext
 	}
 
 	/**
+	 * @Given /^my public IP address is "([^"]*)"$/
+	 */
+	public function myPublicIpAddressIs($address)
+	{
+		self::$runnerRpcStub->givenRequestToUriReturnsResult(
+			'http://automation.whatismyip.com/n09230945.asp', $address
+		);
+	}
+
+	/**
 	 * Starts Budabot instance.
 	 * Calling this more than once has no effect unless the bot is not running.
 	 */
