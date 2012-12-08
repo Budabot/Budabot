@@ -106,9 +106,15 @@ class FeatureContext extends BehatContext
 			'http://aodevnet.com/recipes/api/search/kw/blood%20plasma/mode/default/format/json/bot/budabot',
 			file_get_contents(ROOT_PATH . '/tests/testdata/recipebook/search_blood_plasma.json')
 		);
+		// test data for command '!rb non-existing thingy'
 		ContextHelpers::$runnerRpcStub->givenRequestToUriReturnsResult(
 			'http://aodevnet.com/recipes/api/search/kw/non-existing%20thingy/mode/default/format/json/bot/budabot',
 			file_get_contents(ROOT_PATH . '/tests/testdata/recipebook/search_non_existing_thingy.json')
+		);
+		// test data for command '!rbshow 20'
+		ContextHelpers::$runnerRpcStub->givenRequestToUriReturnsResult(
+			'http://aodevnet.com/recipes/api/show/id/20/format/json/bot/budabot',
+			file_get_contents(ROOT_PATH . '/tests/testdata/recipebook/recipe_20_blood_plasma.json')
 		);
 
 	}

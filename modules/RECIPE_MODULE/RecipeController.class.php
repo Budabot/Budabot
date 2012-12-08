@@ -105,25 +105,24 @@ class RecipeController {
 		$id = $args[1];
 		
 		$url = "/show/id/" . $id . "/format/json/bot/budabot";
-		$curl = new MyCurl($this->baseUrl . $url);
-		$curl->createCurl();
-		$contents = $curl->__toString();
+		$that = $this;
+		$this->http->get($this->baseUrl . $url)->withCallback(function($response) use ($that, $sendto) {
+			$obj = json_decode($response->body);
+			if (!empty($obj->error)) {
+				$msg = "Error showing recipe: " . $obj->error;
+			} else {
+				$recipe_name = $obj->recipe_name;
 
-		$obj = json_decode($contents);
-		if (!empty($obj->error)) {
-			$msg = "Error showing recipe: " . $obj->error;
-		} else {
-			$recipe_name = $obj->recipe_name;
-			
-			$recipeText = $obj->recipe_text;
-			$recipeText = str_replace("\\r\\n", "\n", $recipeText);
-			$recipeText = $this->formatRecipeText($recipeText);
-			
-			$recipeText .= $this->getAORecipebookFooter();
-			
-			$msg = $this->text->make_blob("Recipe for $recipe_name", $recipeText);
-		}
-		$sendto->reply($msg);
+				$recipeText = $obj->recipe_text;
+				$recipeText = str_replace("\\r\\n", "\n", $recipeText);
+				$recipeText = $that->formatRecipeText($recipeText);
+
+				$recipeText .= $that->getAORecipebookFooter();
+
+				$msg = $that->text->make_blob("Recipe for $recipe_name", $recipeText);
+			}
+			$sendto->reply($msg);
+		});
 	}
 	
 	public function getAORecipebookFooter() {
@@ -160,7 +159,7 @@ class RecipeController {
 		$sendto->reply($msg);
 	}
 	
-	private function formatRecipeText($input) {
+	public function formatRecipeText($input) {
 		$input = str_replace("\\n", "\n", $input);
 		$input = preg_replace_callback('/#L "([^"]+)" "([0-9]+)"/', array($this, 'replaceItem'), $input);
 		$input = preg_replace('/#L "([^"]+)" "([^"]+)"/', "<a href='chatcmd://\\2'>\\1</a>", $input);
