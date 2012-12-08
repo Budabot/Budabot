@@ -119,4 +119,15 @@ class ContextHelpers
 			file_get_contents(ROOT_PATH . '/tests/testdata/pork/adminnoob.xml')
 		);
 	}
+
+	public static function waitReceivedRequestForUri($uri) {
+		$timeout = 15; // seconds
+		for($i = 0; $i < $timeout*10; $i++) {
+			$response = self::$runnerRpcStub->takeReceivedRequestMadeToUri($uri);
+			if ($response) {
+				return $response;
+			}
+			usleep(100000); // 0.1 seconds
+		}
+	}
 }
