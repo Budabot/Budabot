@@ -1,8 +1,13 @@
 <?php
 
+require_once __DIR__ . '/../../lib/vendor/autoload.php';
 require_once __DIR__ . '/../../core/BotRunner.php';
+require_once __DIR__ . '/../../lib/TestAOChatServer/JSONRPCServer.php';
+require_once 'RunnerRpcService.php';
 
 class TestBotRunner extends BotRunner {
+
+	private $rpcService;
 
 	protected function getConfigVars() {
 		$json = file_get_contents('./tests/BehatBotConfig.json');
@@ -17,9 +22,18 @@ class TestBotRunner extends BotRunner {
 	}
 
 	protected function startBot() {
+		$this->startRpcServer();
 		$this->sendHttpRequestsToHttpApi();
 		$this->disableAoChatFloodLimiting();
+
 		parent::startBot();
+	}
+
+	private function startRpcServer() {
+		$vars = $this->getConfigVars();
+		$this->rpcService = new RunnerRpcService();
+		Registry::injectDependencies($this->rpcService);
+		$this->rpcService->start($vars['testbotrunner_rpc_port']);
 	}
 
 	private function sendHttpRequestsToHttpApi() {
@@ -28,19 +42,6 @@ class TestBotRunner extends BotRunner {
 		HttpRequest::$overridePathPrefix = '/tests';
 
 		Registry::getInstance('setting')->httpapi_enabled = 1;
-
-		$this->servePorkTestdata();
-
-	}
-
-	private function servePorkTestdata() {
-		Registry::getInstance('httpapi')->registerHandler("|^/tests/character/bio/d/./name/(.+)/bio[.]xml$|", function ($request, $response) {
-			if (preg_match("|^/tests/character/bio/d/./name/(.+)/bio[.]xml$|", $request->getPath(), $matches)) {
-				$charName = $matches[1];
-				$response->writeHead(200);
-				$response->end(file_get_contents("./tests/testdata/pork/$charName.xml"));
-			}
-		});
 	}
 
 	private function disableAoChatFloodLimiting() {

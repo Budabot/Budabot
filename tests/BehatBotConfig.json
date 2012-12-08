@@ -10,6 +10,7 @@
 	"DB Host": "./data/",
 	"override_chat_server_host": "127.0.0.1",
 	"override_chat_server_port": 7000,
+	"testbotrunner_rpc_port": 8001,
 	"disable_flood_limiting": 1,
 	"show_aoml_markup": 0,
 	"cachefolder": "./cache/",

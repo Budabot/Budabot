@@ -35,6 +35,7 @@ class LegacyLogger {
 require_once ROOT_PATH . '/lib/vendor/autoload.php';
 require_once ROOT_PATH . '/lib/Process.class.php';
 require_once ROOT_PATH . '/lib/TestAOChatServer/AOChatServerStub.php';
+require_once ROOT_PATH . '/tests/helpers/RpcServerStub.php';
 
 /**
  * Features context.
@@ -43,6 +44,7 @@ class FeatureContext extends BehatContext
 {
 	private static $chatServer = null;
 	private static $botProcess = null;
+	private static $runnerRpcStub = null;
 	private static $parameters = array();
 	private static $enabledModules = array();
 	private static $vars = array();
@@ -72,6 +74,16 @@ class FeatureContext extends BehatContext
 
 		self::startAOChatServer();
 		self::startBudabot();
+
+		self::$runnerRpcStub = new RpcServerStub();
+		self::$runnerRpcStub->startServer(self::$vars['testbotrunner_rpc_port']);
+
+		self::$runnerRpcStub->givenRequestToUriReturnsResult(
+			'http://people.anarchy-online.com/character/bio/d/1/name/adminnoob/bio.xml',
+			file_get_contents(ROOT_PATH . '/tests/testdata/pork/adminnoob.xml')
+		);
+
+		self::waitForBudabotBeReady();
 	}
 
 	/**
@@ -167,7 +179,9 @@ class FeatureContext extends BehatContext
 		});
 
 		self::$botProcess = $process;
+	}
 
+	private static function waitForBudabotBeReady() {
 		// wait for the bot instance to be ready
 		self::$chatServer->waitPrivateMessage(MESSAGE_TIMEOUT,
 			"Logon Complete :: All systems ready to use.");
