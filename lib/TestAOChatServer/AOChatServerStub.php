@@ -31,11 +31,11 @@ class AOChatServerStub {
 		}
 
 		// wait until the aochat server's json-rpc interface is accessible
-		$timeout = time() + 10;
+		$timeout = time() + 300;
 		do {
 			$socket = @fsockopen('127.0.0.1', $rpcPort, $errno, $errstr, 1);
 			if (time() > $timeout) {
-				throw new Exception('Failed to connect to aochat server\'s rpc-port!');
+				throw new Exception("Failed to connect to aochat server's rpc-port ($rpcPort): $errstr ($errno)!");
 			}
 		} while($socket === false);
 		fclose($socket);
