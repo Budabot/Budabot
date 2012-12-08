@@ -110,7 +110,9 @@ class AsyncHttp {
 
 	private function finish() {
 		$this->finished = true;
-		$this->timeoutEvent->abort();
+		if ($this->timeoutEvent) {
+			$this->timeoutEvent->abort();
+		}
 		$this->close();
 		$this->callCallback();
 		if ($this->loop) {
