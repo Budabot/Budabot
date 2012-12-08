@@ -26,6 +26,9 @@ class UsageController {
 	public $db;
 
 	/** @Inject */
+	public $http;
+
+	/** @Inject */
 	public $settingManager;
 
 	/** @Inject */
@@ -172,13 +175,8 @@ class UsageController {
 
 		$postArray['stats'] = json_encode($this->getUsageInfo($lastSubmittedStats, $debug));
 
-		$url = 'stats.jkbff.com/submitUsage.php';
-		$mycurl = new MyCurl($url);
-		$mycurl->setPost($postArray);
-		$mycurl->createCurl();
-		if ($debug) {
-			echo $mycurl->__toString() . "\n";
-		}
+		$url = 'http://stats.jkbff.com/submitUsage.php';
+		$this->http->post($url)->withQueryParams($postArray);
 
 		$this->settingManager->save($settingName, $time);
 	}
