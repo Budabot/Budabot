@@ -4,6 +4,8 @@ require __DIR__ . '/../vendor/autoload.php';
 require_once 'AOChatServer.php';
 require_once 'JSONRPCServer.php';
 
+const MESSAGE_TIMEOUT = 30;
+
 class ServerController implements IAOChatModel {
 
 	public $privateMessages = array();
@@ -47,9 +49,9 @@ class ServerController implements IAOChatModel {
 	 * Throws an exception if the given timeout occurs (in seconds).
 	 * Called by the test runner via JSON-RPC call.
 	 */
-	public function waitPrivateMessage($timeout, $value) {
+	public function waitPrivateMessage($value) {
 		$that = $this;
-		$result = $this->blockUntil($timeout, function() use ($that, $value) {
+		$result = $this->blockUntil(MESSAGE_TIMEOUT, function() use ($that, $value) {
 			forEach($that->privateMessages as $message) {
 				if (stripos($message, $value) !== false) {
 					return true;
@@ -90,9 +92,9 @@ class ServerController implements IAOChatModel {
 	 * Throws an exception if $timeout occurs.
 	 * Called by the test runner via JSON-RPC call.
 	 */
-	public function waitForTellMessageWithPhrases($timeout, $phrases) {
+	public function waitForTellMessageWithPhrases($phrases) {
 		$that = $this;
-		$result = $this->blockUntil($timeout, function() use ($that, &$phrases) {
+		$result = $this->blockUntil(MESSAGE_TIMEOUT, function() use ($that, &$phrases) {
 			forEach($phrases as $phrase) {
 				forEach($that->tellMessages as $message) {
 					if (stripos($message, $phrase) !== false) {
