@@ -24,7 +24,7 @@ class RunnerRpcService {
 
 	public function givenRequestToUriReturnsResult($uri, $result) {
 		$parts = parse_url($uri);
-		$key = $this->buildKey($parts[host], $parts[path]);
+		$key = $this->buildKey($parts['host'], $parts['path']);
 		$this->resultsMap[$key] = $result;
 
 		$that = $this;
