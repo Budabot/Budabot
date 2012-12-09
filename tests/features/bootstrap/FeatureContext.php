@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(E_ALL);
+
 use Behat\Behat\Context\ClosuredContextInterface,
 	Behat\Behat\Context\TranslatedContextInterface,
 	Behat\Behat\Context\BehatContext,

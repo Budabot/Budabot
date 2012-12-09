@@ -17,9 +17,9 @@ verbose:
 ci:
     context:
         parameters:
-            budabot_log:      '%behat.paths.base%/../logs/test_budabot.log'
-            aochatserver_log: '%behat.paths.base%/../logs/test_aochatserver.log'
+            budabot_log:      true
+            aochatserver_log: true
     formatter:
-        name:        html
+        name:        pretty,html
         parameters:
-            output_path: '%behat.paths.base%/../logs/test_behat.html'
+            output_path: ,../logs/test_behat.html

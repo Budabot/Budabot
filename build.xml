@@ -149,6 +149,7 @@
 			<equals arg1="${behat.profile}" arg2="ci"/>
 			<then>
 				<mkdir dir="logs" />
+				<delete file="logs/test_behat.html" quiet="true" />
 			</then>
 		</if>
 		<!-- run test suite -->
