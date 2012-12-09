@@ -54,6 +54,18 @@
  *		description = "Test the bot commands", 
  *		help        = 'test.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'intransaction', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'rollbacktransaction', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
  */
 class TestController extends AutoInject {
 
@@ -96,7 +108,7 @@ class TestController extends AutoInject {
 	 */
 	public function testAllCommand($message, $channel, $sender, $sendto, $args) {
 		$type = "msg";
-		if ($this->settingManager->get('show_test_results') == 1) {
+		if ($this->setting->show_test_results == 1) {
 			$mockSendto = $sendto;
 		} else {
 			$mockSendto = new MockCommandReply();
@@ -121,7 +133,7 @@ class TestController extends AutoInject {
 		$file = $args[1] . ".txt";
 		
 		$type = "msg";
-		if ($this->settingManager->get('show_test_results') == 1) {
+		if ($this->setting->show_test_results == 1) {
 			$mockSendto = $sendto;
 		} else {
 			$mockSendto = new MockCommandReply();
@@ -142,7 +154,7 @@ class TestController extends AutoInject {
 	public function runTests($commands, $sender, $type, $sendto) {
 		forEach ($commands as $line) {
 			if ($line[0] == "!") {
-				if ($this->settingManager->get('show_test_commands') == 1) {
+				if ($this->setting->show_test_commands == 1) {
 					$this->chatBot->sendTell($line, $sender);
 				}
 				$line = substr($line, 1);
@@ -313,6 +325,30 @@ class TestController extends AutoInject {
 		$event = $args[1];
 		
 		$this->eventManager->callEventHandler(null, $event);
+	}
+	
+	/**
+	 * @HandlesCommand("intransaction")
+	 * @Matches("/^intransaction$/i")
+	 */
+	public function intransactionCommand($message, $channel, $sender, $sendto, $args) {
+		if ($this->db->in_transaction()) {
+			$msg = "There is an active transaction.";
+		} else {
+			$msg = "There is no active transaction.";
+		}
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("rollbacktransaction")
+	 * @Matches("/^rollbacktransaction$/i")
+	 */
+	public function rollbacktransactionCommand($message, $channel, $sender, $sendto, $args) {
+		$this->db->rollback();
+		
+		$msg = "The active transaction has been rolled back.";
+		$sendto->reply($msg);
 	}
 }
 
