@@ -50,7 +50,7 @@ class DojaController {
 		$msg .= $this->text->make_item("284958","284958","1","Penumbra")."\n";
 		$msg .= $this->text->make_item("284958","284958","1",$this->text->make_image("293712"))."\n";
 		$msg .= "Level Range: <highlight>161-204<end>\n";
-		$msg .= "Looted from: ".$this->text->make_chatcmd("Icy Predators", "/waypoint 2125.7 873.4 4321").", ".$this->text->make_chatcmd("Vortexoids", "/waypoint 2307.2 1767.8, 4321").", ".$this->text->make_chatcmd("Demons of Water", "/waypoint 1544.5 1750.4 4320")." and ".$this->text->make_chatcmd("Frosty Rafters", "/waypoint 2454.7 1718.3 4321")."\n\n";
+		$msg .= "Looted from: ".$this->text->make_chatcmd("Icy Predators", "/waypoint 2125.7 873.4 4321").", ".$this->text->make_chatcmd("Vortexoids", "/waypoint 2307.2 1767.8, 4321").", ".$this->text->make_chatcmd("Demons of Water", "/waypoint 1544.5 1750.4 4320").", ".$this->text->make_chatcmd("Icy Shadows", "/waypoint 2435 880 4321")." and ".$this->text->make_chatcmd("Frosty Rafters", "/waypoint 2454.7 1718.3 4321")."\n\n";
 		$msg .= $this->text->make_item("284959","284959","1","Inferno")."\n";
 		$msg .= $this->text->make_item("284959","284959","1",$this->text->make_image("293711"))."\n";
 		$msg .= "Level Range: <highlight>205-220<end>\n";
@@ -91,7 +91,7 @@ class DojaController {
 		} else if ($arr[1] >=131 && $arr[1] <= 160) {
 			$msg = "At level ".$arr[1]." you need to loot ".$this->text->make_item("284957","284957","1","DOJA Chip Adonis")." (131-160) from Creepos, Somphos and Stingers";
 		} else if ($arr[1] >=161 && $arr[1] <= 204) {
-			$msg = "At level ".$arr[1]." you need to loot ".$this->text->make_item("284958","284958","1","DOJA Chip Penumbra")." (161-204) from Icy Predators, Vortexoids, Demons of Water and Frosty Rafters";
+			$msg = "At level ".$arr[1]." you need to loot ".$this->text->make_item("284958","284958","1","DOJA Chip Penumbra")." (161-204) from Icy Predators, Vortexoids, Demons of Water, Icy Shadows and Frosty Rafters";
 		} else if ($arr[1] >=205 && $arr[1] <= 220) {
 			$msg = "At level ".$arr[1]." you need to loot ".$this->text->make_item("284959","284959","1","DOJA Chip Inferno")." (205-220) from Demons of Shadow, Fiery Chimeras and Somphos Logees";
 		} else {
