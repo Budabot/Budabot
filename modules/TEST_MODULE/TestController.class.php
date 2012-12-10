@@ -66,6 +66,12 @@
  *		description = "Test the bot commands", 
  *		help        = 'test.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'stacktrace', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
  */
 class TestController extends AutoInject {
 
@@ -348,6 +354,15 @@ class TestController extends AutoInject {
 		$this->db->rollback();
 		
 		$msg = "The active transaction has been rolled back.";
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("stacktrace")
+	 * @Matches("/^stacktrace$/i")
+	 */
+	public function stacktraceCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->text->make_blob("Current Stacktrace", $this->util->getStackTrace());
 		$sendto->reply($msg);
 	}
 }
