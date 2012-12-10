@@ -112,6 +112,7 @@ class AsyncHttp {
 		$this->finished = true;
 		if ($this->timeoutEvent) {
 			$this->timeoutEvent->abort();
+			$this->timeoutEvent = null;
 		}
 		$this->close();
 		$this->callCallback();
