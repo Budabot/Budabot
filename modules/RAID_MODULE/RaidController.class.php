@@ -221,7 +221,7 @@ class RaidController {
 				$key = 1;
 			}
 			
-			$item = $this->loot[$key];
+			$item = new stdClass;
 			
 			$item->name = $item_name;
 			$item->icon = $looticon;
@@ -233,6 +233,7 @@ class RaidController {
 			} else {
 				$item->display = $item_name;
 			}
+			$this->loot[$key] = $item;
 		}
 
 		$msg = "<highlight>{$item->name}<end> (x$item->multiloot) will be rolled in Slot <highlight>#$key<end>.";
