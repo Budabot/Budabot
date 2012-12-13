@@ -19,6 +19,7 @@
  *		accessLevel   = 'all',
  *		description   = 'Basic info about Budabot',
  *		help          = 'about.txt',
+ *		alias         = 'version',
  *		defaultStatus = '1'
  *	)
  */
