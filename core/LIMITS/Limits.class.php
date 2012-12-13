@@ -41,7 +41,7 @@ class Limits {
 		$this->settingManager->add($this->moduleName, "tell_req_faction", "Faction required to send tell to bot", "edit", "options", "all", "all;Omni;Neutral;Clan;not Omni;not Neutral;not Clan");
 		$this->settingManager->add($this->moduleName, "tell_req_open", "General requirements to send tell to bot", "edit", "options", "all", "all;member;guild;rl;mod");
 		$this->settingManager->add($this->moduleName, "tell_min_player_age", "Minimum age of player to send tell to bot", "edit", "time", "1s", "1s;7days;14days;1month;2months;6months;1year;2years", '', 'mod', 'limits.txt');
-		$this->settingManager->add($this->moduleName, "tell_generic_error_msg", "Show generic (not specific) messages when limit requirements are not met", "edit", "options", "0", "enable;disable", "1;0");
+		$this->settingManager->add($this->moduleName, "tell_error_msg_type", "How to show error messages when limit requirements are not met", "edit", "options", "2", "Specific;Generic;None", "2;1;0");
 	}
 	
 	public function check($sender, $message) {
@@ -58,10 +58,12 @@ class Limits {
 		if ($msg === true) {
 			return true;
 		} else {
-			if ($this->settingManager->get('tell_generic_error_msg') == 1) {
+			if ($this->settingManager->get('tell_error_msg_type') == 2) {
+				$this->chatBot->sendTell($msg, $sender);
+			} else if ($this->settingManager->get('tell_error_msg_type') == 1) {
 				$msg = "Error! You do not have access to this bot.";
-			}
-			$this->chatBot->sendTell($msg, $sender);
+				$this->chatBot->sendTell($msg, $sender);
+			} // else do not send a message
 			return false;
 		}
 	}
