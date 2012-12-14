@@ -1,9 +1,10 @@
 <?php
 
-require_once 'Alts.interface.php';
-
 /**
- * @Instance("Alts")
+ * Authors: 
+ *  - Tyrence (RK2)
+ *
+ * @Instance
  *
  * Commands this controller contains:
  *	@DefineCommand(
@@ -30,7 +31,7 @@ require_once 'Alts.interface.php';
  *		help          = 'altvalidate.txt'
  *	)
  */
-class AltsController implements AltsInterface {
+class AltsController {
 
 	/**
 	 * Name of the module.

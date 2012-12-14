@@ -59,7 +59,7 @@ class EventsController {
 	public $util;
 	
 	/** @Inject */
-	public $alts;
+	public $altsController;
 	
 	private $apisocket = null;
 
@@ -158,7 +158,7 @@ class EventsController {
 						$info = " <white>Lvl $row->level $row->profession<end>\n";
 					}
 
-					$altInfo = $this->alts->get_alt_info($name);
+					$altInfo = $this->altsController->get_alt_info($name);
 					$alt = '';
 					if (count($altInfo->alts) > 0) {
 						if ($altInfo->main == $name) {

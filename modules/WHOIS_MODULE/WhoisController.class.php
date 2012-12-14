@@ -53,7 +53,7 @@ class WhoisController {
 	public $util;
 	
 	/** @Inject */
-	public $alts;
+	public $altsController;
 	
 	/** @Inject */
 	public $playerManager;
@@ -237,7 +237,7 @@ class WhoisController {
 
 				$msg = $this->playerManager->get_info($whois) . " :: " . $this->text->make_blob("More Info", $blob, "Detailed Info for {$name}");
 
-				$altInfo = $this->alts->get_alt_info($name);
+				$altInfo = $this->altsController->get_alt_info($name);
 				if (count($altInfo->alts) > 0) {
 					$msg .= " :: " . $altInfo->get_alts_blob(false, true);
 				}

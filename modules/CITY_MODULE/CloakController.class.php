@@ -39,7 +39,7 @@ class CloakController {
 	public $util;
 	
 	/** @Inject */
-	public $alts;
+	public $altsController;
 	
 	/**
 	 * @Setup
@@ -167,7 +167,7 @@ class CloakController {
 
 				if ($msg) {
 					// send message to all online alts
-					$altInfo = $this->alts->get_alt_info($row->player);
+					$altInfo = $this->altsController->get_alt_info($row->player);
 					forEach ($altInfo->get_online_alts() as $name) {
 						$this->chatBot->sendTell($msg, $name);
 					}

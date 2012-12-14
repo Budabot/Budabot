@@ -39,7 +39,7 @@ class OnlineController {
 	public $buddylistManager;
 	
 	/** @Inject */
-	public $alts;
+	public $altsController;
 
 	/** @Inject */
 	public $text;
@@ -499,7 +499,7 @@ class OnlineController {
 	}
 
 	public function get_alt_char_info($name, $fancyColon) {
-		$altinfo = $this->alts->get_alt_info($name);
+		$altinfo = $this->altsController->get_alt_info($name);
 
 		if (count($altinfo->alts) > 0) {
 			$altsLink = $this->text->make_chatcmd(($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}"), "/tell <myname> alts {$name}");

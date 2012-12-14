@@ -43,7 +43,7 @@ class RelayController {
 	public $util;
 	
 	/** @Inject */
-	public $alts;
+	public $altsController;
 	
 	/** @Inject */
 	public $preferences;
@@ -208,7 +208,7 @@ class RelayController {
 
 				$msg .= " logged on.";
 
-				$altInfo = $this->alts->get_alt_info($sender);
+				$altInfo = $this->altsController->get_alt_info($sender);
 				if (count($altInfo->alts) > 0) {
 					$msg .= " " . $altInfo->get_alts_blob(false, true);
 				}
@@ -242,7 +242,7 @@ class RelayController {
 		$sender = $eventObj->sender;
 		if ($this->settingManager->get('relaybot') != 'Off') {
 			$whois = $this->playerManager->get_by_name($sender);
-			$altInfo = $this->alts->get_alt_info($sender);
+			$altInfo = $this->altsController->get_alt_info($sender);
 
 			if ($whois !== null) {
 				if (count($altInfo->alts) > 0) {

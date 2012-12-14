@@ -102,7 +102,7 @@ class GuildController {
 	public $util;
 	
 	/** @Inject */
-	public $alts;
+	public $altsController;
 	
 	/** @Inject */
 	public $preferences;
@@ -279,7 +279,7 @@ class GuildController {
 		if (!$uid) {
 			$msg = "player <highlight>$name<end> does not exist.";
 		} else {
-			$altInfo = $this->alts->get_alt_info($name);
+			$altInfo = $this->altsController->get_alt_info($name);
 			$onlineAlts = $altInfo->get_online_alts();
 			if (count($onlineAlts) > 0) {
 				$msg = "This player is currently <green>online<end> as " . implode(', ', $onlineAlts) . ".";
@@ -684,7 +684,7 @@ class GuildController {
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			if ($this->settingManager->get('first_and_last_alt_only') == 1) {
 				// if at least one alt/main is still online, don't show logoff message
-				$altInfo = $this->alts->get_alt_info($sender);
+				$altInfo = $this->altsController->get_alt_info($sender);
 				if (count($altInfo->get_online_alts()) > 1) {
 					return;
 				}
@@ -700,7 +700,7 @@ class GuildController {
 
 				$msg .= " logged on.";
 
-				$altInfo = $this->alts->get_alt_info($sender);
+				$altInfo = $this->altsController->get_alt_info($sender);
 				if (count($altInfo->alts) > 0) {
 					$msg .= " " . $altInfo->get_alts_blob(false, true);
 				}
@@ -729,7 +729,7 @@ class GuildController {
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			if ($this->settingManager->get('first_and_last_alt_only') == 1) {
 				// if at least one alt/main is already online, don't show logoff message
-				$altInfo = $this->alts->get_alt_info($sender);
+				$altInfo = $this->altsController->get_alt_info($sender);
 				if (count($altInfo->get_online_alts()) > 0) {
 					return;
 				}

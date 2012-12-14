@@ -121,7 +121,7 @@ class PrivateChannelController {
 	public $util;
 	
 	/** @Inject */
-	public $alts;
+	public $altsController;
 	
 	/** @Inject */
 	public $accessManager;
@@ -650,7 +650,7 @@ class PrivateChannelController {
 		$sender = $eventObj->sender;
 		$whois = $this->playerManager->get_by_name($sender);
 
-		$altInfo = $this->alts->get_alt_info($sender);
+		$altInfo = $this->altsController->get_alt_info($sender);
 
 		if ($whois !== null) {
 			if (count($altInfo->alts) > 0) {

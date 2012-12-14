@@ -54,7 +54,7 @@ class IRCController {
 	public $text;
 	
 	/** @Inject */
-	public $alts;
+	public $altsController;
 
 	/** @Inject */
 	public $commandManager;
@@ -500,7 +500,7 @@ class IRCController {
 			if (isset($this->chatBot->guildmembers[$eventObj->sender])) {
 				if ($this->setting->first_and_last_alt_only == 1) {
 					// if at least one alt/main is still online, don't show logoff message
-					$altInfo = $this->alts->get_alt_info($eventObj->sender);
+					$altInfo = $this->altsController->get_alt_info($eventObj->sender);
 					if (count($altInfo->get_online_alts()) > 1) {
 						return;
 					}
@@ -532,7 +532,7 @@ class IRCController {
 			if (isset($this->chatBot->guildmembers[$eventObj->sender])) {
 				if ($this->setting->first_and_last_alt_only == 1) {
 					// if at least one alt/main is already online, don't show logon message
-					$altInfo = $this->alts->get_alt_info($eventObj->sender);
+					$altInfo = $this->altsController->get_alt_info($eventObj->sender);
 					if (count($altInfo->get_online_alts()) > 0) {
 						return;
 					}
@@ -584,7 +584,7 @@ class IRCController {
 		}
 
 		// Alternative Characters Part
-		$altInfo = $this->alts->get_alt_info($sender);
+		$altInfo = $this->altsController->get_alt_info($sender);
 		if ($altInfo->main != $sender) {
 			$msg .= " Alt of {$altInfo->main}";
 		}
