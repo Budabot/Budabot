@@ -219,22 +219,7 @@ class PrivateChannelController {
 	 * @Matches("/^adduser (.+)$/i")
 	 */
 	public function adduserCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$uid = $this->chatBot->get_uid($name);
-		if (!$uid) {
-			$msg = "Character <highlight>$name<end> does not exist.";
-		} else {
-			$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);
-			if (count($data) != 0) {
-				$msg = "<highlight>$name<end> is already a member of this bot.";
-			} else {
-				$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $name, '1');
-				$msg = "<highlight>$name<end> has been added as a member of this bot.";
-			}
-
-			// always add in case
-			$this->buddylistManager->add($name, 'member');
-		}
+		$msg = $this->addUser($args[1]);
 
 		$sendto->reply($msg);
 	}
@@ -244,20 +229,7 @@ class PrivateChannelController {
 	 * @Matches("/^remuser (.+)$/i")
 	 */
 	public function remuserCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$uid = $this->chatBot->get_uid($name);
-		if (!$uid) {
-			$msg = "Character <highlight>{$name}<end> does not exist.";
-		} else {
-			$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);
-			if (count($data) == 0) {
-				$msg = "<highlight>$name<end> is not a member of this bot.";
-			} else {
-				$this->db->exec("DELETE FROM members_<myname> WHERE `name` = ?", $name);
-				$msg = "<highlight>$name<end> has been removed as a member of this bot.";
-				$this->buddylistManager->remove($name, 'member');
-			}
-		}
+		$msg = $this->removeUser($args[1]);
 
 		$sendto->reply($msg);
 	}
@@ -760,6 +732,44 @@ class PrivateChannelController {
 			$msg = $this->getChatlist();
 			$this->chatBot->sendTell($msg, $eventObj->sender);
 		}
+	}
+	
+	public function addUser($name) {
+		$name = ucfirst(strtolower($name));
+		$uid = $this->chatBot->get_uid($name);
+		if (!$uid) {
+			$msg = "Character <highlight>$name<end> does not exist.";
+		} else {
+			$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);
+			if (count($data) != 0) {
+				$msg = "<highlight>$name<end> is already a member of this bot.";
+			} else {
+				$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $name, '1');
+				$msg = "<highlight>$name<end> has been added as a member of this bot.";
+			}
+
+			// always add in case they were removed from the buddy list for some reason
+			$this->buddylistManager->add($name, 'member');
+		}
+		return $msg;
+	}
+	
+	public function removeUser($name) {
+		$name = ucfirst(strtolower($name));
+		$uid = $this->chatBot->get_uid($name);
+		if (!$uid) {
+			$msg = "Character <highlight>{$name}<end> does not exist.";
+		} else {
+			$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);
+			if (count($data) == 0) {
+				$msg = "<highlight>$name<end> is not a member of this bot.";
+			} else {
+				$this->db->exec("DELETE FROM members_<myname> WHERE `name` = ?", $name);
+				$msg = "<highlight>$name<end> has been removed as a member of this bot.";
+				$this->buddylistManager->remove($name, 'member');
+			}
+		}
+		return $msg;
 	}
 }
 
