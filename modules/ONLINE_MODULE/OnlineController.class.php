@@ -281,7 +281,12 @@ class OnlineController {
 			} else if ('guild' == $type) {
 				$this->chatBot->sendGuild($msg);
 			}
-			throw new StopExecutionException();
+			
+			// if 'afk' was used as a command, throw StopExecutionException to prevent
+			// normal command handling to occur
+			if ($message[0] == $this->settingManager->get('symbol')) {
+				throw new StopExecutionException();
+			}
 		}
 	}
 	
