@@ -34,8 +34,7 @@ class BotRunner {
 		global $vars;
 		$vars = $this->getConfigVars();
 
-		$this->setErrorLevel();
-		$this->setErrorLogFile();
+		$this->setErrorHandling();
 
 		$this->loadPhpLibraries();
 		$this->loadEssentialCoreClasses();
@@ -110,12 +109,10 @@ Contacts:      Tyrence, Marebone
 		return $vars;
 	}
 
-	private function setErrorLevel() {
+	private function setErrorHandling() {
 		error_reporting(E_ALL & ~E_STRICT & ~E_WARNING & ~E_NOTICE);
-	}
-
-	private function setErrorLogFile() {
 		ini_set("log_errors", 1);
+		ini_set('display_errors', 1);
 		ini_set("error_log", "./logs/" . $this->getLogFolderName() . "/php_errors.log");
 	}
 
