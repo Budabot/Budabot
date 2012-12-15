@@ -129,31 +129,38 @@ class RaidController {
 		$id = $args[1];
 
 		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE id = ?";
-		$item = $this->db->queryRow($sql, $id);
+		$row = $this->db->queryRow($sql, $id);
 
-		if ($item === null) {
+		if ($row === null) {
 			$msg = "Could not find item with id <highlight>$id<end> to add.";
 			$sendto->reply($msg);
 			return;
 		}
-		
-		$key = $this->getLootItem($item->name);
+
+		$key = $this->getLootItem($row->name);
 		if ($key !== null) {
 			$item = $this->loot[$key];
-			$item->multiloot += $multiloot;
+			$item->multiloot += $row->multiloot;
 		} else {
 			if (!empty($this->loot)) {
 				$key = count($this->loot) + 1;
 			} else {
 				$key = 1;
 			}
-			$this->loot[$key]->name = $item->name;
-			$this->loot[$key]->display = $this->text->make_item($item->lowid, $item->highid, $item->ql, $item->name);
-			$this->loot[$key]->icon = $item->icon;
-			$this->loot[$key]->multiloot = 1;
+			
+			$item = new stdClass;
+			
+			$item->name = $row->name;
+			$item->icon = $row->icon;
+			$item->added_by = $sender;
+			$item->display = $this->text->make_item($row->lowid, $row->highid, $row->ql, $row->name);
+			$item->multiloot = $row->multiloot;
+			$item->users = array();
+			
+			$this->loot[$key] = $item;
 		}
 		$msg = "<highlight>{$item->name}<end> (x$item->multiloot) will be rolled in Slot <highlight>#$key<end>.";
-		$msg .= "\nTo add use <symbol>add $key, or <symbol>rem to remove yourself.";
+		$msg .= " To add use <symbol>add $key, or <symbol>rem to remove yourself.";
 		$this->chatBot->sendPrivate($msg);
 	}
 
@@ -227,7 +234,8 @@ class RaidController {
 			$item->icon = $looticon;
 			$item->added_by = $sender;
 			$item->multiloot = $multiloot;
-		
+			$item->users = array();
+
 			if (isset($item_highid)) {
 				$item->display = $this->text->make_item($item_lowid, $item_highid, $item_ql, $item_name);
 			} else {
@@ -237,7 +245,7 @@ class RaidController {
 		}
 
 		$msg = "<highlight>{$item->name}<end> (x$item->multiloot) will be rolled in Slot <highlight>#$key<end>.";
-		$msg .= "\nTo add use <symbol>add $key, or <symbol>rem to remove yourself.";
+		$msg .= " To add use <symbol>add $key, or <symbol>rem to remove yourself.";
 		$this->chatBot->sendPrivate($msg);
 	}
 	
@@ -486,6 +494,7 @@ class RaidController {
 			} else {
 				$row->display = $item . " ($row->comment)";
 			}
+			$row->users = array();
 			$this->loot[$count] = $row;
 			$count++;
 		}
