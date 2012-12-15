@@ -1,0 +1,11 @@
+To update the bot from Git:
+<highlight><tab><symbol>git pull<end>
+
+To see the difference between origin and your current repository:
+<highlight><tab><symbol>git diff<end>
+
+To the most the recent commits:
+<highlight><tab><symbol>git log<end>
+
+To see Git status on changed/added/deleted files:
+<highlight><tab><symbol>git status<end>
