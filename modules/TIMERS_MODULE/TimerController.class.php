@@ -17,7 +17,8 @@
  *		command     = 'timers',
  *		accessLevel = 'guild',
  *		description = 'Sets and shows timers',
- *		help        = 'timers.txt'
+ *		help        = 'timers.txt',
+ *		alias       = 'timer'
  *	)
  */
 class TimerController {
