@@ -11,3 +11,5 @@ Critical Close Area Examiner-matching failed due to different icons
 Martial Arts Item-in delete list but still appearing
 Called Shot-in delete list but still appearing
 nano can-show these be included?
+
+Cell Templates
