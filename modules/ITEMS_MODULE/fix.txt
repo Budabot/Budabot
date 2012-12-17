@@ -1,2 +1,13 @@
 duplicate Kyr'Ozch Video Processing Unit
 duplicate Kyr'Ozch Helmet
+
+more nano can
+Armour Test%
+Monster Invulnerability Item
+
+UPPER(name) LIKE UPPER('% - Nano Can')  // remove?
+
+Critical Close Area Examiner-matching failed due to different icons
+Martial Arts Item-in delete list but still appearing
+Called Shot-in delete list but still appearing
+nano can-show these be included?
