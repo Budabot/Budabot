@@ -74,8 +74,7 @@ class ProfileController {
 				$name = ucfirst(strtolower($profile));
 				$viewLink = $this->text->make_chatcmd("View", "/tell <myname> profile view $profile");
 				$loadLink = $this->text->make_chatcmd("Load", "/tell <myname> profile load $profile");
-				$remLink = $this->text->make_chatcmd("Remove", "/tell <myname> profile rem $profile");
-				$linkContents .= "$profile [$viewLink] [$loadLink] [$remLink]\n";
+				$linkContents .= "$profile [$viewLink] [$loadLink]\n";
 			}
 
 			if ($linkContents) {
