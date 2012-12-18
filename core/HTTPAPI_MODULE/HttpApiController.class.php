@@ -85,13 +85,14 @@ class HttpApiController {
 			$session->response = $response;
 			$session->body     = '';
 
-			$request->on('data', function ($bodyBuffer) use ($that, $session) {
+			$request->on('data', function ($bodyBuffer) use ($that, &$session) {
 				$session->body .= $bodyBuffer;
 				if (!$that->isRequestBodyFullyReceived($session)) {
 					return;
 				}
 				$handler = $that->findHandlerForRequest($session);
 				$that->handleRequest($handler, $session);
+				$session = null;
 			});
 		});
 
