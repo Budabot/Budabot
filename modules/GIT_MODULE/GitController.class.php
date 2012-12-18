@@ -39,10 +39,10 @@ class GitController extends AutoInject {
 		$command = "$gitpath fetch origin 2>&1";
 		$this->executeCommand($command);
 		
-		$command = "$gitpath diff HEAD...origin/master 2>&1";
+		$command = "$gitpath diff HEAD ...origin 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("svn status $param output", $blob);
+		$msg = $this->text->make_blob("git diff", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -55,7 +55,7 @@ class GitController extends AutoInject {
 		$command = "$gitpath pull 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("svn status $param output", $blob);
+		$msg = $this->text->make_blob("git pull", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -65,10 +65,10 @@ class GitController extends AutoInject {
 	 */
 	public function gitLogCommand($message, $channel, $sender, $sendto, $args) {
 		$gitpath = $this->settingManager->get('gitpath');
-		$command = "$gitpath log 2>&1";
+		$command = "$gitpath log -n 20 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("svn status $param output", $blob);
+		$msg = $this->text->make_blob("git log", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -81,7 +81,7 @@ class GitController extends AutoInject {
 		$command = "$gitpath status 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("svn status $param output", $blob);
+		$msg = $this->text->make_blob("git status", $blob);
 		$sendto->reply($msg);
 	}
 	
