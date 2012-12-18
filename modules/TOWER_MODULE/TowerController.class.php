@@ -834,11 +834,7 @@ class TowerController {
 			$link .= "Alignment: <highlight>$whois->faction<end>\n";
 		
 			if ($whois->guild) {
-				if ($whois->faction == "Omni") {
-					$link .= "Detachment: <highlight>$whois->guild\n";
-				} else {
-					$link .= "Clan: <highlight>$whois->guild<end>\n";
-				}
+				$link .= "Organization: <highlight>$whois->guild<end>\n";
 				if ($whois->guild_rank) {
 					$link .= "Organization Rank: <highlight>$whois->guild_rank<end>\n";
 				}
