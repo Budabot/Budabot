@@ -71,6 +71,9 @@ class OrglistController {
 		forEach ($arr as $match) {
 			if ($match[1] == $this->chatBot->vars["dimension"] && strncasecmp($search, trim($match[3]), strlen($search)) == 0) {
 				$orgs []= $match;
+				if (count($orgs) == 50) {
+					break;
+				}
 			}
 		}
 		return $orgs;
