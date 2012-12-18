@@ -1,7 +1,7 @@
 To add apf loot to the loot list:
-<highlight><tab><symbol>13<end>
+<highlight><tab><symbol>7<end>
 <highlight><tab><symbol>13<end>
 <highlight><tab><symbol>28<end>
 <highlight><tab><symbol>35<end>
 
-Note: <symbol>7 will show you a list of possible loots that you can add.  The other three commands will automatically add all loot to the loot list.
+Note: <highlight><symbol>7<end> will show you a list of possible loots that you can add.  The other three commands will automatically add all loot to the loot list.
