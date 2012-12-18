@@ -258,7 +258,7 @@ class ItemsController {
 	// sort by exact word matches higher than partial word matches
 	public function orderSearchResults($data, $searchTerms) {
 		$newData = array();
-		forEach ($data as $key => $row) {
+		forEach ($data as $row) {
 			$match = false;
 			$itemKeywords = preg_split("/\s/", $row->name);
 			$numExactMatches = 0;

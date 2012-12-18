@@ -38,6 +38,9 @@ class OrglistController {
 	public $text;
 	
 	/** @Inject */
+	public $http;
+	
+	/** @Inject */
 	public $util;
 	
 	/** @Inject */
@@ -53,6 +56,24 @@ class OrglistController {
 		$this->orgrankmap["Republic"]   = array("President", "Advisor",      "Veteran",         "Member",         "Applicant");
 		$this->orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",       "Member",         "Applicant");
 		$this->orgrankmap["Department"] = array("President", "General",      "Squad Commander", "Unit Commander", "Unit Leader", "Unit Member", "Applicant");
+	}
+	
+	public function findOrg($search) {
+		$letter = $search[0];
+		if (!preg_match("/[a-z]/i", $letter)) {
+			$letter = 'others';
+		}
+		$url = "http://people.anarchy-online.com/people/lookup/orgs.html?l=";
+		
+		$response = $this->http->get($url . $letter)->withTimeout(10)->waitAndReturnResponse();
+		preg_match_all('|<a href="http://people.anarchy-online.com/org/stats/d/(\\d)/name/(\\d+)">([^<]+)</a>|s', $response->body, $arr, PREG_SET_ORDER);
+		$orgs = array();
+		forEach ($arr as $match) {
+			if ($match[1] == $this->chatBot->vars["dimension"] && strncasecmp($search, trim($match[3]), strlen($search)) == 0) {
+				$orgs []= $match;
+			}
+		}
+		return $orgs;
 	}
 	
 	/**
@@ -72,44 +93,57 @@ class OrglistController {
 	 * @Matches("/^orglist (.+)$/i")
 	 */
 	public function orglistCommand($message, $channel, $sender, $sendto, $args) {
+		$search = $args[1];
+
+		if (preg_match("/^[0-9]+$/", $search)) {
+			$this->checkOrglist($search, $sendto);
+		} else {
+			$orgs = $this->findOrg($search);
+			$count = count($orgs);
+			if ($count == 1) {
+				$this->checkOrglist($orgs[0][2], $sendto);
+			} else if ($count > 1) {
+				$blob = '';
+				forEach ($orgs as $org) {
+					$orglistLink = $this->text->make_chatcmd("Orglist", "/tell <myname> orglist $org[2]");
+					$blob .= trim($org[3]) . " (" . $org[2] . ") " . $orglistLink . "\n";
+				}
+				$msg = $this->text->make_blob("Orglist Matches ($count)", $blob);
+				$sendto->reply($msg);
+			} else {
+				// Someone's name.  Doing a whois to get an orgID.
+				$name = ucfirst(strtolower($search));
+				$whois = $this->playerManager->get_by_name($name);
+
+				if ($whois === null) {
+					$msg = "Could not find any orgs or players that match <highlight>$search<end>.";
+					$sendto->reply($msg);
+				} else if ($whois->guild_id == 0) {
+					$msg = "Character <highlight>$name<end> does not seem to be in an org.";
+					unset($whois);
+					$sendto->reply($msg);
+					unset($this->orglist);
+				} else {
+					$this->checkOrglist($whois->guild_id, $sendto);
+				}
+			}
+		}
+	}
+	
+	public function checkOrglist($orgid, $sendto) {
 		// Check if we are already doing a list.
 		if (isset($this->orglist)) {
 			$msg = "There is already an orglist running.";
 			$sendto->reply($msg);
 			return;
 		}
-
-		// Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
+	
 		$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
 		$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
 		$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
-
+	
 		$this->orglist["start"] = time();
 		$this->orglist["sendto"] = $sendto;
-
-		if (preg_match("/^[0-9]+$/", $args[1])) {
-			$orgid = $args[1];
-		} else {
-			// Someone's name.  Doing a whois to get an orgID.
-			$name = ucfirst(strtolower($args[1]));
-			$whois = $this->playerManager->get_by_name($name);
-
-			if ($whois === null) {
-				$msg = "Could not find character info for <highlight>$name<end>.";
-				unset($whois);
-				$sendto->reply($msg);
-				unset($this->orglist);
-				return;
-			} else if ($whois->guild_id == 0) {
-				$msg = "Character <highlight>$name<end> does not seem to be in an org.";
-				unset($whois);
-				$sendto->reply($msg);
-				unset($this->orglist);
-				return;
-			} else {
-				$orgid = $whois->guild_id;
-			}
-		}
 
 		$sendto->reply("Downloading org roster for org id $orgid...");
 
@@ -319,7 +353,7 @@ class OrglistController {
 	}
 	
 	public function checkBuddylistSize() {
-		return count($this->buddylistManager->buddyList) < $this->orglist["maxsize"];
+		return count($this->buddylistManager->buddyList) < ($this->orglist["maxsize"] - 5);
 	}
 }
 
