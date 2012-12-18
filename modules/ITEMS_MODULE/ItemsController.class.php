@@ -215,9 +215,17 @@ class ItemsController {
 			$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
 		}
 
-		$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 0, " . $this->settingManager->get("maxitems");
+		$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 1000";
 		$data = $this->db->query($sql);
+		$data = $this->orderSearchResults($data, $tmp);
+		$data = array_slice($data, 0, $this->settingManager->get("maxitems"));
+
+		$resultsLimited = false;
+		if (count($data) > $this->settingManager->get("maxitems")) {
+			$resultsLimited = true;
+		}
 		$num = count($data);
+		
 		if ($num == 0) {
 			if ($ql) {
 				$msg = "No QL <highlight>$ql<end> items found matching <highlight>$search<end>.";
@@ -232,9 +240,8 @@ class ItemsController {
 			} else {
 				$blob .= "Search: $search\n\n";
 			}
-			if ($num == $this->settingManager->get("maxitems")) {
-				$blob .= "*Note: Results have been limited to the first " . $this->settingManager->get("maxitems") . " results.\n\n";
-			}
+			if ($resultsLimited === true) {
+				$blob .= "*Note: Results have been limited to the first " . $this->settingManager->get("maxitems") . " results.\n\n";			}
 			$blob .= $this->formatSearchResults($data, $ql, true);
 			$xrdbLink = $this->text->make_chatcmd("XRDB", "/start http://www.xyphos.com/viewtopic.php?f=6&t=10000091");
 			$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start http://budabot.com/forum/viewtopic.php?f=7&t=873");
@@ -245,6 +252,29 @@ class ItemsController {
 		} else {
 			return trim($this->formatSearchResults($data, $ql, false));
 		}
+	}
+	
+	// sort by exact word matches higher than partial word matches
+	public function orderSearchResults($data, $searchTerms) {
+		$newData = array();
+		forEach ($data as $key => $row) {
+			$match = false;
+			$itemKeywords = preg_split("/\s/", $row->name);
+			$numExactMatches = 0;
+			forEach ($itemKeywords as $keyword) {
+				forEach ($searchTerms as $searchWord) {
+					if (strcasecmp($keyword, $searchWord) == 0) {
+						$numExactMatches++;
+						break;
+					}
+				}
+			}
+			$row->numExactMatches = $numExactMatches;
+		}
+		
+		usort($data, function($a, $b) { return ($a->numExactMatches > $b->numExactMatches) ? -1 : 1; });
+		
+		return $data;
 	}
 
 	public function formatSearchResults($data, $ql, $showImages) {
