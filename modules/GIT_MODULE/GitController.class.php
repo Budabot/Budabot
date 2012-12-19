@@ -36,10 +36,10 @@ class GitController extends AutoInject {
 	 */
 	public function gitDiffCommand($message, $channel, $sender, $sendto, $args) {
 		$gitpath = $this->settingManager->get('gitpath');
-		$command = "$gitpath fetch origin 2>&1";
-		$this->executeCommand($command);
+		//$command = "$gitpath fetch origin 2>&1";
+		//$this->executeCommand($command);
 		
-		$command = "$gitpath diff HEAD ...origin 2>&1";
+		$command = "$gitpath diff --stat master ...origin/master 2>&1";
 		
 		$blob = $this->executeCommand($command);
 		$msg = $this->text->make_blob("git diff", $blob);
@@ -52,7 +52,7 @@ class GitController extends AutoInject {
 	 */
 	public function gitPullCommand($message, $channel, $sender, $sendto, $args) {
 		$gitpath = $this->settingManager->get('gitpath');
-		$command = "$gitpath pull 2>&1";
+		$command = "$gitpath pull origin master 2>&1";
 		
 		$blob = $this->executeCommand($command);
 		$msg = $this->text->make_blob("git pull", $blob);
