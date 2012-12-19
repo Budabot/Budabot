@@ -80,7 +80,10 @@ class TimeController {
 		$link .= "<tab><tab>Summer Time (MDT = GMT-6): " . $this->getTimezone("MDT")->time . "\n";
 		$link .= "<tab><highlight>Alabama/Illinois/Iowa/Michigan/Minnesota/Oklahoma<end>\n";
 		$link .= "<tab><tab>Standard Time (CST = GMT-6): " . $this->getTimezone("CST")->time . "\n";
-		$link .= "<tab><tab>Summer Time (CDT = GMT-5): " . $this->getTimezone("CDT")->time . "\n";
+		$link .= "<tab><tab>Summer Time (CDT = GMT-5): " . $this->getTimezone("CDT")->time . "\n\n";
+		
+		$link .= "<header2>Unix time<end>\n";
+		$link .= "<tab><tab>" . time() . "\n";
 
 		$msg = "<highlight>".$this->util->date(time())."<end>";
 		$msg .= " " . $this->text->make_blob("All Timezones", $link);
