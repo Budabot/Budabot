@@ -59,17 +59,13 @@ class OrglistController {
 	}
 	
 	public function findOrg($search) {
-		$letter = $search[0];
-		if (!preg_match("/[a-z]/i", $letter)) {
-			$letter = 'others';
-		}
-		$url = "http://people.anarchy-online.com/people/lookup/orgs.html?l=";
+		$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
 		
-		$response = $this->http->get($url . $letter)->withTimeout(10)->waitAndReturnResponse();
+		$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
 		preg_match_all('|<a href="http://people.anarchy-online.com/org/stats/d/(\\d)/name/(\\d+)">([^<]+)</a>|s', $response->body, $arr, PREG_SET_ORDER);
 		$orgs = array();
 		forEach ($arr as $match) {
-			if ($match[1] == $this->chatBot->vars["dimension"] && strncasecmp($search, trim($match[3]), strlen($search)) == 0) {
+			if ($match[1] == $this->chatBot->vars["dimension"]) {
 				$orgs []= $match;
 				if (count($orgs) == 50) {
 					break;
