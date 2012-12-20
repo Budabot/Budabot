@@ -153,7 +153,7 @@ class AsyncHttp {
 			$this->timeout = $this->setting->http_timeout;
 		}
 		$this->timeoutEvent = $this->timer->callLater($this->timeout, array($this, 'abortWithMessage'),
-			"Timeout error after waiting {$this->timeout} seconds");
+			"Timeout error after waiting {$this->timeout} seconds for: {$this->uri}");
 	}
 
 	private function createStream() {
