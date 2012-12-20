@@ -112,10 +112,10 @@ class RecipeController {
 				$msg = "Error showing recipe: " . $obj->error;
 			} else {
 				$recipe_name = $obj->recipe_name;
+				$author = empty($obj->recipe_author) ? "Unknown" : $obj->recipe_author;
 
-				$recipeText = $obj->recipe_text;
-				$recipeText = str_replace("\\r\\n", "\n", $recipeText);
-				$recipeText = $that->formatRecipeText($recipeText);
+				$recipeText = "Author: <highlight>$author<end>\n\n";
+				$recipeText .= $that->formatRecipeText($obj->recipe_text);
 
 				$recipeText .= $that->getAORecipebookFooter();
 
