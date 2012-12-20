@@ -194,22 +194,7 @@ class ItemsController {
 
 	public function find_items_from_local($search, $ql) {
 		$tmp = explode(" ", $search);
-		$first = true;
-		forEach ($tmp as $key => $value) {
-			$value = str_replace("'", "''", $value);
-			if ($value[0] == "-") {
-				$value = substr($value, 1);
-				$op = "NOT LIKE";
-			} else {
-				$op = "LIKE";
-			}
-			if ($first) {
-				$query .= "`name` $op '%$value%'";
-				$first = false;
-			} else {
-				$query .= " AND `name` $op '%$value%'";
-			}
-		}
+		$query = $this->util->generateQueryFromParams($tmp, 'name');
 
 		if ($ql) {
 			$query .= " AND `lowql` <= $ql AND `highql` >= $ql";

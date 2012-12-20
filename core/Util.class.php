@@ -411,6 +411,26 @@ class Util {
 		$msg = preg_replace("~</font>~", "", $msg);
 		return $msg;
 	}
+	
+	public function generateQueryFromParams($params, $column) {
+		$first = true;
+		forEach ($params as $key => $value) {
+			$value = str_replace("'", "''", $value);
+			if ($value[0] == "-") {
+				$value = substr($value, 1);
+				$op = "NOT LIKE";
+			} else {
+				$op = "LIKE";
+			}
+			if ($first) {
+				$query .= "$column $op '%$value%'";
+				$first = false;
+			} else {
+				$query .= " AND $column $op '%$value%'";
+			}
+		}
+		return $query;
+	}
 }
 
 ?>
