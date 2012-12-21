@@ -2,3 +2,8 @@
 /cache
 /conf/config.php
 /data/budabot.db
+/build
+/botmanager/build
+/botmanager/dist
+*.pyc
+*.log
