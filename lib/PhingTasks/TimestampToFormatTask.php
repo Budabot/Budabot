@@ -30,7 +30,6 @@ class TimestampToFormatTask extends Task
 	}
 
 	public function main() {
-	var_dump($this->timestamp);
 		$value = gmdate($this->format, intval($this->timestamp));
 		$this->project->setProperty($this->outputProperty, $value);
 	}
