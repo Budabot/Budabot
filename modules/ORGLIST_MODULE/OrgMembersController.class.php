@@ -97,7 +97,7 @@ class OrgMembersController {
 	 * @Matches("/^orgmembers ([a-z0-9-]+)$/i")
 	 */
 	public function orgmembers2Command($message, $channel, $sender, $sendto, $args) {
-		if (preg_match("^[0-9]+$", $args[1])) {
+		if (preg_match("/^[0-9]+$/", $args[1])) {
 			$guild_id = $args[1];
 		} else {
 			// Someone's name.  Doing a whois to get an orgID.

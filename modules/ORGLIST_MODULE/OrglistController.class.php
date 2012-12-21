@@ -38,13 +38,13 @@ class OrglistController {
 	public $text;
 	
 	/** @Inject */
-	public $http;
-	
-	/** @Inject */
 	public $util;
 	
 	/** @Inject */
 	public $playerManager;
+	
+	/** @Inject */
+	public $findOrgController;
 	
 	private $orglist = null;
 	private $orgrankmap = array();
@@ -56,23 +56,6 @@ class OrglistController {
 		$this->orgrankmap["Republic"]   = array("President", "Advisor",      "Veteran",         "Member",         "Applicant");
 		$this->orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",       "Member",         "Applicant");
 		$this->orgrankmap["Department"] = array("President", "General",      "Squad Commander", "Unit Commander", "Unit Leader", "Unit Member", "Applicant");
-	}
-	
-	public function findOrg($search) {
-		$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
-		
-		$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
-		preg_match_all('|<a href="http://people.anarchy-online.com/org/stats/d/(\\d)/name/(\\d+)">([^<]+)</a>|s', $response->body, $arr, PREG_SET_ORDER);
-		$orgs = array();
-		forEach ($arr as $match) {
-			if ($match[1] == $this->chatBot->vars["dimension"]) {
-				$orgs []= $match;
-				if (count($orgs) == 50) {
-					break;
-				}
-			}
-		}
-		return $orgs;
 	}
 	
 	/**
@@ -97,15 +80,15 @@ class OrglistController {
 		if (preg_match("/^[0-9]+$/", $search)) {
 			$this->checkOrglist($search, $sendto);
 		} else {
-			$orgs = $this->findOrg($search);
+			$orgs = $this->findOrgController->lookupOrg($search, $this->chatBot->vars["dimension"]);
 			$count = count($orgs);
 			if ($count == 1) {
-				$this->checkOrglist($orgs[0][2], $sendto);
+				$this->checkOrglist($orgs[0]->id, $sendto);
 			} else if ($count > 1) {
 				$blob = '';
 				forEach ($orgs as $org) {
-					$orglistLink = $this->text->make_chatcmd("Orglist", "/tell <myname> orglist $org[2]");
-					$blob .= trim($org[3]) . " (" . $org[2] . ") " . $orglistLink . "\n";
+					$orglistLink = $this->text->make_chatcmd("Orglist", "/tell <myname> orglist $org->id");
+					$blob .= trim($org->name) . " (" . $org->id . ") " . $orglistLink . "\n";
 				}
 				$msg = $this->text->make_blob("Orglist Matches ($count)", $blob);
 				$sendto->reply($msg);

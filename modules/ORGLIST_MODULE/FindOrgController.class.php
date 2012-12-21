@@ -29,6 +29,9 @@ class FindOrgController {
 	
 	/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $http;
 
 	/**
 	 * @HandlesCommand("findorg")
@@ -36,41 +39,58 @@ class FindOrgController {
 	 * @Matches("/^findorg (.+)$/i")
 	 */
 	public function findOrgCommand($message, $channel, $sender, $sendto, $args) {
-		$guild_name = $args[1];
+		$search = $args[1];
 
 		$dimension = $this->chatBot->vars['dimension'];
 		if (count($args) == 3) {
 			$dimension = $args[2];
 		}
+		
+		$orgs = $this->lookupOrg($search, $dimension);
+		$count = count($orgs);
 
-		$sql = "SELECT DISTINCT guild, guild_id, CASE WHEN guild_id = '' THEN 0 ELSE 1 END AS sort FROM players WHERE guild LIKE ? AND dimension = ? ORDER BY sort DESC, guild ASC LIMIT 30";
-		$data = $this->db->query($sql, '%'.$guild_name.'%', $dimension);
-		if (count($data) > 0) {
+		if ($count > 0) {
 			$blob = '';
-
-			forEach ($data as $row) {
-				if ($row->guild_id != 0) {
-					$whoisorg = $this->text->make_chatcmd('Whoisorg', "/tell <myname> whoisorg {$row->guild_id} $dimension");
-					if ($dimension == $this->chatBot->vars['dimension']) {
-						$orglist = $this->text->make_chatcmd('Orglist', "/tell <myname> orglist {$row->guild_id}");
-						$orgranks = $this->text->make_chatcmd('Orgranks', "/tell <myname> orgranks {$row->guild_id}");
-						$orgmembers = $this->text->make_chatcmd('Orgmembers', "/tell <myname> orgmembers {$row->guild_id}");
-						$tower_attacks = $this->text->make_chatcmd('Tower Attacks', "/tell <myname> attacks org {$row->guild}");
-						$tower_victories = $this->text->make_chatcmd('Tower Victories', "/tell <myname> victory org {$row->guild}");
-						$blob .= "{$row->guild} ({$row->guild_id}) [$whoisorg] [$orglist] [$orgranks] [$orgmembers] [$tower_attacks] [$tower_victories]\n";
-					} else {
-						$blob .= "{$row->guild} ({$row->guild_id}) [$whoisorg]\n";
-					}
+			forEach ($orgs as $row) {
+				$whoisorg = $this->text->make_chatcmd('Whoisorg', "/tell <myname> whoisorg {$row->id} $dimension");
+				if ($row->dimension == $this->chatBot->vars['dimension']) {
+					$orglist = $this->text->make_chatcmd('Orglist', "/tell <myname> orglist {$row->id}");
+					$orgranks = $this->text->make_chatcmd('Orgranks', "/tell <myname> orgranks {$row->id}");
+					$orgmembers = $this->text->make_chatcmd('Orgmembers', "/tell <myname> orgmembers {$row->id}");
+					$tower_attacks = $this->text->make_chatcmd('Tower Attacks', "/tell <myname> attacks org {$row->name}");
+					$tower_victories = $this->text->make_chatcmd('Tower Victories', "/tell <myname> victory org {$row->name}");
+					$blob .= "{$row->name} ({$row->id}) [$whoisorg] [$orglist] [$orgranks] [$orgmembers] [$tower_attacks] [$tower_victories]\n";
 				} else {
-					$blob .= "{$row->guild}\n";
+					$blob .= "{$row->name} ({$row->id}) [$whoisorg]\n";
 				}
 			}
 
-			$msg = $this->text->make_blob("Org Search Results for '{$guild_name}' on RK{$dimension}", $blob);
+			$msg = $this->text->make_blob("Org Search Results for '{$search}' on RK{$dimension} ($count)", $blob);
 		} else {
 			$msg = "No matches found.";
 		}
 		$sendto->reply($msg);
+	}
+	
+	public function lookupOrg($search, $dimension) {
+		$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
+		
+		$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
+		preg_match_all('|<a href="http://people.anarchy-online.com/org/stats/d/(\\d)/name/(\\d+)">([^<]+)</a>|s', $response->body, $arr, PREG_SET_ORDER);
+		$orgs = array();
+		forEach ($arr as $match) {
+			if ($match[1] == $dimension) {
+				$obj = new stdClass;
+				$obj->name = trim($match[3]);
+				$obj->dimension = $match[1];
+				$obj->id = $match[2];
+				$orgs []= $obj;
+				if (count($orgs) == 50) {
+					break;
+				}
+			}
+		}
+		return $orgs;
 	}
 }
 
