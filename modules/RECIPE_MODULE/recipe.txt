@@ -1,2 +1,2 @@
-To look up the recipes:
-<tab>recipe 'item search'
+To search for a recipe:
+<tab>recipe 'search'

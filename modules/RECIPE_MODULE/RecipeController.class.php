@@ -20,18 +20,6 @@
  *		description = 'Show a recipe',
  *		help        = 'recipe.txt'
  *	)
- *  @DefineCommand(
- *		command     = 'rb',
- *		accessLevel = 'all',
- *		description = 'Show a recipe',
- *		help        = 'recipe.txt'
- *	)
- *  @DefineCommand(
- *		command     = 'rbshow',
- *		accessLevel = 'all',
- *		description = 'Show a recipe',
- *		help        = 'recipe.txt'
- *	)
  */
 class RecipeController {
 
@@ -62,10 +50,10 @@ class RecipeController {
 	}
 	
 	/**
-	 * @HandlesCommand("rb")
-	 * @Matches("/^rb (.+)$/i")
+	 * @HandlesCommand("recipe")
+	 * @Matches("/^recipe (.+)$/i")
 	 */
-	public function rbSearchCommand($message, $channel, $sender, $sendto, $args) {
+	public function recipeSearchCommand($message, $channel, $sender, $sendto, $args) {
 		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $matches)) {
 			$lowId = $matches[1];
 			$search = $matches[4];
@@ -86,7 +74,7 @@ class RecipeController {
 				$blob = '';
 				$count = count($obj);
 				forEach ($obj as $recipe) {
-					$blob .= $that->text->make_chatcmd($recipe->recipe_name, "/tell <myname> rbshow $recipe->recipe_id") . "\n";
+					$blob .= $that->text->make_chatcmd($recipe->recipe_name, "/tell <myname> rshow $recipe->recipe_id") . "\n";
 				}
 
 				$blob .= $that->getAORecipebookFooter();
@@ -98,10 +86,10 @@ class RecipeController {
 	}
 	
 	/**
-	 * @HandlesCommand("rbshow")
-	 * @Matches("/^rbshow (\d+)$/i")
+	 * @HandlesCommand("rshow")
+	 * @Matches("/^rshow ([0-9]+)$/i")
 	 */
-	public function rbShowCommand($message, $channel, $sender, $sendto, $args) {
+	public function recipeShowCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
 		
 		$url = "/show/id/" . $id . "/format/json/bot/budabot";
@@ -130,35 +118,6 @@ class RecipeController {
 			"For more information, " . $this->text->make_chatcmd("/tell recipebook about", "/tell recipebook about");
 	}
 	
-	/**
-	 * Show a recipe
-	 *
-	 * @HandlesCommand("rshow")
-	 * @Matches("/^rshow ([0-9]+)$/i")
-	 */
-	public function recipeShowCommand($message, $channel, $sender, $sendto, $args) {
-		$id = $args[1];
-		
-		$row = $this->db->queryRow("SELECT * FROM recipes WHERE recipe_id = ?", $id);
-		
-		if ($row === null) {
-			$msg = "A recipe with id <highlight>$id<end> could not be found.";
-		} else {
-			$recipe_name = $row->recipe_name;
-			$author = $row->author;
-			
-			$recipeText = "";
-			if (!empty($author)) {
-				$recipeText .= "Author: <highlight>$author<end>\n\n";
-			}
-			
-			$recipeText .= $this->formatRecipeText($row->recipe_text);
-
-			$msg = $this->text->make_blob("Recipe for $recipe_name", $recipeText);
-		}
-		$sendto->reply($msg);
-	}
-	
 	public function formatRecipeText($input) {
 		$input = str_replace("\\n", "\n", $input);
 		$input = preg_replace_callback('/#L "([^"]+)" "([0-9]+)"/', array($this, 'replaceItem'), $input);
@@ -176,42 +135,6 @@ class RecipeController {
 		return $input;
 	}
 
-	/**
-	 * Search for a recipe
-	 *
-	 * @HandlesCommand("recipe")
-	 * @Matches("/^recipe (.+)$/i")
-	 */
-	public function recipeSearchCommand($message, $channel, $sender, $sendto, $args) {
-		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $matches)) {
-			$search = $matches[4];
-		} else {
-			$search = strtolower($args[1]);
-		}
-			
-		$sql = "
-			SELECT
-				recipe_id,
-				recipe_name
-			FROM
-				recipes
-			WHERE
-				recipe_text LIKE ? AND recipe_type != '8'
-			ORDER BY
-				recipe_name ASC";
-
-		$results = $this->db->query($sql, "%" . str_replace(" ", "%", $search) . "%");
-		$count = count($results);
-
-		if ($count > 0) {
-			$blob = $this->makeRecipeSearchBlob($results);
-			$output = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
-		} else {
-			$output = "There were no matches for your search.";
-		}
-		$sendto->reply($output);
-	}
-	
 	private function replaceItem($arr) {
 		$id = $arr[2];
 		$row = $this->itemsController->findById($id);
@@ -228,14 +151,6 @@ class RecipeController {
 			}
 		}
 		return $output;
-	}
-	
-	private function makeRecipeSearchBlob($results) {
-		$blob = '';
-		forEach ($results as $row) {
-			$blob .= $this->text->make_chatcmd($row->recipe_name, "/tell <myname> rshow $row->recipe_id") . "\n";
-		}
-		return $blob;
 	}
 }
 
