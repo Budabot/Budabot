@@ -258,7 +258,9 @@ class ItemsController {
 			$row->numExactMatches = $numExactMatches;
 		}
 		
-		usort($data, function($a, $b) { return ($a->numExactMatches > $b->numExactMatches) ? -1 : 1; });
+		usort($data, function($a, $b) {
+			return ($a->numExactMatches > $b->numExactMatches) ? -1 : 1;
+		});
 		
 		return $data;
 	}
