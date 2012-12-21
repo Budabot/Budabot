@@ -7,10 +7,15 @@
 <project name="Budabot" default="build" basedir=".">
 	<!-- include custom task for reading budabot's version from main.php file -->
 	<taskdef classname="lib.PhingTasks.BudabotVersionTask" name="budabotversion" />
+	<!-- include custom task for formatting a timestamp -->
+	<taskdef classname="lib.PhingTasks.TimestampToFormatTask" name="timestamptoformat" />
 	<!-- include custom task for running Behat -->
 	<taskdef classname="lib.PhingTasks.BehatTask" name="behat" />
 
-	<svnlastrevision workingcopy="." propertyname="svn.revision" />
+	<!-- put newest commit's author date to property 'timepostfix' -->
+	<exec command="git log --format=format:%at --max-count=1" outputProperty="timepostfix" />
+	<timestamptoformat format="ymdHi" timestamp="${timepostfix}" outputProperty="timepostfix" />
+
 	<budabotversion  sourcefile="core/BotRunner.php" propertyname="budabot.version" />
 
 	<patternset id="common_files">
@@ -63,7 +68,7 @@
 	<!-- ============================================  -->
 	<target name="build_linux">
 		<echo>Create release package of Budabot.</echo>
-		<property name="build.basename"    value="Budabot${budabot.version}_build${svn.revision}_linux" override="true" />
+		<property name="build.basename"    value="Budabot${budabot.version}_build${timepostfix}_linux" override="true" />
 		<property name="build.contentsdir" value="${project.basedir}/build/contents_linux" override="true" />
 		<property name="build.archivedir"  value="${build.contentsdir}/${build.basename}" override="true" />
 		<property name="build.archivepath"  value="build/${build.basename}.zip" override="true" />
@@ -93,7 +98,7 @@
 	<!-- ============================================  -->
 	<target name="build_win32">
 		<echo>Create release package of Budabot (Windows version).</echo>
-		<property name="build.basename"    value="Budabot${budabot.version}_build${svn.revision}_win32" override="true" />
+		<property name="build.basename"    value="Budabot${budabot.version}_build${timepostfix}_win32" override="true" />
 		<property name="build.contentsdir" value="${project.basedir}/build/contents_win32" override="true" />
 		<property name="build.archivedir"  value="${build.contentsdir}/${build.basename}" override="true" />
 		<property name="build.archivepath"  value="build/${build.basename}.zip" override="true" />
