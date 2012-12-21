@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project>
+
+<project name="Budabot Continuous Integration" default="nothing" basedir=".">
+
+	<!-- Optional properties -->
+	<property name="wikidoc.destination"       value="${project.basedir}/../wiki" />
+	<property name="upload.hostname"           value="budabot.jkbff.com" />
+	<property name="apidoc.upload_destination" value="/home/budabot/www/api/" />
+	<property name="build.upload_destination"  value="/home/budabot/www/builds/" />
+	<property name="behat.profile"             value="ci" />
+
+	<!-- Mandatory properties -->
+	<property name="upload.username"           value="user" />
+	<property name="upload.password"           value="pass" />
+	<property name="svn.username"              value="user" />
+	<property name="svn.password"              value="pass" />
+
+	<target name="test_build_and_upload_archives">
+		<phing phingFile="build.xml" target="clean" />
+
+		<!-- Run tests -->
+		<phing phingFile="build.xml" target="behat" haltonfailure="true" />
+		<phing phingFile="build.xml" target="check_style" haltonfailure="true" />
+
+		<!-- Create release archives -->
+		<phing phingFile="build.xml" target="build" haltonfailure="true" />
+
+		<!-- Upload the archives -->
+		<scp username="${upload.username}" password="${upload.password}" host="${upload.hostname}" todir="${build.upload_destination}">
+			<fileset dir="../trunk/build">
+				<include name="*.zip" />
+			</fileset>
+		</scp>
+	</target>
+
+	<target name="update_documentations">
+		<!-- Generate documentations -->
+		<!-- <phing target="wikidoc" /> -->
+		<phing phingFile="build.xml" target="apidoc" />
+
+		<!-- Commit wiki documentation to google wiki -->
+		<!-- <svncommit username="${svn.username}" password="${svn.password}" nocache="true"
+			workingcopy="${wikidoc.destination}" ignoreexternals="true" message="CI: Updated wiki documentation." /> -->
+
+		<!-- Upload API documentation -->
+		<scp username="${upload.username}" password="${upload.password}" host="${upload.hostname}" todir="${apidoc.upload_destination}">
+			<fileset dir="../trunk/docs/api">
+				<include name="**/**" />
+			</fileset>
+		</scp>
+	</target>
+
+	<target name="run_tests">
+		<phing phingFile="build.xml" target="behat" haltonfailure="true" />
+		<phing phingFile="build.xml" target="check_style" haltonfailure="true" />
+	</target>
+
+</project>
