@@ -1,7 +1,7 @@
 /logs
 /cache
 /conf/config.php
-/data/budabot.db
+/data/*.db
 /build
 /botmanager/build
 /botmanager/dist
