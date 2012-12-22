@@ -1,2 +1,4 @@
 To find an org by org name:
 <highlight><tab><symbol>findorg 'org name'<end>
+
+Note that you may use '%' as a wildcard in the org name.
