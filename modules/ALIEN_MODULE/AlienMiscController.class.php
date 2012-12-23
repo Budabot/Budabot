@@ -14,7 +14,8 @@
  *		command     = 'leprocs', 
  *		accessLevel = 'all', 
  *		description = "Shows each profession's LE procs", 
- *		help        = 'leprocs.txt'
+ *		help        = 'leprocs.txt',
+ *		alias       = 'leproc'
  *	)
  *	@DefineCommand(
  *		command     = 'ofabarmor',
