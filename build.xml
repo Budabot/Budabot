@@ -180,7 +180,7 @@
 		<mkdir dir="build" />
 
 		<!-- run the checker -->
-		<phpcodesniffer standard="conf/CodingStandard" haltonerror="true">
+		<phpcodesniffer standard="conf/CodingStandard">
 			<fileset dir=".">
 				<include name="**/*.php" />
 				<exclude name="lib**" />

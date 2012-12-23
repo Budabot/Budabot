@@ -20,6 +20,6 @@ ci:
             budabot_log:      true
             aochatserver_log: true
     formatter:
-        name:        pretty,html
+        name:        pretty,junit
         parameters:
-            output_path: ,../logs/test_behat.html
+            output_path: ,../logs/junit_reports
