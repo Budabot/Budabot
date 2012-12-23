@@ -314,6 +314,8 @@ class ConfigController {
 				}
 			} else if (!$this->checkCommandAccessLevels($data, $sender)) {
 				$msg = "You do not have the required access level to change this command.";
+			} else if (!$this->accessManager->checkAccess($sender, $admin)) {
+				$msg = "You may not set the access level for a command above your own access level.";
 			} else {
 				$this->commandManager->update_status($channel, $command, null, 1, $admin);
 		
@@ -330,6 +332,8 @@ class ConfigController {
 				$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$channel<end>";
 			} else if (!$this->checkCommandAccessLevels($data, $sender)) {
 				$msg = "You do not have the required access level to change this subcommand.";
+			} else if (!$this->accessManager->checkAccess($sender, $admin)) {
+				$msg = "You may not set the access level for a subcommand above your own access level.";
 			} else {
 				$this->db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
 				$this->subcommandManager->loadSubcommands();
