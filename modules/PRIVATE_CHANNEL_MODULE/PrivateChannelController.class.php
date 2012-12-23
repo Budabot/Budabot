@@ -756,19 +756,16 @@ class PrivateChannelController {
 	
 	public function removeUser($name) {
 		$name = ucfirst(strtolower($name));
-		$uid = $this->chatBot->get_uid($name);
-		if (!$uid) {
-			$msg = "Character <highlight>{$name}<end> does not exist.";
+
+		$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);
+		if (count($data) == 0) {
+			$msg = "<highlight>$name<end> is not a member of this bot.";
 		} else {
-			$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);
-			if (count($data) == 0) {
-				$msg = "<highlight>$name<end> is not a member of this bot.";
-			} else {
-				$this->db->exec("DELETE FROM members_<myname> WHERE `name` = ?", $name);
-				$msg = "<highlight>$name<end> has been removed as a member of this bot.";
-				$this->buddylistManager->remove($name, 'member');
-			}
+			$this->db->exec("DELETE FROM members_<myname> WHERE `name` = ?", $name);
+			$msg = "<highlight>$name<end> has been removed as a member of this bot.";
+			$this->buddylistManager->remove($name, 'member');
 		}
+
 		return $msg;
 	}
 }
