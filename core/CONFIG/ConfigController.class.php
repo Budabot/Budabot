@@ -445,7 +445,7 @@ class ConfigController {
 	
 		$blob = "Enable/disable entire module: ($on/$off)\n";
 	
-		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE `module` = ?", $module);
+		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE `module` = ? ORDER BY mode, description", $module);
 		if (count($data) > 0) {
 			$found = true;
 			$blob .= "\n<header2>Settings<end>\n";
