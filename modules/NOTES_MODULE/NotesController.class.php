@@ -28,6 +28,9 @@ class NotesController {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $altsController;
+	
 	/**
 	 * @Setup
 	 */
@@ -41,9 +44,15 @@ class NotesController {
 	 */
 	public function notesListCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
+		
+		$altInfo = $this->altsController->get_alt_info($sender);
+		
+		// convert all notes to be assigned to the main
+		$sql = "UPDATE notes SET name = ? WHERE name = ?";
+		$this->db->exec($sql, $altInfo->main, $sender);
 
-		$sql = "SELECT * FROM notes WHERE name LIKE ?";
-		$data = $this->db->query($sql, $sender);
+		$sql = "SELECT * FROM notes WHERE name = ?";
+		$data = $this->db->query($sql, $altInfo->main);
 
 		if (count($data) == 0) {
 			$msg = "No notes for $sender.";
@@ -64,8 +73,10 @@ class NotesController {
 	 */
 	public function notesAddCommand($message, $channel, $sender, $sendto, $args) {
 		$note = $args[1];
+		
+		$altInfo = $this->altsController->get_alt_info($sender);
 
-		$this->db->exec("INSERT INTO notes (name, note) VALUES(?, ?)", $sender, $note);
+		$this->db->exec("INSERT INTO notes (name, note) VALUES(?, ?)", $altInfo->main, $note);
 		$msg = "Note added successfully.";
 
 		$sendto->reply($msg);
@@ -77,8 +88,10 @@ class NotesController {
 	 */
 	public function notesRemoveCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
+		
+		$altInfo = $this->altsController->get_alt_info($sender);
 
-		$numRows = $this->db->exec("DELETE FROM notes WHERE id = ? AND name LIKE ?", $id, $sender);
+		$numRows = $this->db->exec("DELETE FROM notes WHERE id = ? AND name = ?", $id, $altInfo->main);
 		if ($numRows == 0) {
 			$msg = "Note could not be found or note does not belong to you.";
 		} else {
