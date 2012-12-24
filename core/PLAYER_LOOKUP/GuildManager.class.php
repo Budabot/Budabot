@@ -34,12 +34,13 @@ class GuildManager {
 		} else {
 			$maxCacheAge = 86400;
 		}
-		$cb = create_function('$data',
-			'if (xml::spliceData($data, "<id>", "</id>") != "") {
+		$cb = function($data) {
+			if (xml::spliceData($data, "<id>", "</id>") != "") {
 				return true;
 			} else {
 				return false;
-			}');
+			}
+		};
 
 		$cacheResult = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge);
 

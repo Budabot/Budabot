@@ -14,12 +14,13 @@ class PlayerHistoryManager {
 		$groupName = "player_history";
 		$filename = "$name.$rk_num.history.xml";
 		$maxCacheAge = 86400;
-		$cb = create_function('$data',
-			'if (xml::spliceData($data, "<nick>", "</nick>") != "") {
+		$cb = function($data) {
+			if (xml::spliceData($data, "<nick>", "</nick>") != "") {
 				return true;
 			} else {
 				return false;
-			}');
+			}
+		};
 
 		$cacheResult = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge);
 		
