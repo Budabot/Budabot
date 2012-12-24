@@ -196,8 +196,8 @@
 
 	// remove cyclical aliases that conflict with actual commands
 	if (checkIfTableExists($db, "cmd_alias_<myname>")) {
-		upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'kickuser'");
-		upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'inviteuser'");
+		upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'kick'");
+		upgrade($db, "DELETE FROM cmd_alias_<myname> WHERE alias = 'invite'");
 	}
 
 	// change cmdcfg_<myname> table's file-column type from VARCHAR(255) to TEXT

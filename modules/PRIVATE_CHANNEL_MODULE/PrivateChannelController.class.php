@@ -32,16 +32,18 @@
  *		help        = 'private_channel.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'inviteuser', 
+ *		command     = 'invite', 
  *		accessLevel = 'guild', 
  *		description = "Invite players to the private channel", 
- *		help        = 'private_channel.txt'
+ *		help        = 'private_channel.txt',
+ *		alias       = 'inviteuser'
  *	)
  *	@DefineCommand(
- *		command     = 'kickuser', 
+ *		command     = 'kick', 
  *		accessLevel = 'guild', 
  *		description = "Kick players from the private channel", 
- *		help        = 'private_channel.txt'
+ *		help        = 'private_channel.txt',
+ *		alias       = 'kickuser'
  *	)
  *	@DefineCommand(
  *		command     = 'autoinvite', 
