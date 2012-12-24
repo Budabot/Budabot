@@ -80,11 +80,14 @@ class OrglistController {
 		if (preg_match("/^[0-9]+$/", $search)) {
 			$this->checkOrglist($search, $sendto);
 		} else {
-			$orgs = $this->findOrgController->lookupOrg($search, $this->chatBot->vars["dimension"]);
+			$orgs = $this->getMatches($search);
 			$count = count($orgs);
-			if ($count == 1) {
+
+			if ($count == 0) {
+				$msg = "Could not find any orgs (or players in orgs) that match <highlight>$search<end>.";
+			} else if ($count == 1) {
 				$this->checkOrglist($orgs[0]->id, $sendto);
-			} else if ($count > 1) {
+			} else {
 				$blob = '';
 				forEach ($orgs as $org) {
 					$orglistLink = $this->text->make_chatcmd("Orglist", "/tell <myname> orglist $org->id");
@@ -92,30 +95,41 @@ class OrglistController {
 				}
 				$msg = $this->text->make_blob("Orglist Matches ($count)", $blob);
 				$sendto->reply($msg);
-			} else {
-				// Someone's name.  Doing a whois to get an orgID.
-				$name = ucfirst(strtolower($search));
-				$whois = $this->playerManager->get_by_name($name);
-
-				if ($whois === null) {
-					$msg = "Could not find any orgs or players that match <highlight>$search<end>.";
-					$sendto->reply($msg);
-				} else if ($whois->guild_id == 0) {
-					$msg = "Character <highlight>$name<end> does not seem to be in an org.";
-					unset($whois);
-					$sendto->reply($msg);
-					unset($this->orglist);
-				} else {
-					$this->checkOrglist($whois->guild_id, $sendto);
-				}
 			}
 		}
+	}
+	
+	public function getMatches($search) {
+		$orgs = $this->findOrgController->lookupOrg($search, $this->chatBot->vars["dimension"]);
+		
+		$name = ucfirst(strtolower($search));
+		$whois = $this->playerManager->get_by_name($name);
+		
+		if ($whois !== null && $whois->guild_id != 0) {
+			$found = false;
+			
+			forEach ($orgs as $org) {
+				if ($org->id == $whois->guild_id) {
+					$found = true;
+					break;
+				}
+			}
+			
+			if (!$found) {
+				$obj = new stdClass;
+				$obj->name = $whois->guild;
+				$obj->dimension = $whois->dimension;
+				$obj->id = $whois->guild_id;
+				$orgs []= $obj;
+			}
+		}
+		return $orgs;
 	}
 	
 	public function checkOrglist($orgid, $sendto) {
 		// Check if we are already doing a list.
 		if (isset($this->orglist)) {
-			$msg = "There is already an orglist running.";
+			$msg = "There is already an orglist running. You may force it to end by using <symbol>orglist end.";
 			$sendto->reply($msg);
 			return;
 		}
