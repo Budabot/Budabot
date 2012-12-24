@@ -4,3 +4,5 @@ To show who is online in a player's org:
 To show who is online in an org:
 <highlight><tab><symbol>orglist 'org name'<end>
 <highlight><tab><symbol>orglist 'org id'<end>
+
+Note that you may use '%' as a wildcard in the org name.

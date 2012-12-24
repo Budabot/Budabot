@@ -49,7 +49,14 @@ class ClientHandler {
 	 * Returns client's IP-address.
 	 */
 	public function getClientAddress() {
-		$address = stream_socket_get_name($this->client);
+		$address = $this->extractAddress(
+			stream_socket_get_name($this->client, true));
+		return $address;
+	}
+
+	private function extractAddress($address) {
+		$portPos = strrpos($address, ':');
+		$address = substr($address, 0, $portPos);
 		return $address;
 	}
 }

@@ -28,7 +28,7 @@
 
 		<!-- Upload the archives -->
 		<scp username="${upload.username}" password="${upload.password}" host="${upload.hostname}" todir="${build.upload_destination}">
-			<fileset dir="../trunk/build">
+			<fileset dir="build">
 				<include name="*.zip" />
 			</fileset>
 		</scp>
@@ -45,7 +45,7 @@
 
 		<!-- Upload API documentation -->
 		<scp username="${upload.username}" password="${upload.password}" host="${upload.hostname}" todir="${apidoc.upload_destination}">
-			<fileset dir="../trunk/docs/api">
+			<fileset dir="docs/api">
 				<include name="**/**" />
 			</fileset>
 		</scp>

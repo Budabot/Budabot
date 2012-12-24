@@ -84,6 +84,8 @@ class NanoController {
 				n1.lowql,
 				n1.name,
 				n1.location,
+				n3.id AS nanoline_id,
+				n3.name AS nanoline_name,
 				n3.profession
 			FROM
 				nanos n1
@@ -101,20 +103,16 @@ class NanoController {
 		$count = count($data);
 		if ($count == 0) {
 			$msg = "No nanos found.";
-		} else if ($count == 1) {
-			$row = $data[0];
-			$msg = $this->text->make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
-			$msg .= " [$row->lowql] $row->location";
-			if ($row->profession) {
-				$msg .= " - <highlight>$row->profession<end>";
-			}
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
 				$blob .= $this->text->make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
 				$blob .= " [$row->lowql] $row->location";
 				if ($row->profession) {
-					$blob .= " - <highlight>$row->profession<end>";
+					$blob .= " - <highlight>$row->profession<end> ";
+				}
+				if ($row->nanoline_name) {
+					$blob .= $this->text->make_chatcmd($row->nanoline_name . " Nanoline", "/tell <myname> nanolines $row->nanoline_id");
 				}
 				$blob .= "\n";
 			}
