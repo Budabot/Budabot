@@ -32,16 +32,18 @@
  *		help        = 'private_channel.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'inviteuser', 
+ *		command     = 'invite', 
  *		accessLevel = 'guild', 
  *		description = "Invite players to the private channel", 
- *		help        = 'private_channel.txt'
+ *		help        = 'private_channel.txt',
+ *		alias       = 'inviteuser'
  *	)
  *	@DefineCommand(
- *		command     = 'kickuser', 
+ *		command     = 'kick', 
  *		accessLevel = 'guild', 
  *		description = "Kick players from the private channel", 
- *		help        = 'private_channel.txt'
+ *		help        = 'private_channel.txt',
+ *		alias       = 'kickuser'
  *	)
  *	@DefineCommand(
  *		command     = 'autoinvite', 
@@ -235,10 +237,10 @@ class PrivateChannelController {
 	}
 	
 	/**
-	 * @HandlesCommand("inviteuser")
-	 * @Matches("/^inviteuser (.+)$/i")
+	 * @HandlesCommand("invite")
+	 * @Matches("/^invite (.+)$/i")
 	 */
-	public function inviteuserCommand($message, $channel, $sender, $sendto, $args) {
+	public function inviteCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$uid = $this->chatBot->get_uid($name);
 		if ($this->chatBot->vars["name"] == $name) {
@@ -257,10 +259,10 @@ class PrivateChannelController {
 	}
 	
 	/**
-	 * @HandlesCommand("kickuser")
-	 * @Matches("/^kickuser (.+)$/i")
+	 * @HandlesCommand("kick")
+	 * @Matches("/^kick (.+)$/i")
 	 */
-	public function kickuserCommand($message, $channel, $sender, $sendto, $args) {
+	public function kickCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$uid = $this->chatBot->get_uid($name);
 		if ($uid) {
