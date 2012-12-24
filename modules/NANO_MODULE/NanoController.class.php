@@ -66,17 +66,11 @@ class NanoController {
 	 * @Matches("/^nano (.+)$/i")
 	 */
 	public function nanoCommand($message, $channel, $sender, $sendto, $args) {
-		$name = $args[1];
+		$search = $args[1];
 
-		$name = htmlspecialchars_decode($name);
-		$name = str_replace("'", "''", $name);
-
-		$tmp = explode(" ", $name);
-		$params = array();
-		forEach ($tmp as $key => $value) {
-			$params []= '%' . $value . '%';
-			$query .= " AND n1.`name` LIKE ?";
-		}
+		$search = htmlspecialchars_decode($search);
+		$tmp = explode(" ", $search);
+		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'n1.`name`');
 
 		$sql =
 			"SELECT
@@ -92,7 +86,7 @@ class NanoController {
 				LEFT JOIN nano_nanolines_ref n2 ON n1.lowid = n2.lowid
 				LEFT JOIN nanolines n3 ON n2.nanolineid = n3.id
 			WHERE
-				1=1 $query
+				$query
 			ORDER BY
 				n1.lowql DESC, n1.name ASC
 			LIMIT

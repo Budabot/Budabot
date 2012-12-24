@@ -413,9 +413,9 @@ class Util {
 	}
 	
 	public function generateQueryFromParams($params, $column) {
+		$queryParams = array();
 		$first = true;
 		forEach ($params as $key => $value) {
-			$value = str_replace("'", "''", $value);
 			if ($value[0] == "-") {
 				$value = substr($value, 1);
 				$op = "NOT LIKE";
@@ -423,13 +423,14 @@ class Util {
 				$op = "LIKE";
 			}
 			if ($first) {
-				$query .= "$column $op '%$value%'";
+				$query .= "$column $op ?";
 				$first = false;
 			} else {
-				$query .= " AND $column $op '%$value%'";
+				$query .= " AND $column $op ?";
 			}
+			$queryParams []= '%' . $value . '%';
 		}
-		return $query;
+		return array($query, $queryParams);
 	}
 }
 

@@ -194,14 +194,16 @@ class ItemsController {
 
 	public function find_items_from_local($search, $ql) {
 		$tmp = explode(" ", $search);
-		$query = $this->util->generateQueryFromParams($tmp, 'name');
+		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'name');
 
 		if ($ql) {
-			$query .= " AND `lowql` <= $ql AND `highql` >= $ql";
+			$query .= " AND `lowql` <= ? AND `highql` >= ?";
+			$params []= $ql;
+			$params []= $ql;
 		}
 
 		$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 1000";
-		$data = $this->db->query($sql);
+		$data = $this->db->query($sql, $params);
 		$data = $this->orderSearchResults($data, $tmp);
 		$data = array_slice($data, 0, $this->settingManager->get("maxitems"));
 
