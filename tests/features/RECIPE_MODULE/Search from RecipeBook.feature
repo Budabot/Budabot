@@ -8,12 +8,12 @@ Feature: Search from RecipeBook
 		And RecipeBook service is online
 
 	Scenario: Search is succesful
-		When I give command "!rb blood plasma"
+		When I give command "!recipe blood plasma"
 		Then the response should contain phrase "Basic Treatment Laboratory/First-Aid Kit"
 		And the response should contain phrase "Blood Plasma"
 		And the response should contain phrase "Emergency Treatment Laboratory"
 
 	Scenario: No recipes found
-		When I give command "!rb non-existing thingy"
+		When I give command "!recipe non-existing thingy"
 		Then the response should contain phrase "Error searching for recipe: Search could not be found"
 

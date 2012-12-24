@@ -6,7 +6,7 @@ Feature: Show a recipe from RecipeBook
 	Scenario: Show a recipe
 		Given "RECIPE_MODULE" module is enabled
 		And RecipeBook service is online
-		When I give command "!rbshow 20"
+		When I give command "!rshow 20"
 		Then the response should contain phrase "Monster Parts"
 		And the response should contain phrase "Bio-Comminutor"
 		And the response should contain phrase "Blood Plasma"
