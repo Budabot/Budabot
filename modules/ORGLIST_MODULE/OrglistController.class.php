@@ -85,6 +85,7 @@ class OrglistController {
 
 			if ($count == 0) {
 				$msg = "Could not find any orgs (or players in orgs) that match <highlight>$search<end>.";
+				$sendto->reply($msg);
 			} else if ($count == 1) {
 				$this->checkOrglist($orgs[0]->id, $sendto);
 			} else {
