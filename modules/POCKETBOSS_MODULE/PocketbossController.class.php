@@ -32,6 +32,9 @@ class PocketbossController {
 	public $text;
 	
 	/** @Inject */
+	public $util;
+	
+	/** @Inject */
 	public $db;
 	
 	/**
@@ -47,8 +50,11 @@ class PocketbossController {
 	 * @Matches("/^pb (.+)$/i")
 	 */
 	public function pbCommand($message, $channel, $sender, $sendto, $args) {
-		$search = str_replace(" ", "%", $args[1]);
-		$data = $this->db->query("SELECT * FROM pbdb WHERE `pb` LIKE ? GROUP BY `pb` ORDER BY `pb`", '%' . $search . '%');
+		$search = $args[1];
+		$tmp = explode(" ", $search);
+		list($query, $params) = $this->util->generateQueryFromParams($tmp, '`pb`');
+
+		$data = $this->db->query("SELECT * FROM pbdb WHERE $query GROUP BY `pb` ORDER BY `pb`", $params);
 		$numrows = count($data);
 		if ($numrows >= 1 && $numrows <= 5) {
 			$msg = "Pocketbosses matching: ";
@@ -68,7 +74,7 @@ class PocketbossController {
 		} else if ($numrows > 5) {
 			$msg = "Too many results.";
 		} else {
-			$msg = "Could not find any Pocketbosses matching your search criteria.";
+			$msg = "Could not find any pocket bosses that matched your search criteria.";
 		}
 
 		$sendto->reply($msg);
