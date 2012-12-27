@@ -6,11 +6,11 @@
 -!notes is now shared between alts
 -fix some memory leaks
 -added some common command aliases
--boss should no longer pause when downloading large files from external resources or doing !orglist
--added Xan bosses to WHEREIS_MODULE and BOSSLOOT_MODULE
--!boss and !bossloot now include Inferno static bosses
+-bot should no longer pause when downloading large files from external resources or doing !orglist
+-added Xan bosses to !whereis, !boss, and !bossloot
+-!boss and !bossloot now include Inferno static bosses (thanks to Mansikka (RK1) for this suggestion)
 -improved items db rip and updated to items db to 18.05.04
--!items now shows exact matches first in the results, and shows a message when results have been limited
+-!items now shows exact matches first in the results, and shows a message when results have been limited (thanks to Deathmaster1 (RK2) for this suggestion)
 -nearly all commands and events (including core commands and events) are now configurable
 -mods and admins can no longer configure commands that require an access level higher than their own to execute
 -added 'tell_error_msg_type' setting to control how the bot responds when a limit check fails
