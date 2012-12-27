@@ -1,6 +1,22 @@
 *****************************
-	Version 3.0_RC3:
+	Version 3.0_RC4:
 *****************************
+-renamed !kickuser to !kick and !inviteuser to !invite
+-!nano and !pb now have "enhanced search" capabilities (along with !items)
+-!notes is now shared between alts
+-fix some memory leaks
+-added some common command aliases
+-boss should no longer pause when downloading large files from external resources or doing !orglist
+-added Xan bosses to WHEREIS_MODULE and BOSSLOOT_MODULE
+-!boss and !bossloot now include Inferno static bosses
+-improved items db rip and updated to items db to 18.05.04
+-!items now shows exact matches first in the results, and shows a message when results have been limited
+-nearly all commands and events (including core commands and events) are now configurable
+-mods and admins can no longer configure commands that require an access level higher than their own to execute
+-added 'tell_error_msg_type' setting to control how the bot responds when a limit check fails
+-added 'tell_min_player_age' setting for specifying the minimum age a player must be to send a tell to the bot
+-!afk now shows how long someone has been afk for in !online list and when they come back
+-improved support/integration for Dnet
 -color settings should now affect most modules and commands
 -budatime now accepts months (mo) and years (y)
 -!usage now breaks down usage by channel
@@ -45,7 +61,6 @@
 -added core API_MODULE (to allow remote management of bot)
 -added setting 'xml_timeout' to control how long to wait for a response from xml servers
 -updated nanos db with nanos from recent patches
--updated items db to 18.05.02
 -$db->query() now returns the resultset
 -added prepared statement support to DB.class.php
 -added $db->queryRow() for returning the first row from the resultset
