@@ -8,7 +8,7 @@
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'is', 
- *		accessLevel = 'all', 
+ *		accessLevel = 'member', 
  *		description = "Checks if a player is online", 
  *		help        = 'isonline.txt'
  *	)

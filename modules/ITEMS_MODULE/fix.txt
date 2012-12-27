@@ -1,3 +1,4 @@
 Armour Test%
 Monster Invulnerability Item
 UPPER(name) LIKE UPPER('test%')
+delete Item ID: 290140 "Keeper figurine"
