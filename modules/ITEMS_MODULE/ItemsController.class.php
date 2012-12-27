@@ -338,8 +338,9 @@ class ItemsController {
 		}
 	}
 
-	public function getItem($name, $ql) {
+	public function getItem($name, $ql = null) {
 		$row = $this->findByName($name, $ql);
+		$ql = ($ql === null ? $row->highql : $ql);
 		if ($row === null) {
 			$this->logger->log("WARN", "Could not find item '$name' at QL '$ql'");
 		} else {
@@ -347,13 +348,14 @@ class ItemsController {
 		}
 	}
 	
-	public function getItemAndIcon($name, $ql) {
+	public function getItemAndIcon($name, $ql = null) {
 		$row = $this->findByName($name, $ql);
+		$ql = ($ql === null ? $row->highql : $ql);
 		if ($row === null) {
 			$this->logger->log("WARN", "Could not find item '$name' at QL '$ql'");
 		} else {
 			return $this->text->make_image($row->icon) . "\n" .
-				$this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+				$this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
 		}
 	}
 }
