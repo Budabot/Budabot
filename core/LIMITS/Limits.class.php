@@ -72,7 +72,7 @@ class Limits {
 		// check access level
 		if ($this->settingManager->get("tell_req_open") != "all") {
 			if (!$this->accessManager->checkAccess($sender, $this->settingManager->get("tell_req_open"))) {
-				return "Error! You must have an access level of at least '" . $this->settingManager->get("tell_req_open") . "' to send a tell to this bot.";
+				return "Error! You must have an access level of at least <highlight>" . $this->settingManager->get("tell_req_open") . "<end>.";
 			}
 		}
 
@@ -80,21 +80,21 @@ class Limits {
 			// get player info which is needed for following checks
 			$whois = $this->playerManager->get_by_name($sender);
 			if ($whois === null) {
-				return "Error! Unable to get your character info. Please try again later.";
+				return "Error! Unable to get your character info for limit checks. Please try again later.";
 			}
 
 			// check minlvl
 			if ($this->settingManager->get("tell_req_lvl") != 0 && $this->settingManager->get("tell_req_lvl") > $whois->level) {
-				return "Error! You must be higher than level " . $this->settingManager->get("tell_req_lvl") . " to send a tell to this bot.";
+				return "Error! You must be at least level <highlight>" . $this->settingManager->get("tell_req_lvl") . "<end>.";
 			}
 
 			// check faction limit
 			if (($this->settingManager->get("tell_req_faction") == "Omni" || $this->settingManager->get("tell_req_faction") == "Clan" || $this->settingManager->get("tell_req_faction") == "Neutral") && $this->settingManager->get("tell_req_faction") != $whois->faction) {
-				return "Error! You must be " . $this->settingManager->get("tell_req_faction") . " to send a tell to this bot.";
+				return "Error! You must be <highlight>" . $this->settingManager->get("tell_req_faction") . "<end>.";
 			} else if ($this->settingManager->get("tell_req_faction") == "not Omni" || $this->settingManager->get("tell_req_faction") == "not Clan" || $this->settingManager->get("tell_req_faction") == "not Neutral") {
 				$tmp = explode(" ", $this->settingManager->get("tell_req_faction"));
 				if ($tmp[1] == $whois->faction) {
-					return "Error! You must not be {$tmp[1]} to send a tell to this bot.";
+					return "Error! You must not be <highlight>{$tmp[1]}<end>.";
 				}
 			}
 		}
@@ -103,15 +103,16 @@ class Limits {
 		if ($this->settingManager->get("tell_min_player_age") > 1) {
 			$history = $this->playerHistoryManager->lookup($sender, $this->chatBot->vars['dimension']);
 			if ($history === null) {
-				return "Error! Unable to get your character history. Please try again later.";
+				return "Error! Unable to get your character history for limit checks. Please try again later.";
 			} else {
 				$minAge = time() - $this->settingManager->get("tell_min_player_age");
 				$entry = array_pop($history->data);
+				// TODO check for rename
 
 				$age = strtotime($entry->date);
 				if ($age > $minAge) {
 					$timeString = $this->util->unixtime_to_readable($this->settingManager->get("tell_min_player_age"));
-					return "Error! You must be at least $timeString old to send a tell to this bot.";
+					return "Error! You must be at least <highlight>$timeString<end> old.";
 				}
 			}
 		}
