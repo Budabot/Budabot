@@ -6,7 +6,7 @@
  * Commands this class contains:
  *	@DefineCommand(
  *		command     = 'news',
- *		accessLevel = 'all',
+ *		accessLevel = 'member',
  *		description = 'Shows news',
  *		help        = 'news.txt'
  *	)
