@@ -202,7 +202,7 @@ class UsageController {
 		$settings['spam_protection'] = $this->settingManager->get('spam_protection');
 		$settings['db_type'] = $this->db->get_type();
 		$settings['bot_version'] = $version;
-		$settings['using_svn'] = (file_exists("./modules/SVN_MODULE/svn.php") === true ? '1' : '0');
+		$settings['using_svn'] = (file_exists("./modules/GIT_MODULE/GitController.class.php") === true ? '1' : '0');
 		$settings['os'] = (isWindows() === true ? 'Windows' : 'Other');
 		$settings['relay_enabled'] = ($this->settingManager->get('relaybot') == 'Off' ? '0' : '1');
 		$settings['relay_type'] = $this->settingManager->get('relaytype');
