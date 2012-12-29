@@ -167,38 +167,47 @@ class ProfileController {
 	 */
 	public function profileLoadCommand($message, $channel, $sender, $sendto, $args) {
 		$profileName = $args[1];
-		$filename = $this->path . '/' . $profileName . $this->fileExt;
+		$filename = $this->getFilename($profileName);
 		
 		if (!file_exists($filename)) {
 			$msg = "Profile <highlight>$profileName<end> does not exist.";
 		} else {
 			$sendto->reply("Loading profile <highlight>$profileName<end>...");
-			// get the filename and read in the file
-			$fileName = strtolower($args[1]);
-			$name = ucfirst($fileName);
-			$info = file_get_contents($filename);
-			$lines = explode("\n", $info);
-			$output = '';
-			$this->db->begin_transaction();
-			try {
-				forEach ($lines as $line) {
-					if ($line[0] == "!") {
-						$output .= "<pagebreak>" . $line . "\n";
-						$line = substr(trim($line), 1);
-						$profileSendTo = new ProfileCommandReply();
-						$this->commandManager->process("msg", $line, $sender, $profileSendTo);
-						$output .= $profileSendTo->result . "\n\n";
-					}
-				}
-				$msg = $this->text->make_blob("$name Profile Results", $output);
-				$this->db->commit();
-			} catch (Exception $e) {
-				$this->logger->log("ERROR", "Could not load profile", $e);
-				$msg = "There was an error loading the profile.";
-				$this->db->rollback();
+			$output = $this->loadProfile($filename, $sender);
+			if ($ouptput === false) {
+				$msg = "There was an error loading the profile <highlight>$profileName<end>.";
+			} else {
+				$msg = $this->text->make_blob("Profile Results: $profileName", $output);
 			}
 		}
 		$sendto->reply($msg);
+	}
+	
+	public function getFilename($profileName) {
+		return $this->path . '/' . $profileName . $this->fileExt;
+	}
+	
+	public function loadProfile($filename, $sender) {
+		$info = file_get_contents($filename);
+		$lines = explode("\n", $info);
+		$this->db->begin_transaction();
+		try {
+			$profileSendTo = new ProfileCommandReply();
+			forEach ($lines as $line) {
+				if ($line[0] == "!") {
+					$profileSendTo->reply("<pagebreak>" . $line);
+					$line = substr(trim($line), 1);
+					$this->commandManager->process("msg", $line, $sender, $profileSendTo);
+					$profileSendTo->reply("\n");
+				}
+			}
+			$this->db->commit();
+			return $profileSendTo->result;
+		} catch (Exception $e) {
+			$this->logger->log("ERROR", "Could not load profile", $e);
+			$this->db->rollback();
+			return false;
+		}
 	}
 }
 
@@ -206,6 +215,6 @@ class ProfileCommandReply implements CommandReply {
 	public $result;
 
 	public function reply($msg) {
-		$this->result = $msg;
+		$this->result .= $msg . "\n";
 	}
 }
