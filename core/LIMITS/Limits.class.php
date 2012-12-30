@@ -33,6 +33,9 @@ class Limits {
 	/** @Inject */
 	public $whitelist;
 	
+	/** @Logger */
+	public $logger;
+	
 	/**
 	 * @Setup
 	 */
@@ -58,12 +61,16 @@ class Limits {
 		if ($msg === true) {
 			return true;
 		} else {
+			$this->logger->log('Info', "$sender denied access to bot due to: $msg");
+		
 			if ($this->settingManager->get('tell_error_msg_type') == 2) {
 				$this->chatBot->sendTell($msg, $sender);
 			} else if ($this->settingManager->get('tell_error_msg_type') == 1) {
 				$msg = "Error! You do not have access to this bot.";
 				$this->chatBot->sendTell($msg, $sender);
-			} // else do not send a message
+			} else {
+				// else do not send a message
+			}
 			return false;
 		}
 	}
