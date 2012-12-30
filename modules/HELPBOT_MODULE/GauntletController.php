@@ -10,7 +10,7 @@
  *	@DefineCommand(
  *		command     = 'gauntlet', 
  *		accessLevel = 'member', 
- *		description = 'Show which faction(s) have gauntlet', 
+ *		description = 'Show which factions have gauntlet', 
  *		help        = 'gauntlet.txt'
  *	)
  */
@@ -57,7 +57,7 @@ class GauntletController {
 
 		if ($errno != 0) {
 			$msg = "Coult not get Gauntlet information: " . $errstr;
-		} else if ($content == 'none') {
+		} else if ($content == 'null') {
 			$msg = "No factions currently have Gauntlet buff.";
 		} else {
 			$statuses = explode('|', $content);
