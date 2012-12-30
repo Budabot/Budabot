@@ -83,10 +83,10 @@ class Whitelist {
 
 		$data = $this->db->query("SELECT * FROM whitelist WHERE name = ?", $user);
 		if (count($data) != 0) {
-			return "Error! $user already added to the whitelist";
+			return "Error! $user already added to the whitelist.";
 		} else {
 			$this->db->exec("INSERT INTO whitelist (name, added_by, added_dt) VALUES (?, ?, ?)", $user, $sender, time());
-			return "$user has been added to the whitelist";
+			return "$user has been added to the whitelist.";
 		}
 	}
 
@@ -99,10 +99,10 @@ class Whitelist {
 
 		$data = $this->db->query("SELECT * FROM whitelist WHERE name = ?", $user);
 		if (count($data) == 0) {
-			return "Error! $user is not on the whitelist";
+			return "Error! $user is not on the whitelist.";
 		} else {
 			$this->db->exec("DELETE FROM whitelist WHERE name = ?", $user);
-			return "$user has been removed from the whitelist";
+			return "$user has been removed from the whitelist.";
 		}
 	}
 
