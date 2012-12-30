@@ -77,7 +77,7 @@ class AOUController {
 
 		$blob .= $this->processInput($content->getElementsByTagName('text')->item(0)->nodeValue);
 
-		$blob .= "\n\n<yellow>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
+		$blob .= "\n\n<highlight>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 
 		$msg = $this->text->make_blob($title, $blob);
 		$sendto->reply($msg);
@@ -129,7 +129,7 @@ class AOUController {
 			}
 		}
 
-		$blob .= "\n<yellow>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
+		$blob .= "\n<highlight>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 
 		if ($count > 0) {
 			$msg = $this->text->make_blob("AO-U Guides containing '$search' ($count)", $blob);

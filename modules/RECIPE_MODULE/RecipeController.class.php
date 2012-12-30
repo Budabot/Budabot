@@ -113,7 +113,7 @@ class RecipeController {
 	}
 	
 	public function getAORecipebookFooter() {
-		return "\n\n<header>Powered by " . $this->text->make_chatcmd("AORecipebook.com", "/start http://aorecipebook.com") . "<end>\n" .
+		return "\n\n<highlight>Powered by " . $this->text->make_chatcmd("AORecipebook.com", "/start http://aorecipebook.com") . "<end>\n" .
 			"For more information, " . $this->text->make_chatcmd("/tell recipebook about", "/tell recipebook about");
 	}
 	
