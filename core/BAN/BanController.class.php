@@ -84,7 +84,7 @@ class BanController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		$this->db->exec("CREATE TABLE IF NOT EXISTS banlist_<myname> (name VARCHAR(25) NOT NULL PRIMARY KEY, admin VARCHAR(25), time INT, reason TEXT, banend INT)");
+		$this->db->loadSQLFile($this->moduleName, "banlist");
 		$this->banManager->upload_banlist();
 	}
 
