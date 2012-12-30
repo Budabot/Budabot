@@ -46,6 +46,7 @@ class GauntletController {
 	 * @Matches("/^gauntlet$/i")
 	 */
 	public function gauntletCommand($message, $channel, $sender, $sendto, $args) {
+		print_r($this->chatBot->vars);
 		if ($this->chatBot->vars['dimension'] != 2) {
 			$msg = "This command is not availalble on this server.";
 			$sendto->reply($msg);
