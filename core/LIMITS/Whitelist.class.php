@@ -27,6 +27,9 @@ class Whitelist {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $util;
+	
 	/**
 	 * @Setup
 	 */
@@ -46,7 +49,8 @@ class Whitelist {
 			$blob = '';
 			forEach ($list as $entry) {
 				$remove = $this->text->make_chatcmd('Remove', "/tell <myname> whitelist remove $entry->name");
-				$blob .= "<highlight>{$entry->name}<end> [added by {$entry->added_by}] {$entry->added_dt} {$remove}\n";
+				$date = $this->util->date($entry->added_dt);
+				$blob .= "<highlight>{$entry->name}<end> [added by {$entry->added_by}] {$date} {$remove}\n";
 			}
 			$msg = $this->text->make_blob("Whitelist", $blob);
 			$sendto->reply($msg);
