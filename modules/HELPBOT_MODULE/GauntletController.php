@@ -56,7 +56,7 @@ class GauntletController {
 		$content = fgets($socket, 4096);
 
 		if ($errno != 0) {
-			$msg = "Coult not get Gauntlet information: " . $errstr;
+			$msg = "Could not get Gauntlet information: " . $errstr;
 		} else if ($content == 'null') {
 			$msg = "No factions currently have Gauntlet buff.";
 		} else {

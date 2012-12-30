@@ -136,10 +136,6 @@ class AdminController {
 	 * @Matches("/^adminlist$/i")
 	 */
 	public function adminlistCommand($message, $channel, $sender, $sendto) {
-		if (!preg_match("/^adminlist$/i", $message)) {
-			return false;
-		}
-
 		$blob .= "<header2>Administrators<end>\n";
 		forEach ($this->adminManager->admins as $who => $data) {
 			if ($this->adminManager->admins[$who]["level"] == 4) {
