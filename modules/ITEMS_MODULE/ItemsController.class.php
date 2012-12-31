@@ -260,8 +260,12 @@ class ItemsController {
 			$row->numExactMatches = $numExactMatches;
 		}
 		
-		usort($data, function($a, $b) {
-			return ($a->numExactMatches > $b->numExactMatches) ? -1 : 1;
+		$this->util->mergesort($data, function($a, $b) {
+			if ($a->numExactMatches == $b->numExactMatches) {
+				return 0;
+			} else {
+				return ($a->numExactMatches > $b->numExactMatches) ? -1 : 1;
+			}
 		});
 		
 		return $data;
