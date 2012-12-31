@@ -95,7 +95,7 @@ class SettingManager {
 		}
 
 		try {
-			if (array_key_exists($name, $this->chatBot->existing_settings)) {
+			if (array_key_exists($name, $this->chatBot->existing_settings) || array_key_exists($name, $this->settings)) {
 				$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
 				$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
 			} else {
