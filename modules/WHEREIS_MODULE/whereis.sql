@@ -528,3 +528,13 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Ground Chief Vortexx', 'Xan', '', 0, 0, 0);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Mitaar Hero', 'Xan', 'Technomaster Sinuh', 0, 0, 0);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('12-man', 'Xan', '12m 12man', 0, 0, 0);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Omni Trader Shop', 'Omni-1 Trade (NW - Finest Edition)', '', 710, 230, 490);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Omni Trader Shop', 'Omni-1 Entertainment (SE - Big Yalm)', '', 705, 845, 430);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Omni Trader Shop', 'Rome Green district (East Wall)', '', 740, 410, 340);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Omni Trader Shop', 'Rome Blue district (West Wall)', '', 735, 540, 330);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Neutral Trader Shop', 'Newland City (West - Supplies)', '', 566, 290, 315);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Neutral Trader Shop', 'Borealis (West - HItech)', '', 800, 652, 576);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Neutral Trader Shop', 'Harrys Outpost, Lush Fields (SW of Grid - Supplies)', '', 695, 3040, 3030);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Neutral Trader Shop', '20K Outpost, Pleasant Meadows (Whompah)', '', 630, 1190, 2350);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Clan Trader Shop', 'Tir (NW - Computers Inc)', '', 640, 395, 545);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Clan Trader Shop', 'Old Athens (SW of Grid - Finest Edition)', '', 540, 370, 500);
