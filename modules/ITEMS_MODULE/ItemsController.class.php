@@ -204,7 +204,7 @@ class ItemsController {
 
 		$sql = "SELECT * FROM aodb WHERE $query ORDER BY `name` ASC, highql DESC LIMIT 1000";
 		$data = $this->db->query($sql, $params);
-		$data = $this->orderSearchResults($data, $tmp);
+		$data = $this->orderSearchResults($data, $search);
 		$data = array_slice($data, 0, $this->settingManager->get("maxitems"));
 
 		$resultsLimited = false;
@@ -243,17 +243,21 @@ class ItemsController {
 	}
 	
 	// sort by exact word matches higher than partial word matches
-	public function orderSearchResults($data, $searchTerms) {
+	public function orderSearchResults($data, $search) {
+		$searchTerms = explode(" ", $search);
 		$newData = array();
 		forEach ($data as $row) {
-			$match = false;
-			$itemKeywords = preg_split("/\s/", $row->name);
-			$numExactMatches = 0;
-			forEach ($itemKeywords as $keyword) {
-				forEach ($searchTerms as $searchWord) {
-					if (strcasecmp($keyword, $searchWord) == 0) {
-						$numExactMatches++;
-						break;
+			if (strcasecmp($search, $row->name) == 0) {
+				$numExactMatches = 100;
+			} else {
+				$itemKeywords = preg_split("/\s/", $row->name);
+				$numExactMatches = 0;
+				forEach ($itemKeywords as $keyword) {
+					forEach ($searchTerms as $searchWord) {
+						if (strcasecmp($keyword, $searchWord) == 0) {
+							$numExactMatches++;
+							break;
+						}
 					}
 				}
 			}
