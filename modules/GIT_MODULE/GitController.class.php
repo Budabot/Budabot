@@ -32,6 +32,22 @@ class GitController extends AutoInject {
 	
 	/**
 	 * @HandlesCommand("git")
+	 * @Matches("/^git incoming$/i")
+	 */
+	public function gitIncomingCommand($message, $channel, $sender, $sendto, $args) {
+		$gitpath = $this->settingManager->get('gitpath');
+		$command = "$gitpath fetch origin 2>&1";
+		$this->executeCommand($command);
+		
+		$command = "$gitpath log master ...origin/master 2>&1";
+		
+		$blob = $this->executeCommand($command);
+		$msg = $this->text->make_blob("git incoming", $blob);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("git")
 	 * @Matches("/^git diff$/i")
 	 */
 	public function gitDiffCommand($message, $channel, $sender, $sendto, $args) {
