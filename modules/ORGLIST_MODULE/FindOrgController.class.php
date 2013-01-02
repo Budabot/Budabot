@@ -72,20 +72,20 @@ class FindOrgController {
 		$sendto->reply($msg);
 	}
 	
-	public function lookupOrg($search, $dimension) {
+	public function lookupOrg($search, $dimension, $limit = 50) {
 		$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
 		
 		$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
 		preg_match_all('|<a href="http://people.anarchy-online.com/org/stats/d/(\\d)/name/(\\d+)">([^<]+)</a>|s', $response->body, $arr, PREG_SET_ORDER);
 		$orgs = array();
 		forEach ($arr as $match) {
-			if ($match[1] == $dimension) {
+			if ($dimension === null || $match[1] == $dimension) {
 				$obj = new stdClass;
 				$obj->name = trim($match[3]);
 				$obj->dimension = $match[1];
 				$obj->id = $match[2];
 				$orgs []= $obj;
-				if (count($orgs) == 50) {
+				if (count($orgs) == $limit) {
 					break;
 				}
 			}
