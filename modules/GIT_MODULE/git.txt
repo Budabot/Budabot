@@ -9,3 +9,6 @@ To the most the recent commits:
 
 To see Git status on changed/added/deleted files:
 <highlight><tab><symbol>git status<end>
+
+To see incoming commits that have yet to be pulled/merged:
+<highlight><tab><symbol>git incoming<end>
