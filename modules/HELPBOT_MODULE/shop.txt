@@ -1,0 +1,8 @@
+To search for items that have been posted on the shopping channels:
+<highlight><tab><symbol>shop 'search'<end>
+
+To specify an exact ql with your search:
+<highlight><tab><symbol>shop 'ql' 'search'<end>
+
+To specify a minimum and a maximum ql with your search:
+<highlight><tab><symbol>shop 'minql' 'maxql' 'search'<end>
