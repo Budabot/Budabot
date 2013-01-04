@@ -894,10 +894,7 @@ class TowerController {
 		
 		// tower_attack_spam >= 3 (full) includes location.
 		if ($this->settingManager->get("tower_attack_spam") >= 3) {
-			if ($closest_site) {
-				$site_number = "<font color=#AAAAAA>#".$closest_site->site_number."<end>";
-			}
-			$msg .= "[".$playfield->short_name." $site_number (".$x_coords." x ".$y_coords.")] ";
+			$msg .= "[".$playfield->short_name." {$closest_site->site_number} (".$x_coords." x ".$y_coords.")] ";
 		}
 		
 		$msg .= "$more<end>";
