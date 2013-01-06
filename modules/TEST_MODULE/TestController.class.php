@@ -72,6 +72,18 @@
  *		description = "Test the bot commands", 
  *		help        = 'test.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'testcloaklower', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'testcloakraise', 
+ *		accessLevel = 'admin', 
+ *		description = "Test the bot commands", 
+ *		help        = 'test.txt'
+ *	)
  */
 class TestController extends AutoInject {
 
@@ -364,6 +376,36 @@ class TestController extends AutoInject {
 	public function stacktraceCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->text->make_blob("Current Stacktrace", $this->util->getStackTrace());
 		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("testcloaklower")
+	 * @Matches("/^testcloaklower$/i")
+	 */
+	public function testcloaklowerCommand($message, $channel, $sender, $sendto, $args) {
+		$packet = new stdClass;
+		$packet->type = AOCP_GROUP_MESSAGE;
+		$packet->args = array();
+		$packet->args[0] = $this->chatBot->get_gid($this->chatBot->vars['my_guild']);
+		$packet->args[1] = (int)0xFFFFFFFF;
+		$packet->args[2] = "$sender turned the cloaking device in your city off.";
+
+		$this->chatBot->process_packet($packet);
+	}
+	
+	/**
+	 * @HandlesCommand("testcloakraise")
+	 * @Matches("/^testcloakraise$/i")
+	 */
+	public function testcloakraiseCommand($message, $channel, $sender, $sendto, $args) {
+		$packet = new stdClass;
+		$packet->type = AOCP_GROUP_MESSAGE;
+		$packet->args = array();
+		$packet->args[0] = $this->chatBot->get_gid($this->chatBot->vars['my_guild']);
+		$packet->args[1] = (int)0xFFFFFFFF;
+		$packet->args[2] = "$sender turned the cloaking device in your city on.";
+
+		$this->chatBot->process_packet($packet);
 	}
 }
 
