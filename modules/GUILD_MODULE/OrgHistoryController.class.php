@@ -57,7 +57,7 @@ class OrgHistoryController {
 		$data = $this->db->query($sql);
 		if (count($data) != 0) {
 			forEach ($data as $row) {
-				$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end> in $row->organization at " . $this->util->date($row->time) . "\n";
+				$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
 			}
 
 			$msg = $this->text->make_blob('Org History', $blob);
@@ -81,14 +81,14 @@ class OrgHistoryController {
 		$sql = "SELECT actor, actee, action, organization, time FROM `org_history` WHERE actee LIKE ? ORDER BY time DESC";
 		$data = $this->db->query($sql, $player);
 		forEach ($data as $row) {
-			$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end> - $row->organization - " . $this->util->date($row->time) . "\n";
+			$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
 		}
 
 		$blob .= "\n<header2>Actions by $player<end>\n";
 		$sql = "SELECT actor, actee, action, organization, time FROM `org_history` WHERE actor LIKE ? ORDER BY time DESC";
 		$data = $this->db->query($sql, $player);
 		forEach ($data as $row) {
-			$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end> - $row->organization - " . $this->util->date($row->time) . "\n";
+			$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
 		}
 
 		$msg = $this->text->make_blob('Org History', $blob);
