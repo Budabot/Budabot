@@ -1002,7 +1002,8 @@ class TowerController {
 			$blob .= $this->text->make_header_links($links) . "\n\n";
 
 			forEach ($data as $row) {
-				$blob .= "Time: " . $this->util->date($row->time) . "\n";
+				$timeString = $this->util->unixtime_to_readable(time() - $row->time);
+				$blob .= "Time: " . $this->util->date($row->time) . " (<highlight>$timeString<end> ago)\n";
 				if ($row->att_faction == '') {
 					$att_faction = "unknown";
 				} else {
@@ -1076,7 +1077,8 @@ class TowerController {
 			$blob = "The last $page_size Tower Results (page $page_label)\n\n";
 			$blob .= $this->text->make_header_links($links) . "\n\n";
 			forEach ($data as $row) {
-				$blob .= "Time: " . $this->util->date($row->victory_time) . "\n";
+				$timeString = $this->util->unixtime_to_readable(time() - $row->victory_time);
+				$blob .= "Time: " . $this->util->date($row->victory_time) . " (<highlight>$timeString<end> ago)\n";
 
 				if (!$win_side = strtolower($row->win_faction)) {
 					$win_side = "unknown";
