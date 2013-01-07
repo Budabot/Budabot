@@ -95,10 +95,13 @@ class AOChat {
 	var $state, $debug, $id, $gid, $chars, $char, $grp, $buddies;
 	var $socket, $last_packet, $last_ping;
 	var $serverseed, $chatqueue;
+	
+	var $mmdbParser;
 
 	/* Initialization */
 	function __construct() {
 		$this->disconnect();
+		$this->mmdbParser = new MMDBParser('data/text.mdb');
 	}
 
 	function disconnect() {
@@ -244,7 +247,7 @@ class AOChat {
 			case AOCP_GROUP_MESSAGE:
 				/* Hack to support extended messages */
 				if ($packet->args[1] === 0 && substr($packet->args[2], 0, 2) == "~&") {
-					$em = new AOExtMsg($packet->args[2]);
+					$em = $this->readExtMsg($packet->args[2]);
 					$packet->args[2] = $em->message;
 					$packet->args['extended_message'] = $em;
 				}
@@ -252,9 +255,9 @@ class AOChat {
 
 			case AOCP_CHAT_NOTICE:
 				$category_id = 20000;
-				$packet->args[4] = MMDBParser::get_message_string($category_id, $packet->args[2]);
+				$packet->args[4] = $this->mmdbParser->get_message_string($category_id, $packet->args[2]);
 				if ($packet->args[4] !== null) {
-					$packet->args[5] = AOExtMsg::parse_params($packet->args[3]);
+					$packet->args[5] = $this->parse_ext_params($packet->args[3]);
 					if ($packet->args[5] !== null) {
 						$packet->args[6] = vsprintf($packet->args[4], $packet->args[5]);
 					} else {
@@ -783,6 +786,123 @@ class AOChat {
 			$b += (int)$this -> ReduceTo32Bit((int)$this -> ReduceTo32Bit(((int)$this -> ReduceTo32Bit($a) << 4 & -16) + $y[3]) ^ (int)$this -> ReduceTo32Bit($a + $c)) ^ (int)$this -> ReduceTo32Bit(((int)$this -> ReduceTo32Bit($a) >> 5 & 134217727) + $y[4]);
 		}
 		return array($a, $b);
+	}
+	
+	public function parse_ext_params($msg) {
+		$args = array();
+		while ($msg != '') {
+			$data_type = $msg[0];
+			$msg = substr($msg, 1); // skip the data type id
+			switch ($data_type) {
+				case "S":
+					$len = ord($msg[0]) * 256 + ord($msg[1]);
+					$str = substr($msg, 2, $len);
+					$msg = substr($msg, $len + 2);
+					$args[] = $str;
+					break;
+
+				case "s":
+					$len = ord($msg[0]) - 1;
+					$str = substr($msg, 1, $len);
+					$msg = substr($msg, $len + 1);
+					$args[] = $str;
+					break;
+
+				case "I":
+					$array = unpack("N", $msg);
+					$args[] = $array[1];
+					$msg = substr($msg, 4);
+					break;
+
+				case "i":
+				case "u":
+					$num = $this->b85g($msg);
+					$args[] = $num;
+					break;
+
+				case "R":
+					$cat = $this->b85g($msg);
+					$ins = $this->b85g($msg);
+					$str = $this->mmdbParser->get_message_string($cat, $ins);
+					if ($str === null) {
+						$str = "Unknown ($cat, $ins)";
+					}
+					$args[] = $str;
+					break;
+
+				case "l":
+					$array = unpack("N", $msg);
+					$msg = substr($msg, 4);
+					$cat = 20000;
+					$ins = $array[1];
+					$str = $this->mmdbParser->get_message_string($cat, $ins);
+					if ($str === null) {
+						$str = "Unknown ($cat, $ins)";
+					}
+					$args[] = $str;
+					break;
+
+				default:
+					echo "Error! could not parse argument: '$data_type'\n";
+					return null;
+					break;
+			}
+		}
+
+		return $args;
+	}
+	
+	public function b85g(&$str) {
+		$n = 0;
+		for ($i = 0; $i < 5; $i++) {
+			$n = $n * 85 + ord($str[$i]) - 33;
+		}
+		$str = substr($str, 5);
+		return $n;
+	}
+	
+	/**
+	 * New "extended" messages, parser and abstraction.
+	 * These were introduced in 16.1.  The messages use postscript
+	 * base85 encoding (not ipv6 / rfc 1924 base85).  They also use
+	 * some custom encoding and references to further confuse things.
+	 *
+	 * Messages start with the magic marker ~& and end with ~
+	 * Messages begin with two base85 encoded numbers that define
+	 * the category and instance of the message.  After that there
+	 * are an category/instance defined amount of variables which
+	 * are prefixed by the variable type.  A base85 encoded number
+	 * takes 5 bytes.  Variable types:
+	 *
+	 * s: string, first byte is the length of the string
+	 * i: signed integer (b85)
+	 * u: unsigned integer (b85)
+	 * f: float (b85)
+	 * R: reference, b85 category and instance
+	 * F: recursive encoding
+	 * ~: end of message
+	 */
+	public function readExtMsg($msg) {
+		if (empty($msg) || substr($msg, 0, 2) != "~&" || substr($msg, -1) != "~") {
+			return false;
+		}
+		$msg = substr($msg, 2, -1);
+		
+		$obj = new AOExtMsg();
+		$obj->category = $this->b85g($msg);
+		$obj->instance = $this->b85g($msg);
+
+		$obj->args = $this->parse_ext_params($msg);
+		if ($obj->args === null) {
+			echo "Error parsing parameters for category: '$obj->category' instance: '$obj->instance' string: '$msg'\n";
+		} else {
+			$obj->message_string = $this->mmdbParser->get_message_string($obj->category, $obj->instance);
+			if ($obj->message_string !== null) {
+				$obj->message = vsprintf($obj->message_string, $obj->args);
+			}
+		}
+		
+		return $obj;
 	}
 }
 
