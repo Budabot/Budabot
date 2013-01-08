@@ -101,33 +101,11 @@ class TowerController {
 	 * @Description("Layout types when displaying tower attacks")
 	 * @Visibility("edit")
 	 * @Type("options")
-	 * @Options("off;compact;normal;full")
-	 * @Intoptions("0;1;2;3")
+	 * @Options("off;compact;normal")
+	 * @Intoptions("0;1;2")
 	 * @AccessLevel("mod")
 	 */
 	public $defaultTowerAttackSpam = "1";
-
-	/**
-	 * @Setting("tower_faction_def")
-	 * @Description("Display certain factions defending")
-	 * @Visibility("edit")
-	 * @Type("options")
-	 * @Options("none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all")
-	 * @Intoptions("0;1;2;3;4;5;6;7")
-	 * @AccessLevel("mod")
-	 */
-	public $defaultTowerFactionDef = "7";
-
-	/**
-	 * @Setting("tower_faction_atk")
-	 * @Description("Display certain factions attacking")
-	 * @Visibility("edit")
-	 * @Type("options")
-	 * @Options("none;clan;neutral;clan+neutral;omni;clan+omni;neutral+omni;all")
-	 * @Intoptions("0;1;2;3;4;5;6;7")
-	 * @AccessLevel("mod")
-	 */
-	public $defaultTowerFactionAtk = "7";
 
 	/**
 	 * @Setting("tower_page_size")
@@ -850,13 +828,13 @@ class TowerController {
 			$link .= "Playfield: <highlight>{$base_link} ({$closest_site->min_ql}-{$closest_site->max_ql})<end>\n";
 			$link .= "Location: <highlight>{$closest_site->site_name} ({$attack_waypoint})<end>\n";
 		
-			$more = "[".$this->text->make_blob("more", $link, 'Advanced Tower Info')."]";
+			$more = $this->text->make_blob("{$playfield->short_name} {$closest_site->site_number}", $link, 'Advanced Tower Info');
 		}
 		
 		$targetorg = "<".strtolower($def_side).">".$def_guild."<end>";
 		
 		// Starting tower message to org/private chat
-		$msg .= "<font color=#FF67FF>[";
+		$msg .= "";
 		
 		// tower_attack_spam >= 2 (normal) includes attacker stats
 		if ($this->settingManager->get("tower_attack_spam") >= 2) {
@@ -869,7 +847,7 @@ class TowerController {
 				} else {
 					$msg .= "<font color=#AAAAAA>$att_player<end>";
 				}
-				$msg .= " (level <font color=#AAAAAA>$whois->level<end>";
+				$msg .= " (<font color=#AAAAAA>$whois->level<end>";
 				if ($whois->ai_level) {
 					$msg .= "/<green>$whois->ai_level<end>";
 				}
@@ -890,27 +868,11 @@ class TowerController {
 			$msg .= "<".strtolower($whois->faction).">$att_player<end>";
 		}
 		
-		$msg .= " attacked ".$targetorg."] ";
+		$msg .= " attacked $targetorg [$more]";
 		
-		// tower_attack_spam >= 3 (full) includes location.
-		if ($this->settingManager->get("tower_attack_spam") >= 3) {
-			$msg .= "[".$playfield->short_name." {$closest_site->site_number} (".$x_coords." x ".$y_coords.")] ";
-		}
-		
-		$msg .= "$more<end>";
-		
-		$d = $this->settingManager->get("tower_faction_def");
-		$a = $this->settingManager->get("tower_faction_atk");
 		$s = $this->settingManager->get("tower_attack_spam");
 		
-		if (($s > 0 && (
-			(strtolower($def_side) == "clan"    && ($d & 1)) ||
-			(strtolower($def_side) == "neutral" && ($d & 2)) ||
-			(strtolower($def_side) == "omni"    && ($d & 4)) ||
-			(strtolower($whois->faction) == "clan"    && ($a & 1)) ||
-			(strtolower($whois->faction) == "neutral" && ($a & 2)) ||
-			(strtolower($whois->faction) == "omni"    && ($a & 4)) ))) {
-		
+		if ($s > 0) {
 			$this->chatBot->sendGuild($msg, true);
 		}
 	}
