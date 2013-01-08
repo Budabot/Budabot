@@ -7,81 +7,87 @@
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'test', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'test',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'testorgjoin', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'testorgjoin',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'testtowerattack', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'testtowerattack',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'testtowervictory', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'testtowervictory',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'testos', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'testos',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'showcmdregex', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'showcmdregex',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'reloadinstance', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'reloadinstance',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'testevent', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'testevent',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'intransaction', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'intransaction',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'rollbacktransaction', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'rollbacktransaction',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'stacktrace', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'stacktrace',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'testcloaklower', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'testcloaklower',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'testcloakraise', 
- *		accessLevel = 'admin', 
- *		description = "Test the bot commands", 
+ *		command     = 'testcloakraise',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
+ *		help        = 'test.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'testblobsize',
+ *		accessLevel = 'admin',
+ *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
  */
@@ -407,6 +413,17 @@ class TestController extends AutoInject {
 
 		$this->chatBot->process_packet($packet);
 	}
+	
+	/**
+	 * @HandlesCommand("testblobsize")
+	 * @Matches("/^testblobsize (.+)$/i")
+	 */
+	public function testblobsizeCommand($message, $channel, $sender, $sendto, $args) {
+		$cmd = $args[1];
+
+		$mockSendto = new ReplySizeCommandReply($sendto);
+		$this->commandManager->process($channel, $cmd, $sender, $mockSendto);
+	}
 }
 
 class MockCommandReply implements CommandReply {
@@ -416,3 +433,21 @@ class MockCommandReply implements CommandReply {
 	}
 }
 
+class ReplySizeCommandReply implements CommandReply {
+	private $sendto;
+
+	public function __construct($sendto) {
+		$this->sendto = $sendto;
+	}
+
+	public function reply($msg) {
+		if (!is_array($msg)) {
+			$msg = array($msg);
+		}
+		
+		forEach ($msg as $page) {
+			$this->sendto->reply($page);
+			$this->sendto->reply(strlen($page));
+		}
+	}
+}
