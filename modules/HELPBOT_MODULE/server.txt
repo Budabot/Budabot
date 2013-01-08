@@ -4,6 +4,9 @@ To shows the status of the current server:
 To show the status of a specific server:
 <highlight><tab><symbol>server 'server id'<end>
 
+To show the average server population for the past 30 days:
+<highlight><tab><symbol>servertrend<end>
+
 <header2>Server ids:<end>
 <tab>1 = Atlantean(RK1)
 <tab>2 = Rimor(RK2)
