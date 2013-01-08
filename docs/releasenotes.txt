@@ -57,7 +57,6 @@
 -error message now distinguishes between "unknown command" and "access denied"
 -!whois now deals with current data, !lookup deals with data from name_history
 -fixed LIMITS check
--bastion loot info added (!guides ssc, !bastion)
 -added core API_MODULE (to allow remote management of bot)
 -added setting 'xml_timeout' to control how long to wait for a response from xml servers
 -updated nanos db with nanos from recent patches
