@@ -13,6 +13,13 @@
  *		description = 'Show the server status', 
  *		help        = 'server.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'servertrend', 
+ *		accessLevel = 'all', 
+ *		description = 'Show the server status', 
+ *		help        = 'server.txt',
+ *		alias       = 'servertrends'
+ *	)
  */
 class ServerStatusController {
 
@@ -31,6 +38,9 @@ class ServerStatusController {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $util;
+	
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'population_history');
@@ -42,7 +52,54 @@ class ServerStatusController {
 	 */
 	public function recordPopulationEvent($eventObj) {
 		$serverInfo = $this->getServerInfo($this->chatBot->vars['dimension']);
-		$this->db->exec("INSERT INTO population_history_<myname> (dt, server_num, population) VALUES (?, ?, ?)", time(), $this->chatBot->vars['dimension'], $serverInfo->totalPlayers);
+		$this->db->exec("INSERT INTO population_history (dt, server_num, population) VALUES (?, ?, ?)", time(), $this->chatBot->vars['dimension'], $serverInfo->totalPlayers);
+	}
+	
+	/**
+	 * @HandlesCommand("servertrend")
+	 * @Matches("/^servertrend$/i")
+	 */
+	public function servertrendCommand($message, $channel, $sender, $sendto, $args) {
+		$time = time() - $this->util->parseTime("30d");
+		
+		if ($this->db->get_type() == DB::MYSQL) {
+			// http://dev.mysql.com/doc/refman/5.0/en/date-and-time-functions.html#function_date-format
+			$periodSql = "FROM_UNIXTIME(dt, '%H')";
+		} else {
+			// http://www.sqlite.org/lang_datefunc.html
+			$periodSql = "strftime('%H', dt, 'unixepoch')";
+		}
+		
+		$sql = "
+			SELECT
+				$periodSql AS period,
+				ROUND(AVG(population), 0) AS avg_pop,
+				COUNT(*) AS count,
+				server_num
+			FROM
+				population_history
+			WHERE
+				dt > ?
+			GROUP BY
+				period,
+				server_num
+			ORDER BY
+				period,
+				server_num";
+		$data = $this->db->query($sql, $time);
+		
+		$blob = '';
+		$currentServer = '';
+		forEach ($data as $row) {
+			if ($row->server_num != $currentServer) {
+				$currentServer = $row->server_num;
+				$blob .= "\n<header2>Server $currentServer<end>\n";
+			}
+			$blob .= "Hour $row->period: <highlight>$row->avg_pop<end> ($row->count)\n";
+		}
+
+		$msg = $this->text->make_blob("Average Server Population - Past 30 days", $blob);
+		$sendto->reply($msg);
 	}
 
 	/**
