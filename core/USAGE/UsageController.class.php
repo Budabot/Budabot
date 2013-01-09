@@ -198,12 +198,13 @@ class UsageController {
 		$settings['is_guild_bot'] = ($this->chatBot->vars['my_guild'] == '' ? '0' : '1');
 		$settings['guildsize'] = $this->getGuildSizeClass(count($this->chatBot->guildmembers));
 		$settings['using_chat_proxy'] = $this->chatBot->vars['use_proxy'];
-		$settings['symbol'] = $this->settingManager->get('symbol');
-		$settings['spam_protection'] = $this->settingManager->get('spam_protection');
 		$settings['db_type'] = $this->db->get_type();
 		$settings['bot_version'] = $version;
 		$settings['using_svn'] = (file_exists("./modules/GIT_MODULE/GitController.class.php") === true ? '1' : '0');
 		$settings['os'] = (isWindows() === true ? 'Windows' : 'Other');
+		
+		$settings['symbol'] = $this->settingManager->get('symbol');
+		$settings['spam_protection'] = $this->settingManager->get('spam_protection');
 		$settings['relay_enabled'] = ($this->settingManager->get('relaybot') == 'Off' ? '0' : '1');
 		$settings['relay_type'] = $this->settingManager->get('relaytype');
 		$settings['alts_inherit_admin'] = $this->settingManager->get('alts_inherit_admin');
@@ -215,6 +216,14 @@ class UsageController {
 		$settings['guild_admin_rank'] = $this->settingManager->get('guild_admin_rank');
 		$settings['max_blob_size'] = $this->settingManager->get('max_blob_size');
 		$settings['logon_delay'] = $this->settingManager->get('logon_delay');
+		$settings['chatlist_tell'] = $this->settingManager->get('chatlist_tell');
+		$settings['fancy_online'] = $this->settingManager->get('fancy_online');
+		$settings['icon_fancy_online'] = $this->settingManager->get('icon_fancy_online');
+		$settings['online_group_by'] = $this->settingManager->get('online_group_by');
+		$settings['online_show_org_guild'] = $this->settingManager->get('online_show_org_guild');
+		$settings['online_show_org_priv'] = $this->settingManager->get('online_show_org_priv');
+		$settings['online_colorful'] = $this->settingManager->get('online_colorful');
+		$settings['online_admin'] = $this->settingManager->get('online_admin');
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $this->chatBot->vars['name'] . $this->chatBot->vars['dimension']);
