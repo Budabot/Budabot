@@ -312,7 +312,7 @@ class OnlineController {
 		if ($this->settingManager->get('online_group_by') == 'profession') {
 			$order_by = "ORDER BY `profession`, `level` DESC";
 		} else if ($this->settingManager->get('online_group_by') == 'guild') {
-			$order_by = "ORDER BY `channel` ASC, `name` ASC";
+			$order_by = "ORDER BY `channel` ASC, o.`name` ASC";
 		}
 
 		$blob = '';
@@ -369,13 +369,14 @@ class OnlineController {
 		$fancyColon = ($this->settingManager->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
 
 		$blob = '';
+		$current_channel = '';
 		forEach ($data as $row) {
-			$name = $this->text->make_chatcmd($row->name, "/tell $row->name");
-
 			if ($current_channel != $row->channel) {
 				$current_channel = $row->channel;
 				$blob .= "\n<tab><highlight>$current_channel<end>\n";
 			}
+			
+			$name = $this->text->make_chatcmd($row->name, "/tell $row->name");
 
 			$afk = $this->get_afk_info($row->afk, $fancyColon);
 			$alt = ($show_alts === true) ? $this->get_alt_char_info($row->name, $fancyColon) : "";
