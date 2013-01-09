@@ -114,4 +114,12 @@ class AltInfo {
 		}
 		return false;
 	}
+	
+	public function getValidatedMain($sender) {
+		if ($this->is_validated($sender)) {
+			return $this->main;
+		} else {
+			return $sender;
+		}
+	}
 }
