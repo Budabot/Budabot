@@ -75,7 +75,8 @@ class NatubotController {
 						if ($playerInfo === null) {
 							$blob .= "($row2->name) ";
 						} else {
-							$prof = substr($playerInfo->profession, 0, 3); $blob.= "($row2->name - $playerInfo->level/<green>$playerInfo->ai_level<end> $prof) ";
+							$prof = $this->util->get_profession_abbreviation($playerInfo->profession);
+							$blob.= "($row2->name - $playerInfo->level/<green>$playerInfo->ai_level<end> $prof) ";
 						}
 					}
 				}
@@ -88,7 +89,8 @@ class NatubotController {
 						if ($playerInfo === null) {
 							$blob .= "($row3->alt) ";
 						} else {
-							$prof = substr($playerInfo->profession, 0, 3); $blob.= "($row3->alt - $playerInfo->level/<green>$playerInfo->ai_level<end> $prof) ";
+							$prof = $this->util->get_profession_abbreviation($playerInfo->profession);
+							$blob.= "($row3->alt - $playerInfo->level/<green>$playerInfo->ai_level<end> $prof) ";
 						}
 					}
 				}
