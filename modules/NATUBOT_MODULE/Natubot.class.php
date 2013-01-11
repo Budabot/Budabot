@@ -33,30 +33,28 @@
 class NatubotController {
 
 	/**
-	 * Name of the module.
-	 * Set automatically by module loader.
-	 */
+	* Name of the module.
+	* Set automatically by module loader.
+	*/
 	public $moduleName;
 
 	/** @Inject */
 	public $db;
 
 	/** @Inject */
-	public $PlayerManager;
+	public $playerManager;
 
 	/** @Inject */
 	public $text;
 
 	/** @Inject */
-	public $Util;
+	public $util;
 
 	/** @Inject */
 	public $chatBot;
 
 
 	/**
-	 * Show online players - shorthand
-	 *
 	 * @HandlesCommand("play")
 	 * @Matches("/^play$/i")
 	 */
@@ -67,25 +65,31 @@ class NatubotController {
 
 		if ($count > 0) {
 			forEach ($mains as $row) {
-				$blob .= "<yellow>$row->main<end> on ";
+				$blob .= "<highlight>$row->main<end> on ";
 
 				// First check for mains...
-				$onlineMains = $this->db->query("SELECT name FROM online WHERE name='{$row->main}'");
+				$onlineMains = $this->db->query("SELECT name FROM online WHERE name = ?", $row->main);
 				if (count($onlineMains) > 0) {
 					foreach($onlineMains as $row2) {
-						$playerInfo = $this->PlayerManager->get_by_name($row2->name);
-						if ($playerInfo === null) { $blob .= "($row2->name) "; }
-						else { $prof = substr($playerInfo->profession, 0, 3); $blob.= "($row2->name - $playerInfo->level/<green>$playerInfo->ai_level<end> $prof) "; }				
+						$playerInfo = $this->playerManager->get_by_name($row2->name);
+						if ($playerInfo === null) {
+							$blob .= "($row2->name) ";
+						} else {
+							$prof = substr($playerInfo->profession, 0, 3); $blob.= "($row2->name - $playerInfo->level/<green>$playerInfo->ai_level<end> $prof) ";
+						}
 					}
 				}
 
 				// ... then get alts
-				$onlineAlts = $this->db->query("SELECT a.alt FROM online o JOIN alts a ON a.alt=o.name WHERE a.main='{$row->main}'");
+				$onlineAlts = $this->db->query("SELECT a.alt FROM online o JOIN alts a ON a.alt = o.name WHERE a.main = ?", $row->main);
 				if (count($onlineAlts) > 0) {
 					foreach ($onlineAlts as $row3) {
-						$playerInfo = $this->PlayerManager->get_by_name($row3->alt);
-						if ($playerInfo === null) { $blob .= "($row3->alt) "; }
-						else { $prof = substr($playerInfo->profession, 0, 3); $blob.= "($row3->alt - $playerInfo->level/<green>$playerInfo->ai_level<end> $prof) "; }				
+						$playerInfo = $this->playerManager->get_by_name($row3->alt);
+						if ($playerInfo === null) {
+							$blob .= "($row3->alt) ";
+						} else {
+							$prof = substr($playerInfo->profession, 0, 3); $blob.= "($row3->alt - $playerInfo->level/<green>$playerInfo->ai_level<end> $prof) ";
+						}
 					}
 				}
 
@@ -98,8 +102,6 @@ class NatubotController {
 	} 
 	
 	/**
-	 * Show online players - shorthand
-	 *
 	 * @HandlesCommand("players")
 	 * @Matches("/^players$/i")
 	 */
@@ -109,25 +111,31 @@ class NatubotController {
 
 		if ($count > 0) {
 			forEach ($mains as $row) {
-				$blob .= "<yellow>$row->main<end> on\n";
+				$blob .= "<highlight>$row->main<end> on\n";
 
 				// First check for mains...
-				$onlineMains = $this->db->query("SELECT name FROM online WHERE name='{$row->main}'");
+				$onlineMains = $this->db->query("SELECT name FROM online WHERE name = ?", $row->main);
 				if (count($onlineMains) > 0) {
-					foreach($onlineMains as $row2) {
-						$playerInfo = $this->PlayerManager->get_by_name($row2->name);
-					if ($playerInfo === null) { $blob .= "| ($row2->name)\n"; }
-					else { $blob.= "| $row2->name - $playerInfo->level/<green>$playerInfo->ai_level<end> $playerInfo->breed $playerInfo->profession\n"; }				
+					forEach ($onlineMains as $row2) {
+						$playerInfo = $this->playerManager->get_by_name($row2->name);
+						if ($playerInfo === null) {
+							$blob .= "| ($row2->name)\n";
+						} else {
+							$blob.= "| $row2->name - $playerInfo->level/<green>$playerInfo->ai_level<end> $playerInfo->breed $playerInfo->profession\n";
+						}
 					}
 				}
 
 				// ... then get alts
-				$onlineAlts = $this->db->query("SELECT a.alt FROM online o JOIN alts a ON a.alt=o.name WHERE a.main='{$row->main}'");
+				$onlineAlts = $this->db->query("SELECT a.alt FROM online o JOIN alts a ON a.alt = o.name WHERE a.main = ?", $row->main);
 				if (count($onlineAlts) > 0) {
 					foreach ($onlineAlts as $row3) {
-						$playerInfo = $this->PlayerManager->get_by_name($row3->alt);
-					if ($playerInfo === null) { $blob .= "| ($row3->alt)\n"; }
-					else { $blob.= "| $row3->alt - $playerInfo->level/<green>$playerInfo->ai_level<end> $playerInfo->breed $playerInfo->profession\n"; }				
+						$playerInfo = $this->playerManager->get_by_name($row3->alt);
+						if ($playerInfo === null) {
+							$blob .= "| ($row3->alt)\n";
+						} else {
+							$blob.= "| $row3->alt - $playerInfo->level/<green>$playerInfo->ai_level<end> $playerInfo->breed $playerInfo->profession\n";
+						}
 					}
 				}
 
@@ -140,41 +148,38 @@ class NatubotController {
 	}
 
 	/**
-	 * Show online players - shorthand
-	 *
 	 * @HandlesCommand("findprof")
-	 * @Matches("/^findprof ([- A-Za-z]*)$/i")
+	 * @Matches("/^findprof (.+)$/i")
 	 */
 	public function findProfCommand($message, $channel, $sender, $sendto, $args) {
-		
-		// Validate that a profession is defined
-		if ( !(ISSET($args[1])) ) {
+		// Normalize profession information and exit on bad
+		$prof = $this->util->get_profession_name($args[1]);
+		if ($prof === null) {
 			return false;
 		}
 
-		// Normalize profession information and exit on bad
-		$prof = $this->Util->get_profession_name($args[1]);
-		if ($prof == null) { return false; }
-
 		// Search for alts of online players that fit the criteria
-		$onlineMains = $this->db->query("SELECT DISTINCT IFNULL(a.main, o.name) as name FROM online o LEFT JOIN alts a ON a.alt=o.name");
+		$onlineMains = $this->db->query("SELECT DISTINCT IFNULL(a.main, o.name) as name FROM online o LEFT JOIN alts a ON a.alt = o.name");
 		forEach ($onlineMains as $row) {
-
 			// Determine if $row has any alts of the appropriate profession
-			$profCheck = $this->db->query("SELECT name FROM alts a JOIN players p ON a.alt=p.name WHERE p.profession='{$prof}' AND a.main='{$row->name}' UNION SELECT p.name FROM players p WHERE p.profession='$prof' AND p.name='{$row->name}'");
+			$sql = "SELECT name FROM alts a JOIN players p ON a.alt = p.name WHERE p.profession = ? AND a.main = ? UNION SELECT p.name FROM players p WHERE p.profession = ? AND p.name = ?";
+			$profCheck = $this->db->query($sql, $prof, $row->name, $prof, $row->name);
 			if (count($profCheck) > 0) {
-				$blob .= "<yellow>$row->name<end> has\n";
+				$blob .= "<highlight>$row->name<end> has\n";
 				forEach ($profCheck as $row2) {
-					$playerInfo = $this->PlayerManager->get_by_name($row2->name);
-					if ($playerInfo === null) { $blob .= "| <grey>$row2->name<end>\n"; }
-					else { $blob .= "| $row2->name - $playerInfo->level/<green>$playerInfo->ai_level<end> $playerInfo->breed $playerInfo->profession\n"; }
+					$playerInfo = $this->playerManager->get_by_name($row2->name);
+					if ($playerInfo === null) {
+						$blob .= "| $row2->name\n";
+					} else {
+						$blob .= "| $row2->name - $playerInfo->level/<green>$playerInfo->ai_level<end> $playerInfo->breed $playerInfo->profession\n";
+					}
 				}
 				$blob .= "\n";
 			}
 		}
 
-	$msg = $this->text->make_blob("$prof Search Results", $blob);
-	$sendto->reply($msg);
+		$msg = $this->text->make_blob("$prof Search Results", $blob);
+		$sendto->reply($msg);
 	}
 
 }
