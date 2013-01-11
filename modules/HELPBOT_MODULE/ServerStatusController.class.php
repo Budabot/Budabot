@@ -32,6 +32,9 @@ class ServerStatusController {
 	public $text;
 	
 	/** @Inject */
+	public $http;
+	
+	/** @Inject */
 	public $util;
 	
 	/**
@@ -151,13 +154,13 @@ class ServerStatusController {
 	}
 	
 	public function lookup($rk_num) {
-		$serverstat = xml::getUrl("http://probes.funcom.com/ao.xml", 30);
+		$response = $this->http->get("http://probes.funcom.com/ao.xml")->waitAndReturnResponse();
 		
-		if ($serverstat == null) {
+		if ($response->error) {
 			return null;
 		}
 
-		$data = xml::spliceData($serverstat, "<dimension name=\"d$rk_num", "</dimension>");
+		$data = xml::spliceData($response->body, "<dimension name=\"d$rk_num", "</dimension>");
 		if (!$data) {
 			return null;
 		}

@@ -8,6 +8,9 @@ class CacheManager {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $http;
+	
 	private $cache;
 
 	/** @Setup */
@@ -48,7 +51,8 @@ class CacheManager {
 
 		//If no old history file was found or it was invalid try to update it from auno.org
 		if ($cacheResult->success !== true) {
-			$data = xml::getUrl($url, 20);
+			$response = $this->http->get($url)->waitAndReturnResponse();
+			$data = $response->body;
 			if (call_user_func($isValidCallback, $data)) {
 				$cacheResult->data = $data;
 				$cacheResult->cacheAge = 0;

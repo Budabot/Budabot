@@ -56,24 +56,6 @@ class xml {
 		}
 		return $targetdata;
 	}
-
-	//Tries to download a file from a URL
-	public function getUrl($url, $timeout = null) {
-		$url = strtolower($url);
-
-		if ($timeout === null) {
-			$settingManager = Registry::getInstance('settingManager');
-			$timeout = $settingManager->get('xml_timeout');
-		}
-
-		$http = Registry::getInstance('http');
-		$response = $http->get($url)->withTimeout($timeout)->waitAndReturnResponse();
-
-		if ($response->error) {
-			return null;
-		}
-		return $response->body;
-	}
 } //end class xml
 
 ?>

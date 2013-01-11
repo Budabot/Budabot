@@ -12,6 +12,9 @@ class PlayerManager {
 	
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Inject */
+	public $http;
 
 	public function get_by_name($name, $dimension = 0, $forceUpdate = false) {
 		if ($dimension == 0) {
@@ -79,7 +82,8 @@ class PlayerManager {
 	}
 
 	private function lookup_url($url) {
-		$playerbio = xml::getUrl($url);
+		$response = $this->http->get($url)->waitAndReturnResponse();
+		$playerbio = $response->body;
 
 		$xml = new stdClass;
 
