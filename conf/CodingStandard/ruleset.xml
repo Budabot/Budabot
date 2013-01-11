@@ -12,6 +12,7 @@
 
 		<!-- TODO: Not sure what to with these sniffs -->
 		<exclude name="Generic.Files.OneClassPerFile" />
+		<exclude name="Generic.Files.OneInterfacePerFile" />
 		<exclude name="Generic.PHP.NoSilencedErrors" />
 
 		<!-- Mutually exclusive with DisallowSpaceIndent -->
