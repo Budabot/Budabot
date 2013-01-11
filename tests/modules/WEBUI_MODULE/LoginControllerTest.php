@@ -36,12 +36,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->assertTrue($this->hasInjection($this->ctrl, 'httpapi'));
 	}
 
-	function testSetupHandlerRegistersLoginHandler() {
-		$this->httpApi->expects($this->once())->method('registerHandler');
-		$this->callSetupHandler($this->ctrl);
-	}
-
-	function testSetupHandlerRegistersLoginHandlerToCorrectPath() {
+	function testSetupHandlerRegistersLoginHandlerWithCorrectPath() {
 		$this->httpApi->expects($this->once())->method('registerHandler')->with("|^/WEBUI_MODULE/login|i");
 		$this->callSetupHandler($this->ctrl);
 	}
