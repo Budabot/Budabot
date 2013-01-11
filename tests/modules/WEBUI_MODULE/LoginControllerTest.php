@@ -48,11 +48,19 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->callSetupHandler($this->ctrl);
 	}
 
-	function testLoginHandlerWritesResponse() {
+	function testLoginHandlerWritesOkResponse() {
 		$request = $this->getMock('WebUiTest\MockRequest');
 		$response = $this->getMock('WebUiTest\MockResponse');
 		$response->expects($this->once())->method('writeHead')->with(200);
 		$response->expects($this->once())->method('end');
+		$this->ctrl->handleLoginResource($request, $response);
+	}
+
+	function testLoginHandlerWritesLoginHtmlResource() {
+		$request = $this->getMock('WebUiTest\MockRequest');
+		$response = $this->getMock('WebUiTest\MockResponse');
+		$response->expects($this->once())->method('end')->with(
+			file_get_contents("modules/WEBUI_MODULE/login.html"));
 		$this->ctrl->handleLoginResource($request, $response);
 	}
 }
