@@ -4,5 +4,6 @@ $(document).ready(function() {
 		$.ajax({
 			url: 'check_login'
 		});
+		return false;
 	});
 });
