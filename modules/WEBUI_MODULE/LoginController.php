@@ -25,6 +25,6 @@ class LoginController {
 
 	public function handleLoginResource($request, $response) {
 		$response->writeHead(200);
-		$response->end(file_get_contents(__DIR__ .'/login.html'));
+		$response->end(file_get_contents(__DIR__ .'/resources/login.html'));
 	}
 }

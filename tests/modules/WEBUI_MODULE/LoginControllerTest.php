@@ -60,7 +60,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		$request = $this->getMock('WebUiTest\MockRequest');
 		$response = $this->getMock('WebUiTest\MockResponse');
 		$response->expects($this->once())->method('end')->with(
-			file_get_contents("modules/WEBUI_MODULE/login.html"));
+			file_get_contents("modules/WEBUI_MODULE/resources/login.html"));
 		$this->ctrl->handleLoginResource($request, $response);
 	}
 }
