@@ -1,6 +1,7 @@
 <?php
 namespace WebUiTest;
 
+require_once 'Phake.php';
 require_once "PHPUnit/Autoload.php";
 require_once "tests/helpers/BudabotTestCase.php";
 require_once "modules/WEBUI_MODULE/LoginController.php";
@@ -36,31 +37,44 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->assertTrue($this->hasInjection($this->ctrl, 'httpapi'));
 	}
 
-	function testSetupHandlerRegistersLoginHandlerWithCorrectPath() {
-		$this->httpApi->expects($this->once())->method('registerHandler')->with("|^/WEBUI_MODULE/login|i");
+	function testSetupHandlerRegistersLoginResource() {
 		$this->callSetupHandler($this->ctrl);
-	}
-
-	function testSetupHandlerRegistersLoginHandlerWithCallback() {
-		$this->httpApi->expects($this->once())
-			->method('registerHandler')
-			->with($this->anything(), $this->isCallable());
-		$this->callSetupHandler($this->ctrl);
-	}
-
-	function testLoginHandlerWritesOkResponse() {
-		$request = $this->getMock('WebUiTest\MockRequest');
-		$response = $this->getMock('WebUiTest\MockResponse');
-		$response->expects($this->once())->method('writeHead')->with(200);
-		$response->expects($this->once())->method('end');
-		$this->ctrl->handleLoginResource($request, $response);
+		\Phake::verify($this->httpApi)->registerHandler("|^/WEBUI_MODULE/login|i", $this->isCallable());
 	}
 
 	function testLoginHandlerWritesLoginHtmlResource() {
-		$request = $this->getMock('WebUiTest\MockRequest');
-		$response = $this->getMock('WebUiTest\MockResponse');
-		$response->expects($this->once())->method('end')->with(
-			file_get_contents("modules/WEBUI_MODULE/resources/login.html"));
-		$this->ctrl->handleLoginResource($request, $response);
+		list($request, $response) = $this->getHandlerMocks();
+		$this->callSetupHandler($this->ctrl);
+		$this->callHandlerCallback("|^/WEBUI_MODULE/login|i", $request, $response);
+
+		\Phake::verify($response)->writeHead(200);
+		\Phake::verify($response)->end(file_get_contents("modules/WEBUI_MODULE/resources/login.html"));
+	}
+
+	private function getHandlerMocks() {
+		return array(
+			\Phake::mock('WebUiTest\MockRequest'),
+			\Phake::mock('WebUiTest\MockResponse')
+		);
+	}
+
+	private function callHandlerCallback($path, $request, $response) {
+		$callback = null;
+		\Phake::verify($this->httpApi)->registerHandler($path, \Phake::capture($callback));
+		call_user_func($callback, $request, $response);
+	}
+
+	function testSetupHandlerRegistersLoginJsResource() {
+		$this->callSetupHandler($this->ctrl);
+		\Phake::verify($this->httpApi)->registerHandler("|^/WEBUI_MODULE/js/login.js|i", $this->isCallable());
+	}
+
+	function testLoginJsHandlerWritesLoginJsResource() {
+		list($request, $response) = $this->getHandlerMocks();
+		$this->callSetupHandler($this->ctrl);
+		$this->callHandlerCallback("|^/WEBUI_MODULE/js/login.js|i", $request, $response);
+
+		\Phake::verify($response)->writeHead(200);
+		\Phake::verify($response)->end(file_get_contents("modules/WEBUI_MODULE/resources/js/login.js"));
 	}
 }

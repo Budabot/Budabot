@@ -27,7 +27,7 @@ abstract class BudabotTestCase extends \PHPUnit_Framework_TestCase {
 	}
 
 	protected function injectMock($target, $injectName, $mockName) {
-		$mock = $this->getMock($mockName);
+		$mock = Phake::mock($mockName);
 		$this->injectDependency($target, $injectName, $mock);
 		return $mock;
 	}
