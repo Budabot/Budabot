@@ -290,7 +290,7 @@ class Budabot extends AOChat {
 		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
-				$this->sendPrivate($page, $group, $disable_relay);
+				$this->sendPrivate($page, $disable_relay, $group);
 			}
 			return;
 		}
@@ -575,19 +575,21 @@ class Budabot extends AOChat {
 		$this->logger->log_chat("Inc. Msg.", $sender, $message);
 
 		// AFK/bot check
-		if (preg_match("/$sender is AFK/si", $message, $arr)) {
+		if (preg_match("/$sender is AFK/si", $message)) {
 			return;
 		} else if (preg_match("/I am away from my keyboard right now/si", $message)) {
 			return;
-		} else if (preg_match("/Unknown command or access denied!/si", $message, $arr)) {
+		} else if (preg_match("/Unknown command or access denied!/si", $message)) {
 			return;
-		} else if (preg_match("/I am responding/si", $message, $arr)) {
+		} else if (preg_match("/I am responding/si", $message)) {
 			return;
-		} else if (preg_match("/I only listen/si", $message, $arr)) {
+		} else if (preg_match("/I only listen/si", $message)) {
 			return;
-		} else if (preg_match("/Error!/si", $message, $arr)) {
+		} else if (preg_match("/Error!/si", $message)) {
 			return;
-		} else if (preg_match("/Unknown command input/si", $message, $arr)) {
+		} else if (preg_match("/Unknown command input/si", $message)) {
+			return;
+		} else if (preg_match("/\\/tell $sender !help/i", $message)) {
 			return;
 		}
 
@@ -648,7 +650,7 @@ class Budabot extends AOChat {
 
 			if ($message[0] == $this->settingManager->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
-				$sendto = new PrivateChannelCommandReply($this);
+				$sendto = new PrivateChannelCommandReply($this, $channel);
 				$this->commandManager->process($type, $message, $sender, $sendto);
 			}
 		} else {  // ext priv group message

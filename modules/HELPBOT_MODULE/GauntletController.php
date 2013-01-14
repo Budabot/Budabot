@@ -52,7 +52,7 @@ class GauntletController {
 			return;
 		}
 	
-		$socket = fsockopen('70.117.151.241', '14523', $errno, $errstr, 5);
+		$socket = fsockopen('gauntlet.jkbff.com', '14523', $errno, $errstr, 5);
 		$content = fgets($socket, 4096);
 
 		if ($errno != 0) {
