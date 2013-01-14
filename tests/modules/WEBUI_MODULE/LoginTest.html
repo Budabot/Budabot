@@ -5,13 +5,28 @@
 	<title>Budabot WEBUI_MODULE login tests</title>
 	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-1.10.0.css">
 
+	<!-- unit testing library -->
 	<script src="http://code.jquery.com/qunit/qunit-1.10.0.js"></script>
+	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<!-- jQuery ajax mocking library -->
 	<script src="https://raw.github.com/appendto/jquery-mockjax/master/jquery.mockjax.js"></script>
+
+	<!-- code under test -->
 	<script src="../../../modules/WEBUI_MODULE/resources/js/login.js"></script>
 
+	<!-- test case definitions -->
 	<script type="text/javascript">
 		QUnit.config.testTimeout = 5000;
+
+		var origRedirectToIndex = redirectToIndex;
+		var origSetErrorMessage = setErrorMessage;
+
+		QUnit.testStart(function() {
+			$.mockjaxClear();
+			redirectToIndex = origRedirectToIndex;
+			setErrorMessage = origSetErrorMessage;
+		});
 
 		asyncTest('clicking login button sends ajax request to check_login resource', 2, function() {
 			$.mockjax({
@@ -21,8 +36,55 @@
 					start();
 				}
 			});
-			var useDefaultAction = $('#login').triggerHandler('click');
-			equal(false, useDefaultAction, 'login button will not submit the form');
+			var useDefaultAction = onLoginClicked();
+			equal(useDefaultAction, false, 'login button will not submit the form');
+		});
+
+		asyncTest('clicking login button sends credentials in ajax call', 1, function() {
+			$('#username').val('fooman');
+			$('#password').val('foopass');
+
+			var data = {
+				username: 'fooman',
+				password: 'foopass'
+			};
+			$.mockjax({
+				url: 'check_login',
+				data: data,
+				response: function() {
+					ok(true, 'Ajax call was done');
+					start();
+				}
+			});
+			onLoginClicked();
+		});
+
+		asyncTest('Successful logging in redirects to index resource', 1, function() {
+			$.mockjax({
+				url: 'check_login',
+				responseText: '1'
+			});
+
+			redirectToIndex = function() {
+				ok(true, 'Redirection to index resource done');
+				start();
+			}
+
+			onLoginClicked();
+		});
+
+		asyncTest('Failure to log in shows error message', 1, function() {
+			$.mockjax({
+				url: 'check_login',
+				responseText: '0'
+			});
+
+			setErrorMessage = function(message) {
+				equal(message, 'Invalid username or password');
+				start();
+			};
+
+			onLoginClicked();
 		});
 
 	</script>
@@ -31,6 +93,8 @@
 	<div id="qunit"></div>
 	<div id="qunit-fixture">
 		<form>
+			<input type="text" id="username" name="username"/>
+			<input type="password" id="password" name="password"/>
 			<input type="submit" id="login"/>
 		</form>
 	</div>
