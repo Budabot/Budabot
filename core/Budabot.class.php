@@ -650,7 +650,7 @@ class Budabot extends AOChat {
 
 			if ($message[0] == $this->settingManager->get("symbol") && strlen($message) > 1) {
 				$message = substr($message, 1);
-				$sendto = new PrivateChannelCommandReply($this);
+				$sendto = new PrivateChannelCommandReply($this, $channel);
 				$this->commandManager->process($type, $message, $sender, $sendto);
 			}
 		} else {  // ext priv group message
