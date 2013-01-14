@@ -35,12 +35,13 @@ class TeamspeakController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->settingManager->add($this->moduleName, "ts_username", "Username for TS server", "edit", "text", 'serveradmin', 'serveradmin');
-		$this->settingManager->add($this->moduleName, "ts_password", "Password for TS server", "edit", "text", 'password');
-		$this->settingManager->add($this->moduleName, "ts_queryport", "ServerQuery port for the TS server", "edit", "number", '10011', '10011');
-		$this->settingManager->add($this->moduleName, "ts_clientport", "Client port for the TS server", "edit", "number", '9987', '9987');
-		$this->settingManager->add($this->moduleName, "ts_description", "Description for TS server", "edit", "text", 'Teamspeak 3 Server');
-		$this->settingManager->add($this->moduleName, "ts_server", "IP/Domain name of the TS server", "edit", "text", '127.0.0.1', '127.0.0.1');
+		$this->settingManager->add($this->moduleName, "ts_username", "TS Server username", "edit", "text", 'serveradmin', 'serveradmin');
+		$this->settingManager->add($this->moduleName, "ts_password", "TS Server password", "edit", "text", 'password');
+		$this->settingManager->add($this->moduleName, "ts_queryport", "TS Server query port", "edit", "number", '10011', '10011');
+		$this->settingManager->add($this->moduleName, "ts_clientport", "TS Server client port", "edit", "number", '9987', '9987');
+		$this->settingManager->add($this->moduleName, "ts_description", "TS Server description", "edit", "text", 'Teamspeak 3 Server');
+		$this->settingManager->add($this->moduleName, "ts_server", "TS Server IP/domain name", "edit", "text", '127.0.0.1', '127.0.0.1');
+		$this->settingManager->add($this->moduleName, "ts_server_id", "TS Server id", "edit", "number", '1', '1');
 	}
 
 	/**
@@ -65,7 +66,12 @@ class TeamspeakController {
 	}
 
 	public function getTeamspeak3Status() {
-		$ts = new Teamspeak3($this->settingManager->get('ts_username'), $this->settingManager->get('ts_password'), $this->settingManager->get('ts_server'), $this->settingManager->get('ts_queryport'));
+		$ts = new Teamspeak3(
+			$this->settingManager->get('ts_username'),
+			$this->settingManager->get('ts_password'),
+			$this->settingManager->get('ts_server'),
+			$this->settingManager->get('ts_queryport'),
+			$this->settingManager->get('ts_server_id'));
 
 		try {
 			$server = $this->settingManager->get('ts_server');
