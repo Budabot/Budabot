@@ -20,7 +20,7 @@
  *		help        = 'listen.txt'
  *	)
  */
-class DevController extends AutoInject {
+class ExternalCommandController extends AutoInject {
 
 	/**
 	 * Name of the module.
@@ -28,13 +28,11 @@ class DevController extends AutoInject {
 	 */
 	public $moduleName;
 	
-	private $listen = null;
-	
 	/**
 	 * @Setup
 	 */
 	public function setup() {
-		
+		$this->settingManager->add($this->moduleName, "external_command_channel", "Private channel to process commands from", "edit", "text", "");
 	}
 	
 	/**
@@ -50,7 +48,7 @@ class DevController extends AutoInject {
 			return;
 		}
 		
-		$this->listen = $name;
+		$this->setting->external_command_channel = $name;
 
 		$msg = "Now listening to channel <highlight>$name<end>.";
 		$sendto->reply($msg);
@@ -60,8 +58,8 @@ class DevController extends AutoInject {
 	 * @Event("extpriv")
 	 * @Description("Listen for commands in an external private channel")
 	 */
-	public function externalPrivateChannelCommandEvent($eventObj) {
-		if ($this->listen == $eventObj->channel) {
+	public function listenToCommandsExternalEvent($eventObj) {
+		if ($this->shouldListen($eventObj->channel)) {
 			$message = $eventObj->message;
 			if ($message[0] == $this->settingManager->get("symbol") && strlen($message) > 1) {
 				$type = 'priv';
@@ -71,5 +69,19 @@ class DevController extends AutoInject {
 				$this->commandManager->process($type, $message, $sender, $sendto);
 			}
 		}
+	}
+	
+	/**
+	 * @Event("extjoinprivrequest")
+	 * @Description("Listen for commands in an external private channel")
+	 */
+	public function acceptInviteForExternalCommandsEvent($eventObj) {
+		if ($this->shouldListen($eventObj->sender)) {
+			$this->chatBot->privategroup_join($eventObj->sender);
+		}
+	}
+	
+	public function shouldListen($name) {
+		return strtolower($this->setting->external_command_channel) == strtolower($name);
 	}
 }
