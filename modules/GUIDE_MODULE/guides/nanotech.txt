@@ -1,4 +1,4 @@
-<header>::::: Guide to Nano Technicians :::::<end>
+<header> ::::: Guide to Nano Technicians ::::: <end>
 
 <font color = yellow>Nano Technician</font>
 

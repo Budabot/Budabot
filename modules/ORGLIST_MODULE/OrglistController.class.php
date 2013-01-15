@@ -51,7 +51,7 @@ class OrglistController {
 	
 	public function __construct() {
 		$this->orgrankmap["Anarchism"]  = array("Anarchist");
-		$this->orgrankmap["Monarchy"]   = array("Monarch",   "Counsel",      "Follower");
+		$this->orgrankmap["Monarchy"]   = array("Monarch",   "Counsil",      "Follower");
 		$this->orgrankmap["Feudalism"]  = array("Lord",      "Knight",       "Vassal",          "Peasant");
 		$this->orgrankmap["Republic"]   = array("President", "Advisor",      "Veteran",         "Member",         "Applicant");
 		$this->orgrankmap["Faction"]    = array("Director",  "Board Member", "Executive",       "Member",         "Applicant");

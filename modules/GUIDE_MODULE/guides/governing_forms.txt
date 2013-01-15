@@ -5,7 +5,7 @@
 
 <highlight>Monarchy<end>
 <tab>Monarch
-<tab>Counsel
+<tab>Counsil
 <tab>Follower
 
 <highlight>Feudalism<end>
