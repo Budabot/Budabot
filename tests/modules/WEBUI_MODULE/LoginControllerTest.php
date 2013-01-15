@@ -50,7 +50,6 @@ class LoginControllerTest extends \BudabotTestCase {
 
 	function testLoginHandlerWritesLoginHtmlResource() {
 		list($request, $response) = $this->getHandlerMocks();
-		$this->callSetupHandler($this->ctrl);
 		$this->callHandlerCallback("|^/WEBUI_MODULE/login|i", $request, $response);
 
 		\Phake::verify($response)->writeHead(200);
@@ -65,6 +64,7 @@ class LoginControllerTest extends \BudabotTestCase {
 	}
 
 	private function callHandlerCallback($path, $request, $response, $data = '') {
+		$this->callSetupHandler($this->ctrl);
 		$callback = null;
 		\Phake::verify($this->httpApi)->registerHandler($path, \Phake::capture($callback));
 		call_user_func($callback, $request, $response, $data);
@@ -77,7 +77,6 @@ class LoginControllerTest extends \BudabotTestCase {
 
 	function testLoginJsHandlerWritesLoginJsResource() {
 		list($request, $response) = $this->getHandlerMocks();
-		$this->callSetupHandler($this->ctrl);
 		$this->callHandlerCallback("|^/WEBUI_MODULE/js/login.js|i", $request, $response);
 
 		\Phake::verify($response)->writeHead(200);
@@ -90,16 +89,40 @@ class LoginControllerTest extends \BudabotTestCase {
 	}
 
 	function testCheckLoginHandlerWritesSuccessOnValidCredentials() {
+		$this->setApiPassword('fooman', 'foopass');
 		list($request, $response) = $this->getHandlerMocks();
-		$this->callSetupHandler($this->ctrl);
-		$data = http_build_query(array(
+		$this->callHandlerCallback("|^/WEBUI_MODULE/check_login|i", $request, $response, http_build_query(array(
 			'username' => 'fooman',
 			'password' => 'foopass'
-		));
-		\Phake::when($this->preferences)->get('fooman', 'apipassword')->thenReturn('foopass');
-		$this->callHandlerCallback("|^/WEBUI_MODULE/check_login|i", $request, $response, $data);
+		)));
 
 		\Phake::verify($response)->writeHead(200);
 		\Phake::verify($response)->end('1');
+	}
+
+	private function setApiPassword($username, $password) {
+		\Phake::when($this->preferences)->get($username, 'apipassword')->thenReturn($password);
+	}
+
+	function testCheckLoginHandlerDeniesAccessOnWrongPassword() {
+		$this->setApiPassword('fooman', 'wrong');
+		list($request, $response) = $this->getHandlerMocks();
+		$this->callHandlerCallback("|^/WEBUI_MODULE/check_login|i", $request, $response, http_build_query(array(
+			'username' => 'fooman',
+			'password' => 'foopass'
+		)));
+
+		\Phake::verify($response)->end('0');
+	}
+
+	function testCheckLoginHandlerDeniesAccessOnEmptyPassword() {
+		$this->setApiPassword('fooman', '');
+		list($request, $response) = $this->getHandlerMocks();
+		$this->callHandlerCallback("|^/WEBUI_MODULE/check_login|i", $request, $response, http_build_query(array(
+			'username' => 'fooman',
+			'password' => ''
+		)));
+
+		\Phake::verify($response)->end('0');
 	}
 }

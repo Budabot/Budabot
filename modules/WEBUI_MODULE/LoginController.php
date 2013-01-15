@@ -35,21 +35,22 @@ class LoginController {
 
 	public function handleCheckLoginResource($request, $response, $data) {
 		$isValid = false;
-		$params = self::parseQueryParams($data);
-		if (isset($params['username']) && isset($params['password'])) {
-			$isValid = $this->checkCredentials($params['username'], $params['password']);
+		list($user, $pass) = self::parseCredentialsFromQuery($data);
+		if ($user && $pass) {
+			$isValid = $this->checkCredentials($user, $pass);
 		}
 
 		$response->writeHead(200);
-		if ($isValid) {
-			$response->end('1');
-		}
+		$response->end($isValid? '1': '0');
 	}
 
-	private static function parseQueryParams($data) {
+	private static function parseCredentialsFromQuery($data) {
 		$params = array();
 		parse_str($data, $params);
-		return $params;
+		return array(
+			isset($params['username'])? $params['username']: '',
+			isset($params['password'])? $params['password']: ''
+		);
 	}
 
 	private function checkCredentials($username, $password) {
