@@ -28,9 +28,10 @@
 			setErrorMessage = origSetErrorMessage;
 		});
 
-		asyncTest('clicking login button sends ajax request to check_login resource', 2, function() {
+		asyncTest('clicking login button sends ajax post request to check_login resource', 2, function() {
 			$.mockjax({
 				url: 'check_login',
+				type: 'post',
 				response: function() {
 					ok(true, 'Ajax call was done');
 					start();

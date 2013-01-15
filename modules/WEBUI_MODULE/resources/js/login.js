@@ -3,7 +3,7 @@ function redirectToIndex() {
 }
 
 function setErrorMessage(message) {
-	$('#message').innerText = message;
+	$('#message').text(message);
 }
 
 function onLoginClicked() {
@@ -13,6 +13,7 @@ function onLoginClicked() {
 	};
 	$.ajax({
 		url: 'check_login',
+		type: 'post',
 		data: data,
 		success: function(result) {
 			if (result === '1') {
