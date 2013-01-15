@@ -55,6 +55,16 @@ class ExternalCommandController extends AutoInject {
 	}
 	
 	/**
+	 * @HandlesCommand("unlisten")
+	 * @Matches("/^unlisten$/i")
+	 */
+	public function unlistenCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = "No longer listening to channel <highlight>{$this->setting->external_command_channel}<end>.";
+		$this->setting->external_command_channel = "";
+		$sendto->reply($msg);
+	}
+	
+	/**
 	 * @Event("extpriv")
 	 * @Description("Listen for commands in an external private channel")
 	 */
