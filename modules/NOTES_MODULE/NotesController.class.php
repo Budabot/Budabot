@@ -46,9 +46,11 @@ class NotesController {
 		$altInfo = $this->altsController->get_alt_info($sender);
 		$main = $altInfo->getValidatedMain($sender);
 		
-		// convert all notes to be assigned to the main
-		$sql = "UPDATE notes SET name = ? WHERE name = ?";
-		$this->db->exec($sql, $main, $sender);
+		if ($main != $sender) {
+			// convert all notes to be assigned to the main
+			$sql = "UPDATE notes SET name = ? WHERE name = ?";
+			$this->db->exec($sql, $main, $sender);
+		}
 
 		$sql = "SELECT * FROM notes WHERE name = ?";
 		$data = $this->db->query($sql, $main);
