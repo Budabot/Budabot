@@ -1,2 +1,0 @@
-To show all the names the bot knows for this player:
-<highlight><tab><symbol>namehistory 'player'<end>
