@@ -155,7 +155,7 @@ class FeatureContext extends BehatContext
 		assertObjectHasAttribute('spam_protection', $stats->settings);
 		assertObjectHasAttribute('db_type', $stats->settings);
 		assertObjectHasAttribute('bot_version', $stats->settings);
-		assertObjectHasAttribute('using_svn', $stats->settings);
+		assertObjectHasAttribute('using_git', $stats->settings);
 		assertObjectHasAttribute('os', $stats->settings);
 		assertObjectHasAttribute('relay_enabled', $stats->settings);
 		assertObjectHasAttribute('relay_type', $stats->settings);
