@@ -200,7 +200,7 @@ class UsageController {
 		$settings['using_chat_proxy'] = $this->chatBot->vars['use_proxy'];
 		$settings['db_type'] = $this->db->get_type();
 		$settings['bot_version'] = $version;
-		$settings['using_svn'] = (file_exists("./modules/GIT_MODULE/GitController.class.php") === true ? '1' : '0');
+		$settings['using_git'] = (file_exists("./modules/GIT_MODULE/GitController.class.php") === true ? '1' : '0');
 		$settings['os'] = (isWindows() === true ? 'Windows' : 'Other');
 		
 		$settings['symbol'] = $this->settingManager->get('symbol');
