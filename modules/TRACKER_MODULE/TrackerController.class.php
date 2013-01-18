@@ -187,7 +187,14 @@ class TrackerController {
 			if (count($data) > 0) {
 				$blob = '';
 				forEach ($data as $row) {
-					$blob .= "<highlight>$row->event<end> " . $this->util->date($row->dt) ."\n";
+					if ($row2->event == 'logon') {
+						$status = "<green>logon<end>";
+					} else if ($row2->event == 'logoff') {
+						$status = "<orange>logoff<end>";
+					} else {
+						$status = "<grey>unknown<end>";
+					}
+					$blob .= "$status " . $this->util->date($row->dt) ."\n";
 				}
 
 				$msg = $this->text->make_blob("Track History for $name", $blob);
