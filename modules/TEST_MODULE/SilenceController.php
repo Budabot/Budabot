@@ -28,13 +28,40 @@ class SilenceController extends AutoInject {
 	 */
 	public $moduleName;
 	
-	private $silencedCommands = array();
+	const NULL_COMMAND_HANDLER = "SilenceController.nullCommand";
+	
+	/**
+	 * @Setup
+	 */
+	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, "silence_cmd");
+	}
+	
+	/**
+	 * @HandlesCommand("silence")
+	 * @Matches("/^silence$/i")
+	 */
+	public function silenceCommand($message, $channel, $sender, $sendto, $args) {
+		$sql = "SELECT * FROM silence_cmd_<myname> ORDER BY cmd, channel";
+		$data = $this->db->query($sql);
+		if (count($data) == 0) {
+			$msg = "No commands have been silenced.";
+		} else {
+			$blob = '';
+			forEach ($data as $row) {
+				$unsilenceLink = $this->text->make_chatcmd("Unsilence", "/tell <myname> unsilence $row->cmd $row->channel");
+				$blob .= "<highlight>$row->cmd<end> ($row->channel) - $unsilenceLink\n";
+			}
+			$msg = $this->text->make_blob("Silenced Commands", $blob);
+		}
+		$sendto->reply($msg);
+	}
 	
 	/**
 	 * @HandlesCommand("silence")
 	 * @Matches("/^silence (.+) (.+)$/i")
 	 */
-	public function silenceCommand($message, $channel, $sender, $sendto, $args) {
+	public function silenceAddCommand($message, $channel, $sender, $sendto, $args) {
 		$command = strtolower($args[1]);
 		$channel = strtolower($args[2]);
 		
@@ -44,7 +71,7 @@ class SilenceController extends AutoInject {
 		} else if ($this->isSilencedCommand($data[0])){
 			$msg = "Command <highlight>$command<end> for channel <highlight>$channel<end> has already been silenced.";
 		} else {
-			$this->addSilencedCommand($data[0], $command, $channel);
+			$this->addSilencedCommand($data[0]);
 			$msg = "Command <highlight>$command<end> for channel <highlight>$channel<end> has been silenced.";
 		}
 		$sendto->reply($msg);
@@ -74,24 +101,22 @@ class SilenceController extends AutoInject {
 		$this->logger->log('DEBUG', "Silencing command '$message' for channel '$channel'");
 	}
 	
-	public function addSilencedCommand($row, $command, $channel) {
-		$filename = "SilenceController.nullCommand";
-		$this->commandManager->activate($channel, $filename, $command, 'all');
-		$this->silencedCommands []= $row;
+	public function addSilencedCommand($row) {
+		$this->commandManager->activate($row->type, self::NULL_COMMAND_HANDLER, $row->cmd, 'all');
+		$sql = "INSERT INTO silence_cmd_<myname> (cmd, channel) VALUES (?, ?)";
+		$this->db->exec($sql, $row->cmd, $row->type);
 	}
 	
 	public function isSilencedCommand($row) {
-		return in_array($row, $this->silencedCommands);
+		$sql = "SELECT * FROM silence_cmd_<myname> WHERE cmd = ? AND channel = ?";
+		$row = $this->db->queryRow($sql, $row->cmd, $row->type);
+		return $row !== null;
 	}
 	
 	public function removeSilencedCommand($row) {
 		$this->commandManager->activate($row->type, $row->file, $row->cmd, $row->admin);
-		forEach ($this->silencedCommands as $key => $cmd) {
-			if ($cmd->type == $row->type && $cmd->cmd == $row->cmd) {
-				unset($this->silencedCommands[$key]);
-				break;
-			}
-		}
+		$sql = "DELETE FROM silence_cmd_<myname> WHERE cmd = ? AND channel = ?";
+		$this->db->exec($sql, $row->cmd, $row->type);
 	}
 
 	/**
@@ -99,7 +124,11 @@ class SilenceController extends AutoInject {
 	 * @Description("Overwrite command handlers for silenced commands")
 	 */
 	public function overwriteCommandHandlersEvent($eventObj) {
-		
+		$sql = "SELECT * FROM silence_cmd_<myname>";
+		$data = $this->db->query($sql);
+		forEach ($data as $row) {
+			$this->commandManager->activate($row->channel, self::NULL_COMMAND_HANDLER, $row->cmd, 'all');
+		}
 	}
 }
 

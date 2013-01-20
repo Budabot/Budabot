@@ -1,0 +1,10 @@
+To show a list of commands that have been silenced:
+<highlight><tab><symbol>silence<end>
+
+To silence a command:
+<highlight><tab><symbol>silence 'cmd' 'channel'<end>
+
+To unsilence a command:
+<highlight><tab><symbol>unsilence 'cmd' 'channel'<end>
+
+Note: 'channel' can be one of 'priv', 'msg', or 'guild'.
