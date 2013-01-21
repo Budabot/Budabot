@@ -46,7 +46,7 @@ class FindOrgController {
 			$dimension = $args[2];
 		}
 		
-		$orgs = $this->lookupOrg($search, $dimension);
+		$orgs = $this->lookupOrg('%' . $search . '%', $dimension);
 		$count = count($orgs);
 
 		if ($count > 0) {
@@ -73,7 +73,6 @@ class FindOrgController {
 	}
 	
 	public function lookupOrg($search, $dimension, $limit = 50) {
-		$search = '%' . $search . '%';
 		$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
 		
 		$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();

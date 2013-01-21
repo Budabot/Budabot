@@ -101,7 +101,7 @@ class OrglistController {
 	}
 	
 	public function getMatches($search) {
-		$orgs = $this->findOrgController->lookupOrg($search, $this->chatBot->vars["dimension"]);
+		$orgs = $this->findOrgController->lookupOrg('%' . $search . '%', $this->chatBot->vars["dimension"]);
 		
 		$name = ucfirst(strtolower($search));
 		$whois = $this->playerManager->get_by_name($name);
