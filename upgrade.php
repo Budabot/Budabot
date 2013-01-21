@@ -246,6 +246,16 @@
 		upgrade($db, "ALTER TABLE players CHANGE COLUMN prof_title prof_title VARCHAR(50) NOT NULL DEFAULT ''");
 	}
 	
+	// update firstname from varchar(20) to varchar(30)
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "players") && getColumnType($db, 'players', 'firstname') != 'varchar(30)') {
+		upgrade($db, "ALTER TABLE players CHANGE COLUMN firstname firstname VARCHAR(30) NOT NULL DEFAULT ''");
+	}
+	
+	// update lastname from varchar(20) to varchar(30)
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "players") && getColumnType($db, 'players', 'lastname') != 'varchar(30)') {
+		upgrade($db, "ALTER TABLE players CHANGE COLUMN lastname lastname VARCHAR(30) NOT NULL DEFAULT ''");
+	}
+	
 	// update cmd_alias.cmd from varchar(25) to varchar(255)
 	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "cmd_alias_<myname>") && getColumnType($db, 'cmd_alias_<myname>', 'cmd') != 'varchar(255)') {
 		upgrade($db, "ALTER TABLE cmd_alias_<myname> CHANGE COLUMN cmd cmd VARCHAR(255) NOT NULL");
