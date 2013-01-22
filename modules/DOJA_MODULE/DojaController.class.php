@@ -70,6 +70,7 @@ class DojaController {
 		$msg .= $this->text->make_item("284960","284960","1","Pandemonium")."\n";
 		$msg .= $this->text->make_item("284960","284960","1",$this->text->make_image("293725"))."\n";
 		$msg .= "Level Range: <highlight>220<end>\n\n";
+		$msg .= "By <highlight>Mackten (RK1)<end>";
 		
 		$msg = $this->text->make_blob("Doja Chips", $msg);
 		$sendto->reply($msg);
