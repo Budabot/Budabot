@@ -46,7 +46,12 @@ class ProfileController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->path = getcwd() . "/core/" . $this->moduleName . "/profiles/";
+		$this->path = getcwd() . "/data/profiles/";
+		
+		// make sure that the profile folder exists
+		if (!dir($this->path)) {
+			mkdir($this->path, 0777);
+		}
 	}
 	
 	/**
