@@ -61,6 +61,23 @@ class Stopwatch {
 		}
 		$sendto->reply($msg);
 	}
+	
+	/**
+	 * @HandlesCommand("stopwatch")
+	 * @Matches("/^stopwatch view$/i")
+	 */
+	public function stopwatchViewCommand($message, $channel, $sender, $sendto, $args) {
+		if ($this->time == 0) {
+			$msg = "The stopwatch is not running.";
+		} else {
+			$time = time() - $this->time;
+
+			$timeString = $this->util->unixtime_to_readable($time);
+
+			$msg = "Elapsed time: <highlight>$timeString<end>.";
+		}
+		$sendto->reply($msg);
+	}
 }
 
 ?>
