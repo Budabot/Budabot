@@ -187,9 +187,9 @@ class TrackerController {
 			if (count($data) > 0) {
 				$blob = '';
 				forEach ($data as $row) {
-					if ($row2->event == 'logon') {
+					if ($row->event == 'logon') {
 						$status = "<green>logon<end>";
-					} else if ($row2->event == 'logoff') {
+					} else if ($row->event == 'logoff') {
 						$status = "<orange>logoff<end>";
 					} else {
 						$status = "<grey>unknown<end>";
