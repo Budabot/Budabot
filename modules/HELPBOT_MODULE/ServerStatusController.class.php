@@ -64,37 +64,23 @@ class ServerStatusController {
 		} else {
 			// sort by playfield name
 			usort($server->data, function($playfield1, $playfield2) {
-				return strcmp($playfield1->long_name, $playfield2->long_name);
+				$val = $playfield2->numPlayers - $playfield1->numPlayers;
+				if ($val == 0) {
+					return strcmp($playfield1->long_name, $playfield2->long_name);
+				} else {
+					return $val;
+				}
 			});
 			
 			$blob = '';
-
-			if ($server->servermanager == 1) {
-				$link .= "Servermanager is <green>UP<end>\n";
-			} else {
-				$link .= "Servermanager is <red>DOWN<end>\n";
-			}
-
-			if ($server->clientmanager == 1) {
-				$link .= "Clientmanager is <green>UP<end>\n";
-			} else {
-				$link .= "Clientmanager is <red>DOWN<end>\n";
-			}
-
-			if ($server->chatserver == 1) {
-				$link .= "Chatserver is <green>UP<end>\n\n";
-			} else {
-				$link .= "Chatserver is <red>DOWN<end>\n\n";
-			}
+			$blob .= "Estimated total players online: <highlight>$server->totalPlayers<end>\n\n";
+			$blob .= "Note that these numbers only include players that are logged in with the game client. These numbers do not include bots or players logged in with AORC, The Leet, etc.\n\n";
 			
-			$link .= "Estimated total players online: <highlight>$server->totalPlayers<end>\n\n";
-			
-			$link .= "Player distribution in % of total players online.\n";
 			forEach ($server->data as $playfield) {
-				$link .= "$playfield->long_name: <highlight>$playfield->numPlayers<end> ({$playfield->percent}%)\n";
+				$blob .= "$playfield->long_name: <highlight>$playfield->numPlayers<end> ({$playfield->percent}%)\n";
 			}
 
-			$msg = $this->text->make_blob("$server->name Server Status ($server->totalPlayers)", $link);
+			$msg = $this->text->make_blob("$server->name Server Status ($server->totalPlayers)", $blob);
 		}
 
 		$sendto->reply($msg);
