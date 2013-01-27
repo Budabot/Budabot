@@ -222,7 +222,7 @@ class Util {
 	public function get_profession_abbreviation($profession) {
 		switch ($profession) {
 			case "Adventurer":
-				$prof = "Advy";
+				$prof = "Adv";
 				break;
 			case "agent":
 				$prof = "Agent";
@@ -237,7 +237,7 @@ class Util {
 				$prof = "Enf";
 				break;
 			case "Engineer":
-				$prof = "Engy";
+				$prof = "Eng";
 				break;
 			case "Fixer":
 				$prof = "Fixer";

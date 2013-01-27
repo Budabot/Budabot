@@ -83,7 +83,7 @@ class ExternalCommandController extends AutoInject {
 	
 	/**
 	 * @Event("extjoinprivrequest")
-	 * @Description("Listen for commands in an external private channel")
+	 * @Description("Accept private channel invite from player being listened to")
 	 */
 	public function acceptInviteForExternalCommandsEvent($eventObj) {
 		if ($this->shouldListen($eventObj->sender)) {
