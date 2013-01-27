@@ -61,7 +61,7 @@ class AltsController {
 	 * @AccessLevel("mod")
 	 * @Help("alts_inherit_admin.txt")
 	 */
-	public $defaultAltsInheritAdmin = "0";
+	public $defaultAltsInheritAdmin = "1";
 
 	/**
 	 * @Setup
