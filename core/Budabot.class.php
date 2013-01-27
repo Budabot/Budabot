@@ -45,6 +45,9 @@ class Budabot extends AOChat {
 	
 	/** @Inject */
 	public $relayController;
+	
+	/** @Inject */
+	public $setting;
 
 	/** @Logger("Core") */
 	public $logger;
@@ -296,7 +299,7 @@ class Budabot extends AOChat {
 		}
 
 		if ($group == null) {
-			$group = $this->vars['name'];
+			$group = $this->setting->default_private_channel;
 		}
 
 		$message = $this->text->format_message($message);
@@ -306,7 +309,7 @@ class Budabot extends AOChat {
 		$privColor = $this->settingManager->get('default_priv_color');
 
 		$this->send_privgroup($group, $privColor.$message);
-		if ($group == $this->vars["name"]) {
+		if ($this->isDefaultPrivateChannel($group)) {
 			// relay to guild channel
 			if (!$disable_relay && $this->settingManager->get('guild_channel_status') == 1 && $this->settingManager->get("guest_relay") == 1 && $this->settingManager->get("guest_relay_commands") == 1) {
 				$this->send_guild("</font>{$guestColorChannel}[Guest]</font> {$senderLink}: {$privColor}$message</font>", "\0");
@@ -342,7 +345,7 @@ class Budabot extends AOChat {
 
 		// relay to private channel
 		if (!$disable_relay && $this->settingManager->get("guest_relay") == 1 && $this->settingManager->get("guest_relay_commands") == 1) {
-			$this->send_privgroup($this->vars["name"], "</font>{$guestColorChannel}[{$guildNameForRelay}]</font> {$senderLink}: {$guildColor}$message</font>");
+			$this->send_privgroup($this->setting->default_private_channel, "</font>{$guestColorChannel}[{$guildNameForRelay}]</font> {$senderLink}: {$guildColor}$message</font>");
 		}
 
 		// relay to bot relay
@@ -476,7 +479,7 @@ class Budabot extends AOChat {
 
 		$this->logger->log('DEBUG', "AOCP_PRIVGRP_CLIJOIN => channel: '$channel' sender: '$sender'");
 
-		if ($channel == $this->vars['name']) {
+		if ($this->isDefaultPrivateChannel($channel)) {
 			$eventObj->type = "joinpriv";
 
 			$this->logger->log_chat("Priv Group", -1, "$sender joined the channel.");
@@ -506,7 +509,7 @@ class Budabot extends AOChat {
 
 		$this->logger->log('DEBUG', "AOCP_PRIVGRP_CLIPART => channel: '$channel' sender: '$sender'");
 
-		if ($channel == $this->vars['name']) {
+		if ($this->isDefaultPrivateChannel($channel)) {
 			$eventObj->type = "leavepriv";
 
 			$this->logger->log_chat("Priv Group", -1, "$sender left the channel.");
@@ -642,7 +645,7 @@ class Budabot extends AOChat {
 			}
 		}
 
-		if ($channel == $this->vars['name']) {
+		if ($this->isDefaultPrivateChannel($channel)) {
 			$type = "priv";
 			$eventObj->type = $type;
 
@@ -854,6 +857,10 @@ class Budabot extends AOChat {
 	 */
 	public function is_ready() {
 		return $this->ready && (time() >= $this->vars["startup"] + $this->settingManager->get("logon_delay"));
+	}
+	
+	public function isDefaultPrivateChannel($channel) {
+		return $channel == $this->setting->default_private_channel;
 	}
 }
 

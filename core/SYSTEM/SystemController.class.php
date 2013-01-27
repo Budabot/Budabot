@@ -249,6 +249,9 @@ class SystemController {
 		$this->settingManager->save('version', $version);
 
 		$this->helpManager->register($this->moduleName, "budatime", "budatime.txt", "all", "Format for budatime");
+		
+		$name = $this->chatBot->vars['name'];
+		$this->settingManager->add($this->moduleName, "default_private_channel", "Private channel to process commands from", "edit", "text", $name, $name);
 	}
 	
 	/**
