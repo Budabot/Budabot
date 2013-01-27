@@ -216,13 +216,10 @@ class UsageController {
 		$settings['guild_admin_rank'] = $this->settingManager->get('guild_admin_rank');
 		$settings['max_blob_size'] = $this->settingManager->get('max_blob_size');
 		$settings['logon_delay'] = $this->settingManager->get('logon_delay');
-		$settings['chatlist_tell'] = $this->settingManager->get('chatlist_tell');
 		$settings['fancy_online'] = $this->settingManager->get('fancy_online');
-		$settings['icon_fancy_online'] = $this->settingManager->get('icon_fancy_online');
 		$settings['online_group_by'] = $this->settingManager->get('online_group_by');
 		$settings['online_show_org_guild'] = $this->settingManager->get('online_show_org_guild');
 		$settings['online_show_org_priv'] = $this->settingManager->get('online_show_org_priv');
-		$settings['online_colorful'] = $this->settingManager->get('online_colorful');
 		$settings['online_admin'] = $this->settingManager->get('online_admin');
 
 		$obj = new stdClass;

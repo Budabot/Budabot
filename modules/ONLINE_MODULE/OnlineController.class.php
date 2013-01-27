@@ -59,13 +59,10 @@ class OnlineController {
 		$this->db->loadSQLFile($this->moduleName, "online");
 		
 		$this->settingManager->add($this->moduleName, "online_expire", "How long to wait before clearing online list", "edit", "time", "15m", "2m;5m;10m;15m;20m", '', "mod");
-		$this->settingManager->add($this->moduleName, "chatlist_tell", "Mode for Chatlist Cmd in tells", "edit", "options", "1", "Shows online privatechat members;Shows online guild members", "1;0");
-		$this->settingManager->add($this->moduleName, "fancy_online", "Show fancy delimiters on the online display", "edit", "options", "1", "true;false", "1;0");
-		$this->settingManager->add($this->moduleName, "icon_fancy_online", "Show profession icons in the online display", "edit", "options", "1", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "fancy_online", "Show fancy delimiters and profession icons in the online display", "edit", "options", "1", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, "online_group_by", "How to group online list", "edit", "options", "profession", "profession;guild");
 		$this->settingManager->add($this->moduleName, "online_show_org_guild", "Show org/rank for players in guild channel", "edit", "options", "1", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
 		$this->settingManager->add($this->moduleName, "online_show_org_priv", "Show org/rank for players in private channel", "edit", "options", "2", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
-		$this->settingManager->add($this->moduleName, "online_colorful", "Use fancy coloring for online list", "edit", "options", "1", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
 	}
 	
@@ -366,7 +363,7 @@ class OnlineController {
 
 	public function createListByChannel(&$data, $show_alts, $show_org_info) {
 		//Colorful temporary var settings (avoid a mess of if statements later in the function)
-		$fancyColon = ($this->settingManager->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
+		$fancyColon = "::";
 
 		$blob = '';
 		$current_channel = '';
@@ -397,7 +394,7 @@ class OnlineController {
 
 	public function createListByProfession(&$data, $show_alts, $show_org_info) {
 		//Colorful temporary var settings (avoid a mess of if statements later in the function)
-		$fancyColon = ($this->settingManager->get("online_colorful") == "1") ? "<highlight>::<end>":"::";
+		$fancyColon = "::";
 
 		$current_profession = "";
 
@@ -409,43 +406,43 @@ class OnlineController {
 					$blob .= "\n<tab><highlight>$row->profession<end>\n";
 				} else {
 					// fancy delimiters
-					$blob .= "\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
+					$blob .= "\n";
+					$blob .= "<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 
-					if ($this->settingManager->get("icon_fancy_online") == 1) {
-						if ($row->profession == "Adventurer") {
-							$blob .= $this->text->make_image(84203);
-						} else if ($row->profession == "Agent") {
-							$blob .= $this->text->make_image(16186);
-						} else if ($row->profession == "Bureaucrat") {
-							$blob .= $this->text->make_image(296548);
-						} else if ($row->profession == "Doctor") {
-							$blob .= $this->text->make_image(44235);
-						} else if ($row->profession == "Enforcer") {
-							$blob .= $this->text->make_image(117926);
-						} else if ($row->profession == "Engineer") {
-							$blob .= $this->text->make_image(287091);
-						} else if ($row->profession == "Fixer") {
-							$blob .= $this->text->make_image(16300);
-						} else if ($row->profession == "Keeper") {
-							$blob .= $this->text->make_image(38911);
-						} else if ($row->profession == "Martial Artist") {
-							$blob .= $this->text->make_image(16289);
-						} else if ($row->profession == "Meta-Physicist") {
-							$blob .= $this->text->make_image(16308);
-						} else if ($row->profession == "Nano-Technician") {
-							$blob .= $this->text->make_image(45190);
-						} else if ($row->profession == "Soldier") {
-							$blob .= $this->text->make_image(16195);
-						} else if ($row->profession == "Shade") {
-							$blob .= $this->text->make_image(39290);
-						} else if ($row->profession == "Trader") {
-							$blob .= $this->text->make_image(118049);
-						} else {
-							$blob .= $this->text->make_image(46268);
-						}
+					if ($row->profession == "Adventurer") {
+						$blob .= $this->text->make_image(84203);
+					} else if ($row->profession == "Agent") {
+						$blob .= $this->text->make_image(16186);
+					} else if ($row->profession == "Bureaucrat") {
+						$blob .= $this->text->make_image(296548);
+					} else if ($row->profession == "Doctor") {
+						$blob .= $this->text->make_image(44235);
+					} else if ($row->profession == "Enforcer") {
+						$blob .= $this->text->make_image(117926);
+					} else if ($row->profession == "Engineer") {
+						$blob .= $this->text->make_image(287091);
+					} else if ($row->profession == "Fixer") {
+						$blob .= $this->text->make_image(16300);
+					} else if ($row->profession == "Keeper") {
+						$blob .= $this->text->make_image(38911);
+					} else if ($row->profession == "Martial Artist") {
+						$blob .= $this->text->make_image(16289);
+					} else if ($row->profession == "Meta-Physicist") {
+						$blob .= $this->text->make_image(16308);
+					} else if ($row->profession == "Nano-Technician") {
+						$blob .= $this->text->make_image(45190);
+					} else if ($row->profession == "Soldier") {
+						$blob .= $this->text->make_image(16195);
+					} else if ($row->profession == "Shade") {
+						$blob .= $this->text->make_image(39290);
+					} else if ($row->profession == "Trader") {
+						$blob .= $this->text->make_image(118049);
+					} else {
+						$blob .= $this->text->make_image(46268);
 					}
 
-					$blob .= " <highlight>$row->profession<end>\n<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
+					$blob .= " <highlight>$row->profession<end>\n";
+					$blob .= "<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 				}
 
 				$current_profession = $row->profession;
