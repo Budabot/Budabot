@@ -7,3 +7,6 @@
 /botmanager/dist
 *.pyc
 *.log
+*.DS_Store
+*.xcuserdata
+*.xcworkspace
