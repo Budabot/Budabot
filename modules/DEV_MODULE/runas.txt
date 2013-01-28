@@ -1,0 +1,2 @@
+To run a command as another player:
+<highlight><tab><symbol>runas 'player' 'command'<end>
