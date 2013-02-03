@@ -1,6 +1,7 @@
 {
 	"require": { 
-		"react/http": "0.2.1",
+		"react/http": "0.2.6",
+		"cboden/Ratchet": "0.2.3",
 		"behat/behat": "2.4.*@stable",
 		"dhaarbrink/jsonrpc": "1.1.4"
 	},

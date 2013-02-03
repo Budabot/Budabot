@@ -10,7 +10,6 @@ class LibEventLoop implements LoopInterface
     private $callback;
 
     private $timers = array();
-    private $timersGc = array();
 
     private $events = array();
     private $flags = array();
@@ -25,19 +24,11 @@ class LibEventLoop implements LoopInterface
 
     protected function createLibeventCallback()
     {
-        $timersGc = &$this->timersGc;
         $readCallbacks = &$this->readCallbacks;
         $writeCallbacks = &$this->writeCallbacks;
 
-        return function ($stream, $flags, $loop) use (&$timersGc, &$readCallbacks, &$writeCallbacks) {
+        return function ($stream, $flags, $loop) use (&$readCallbacks, &$writeCallbacks) {
             $id = (int) $stream;
-
-            if ($timersGc) {
-                foreach ($timersGc as $signature => $resource) {
-                   event_free($resource);
-                   unset($timersGc[$signature]);
-                }
-            }
 
             try {
                 if (($flags & EV_READ) === EV_READ && isset($readCallbacks[$id])) {
@@ -177,13 +168,16 @@ class LibEventLoop implements LoopInterface
         );
 
         $timer->signature = spl_object_hash($timer);
+        $that = $this;
 
-        $callback = function () use ($timer) {
+        $callback = function () use ($timer, $that, &$callback) {
             if ($timer->cancelled === false) {
                 call_user_func($timer->callback, $timer->signature, $timer->loop);
 
-                if ($timer->periodic === true) {
+                if ($timer->periodic === true && $timer->cancelled === false) {
                     event_add($timer->resource, $timer->interval);
+                } else {
+                    $that->cancelTimer($timer->signature);
                 }
             }
         };
@@ -214,7 +208,7 @@ class LibEventLoop implements LoopInterface
 
             $timer->cancelled = true;
             event_del($timer->resource);
-            $this->timersGc[$signature] = $timer->resource;
+            event_free($timer->resource);
             unset($this->timers[$signature]);
         }
     }
@@ -226,15 +220,11 @@ class LibEventLoop implements LoopInterface
 
     public function run()
     {
-        // @codeCoverageIgnoreStart
         event_base_loop($this->base);
-        // @codeCoverageIgnoreEnd
     }
 
     public function stop()
     {
-        // @codeCoverageIgnoreStart
         event_base_loopexit($this->base);
-        // @codeCoverageIgnoreEnd
     }
 }

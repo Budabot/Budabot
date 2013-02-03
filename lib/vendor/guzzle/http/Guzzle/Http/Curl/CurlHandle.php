@@ -38,14 +38,13 @@ class CurlHandle
      * Factory method to create a new curl handle based on an HTTP request.
      *
      * There are some helpful options you can set to enable specific behavior:
-     * - debug:    Set to true to enable cURL debug functionality to track the
-     *             actual headers sent over the wire.  The
-     * - progress: Set to true to enable progress function callbacks. Most
-     *             users do not need this, so it has been disabled by default.
+     * - debug:    Set to true to enable cURL debug functionality to track the actual headers sent over the wire.
+     * - progress: Set to true to enable progress function callbacks.
      *
      * @param RequestInterface $request Request
      *
      * @return CurlHandle
+     * @throws RuntimeException
      */
     public static function factory(RequestInterface $request)
     {
@@ -53,7 +52,6 @@ class CurlHandle
         $requestCurlOptions = $request->getCurlOptions();
         $tempContentLength = null;
         $method = $request->getMethod();
-        $client = $request->getClient();
         $bodyAsString = $requestCurlOptions->get(self::BODY_AS_STRING);
 
         // Array of default cURL options.
@@ -63,13 +61,15 @@ class CurlHandle
             CURLOPT_RETURNTRANSFER => false,
             CURLOPT_HEADER         => false,
             CURLOPT_USERAGENT      => (string) $request->getHeader('User-Agent'),
-            // Supports all encodings
-            CURLOPT_ENCODING       => '',
             CURLOPT_PORT           => $request->getPort(),
             CURLOPT_HTTPHEADER     => array(),
             CURLOPT_HEADERFUNCTION => array($mediator, 'receiveResponseHeader'),
             CURLOPT_HTTP_VERSION   => $request->getProtocolVersion() === '1.0'
-                ? CURL_HTTP_VERSION_1_0 : CURL_HTTP_VERSION_1_1
+                ? CURL_HTTP_VERSION_1_0 : CURL_HTTP_VERSION_1_1,
+            // Verifies the authenticity of the peer's certificate
+            CURLOPT_SSL_VERIFYPEER => 1,
+            // Certificate must indicate that the server is the server to which you meant to connect
+            CURLOPT_SSL_VERIFYHOST => 2
         );
 
         // Enable the progress function if the 'progress' param was set
@@ -93,14 +93,6 @@ class CurlHandle
         if ($method != 'HEAD') {
             $curlOptions[CURLOPT_WRITEFUNCTION] = array($mediator, 'writeResponseBody');
         }
-
-        // Account for PHP installations with safe_mode or open_basedir enabled
-        // @codeCoverageIgnoreStart
-        if (CurlVersion::getInstance()->get('follow_location')) {
-            $curlOptions[CURLOPT_FOLLOWLOCATION] = true;
-            $curlOptions[CURLOPT_MAXREDIRS] = 5;
-        }
-        // @codeCoverageIgnoreEnd
 
         // Specify settings according to the HTTP method
         switch ($method) {
@@ -137,11 +129,9 @@ class CurlHandle
             case 'PUT':
             case 'PATCH':
             case 'DELETE':
+            default:
                 $curlOptions[CURLOPT_CUSTOMREQUEST] = $method;
                 if ($bodyAsString) {
-                    // Because this is not a POST but is now going be treated like
-                    // one, the wacky POST redirect options come in to play
-                    $curlOptions[CURLOPT_POSTREDIR] = 3;
                     // Remove the curl generated Content-Type header if none was set manually
                     if (!$request->hasHeader('Content-Type')) {
                         $curlOptions[CURLOPT_HTTPHEADER][] = 'Content-Type:';
@@ -154,9 +144,6 @@ class CurlHandle
                         $curlOptions[CURLOPT_INFILESIZE] = $tempContentLength;
                     }
                 }
-                break;
-            default:
-                $curlOptions[CURLOPT_CUSTOMREQUEST] = $method;
         }
 
         // Special handling for requests sending raw data
@@ -194,8 +181,13 @@ class CurlHandle
             }
         }
 
+        // Do not set an Accept header by default
+        if (!isset($curlOptions[CURLOPT_ENCODING])) {
+            $curlOptions[CURLOPT_HTTPHEADER][] = 'Accept:';
+        }
+
         // Check if any headers or cURL options are blacklisted
-        if ($client && ($blacklist = $client->getConfig('curl.blacklist'))) {
+        if ($blacklist = $requestCurlOptions->get('blacklist')) {
             foreach ($blacklist as $value) {
                 if (strpos($value, 'header.') !== 0) {
                     unset($curlOptions[$value]);
@@ -384,8 +376,8 @@ class CurlHandle
     }
 
     /**
-     * Get the cURL setopt options of the handle.  Changing values in the return
-     * object will have no effect on the curl handle after it is created.
+     * Get the cURL setopt options of the handle. Changing values in the return object will have no effect on the curl
+     * handle after it is created.
      *
      * @return Collection
      */
@@ -430,7 +422,7 @@ class CurlHandle
 
         // Add request headers to the request exactly as they were sent
         if ($headers) {
-            $parsed = ParserRegistry::get('message')->parseRequest($headers);
+            $parsed = ParserRegistry::getInstance()->getParser('message')->parseRequest($headers);
             if (!empty($parsed['headers'])) {
                 $request->setHeaders(array());
                 foreach ($parsed['headers'] as $name => $value) {
@@ -444,8 +436,7 @@ class CurlHandle
     }
 
     /**
-     * Parse the configuration and replace curl.* configurators into the
-     * constant based values so it can be used elsewhere
+     * Parse the config and replace curl.* configurators into the constant based values so it can be used elsewhere
      *
      * @param array|Collection $config The configuration we want to parse
      *
@@ -455,15 +446,11 @@ class CurlHandle
     {
         $curlOptions = array();
         foreach ($config as $key => $value) {
-            if (strpos($key, 'curl.') === 0) {
-                $curlOption = substr($key, 5);
+            if (!is_numeric($key) && defined($key)) {
                 // Convert constants represented as string to constant int values
-                if (defined($curlOption)) {
-                    $value = is_string($value) && defined($value) ? constant($value) : $value;
-                    $curlOption = constant($curlOption);
-                }
-                $curlOptions[$curlOption] = $value;
+                $key = constant($key);
             }
+            $curlOptions[$key] = is_string($value) && defined($value) ? constant($value) : $value;
         }
 
         return $curlOptions;

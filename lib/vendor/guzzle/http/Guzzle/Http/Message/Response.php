@@ -3,6 +3,7 @@
 namespace Guzzle\Http\Message;
 
 use Guzzle\Common\Collection;
+use Guzzle\Common\Exception\RuntimeException;
 use Guzzle\Http\EntityBodyInterface;
 use Guzzle\Http\EntityBody;
 use Guzzle\Http\Exception\BadResponseException;
@@ -58,7 +59,7 @@ class Response extends AbstractMessage
         417 => 'Expectation Failed',
         422 => 'Unprocessable Entity',
         423 => 'Locked',
-        424 => 'Failed Dependancy',
+        424 => 'Failed Dependency',
         425 => 'Reserved for WebDAV advanced collections expired proposal',
         426 => 'Upgrade required',
         428 => 'Precondition Required',
@@ -113,6 +114,11 @@ class Response extends AbstractMessage
     protected $cacheResponseCodes = array(200, 203, 206, 300, 301, 410);
 
     /**
+     * @var Response If a redirect was issued or an intermediate response was issued
+     */
+    protected $previous;
+
+    /**
      * Create a new Response based on a raw response message
      *
      * @param string $message Response message
@@ -121,19 +127,21 @@ class Response extends AbstractMessage
      */
     public static function fromMessage($message)
     {
-        $data = ParserRegistry::get('message')->parseResponse($message);
+        $data = ParserRegistry::getInstance()->getParser('message')->parseResponse($message);
         if (!$data) {
             return false;
         }
 
-        // Always set the appropriate Content-Length
-        unset($data['headers']['Content-Length']);
-        unset($data['headers']['content-length']);
-        $data['headers']['Content-Length'] = strlen($data['body']);
-
         $response = new static($data['code'], $data['headers'], $data['body']);
         $response->setProtocol($data['protocol'], $data['version'])
                  ->setStatus($data['code'], $data['reason_phrase']);
+
+        // Set the appropriate Content-Length if the one set is inaccurate (e.g. setting to X)
+        $contentLength = (string) $response->getHeader('Content-Length');
+        $actualLength = strlen($data['body']);
+        if (strlen($data['body']) > 0 && $contentLength != $actualLength) {
+            $response->setHeader('Content-Length', $actualLength);
+        }
 
         return $response;
     }
@@ -151,7 +159,7 @@ class Response extends AbstractMessage
     {
         $this->setStatus($statusCode);
         $this->params = new Collection();
-        $this->body = EntityBody::factory($body ?: '');
+        $this->body = EntityBody::factory($body !== null ? $body : '');
 
         if ($headers) {
             if (!is_array($headers) && !($headers instanceof Collection)) {
@@ -183,6 +191,20 @@ class Response extends AbstractMessage
     public function getBody($asString = false)
     {
         return $asString ? (string) $this->body : $this->body;
+    }
+
+    /**
+     * Set the response entity body
+     *
+     * @param EntityBodyInterface|string $body Body to set
+     *
+     * @return self
+     */
+    public function setBody($body)
+    {
+        $this->body = EntityBody::factory($body);
+
+        return $this;
     }
 
     /**
@@ -703,7 +725,7 @@ class Response extends AbstractMessage
      */
     public function isClientError()
     {
-        return substr(strval($this->statusCode), 0, 1) == '4';
+        return $this->statusCode >= 400 && $this->statusCode < 500;
     }
 
     /**
@@ -723,7 +745,7 @@ class Response extends AbstractMessage
      */
     public function isInformational()
     {
-        return substr(strval($this->statusCode), 0, 1) == '1';
+        return $this->statusCode < 200;
     }
 
     /**
@@ -733,7 +755,7 @@ class Response extends AbstractMessage
      */
     public function isRedirect()
     {
-        return substr(strval($this->statusCode), 0, 1) == '3';
+        return $this->statusCode >= 300 && $this->statusCode < 400;
     }
 
     /**
@@ -743,7 +765,7 @@ class Response extends AbstractMessage
      */
     public function isServerError()
     {
-        return substr(strval($this->statusCode), 0, 1) == '5';
+        return $this->statusCode >= 500 && $this->statusCode < 600;
     }
 
     /**
@@ -753,7 +775,7 @@ class Response extends AbstractMessage
      */
     public function isSuccessful()
     {
-        return substr(strval($this->statusCode), 0, 1) == '2' || $this->statusCode == '304';
+        return ($this->statusCode >= 200 && $this->statusCode < 300) || $this->statusCode == 304;
     }
 
     /**
@@ -798,8 +820,7 @@ class Response extends AbstractMessage
     }
 
     /**
-     * Gets the number of seconds from the current time in which this response
-     * is still considered fresh as specified in RFC 2616-13
+     * Gets the number of seconds from the current time in which this response is still considered fresh
      *
      * @return int|null Returns the number of seconds
      */
@@ -824,8 +845,7 @@ class Response extends AbstractMessage
     /**
      * Check if the response is considered fresh.
      *
-     * A response is considered fresh when its age is less than the freshness
-     * lifetime (maximum age) of the response.
+     * A response is considered fresh when its age is less than the freshness lifetime (maximum age) of the response.
      *
      * @return bool|null
      */
@@ -837,8 +857,7 @@ class Response extends AbstractMessage
     }
 
     /**
-     * Check if the response can be validated against the origin server using
-     * a conditional GET request.
+     * Check if the response can be validated against the origin server using a conditional GET request.
      *
      * @return bool
      */
@@ -848,14 +867,12 @@ class Response extends AbstractMessage
     }
 
     /**
-     * Get the freshness of the response by returning the difference of the
-     * maximum lifetime of the response and the age of the response
-     * (max-age - age).
+     * Get the freshness of the response by returning the difference of the maximum lifetime of the response and the
+     * age of the response (max-age - age).
      *
-     * Freshness values less than 0 mean that the response is no longer fresh
-     * and is ABS(freshness) seconds expired.  Freshness values of greater than
-     * zer0 is the number of seconds until the response is no longer fresh.
-     * A NULL result means that no freshness information is available.
+     * Freshness values less than 0 mean that the response is no longer fresh and is ABS(freshness) seconds expired.
+     * Freshness values of greater than zero is the number of seconds until the response is no longer fresh. A NULL
+     * result means that no freshness information is available.
      *
      * @return int
      */
@@ -865,5 +882,63 @@ class Response extends AbstractMessage
         $age = $this->getAge();
 
         return $maxAge && $age ? ($maxAge - $age) : null;
+    }
+
+    /**
+     * Get the previous response (e.g. Redirect response)
+     *
+     * @return null|Response
+     */
+    public function getPreviousResponse()
+    {
+        return $this->previous;
+    }
+
+    /**
+     * Set the previous response
+     *
+     * @param Response $response Response to set
+     *
+     * @return self
+     */
+    public function setPreviousResponse(Response $response)
+    {
+        $this->previous = $response;
+
+        return $this;
+    }
+
+    /**
+     * Parse the JSON response body and return an array
+     *
+     * @return array
+     * @throws RuntimeException if the response body is not in JSON format
+     */
+    public function json()
+    {
+        $data = json_decode((string) $this->body, true);
+        if (JSON_ERROR_NONE !== json_last_error()) {
+            throw new RuntimeException('Unable to parse response body into JSON: ' . json_last_error());
+        }
+
+        return $data ?: array();
+    }
+
+    /**
+     * Parse the XML response body and return a SimpleXMLElement
+     *
+     * @return \SimpleXMLElement
+     * @throws RuntimeException if the response body is not in XML format
+     */
+    public function xml()
+    {
+        try {
+            // Allow XML to be retrieved even if there is no response body
+            $xml = new \SimpleXMLElement((string) $this->body ?: '<root />');
+        } catch (\Exception $e) {
+            throw new RuntimeException('Unable to parse response body into XML: ' . $e->getMessage());
+        }
+
+        return $xml;
     }
 }
