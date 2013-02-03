@@ -6,6 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Twig_' => $vendorDir . '/twig/twig/lib/',
     'Symfony\\Component\\Yaml' => $vendorDir . '/symfony/yaml/',
     'Symfony\\Component\\Translation' => $vendorDir . '/symfony/translation/',
     'Symfony\\Component\\HttpFoundation' => $vendorDir . '/symfony/http-foundation/',
