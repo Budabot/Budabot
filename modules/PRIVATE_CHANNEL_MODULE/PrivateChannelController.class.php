@@ -246,11 +246,15 @@ class PrivateChannelController {
 		if ($this->chatBot->vars["name"] == $name) {
 			$msg = "You cannot invite the bot to its own private channel.";
 		} else if ($uid) {
-			$msg = "Invited <highlight>$name<end> to this channel.";
-			$this->chatBot->privategroup_kick($name);
-			$this->chatBot->privategroup_invite($name);
-			$msg2 = "You have been invited to the <highlight><myname><end> channel by <highlight>$sender<end>.";
-			$this->chatBot->sendTell($msg2, $name);
+			if (isset($this->chatBot->chatlist[$name])) {
+				$msg = "<highlight>$name<end> is already in the private channel.";
+			} else {
+				$msg = "Invited <highlight>$name<end> to this channel.";
+				//$this->chatBot->privategroup_kick($name);
+				$this->chatBot->privategroup_invite($name);
+				$msg2 = "You have been invited to the <highlight><myname><end> channel by <highlight>$sender<end>.";
+				$this->chatBot->sendTell($msg2, $name);
+			}
 		} else {
 			$msg = "Character <highlight>{$name}<end> does not exist.";
 		}
@@ -265,19 +269,18 @@ class PrivateChannelController {
 	public function kickCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$uid = $this->chatBot->get_uid($name);
-		if ($uid) {
-			if (isset($this->chatBot->chatlist[$name])) {
-				$msg = "<highlight>$name<end> has been kicked from the private channel.";
-			} else {
-				$msg = "<highlight>$name<end> is not in the private channel.";
-			}
-
-			// we kick whether they are in the channel or not in case the channel list is bugged
-			$this->chatBot->privategroup_kick($name);
-		} else {
+		if (!$uid) {
 			$msg = "Character <highlight>{$name}<end> does not exist.";
+		} else if (!isset($this->chatBot->chatlist[$name])) {
+			$msg = "Character <highlight>{$name}<end> is not in the private channel.";
+		} else {
+			if ($this->accessManager->compareCharacterAccessLevels($sender, $name) > 0) {
+				$msg = "<highlight>$name<end> has been kicked from the private channel.";
+				$this->chatBot->privategroup_kick($name);
+			} else {
+				$msg = "You do not have the required access level to kick <highlight>$name<end>.";
+			}
 		}
-
 		$sendto->reply($msg);
 	}
 	

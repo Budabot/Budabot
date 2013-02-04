@@ -67,16 +67,9 @@ class ChatLeaderController {
 		if ($this->leader == $sender) {
 			unset($this->leader);
 			$msg = "Raid Leader cleared.";
-		} else if ($this->leader != "") {
-			if ($this->accessManager->compareCharacterAccessLevels($sender, $this->leader) > 0) {
-				$this->leader = $sender;
-				$msg = $this->getLeaderStatusText();
-			} else {
-				$msg = "You cannot take Raid Leader from <highlight>{$this->leader}<end>.";
-			}
 		} else {
-			$this->leader = $sender;
-			$msg = $this->getLeaderStatusText();
+			$msg = $this->setLeader($sender, $sender);
+			$this->chatBot->sendPrivate($msg);
 		}
 		$this->chatBot->sendPrivate($msg);
 	}
@@ -87,17 +80,26 @@ class ChatLeaderController {
 	 * @Matches("/^leader (.+)$/i")
 	 */
 	public function leaderSetCommand($message, $channel, $sender, $sendto, $args) {
-		$uid = $this->chatBot->get_uid($args[1]);
-		$name = ucfirst(strtolower($args[1]));
+		$msg = $this->setLeader($args[1], $sender);
+		$this->chatBot->sendPrivate($msg);
+	}
+	
+	public function setLeader($name, $sender) {
+		$name = ucfirst(strtolower($name));
+		$uid = $this->chatBot->get_uid($name);
 		if (!$uid) {
 			$msg = "Character <highlight>{$name}<end> does not exist.";
 		} else if (!isset($this->chatBot->chatlist[$name])) {
-			$msg = "Character <highlight>{$name}<end> is not in this channel.";
+			$msg = "Character <highlight>{$name}<end> is not in the private channel.";
 		} else {
-			$this->leader = $name;
-			$msg = $this->getLeaderStatusText();
+			if (!isset($this->leader) || $this->accessManager->compareCharacterAccessLevels($sender, $this->leader) > 0) {
+				$this->leader = $name;
+				$msg = $this->getLeaderStatusText();
+			} else {
+				$msg = "You cannot take Raid Leader from <highlight>{$this->leader}<end>.";
+			}
 		}
-		$this->chatBot->sendPrivate($msg);
+		return $msg;
 	}
 
 	/**
