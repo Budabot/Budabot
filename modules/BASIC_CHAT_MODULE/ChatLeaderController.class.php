@@ -69,7 +69,6 @@ class ChatLeaderController {
 			$msg = "Raid Leader cleared.";
 		} else {
 			$msg = $this->setLeader($sender, $sender);
-			$this->chatBot->sendPrivate($msg);
 		}
 		$this->chatBot->sendPrivate($msg);
 	}
@@ -92,7 +91,7 @@ class ChatLeaderController {
 		} else if (!isset($this->chatBot->chatlist[$name])) {
 			$msg = "Character <highlight>{$name}<end> is not in the private channel.";
 		} else {
-			if (!isset($this->leader) || $this->accessManager->compareCharacterAccessLevels($sender, $this->leader) > 0) {
+			if (!isset($this->leader) || $sender == $this->leader || $this->accessManager->compareCharacterAccessLevels($sender, $this->leader) > 0) {
 				$this->leader = $name;
 				$msg = $this->getLeaderStatusText();
 			} else {
