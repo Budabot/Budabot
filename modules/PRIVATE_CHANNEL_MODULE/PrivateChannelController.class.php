@@ -76,12 +76,6 @@
  *		help        = 'lock.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'accept', 
- *		accessLevel = 'mod', 
- *		description = "Accept a private channel invitation from another player", 
- *		help        = 'accept.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'join', 
  *		accessLevel = 'member', 
  *		description = "Join command for guests", 
@@ -515,21 +509,6 @@ class PrivateChannelController {
 
 		$this->settingManager->save("priv_status", "1");
 		$this->settingManager->save("priv_status_reason", "none");
-	}
-	
-	/**
-	 * @HandlesCommand("accept")
-	 * @Matches("/^accept (.+)/i")
-	 */
-	public function acceptCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		if (!$this->chatBot->get_uid($name)) {
-			$msg = "Character <highlight>$name<end> does not exist.";
-		} else {
-			$this->chatBot->privategroup_join($name);
-			$msg = "Accepted private channel invitation from <highlight>$name<end>.";
-		}
-		$sendto->reply($msg);
 	}
 	
 	/**
