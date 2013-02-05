@@ -13,12 +13,7 @@ class Registry {
 
 	public static function instanceExists($name) {
 		$name = strtolower($name);
-
-		if (isset(Registry::$repo[$name])) {
-			return true;
-		} else {
-			return false;
-		}
+		return isset(Registry::$repo[$name]);
 	}
 
 	public static function getInstance($name, $reload = false) {
