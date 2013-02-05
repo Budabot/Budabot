@@ -1,5 +1,9 @@
 <?php
 
+use Ratchet\WebSocket\WsServer;
+use Ratchet\Wamp\WampServer;
+use React\Socket\Server as SocketServer;
+
 /**
  * @Instance("HttpApi")
  * 
@@ -39,6 +43,7 @@ class HttpApiController {
 	private $loop;
 	private $socket;
 	private $httpServer;
+	private $wamp;
 	
 	/** @internal */
 	public $handlers = array();
@@ -75,8 +80,11 @@ class HttpApiController {
 	 */
 	public function setup() {
 		$this->loop = new ReactLoopAdapter($this->socketManager);
-		$this->socket = new React\Socket\Server($this->loop);
-		$this->httpServer = new React\Http\Server($this->socket);
+		$this->socket = new SocketServer($this->loop);
+		$this->httpServer = new WebServer($this->socket);
+
+		$this->wamp = new WampHandler();
+		$this->httpServer->setRatchetComponent(new WsServer(new WampServer($this->wamp)));
 
 		$that = $this;
 		$this->httpServer->on('request', function ($request, $response) use ($that) {
