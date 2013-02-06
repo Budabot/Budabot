@@ -2,8 +2,9 @@
 
 namespace Guzzle\Http;
 
-use Guzzle\Common\Stream;
+use Guzzle\Stream\Stream;
 use Guzzle\Common\Exception\InvalidArgumentException;
+use Guzzle\Http\Mimetypes;
 
 /**
  * Entity body used with an HTTP request or response
@@ -14,6 +15,11 @@ class EntityBody extends Stream implements EntityBodyInterface
      * @var bool Content-Encoding of the entity body if known
      */
     protected $contentEncoding = false;
+
+    /**
+     * @var callable Method to invoke for rewinding a stream
+     */
+    protected $rewindFunction;
 
     /**
      * Create a new EntityBody based on the input type
@@ -45,6 +51,28 @@ class EntityBody extends Stream implements EntityBodyInterface
         }
 
         throw new InvalidArgumentException('Invalid resource type');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setRewindFunction($callable)
+    {
+        if (!is_callable($callable)) {
+            throw new InvalidArgumentException('Must specify a callable');
+        }
+
+        $this->rewindFunction = $callable;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function rewind()
+    {
+        return $this->rewindFunction ? call_user_func($this->rewindFunction, $this) : parent::rewind();
     }
 
     /**
@@ -112,13 +140,11 @@ class EntityBody extends Stream implements EntityBodyInterface
      */
     public function getContentType()
     {
-        if (!class_exists('finfo', false) || !($this->isLocal() && $this->getWrapper() == 'plainfile' && file_exists($this->getUri()))) {
+        if (!($this->isLocal() && $this->getWrapper() == 'plainfile' && file_exists($this->getUri()))) {
             return 'application/octet-stream';
         }
 
-        $finfo = new \finfo(FILEINFO_MIME_TYPE);
-
-        return $finfo->file($this->getUri());
+        return Mimetypes::getInstance()->fromFilename($this->getUri()) ?: 'application/octet-stream';
     }
 
     /**
@@ -126,34 +152,25 @@ class EntityBody extends Stream implements EntityBodyInterface
      */
     public function getContentMd5($rawOutput = false, $base64Encode = false)
     {
-        return self::calculateMd5($this, $rawOutput, $base64Encode);
+        $hash = self::getHash($this, 'md5', $rawOutput);
+
+        return $hash && $base64Encode ? base64_encode($hash) : $hash;
     }
 
     /**
      * Calculate the MD5 hash of an entity body
      *
-     * @param EntityBodyInterface $body         Entity body to calcutate the hash for
+     * @param EntityBodyInterface $body         Entity body to calculate the hash for
      * @param bool                $rawOutput    Whether or not to use raw output
      * @param bool                $base64Encode Whether or not to base64 encode raw output (only if raw output is true)
      *
      * @return bool|string Returns an MD5 string on success or FALSE on failure
+     * @deprecated This will be deprecated soon
+     * @codeCoverageIgnore
      */
     public static function calculateMd5(EntityBodyInterface $body, $rawOutput = false, $base64Encode = false)
     {
-        $pos = $body->ftell();
-        if (!$body->seek(0)) {
-            return false;
-        }
-
-        $ctx = hash_init('md5');
-        while ($data = $body->read(1024)) {
-            hash_update($ctx, $data);
-        }
-
-        $out = hash_final($ctx, (bool) $rawOutput);
-        $body->seek($pos);
-
-        return ((bool) $base64Encode && (bool) $rawOutput) ? base64_encode($out) : $out;
+        return $body->getContentMd5($rawOutput, $base64Encode);
     }
 
     /**
@@ -207,6 +224,9 @@ class EntityBody extends Stream implements EntityBodyInterface
         $this->size = $stat['size'];
         $this->rebuildCache();
         $this->seek(0);
+
+        // Remove any existing rewind function as the underlying stream has been replaced
+        $this->rewindFunction = null;
 
         return true;
     }

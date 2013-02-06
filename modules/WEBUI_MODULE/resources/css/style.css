@@ -1,0 +1,54 @@
+
+/* Tell the browser to render HTML 5 elements as block */
+header, footer, aside, nav, article {
+	display: block;
+}
+
+body {
+	margin: 0 auto;
+	width: 800px;
+	font: 13px/22px Helvetica, Arial, sans-serif;
+	background: #191919;
+	color: white;
+}
+
+body > header {
+	text-align: center;
+}
+
+nav {
+	background: #2F77BA;
+	text-align: center;
+}
+nav ul {
+	margin: 5px auto;
+}
+nav li {
+	display: inline;
+}
+
+nav a {
+	color: white;
+	text-decoration: none;
+}
+
+nav a:hover {
+	color: gold;
+	text-decoration: underline;
+}
+
+section {
+	border-style: solid;
+	border-color: black;
+	border-radius: 10px;
+	padding: 10px;
+}
+
+footer {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+}
+

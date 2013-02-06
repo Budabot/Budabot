@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		{% block head %}
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="css/style.css" />
+		<title>{% block title %}{% endblock %} - {{ botname }} (Budabot {{ version }})</title>
+		{% endblock %}
+	</head>
+	<body>
+		<header>
+			<h1>{{ botname }} - Web Interface</h1>
+		</header>
+		<nav>
+			<ul>
+				<li><a href=".">Home</a></li>
+				<li><a href="configure">Configure</a></li>
+				<li><a href="login">Login</a></li>
+			</ul>
+		</nav>
+		<section>
+			{% block content %}{% endblock %}
+		</section>
+		<footer>
+			Powered by Budabot {{version}}
+		</footer>
+	</body>
+</html>
