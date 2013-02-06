@@ -1,7 +1,3 @@
-@echo off
-pushd .
-cd %~dp0
-cd "../vendor/behat/behat/bin"
-set BIN_TARGET=%CD%\behat
-popd
+@ECHO OFF
+SET BIN_TARGET=%~dp0\"../vendor/behat/behat/bin"\behat
 php "%BIN_TARGET%" %*

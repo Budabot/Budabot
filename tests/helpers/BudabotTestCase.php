@@ -1,7 +1,7 @@
 <?php
 
-require_once "lib/addendum-0.4.1/annotations.php";
-require_once "core/annotations.php";
+require_once __DIR__ . '/../../lib/addendum-0.4.1/annotations.php';
+require_once __DIR__ . '/../../core/annotations.php';
 
 class ConstraintIsCallable extends \PHPUnit_Framework_Constraint {
 	public function matches($other) {

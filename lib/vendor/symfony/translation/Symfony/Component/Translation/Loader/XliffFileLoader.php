@@ -39,7 +39,7 @@ class XliffFileLoader implements LoaderInterface
 
         $catalogue = new MessageCatalogue($locale);
         foreach ($xml->xpath('//xliff:trans-unit') as $translation) {
-            if (2 !== count($translation)) {
+            if (!isset($translation->source) || !isset($translation->target)) {
                 continue;
             }
             $catalogue->set((string) $translation->source, (string) $translation->target, $domain);
@@ -54,7 +54,7 @@ class XliffFileLoader implements LoaderInterface
      *
      * @param string $file
      *
-     * @return SimpleXMLElement
+     * @return \SimpleXMLElement
      */
     private function parseFile($file)
     {
@@ -109,7 +109,7 @@ class XliffFileLoader implements LoaderInterface
     /**
      * Returns the XML errors of the internal XML parser
      *
-     * @return array  An array of errors
+     * @return array An array of errors
      */
     private function getXmlErrors($internalErrors)
     {

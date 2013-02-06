@@ -2,6 +2,8 @@
 
 namespace Guzzle\Http;
 
+use Guzzle\Stream\Stream;
+
 /**
  * Abstract decorator used to wrap entity bodies
  */
@@ -48,6 +50,24 @@ class AbstractEntityBodyDecorator implements EntityBodyInterface
      * {@inheritdoc}
      * @codeCoverageIgnore
      */
+    public function setRewindFunction($callable)
+    {
+        return $this->body->setRewindFunction($callable);
+    }
+
+    /**
+     * {@inheritdoc}
+     * @codeCoverageIgnore
+     */
+    public function rewind()
+    {
+        return $this->body->rewind();
+    }
+
+    /**
+     * {@inheritdoc}
+     * @codeCoverageIgnore
+     */
     public function compress($filter = 'zlib.deflate')
     {
         return $this->body->compress($filter);
@@ -83,7 +103,9 @@ class AbstractEntityBodyDecorator implements EntityBodyInterface
      */
     public function getContentMd5($rawOutput = false, $base64Encode = false)
     {
-        return $this->body->getContentMd5($rawOutput, $base64Encode);
+        $hash = Stream::getHash($this, 'md5', $rawOutput);
+
+        return $hash && $base64Encode ? base64_encode($hash) : $hash;
     }
 
     /**
@@ -109,6 +131,15 @@ class AbstractEntityBodyDecorator implements EntityBodyInterface
     public function getStream()
     {
         return $this->body->getStream();
+    }
+
+    /**
+     * {@inheritdoc}
+     * @codeCoverageIgnore
+     */
+    public function setStream($stream, $size = 0)
+    {
+        return $this->body->setStream($stream, $size);
     }
 
     /**

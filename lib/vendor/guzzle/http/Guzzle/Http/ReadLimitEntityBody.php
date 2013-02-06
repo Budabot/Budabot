@@ -18,8 +18,9 @@ class ReadLimitEntityBody extends AbstractEntityBodyDecorator
     protected $offset;
 
     /**
-     * @param int $limit  Total number of bytes to allow to be read from the stream
-     * @param int $offset Position to seek to before reading (only works on seekable streams)
+     * @param EntityBodyInterface $body   Body to wrap
+     * @param int                 $limit  Total number of bytes to allow to be read from the stream
+     * @param int                 $offset Position to seek to before reading (only works on seekable streams)
      */
     public function __construct(EntityBodyInterface $body, $limit, $offset = 0)
     {
@@ -56,15 +57,6 @@ class ReadLimitEntityBody extends AbstractEntityBodyDecorator
         return $length === false
             ? $this->limit
             : min($this->limit, min($length, $this->offset + $this->limit) - $this->offset);
-    }
-
-    /**
-     * Returns the Content-MD5 of the limited subset of data
-     * {@inheritdoc}
-     */
-    public function getContentMd5($rawOutput = false, $base64Encode = false)
-    {
-        return EntityBody::calculateMd5($this, $rawOutput, $base64Encode);
     }
 
     /**
