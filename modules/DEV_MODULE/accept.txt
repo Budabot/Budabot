@@ -1,0 +1,2 @@
+To manually accept a private channel invitation from another character:
+<highlight><tab><symbol>accept 'character'<end>
