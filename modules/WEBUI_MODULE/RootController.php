@@ -32,6 +32,13 @@ class RootController {
 			array($this, 'handleRootResource'));
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/css/style.css|i",
 			$this->handleStaticResource(__DIR__ .'/resources/css/style.css'));
+
+		$appender = \Logger::getRootLogger()->getAppender('appenderBuffer');
+		if ($appender) {
+			$appender->onEvent(function($event) {
+				//print "BUFFER: $event\n";
+			});
+		}
 	}
 
 	public function handleRootResource($request, $response) {
