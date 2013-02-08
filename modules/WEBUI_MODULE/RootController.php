@@ -62,10 +62,21 @@ class RootController {
 	}
 
 	public function handleStaticResource($path) {
-		return function ($request, $response) use ($path) {
-			$response->writeHead(200);
+		$mimeType = $this->extensionToMimeType(
+			pathinfo($path, PATHINFO_EXTENSION));
+
+		return function ($request, $response) use ($path, $mimeType) {
+			$response->writeHead(200, array('Content-Type' => $mimeType));
 			$response->end(file_get_contents($path));
 		};
+	}
+
+	public function extensionToMimeType($extension) {
+		switch (strtolower($extension)) {
+			case 'css':
+				return 'text/css';
+		}
+		return 'text/plain';
 	}
 
 	public function renderTemplate($name, $parameters = array()) {
