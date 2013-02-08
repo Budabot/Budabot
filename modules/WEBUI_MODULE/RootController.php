@@ -38,10 +38,10 @@ class RootController {
 			$that->httpApi->wampPublish($that->logEventWampUri(), $event);
 		});
 
-		$this->httpApi->onWampSubscribe($this->logEventWampUri(), function() use ($that) {
+		$this->httpApi->onWampSubscribe($this->logEventWampUri(), function($client) use ($that) {
 			$events = $that::getBufferAppender()->getEvents();
 			foreach ($events as $event) {
-				$that->httpApi->wampPublish($that->logEventWampUri(), $event);
+				$client->event($that->logEventWampUri(), $event);
 			}
 		});
 	}

@@ -335,12 +335,18 @@ class HttpApiController {
 	 * This method registers a callback which will be called when
 	 * a WebSocket/WAMP client subscribes to a event topic.
 	 *
+	 * The callback has following signature:
+	 * <code>function callback($client)</code>
+	 * $client: wamp connection to the client which subscribed
+	 *    (@link: https://github.com/cboden/Ratchet/blob/master/src/Ratchet/Wamp/WampConnection.php)
+     *
 	 * Example usage:
 	 * <code>
 	 * $uri = $this->httpApi->getUri('/hello');
-	 * $this->httpApi->onWampSubscribe($uri, function() {
-	 *     // do something
+	 * $this->httpApi->onWampSubscribe($uri, function($client) {
+	 *     $client->send($uri, 'Hello new client!');
 	 * });
+	 *
 	 * </code>
 	 *
 	 * @param $topicName name or uri of the event topic
