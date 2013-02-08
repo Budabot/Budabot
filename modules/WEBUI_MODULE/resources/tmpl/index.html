@@ -8,10 +8,36 @@
 <script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
+
+		function isLogConsoleAtBottom() {
+			if (log_console.scrollTopMax != undefined) {
+				return log_console.scrollTop == log_console.scrollTopMax;
+			}
+			return true;
+		}
+
+		function scrollLogConsoleToBottom() {
+			if (log_console.scrollTopMax != undefined) {
+				log_console.scrollTop = log_console.scrollTopMax;
+			} else {
+				log_console.scrollTop = 999999999;
+			}
+
+		}
+
 		ab.connect('ws://localhost:80/',
 
 			function(session) {
 				console.log('Connected to WebSocket');
+				session.subscribe("{{ logEventWampUri }}", function (topic, event) {
+
+					atBottom = isLogConsoleAtBottom();
+					console.log(atBottom);
+					log_console.innerHTML += event + "<br />\n";
+					if (atBottom) {
+						scrollLogConsoleToBottom();
+					}
+				});
 			},
 
 			function(code, reason) {
@@ -28,6 +54,6 @@
 		<h1>Console Messages</h1>
 	</header>
 
-	<iframe id="console" style="width: 100%; height: 400px;" />
+	<div id="log_console"></div>
 </article>
 {% endblock %}

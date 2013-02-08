@@ -21,6 +21,10 @@ class LoggerAppenderBuffer extends LoggerAppender {
 		return $this->logLimit;
 	}
 
+	public function getEvents() {
+		return $this->logBuffer;
+	}
+
 	public function onEvent($callback) {
 		return $this->emitter->on('event', $callback);
 	}

@@ -33,17 +33,32 @@ class RootController {
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/css/style.css|i",
 			$this->handleStaticResource(__DIR__ .'/resources/css/style.css'));
 
+		$that = $this;
+		self::getBufferAppender()->onEvent(function($event) use ($that) {
+			$that->httpApi->wampPublish($that->logEventWampUri(), $event);
+		});
+
+		$this->httpApi->onWampSubscribe($this->logEventWampUri(), function() use ($that) {
+			$events = $that::getBufferAppender()->getEvents();
+			foreach ($events as $event) {
+				$that->httpApi->wampPublish($that->logEventWampUri(), $event);
+			}
+		});
+	}
+
+	public static function getBufferAppender() {
 		$appender = \Logger::getRootLogger()->getAppender('appenderBuffer');
-		if ($appender) {
-			$appender->onEvent(function($event) {
-				//print "BUFFER: $event\n";
-			});
+		if (!$appender) {
+			$appender = new LoggerAppenderBuffer();
 		}
+		return $appender;
 	}
 
 	public function handleRootResource($request, $response) {
 		$response->writeHead(200);
-		$response->end($this->renderTemplate('index.html'));
+		$response->end($this->renderTemplate('index.html', array(
+			'logEventWampUri' => $this->logEventWampUri()
+		)));
 	}
 
 	public function handleStaticResource($path) {
@@ -60,5 +75,9 @@ class RootController {
 			'version' => $version
 		), $parameters);
 		return $this->twig->render($name, $parameters);
+	}
+
+	public function logEventWampUri() {
+		return $this->httpApi->getUri('/logEvents');
 	}
 }
