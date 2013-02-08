@@ -214,7 +214,7 @@ class Budabot extends AOChat {
 	function loadCoreModules() {
 		// Load the Core Modules
 		$this->logger->log('INFO', "Loading CORE modules...");
-		$core_modules = array('CONFIG', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE', 'HTTPAPI_MODULE', 'PROFILE');
+		$core_modules = array('CONFIG', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE', 'HTTPAPI_MODULE', 'PROFILE', 'COLORS');
 		$this->db->begin_transaction();
 		forEach ($core_modules as $MODULE_NAME) {
 			$this->registerModule("./core", $MODULE_NAME);
