@@ -282,4 +282,40 @@ class HttpApiController {
 			$session->response->end();
 		}
 	}
+
+	/**
+	 * This method publishes new WebSocket/WAMP event which will be send to all
+	 * connected clients.
+	 *
+	 * Example usage:
+	 * <code>
+	 * $uri = $this->httpApi->getUri('/hello_response');
+	 * $this->httpApi->wampPublish($uri, 'hello world');
+	 * </code>
+	 *
+	 * @param $topicName name or uri of the event topic
+	 * @param $payload data to be send with the event
+	 */
+	public function wampPublish($topicName, $payload) {
+		$this->wamp->publish($topicName, $payload);
+	}
+
+	/**
+	 * This method registers a callback which will be called when
+	 * a WebSocket/WAMP client subscribes to a event topic.
+	 *
+	 * Example usage:
+	 * <code>
+	 * $uri = $this->httpApi->getUri('/hello');
+	 * $this->httpApi->onWampSubscribe($uri, function() {
+	 *     // do something
+	 * });
+	 * </code>
+	 *
+	 * @param $topicName name or uri of the event topic
+	 * @param $callback callback to be called on subscribe
+	 */
+	public function onWampSubscribe($topicName, $callback) {
+		$this->wamp->on("subscribe-$topicName", $callback);
+	}
 }
