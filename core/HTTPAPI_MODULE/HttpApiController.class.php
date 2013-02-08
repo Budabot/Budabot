@@ -178,23 +178,54 @@ class HttpApiController {
 	 * </code>
 	 * Returns: 'http://localhost/foo'
 	 *
-	 * If setting 'httpapi_base_uri' is set this method will return
-	 * that uri + $path instead of localhost + $path.
+	 * Settings 'httpapi_address' and 'httpapi_port' affect what the returned
+	 * URI will be.
 	 *
 	 * @param string $path path to uri resource
 	 * @return string
 	 */
 	public function getUri($path) {
 		$path    = ltrim($path, '/');
-		$address = $this->setting->httpapi_address;
-		if (!$address) {
-			$address = 'localhost';
+		$address = $this->getHostComponent();
+		$port = $this->getPortComponent();
+		return "http://$address$port/$path";
+	}
+
+	private function getHostComponent() {
+		$host = $this->setting->httpapi_address;
+		if (!$host) {
+			return 'localhost';
 		}
+		return $host;
+	}
+
+	private function getPortComponent() {
 		$port = $this->setting->httpapi_port;
 		if ($port == 80) {
-			return "http://$address/$path";
+			return '';
 		}
-		return "http://$address:$port/$path";
+		return ":$port";
+	}
+
+	/**
+	 * This method returns server's WebSocket uri.
+	 *
+	 * Example usage:
+	 * <code>
+	 * $uri = $this->httpApi->getWebSocketUri();
+	 * </code>
+	 * Returns: 'ws://localhost/'
+	 *
+	 * Settings 'httpapi_address' and 'httpapi_port' affect what the returned
+	 * URI will be.
+	 *
+	 * @param string $path path to uri resource
+	 * @return string
+	 */
+	public function getWebSocketUri() {
+		$address = $this->getHostComponent();
+		$port = $this->getPortComponent();
+		return "ws://$address$port/";
 	}
 	
 	public function stopListening() {

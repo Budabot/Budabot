@@ -57,6 +57,7 @@ class RootController {
 	public function handleRootResource($request, $response) {
 		$response->writeHead(200);
 		$response->end($this->renderTemplate('index.html', array(
+			'webSocketUri' => $this->httpApi->getWebSocketUri(),
 			'logEventWampUri' => $this->logEventWampUri()
 		)));
 	}

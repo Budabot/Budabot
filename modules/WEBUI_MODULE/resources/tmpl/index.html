@@ -29,7 +29,7 @@
 
 		function limitLogConsoleLines() {
 			if (log_console.children.length > logMaxLines) {
-				$("#log_console").find(":first-child").remove();
+				$('#log_console').find(':first-child').remove();
 			}
 		}
 
@@ -45,11 +45,11 @@
 			}
 		}
 
-		ab.connect('ws://localhost:80/',
+		ab.connect('{{ webSocketUri }}',
 
 			function(session) {
 				console.log('Connected to WebSocket');
-				session.subscribe("{{ logEventWampUri }}", function (topic, event) {
+				session.subscribe('{{ logEventWampUri }}', function (topic, event) {
 					addMessageToLogConsole(event);
 				});
 			},
