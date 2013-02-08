@@ -37,7 +37,16 @@
 			<param name="file" value="./logs/budabot_%s.log" />
 			<param name="datePattern" value="Y-m" />
 	</appender>
- 
+
+	<!-- Direct log to memory buffer -->
+	<appender name="appenderBuffer" class="LoggerAppenderBuffer">
+		<param name="logLimit" value="50" />
+		<layout class="LoggerLayoutTTCC">
+			<param name="threadPrinting" value="false" />
+			<param name="microSecondsPrinting" value="false" />
+		</layout>
+	</appender>
+
 	<!-- <logger name="Foo">
 		<level value="DEBUG" />
 		<appender_ref ref="myFileAppender" />
@@ -48,6 +57,7 @@
 		<appender_ref ref="defaultConsoleAppenderStdOut" />
 		<appender_ref ref="defaultConsoleAppenderStdErr" />
 		<appender_ref ref="defaultFileAppender" />
+		<appender_ref ref="appenderBuffer" />
 	</root>
     
 </configuration>

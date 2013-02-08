@@ -20,6 +20,7 @@ class WampHandler extends EventEmitter implements WampServerInterface {
 
 	function onSubscribe(ConnectionInterface $conn, $topic) {
 		$this->topics["$topic"] = $topic;
+		$this->emit("subscribe-$topic", array());
 	}
 
 	function onUnSubscribe(ConnectionInterface $conn, $topic) {
