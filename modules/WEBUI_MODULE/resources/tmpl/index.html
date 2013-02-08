@@ -22,7 +22,15 @@
 			} else {
 				log_console.scrollTop = 999999999;
 			}
+		}
 
+		function addMessageToLogConsole(message) {
+			atBottom = isLogConsoleAtBottom();
+			console.log(atBottom);
+			log_console.innerHTML += message + "<br />\n";
+			if (atBottom) {
+				scrollLogConsoleToBottom();
+			}
 		}
 
 		ab.connect('ws://localhost:80/',
@@ -30,18 +38,12 @@
 			function(session) {
 				console.log('Connected to WebSocket');
 				session.subscribe("{{ logEventWampUri }}", function (topic, event) {
-
-					atBottom = isLogConsoleAtBottom();
-					console.log(atBottom);
-					log_console.innerHTML += event + "<br />\n";
-					if (atBottom) {
-						scrollLogConsoleToBottom();
-					}
+					addMessageToLogConsole(event);
 				});
 			},
 
 			function(code, reason) {
-				console.log('Failed to connect WebSocket (' + reason + ')');
+				addMessageToLogConsole(reason);
 			}
 		);
 	});
