@@ -7,6 +7,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
 <script type="text/javascript">
+
+	logMaxLines = 1000;
+
 	$(document).ready(function() {
 
 		function isLogConsoleAtBottom() {
@@ -24,10 +27,19 @@
 			}
 		}
 
+		function limitLogConsoleLines() {
+			if (log_console.children.length > logMaxLines) {
+				$("#log_console").find(":first-child").remove();
+			}
+		}
+
 		function addMessageToLogConsole(message) {
 			atBottom = isLogConsoleAtBottom();
-			console.log(atBottom);
-			log_console.innerHTML += message + "<br />\n";
+
+			log_console.innerHTML += "<div>" + message + "</div>\n";
+
+			limitLogConsoleLines();
+
 			if (atBottom) {
 				scrollLogConsoleToBottom();
 			}
