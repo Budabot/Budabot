@@ -77,6 +77,7 @@ class HttpApiController {
 
 	/**
 	 * @Setup
+	 * @internal
 	 */
 	public function setup() {
 		$this->loop = new ReactLoopAdapter($this->socketManager);
@@ -141,21 +142,25 @@ class HttpApiController {
 	 * what has been requested through the HTTP API.
 	 *
 	 * The callback has following signature:
-	 * <code>function callback($request, $response, $data)</code>
-	 * $request: http request object (@link: https://github.com/react-php/http/blob/master/Request.php)
-	 * $response: http response object (@link: https://github.com/react-php/http/blob/master/Response.php)
-	 * $data: optional data variable given on register
+	 * <code>
+	 *     function callback($request, $response, $data)
+	 * </code>
+	 *
+	 * Arguments:
+	 * - $request: http request object (@link: https://github.com/react-php/http/blob/master/Request.php)
+	 * - $response: http response object (@link: https://github.com/react-php/http/blob/master/Response.php)
+	 * - $data: optional data variable given on register
 	 *
 	 * Example usage:
 	 * <code>
-	 *	$this->httpApi->registerHandler("|^/{$this->moduleName}/foo|i", function($request, $response, $requestBody) {
-	 *		// ...
-	 *	} );
+	 *     $this->httpApi->registerHandler("|^/{$this->moduleName}/foo|i", function($request, $response, $requestBody) {
+	 *         // ...
+	 *     } );
 	 * </code>
 	 *
-	 * @param string   $path     request's path must match to this regexp 
+	 * @param string   $path     request's path must match to this regexp
 	 * @param callback $callback the callback handler to call
-	 * $param mixed    $data     any data which will be passed to to the callback(optional)
+	 * @param mixed    $data     any data which will be passed to to the callback(optional)
 	 */
 	public function registerHandler($path, $callback, $data = null) {
 		if (!is_callable($callback)) {
@@ -174,7 +179,7 @@ class HttpApiController {
 	 * 
 	 * Example usage:
 	 * <code>
-	 * $uri = $this->httpApi->getUri('/foo');
+	 *     $uri = $this->httpApi->getUri('/foo');
 	 * </code>
 	 * Returns: 'http://localhost/foo'
 	 *
@@ -212,7 +217,7 @@ class HttpApiController {
 	 *
 	 * Example usage:
 	 * <code>
-	 * $uri = $this->httpApi->getWebSocketUri();
+	 *     $uri = $this->httpApi->getWebSocketUri();
 	 * </code>
 	 * Returns: 'ws://localhost/'
 	 *
@@ -227,7 +232,8 @@ class HttpApiController {
 		$port = $this->getPortComponent();
 		return "ws://$address$port/";
 	}
-	
+
+	/** @internal */
 	public function stopListening() {
 		$this->socket->shutdown();
 	}
@@ -260,6 +266,7 @@ class HttpApiController {
 	 * This command handler shows web link to user.
 	 *
 	 * @HandlesCommand("httpapi")
+	 * @internal
 	 */
 	public function httpapiCommand($message, $channel, $sender, $sendto, $args) {
 		$uri  = $this->getUri('/');
@@ -273,6 +280,7 @@ class HttpApiController {
 	 * and updates the API's address.
 	 *
 	 * @HandlesCommand("httpapi updateipaddress")
+	 * @internal
 	 */
 	public function updateIpAddressCommand($message, $channel, $sender, $sendto, $args) {
 		$setting = $this->setting;
@@ -288,6 +296,7 @@ class HttpApiController {
 		});
 	}
 
+	/** @internal */
 	public function isRequestBodyFullyReceived($session) {
 		$headers = $session->request->getHeaders();
 		$currentLength  = strlen($session->body);
@@ -295,7 +304,7 @@ class HttpApiController {
 		return $currentLength == $requiredLength;
 	}
 
-	public function findHandlerForPath($path) {
+	private function findHandlerForPath($path) {
 		forEach ($this->handlers as $handler) {
 			if (preg_match($handler->path, $path)) {
 				return $handler;
@@ -304,6 +313,7 @@ class HttpApiController {
 		return null;
 	}
 
+	/** @internal */
 	public function handleRequest($session) {
 		$path = $session->request->getPath();
 		$handler = $this->findHandlerForPath($path);
@@ -336,7 +346,7 @@ class HttpApiController {
 	 *
 	 * Example usage:
 	 * <code>
-	 * $this->httpApi->redirectToPath($response, "/{$this->moduleName}/redirected/path");
+	 *     $this->httpApi->redirectToPath($response, "/{$this->moduleName}/redirected/path");
 	 * </code>
 	 *
 	 * @param $response http response object
@@ -354,8 +364,8 @@ class HttpApiController {
 	 *
 	 * Example usage:
 	 * <code>
-	 * $uri = $this->httpApi->getUri('/hello_response');
-	 * $this->httpApi->wampPublish($uri, 'hello world');
+	 *     $uri = $this->httpApi->getUri('/hello_response');
+	 *     $this->httpApi->wampPublish($uri, 'hello world');
 	 * </code>
 	 *
 	 * @param $topicName name or uri of the event topic
@@ -370,17 +380,20 @@ class HttpApiController {
 	 * a WebSocket/WAMP client subscribes to a event topic.
 	 *
 	 * The callback has following signature:
-	 * <code>function callback($client)</code>
-	 * $client: wamp connection to the client which subscribed
+	 * <code>
+	 *     function callback($client)
+	 * </code>
+	 *
+	 * Arguments:
+	 * - $client: wamp connection to the client which subscribed
 	 *    (@link: https://github.com/cboden/Ratchet/blob/master/src/Ratchet/Wamp/WampConnection.php)
      *
 	 * Example usage:
 	 * <code>
-	 * $uri = $this->httpApi->getUri('/hello');
-	 * $this->httpApi->onWampSubscribe($uri, function($client) {
-	 *     $client->send($uri, 'Hello new client!');
-	 * });
-	 *
+	 *     $uri = $this->httpApi->getUri('/hello');
+	 *     $this->httpApi->onWampSubscribe($uri, function($client) {
+	 *         $client->send($uri, 'Hello new client!');
+	 *     });
 	 * </code>
 	 *
 	 * @param $topicName name or uri of the event topic
