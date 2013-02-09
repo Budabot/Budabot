@@ -5,6 +5,7 @@
 /build
 /botmanager/build
 /botmanager/dist
+/docs/api
 *.pyc
 *.log
 *.DS_Store
