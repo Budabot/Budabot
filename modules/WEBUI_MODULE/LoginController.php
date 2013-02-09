@@ -44,7 +44,7 @@ class LoginController {
 
 	public function handleLoginResource($request, $response) {
 		if ($this->isLoggedIn()) {
-			$this->root->redirect($response, "/{$this->moduleName}/");
+			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/");
 		} else {
 			$response->writeHead(200);
 			$response->end($this->root->renderTemplate('login.html'));
@@ -66,7 +66,7 @@ class LoginController {
 
 	public function handleLogoutResource($request, $response) {
 		$this->loggedIn = false;
-		$this->root->redirect($response, "/{$this->moduleName}/login");
+		$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
 	}
 
 	private static function parseCredentialsFromQuery($data) {

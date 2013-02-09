@@ -98,8 +98,8 @@ class HttpApiController {
 				if (!$that->isRequestBodyFullyReceived($session)) {
 					return;
 				}
-				$handler = $that->findHandlerForRequest($session);
-				$that->handleRequest($handler, $session);
+
+				$that->handleRequest($session);
 				$session = null;
 			});
 		});
@@ -295,23 +295,57 @@ class HttpApiController {
 		return $currentLength == $requiredLength;
 	}
 
-	public function findHandlerForRequest($session) {
+	public function findHandlerForPath($path) {
 		forEach ($this->handlers as $handler) {
-			if (preg_match($handler->path, $session->request->getPath())) {
+			if (preg_match($handler->path, $path)) {
 				return $handler;
 			}
 		}
 		return null;
 	}
 
-	public function handleRequest($handler, $session) {
+	public function handleRequest($session) {
+		$path = $session->request->getPath();
+		$handler = $this->findHandlerForPath($path);
 		if ($handler) {
 			call_user_func($handler->callback, $session->request,
 				$session->response, $session->body, $handler->data);
 		} else {
-			$session->response->writeHead(404);
-			$session->response->end();
+			// handler not found for requested path, next see if by adding or
+			// removing a slash to path's end would have a handler, if there is,
+			// redirect caller to there
+			$lastChar = substr($path, -1);
+			if ($lastChar == '/') {
+				$path = substr($path, 0, -1);
+			} else {
+				$path .= '/';
+			}
+			if ($this->findHandlerForPath($path)) {
+				$this->redirectToPath($session->response, $path);
+			} else {
+				// still no handler, return 'not found' error
+				$session->response->writeHead(404);
+				$session->response->end();
+			}
 		}
+	}
+
+	/**
+	 * This method sends redirection response (http code 302) back to client,
+	 * redirecting it to new $path on the same server.
+	 *
+	 * Example usage:
+	 * <code>
+	 * $this->httpApi->redirectToPath($response, "/{$this->moduleName}/redirected/path");
+	 * </code>
+	 *
+	 * @param $response http response object
+	 * @param $path new path
+	 */
+	public function redirectToPath($response, $path) {
+		$response->writeHead(302, array(
+			'Location' => $this->getUri($path)));
+		$response->end();
 	}
 
 	/**

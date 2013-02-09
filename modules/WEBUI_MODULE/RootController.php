@@ -51,12 +51,6 @@ class RootController {
 		});
 	}
 
-	public function redirect($response, $path) {
-		$response->writeHead(302, array(
-			'Location' => $this->httpApi->getUri($path)));
-		$response->end();
-	}
-
 	public static function getBufferAppender() {
 		$appender = \Logger::getRootLogger()->getAppender('appenderBuffer');
 		if (!$appender) {
@@ -67,7 +61,7 @@ class RootController {
 
 	public function handleRootResource($request, $response) {
 		if (!$this->login->isLoggedIn()) {
-			$this->redirect($response, "/{$this->moduleName}/login");
+			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
 			return;
 		}
 
