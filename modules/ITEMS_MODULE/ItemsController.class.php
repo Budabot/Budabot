@@ -1,6 +1,8 @@
 <?php
 
 namespace budabot\user\modules;
+use SimpleXmlElement;
+use Exception;
 
 /**
  * @Instance

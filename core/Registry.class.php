@@ -5,14 +5,20 @@ class Registry {
 	private static $dependencies = array();
 
 	public static function setInstance($name, $obj) {
+		$name = Registry::formatName($name);
 		LegacyLogger::log("DEBUG", "Registry", "Adding instance '$name'");
-		$name = strtolower($name);
 		Registry::$repo[$name] = $obj;
 		self::injectDependencies($obj);
 	}
+	
+	public static function formatName($name) {
+		$name = strtolower($name);
+		$array = explode("\\", $name);
+		return array_pop($array);
+	}
 
 	public static function instanceExists($name) {
-		$name = strtolower($name);
+		$name = Registry::formatName($name);
 
 		if (isset(Registry::$repo[$name])) {
 			return true;
@@ -22,7 +28,7 @@ class Registry {
 	}
 
 	public static function getInstance($name, $reload = false) {
-		$name = strtolower($name);
+		$name = Registry::formatName($name);
 		LegacyLogger::log("DEBUG", "Registry", "Requesting instance for '$name'");
 
 		$instance = Registry::$repo[$name];
@@ -54,7 +60,8 @@ class Registry {
 				if (@$property->getAnnotation('Logger')->value != '') {
 					$tag = $property->getAnnotation('Logger')->value;
 				} else {
-					$tag = $reflection->name;
+					$array = explode("\\", $reflection->name);
+					$tag = array_pop($array);
 				}
 				$instance->{$property->name} = new LoggerWrapper($tag);
 			}
