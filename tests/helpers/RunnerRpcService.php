@@ -50,7 +50,7 @@ class RunnerRpcService {
 		if (strpos($path, '/tests') === 0) {
 			$path = substr($path, 6);
 		}
-		return "$host+$path";
+		return strtolower("$host+$path");
 	}
 
 	public function triggerEventInModule($module, $type) {
