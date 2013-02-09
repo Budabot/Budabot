@@ -1,4 +1,7 @@
 <?php
+
+namespace budabot\user\modules;
+
 /**
  * Authors: 
  *	- Tyrence (RK2)

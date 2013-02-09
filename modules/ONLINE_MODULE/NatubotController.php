@@ -1,4 +1,7 @@
 <?php
+
+namespace budabot\user\modules;
+
 /**
  * Written By Naturarum (Paradise, RK2)
  * For Budabot 3.0

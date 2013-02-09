@@ -1,4 +1,7 @@
 <?php
+
+namespace budabot\user\modules;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)
@@ -84,8 +87,6 @@ class IRCController {
 	
 	/** @Setup */
 	public function setup() {
-		$this->onlineController->register($this);
-		
 		if ($this->chatBot->vars['my_guild'] == "") {
 			$channel = "#".$this->chatBot->vars['name'];
 		} else {
@@ -106,6 +107,8 @@ class IRCController {
 		$this->settingManager->add($this->moduleName, 'irc_guild_name_color', "Color of guild names from other bots in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
 		$this->settingManager->add($this->moduleName, 'irc_message_color', "Color of messages from users in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
 		$this->settingManager->add($this->moduleName, 'irc_ignore', "Defines which characters to ignore", 'edit', "text", 'none', 'none', '', '', 'irc_ignore.txt');
+		
+		$this->onlineController->register($this);
 	}
 	
 	/**

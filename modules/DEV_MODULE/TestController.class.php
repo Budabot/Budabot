@@ -1,4 +1,9 @@
 <?php
+
+namespace budabot\user\modules;
+use AutoInject;
+use CommandReply;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)

@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\user\modules;
+
 /**
  * Authors: 
  *	- Mindrila (RK1)
@@ -89,9 +91,8 @@ class BBINController {
 			$channel = "#".$channel;
 		}
 
-		// Setup
 		$this->db->loadSQLFile($this->moduleName, "bbin_chatlist");
-		
+
 		$this->settingManager->add($this->moduleName, "bbin_status", "Status of BBIN uplink", "noedit", "options", "0", "Offline;Online", "0;1", "mod", "bbin_help.txt");
 		$this->settingManager->add($this->moduleName, "bbin_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "", "", "mod", "bbin_help.txt");
 		$this->settingManager->add($this->moduleName, "bbin_port", "IRC server port to use", "noedit", "number", "6667", "", "", "mod", "bbin_help.txt");

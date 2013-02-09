@@ -1,5 +1,8 @@
 <?php
 
+namespace budabot\user\modules;
+use AutoInject;
+
 /**
  * Authors: 
  *	- Tyrence (RK2)

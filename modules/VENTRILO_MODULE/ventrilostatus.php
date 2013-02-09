@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\user\modules;
+
 /*
 	This file should not be modified. This is so that future versions can be
 	dropped into place as servers are updated.
