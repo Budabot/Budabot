@@ -21,6 +21,8 @@ class RootController {
 
 	private $twig;
 
+	const LOG_EVENTS_TOPIC = 'http://localhost/logEvents';
+
 	/**
 	 * @Setup
 	 */
@@ -35,13 +37,13 @@ class RootController {
 
 		$that = $this;
 		self::getBufferAppender()->onEvent(function($event) use ($that) {
-			$that->httpApi->wampPublish($that->logEventWampUri(), $event);
+			$that->httpApi->wampPublish($that::LOG_EVENTS_TOPIC, $event);
 		});
 
-		$this->httpApi->onWampSubscribe($this->logEventWampUri(), function($client) use ($that) {
+		$this->httpApi->onWampSubscribe(self::LOG_EVENTS_TOPIC, function($client) use ($that) {
 			$events = $that::getBufferAppender()->getEvents();
 			foreach ($events as $event) {
-				$client->event($that->logEventWampUri(), $event);
+				$client->event($that::LOG_EVENTS_TOPIC, $event);
 			}
 		});
 	}
@@ -58,7 +60,7 @@ class RootController {
 		$response->writeHead(200);
 		$response->end($this->renderTemplate('index.html', array(
 			'webSocketUri' => $this->httpApi->getWebSocketUri(),
-			'logEventWampUri' => $this->logEventWampUri()
+			'logEventsTopic' => self::LOG_EVENTS_TOPIC
 		)));
 	}
 
@@ -87,9 +89,5 @@ class RootController {
 			'version' => $version
 		), $parameters);
 		return $this->twig->render($name, $parameters);
-	}
-
-	public function logEventWampUri() {
-		return $this->httpApi->getUri('/logEvents');
 	}
 }

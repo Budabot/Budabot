@@ -49,7 +49,7 @@
 
 			function(session) {
 				console.log('Connected to WebSocket');
-				session.subscribe('{{ logEventWampUri }}', function (topic, event) {
+				session.subscribe('{{ logEventsTopic }}', function (topic, event) {
 					addMessageToLogConsole(event);
 				});
 			},
