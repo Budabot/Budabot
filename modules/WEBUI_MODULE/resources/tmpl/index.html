@@ -7,15 +7,55 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
 <script type="text/javascript">
+
+	logMaxLines = 1000;
+
 	$(document).ready(function() {
-		ab.connect('ws://localhost:80/',
+
+		function isLogConsoleAtBottom() {
+			if (log_console.scrollTopMax != undefined) {
+				return log_console.scrollTop == log_console.scrollTopMax;
+			}
+			return true;
+		}
+
+		function scrollLogConsoleToBottom() {
+			if (log_console.scrollTopMax != undefined) {
+				log_console.scrollTop = log_console.scrollTopMax;
+			} else {
+				log_console.scrollTop = 999999999;
+			}
+		}
+
+		function limitLogConsoleLines() {
+			if (log_console.children.length > logMaxLines) {
+				$('#log_console').find(':first-child').remove();
+			}
+		}
+
+		function addMessageToLogConsole(message) {
+			atBottom = isLogConsoleAtBottom();
+
+			log_console.innerHTML += "<div>" + message + "</div>\n";
+
+			limitLogConsoleLines();
+
+			if (atBottom) {
+				scrollLogConsoleToBottom();
+			}
+		}
+
+		ab.connect('{{ webSocketUri }}',
 
 			function(session) {
 				console.log('Connected to WebSocket');
+				session.subscribe('{{ logEventsTopic }}', function (topic, event) {
+					addMessageToLogConsole(event);
+				});
 			},
 
 			function(code, reason) {
-				console.log('Failed to connect WebSocket (' + reason + ')');
+				addMessageToLogConsole(reason);
 			}
 		);
 	});
@@ -28,6 +68,6 @@
 		<h1>Console Messages</h1>
 	</header>
 
-	<iframe id="console" style="width: 100%; height: 400px;">
+	<div id="log_console"></div>
 </article>
 {% endblock %}

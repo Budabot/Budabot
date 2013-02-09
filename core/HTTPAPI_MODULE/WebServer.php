@@ -33,7 +33,8 @@ class WebServer extends React\Http\Server {
 
 	public function isWebSocketHandshake(Request $request) {
 		$headers = $request->getHeaders();
-		return isset($headers['Upgrade']) && $headers['Upgrade'] == 'websocket';
+		return isset($headers['Upgrade']) &&
+			strcasecmp($headers['Upgrade'], 'websocket') == 0;
 	}
 
 	public function toRequestString(Request $request) {

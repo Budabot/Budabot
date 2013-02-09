@@ -178,23 +178,54 @@ class HttpApiController {
 	 * </code>
 	 * Returns: 'http://localhost/foo'
 	 *
-	 * If setting 'httpapi_base_uri' is set this method will return
-	 * that uri + $path instead of localhost + $path.
+	 * Settings 'httpapi_address' and 'httpapi_port' affect what the returned
+	 * URI will be.
 	 *
 	 * @param string $path path to uri resource
 	 * @return string
 	 */
 	public function getUri($path) {
 		$path    = ltrim($path, '/');
-		$address = $this->setting->httpapi_address;
-		if (!$address) {
-			$address = 'localhost';
+		$address = $this->getHostComponent();
+		$port = $this->getPortComponent();
+		return "http://$address$port/$path";
+	}
+
+	private function getHostComponent() {
+		$host = $this->setting->httpapi_address;
+		if (!$host) {
+			return 'localhost';
 		}
+		return $host;
+	}
+
+	private function getPortComponent() {
 		$port = $this->setting->httpapi_port;
 		if ($port == 80) {
-			return "http://$address/$path";
+			return '';
 		}
-		return "http://$address:$port/$path";
+		return ":$port";
+	}
+
+	/**
+	 * This method returns server's WebSocket uri.
+	 *
+	 * Example usage:
+	 * <code>
+	 * $uri = $this->httpApi->getWebSocketUri();
+	 * </code>
+	 * Returns: 'ws://localhost/'
+	 *
+	 * Settings 'httpapi_address' and 'httpapi_port' affect what the returned
+	 * URI will be.
+	 *
+	 * @param string $path path to uri resource
+	 * @return string
+	 */
+	public function getWebSocketUri() {
+		$address = $this->getHostComponent();
+		$port = $this->getPortComponent();
+		return "ws://$address$port/";
 	}
 	
 	public function stopListening() {
@@ -281,5 +312,47 @@ class HttpApiController {
 			$session->response->writeHead(404);
 			$session->response->end();
 		}
+	}
+
+	/**
+	 * This method publishes new WebSocket/WAMP event which will be send to all
+	 * connected clients.
+	 *
+	 * Example usage:
+	 * <code>
+	 * $uri = $this->httpApi->getUri('/hello_response');
+	 * $this->httpApi->wampPublish($uri, 'hello world');
+	 * </code>
+	 *
+	 * @param $topicName name or uri of the event topic
+	 * @param $payload data to be send with the event
+	 */
+	public function wampPublish($topicName, $payload) {
+		$this->wamp->publish($topicName, $payload);
+	}
+
+	/**
+	 * This method registers a callback which will be called when
+	 * a WebSocket/WAMP client subscribes to a event topic.
+	 *
+	 * The callback has following signature:
+	 * <code>function callback($client)</code>
+	 * $client: wamp connection to the client which subscribed
+	 *    (@link: https://github.com/cboden/Ratchet/blob/master/src/Ratchet/Wamp/WampConnection.php)
+     *
+	 * Example usage:
+	 * <code>
+	 * $uri = $this->httpApi->getUri('/hello');
+	 * $this->httpApi->onWampSubscribe($uri, function($client) {
+	 *     $client->send($uri, 'Hello new client!');
+	 * });
+	 *
+	 * </code>
+	 *
+	 * @param $topicName name or uri of the event topic
+	 * @param $callback callback to be called on subscribe
+	 */
+	public function onWampSubscribe($topicName, $callback) {
+		$this->wamp->on("subscribe-$topicName", $callback);
 	}
 }

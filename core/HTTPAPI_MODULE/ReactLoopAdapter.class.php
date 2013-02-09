@@ -1,7 +1,5 @@
 <?php
 
-require __DIR__ . '/../../lib/vendor/autoload.php';
-
 class ReactLoopAdapter implements React\EventLoop\LoopInterface {
 
 	private $socketManager;

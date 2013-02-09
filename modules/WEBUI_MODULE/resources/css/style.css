@@ -52,3 +52,9 @@ footer {
 	text-align: center;
 }
 
+#log_console {
+	border: goldenrod solid medium;
+	width: 100%;
+	height: 400px;
+	overflow: auto;
+}
