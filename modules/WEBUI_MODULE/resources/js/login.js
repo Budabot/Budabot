@@ -1,5 +1,5 @@
 function redirectToIndex() {
-	window.location.href = '/webui_module/';
+	window.location.href = '.';
 }
 
 function setErrorMessage(message) {
@@ -12,11 +12,13 @@ function onLoginClicked() {
 		password: $('#password').val()
 	};
 	$.ajax({
-		url: 'check_login',
+		url: 'do_login',
 		type: 'post',
 		data: data,
-		success: function(result) {
-			if (result === '1') {
+		dataType: 'text',
+		success: function(response) {
+			console.log(response);
+			if (response === '1') {
 				redirectToIndex();
 			} else {
 				setErrorMessage('Invalid username or password');

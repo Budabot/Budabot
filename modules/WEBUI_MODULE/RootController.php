@@ -3,7 +3,7 @@
 namespace WebUi;
 
 /**
- * @Instance("WebUiRootController")
+ * @Instance
  */
 class RootController {
 
@@ -18,6 +18,9 @@ class RootController {
 
 	/** @Inject */
 	public $chatBot;
+
+	/** @Inject("WebUi\LoginController") */
+	public $login;
 
 	private $twig;
 
@@ -48,6 +51,12 @@ class RootController {
 		});
 	}
 
+	public function redirect($response, $path) {
+		$response->writeHead(302, array(
+			'Location' => $this->httpApi->getUri($path)));
+		$response->end();
+	}
+
 	public static function getBufferAppender() {
 		$appender = \Logger::getRootLogger()->getAppender('appenderBuffer');
 		if (!$appender) {
@@ -57,6 +66,11 @@ class RootController {
 	}
 
 	public function handleRootResource($request, $response) {
+		if (!$this->login->isLoggedIn()) {
+			$this->redirect($response, "/{$this->moduleName}/login");
+			return;
+		}
+
 		$response->writeHead(200);
 		$response->end($this->renderTemplate('index.html', array(
 			'webSocketUri' => $this->httpApi->getWebSocketUri(),
@@ -86,7 +100,8 @@ class RootController {
 		global $version;
 		$parameters = array_merge(array(
 			'botname' => $this->chatBot->vars['name'],
-			'version' => $version
+			'version' => $version,
+			'loggedIn' => $this->login->isLoggedIn()
 		), $parameters);
 		return $this->twig->render($name, $parameters);
 	}
