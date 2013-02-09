@@ -41,6 +41,10 @@ class TestBotRunner extends BotRunner {
 		AsyncHttp::$overridePort = Registry::getInstance('setting')->httpapi_port;
 		HttpRequest::$overridePathPrefix = '/tests';
 
+		Registry::getInstance('settingManager')->registerChangeListener('httpapi_port', function($a, $b, $newValue) {
+			AsyncHttp::$overridePort = $newValue;
+		});
+
 		Registry::getInstance('setting')->httpapi_enabled = 1;
 	}
 
