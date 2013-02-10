@@ -30,6 +30,12 @@ class StaticController {
 	public function setup() {
 		$this->registerStaticResource("|^/{$this->moduleName}/css/style.css|i",
 			__DIR__ .'/resources/css/style.css');
+		$this->registerStaticResource("|^/{$this->moduleName}/js/jquery.pubsub.min.js|i",
+			__DIR__ .'/resources/js/jquery.pubsub.min.js');
+		$this->registerStaticResource("|^/{$this->moduleName}/js/logconsole.js|i",
+			__DIR__ .'/resources/js/logconsole.js');
+		$this->registerStaticResource("|^/{$this->moduleName}/js/wampconnection.js|i",
+			__DIR__ .'/resources/js/wampconnection.js');
 		$this->registerStaticResource("|^/{$this->moduleName}/js/login.js|i",
 			__DIR__ .'/resources/js/login.js');
 	}
