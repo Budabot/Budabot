@@ -19,9 +19,6 @@ class LoginController {
 	/** @Inject */
 	public $preferences;
 
-	/** @Inject("WebUi\RootController") */
-	public $root;
-
 	/** @Inject("WebUi\Template") */
 	public $template;
 
@@ -37,8 +34,6 @@ class LoginController {
 			array($this, 'handleDoLoginResource'));
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/logout|i",
 			array($this, 'handleLogoutResource'));
-		$this->httpApi->registerHandler("|^/{$this->moduleName}/js/login.js|i",
-			$this->root->handleStaticResource(__DIR__ .'/resources/js/login.js'));
 	}
 
 	public function isLoggedIn() {

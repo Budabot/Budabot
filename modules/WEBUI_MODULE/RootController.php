@@ -31,21 +31,28 @@ class RootController {
 	 * @Setup
 	 */
 	public function setup() {
+
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/$|i",
 			array($this, 'handleRootResource'));
-		$this->httpApi->registerHandler("|^/{$this->moduleName}/css/style.css|i",
-			$this->handleStaticResource(__DIR__ .'/resources/css/style.css'));
 
+		$this->onLogEventsPublishToClients();
+		$this->onSubscribeSendLogEvents();
+	}
+
+	private function onSubscribeSendLogEvents() {
 		$that = $this;
-		self::getBufferAppender()->onEvent(function($event) use ($that) {
-			$that->httpApi->wampPublish($that::LOG_EVENTS_TOPIC, $event);
-		});
-
-		$this->httpApi->onWampSubscribe(self::LOG_EVENTS_TOPIC, function($client) use ($that) {
+		$this->httpApi->onWampSubscribe(self::LOG_EVENTS_TOPIC, function ($client) use ($that) {
 			$events = $that::getBufferAppender()->getEvents();
 			foreach ($events as $event) {
 				$client->event($that::LOG_EVENTS_TOPIC, $event);
 			}
+		});
+	}
+
+	private function onLogEventsPublishToClients() {
+		$that = $this;
+		self::getBufferAppender()->onEvent(function ($event) use ($that) {
+			$that->httpApi->wampPublish($that::LOG_EVENTS_TOPIC, $event);
 		});
 	}
 
@@ -68,23 +75,5 @@ class RootController {
 			'webSocketUri' => $this->httpApi->getWebSocketUri(),
 			'logEventsTopic' => self::LOG_EVENTS_TOPIC
 		)));
-	}
-
-	public function handleStaticResource($path) {
-		$mimeType = $this->extensionToMimeType(
-			pathinfo($path, PATHINFO_EXTENSION));
-
-		return function ($request, $response) use ($path, $mimeType) {
-			$response->writeHead(200, array('Content-Type' => $mimeType));
-			$response->end(file_get_contents($path));
-		};
-	}
-
-	public function extensionToMimeType($extension) {
-		switch (strtolower($extension)) {
-			case 'css':
-				return 'text/css';
-		}
-		return 'text/plain';
 	}
 }
