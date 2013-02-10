@@ -22,6 +22,9 @@ class LoginController {
 	/** @Inject("WebUi\RootController") */
 	public $root;
 
+	/** @Inject("WebUi\Template") */
+	public $template;
+
 	private $loggedIn = false;
 
 	/**
@@ -47,7 +50,7 @@ class LoginController {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/");
 		} else {
 			$response->writeHead(200);
-			$response->end($this->root->renderTemplate('login.html'));
+			$response->end($this->template->render('login.html'));
 		}
 	}
 

@@ -22,7 +22,8 @@ class RootController {
 	/** @Inject("WebUi\LoginController") */
 	public $login;
 
-	private $twig;
+	/** @Inject("WebUi\Template") */
+	public $template;
 
 	const LOG_EVENTS_TOPIC = 'http://localhost/logEvents';
 
@@ -30,9 +31,6 @@ class RootController {
 	 * @Setup
 	 */
 	public function setup() {
-		$loader = new \Twig_Loader_Filesystem( __DIR__ . '/resources/tmpl');
-		$this->twig = new \Twig_Environment($loader, array());
-
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/$|i",
 			array($this, 'handleRootResource'));
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/css/style.css|i",
@@ -66,7 +64,7 @@ class RootController {
 		}
 
 		$response->writeHead(200);
-		$response->end($this->renderTemplate('index.html', array(
+		$response->end($this->template->render('index.html', array(
 			'webSocketUri' => $this->httpApi->getWebSocketUri(),
 			'logEventsTopic' => self::LOG_EVENTS_TOPIC
 		)));
@@ -88,15 +86,5 @@ class RootController {
 				return 'text/css';
 		}
 		return 'text/plain';
-	}
-
-	public function renderTemplate($name, $parameters = array()) {
-		global $version;
-		$parameters = array_merge(array(
-			'botname' => $this->chatBot->vars['name'],
-			'version' => $version,
-			'loggedIn' => $this->login->isLoggedIn()
-		), $parameters);
-		return $this->twig->render($name, $parameters);
 	}
 }
