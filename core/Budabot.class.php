@@ -1,5 +1,11 @@
 <?php
 
+namespace budabot\core;
+
+use \ReflectionAnnotatedClass;
+use \stdClass;
+use \DefineCommand;
+
 require_once 'AOChat.class.php';
 
 /**

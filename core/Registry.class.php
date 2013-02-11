@@ -1,5 +1,10 @@
 <?php
 
+namespace budabot\core;
+
+use \ReflectionAnnotatedClass;
+use \ReflectionClass;
+
 class Registry {
 	private static $repo = array();
 	private static $dependencies = array();

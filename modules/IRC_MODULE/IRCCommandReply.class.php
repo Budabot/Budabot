@@ -1,7 +1,8 @@
 <?php
 
 namespace budabot\user\modules;
-use CommandReply;
+
+use \budabot\core\CommandReply;
 
 class IRCCommandReply implements CommandReply {
 	private $irc;

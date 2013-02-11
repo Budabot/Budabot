@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core;
+
 /**
  * The SocketNotifier class provides a way to be notified when some
  * activity happens in a socket.

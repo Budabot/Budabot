@@ -1,4 +1,7 @@
 <?php
+
+namespace budabot\core\modules;
+
 /*
 ** Author: Derroylo (RK2)
 ** Description: Configuration of the Basicbot settings

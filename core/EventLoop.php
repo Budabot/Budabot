@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core;
+
 class EventLoop {
 
 	/** @Inject */

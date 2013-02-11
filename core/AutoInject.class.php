@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core;
+
 class AutoInject {
 	public function __get($name) {
 		if ($name == 'logger') {

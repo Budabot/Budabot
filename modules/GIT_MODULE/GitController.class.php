@@ -1,7 +1,8 @@
 <?php
 
 namespace budabot\user\modules;
-use AutoInject;
+
+use \budabot\core\AutoInject;
 
 /**
  * Authors: 

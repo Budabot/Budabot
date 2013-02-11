@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core;
+
 class StructuredMessage {
 	private $header;
 	private $content = array();

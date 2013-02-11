@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core;
+
 require_once 'CommandReply.class.php';
 
 class PrivateChannelCommandReply implements CommandReply {

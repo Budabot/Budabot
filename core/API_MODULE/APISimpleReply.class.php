@@ -1,5 +1,9 @@
 <?php
 
+namespace budabot\core\modules;
+
+use budabot\core\CommandReply;
+
 class APISimpleReply implements CommandReply {
 	private $output = array();
 

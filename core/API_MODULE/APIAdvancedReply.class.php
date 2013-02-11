@@ -1,5 +1,9 @@
 <?php
 
+namespace budabot\core\modules;
+
+use budabot\core\CommandReply;
+
 class APIAdvancedReply implements CommandReply {
 	private $output;
 

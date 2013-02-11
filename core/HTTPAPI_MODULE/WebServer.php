@@ -1,11 +1,13 @@
 <?php
 
+namespace budabot\core\modules;
+
 use React\Socket\Connection;
 use React\Http\Request;
 use React\Socket\ServerInterface;
 use Ratchet\MessageComponentInterface;
 
-class WebServer extends React\Http\Server {
+class WebServer extends \React\Http\Server {
 
 	private $wsConnFactory;
 

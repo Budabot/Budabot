@@ -1,5 +1,10 @@
 <?php
 
+namespace budabot\core;
+
+use \stdClass;
+use \ReflectionAnnotatedMethod;
+
 /**
  * @Instance
  */

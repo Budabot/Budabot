@@ -1,7 +1,7 @@
 <?php
 
 namespace budabot\user\modules;
-use DB;
+use \budabot\core\DB;
 
 /**
  * Authors: 

@@ -1,5 +1,9 @@
 <?php
 
+namespace budabot\core;
+
+use \stdClass;
+
 /**
  * The AsyncHttp class provides means to make HTTP and HTTPS requests.
  *

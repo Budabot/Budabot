@@ -1,8 +1,10 @@
 <?php
 
 namespace budabot\user\modules;
-use AutoInject;
-use CommandReply;
+
+use \budabot\core\AutoInject;
+use \budabot\core\CommandReply;
+use \stdClass;
 
 /**
  * Authors: 

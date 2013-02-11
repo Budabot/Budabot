@@ -1,4 +1,7 @@
 <?php
+
+namespace budabot\core\modules;
+
 /**
  * Authors: 
  *  - Sebuda (RK2)

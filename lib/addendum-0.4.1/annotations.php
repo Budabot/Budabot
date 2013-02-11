@@ -377,10 +377,12 @@
 		}
 
 		public static function resolveClassName($class) {
-			if(isset(self::$classnames[$class])) return self::$classnames[$class];
+			if (isset(self::$classnames[$class])) {
+				return self::$classnames[$class];
+			}
 			$matching = array();
-			foreach(self::getDeclaredAnnotations() as $declared) {
-				if($declared == $class) {
+			forEach (self::getDeclaredAnnotations() as $declared) {
+				if ($declared == $class) {
 					$matching[] = $declared;
 				} else {
 					$pos = strrpos($declared, "_$class");
@@ -391,9 +393,14 @@
 			}
 			$result = null;
 			switch(count($matching)) {
-				case 0: $result = $class; break;
-				case 1: $result = $matching[0]; break;
-				default: trigger_error("Cannot resolve class name for '$class'. Possible matches: " . join(', ', $matching), E_USER_ERROR);
+				case 0:
+					$result = $class;
+					break;
+				case 1:
+					$result = $matching[0];
+					break;
+				default:
+					trigger_error("Cannot resolve class name for '$class'. Possible matches: " . join(', ', $matching), E_USER_ERROR);
 			}
 			self::$classnames[$class] = $result;
 			return $result;

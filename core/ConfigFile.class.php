@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core;
+
 /**
  * The ConfigFile class provides convenient interface for reading and saving
  * config files located in conf-subdirectory.

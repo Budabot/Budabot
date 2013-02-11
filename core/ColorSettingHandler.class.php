@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core;
+
 require_once 'SettingHandler.class.php';
 
 class ColorSettingHandler extends SettingHandler {

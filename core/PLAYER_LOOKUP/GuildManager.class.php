@@ -1,5 +1,11 @@
 <?php
 
+namespace budabot\core\modules;
+
+use \budabot\core\xml;
+use \stdClass;
+use \budabot\core\AOChatPacket;
+
 /**
  * Authors:
  *  - Tyrence (RK2)

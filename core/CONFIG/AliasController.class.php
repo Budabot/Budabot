@@ -1,4 +1,9 @@
 <?php
+
+namespace budabot\core\modules;
+
+use \stdClass;
+
 /**
  * @Instance
  *

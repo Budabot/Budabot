@@ -1,5 +1,9 @@
 <?php
 
+namespace budabot\core;
+
+use \Exception;
+
 class InvalidHttpRequest extends Exception {
 }
 

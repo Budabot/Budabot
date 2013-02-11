@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core;
+
 class TimerEvent {
 	public $time = 0;
 	private $delay = 0;

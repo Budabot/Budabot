@@ -1,19 +1,13 @@
 <?php
 
-/*
-`name` VARCHAR(30) NOT NULL
-`module` VARCHAR(50) NOT NULL
-`description` VARCHAR(50) NOT NULL DEFAULT ''
-`file` VARCHAR(255) NOT NULL
-`is_core` TINYINT NOT NULL
-`access_level` INT DEFAULT 0
-`verify` INT Default 1
-*/
+namespace budabot\core;
+
+use \stdClass;
 
 /**
  * @Instance
  */
-class HelpManager extends Annotation {
+class HelpManager {
 
 	/** @Inject */
 	public $db;

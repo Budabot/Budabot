@@ -1,5 +1,10 @@
 <?php
 
+namespace budabot\core\modules;
+
+use \budabot\core\xml;
+use \stdClass;
+
 /**
  * Authors:
  *  - Tyrence (RK2)

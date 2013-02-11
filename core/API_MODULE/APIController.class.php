@@ -1,5 +1,9 @@
 <?php
 
+namespace budabot\core\modules;
+
+use \budabot\core\SocketNotifier;
+
 /**
  * Authors: 
  *  - Tyrence (RK2), 

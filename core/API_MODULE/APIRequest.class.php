@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core\modules;
+
 define('API_SIMPLE_MSG', 0);
 define('API_ADVANCED_MSG', 1);
 define('API_VERSION', '1.2'); // this must be a string for comparison to work properly

@@ -1,5 +1,7 @@
 <?php
 
+namespace budabot\core\modules;
+
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
