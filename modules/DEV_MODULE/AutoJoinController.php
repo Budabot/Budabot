@@ -33,7 +33,7 @@ class AutoJoinController extends AutoInject {
 	
 	/**
 	 * @Event("extjoinprivrequest")
-	 * @Description("Accept private channel invite from player being listened to")
+	 * @Description("Accept private channel invite from auto join bot")
 	 */
 	public function acceptInviteForExternalCommandsEvent($eventObj) {
 		if ($this->isAutoJoinChannel($eventObj->sender)) {
