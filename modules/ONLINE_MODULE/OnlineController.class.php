@@ -2,6 +2,8 @@
 
 namespace budabot\user\modules;
 
+use \budabot\core\StopExecutionException;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)

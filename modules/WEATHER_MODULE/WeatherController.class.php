@@ -2,6 +2,8 @@
 
 namespace budabot\user\modules;
 
+use \budabot\core\xml;
+
 /**
  * Authors: 
  *	- Tyrence (RK2)

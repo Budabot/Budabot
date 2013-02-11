@@ -3,6 +3,7 @@
 namespace budabot\user\modules;
 
 use \stdClass;
+use \Net_SmartIRC;
 
 /**
  * Authors: 

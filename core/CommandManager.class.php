@@ -4,6 +4,7 @@ namespace budabot\core;
 
 use \stdClass;
 use \ReflectionAnnotatedMethod;
+use \Exception;
 
 /**
  * @Instance

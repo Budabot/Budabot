@@ -3,6 +3,7 @@
 namespace budabot\core;
 
 use \stdClass;
+use \Exception;
 
 /**
  * @Instance

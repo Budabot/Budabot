@@ -2,8 +2,9 @@
 
 namespace budabot\core\modules;
 
-use Ratchet\MessageComponentInterface;
-use Ratchet\Server\IoConnection;
+use \Ratchet\MessageComponentInterface;
+use \Ratchet\Server\IoConnection;
+use \Exception;
 
 /**
  * This class is pretty much copy & pasted from Ratchet\Server\IoServer and

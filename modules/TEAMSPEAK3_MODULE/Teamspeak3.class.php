@@ -2,6 +2,8 @@
 
 namespace budabot\user\modules;
 
+use \Exception;
+
 /**
  * @author: Tshaar (RK2)
  */

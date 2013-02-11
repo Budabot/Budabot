@@ -5,6 +5,7 @@ namespace budabot\user\modules;
 use \SimpleXmlElement;
 use \Exception;
 use \stdClass;
+use \DOMDocument;
 
 /**
  * @Instance

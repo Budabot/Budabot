@@ -2,6 +2,8 @@
 
 namespace budabot\core\modules;
 
+use \Exception;
+
 /**
  * @Instance
  *

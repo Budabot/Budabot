@@ -3,6 +3,7 @@
 namespace budabot\core\modules;
 
 use \budabot\core\SocketNotifier;
+use \Exception;
 
 /**
  * Authors: 

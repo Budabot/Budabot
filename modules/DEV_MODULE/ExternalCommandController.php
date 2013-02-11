@@ -3,6 +3,7 @@
 namespace budabot\user\modules;
 
 use \budabot\core\AutoInject;
+use \budabot\core\PrivateChannelCommandReply;
 
 /**
  * Authors: 

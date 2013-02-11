@@ -2,6 +2,8 @@
 
 namespace budabot\user\modules;
 
+use \Net_SmartIRC;
+
 /**
  * Authors: 
  *	- Mindrila (RK1)
