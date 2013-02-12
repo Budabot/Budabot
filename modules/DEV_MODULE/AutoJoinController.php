@@ -46,7 +46,7 @@ class AutoJoinController extends AutoInject {
 	 * @Event("connect")
 	 * @Description("Add auto join channel to buddy list")
 	 */
-	public function acceptInviteForExternalCommandsEvent($eventObj) {
+	public function addAutoJoinBotToBuddylistEvent($eventObj) {
 		if (strtolower($this->setting->auto_join_channel) != 'none') {
 			$this->buddylistManager->add($this->setting->auto_join_channel, 'autojoin');
 		}
