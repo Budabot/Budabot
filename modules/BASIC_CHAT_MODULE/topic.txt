@@ -3,3 +3,6 @@ To show the current topic:
 
 To set the topic:
 <highlight><tab><symbol>topic 'text'<end>
+
+To clear the topic:
+<highlight><tab><symbol>topic clear<end>
