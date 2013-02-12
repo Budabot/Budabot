@@ -89,6 +89,8 @@ class HttpApiController {
 
 		$that = $this;
 		$this->httpServer->on('request', function ($request, $response) use ($that) {
+			$request = new \Request($request);
+
 			$session = new StdClass();
 			$session->request  = $request;
 			$session->response = $response;
