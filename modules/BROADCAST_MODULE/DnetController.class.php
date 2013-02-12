@@ -96,12 +96,7 @@ class DnetController {
 	 */
 	public function incomingPrivateChannelMessageEvent($eventObj) {
 		if ($this->isDnetBot($eventObj)) {
-			$rawmsg = $this->util->stripColors($eventObj->message);
-			if (preg_match_all("/\\[([^\\]]+)\\] (.+?) \\[([^\\]]+)\\]/s", $rawmsg, $arr, PREG_SET_ORDER) > 0) {
-			} else {
-				$this->logger->log("WARN", "Invalid Dnet message format: $rawmsg");
-			}
-
+			$arr = $this->parseSpamMessage($eventObj->message);
 			forEach ($arr as $entry) {
 				$channel = $entry[1];
 				$text = $entry[2];
@@ -119,6 +114,15 @@ class DnetController {
 				$this->broadcastController->processIncomingMessage("Dnet", $spamMessage);
 			}
 		}
+	}
+	
+	public function parseSpamMessage($message) {
+		$rawmsg = $this->util->stripColors($message);
+		if (preg_match_all("/\\[([^\\]]+)\\] (.+?) \\[([^\\]]+)\\]/s", $rawmsg, $arr, PREG_SET_ORDER) > 0) {
+		} else {
+			$this->logger->log("WARN", "Invalid Dnet message format: $rawmsg");
+		}
+		return $arr;
 	}
 	
 	/**
