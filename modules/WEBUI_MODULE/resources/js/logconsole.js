@@ -24,9 +24,11 @@ var LogConsole = (function() {
 	}
 
 	function addMessageToLogConsole(message) {
-		atBottom = isLogConsoleAtBottom();
+		var atBottom = isLogConsoleAtBottom();
 
-		log_console.innerHTML += "<div>" + message + "</div>\n";
+		var entryDiv = document.createElement('div');
+		entryDiv.appendChild(document.createTextNode(message));
+		log_console.appendChild(entryDiv);
 
 		limitLogConsoleLines();
 
