@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \stdClass;
-use \budabot\core\xml;
+use stdClass;
+use Budabot\Core\xml;
 
 /**
  * Authors: 

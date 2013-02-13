@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
 use React\Socket\Connection;
 use React\Http\Request;

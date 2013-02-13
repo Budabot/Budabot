@@ -1,11 +1,11 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \SimpleXmlElement;
-use \Exception;
-use \stdClass;
-use \DOMDocument;
+use SimpleXmlElement;
+use Exception;
+use stdClass;
+use DOMDocument;
 
 /**
  * @Instance

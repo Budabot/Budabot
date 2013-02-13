@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
 define('API_SIMPLE_MSG', 0);
 define('API_ADVANCED_MSG', 1);

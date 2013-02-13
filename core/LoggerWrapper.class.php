@@ -1,8 +1,8 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
-use \Logger;
+use Logger;
 
 class LoggerWrapper {
 	private $logger;

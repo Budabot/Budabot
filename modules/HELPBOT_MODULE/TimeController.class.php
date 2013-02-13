@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \stdClass;
-use \DateTime;
+use stdClass;
+use DateTime;
 
 /**
  * Authors: 

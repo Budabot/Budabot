@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
 class AltInfo {
 	public $main; // The main for this character

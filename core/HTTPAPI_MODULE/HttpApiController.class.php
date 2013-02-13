@@ -1,11 +1,11 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
 use Ratchet\WebSocket\WsServer;
 use Ratchet\Wamp\WampServer;
 use React\Socket\Server as SocketServer;
-use \stdClass;
+use stdClass;
 
 /**
  * @Instance("HttpApi")

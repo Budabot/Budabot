@@ -1,8 +1,8 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
-use \Exception;
+use Exception;
 
 class APIException extends Exception {
 	private $responseMessage;

@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
-use \budabot\core\SocketNotifier;
-use \Exception;
+use Budabot\Core\SocketNotifier;
+use Exception;
 
 /**
  * Authors: 

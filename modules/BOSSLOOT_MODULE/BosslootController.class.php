@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
 /**
  * Bossloot Module Ver 1.1

@@ -1,7 +1,7 @@
 <?php
 
-use budabot\core\DB;
-use \budabot\core\SQLException;
+use Budabot\Core\DB;
+use Budabot\Core\SQLException;
 
 	/*
 	 ** This file is part of Budabot.

@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
-use \stdClass;
-use \budabot\core\CommandAlias;
+use stdClass;
+use Budabot\Core\CommandAlias;
 
 /**
  * Authors:

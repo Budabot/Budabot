@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \budabot\core\AutoInject;
-use \budabot\core\PrivateChannelCommandReply;
+use Budabot\Core\AutoInject;
+use Budabot\Core\PrivateChannelCommandReply;
 
 /**
  * Authors: 

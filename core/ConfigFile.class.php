@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
 /**
  * The ConfigFile class provides convenient interface for reading and saving

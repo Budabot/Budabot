@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
-use \ReflectionAnnotatedClass;
-use \ReflectionClass;
+use ReflectionAnnotatedClass;
+use ReflectionClass;
 
 class Registry {
 	private static $repo = array();

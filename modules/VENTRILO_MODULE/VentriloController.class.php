@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
 require_once "vent.inc.php";
 require_once "ventrilostatus.php";

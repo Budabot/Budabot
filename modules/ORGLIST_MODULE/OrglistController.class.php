@@ -1,8 +1,8 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \stdClass;
+use stdClass;
 
 /**
  * Authors: 

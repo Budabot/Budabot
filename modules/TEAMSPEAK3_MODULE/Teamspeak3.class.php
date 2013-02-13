@@ -1,8 +1,8 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \Exception;
+use Exception;
 
 /**
  * @author: Tshaar (RK2)

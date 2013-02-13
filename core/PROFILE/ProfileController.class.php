@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
-use \budabot\core\CommandReply;
-use \Exception;
+use Budabot\Core\CommandReply;
+use Exception;
 
 /**
  * Authors: 

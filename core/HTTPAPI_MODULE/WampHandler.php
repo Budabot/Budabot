@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;

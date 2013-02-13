@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
 /*
 ** Author: Sebuda, Derroylo (RK2)

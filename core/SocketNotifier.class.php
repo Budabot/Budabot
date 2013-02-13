@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
 /**
  * The SocketNotifier class provides a way to be notified when some

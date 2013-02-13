@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
 class TimerEvent {
 	public $time = 0;

@@ -1,8 +1,8 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \budabot\core\StopExecutionException;
+use Budabot\Core\StopExecutionException;
 
 /**
  * Authors: 

@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
-use \budabot\core\xml;
-use \stdClass;
+use Budabot\Core\xml;
+use stdClass;
 
 /**
  * @Instance

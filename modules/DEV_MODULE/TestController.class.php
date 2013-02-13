@@ -1,10 +1,10 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \budabot\core\AutoInject;
-use \budabot\core\CommandReply;
-use \stdClass;
+use Budabot\Core\AutoInject;
+use Budabot\Core\CommandReply;
+use stdClass;
 
 /**
  * Authors: 

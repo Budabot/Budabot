@@ -1,10 +1,10 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
-use \Ratchet\MessageComponentInterface;
-use \Ratchet\Server\IoConnection;
-use \Exception;
+use Ratchet\MessageComponentInterface;
+use Ratchet\Server\IoConnection;
+use Exception;
 
 /**
  * This class is pretty much copy & pasted from Ratchet\Server\IoServer and

@@ -1,8 +1,8 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
-use \Net_SmartIRC;
+use Net_SmartIRC;
 
 /**
  * Authors: 

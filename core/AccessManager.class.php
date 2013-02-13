@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
 /**
  * The AccessLevel class provides functionality for checking a player's access level.

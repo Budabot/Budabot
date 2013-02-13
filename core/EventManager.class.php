@@ -1,9 +1,9 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
-use \stdClass;
-use \Exception;
+use stdClass;
+use Exception;
 
 /**
  * @Instance

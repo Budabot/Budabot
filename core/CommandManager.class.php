@@ -1,10 +1,10 @@
 <?php
 
-namespace budabot\core;
+namespace Budabot\Core;
 
-use \stdClass;
-use \ReflectionAnnotatedMethod;
-use \Exception;
+use stdClass;
+use ReflectionAnnotatedMethod;
+use Exception;
 
 /**
  * @Instance

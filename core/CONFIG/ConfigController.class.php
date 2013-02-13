@@ -1,8 +1,8 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
-use \ReflectionClass;
+use ReflectionClass;
 
 /**
  * @Instance

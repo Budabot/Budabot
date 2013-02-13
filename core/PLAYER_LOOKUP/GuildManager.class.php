@@ -1,10 +1,10 @@
 <?php
 
-namespace budabot\core\modules;
+namespace Budabot\Core\Modules;
 
-use \budabot\core\xml;
-use \stdClass;
-use \budabot\core\AOChatPacket;
+use Budabot\Core\xml;
+use stdClass;
+use Budabot\Core\AOChatPacket;
 
 /**
  * Authors:

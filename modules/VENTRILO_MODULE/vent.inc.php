@@ -1,6 +1,6 @@
 <?php
 
-namespace budabot\user\modules;
+namespace Budabot\User\Modules;
 
 /*
  * Amonette RK2
