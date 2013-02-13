@@ -6,7 +6,7 @@ require_once 'SettingHandler.class.php';
 
 class TextSettingHandler extends SettingHandler {
 
-	public function __construct($row) {
+	public function __construct(DBRow $row) {
 		parent::__construct($row);
 	}
 	

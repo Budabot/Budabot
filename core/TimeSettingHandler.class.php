@@ -8,7 +8,7 @@ class TimeSettingHandler extends SettingHandler {
 	/** @Inject */
 	public $util;
 	
-	public function __construct($row) {
+	public function __construct(DBRow $row) {
 		parent::__construct($row);
 	}
 

@@ -1,8 +1,7 @@
 <?php
 
-namespace Budabot\Core\Modules;
+namespace Budabot\Core;
 
-use Budabot\Core\xml;
 use stdClass;
 
 /**

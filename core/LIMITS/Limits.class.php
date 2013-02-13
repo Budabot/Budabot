@@ -1,6 +1,6 @@
 <?php
 
-namespace Budabot\Core\Modules;
+namespace Budabot\Core;
 
 /**
  * Authors:

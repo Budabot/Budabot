@@ -2,15 +2,13 @@
 
 namespace Budabot\Core;
 
-require_once 'SettingHandler.class.php';
-
 class SettingHandler {
 	/** @Inject */
 	public $text;
 
 	protected $row;
 
-	public function __construct($row) {
+	public function __construct(DBRow $row) {
 		$this->row = $row;
 	}
 
