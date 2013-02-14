@@ -1,9 +1,17 @@
 *****************************
 	Version 3.0_RC4:
 *****************************
+-added !play, !players, and !findprof commands (thanks Naturarum (RK2))
+-added WEBUI_MODULE for viewing the bot console from a web browser
+-added core COLORS module for configuring bot colors (!config COLORS)
+-!settings is now in the core CONFIG module
+-removed !namehistory since !whois already shows name history
+-added !guides light and !guides gos (thanks DrUrban (RK1))
+-added !shop for searching for items posted to the shopping channels
+-added !gauntlet (available for RK2 only - thanks Macross (RK2))
 -renamed !kickuser to !kick and !inviteuser to !invite
 -!nano and !pb now have "enhanced search" capabilities (along with !items)
--!notes is now shared between alts
+-!notes are now shared between alts
 -fix some memory leaks
 -added some common command aliases
 -bot should no longer pause when downloading large files from external resources or doing !orglist
@@ -21,7 +29,7 @@
 -budatime now accepts months (mo) and years (y)
 -!usage now breaks down usage by channel
 -several fixes and improvements for !whatbuffs
--!orglist may now return results even faster on some bot setups
+-!orglist can now search on orgname or player name and will return results even faster on most bot setups
 -timer events can now be called reliably every second
 -removed !fp since AO now shows this information in the nano crystal description
 -fixed some issues with VENTRILO_MODULE
