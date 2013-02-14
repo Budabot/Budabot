@@ -217,4 +217,8 @@ class AOChatServer extends EventEmitter {
 		}
 		return $text;
 	}
+
+	public function getSocket() {
+		return $this->serverSocket;
+	}
 }

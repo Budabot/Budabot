@@ -116,6 +116,10 @@ class ServerController implements IAOChatModel {
 		return $this->accountChars;
 	}
 
+	public function shutdown() {
+		$this->loop->stop();
+	}
+
 	private function blockUntil($timeout, $callback) {
 		$endTime = time() + intval($timeout);
 		while (time() < $endTime) {
@@ -127,6 +131,7 @@ class ServerController implements IAOChatModel {
 		}
 		return false;
 	}
+
 }
 
 $chatPort = $argv[1];
@@ -137,6 +142,20 @@ $loop      = React\EventLoop\Factory::create();
 $aoServer   = new AOChatServer($loop, $chatPort);
 $controller = new ServerController($loop, $aoServer);
 $rpcServer  = new JSONRPCServer($loop, $rpcPort, $controller);
+
+// make sure we close the sockets before exit
+$rpcSocket = $rpcServer->getSocket();
+register_shutdown_function(function() use ($rpcSocket) {
+	$rpcSocket->shutdown();
+	print "AO Chat Server RPC access shutdown\n";
+});
+
+$aoSocket = $aoServer->getSocket();
+register_shutdown_function(function() use ($aoSocket) {
+	$aoSocket->shutdown();
+	print "AO Chat Server shutdown\n";
+});
+
 
 $loop->run();
 

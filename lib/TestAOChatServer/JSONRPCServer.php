@@ -2,10 +2,12 @@
 
 class JSONRPCServer extends Evenement\EventEmitter {
 
+	private $socket;
+
 	public function __construct($loop, $port, $handler) {
 
-		$socket = new React\Socket\Server($loop);
-		$this->httpServer = new React\Http\Server($socket, $loop);
+		$this->socket = new React\Socket\Server($loop);
+		$this->httpServer = new React\Http\Server($this->socket, $loop);
 
 		$this->handler = $handler;
 		$that = $this;
@@ -75,7 +77,11 @@ class JSONRPCServer extends Evenement\EventEmitter {
 			});
 		});
 
-		$socket->listen($port);
+		$this->socket->listen($port);
+	}
+
+	public function getSocket() {
+		return $this->socket;
 	}
 }
 

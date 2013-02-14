@@ -48,6 +48,18 @@ class FeatureContext extends BehatContext
 	}
 
 	/**
+	 * @AfterSuite
+	 * Prepare system for test suite before it runs.
+	 */
+	public static function cleanSuite() {
+		@ContextHelpers::$chatServer->sendTellMessageToBot(
+			ContextHelpers::$vars['SuperAdmin'], "!shutdown");
+		sleep(2);
+		@ContextHelpers::$chatServer->shutdown();
+		sleep(2);
+	}
+
+	/**
 	 * @BeforeScenario
 	 * Prepare system for scenario before it runs.
 	 */
