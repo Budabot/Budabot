@@ -57,7 +57,7 @@ class ChatSayController {
 	/**
 	 * This command handler creates a highly visible message.
 	 * @HandlesCommand("cmd")
-	 * @Matches("/^cmd (.+)$/i")
+	 * @Matches("/^cmd (.+)$/si")
 	 */
 	public function cmdCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = "\n<yellow>---------------------\n<red>$args[1]<end>\n<yellow>---------------------";
@@ -73,7 +73,7 @@ class ChatSayController {
 	/**
 	 * This command handler repeats a message 3 times.
 	 * @HandlesCommand("tell")
-	 * @Matches("/^tell (.+)$/i")
+	 * @Matches("/^tell (.+)$/si")
 	 */
 	public function tellCommand($message, $channel, $sender, $sendto, $args) {
 		if ($channel == 'guild' || $channel == 'msg') {

@@ -40,7 +40,7 @@ class AliasController {
 	 * This command handler add a command alias.
 	 *
 	 * @HandlesCommand("addalias")
-	 * @Matches("/^addalias ([a-z0-9]+) (.+)/i")
+	 * @Matches("/^addalias ([a-z0-9]+) (.+)/si")
 	 */
 	public function addaliasCommand($message, $channel, $sender, $sendto, $args) {
 		$alias = strtolower($args[1]);

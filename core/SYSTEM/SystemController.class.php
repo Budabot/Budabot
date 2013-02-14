@@ -484,7 +484,7 @@ class SystemController {
 	 * This command handler execute multiple commands at once.
 	 *
 	 * @HandlesCommand("macro")
-	 * @Matches("/^macro (.+)$/i")
+	 * @Matches("/^macro (.+)$/si")
 	 */
 	public function macroCommand($message, $channel, $sender, $sendto, $args) {
 		$commands = explode("|", $args[1]);
