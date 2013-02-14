@@ -14,19 +14,19 @@
  *		command     = 'play', 
  *		accessLevel = 'all', 
  *		description = 'Shows online players and their currently logged alts', 
- *		help        = ''
+ *		help        = 'play.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'players', 
  *		accessLevel = 'all', 
  *		description = 'Shows online players and their currently logged alts in a long format', 
- *		help        = ''
+ *		help        = 'players.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'findprof', 
  *		accessLevel = 'all', 
  *		description = 'Shows online players with alts of a specific profession / level', 
- *		help        = ''
+ *		help        = 'findprof.txt'
  *	)
  */
 
@@ -97,9 +97,12 @@ class NatubotController {
 
 				$blob .= "\n";
 			}
+			$blob .= "\nWritten by Naturarum (RK2)";
+			$msg = $this->text->make_blob("$count Players Currently Online", $blob);
+		} else {
+			$msg = "No players online";
 		}
 
-		$msg = $this->text->make_blob("$count Players Currently Online", $blob);
 		$sendto->reply($msg);
 	} 
 	
@@ -143,9 +146,12 @@ class NatubotController {
 
 				$blob .= "\n";
 			}
+			$blob .= "Written by Naturarum (RK2)";
+			$msg = $this->text->make_blob("$count Players Currently Online", $blob);
+		} else {
+			$msg = "No players online";
 		}
 
-		$msg = $this->text->make_blob("$count Players Currently Online", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -179,8 +185,14 @@ class NatubotController {
 				$blob .= "\n";
 			}
 		}
+		
+		if (empty($blob)) {
+			$msg = "No results found.";
+		} else {
+			$blob .= "Written by Naturarum (RK2)";
+			$msg = $this->text->make_blob("$prof Search Results", $blob);
+		}
 
-		$msg = $this->text->make_blob("$prof Search Results", $blob);
 		$sendto->reply($msg);
 	}
 
