@@ -148,10 +148,10 @@
 	<target name="tests">
 		<echo>Run unit tests with PHPUnit.</echo>
 
-		<mkdir dir="logs" />
+		<mkdir dir="build/junit_reports" />
 		<phpunit>
 			<formatter type="plain" usefile="false" />
-			<formatter todir="logs" type="xml" outfile="unittests.xml" />
+			<formatter todir="build/junit_reports" type="xml" outfile="unittests.xml" />
 			<batchtest>
 				<fileset dir="tests">
 					<include name="**/*Test.php"/>
@@ -170,7 +170,7 @@
 		<if>
 			<equals arg1="${behat.profile}" arg2="ci"/>
 			<then>
-				<mkdir dir="logs" />
+				<mkdir dir="build" />
 				<delete file="logs/test_behat.html" quiet="true" />
 			</then>
 		</if>
@@ -202,6 +202,7 @@
 				<include name="**/*.php" />
 				<exclude name="lib**" />
 				<exclude name="build**" />
+				<exclude name="cache**" />
 				<exclude name="conf/test_config.php" />
 			</fileset>
 			<formatter type="default" usefile="false" />

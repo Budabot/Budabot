@@ -24,4 +24,4 @@ ci:
     formatter:
         name:        pretty,junit
         parameters:
-            output_path: ,../logs/junit_reports
+            output_path: ,../build/junit_reports
