@@ -20,6 +20,12 @@ class RunnerRpcService {
 	public function start($port) {
 		$loop = new ReactLoopAdapter($this->socketManager);
 		$this->server = new JSONRPCServer($loop, $port, $this);
+
+		// make sure we close the socket before exit
+		$socket = $this->server->getSocket();
+		register_shutdown_function(function() use ($socket) {
+			$socket->shutdown();
+		});
 	}
 
 	public function givenRequestToUriReturnsResult($uri, $result) {
