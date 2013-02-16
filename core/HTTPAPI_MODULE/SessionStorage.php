@@ -16,7 +16,7 @@ class SessionStorage {
 	}
 
 	private static function generateId() {
-		session_start();
+		@session_start();
 		$id = session_id();
 		session_destroy();
 		return $id;
