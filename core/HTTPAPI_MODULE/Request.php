@@ -11,8 +11,7 @@ class Request {
 		$this->request = $request;
 	}
 
-	public function getMethod()
-	{
+	public function getMethod() {
 		return $this->request->getMethod();
 	}
 
