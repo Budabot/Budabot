@@ -6,13 +6,17 @@ class RpcServerStub {
 	public function startServer($rpcPort) {
 
 		// wait until the server's json-rpc interface is accessible
-		$timeout = time() + 10;
+		$timeout = time() + 10*60;
 		do {
-			$socket = @fsockopen('127.0.0.1', $rpcPort, $errno, $errstr, 1);
+			$socket = @fsockopen('127.0.0.1', $rpcPort, $errno, $errstr, 10);
 			if (time() > $timeout) {
 				throw new Exception('Failed to connect to aochat server\'s rpc-port!');
 			}
+			if ($socket === false) {
+				print '.';
+			}
 		} while($socket === false);
+		print "Connected to aochat rpc server.\n";
 		fclose($socket);
 
 		$this->rpcClient = new JsonRpc\RpcClient("http://127.0.0.1:$rpcPort/");
