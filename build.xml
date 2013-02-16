@@ -143,6 +143,24 @@
 	</target>
 
 	<!-- ============================================  -->
+	<!-- Target: tests                                 --> 
+	<!-- ============================================  -->
+	<target name="tests">
+		<echo>Run unit tests with PHPUnit.</echo>
+
+		<mkdir dir="logs" />
+		<phpunit>
+			<formatter type="plain" usefile="false" />
+			<formatter todir="logs" type="xml" outfile="unittests.xml" />
+			<batchtest>
+				<fileset dir="tests">
+					<include name="**/*Test.php"/>
+				</fileset>
+			</batchtest>
+		</phpunit>
+	</target>
+
+	<!-- ============================================  -->
 	<!-- Target: behat                                 --> 
 	<!-- ============================================  -->
 	<target name="behat">
