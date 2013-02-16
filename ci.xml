@@ -20,6 +20,7 @@
 		<phing phingFile="build.xml" target="clean" />
 
 		<!-- Run tests -->
+		<phing phingFile="build.xml" target="tests" haltonfailure="true" />
 		<phing phingFile="build.xml" target="behat" haltonfailure="true" />
 		<phing phingFile="build.xml" target="check_style" haltonfailure="true" />
 
@@ -52,6 +53,7 @@
 	</target>
 
 	<target name="run_tests">
+		<phing phingFile="build.xml" target="tests" haltonfailure="true" />
 		<phing phingFile="build.xml" target="behat" haltonfailure="true" />
 		<phing phingFile="build.xml" target="check_style" haltonfailure="true" />
 	</target>
