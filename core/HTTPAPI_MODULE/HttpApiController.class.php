@@ -37,6 +37,9 @@ class HttpApiController {
 	/** @Inject */
 	public $http;
 
+	/** @Inject */
+	public $sessionStorage;
+
 	/** @Logger */
 	public $logger;
 
@@ -91,20 +94,22 @@ class HttpApiController {
 		$this->httpServer->on('request', function ($request, $response) use ($that) {
 			$request = new \Request($request);
 			$response = new \Response($response);
+			$session = new \Session($that->sessionStorage, $request, $response);
 
-			$session = new StdClass();
-			$session->request  = $request;
-			$session->response = $response;
-			$session->body     = '';
+			$httpRequest = new StdClass();
+			$httpRequest->request  = $request;
+			$httpRequest->response = $response;
+			$httpRequest->body     = '';
+			$httpRequest->session  = $session;
 
-			$request->on('data', function ($bodyBuffer) use ($that, &$session) {
-				$session->body .= $bodyBuffer;
-				if (!$that->isRequestBodyFullyReceived($session)) {
+			$request->on('data', function ($bodyBuffer) use ($that, &$httpRequest) {
+				$httpRequest->body .= $bodyBuffer;
+				if (!$that->isRequestBodyFullyReceived($httpRequest)) {
 					return;
 				}
 
-				$that->handleRequest($session);
-				$session = null;
+				$that->handleRequest($httpRequest);
+				$httpRequest = null;
 			});
 		});
 
@@ -300,9 +305,9 @@ class HttpApiController {
 	}
 
 	/** @internal */
-	public function isRequestBodyFullyReceived($session) {
-		$headers = $session->request->getHeaders();
-		$currentLength  = strlen($session->body);
+	public function isRequestBodyFullyReceived($httpRequest) {
+		$headers = $httpRequest->request->getHeaders();
+		$currentLength  = strlen($httpRequest->body);
 		$requiredLength = intval($headers['Content-Length']);
 		return $currentLength == $requiredLength;
 	}
@@ -317,12 +322,17 @@ class HttpApiController {
 	}
 
 	/** @internal */
-	public function handleRequest($session) {
-		$path = $session->request->getPath();
+	public function handleRequest($httpRequest) {
+		$path = $httpRequest->request->getPath();
 		$handler = $this->findHandlerForPath($path);
 		if ($handler) {
-			call_user_func($handler->callback, $session->request,
-				$session->response, $session->body, $handler->data);
+			call_user_func($handler->callback,
+				$httpRequest->request,
+				$httpRequest->response,
+				$httpRequest->body,
+				$httpRequest->session,
+				$handler->data
+			);
 		} else {
 			// handler not found for requested path, next see if by adding or
 			// removing a slash to path's end would have a handler, if there is,
@@ -334,11 +344,11 @@ class HttpApiController {
 				$path .= '/';
 			}
 			if ($this->findHandlerForPath($path)) {
-				$this->redirectToPath($session->response, $path);
+				$this->redirectToPath($httpRequest->response, $path);
 			} else {
 				// still no handler, return 'not found' error
-				$session->response->writeHead(404);
-				$session->response->end();
+				$httpRequest->response->writeHead(404);
+				$httpRequest->response->end();
 			}
 		}
 	}
