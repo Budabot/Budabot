@@ -2,11 +2,12 @@
 namespace WebUiTest;
 
 require_once 'Phake.php';
-require_once "PHPUnit/Autoload.php";
-require_once "tests/helpers/BudabotTestCase.php";
-require_once "modules/WEBUI_MODULE/LoginController.php";
-require_once "core/HTTPAPI_MODULE/HttpApiController.class.php";
-require_once "core/PREFERENCES/Preferences.class.php";
+require_once 'PHPUnit/Autoload.php';
+require_once __DIR__ . '/../../../tests/helpers/BudabotTestCase.php';
+require_once __DIR__ . '/../../../modules/WEBUI_MODULE/LoginController.php';
+require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/HttpApiController.class.php';
+require_once __DIR__ . '/../../../modules/WEBUI_MODULE/Template.php';
+require_once __DIR__ . '/../../../core/PREFERENCES/Preferences.class.php';
 
 interface MockRequest {
 }
@@ -25,6 +26,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->ctrl->moduleName = 'WEBUI_MODULE';
 		$this->httpApi = $this->injectMock($this->ctrl, 'httpapi', 'HttpApiController');
 		$this->preferences = $this->injectMock($this->ctrl, 'preferences', 'Preferences');
+		$this->template = $this->injectMock($this->ctrl, 'template', 'WebUi\Template');
 	}
 
 	function testIsAutoInstanced() {
@@ -52,8 +54,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		list($request, $response) = $this->getHandlerMocks();
 		$this->callHandlerCallback("|^/WEBUI_MODULE/login|i", $request, $response);
 
-		\Phake::verify($response)->writeHead(200);
-		\Phake::verify($response)->end(file_get_contents("modules/WEBUI_MODULE/resources/login.html"));
+		\Phake::verify($this->template)->render('login.html');
 	}
 
 	private function getHandlerMocks() {
@@ -70,28 +71,15 @@ class LoginControllerTest extends \BudabotTestCase {
 		call_user_func($callback, $request, $response, $data);
 	}
 
-	function testSetupHandlerRegistersLoginJsResource() {
-		$this->callSetupHandler($this->ctrl);
-		\Phake::verify($this->httpApi)->registerHandler("|^/WEBUI_MODULE/js/login.js|i", $this->isCallable());
-	}
-
-	function testLoginJsHandlerWritesLoginJsResource() {
-		list($request, $response) = $this->getHandlerMocks();
-		$this->callHandlerCallback("|^/WEBUI_MODULE/js/login.js|i", $request, $response);
-
-		\Phake::verify($response)->writeHead(200);
-		\Phake::verify($response)->end(file_get_contents("modules/WEBUI_MODULE/resources/js/login.js"));
-	}
-
 	function testSetupHandlerRegistersCheckLoginResource() {
 		$this->callSetupHandler($this->ctrl);
-		\Phake::verify($this->httpApi)->registerHandler("|^/WEBUI_MODULE/check_login|i", $this->isCallable());
+		\Phake::verify($this->httpApi)->registerHandler("|^/WEBUI_MODULE/do_login|i", $this->isCallable());
 	}
 
 	function testCheckLoginHandlerWritesSuccessOnValidCredentials() {
 		$this->setApiPassword('fooman', 'foopass');
 		list($request, $response) = $this->getHandlerMocks();
-		$this->callHandlerCallback("|^/WEBUI_MODULE/check_login|i", $request, $response, http_build_query(array(
+		$this->callHandlerCallback("|^/WEBUI_MODULE/do_login|i", $request, $response, http_build_query(array(
 			'username' => 'fooman',
 			'password' => 'foopass'
 		)));
@@ -107,7 +95,7 @@ class LoginControllerTest extends \BudabotTestCase {
 	function testCheckLoginHandlerDeniesAccessOnWrongPassword() {
 		$this->setApiPassword('fooman', 'wrong');
 		list($request, $response) = $this->getHandlerMocks();
-		$this->callHandlerCallback("|^/WEBUI_MODULE/check_login|i", $request, $response, http_build_query(array(
+		$this->callHandlerCallback("|^/WEBUI_MODULE/do_login|i", $request, $response, http_build_query(array(
 			'username' => 'fooman',
 			'password' => 'foopass'
 		)));
@@ -118,7 +106,7 @@ class LoginControllerTest extends \BudabotTestCase {
 	function testCheckLoginHandlerDeniesAccessOnEmptyPassword() {
 		$this->setApiPassword('fooman', '');
 		list($request, $response) = $this->getHandlerMocks();
-		$this->callHandlerCallback("|^/WEBUI_MODULE/check_login|i", $request, $response, http_build_query(array(
+		$this->callHandlerCallback("|^/WEBUI_MODULE/do_login|i", $request, $response, http_build_query(array(
 			'username' => 'fooman',
 			'password' => ''
 		)));
