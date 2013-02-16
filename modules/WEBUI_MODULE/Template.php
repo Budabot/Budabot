@@ -26,12 +26,12 @@ class Template {
 		$this->twig = new \Twig_Environment($loader, array());
 	}
 
-	public function render($name, $parameters = array()) {
+	public function render($name, $session, $parameters = array()) {
 		global $version;
 		$parameters = array_merge(array(
 			'botname' => $this->chatBot->vars['name'],
 			'version' => $version,
-			'loggedIn' => $this->login->isLoggedIn()
+			'loggedIn' => $this->login->isLoggedIn($session)
 		), $parameters);
 		return $this->twig->render($name, $parameters);
 	}

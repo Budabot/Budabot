@@ -27,6 +27,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->httpApi = $this->injectMock($this->ctrl, 'httpapi', 'HttpApiController');
 		$this->preferences = $this->injectMock($this->ctrl, 'preferences', 'Preferences');
 		$this->template = $this->injectMock($this->ctrl, 'template', 'WebUi\Template');
+		$this->session = \Phake::mock('\Session');
 	}
 
 	function testIsAutoInstanced() {
@@ -52,9 +53,9 @@ class LoginControllerTest extends \BudabotTestCase {
 
 	function testLoginHandlerWritesLoginHtmlResource() {
 		list($request, $response) = $this->getHandlerMocks();
-		$this->callHandlerCallback("|^/WEBUI_MODULE/login|i", $request, $response);
+		$this->callHandlerCallback("|^/WEBUI_MODULE/login|i", $request, $response, null, $this->session);
 
-		\Phake::verify($this->template)->render('login.html');
+		\Phake::verify($this->template)->render('login.html', $this->session);
 	}
 
 	private function getHandlerMocks() {
@@ -64,11 +65,11 @@ class LoginControllerTest extends \BudabotTestCase {
 		);
 	}
 
-	private function callHandlerCallback($path, $request, $response, $data = '') {
+	private function callHandlerCallback($path, $request, $response, $data = '', $session = null) {
 		$this->callSetupHandler($this->ctrl);
 		$callback = null;
 		\Phake::verify($this->httpApi)->registerHandler($path, \Phake::capture($callback));
-		call_user_func($callback, $request, $response, $data);
+		call_user_func($callback, $request, $response, $data, $session);
 	}
 
 	function testSetupHandlerRegistersCheckLoginResource() {
@@ -82,7 +83,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->callHandlerCallback("|^/WEBUI_MODULE/do_login|i", $request, $response, http_build_query(array(
 			'username' => 'fooman',
 			'password' => 'foopass'
-		)));
+		)), $this->session);
 
 		\Phake::verify($response)->writeHead(200);
 		\Phake::verify($response)->end('1');
@@ -98,7 +99,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->callHandlerCallback("|^/WEBUI_MODULE/do_login|i", $request, $response, http_build_query(array(
 			'username' => 'fooman',
 			'password' => 'foopass'
-		)));
+		)), $this->session);
 
 		\Phake::verify($response)->end('0');
 	}
@@ -109,7 +110,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->callHandlerCallback("|^/WEBUI_MODULE/do_login|i", $request, $response, http_build_query(array(
 			'username' => 'fooman',
 			'password' => ''
-		)));
+		)), $this->session);
 
 		\Phake::verify($response)->end('0');
 	}

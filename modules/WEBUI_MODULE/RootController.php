@@ -64,14 +64,14 @@ class RootController {
 		return $appender;
 	}
 
-	public function handleRootResource($request, $response) {
-		if (!$this->login->isLoggedIn()) {
+	public function handleRootResource($request, $response, $body, $session) {
+		if (!$this->login->isLoggedIn($session)) {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
 			return;
 		}
 
 		$response->writeHead(200);
-		$response->end($this->template->render('index.html', array(
+		$response->end($this->template->render('index.html', $session, array(
 			'webSocketUri' => $this->httpApi->getWebSocketUri(),
 			'logEventsTopic' => self::LOG_EVENTS_TOPIC
 		)));
