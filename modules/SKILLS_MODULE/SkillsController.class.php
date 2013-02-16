@@ -443,12 +443,21 @@ class SkillsController {
 			'ql'     => $args[3],
 			'output' => 'aoml'
 		);
-		$this->http->get("http://inits.xyphos.com/")->withQueryParams($params)
-			->withCallback(function($response) use ($sendto) {
+
+		$that = $this;
+		$this->http->get("http://inits.ao-central.com/")->withQueryParams($params)
+			->withCallback(function($response) use ($sendto, $that, $params) {
 			if ($response->error) {
 				$sendto->reply("Unable to query Central Items Database.");
 			} else {
-				$sendto->reply($response->body);
+				$inits = new SimpleXMLElement($response->body);
+				$item = $that->text->make_item($params['lowid'], $params['highid'], $params['ql'], $inits->name);
+				$blob = "$item\n\n";
+				forEach ($inits->inits as $init) {
+					$blob .= $init['slider'] . " " . $init['init'] . " (" . $init['percent'] . "%)\n";
+				}
+				$msg = $that->text->make_blob("Inits for $inits->name", $blob);
+				$sendto->reply($msg);
 			}
 		});
 	}
