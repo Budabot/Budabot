@@ -2,6 +2,7 @@
 
 /**
  * Authors: 
+ *  - Funkman (RK2)
  *  - Tyrence (RK2)
  *
  * @Instance
