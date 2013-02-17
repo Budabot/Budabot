@@ -22,8 +22,6 @@ class LoginController {
 	/** @Inject("WebUi\Template") */
 	public $template;
 
-	private $loggedIn = false;
-
 	/**
 	 * @Setup
 	 */
@@ -36,34 +34,39 @@ class LoginController {
 			array($this, 'handleLogoutResource'));
 	}
 
-	public function isLoggedIn() {
-		return $this->loggedIn;
+	public function isLoggedIn($session) {
+		$session->start();
+		return $session->getData('logged in');
 	}
 
-	public function handleLoginResource($request, $response) {
-		if ($this->isLoggedIn()) {
+	public function handleLoginResource($request, $response, $body, $session) {
+		if ($this->isLoggedIn($session)) {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/");
 		} else {
 			$response->writeHead(200);
-			$response->end($this->template->render('login.html'));
+			$response->end($this->template->render('login.html', $session));
 		}
 	}
 
-	public function handleDoLoginResource($request, $response, $data) {
+	public function handleDoLoginResource($request, $response, $data, $session) {
 		$isValid = false;
 		list($user, $pass) = self::parseCredentialsFromQuery($data);
 		if ($user && $pass) {
 			$isValid = $this->checkCredentials($user, $pass);
 		}
 
-		$this->loggedIn = $isValid;
+		if ($isValid) {
+			$session->start();
+			$session->setData('logged in', true);
+		}
 
 		$response->writeHead(200);
 		$response->end($isValid? '1': '0');
 	}
 
-	public function handleLogoutResource($request, $response) {
-		$this->loggedIn = false;
+	public function handleLogoutResource($request, $response, $data, $session) {
+		$session->start();
+		$session->setData('logged in', false);
 		$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
 	}
 
