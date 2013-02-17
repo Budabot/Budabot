@@ -11,7 +11,13 @@ class Response {
 	private $cookieValue = null;
 	private $cookieOptions = array();
 
+	/**
+	 * @var \ReflectionProperty
+	 */
+	private static $connRefl;
+
 	function __construct($response) {
+		self::setConnAccessible();
 		$this->response = $response;
 	}
 
@@ -50,6 +56,10 @@ class Response {
 		$this->cookieOptions = $options;
 	}
 
+	public function getConnection() {
+		return self::$connRefl->getValue($this->response);
+	}
+
 	private function addCookieHeader($in) {
 		if ($this->cookieName !== null && $this->cookieValue !== null) {
 			$optionsStr = '';
@@ -59,5 +69,12 @@ class Response {
 			$in['Set-Cookie'] = "{$this->cookieName}={$this->cookieValue}{$optionsStr}";
 		}
 		return $in;
+	}
+
+	private static function setConnAccessible() {
+		if (!self::$connRefl) {
+			self::$connRefl = new ReflectionProperty('\React\Http\Response', 'conn');
+			self::$connRefl->setAccessible(true);
+		}
 	}
 }

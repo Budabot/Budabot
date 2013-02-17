@@ -45,8 +45,14 @@ class HttpApiController {
 
 	private $loop;
 	private $socket;
+
+	/**
+	 * @var React\Http\Server
+	 */
 	private $httpServer;
+
 	private $wamp;
+	private $wsServer;
 	
 	/** @internal */
 	public $handlers = array();
@@ -85,10 +91,10 @@ class HttpApiController {
 	public function setup() {
 		$this->loop = new ReactLoopAdapter($this->socketManager);
 		$this->socket = new SocketServer($this->loop);
-		$this->httpServer = new WebServer($this->socket);
+		$this->httpServer = new React\Http\Server($this->socket);
 
 		$this->wamp = new WampHandler();
-		$this->httpServer->setRatchetComponent(new WsServer(new WampServer($this->wamp)));
+		$this->wsServer = new WsServer(new WampServer($this->wamp));
 
 		$that = $this;
 		$this->httpServer->on('request', function ($request, $response) use ($that) {
@@ -235,10 +241,11 @@ class HttpApiController {
 	 * @param string $path path to uri resource
 	 * @return string
 	 */
-	public function getWebSocketUri() {
+	public function getWebSocketUri($path) {
+		$path    = ltrim($path, '/');
 		$address = $this->getHostComponent();
 		$port = $this->getPortComponent();
-		return "ws://$address$port/";
+		return "ws://$address$port/$path";
 	}
 
 	/** @internal */
@@ -414,5 +421,13 @@ class HttpApiController {
 	 */
 	public function onWampSubscribe($topicName, $callback) {
 		$this->wamp->on("subscribe-$topicName", $callback);
+	}
+
+	public function upgradeToWebSocket($request, $response) {
+		$conn = $response->getConnection();
+		$conn->removeAllListeners();
+		$request->removeAllListeners();
+		new WebSocketConnection($this->wsServer, $conn);
+		$conn->emit('data', array($request->toRequestString($request), $conn));
 	}
 }

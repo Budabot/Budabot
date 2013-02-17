@@ -59,6 +59,10 @@ class Request {
 		$this->request->on($event, $listener);
 	}
 
+	public function removeAllListeners() {
+		$this->request->removeAllListeners();
+	}
+
 	public function getCookies() {
 		$headers = $this->getHeaders();
 		$cookieString = isset($headers['Cookie'])? $headers['Cookie']: '';
@@ -77,5 +81,23 @@ class Request {
 	public function getCookie($name) {
 		$cookies = $this->getCookies();
 		return isset($cookies[$name])? $cookies[$name]: null;
+	}
+
+	public function isWebSocketHandshake() {
+		$headers = $this->getHeaders();
+		return isset($headers['Upgrade']) &&
+			strcasecmp($headers['Upgrade'], 'websocket') == 0;
+	}
+
+	public function toRequestString() {
+		$method = $this->getMethod();
+		$path = $this->getPath();
+		$version = $this->getHttpVersion();
+		$headerData = "$method $path HTTP/$version\r\n";
+		foreach ($this->getHeaders() as $header => $value) {
+			$headerData .= "$header: $value\r\n";
+		}
+		$headerData .= "\r\n";
+		return $headerData;
 	}
 }

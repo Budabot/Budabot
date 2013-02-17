@@ -35,6 +35,9 @@ class RootController {
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/$|i",
 			array($this, 'handleRootResource'));
 
+		$this->httpApi->registerHandler("|^/{$this->moduleName}/wsendpoint$|i",
+			array($this, 'handleWsResource'));
+
 		$this->onLogEventsPublishToClients();
 		$this->onSubscribeSendLogEvents();
 	}
@@ -65,15 +68,26 @@ class RootController {
 	}
 
 	public function handleRootResource($request, $response, $body, $session) {
-		if (!$this->login->isLoggedIn($session)) {
+		if ($this->login->isLoggedIn($session)) {
+			$response->writeHead(200);
+			$response->end($this->template->render('index.html', $session, array(
+				'webSocketUri' => $this->httpApi->getWebSocketUri(
+					"/{$this->moduleName}/wsendpoint"),
+				'logEventsTopic' => self::LOG_EVENTS_TOPIC
+			)));
+		} else {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
-			return;
 		}
+	}
 
-		$response->writeHead(200);
-		$response->end($this->template->render('index.html', $session, array(
-			'webSocketUri' => $this->httpApi->getWebSocketUri(),
-			'logEventsTopic' => self::LOG_EVENTS_TOPIC
-		)));
+	public function handleWsResource($request, $response, $body, $session) {
+		if ($request->isWebSocketHandshake()) {
+			if ($this->login->isLoggedIn($session)) {
+				$this->httpApi->upgradeToWebSocket($request, $response);
+			} else {
+				$response->writeHead(403);
+				$response->end();
+			}
+		}
 	}
 }

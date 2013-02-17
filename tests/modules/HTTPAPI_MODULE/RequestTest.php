@@ -131,4 +131,39 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
 		Phake::when($this->wrapped)->getHeaders()->thenReturn(array('Cookie' => 'bar=foo'));
 		$this->assertEquals('foo', $this->request->getCookie('bar'));
 	}
+
+	function testIsWebSocketHandshakeReturnsFalseWithNoHeaders() {
+		Phake::when($this->wrapped)->getHeaders()->thenReturn(array());
+		$this->assertFalse($this->request->isWebSocketHandshake());
+	}
+
+	function testIsWebSocketHandshakeReturnsTrueWithWsUpgradeHeader() {
+		Phake::when($this->wrapped)->getHeaders()->thenReturn(array(
+			'Upgrade' => 'websocket'
+		));
+		$this->assertTrue($this->request->isWebSocketHandshake());
+	}
+
+	function testIsWebSocketHandshakeReturnsFalseWithWrongUpgradeHeader() {
+		Phake::when($this->wrapped)->getHeaders()->thenReturn(array(
+			'Upgrade' => 'foo'
+		));
+		$this->assertFalse($this->request->isWebSocketHandshake());
+	}
+
+	function testToHeaderStringReturnsValidHttpRequestString() {
+		Phake::when($this->wrapped)->getMethod()->thenReturn('GET');
+		Phake::when($this->wrapped)->getPath()->thenReturn('/');
+		Phake::when($this->wrapped)->getQuery()->thenReturn(array());
+		Phake::when($this->wrapped)->getHttpVersion()->thenReturn('1.1');
+		Phake::when($this->wrapped)->getHeaders()->thenReturn(array(
+			'Upgrade' => 'websocket'
+		));
+
+		$this->assertEquals(
+				"GET / HTTP/1.1\r\n" .
+				"Upgrade: websocket\r\n" .
+				"\r\n",
+			$this->request->toRequestString());
+	}
 }
