@@ -1,5 +1,5 @@
 *****************************
-	Version 3.0_RC4:
+	Version 3.0_RC5:
 *****************************
 -added !play, !players, and !findprof commands (thanks Naturarum (RK2))
 -added WEBUI_MODULE for viewing the bot console from a web browser
