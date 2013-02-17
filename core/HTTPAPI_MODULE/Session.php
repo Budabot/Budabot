@@ -43,7 +43,9 @@ class Session {
 		$id = $this->request->getCookie(self::SESSION_NAME);
 		if (!$this->storage->hasSession($id)) {
 			$id = $this->storage->createSession();
-			$this->response->setCookie(self::SESSION_NAME, $id);
+			$this->response->setCookie(self::SESSION_NAME, $id, array(
+				'Path' => '/'
+			));
 		}
 		$this->id = $id;
 	}

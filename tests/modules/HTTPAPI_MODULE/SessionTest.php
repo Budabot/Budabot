@@ -65,7 +65,8 @@ class SessionTest extends \PHPUnit_Framework_TestCase {
 		$this->session->start();
 
 		Phake::verify($this->storageMock)->createSession();
-		Phake::verify($this->responseMock)->setCookie(Session::SESSION_NAME, 'deadf00d');
+		Phake::verify($this->responseMock)->setCookie(
+			Session::SESSION_NAME, 'deadf00d', array('Path' => '/'));
 	}
 
 	function testIsStartedReturnsFalseIfSessionIdIsNotSet() {

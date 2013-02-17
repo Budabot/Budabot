@@ -9,6 +9,7 @@ class Response {
 
 	private $cookieName = null;
 	private $cookieValue = null;
+	private $cookieOptions = array();
 
 	function __construct($response) {
 		$this->response = $response;
@@ -43,14 +44,19 @@ class Response {
 		$this->response->on($event, $listener);
 	}
 
-	public function setCookie($name, $value) {
+	public function setCookie($name, $value, $options = array()) {
 		$this->cookieName = $name;
 		$this->cookieValue = $value;
+		$this->cookieOptions = $options;
 	}
 
 	private function addCookieHeader($in) {
 		if ($this->cookieName !== null && $this->cookieValue !== null) {
-			$in['Set-Cookie'] = "{$this->cookieName}={$this->cookieValue}";
+			$optionsStr = '';
+			forEach ($this->cookieOptions as $option => $value) {
+				$optionsStr .= "; {$option}={$value}";
+			}
+			$in['Set-Cookie'] = "{$this->cookieName}={$this->cookieValue}{$optionsStr}";
 		}
 		return $in;
 	}

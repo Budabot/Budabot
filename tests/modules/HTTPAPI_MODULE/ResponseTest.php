@@ -82,4 +82,13 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
 			'Content-Type' => 'text/plain'
 		));
 	}
+
+	function testCookieWithExtraOptionIsAddedToHeaders() {
+		$this->response->setCookie('foo', 'bar', array('Path' => '/'));
+		$this->response->writeHead(200, array('Content-Type' => 'text/plain'));
+		Phake::verify($this->wrapped)->writeHead(200, array(
+			'Set-Cookie' => 'foo=bar; Path=/',
+			'Content-Type' => 'text/plain'
+		));
+	}
 }
