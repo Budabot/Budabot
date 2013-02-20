@@ -98,6 +98,15 @@ class SkillsController {
 	public $itemsController;
 	
 	/**
+	 * This handler is called on bot startup.
+	 * @Setup
+	 */
+	public function setup() {
+		$this->commandAlias->register($this->moduleName, "weapon", "specials");
+		$this->commandAlias->register($this->moduleName, "weapon", "inits");
+	}
+	
+	/**
 	 * @HandlesCommand("aggdef")
 	 * @Matches("/^aggdef ([0-9]*\.?[0-9]+) ([0-9]*\.?[0-9]+) ([0-9]+)$/i")
 	 */
