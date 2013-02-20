@@ -97,6 +97,9 @@ class SkillsController {
 	/** @Inject */
 	public $itemsController;
 	
+	/** @Inject */
+	public $commandAlias;
+	
 	/**
 	 * This handler is called on bot startup.
 	 * @Setup
