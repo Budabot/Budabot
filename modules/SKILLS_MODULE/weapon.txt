@@ -1,0 +1,3 @@
+<highlight>To see weapon info including much skills you need to cap your weapon specials and attack speed at different aggdef positions:<end>
+<tab><symbol>weapon [drop weapon in chat]
+<tab><symbol>weapon 'item id' 'ql'
