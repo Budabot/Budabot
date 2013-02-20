@@ -8,16 +8,18 @@
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'pb', 
- *		accessLevel = 'all', 
- *		description = 'Shows what symbiants a pocketboss drops', 
- *		help        = 'pb.txt'
+ *		command     = 'pocketboss',
+ *		accessLevel = 'all',
+ *		description = 'Shows what symbiants a pocketboss drops',
+ *		help        = 'pocketboss.txt',
+ *		alias       = 'pb'
  *	)
  *	@DefineCommand(
- *		command     = 'symb', 
- *		accessLevel = 'all', 
+ *		command     = 'symbiant',
+ *		accessLevel = 'all',
  *		description = 'Shows which pocketbosses drop a symbiant',
- *		help        = 'symb.txt'
+ *		help        = 'symbiant.txt',
+ *		alias       = 'symb'
  *	)
  */
 class PocketbossController {
@@ -46,10 +48,10 @@ class PocketbossController {
 	}
 	
 	/**
-	 * @HandlesCommand("pb")
-	 * @Matches("/^pb (.+)$/i")
+	 * @HandlesCommand("pocketboss")
+	 * @Matches("/^pocketboss (.+)$/i")
 	 */
-	public function pbCommand($message, $channel, $sender, $sendto, $args) {
+	public function pocketbossCommand($message, $channel, $sender, $sendto, $args) {
 		$search = $args[1];
 		$data = $this->pbSearchResults($search);
 		$numrows = count($data);
@@ -62,7 +64,7 @@ class PocketbossController {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$pbLink = $this->text->make_chatcmd($row->pb, "/tell <myname> pb $row->pb");
+				$pbLink = $this->text->make_chatcmd($row->pb, "/tell <myname> pocketboss $row->pb");
 				$blob .= $pbLink . "\n";
 			}
 			$msg = $this->text->make_blob("Search results for $search ($numrows)", $blob);
@@ -99,11 +101,11 @@ class PocketbossController {
 	}
 	
 	/**
-	 * @HandlesCommand("symb")
-	 * @Matches("/^symb ([a-z]+)$/i")
-	 * @Matches("/^symb ([a-z]+) ([a-z]+)$/i")
+	 * @HandlesCommand("symbiant")
+	 * @Matches("/^symbiant ([a-z]+)$/i")
+	 * @Matches("/^symbiant ([a-z]+) ([a-z]+)$/i")
 	 */
-	public function symbCommand($message, $channel, $sender, $sendto, $args) {
+	public function symbiantCommand($message, $channel, $sender, $sendto, $args) {
 		$paramCount = count($args) - 1;
 
 		$slot = '%';

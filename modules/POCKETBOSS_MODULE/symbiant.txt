@@ -1,0 +1,30 @@
+To show a list of symbiants and which pocketboss drops it:
+<highlight><tab><symbol>symbiant 'slotname' 'type'<end>
+
+To show all symbiants of a certain type:
+<highlight><tab><symbol>symbiant 'type'<end>
+
+To show all symbiants which go in a certain slot:
+<highlight><tab><symbol>symbiant 'slot'<end>
+
+Allowed Slotnames
+<tab>- eye
+<tab>- head
+<tab>- ear
+<tab>- rarm
+<tab>- chest
+<tab>- larm
+<tab>- rwrist
+<tab>- waist
+<tab>- lwrist
+<tab>- rhand
+<tab>- legs
+<tab>- lhand
+<tab>- feet
+
+Allowed Types
+<tab>- support
+<tab>- control
+<tab>- infantry
+<tab>- artillery
+<tab>- extermination

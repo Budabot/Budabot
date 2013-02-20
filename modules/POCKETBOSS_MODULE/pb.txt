@@ -1,2 +1,0 @@
-To show a list of Symbiants that a Pocketboss drops:
-<highlight><tab><symbol>pb 'pocketboss name'<end>
