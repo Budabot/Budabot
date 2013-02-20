@@ -98,6 +98,8 @@ class HelpbotController {
 		$blob = "Results of Dynacamp Search for '$search'\n\n";
 
 		$blob .= $this->formatResults($data);
+		
+		$blob .= "Dyna camp information taken from CSP help files. (http://creativestudent.com/ao/files-helpfiles.html)";
 
 		$msg = $this->text->make_blob("Dynacamps ($count)", $blob);
 		$sendto->reply($msg);
@@ -115,6 +117,8 @@ class HelpbotController {
 		$blob = "Results of Dynacamp Search for '$search'\n\n";
 
 		$blob .= $this->formatResults($data);
+		
+		$blob .= "Dyna camp information taken from CSP help files. (http://creativestudent.com/ao/files-helpfiles.html)";
 
 		$msg = $this->text->make_blob("Dynacamps ($count)", $blob);
 		$sendto->reply($msg);
