@@ -298,8 +298,13 @@ class ItemsController {
 		return $list;
 	}
 	
-	public function doXyphosLookup($id) {
-		$data = $this->http->get('http://itemxml.xyphos.com/')->withQueryParams(array('id' => $id))
+	public function doXyphosLookup($id, $ql = null) {
+		$params = array('id' => $id);
+		if ($ql !== null) {
+			$params['ql'] = $ql;
+		}
+	
+		$data = $this->http->get('http://itemxml.xyphos.com/')->withQueryParams($params)
 			->waitAndReturnResponse()->body;
 		if (empty($data) || '<error>' == substr($data, 0, 7)) {
 			return null;
@@ -325,9 +330,13 @@ class ItemsController {
 			$attributes = $doc->getElementsByTagName('attribute');
 			$obj->icon = 0;
 			forEach ($attributes as $attribute) {
-				if ($attribute->attributes->getNamedItem("name")->nodeValue == "Icon") {
-					$obj->icon = $attribute->attributes->getNamedItem("value")->nodeValue;
+				$name = $attribute->attributes->getNamedItem("name")->nodeValue;
+				$value = $attribute->attributes->getNamedItem("value")->nodeValue;
+				if ($name == "Icon") {
+					$obj->icon = $value;
 				}
+				$obj->attributes->$name->value = $value;
+				$obj->attributes->$name->extra = $attribute->attributes->getNamedItem("extra")->nodeValue;
 			}
 		}
 

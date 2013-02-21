@@ -68,16 +68,10 @@
  *		help        = 'fastattack.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'inits',
+ *		command     = 'weapon',
  *		accessLevel = 'all', 
- *		description = 'Shows how much inits you need for 1/1', 
- *		help        = 'inits.txt'
- *	)
- *	@DefineCommand(
- *		command     = 'specials',
- *		accessLevel = 'all', 
- *		description = 'Shows how much skill you need to cap specials recycle', 
- *		help        = 'specials.txt'
+ *		description = 'Shows weapon info (skill needed to cap specials recycle and aggdef positions)', 
+ *		help        = 'weapon.txt'
  *	)
  */
 class SkillsController {
@@ -99,6 +93,9 @@ class SkillsController {
 	
 	/** @Inject */
 	public $util;
+	
+	/** @Inject */
+	public $itemsController;
 	
 	/**
 	 * @HandlesCommand("aggdef")
@@ -430,39 +427,6 @@ class SkillsController {
 	}
 	
 	/**
-	 * @HandlesCommand("inits")
-	 * @Matches('|^inits <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
-	 */
-	public function initsCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = "Calculating Inits... Please wait.";
-		$sendto->reply($msg);
-
-		$params = array(
-			'lowid'  => $args[1],
-			'highid' => $args[2],
-			'ql'     => $args[3],
-			'output' => 'aoml'
-		);
-
-		$that = $this;
-		$this->http->get("http://inits.ao-central.com/")->withQueryParams($params)
-			->withCallback(function($response) use ($sendto, $that, $params) {
-			if ($response->error) {
-				$sendto->reply("Unable to query Central Items Database.");
-			} else {
-				$inits = new SimpleXMLElement($response->body);
-				$item = $that->text->make_item($params['lowid'], $params['highid'], $params['ql'], $inits->name);
-				$blob = "$item\n\n";
-				forEach ($inits->inits as $init) {
-					$blob .= $init['slider'] . " " . $init['init'] . " (" . $init['percent'] . "%)\n";
-				}
-				$msg = $that->text->make_blob("Inits for $inits->name", $blob);
-				$sendto->reply($msg);
-			}
-		});
-	}
-	
-	/**
 	 * @HandlesCommand("mafist")
 	 * @Matches("/^mafist ([0-9]+)$/i")
 	 */
@@ -573,53 +537,52 @@ class SkillsController {
 	}
 	
 	/**
-	 * @HandlesCommand("specials")
-	 * @Matches('|^specials <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
+	 * @HandlesCommand("weapon")
+	 * @Matches('|^weapon <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
+	 * @Matches('|^weapon (\d+) (\d+)|i')
 	 */
-	public function specialsCommand($message, $channel, $sender, $sendto, $args) {
-		$params = array(
-			'id'  => $args[1], // low id
-			'ql' => $args[3]
-		);
-		$response = $this->http->get("http://itemxml.xyphos.com/")->withQueryParams($params)->waitAndReturnResponse();
+	public function weaponCommand($message, $channel, $sender, $sendto, $args) {
+		if (count($args) == 4) {
+			$highid = $args[2];
+			$ql = $args[3];
+		} else {
+			$highid = $args[1];
+			$ql = $args[2];
+		}
+		$item = $this->itemsController->doXyphosLookup($highid, $ql);
 
-		if ($response->error || '<error>' == substr($response->body, 0, 7)) {
-			$msg = "Unable to query Items XML Database.";
+		if ($item === null) {
+			$msg = "Unable to query Items XML Database or invalid item.";
+			$sendto->reply($msg);
+			return;
+		}
+		
+		if ($item->attributes->EquipmentPage->extra != "Weapon") {
+			$msg = "Item is not a weapon.";
 			$sendto->reply($msg);
 			return;
 		}
 
-		$doc = new DOMDocument();
-		$doc->prevservWhiteSpace = false;
-		$doc->loadXML($response->body);
-
-		$name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
-		$attributes = $doc->getElementsByTagName('attributes')->item(0)->getElementsByTagName('attribute');
-
-		forEach ($attributes as $attribute) {
-			switch ($attribute->attributes->getNamedItem("name")->nodeValue) {
-				case 'Can':
-					$flags = $attribute->attributes->getNamedItem("extra")->nodeValue;
-					break;
-				case 'AttackDelay':
-					$attack_time = $attribute->attributes->getNamedItem("value")->nodeValue;
-					break;
-				case 'RechargeDelay':
-					$recharge_time = $attribute->attributes->getNamedItem("value")->nodeValue;
-					break;
-				case 'FullAutoRecharge':
-					$full_auto_recharge = $attribute->attributes->getNamedItem("value")->nodeValue;
-					break;
-				case 'BurstRecharge':
-					$burst_recharge = $attribute->attributes->getNamedItem("value")->nodeValue;
-					break;
-			}
-		}
+		$name = $item->name;
+		$flags = $item->attributes->Can->extra;
+		$attack_time = $item->attributes->AttackDelay->value;
+		$recharge_time = $item->attributes->RechargeDelay->value;
+		$full_auto_recharge = $item->attributes->FullAutoRecharge->value;
+		$burst_recharge = $item->attributes->BurstRecharge->value;
+		
 		$flags = explode(', ', $flags);
 		$recharge_time /= 100;
 		$attack_time /= 100;
 
 		$blob = '';
+		
+		$blob .= "Attack: <highlight>$attack_time<end>\n";
+		$blob .= "Recharge: <highlight>$recharge_time<end>\n\n";
+		
+		// inits
+		$blob .= $this->getInitDisplay($attack_time, $recharge_time);
+		$blob .= "\n\n";
+		
 		if (in_array('FullAuto', $flags)) {
 			list($hard_cap, $skill_cap) = $this->cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
 			$blob .= "FullAutoRecharge: $full_auto_recharge -- You will need at least <highlight>".$skill_cap."<end> Full Auto skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
@@ -650,12 +613,12 @@ class SkillsController {
 		// we don't have a formula for sneak attack
 
 		if (!$found) {
-			$msg = "There are no specials on this weapon that could be calculated.";
-		} else {
-			$blob .= "Written by Tyrence (RK2)\n";
-			$blob .= "Stats provided by xyphos.com";
-			$msg = $this->text->make_blob("Weapon Specials for $name", $blob);
+			$blob .= "There are no specials on this weapon that could be calculated.\n\n";
 		}
+
+		$blob .= "Written by Tyrence (RK2)\n";
+		$blob .= "Stats and inits provided by Xyphos (xyphos.com) and Kilmanagh (RK2) (ao-central.com)";
+		$msg = $this->text->make_blob("Weapon Info for $name", $blob);
 
 		$sendto->reply($msg);
 	}
@@ -732,5 +695,50 @@ class SkillsController {
 		//$skill_cap = ceil(((4000 * $recharge_time) - 1000) / 3);
 
 		return array($hard_cap, $skill_cap);
+	}
+
+    public function fireinit($n) {
+		if ($n < 0) {
+			return 1;
+		} else {
+			return round($n * 600);
+		}
+	}
+
+    public function rechargeinit($n) {
+		if ($n < 0) {
+			return 1;
+		} else {
+			return round($n * 300);
+		}
+	}
+	
+	// taken from: https://bitbucket.org/Kilmanagh/ao-central/src/233fc3d9ce77d5004ef97d858136a21b87f50e8c/inits/inits.php?at=default
+	public function getInitDisplay($attack, $recharge) {
+		// 12 positions...
+		$blob = '';
+		for ($i = 11; $i > -1; $i--) {
+			$perc = floor((100/11) * $i);
+			$diminish = 1/3;
+			$scale = 2/12;
+			$factor = -1.25 + ($scale * (12 - $i));
+			$init = max($this->fireinit($attack + $factor), $this->rechargeinit($recharge + $factor));
+			if ($init > 1200) {
+				$init = 1200 + (($init - 1200) / $diminish);
+			}
+			$init = ceil($init);
+
+			$blob .= "DEF&gt;";
+			for ($x = 0; $x < $i; $x++) {
+				$blob .= "=";
+			}
+			$blob .= "][";
+			for ($x = 12; $x > ($i+1); $x--) {
+				$blob .= "=";
+			}
+			$blob .= "&lt;AGG";
+			$blob .= " $init ($perc%)\n";
+		}
+		return $blob;
 	}
 }
