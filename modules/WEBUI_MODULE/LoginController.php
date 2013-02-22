@@ -58,6 +58,7 @@ class LoginController {
 		if ($isValid) {
 			$session->start();
 			$session->setData('logged in', true);
+			$session->setData('user', $user);
 		}
 
 		$response->writeHead(200);

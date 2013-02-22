@@ -19,6 +19,15 @@ class RootController {
 	/** @Inject */
 	public $chatBot;
 
+	/** @Inject */
+	public $setting;
+
+	/** @Inject */
+	public $settingManager;
+
+	/** @Inject */
+	public $accessManager;
+
 	/** @Inject("WebUi\LoginController") */
 	public $login;
 
@@ -31,6 +40,18 @@ class RootController {
 	 * @Setup
 	 */
 	public function setup() {
+
+		$this->settingManager->add(
+			$this->moduleName,
+			'log_console_access_level',
+			'Minimum access level required for access to the log console',
+			'edit',
+			'options',
+			'superadmin',
+			'superadmin;admininistrator;moderator;raidleader;guild;member;all',
+			'',
+			'admin'
+		);
 
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/$|i",
 			array($this, 'handleRootResource'));
@@ -69,15 +90,21 @@ class RootController {
 
 	public function handleRootResource($request, $response, $body, $session) {
 		if ($this->login->isLoggedIn($session)) {
+			$user = $session->getData('user');
 			$response->writeHead(200);
 			$response->end($this->template->render('index.html', $session, array(
 				'webSocketUri' => $this->httpApi->getWebSocketUri(
 					"/{$this->moduleName}/wsendpoint"),
-				'logEventsTopic' => self::LOG_EVENTS_TOPIC
+				'logEventsTopic' => self::LOG_EVENTS_TOPIC,
+				'logConsoleAllowed' => $this->hasAccessToLogConsole($user)
 			)));
 		} else {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
 		}
+	}
+
+	private function hasAccessToLogConsole($user) {
+		return $this->accessManager->checkAccess($user, $this->setting->log_console_access_level);
 	}
 
 	public function handleWsResource($request, $response, $body, $session) {
