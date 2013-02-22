@@ -53,4 +53,5 @@ footer {
 	height: 400px;
 	overflow: auto;
 	font-family: monospace;
+	resize: both;
 }
