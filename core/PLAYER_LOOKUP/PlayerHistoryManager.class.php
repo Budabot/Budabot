@@ -8,7 +8,14 @@ class PlayerHistoryManager {
 	/** @Inject */
 	public $cacheManager;
 	
+	/** @Inject */
+	public $http;
+	
 	public function lookup($name, $rk_num) {
+		return $this->lookupAuno($name, $rk_num);
+	}
+	
+	public function lookupAuno($name, $rk_num) {
 		$name = ucfirst(strtolower($name));
 		$url = "http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name";
 		$groupName = "player_history";
@@ -23,14 +30,14 @@ class PlayerHistoryManager {
 		};
 
 		$cacheResult = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge);
-		
-		$obj = new PlayerHistory();
-		$obj->name = $name;
 
 		//if there is still no valid data available give an error back
 		if ($cacheResult->success !== true) {
 			return null;
 		} else {
+			$obj = new PlayerHistory();
+			$obj->name = $name;
+		
 			//parsing of the xml file
 			$data = xml::spliceData($cacheResult->data, "<history>", "</history>");
 			$data = xml::splicemultidata($data, "<entry", "/>");
@@ -45,9 +52,34 @@ class PlayerHistoryManager {
 				$entry->rank = $arr[6];
 				$obj->data []= $entry;
 			}
+			return $obj;
 		}
+	}
+	
+	public function lookupBudabot($name, $rk_num) {
+		$name = ucfirst(strtolower($name));
+		$url = "http://budabot.jkbff.com/pork/history.php";
+		$params = array('server' => $rk_num, 'name' => $name);
 		
-		return $obj;
+		$response = $this->http->get($url)->withQueryParams($params)->waitAndReturnResponse();
+		
+		if ($response->error) {
+			return null;
+		} else {
+			$obj = new PlayerHistory();
+			$obj->name = $name;
+			forEach (json_decode($response->body) as $history) {
+				$entry = new stdClass;
+				$entry->date = date("d-M-Y", $history->last_changed / 1000);
+				$entry->level = $history->level;
+				$entry->aiLevel = $history->defender_rank;
+				$entry->faction = $history->faction;
+				$entry->guild = $history->guild_name;
+				$entry->rank = $history->guild_rank_name;
+				$obj->data []= $entry;
+			}
+			return $obj;
+		}
 	}
 }
 
