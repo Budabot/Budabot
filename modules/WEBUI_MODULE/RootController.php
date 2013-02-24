@@ -94,7 +94,7 @@ class RootController {
 
 	public function handleRootResource($request, $response, $body, $session) {
 		if ($this->login->isLoggedIn($session)) {
-			$response->writeHead(200);
+			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
 			$response->end($this->template->render('index.html', $session, array(
 				'webSocketUri' => $this->httpApi->getWebSocketUri(
 					"/{$this->moduleName}/wsendpoint"),
