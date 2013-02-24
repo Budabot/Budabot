@@ -65,10 +65,14 @@ class RootController {
 
 	private function onSubscribeSendLogEvents() {
 		$that = $this;
-		$this->httpApi->onWampSubscribe(self::LOG_EVENTS_TOPIC, function ($client) use ($that) {
-			$events = $that::getBufferAppender()->getEvents();
-			foreach ($events as $event) {
-				$client->event($that::LOG_EVENTS_TOPIC, $event);
+		$this->httpApi->onWampSubscribe(self::LOG_EVENTS_TOPIC, function ($connection, $topic) use ($that) {
+			if ($that->hasAccessToLogConsole($connection->session)) {
+				$events = $that::getBufferAppender()->getEvents();
+				foreach ($events as $event) {
+					$connection->event($that::LOG_EVENTS_TOPIC, $event);
+				}
+			} else {
+				$topic->remove($connection);
 			}
 		});
 	}
@@ -90,27 +94,28 @@ class RootController {
 
 	public function handleRootResource($request, $response, $body, $session) {
 		if ($this->login->isLoggedIn($session)) {
-			$user = $session->getData('user');
 			$response->writeHead(200);
 			$response->end($this->template->render('index.html', $session, array(
 				'webSocketUri' => $this->httpApi->getWebSocketUri(
 					"/{$this->moduleName}/wsendpoint"),
 				'logEventsTopic' => self::LOG_EVENTS_TOPIC,
-				'logConsoleAllowed' => $this->hasAccessToLogConsole($user)
+				'logConsoleAllowed' => $this->hasAccessToLogConsole($session)
 			)));
 		} else {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
 		}
 	}
 
-	private function hasAccessToLogConsole($user) {
-		return $this->accessManager->checkAccess($user, $this->setting->log_console_access_level);
+	public function hasAccessToLogConsole($session) {
+		$user = $session->getData('user');
+		return $this->login->isLoggedIn($session) &&
+			$this->accessManager->checkAccess($user, $this->setting->log_console_access_level);
 	}
 
 	public function handleWsResource($request, $response, $body, $session) {
 		if ($request->isWebSocketHandshake()) {
 			if ($this->login->isLoggedIn($session)) {
-				$this->httpApi->upgradeToWebSocket($request, $response);
+				$this->httpApi->upgradeToWebSocket($request, $response, $session);
 			} else {
 				$response->writeHead(403);
 				$response->end();

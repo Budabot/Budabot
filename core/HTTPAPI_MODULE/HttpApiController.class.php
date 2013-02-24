@@ -423,11 +423,11 @@ class HttpApiController {
 		$this->wamp->on("subscribe-$topicName", $callback);
 	}
 
-	public function upgradeToWebSocket($request, $response) {
+	public function upgradeToWebSocket($request, $response, $session) {
 		$conn = $response->getConnection();
 		$conn->removeAllListeners();
 		$request->removeAllListeners();
-		new WebSocketConnection($this->wsServer, $conn);
+		new WebSocketConnection($this->wsServer, $conn, $session);
 		$conn->emit('data', array($request->toRequestString($request), $conn));
 	}
 }

@@ -11,12 +11,13 @@ class WebSocketConnection {
 
 	private $app;
 
-	public function __construct(MessageComponentInterface $app, $conn) {
+	public function __construct(MessageComponentInterface $app, $conn, $session) {
 		$this->app = $app;
 		$conn->decor = new IoConnection($conn);
 
 		$conn->decor->resourceId    = (int)$conn->stream;
 		$conn->decor->remoteAddress = $conn->getRemoteAddress();
+		$conn->decor->session       = $session;
 
 		$this->app->onOpen($conn->decor);
 
