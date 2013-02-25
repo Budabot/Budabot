@@ -30,14 +30,14 @@ class LoggerAppenderBuffer extends LoggerAppender {
 	}
 
 	public function append(LoggerLoggingEvent $event) {
-		if ($this->layout === null) {
-			return;
-		}
+		$log = new StdClass();
+		$log->time   = $event->getTimeStamp();
+		$log->level  = $event->getLevel()->toString();
+		$log->msg    = $event->getMessage();
+		$log->logger = $event->getLoggerName();
 
-		$msg = $this->layout->format($event);
-
-		$this->logBuffer []= $msg;
-		$this->emitter->emit('event', array($msg));
+		$this->logBuffer []= $log;
+		$this->emitter->emit('event', array($log));
 
 		if (count($this->logBuffer) > $this->logLimit) {
 			array_shift($this->logBuffer);
