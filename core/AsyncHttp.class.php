@@ -287,7 +287,12 @@ class AsyncHttp {
 
 	private function extractHeadersFromHeaderData($data) {
 		$headers = array();
-		forEach (explode("\r\n", $data) as $line) {
+		$lines = explode("\r\n", $data);
+		list($version, $status, $statusMessage) = explode(" ", array_shift($lines), 3);
+		$headers['http-version'] = $version;
+		$headers['status-code'] = $status;
+		$headers['status-message'] = $statusMessage;
+		forEach ($lines as $line) {
 			if (preg_match('/([^:]+):(.+)/', $line, $matches)) {
 				$headers[strtolower(trim($matches[1]))] = trim($matches[2]);
 			}
