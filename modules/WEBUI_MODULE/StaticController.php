@@ -45,20 +45,22 @@ class StaticController {
 	}
 
 	private function handleStaticResource($path) {
-		$mimeType = $this->extensionToMimeType(
+		$type = $this->extensionToContentType(
 			pathinfo($path, PATHINFO_EXTENSION));
 
-		return function ($request, $response) use ($path, $mimeType) {
-			$response->writeHead(200, array('Content-Type' => $mimeType));
+		return function ($request, $response) use ($path, $type) {
+			$response->writeHead(200, array('Content-Type' => $type));
 			$response->end(file_get_contents($path));
 		};
 	}
 
-	private function extensionToMimeType($extension) {
+	private function extensionToContentType($extension) {
 		switch (strtolower($extension)) {
 			case 'css':
-				return 'text/css';
+				return 'text/css; charset=utf-8';
+			case 'js':
+				return 'text/javascript; charset=utf-8';
 		}
-		return 'text/plain';
+		return 'text/plain; charset=utf-8';
 	}
 }

@@ -15,6 +15,7 @@
 {% endblock %}
 
 {% block content %}
+{% if logConsoleAllowed %}
 <article>
 	<header>
 		<h1>Console Messages</h1>
@@ -22,4 +23,5 @@
 
 	<div id="log_console" data-topic="{{ logEventsTopic }}"></div>
 </article>
+{% endif %}
 {% endblock %}

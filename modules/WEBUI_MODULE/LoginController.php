@@ -43,7 +43,7 @@ class LoginController {
 		if ($this->isLoggedIn($session)) {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/");
 		} else {
-			$response->writeHead(200);
+			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
 			$response->end($this->template->render('login.html', $session));
 		}
 	}
@@ -58,6 +58,7 @@ class LoginController {
 		if ($isValid) {
 			$session->start();
 			$session->setData('logged in', true);
+			$session->setData('user', $user);
 		}
 
 		$response->writeHead(200);
