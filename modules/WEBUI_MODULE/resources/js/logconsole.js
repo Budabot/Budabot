@@ -43,7 +43,14 @@ var LogConsole = (function() {
 
 	$.subscribe('wamp_success', function(topic, session) {
 		session.subscribe(getAttribute('data-topic'), function (topic, event) {
-			addMessageToLogConsole(event);
+			date = new Date(event.time*1000);
+
+			msg = date.toLocaleDateString() + " " + date.toLocaleTimeString();
+			msg += " " + event.level;
+			msg += " " + event.logger;
+			msg += " " + event.msg;
+
+			addMessageToLogConsole(msg);
 		});
 	});
 
