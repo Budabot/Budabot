@@ -839,12 +839,8 @@
     </columns>
     <data>
       <row>
-        <col id="0">1</col>
-        <col id="1" translatable="yes">Atlantean</col>
-      </row>
-      <row>
-        <col id="0">2</col>
-        <col id="1" translatable="yes">Rimor</col>
+        <col id="0">5</col>
+        <col id="1" translatable="yes">Rubi-Ka</col>
       </row>
       <row>
         <col id="0">4</col>
