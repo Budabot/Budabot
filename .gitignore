@@ -1,6 +1,7 @@
 /logs
 /cache
-/conf/config.php
+/conf/config*.php
+!/conf/config.template.php
 /data/*.db
 /build
 /botmanager/build
