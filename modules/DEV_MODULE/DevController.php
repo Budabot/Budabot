@@ -31,7 +31,7 @@
  *		help        = 'test.txt'
  *	)
  */
-class TestController extends AutoInject {
+class DevController extends AutoInject {
 
 	/**
 	 * Name of the module.
