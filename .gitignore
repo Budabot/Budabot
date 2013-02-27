@@ -3,6 +3,7 @@
 /conf/config*.php
 !/conf/config.template.php
 /data/*.db
+/data/*-journal
 /build
 /botmanager/build
 /botmanager/dist
