@@ -26,7 +26,7 @@ class GuildManager {
 		}
 		
 		$name = ucfirst(strtolower($name));
-		$url = "http://people.anarchy-online.com/org/stats/d/$rk_num/name/$guild_id/basicstats.xml";
+		$url = "http://people.anarchy-online.com/org/stats/d/1/name/$guild_id/basicstats.xml";
 		$groupName = "guild_roster";
 		$filename = "$guild_id.$rk_num.xml";
 		if ($this->chatBot->vars["my_guild_id"] == $guild_id) {
