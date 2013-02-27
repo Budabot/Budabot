@@ -219,7 +219,7 @@ Contacts:      Tyrence, Marebone
 			$server = "chat.d1.funcom.com";
 			$port = 7105;
 		} else {
-			LegacyLogger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are 1, 2, 4 and 5.");
+			LegacyLogger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are 4 and 5.");
 			sleep(10);
 			die();
 		}
