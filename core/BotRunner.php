@@ -212,14 +212,14 @@ Contacts:      Tyrence, Marebone
 			// For use with the AO chat proxy ONLY!
 			$server = $vars['proxy_server'];
 			$port = $vars['proxy_port'];
-		} else if ($vars["dimension"] == "RK") {
-			$server = "chat.d1.funcom.com";
-			$port = 7105;
-		} else if ($vars["dimension"] == "TL") {
+		} else if ($vars["dimension"] == 4) {
 			$server = "chat.dt.funcom.com";
 			$port = 7109;
+		} else if ($vars["dimension"] == 5) {
+			$server = "chat.d1.funcom.com";
+			$port = 7105;
 		} else {
-			LegacyLogger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are RK and TL.");
+			LegacyLogger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are 1, 2, 4 and 5.");
 			sleep(10);
 			die();
 		}

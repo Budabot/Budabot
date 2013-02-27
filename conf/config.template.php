@@ -27,8 +27,8 @@
 	$vars['name']       = "";
 	$vars['my_guild']   = "";
 
-	// RK for Live, TL for Test.
-	$vars['dimension']  = "RK";
+	// 5 for Live, 4 for Test.
+	$vars['dimension']  = 5;
 
 	// Character name of the Super Administrator.
 	$vars['SuperAdmin'] = "";
