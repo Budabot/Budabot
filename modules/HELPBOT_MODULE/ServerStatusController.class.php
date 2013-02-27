@@ -54,7 +54,7 @@ class ServerStatusController {
 			$dimension = 't';
 		}
 		
-		if ($dimension != 1 && $dimension != 2 && $dimension != 't') {
+		if ($dimension != 5 && $dimension != 't') {
 			return false;
 		}
 

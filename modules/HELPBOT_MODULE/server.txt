@@ -5,6 +5,5 @@ To show the status of a specific server:
 <highlight><tab><symbol>server 'server id'<end>
 
 <header2>Server ids:<end>
-<tab>1 = Atlantean(RK1)
-<tab>2 = Rimor(RK2)
+<tab>5 = Rubi-Ka
 <tab>t = Test Server
