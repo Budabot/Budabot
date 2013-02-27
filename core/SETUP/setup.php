@@ -76,7 +76,7 @@ do {
 	echo "             \n\n\n\n\n\n\n\n\n";
 	$msg = "Choose a Dimension (5 = Rubi-Ka, 4 = Test): \n";
 	$vars["dimension"] = read_input($msg);
-} while ($vars["dimension"] != 1 && $vars["dimension"] != 2 && $vars["dimension"] != 3 && $vars["dimension"] != 4 && $vars["dimension"] != 5);
+} while ($vars["dimension"] != 4 && $vars["dimension"] != 5);
 
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
