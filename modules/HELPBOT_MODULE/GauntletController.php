@@ -46,12 +46,6 @@ class GauntletController {
 	 * @Matches("/^gauntlet$/i")
 	 */
 	public function gauntletCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->chatBot->vars['dimension'] != 2) {
-			$msg = "This command is not availalble on this server.";
-			$sendto->reply($msg);
-			return;
-		}
-	
 		$socket = fsockopen('gauntlet.jkbff.com', '14523', $errno, $errstr, 5);
 		$content = fgets($socket, 4096);
 
