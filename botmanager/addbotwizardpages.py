@@ -265,7 +265,7 @@ class SelectImportPage(Page):
 		rootPath = self.dirChooser.get_filename()
 		isRequiredVersion = False
 		try:
-			with open(os.path.join(rootPath, 'main.php'), 'r') as file:
+			with open(os.path.join(rootPath, 'core/BotRunner.php'), 'r') as file:
 				# attempt to parse something like this: '$version = "3.0_Alpha"';
 				match = re.search(r'\$version\s*=\s*[\'"](.+)[\'"]', file.read())
 				if match == None:
