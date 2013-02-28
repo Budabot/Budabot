@@ -70,7 +70,7 @@
  *	@DefineCommand(
  *		command     = 'weapon',
  *		accessLevel = 'all', 
- *		description = 'Shows weapon info (skill needed to cap specials recycle and aggdef positions)', 
+ *		description = 'Shows weapon info (skill cap specials recycle and aggdef positions)', 
  *		help        = 'weapon.txt'
  *	)
  */
