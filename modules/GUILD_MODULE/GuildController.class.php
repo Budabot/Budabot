@@ -57,12 +57,6 @@
  *		help        = "notify.txt"
  *	)
  *	@DefineCommand(
- *		command     = "inactivemem", 
- *		accessLevel = "guild", 
- *		description = "Check for inactive members", 
- *		help        = "inactivemem.txt"
- *	)
- *	@DefineCommand(
  *		command     = "updateorg", 
  *		accessLevel = "mod", 
  *		description = "Force an update of the org roster", 
@@ -439,73 +433,6 @@ class GuildController {
 			$msg = "Removed <highlight>{$name}<end> from the Notify list.";
 		}
 
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("inactivemem")
-	 * @Matches("/^inactivemem ([a-z0-9]+)/i")
-	 */
-	public function inactivememCommand($message, $channel, $sender, $sendto, $args) {
-		if (!$this->isGuildBot()) {
-			$sendto->reply("The bot must be in an org.");
-			return;
-		}
-
-		$time = $this->util->parseTime($args[1]);
-		if ($time < 1) {
-			$msg = "You must enter a valid time parameter.";
-			$sendto->reply($msg);
-			return;
-		}
-
-		$timeString = $this->util->unixtime_to_readable($time, false);
-		$time = time() - $time;
-
-		$data = $this->db->query("SELECT * FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` < ?  ORDER BY o.name", $time);
-
-		if (count($data) == 0) {
-			$sendto->reply("No members recorded.");
-			return;
-		}
-
-		$numinactive = 0;
-		$highlight = 0;
-
-		$blob = "Org members who have not logged off since <highlight>{$timeString}<end> ago.\n\n";
-
-		forEach ($data as $row) {
-			$logged = 0;
-			$main = $row->main;
-			if ($row->main != "") {
-				$data1 = $this->db->query("SELECT * FROM alts a JOIN org_members_<myname> o ON a.alt = o.name WHERE `main` = ?", $row->main);
-				forEach ($data1 as $row1) {
-					if ($row1->logged_off > $time) {
-						continue 2;
-					}
-
-					if ($row1->logged_off > $logged) {
-						$logged = $row1->logged_off;
-						$lasttoon = $row1->name;
-					}
-				}
-			}
-
-			$numinactive++;
-			$alts = $this->text->make_chatcmd("Alts", "/tell <myname> alts {$row->name}");
-			$logged = $row->logged_off;
-			$lasttoon = $row->name;
-
-			$player = $row->name."; Main: $main; [{$alts}]\nLast seen on [$lasttoon] on " . $this->util->date($logged) . "\n\n";
-			if ($highlight == 1) {
-				$blob .= "<highlight>$player<end>";
-				$highlight = 0;
-			} else {
-				$blob .= $player;
-				$highlight = 1;
-			}
-		}
-		$msg = $this->text->make_blob("$numinactive Inactive Org Members", $blob);
 		$sendto->reply($msg);
 	}
 	
