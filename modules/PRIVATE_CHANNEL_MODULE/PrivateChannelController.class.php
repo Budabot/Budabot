@@ -144,7 +144,7 @@ class PrivateChannelController {
 		$this->settingManager->add($this->moduleName, "guest_color_guild", "Private Channel relay color in guild channel", "edit", "color", "<font color=#C3C3C3>");
 		$this->settingManager->add($this->moduleName, "guest_color_guest", "Private Channel relay color in private channel", "edit", "color", "<font color=#C3C3C3>");
 		$this->settingManager->add($this->moduleName, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
-		$this->settingManager->add($this->moduleName, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "0", "true;false", "1;0");
+		$this->settingManager->add($this->moduleName, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "1", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
 		$this->settingManager->add($this->moduleName, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
 	}
