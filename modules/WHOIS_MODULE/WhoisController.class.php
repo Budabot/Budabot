@@ -138,9 +138,9 @@ class WhoisController {
 		$sendto->reply($msg);
 	}
 	
-	public function getNameHistory($charid, $dimension) {
+	public function getNameHistory($charid, $rk_num) {
 		$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = ? ORDER BY dt DESC";
-		$data = $this->db->query($sql, $charid, $dimension);
+		$data = $this->db->query($sql, $charid, $rk_num);
 
 		$blob = "<header2>Name History<end>\n\n";
 		if (count($data) > 0) {

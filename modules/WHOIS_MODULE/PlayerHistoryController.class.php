@@ -38,15 +38,14 @@ class PlayerHistoryController {
 	 */
 	public function playerHistoryCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
+		$rk_num = $this->chatBot->vars['dimension'];
 		if (count($args) == 3) {
-			$dimension = $args[2];
-		} else {
-			$dimension = $this->chatBot->vars['dimension'];
+			$rk_num = $args[2];
 		}
 
-		$history = $this->playerHistoryManager->lookup($name, $dimension);
+		$history = $this->playerHistoryManager->lookup($name, $rk_num);
 		if ($history === null) {
-			$msg = "Could not get History of $name on RK$dimension.";
+			$msg = "Could not get History of $name on RK$rk_num.";
 		} else {
 			$blob = "Date           Level    AI     Faction      Guild(rank) \n";
 			$blob .= "________________________________________________ \n";
@@ -74,7 +73,7 @@ class PlayerHistoryController {
 				$blob .= "$entry->date |  $entry->level  | $ailevel | $faction | $guild\n";
 			}
 			$blob .= "\nHistory provided by Budabot.com and Auno.org";
-			$msg = $this->text->make_blob("History of $name for RK{$dimension}", $blob);
+			$msg = $this->text->make_blob("History of $name for RK{$rk_num}", $blob);
 		}
 
 		$sendto->reply($msg);

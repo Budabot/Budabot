@@ -61,11 +61,9 @@ class ShoppingController {
 			$maxQl = 500;
 			$search = $args[1];
 		}
-		
-		$dimension = $this->chatBot->vars['dimension'];
 
 		$params = array(
-			'server' => $dimension,
+			'server' => $this->chatBot->vars['dimension'],
 			'search' => $search,
 			'minql' => $minQl,
 			'maxql' => $maxQl,

@@ -65,12 +65,12 @@ class FindOrgController {
 	public function lookupOrg($search, $limit = 50) {
 		$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
 		$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
-		preg_match_all('|<a href="http://people.anarchy-online.com/org/stats/d/1/name/(\\d+)">([^<]+)</a>|s', $response->body, $arr, PREG_SET_ORDER);
+		preg_match_all('|<a href="http://people.anarchy-online.com/org/stats/d/(\d+)/name/(\d+)">([^<]+)</a>|s', $response->body, $arr, PREG_SET_ORDER);
 		$orgs = array();
 		forEach ($arr as $match) {
 			$obj = new stdClass;
-			$obj->name = trim($match[2]);
-			$obj->id = $match[1];
+			$obj->name = trim($match[3]);
+			$obj->id = $match[2];
 			$orgs []= $obj;
 			if (count($orgs) == $limit) {
 				break;

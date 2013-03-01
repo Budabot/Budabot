@@ -45,9 +45,9 @@ class WhoisOrgController {
 	 * @Matches("/^whoisorg ([a-z0-9-]+)$/i")
 	 */
 	public function whoisorgCommand($message, $channel, $sender, $sendto, $args) {
-		$dimension = $this->chatBot->vars['dimension'];
+		$rk_num = $this->chatBot->vars['dimension'];
 		if (count($args) == 3) {
-			$dimension = $args[2];
+			$rk_num = $args[2];
 		}
 		
 		if (preg_match("/^[0-9]+$/", $args[1])) {
@@ -55,7 +55,7 @@ class WhoisOrgController {
 		} else {
 			// Someone's name.  Doing a whois to get an orgID.
 			$name = ucfirst(strtolower($args[1]));
-			$whois = $this->playerManager->get_by_name($name, $dimension);
+			$whois = $this->playerManager->get_by_name($name, $rk_num);
 
 			if ($whois === null) {
 				$msg = "Could not find character info for $name.";
@@ -73,7 +73,7 @@ class WhoisOrgController {
 		$msg = "Getting Org info. Please stand by...";
 		$sendto->reply($msg);
 
-		$org = $this->guildManager->get_by_id($org_id, $dimension);
+		$org = $this->guildManager->get_by_id($org_id, $rk_num);
 		if ($org === null) {
 			$msg = "Error in getting the Org info. Either the org does not exist or AO's server was too slow to respond.";
 			$sendto->reply($msg);

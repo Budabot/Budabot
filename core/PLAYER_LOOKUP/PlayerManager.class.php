@@ -16,31 +16,31 @@ class PlayerManager {
 	/** @Inject */
 	public $http;
 
-	public function get_by_name($name, $dimension = 0, $forceUpdate = false) {
-		if ($dimension == 0) {
-			$dimension = $this->chatBot->vars['dimension'];
+	public function get_by_name($name, $rk_num = 0, $forceUpdate = false) {
+		if ($rk_num == 0) {
+			$rk_num = $this->chatBot->vars['dimension'];
 		}
 
 		$name = ucfirst(strtolower($name));
 
 		$charid = '';
-		if ($dimension == $this->chatBot->vars['dimension']) {
+		if ($rk_num == $this->chatBot->vars['dimension']) {
 			$charid = $this->chatBot->get_uid($name);
 			if ($charid == null) {
 				return null;
 			}
 		}
 
-		$player = $this->findInDb($name, $dimension);
+		$player = $this->findInDb($name, $rk_num);
 
 		if ($player === null || $forceUpdate) {
-			$player = $this->lookup($name, $dimension);
+			$player = $this->lookup($name, $rk_num);
 			if ($player !== null) {
 				$player->charid = $charid;
 				$this->update($player);
 			}
 		} else if ($player->last_update < (time() - 86400)) {
-			$player2 = $this->lookup($name, $dimension);
+			$player2 = $this->lookup($name, $rk_num);
 			if ($player2 !== null) {
 				$player = $player2;
 				$player->charid = $charid;
@@ -55,25 +55,25 @@ class PlayerManager {
 		return $player;
 	}
 
-	public function findInDb($name, $dimension) {
+	public function findInDb($name, $rk_num) {
 		$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ?";
-		return $this->db->queryRow($sql, $name, $dimension);
+		return $this->db->queryRow($sql, $name, $rk_num);
 	}
 
-	public function lookup($name, $dimension) {
-		$xml = $this->lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
+	public function lookup($name, $rk_num) {
+		$xml = $this->lookup_url("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml");
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
-			$xml->dimension = $dimension;
+			$xml->dimension = $rk_num;
 
 			return $xml;
 		}
 
 		// if people.anarchy-online.com was too slow to respond or returned invalid data then try to update from auno.org
-		$xml = $this->lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$dimension&name=$name");
+		$xml = $this->lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
 		if ($xml->name == $name) {
 			$xml->source = 'auno.org';
-			$xml->dimension = $dimension;
+			$xml->dimension = $rk_num;
 
 			return $xml;
 		}

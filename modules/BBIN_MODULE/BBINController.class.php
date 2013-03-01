@@ -457,16 +457,16 @@ class BBINController {
 			// a user logged on somewhere in the network
 			// first argument is name, second is dimension, third indicates a guest
 			$name = $arr[1];
-			$dimension = $arr[2];
+			$rk_num = $arr[2];
 			$isguest = $arr[3];
 
 			// get character information
-			$character = $this->playerManager->get_by_name($name, $dimension);
+			$character = $this->playerManager->get_by_name($name, $rk_num);
 
 			// add user to bbin_chatlist_<myname>
 			$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
 				"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-			$this->db->exec($sql, $name, $isguest, $nick, $character->faction, $character->profession, $character->guild, $character->breed, $character->level, $character->ai_level, $dimension, '');
+			$this->db->exec($sql, $name, $isguest, $nick, $character->faction, $character->profession, $character->guild, $character->breed, $character->level, $character->ai_level, $rk_num, '');
 
 			// send notification to channels
 			$msg = "<highlight>$name<end> (<highlight>{$character->level}<end>/<green>{$character->ai_level}<end>, <highlight>{$character->profession}<end>, {$character->faction})";
@@ -489,11 +489,11 @@ class BBINController {
 		} else if (preg_match("/^\[BBIN:LOGOFF:(.*?),(.),(.)\]/", $bbinmsg, $arr)) {
 			// a user logged off somewhere in the network
 			$name = $arr[1];
-			$dimension = $arr[2];
+			$rk_num = $arr[2];
 			$isguest = $arr[3];
 
 			// delete user from bbin_chatlist table
-			$this->db->exec("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = ?) AND (`dimension` = ?) AND (`ircrelay` = ?)", $name, $dimension, $nick);
+			$this->db->exec("DELETE FROM bbin_chatlist_<myname> WHERE (`name` = ?) AND (`dimension` = ?) AND (`ircrelay` = ?)", $name, $rk_num, $nick);
 
 			// send notification to channels
 			$msg = "";
@@ -545,7 +545,7 @@ class BBINController {
 			$this->db->exec("DELETE FROM bbin_chatlist_<myname> WHERE `ircrelay` = ?", $nick);
 
 			// Format: [BBIN:ONLINELIST:dimension:name,isguest,name,isguest....]
-			$dimension = $arr[1];
+			$rk_num = $arr[1];
 			$listplode = explode(',', $arr[2]);
 
 			// listplode should be: {name,isguest,name,isguest ...}
@@ -565,12 +565,12 @@ class BBINController {
 				}
 
 				// get character information
-				$character = $this->playerManager->get_by_name($name, $dimension);
+				$character = $this->playerManager->get_by_name($name, $rk_num);
 
 				// add user to bbin_chatlist_<myname>
 				$sql = "INSERT INTO bbin_chatlist_<myname> (`name`, `guest`, `ircrelay`, `faction`, `profession`, `guild`, `breed`, `level`, `ai_level`, `dimension`, `afk`) " .
 					"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$this->db->exec($sql, $name, $isguest, $nick, $character->faction, $character->profession, $character->guild, $character->breed, $character->level, $character->ai_level, $dimension, '');
+				$this->db->exec($sql, $name, $isguest, $nick, $character->faction, $character->profession, $character->guild, $character->breed, $character->level, $character->ai_level, $rk_num, '');
 			}
 
 			$this->db->commit();

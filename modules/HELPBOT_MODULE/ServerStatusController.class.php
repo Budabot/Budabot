@@ -43,24 +43,23 @@ class ServerStatusController {
 	 * @Matches("/^server (.)$/i")
 	 */
 	public function playfieldListCommand($message, $channel, $sender, $sendto, $args) {
-		if (count($args) == 1) {
-			$dimension = $this->chatBot->vars['dimension'];
-		} else {
-			$dimension = $args[1];
+		$rk_num = $this->chatBot->vars['dimension'];
+		if (count($args) == 2) {
+			$rk_num = $args[1];
 		}
 		
 		// config file uses '4' to indicate test server
-		if ($dimension == '4') {
-			$dimension = 't';
+		if ($rk_num == '4') {
+			$rk_num = 't';
 		}
 		
-		if ($dimension != 5 && $dimension != 't') {
+		if ($rk_num != 5 && $rk_num != 't') {
 			return false;
 		}
 
-		$server = $this->getServerInfo($dimension);
+		$server = $this->getServerInfo($rk_num);
 		if ($server === null) {
-			$msg = "Could not get server status for RK$dimension.";
+			$msg = "Could not get server status for RK$rk_num.";
 		} else {
 			// sort by playfield name
 			usort($server->data, function($playfield1, $playfield2) {
@@ -92,8 +91,8 @@ class ServerStatusController {
 		}
 	}
 	
-	public function getServerInfo($dimension) {
-		$server = $this->lookup($dimension);
+	public function getServerInfo($rk_num) {
+		$server = $this->lookup($rk_num);
 
 		$list = array_filter(
 			array_unique(
