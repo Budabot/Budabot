@@ -61,7 +61,7 @@ class PlayerManager {
 	}
 
 	public function lookup($name, $dimension) {
-		$xml = $this->lookup_url("http://people.anarchy-online.com/character/bio/d/1/name/$name/bio.xml");
+		$xml = $this->lookup_url("http://people.anarchy-online.com/character/bio/d/$dimension/name/$name/bio.xml");
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
 			$xml->dimension = $dimension;
