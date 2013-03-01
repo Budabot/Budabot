@@ -12,7 +12,7 @@ class PlayerHistoryManager {
 	public $http;
 	
 	public function lookup($name, $rk_num) {
-		return $this->lookupAuno($name, $rk_num);
+		return $this->lookupBudabot($name, $rk_num);
 	}
 	
 	public function lookupAuno($name, $rk_num) {
