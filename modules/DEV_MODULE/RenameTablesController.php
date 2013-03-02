@@ -8,7 +8,7 @@
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'renametables',
- *		accessLevel = 'admin',
+ *		accessLevel = 'superadmin',
  *		description = "Rename tables",
  *		help        = 'renametables.txt'
  *	)
