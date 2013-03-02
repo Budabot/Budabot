@@ -33,8 +33,8 @@ class RenameTablesController extends AutoInject {
 	 * @Matches("/^renametables (.+) (.+)$/i")
 	 */
 	public function renametablesCommand($message, $channel, $sender, $sendto, $args) {
-		$fromName = $args[1];
-		$toName = $args[2];
+		$fromName = strtolower($args[1]);
+		$toName = strtolower($args[2]);
 		
 		$sendto->reply("Restart your bot NOW!");
 	
@@ -42,7 +42,7 @@ class RenameTablesController extends AutoInject {
 		forEach ($data as $row) {
 			if (preg_match("/(.+)_$fromName$/", $row->name, $arr)) {
 				$prefix = $arr[1];
-				$sql = "DROP TABLE $row->name";
+				$sql = "DROP TABLE IF EXISTS {$prefix}_{$toName}";
 				echo $sql . "\n";
 				$this->db->exec($sql);
 				$sql = "ALTER TABLE {$row->name} RENAME TO {$prefix}_{$toName}";
