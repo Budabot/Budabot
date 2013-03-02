@@ -116,8 +116,7 @@ class Limits {
 				$entry = array_pop($history->data);
 				// TODO check for rename
 
-				$age = strtotime($entry->date);
-				if ($age > $minAge) {
+				if ($entry->last_changed > $minAge) {
 					$timeString = $this->util->unixtime_to_readable($this->settingManager->get("tell_min_player_age"));
 					return "Error! You must be at least <highlight>$timeString<end> old.";
 				}

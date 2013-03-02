@@ -47,13 +47,13 @@ class PlayerHistoryController {
 		if ($history === null) {
 			$msg = "Could not get History of $name on RK$rk_num.";
 		} else {
-			$blob = "Date           Level    AI     Faction      Guild(rank) \n";
+			$blob = "Date           Level    AI     Faction    Breed        Guild(rank)\n";
 			$blob .= "________________________________________________ \n";
 			forEach ($history->data as $entry) {
-				if ($entry->aiLevel == "") {
+				if ($entry->defender_rank == "") {
 					$ailevel = "<green>0<end>";
 				} else {
-					$ailevel = "<green>$entry->aiLevel<end>";
+					$ailevel = "<green>$entry->defender_rank<end>";
 				}
 
 				if ($entry->faction == "Omni") {
@@ -64,13 +64,15 @@ class PlayerHistoryController {
 					$faction = "<neutral>Neutral<end>";
 				}
 
-				if ($entry->guild == "") {
+				if ($entry->guild_name == "") {
 					$guild = "Not in a guild";
 				} else {
-					$guild = $entry->guild . "(" . $entry->rank . ")";
+					$guild = $entry->guild_name . "(" . $entry->guild_rank_name . ")";
 				}
+				
+				$date = date("d-M-Y", $entry->last_changed);
 
-				$blob .= "$entry->date |  $entry->level  | $ailevel | $faction | $guild\n";
+				$blob .= "$date |  $entry->level  | $ailevel | $faction | $entry->breed | $guild\n";
 			}
 			$blob .= "\nHistory provided by Budabot.com and Auno.org";
 			$msg = $this->text->make_blob("History of $name for RK{$rk_num}", $blob);
