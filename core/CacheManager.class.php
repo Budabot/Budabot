@@ -80,7 +80,7 @@ class CacheManager {
 		}
 		
 		// if a new file was downloaded, save it in the cache
-		if ($cacheResult->usedCache === false) {
+		if ($cacheResult->usedCache === false && $cacheResult->success === true) {
 			$this->store($groupName, $filename, $cacheResult->data);
 		}
 		
