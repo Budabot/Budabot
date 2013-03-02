@@ -35,6 +35,7 @@ class NoSymbolController {
 	/**
 	 * @Event("guild")
 	 * @Description("Parse commands from guild channel")
+	 * @DefaultStatus("0")
 	 */
 	public function parseGuildCommandEvent($eventObj) {
 		$this->parseCommand($eventObj->type, $eventObj->message, $eventObj->sender, new GuildChannelCommandReplyA($this->chatBot));
@@ -43,6 +44,7 @@ class NoSymbolController {
 	/**
 	 * @Event("priv")
 	 * @Description("Parse commands from private channel")
+	 * @DefaultStatus("0")
 	 */
 	public function parsePrivateChannelCommandEvent($eventObj) {
 		$this->parseCommand($eventObj->type, $eventObj->message, $eventObj->sender, new PrivateChannelCommandReplyA($this->chatBot, $this->chatBot->vars['name']));
