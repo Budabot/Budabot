@@ -43,6 +43,8 @@ class ServerStatusController {
 	 * @Matches("/^server (.)$/i")
 	 */
 	public function playfieldListCommand($message, $channel, $sender, $sendto, $args) {
+		$sendto->reply("Please see http://budabot.com/forum/viewtopic.php?f=4&t=1105 for info on how to get this working");
+		
 		$rk_num = $this->chatBot->vars['dimension'];
 		if (count($args) == 2) {
 			$rk_num = $args[1];
