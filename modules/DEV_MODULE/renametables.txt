@@ -1,0 +1,2 @@
+To rename tables so that they are suffixed with another bot name:
+<highlight><tab><symbol>renametables 'fromName' 'toName'<end>
