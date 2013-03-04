@@ -219,16 +219,13 @@ class WhoisController {
 	 */
 	public function whoisallCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
-		for ($i = 1; $i <= 2; $i ++) {
-			if ($i == 1) {
-				$server = "Atlantean";
-			} else if ($i == 2) {
-				$server = "Rimor";
-			}
-
-			$whois = $this->playerManager->lookup($name, $i);
+		$servers = array(1, 2, 5);
+		forEach ($servers as $rk_num) {
+			$whois = $this->playerManager->lookup($name, $rk_num);
 			if ($whois !== null) {
-				$msg = $this->playerManager->get_info($whois);
+				$msg = "RK$rk_num: ";
+				$msg .= $this->playerManager->get_info($whois);
+				$msg .= " :: ";
 
 				$blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
 				if ($whois->guild) {
@@ -246,12 +243,11 @@ class WhoisController {
 
 				$blob .= "<pagebreak><header2>Options<end>\n\n";
 
-				$blob .= $this->text->make_chatcmd("History", "/tell <myname> history {$name} {$i}") . "\n";
+				$blob .= $this->text->make_chatcmd("History", "/tell <myname> history {$name} {$rk_num}") . "\n";
 
-				$msg .= " :: ".$this->text->make_blob("More info", $blob, "Detailed Info for {$name}");
-				$msg = "<highlight>Server $server:<end> ".$msg;
+				$msg .= $this->text->make_blob("More info", $blob, "Detailed Info for {$name}");
 			} else {
-				$msg = "Server $server: Character <highlight>{$name}<end> does not exist.";
+				$msg = "RK$rk_num: Character <highlight>{$name}<end> does not exist.";
 			}
 
 			$sendto->reply($msg);
