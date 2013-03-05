@@ -303,9 +303,10 @@ class ItemsController {
 		if ($ql !== null) {
 			$params['ql'] = $ql;
 		}
+		
+		$url = 'http://itemxml.xyphos.com/';
 	
-		$data = $this->http->get('http://itemxml.xyphos.com/')->withQueryParams($params)
-			->waitAndReturnResponse()->body;
+		$data = $this->http->get($url)->withQueryParams($params)->waitAndReturnResponse()->body;
 		if (empty($data) || '<error>' == substr($data, 0, 7)) {
 			return null;
 		}
@@ -319,7 +320,7 @@ class ItemsController {
 		$obj = new stdClass;
 		
 		if ($doc->documentElement === null) {
-			$this->logger->log('WARN', "Could not parse xml: '$url'");
+			$this->logger->log('WARN', "Could not parse xml: '$url' " . print_r($params, true));
 			return null;
 		} else {
 			$obj->lowid = $doc->getElementsByTagName('low')->item(0)->attributes->getNamedItem("id")->nodeValue;
