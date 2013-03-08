@@ -85,7 +85,7 @@ do {
 	echo "             If the character does not already exist, close this\n";
 	echo "             and create the character and then start the bot again.\n";
 	echo "             Make sure the bot toon is not currently logged on\n";
-	echo "             by someone else or the bot will not be able to log on.\n";
+	echo "             or the bot will not be able to log on.\n";
 	echo "             *******************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n";
 	$msg = "Enter the Character the bot will run as: \n";
@@ -216,7 +216,7 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             What is the password for the MySQL Database?\n";
 		echo "             if you did not specify a username when you installed\n";
 		echo "             the Database then it will be blank (none)\n";
-		echo "             (Default: none)\n";
+		echo "             (Default: <blank>)\n";
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n\n\n";
 		$msg = "Enter password for the Database (leave blank for default setting): \n";
@@ -229,7 +229,7 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             location which is the Data dir of your bot folder.\n";
 		echo "             The Database will be created if it does\n";
 		echo "             not already exists.\n";
-		echo "             (Default: data/)\n";
+		echo "             (Default: ./data/)\n";
 		echo "             **********************************************\n";
 		echo "             \n\n\n\n\n\n\n";
 		$msg = "Enter the path for the Database (leave blank for default setting):  \n";
@@ -250,7 +250,7 @@ do {
 	echo "             first time so that all commands are available\n";
 	echo "             from the beginning.  If you say 'no' to this question\n";
 	echo "             you will need to enable the commands manually.\n";
-	echo "             (Recommended: yes/)\n";
+	echo "             (Recommended: yes)\n";
 	echo "             **********************************************\n";
 	echo "             \n\n\n\n\n\n\n";
 
