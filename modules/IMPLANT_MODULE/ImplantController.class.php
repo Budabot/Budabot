@@ -26,6 +26,12 @@
  *		description = 'Find which clusters buff a specified skill',
  *		help        = 'cluster.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'ladder',
+ *		accessLevel = 'all',
+ *		description = 'Show sequence of laddering implants for maximum ability or treatment',
+ *		help        = 'ladder.txt'
+ *	)
  */
 class ImplantController {
 
@@ -160,6 +166,63 @@ class ImplantController {
 
 			$msg = $this->text->make_blob("Cluster search results ($count)", $blob);
 		}
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("ladder")
+	 * @Matches("/^ladder (ability|treatment) (\d+)$/i")
+	 */
+	public function ladderCommand($message, $channel, $sender, $sendto, $args) {
+		$type = $args[1];
+		$value = $args[2];
+		
+		$blob = '';
+
+		$shiny = null;
+		$bright = null;
+		$faded = null;
+		for ($i = 0; $i < 2; $i++) {
+			// add shiny
+			if ($shiny !== null) {
+				$value -= $shiny->abilityShiny;
+				$blob .= "Removing shiny ql $shiny->ql\n\n";
+			}
+			$newShiny = $this->findMaxImplantQlByReqs($value, 10000);
+			if ($newShiny->abilityShiny > $shiny->abilityShiny) {
+				$shiny = $newShiny;
+				$value += $shiny->abilityShiny;
+				$blob .= "Adding shiny ql $shiny->ql\n\n";
+			}
+			
+			// add bright
+			if ($bright !== null) {
+				$value -= $bright->abilityBright;
+				$blob .= "Removing bright ql $bright->ql\n\n";
+			}
+			$newBright = $this->findMaxImplantQlByReqs($value, 10000);
+			if ($newBright->abilityBright > $bright->abilityBright) {
+				$bright = $newBright;
+				$value += $bright->abilityBright;
+				$blob .= "Adding bright ql $bright->ql\n\n";
+			}
+			
+			// add faded
+			if ($faded !== null) {
+				$value -= $faded->abilityFaded;
+				$blob .= "Removing faded ql $faded->ql\n\n";
+			}
+			$newFaded = $this->findMaxImplantQlByReqs($value, 10000);
+			if ($newFaded->abilityFaded > $faded->abilityFaded) {
+				$faded = $newFaded;
+				$value += $faded->abilityFaded;
+				$blob .= "Adding faded ql $faded->ql\n\n";
+			}
+		}
+		
+		$blob .= "Ending ability: $value";
+		$msg = $this->text->make_blob("Ladder Results", $blob);
+		
 		$sendto->reply($msg);
 	}
 	
