@@ -73,7 +73,7 @@ class Process(gobject.GObject):
 		useShell = False
 		if platform.system() == 'Windows':
 			useShell = True # prevents command prompt from opening
-		self.process = subprocess.Popen(args = arguments, stdout = subprocess.PIPE, stderr = subprocess.PIPE, cwd = self.workingDirectoryPath, shell = useShell)
+		self.process = subprocess.Popen(args = arguments, stdin=subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE, cwd = self.workingDirectoryPath, shell = useShell)
 
 		# start stdout and stderr polling threads
 		self.outQueue  = Queue.Queue()
