@@ -60,7 +60,7 @@ do {
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 	echo "             ************************************************\n";
-	echo "             Enter the Password for the for the account.\n";
+	echo "             Enter the Password for the account.\n";
 	echo "             Remember this is also case-sensitive!\n";
 	echo "             ************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n\n";
