@@ -138,13 +138,13 @@ if (strtolower($mansetupdb) == "yes") {
 		echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
 		echo "             *********************************************************\n";
 		echo "             The bot is able to use 2 different Database Types.\n";
-		echo "             1 = Sqlite. It is the easiest way to go and provides.\n";
+		echo "             1 = Sqlite. It is the easiest way to go and provides\n";
 		echo "                 faster bot startup than MySQL.\n";
 		echo "             2 = MySQL. An Open-Source Database.\n";
 		echo "                 You need to install and setup it manually\n";
 		echo "                 http://www.mysql.com/\n";
-		echo "                 Be aware that when you setup it wrong\n";
-		echo "                 it can be slower then Sqlite!\n";
+		echo "                 Be aware that when you set it up incorrectly\n";
+		echo "                 it can be slower than Sqlite!\n";
 		echo "             *********************************************************\n";
 		echo "             \n\n\n\n\n\n\n";
 		$msg = "Choose a Database system (1 = Sqlite - Recommended, 2 = MySQL): \n";
