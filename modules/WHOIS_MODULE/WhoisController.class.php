@@ -14,12 +14,6 @@
  *		help        = 'whois.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'whoisall',
- *		accessLevel = 'all', 
- *		description = 'Show player info for all dimensions', 
- *		help        = 'whois.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'lookup',
  *		accessLevel = 'all', 
  *		description = 'Find the charId for a player', 
@@ -211,46 +205,5 @@ class WhoisController {
 		}
 
 		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("whoisall")
-	 * @Matches("/^whoisall (.+)$/i")
-	 */
-	public function whoisallCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$servers = array(1, 2, 5);
-		forEach ($servers as $rk_num) {
-			$whois = $this->playerManager->lookup($name, $rk_num);
-			if ($whois !== null) {
-				$msg = "RK$rk_num: ";
-				$msg .= $this->playerManager->get_info($whois);
-				$msg .= " :: ";
-
-				$blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end>\n";
-				if ($whois->guild) {
-					$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
-					$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
-				}
-				$blob .= "Breed: <highlight>{$whois->breed}<end>\n";
-				$blob .= "Gender: <highlight>{$whois->gender}<end>\n";
-				$blob .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
-				$blob .= "Level: <highlight>{$whois->level}<end>\n";
-				$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
-				$blob .= "Faction: <highlight>{$whois->faction}<end>\n\n";
-
-				$blob .= "Source: $whois->source\n\n";
-
-				$blob .= "<pagebreak><header2>Options<end>\n\n";
-
-				$blob .= $this->text->make_chatcmd("History", "/tell <myname> history {$name} {$rk_num}") . "\n";
-
-				$msg .= $this->text->make_blob("More info", $blob, "Detailed Info for {$name}");
-			} else {
-				$msg = "RK$rk_num: Character <highlight>{$name}<end> does not exist.";
-			}
-
-			$sendto->reply($msg);
-		}
 	}
 }
