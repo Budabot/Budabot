@@ -65,18 +65,16 @@ class PlayerManager {
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
 			$xml->dimension = $rk_num;
-
 			return $xml;
 		}
 
 		// if people.anarchy-online.com was too slow to respond or returned invalid data then try to update from auno.org
-		$xml = $this->lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
-		if ($xml->name == $name) {
-			$xml->source = 'auno.org';
-			$xml->dimension = $rk_num;
-
-			return $xml;
-		}
+		//$xml = $this->lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
+		//if ($xml->name == $name) {
+		//	$xml->source = 'auno.org';
+		//	$xml->dimension = $rk_num;
+		//	return $xml;
+		//}
 
 		return null;
 	}
