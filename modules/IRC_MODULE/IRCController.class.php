@@ -350,12 +350,14 @@ class IRCController {
 		$msgColor = $this->setting->irc_message_color;
 		$guildMsgColor = $this->setting->irc_guild_message_color;
 		$guildNameColor = $this->setting->irc_guild_name_color;
+		
+		$message = htmlspecialchars($obj->message);
 
 		// handle relay messages from other bots
-		if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $obj->message, $arr)) {
+		if (preg_match("/" . chr(2) . chr(2) . chr(2) . "(.+)" . chr(2) . " (.+)/i", $message, $arr)) {
 			$ircmessage = "{$guildNameColor}{$arr[1]}<end> {$guildMsgColor}{$arr[2]}<end>";
 		} else {
-			$ircmessage = "<yellow>[IRC]<end> {$msgColor}{$obj->nick}: {$obj->message}<end>";
+			$ircmessage = "<yellow>[IRC]<end> {$msgColor}{$obj->nick}: {$message}<end>";
 		}
 
 		// handle item links from other bots
