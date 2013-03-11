@@ -10,7 +10,7 @@
  *	@DefineCommand(
  *		command     = 'dnet', 
  *		accessLevel = 'mod', 
- *		description = 'Enable/disable Dnet support (RK 1 only)', 
+ *		description = 'Enable/disable Dnet support', 
  *		help        = 'dnet.txt'
  *	)
  */
