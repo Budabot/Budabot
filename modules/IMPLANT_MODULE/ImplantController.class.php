@@ -225,7 +225,7 @@ class ImplantController {
 		}
 		
 		$blob .= "-------------------\n\nEnding $type: $value";
-		$msg = $this->text->make_blob("Ladder Results for $value " . ucfirst(strtolower($type)), $blob);
+		$msg = $this->text->make_blob("Laddering to $value " . ucfirst(strtolower($type)), $blob);
 		
 		$sendto->reply($msg);
 	}
