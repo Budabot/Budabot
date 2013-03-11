@@ -174,54 +174,58 @@ class ImplantController {
 	 * @Matches("/^ladder (ability|treatment) (\d+)$/i")
 	 */
 	public function ladderCommand($message, $channel, $sender, $sendto, $args) {
-		$type = $args[1];
+		$type = strtolower($args[1]);
 		$value = $args[2];
+		$prefix = $type == 'ability' ? 'ability' : 'skill';
 		
-		$blob = '';
+		$blob = "Starting $type: $value\n\n-------------------\n\n";
 
 		$shiny = null;
 		$bright = null;
 		$faded = null;
-		for ($i = 0; $i < 2; $i++) {
+		for ($i = 0; $i < 5; $i++) {
 			// add shiny
-			if ($shiny !== null) {
-				$value -= $shiny->abilityShiny;
-				$blob .= "Removing shiny ql $shiny->ql\n\n";
-			}
-			$newShiny = $this->findMaxImplantQlByReqs($value, 10000);
-			if ($newShiny->abilityShiny > $shiny->abilityShiny) {
+			$tempValue = $shiny === null ? $value : $value - $shiny->{$prefix . 'Shiny'};
+			$newShiny = $this->findMaxImplantQlByReqs($tempValue, 10000);
+			if ($shiny === null || $newShiny->{$prefix . 'Shiny'} > $shiny->{$prefix . 'Shiny'}) {
+				if ($shiny !== null) {
+					$value -= $shiny->{$prefix . 'Shiny'};
+					$blob .= "Remove shiny QL $shiny->ql\n\n";
+				}
 				$shiny = $newShiny;
-				$value += $shiny->abilityShiny;
-				$blob .= "Adding shiny ql $shiny->ql\n\n";
+				$value += $shiny->{$prefix . 'Shiny'};
+				$blob .= "<highlight>Add shiny QL $shiny->ql<end>\n\n";
 			}
 			
 			// add bright
-			if ($bright !== null) {
-				$value -= $bright->abilityBright;
-				$blob .= "Removing bright ql $bright->ql\n\n";
-			}
-			$newBright = $this->findMaxImplantQlByReqs($value, 10000);
-			if ($newBright->abilityBright > $bright->abilityBright) {
+			$tempValue = $bright === null ? $value : $value - $bright->{$prefix . 'Bright'};
+			$newBright = $this->findMaxImplantQlByReqs($tempValue, 10000);
+			if ($bright === null || $newBright->{$prefix . 'Bright'} > $bright->{$prefix . 'Bright'}) {
+				if ($bright !== null) {
+					$value -= $bright->{$prefix . 'Bright'};
+					$blob .= "Remove bright QL $bright->ql\n\n";
+				}
 				$bright = $newBright;
-				$value += $bright->abilityBright;
-				$blob .= "Adding bright ql $bright->ql\n\n";
+				$value += $bright->{$prefix . 'Bright'};
+				$blob .= "<highlight>Add bright QL $bright->ql<end>\n\n";
 			}
 			
 			// add faded
-			if ($faded !== null) {
-				$value -= $faded->abilityFaded;
-				$blob .= "Removing faded ql $faded->ql\n\n";
-			}
-			$newFaded = $this->findMaxImplantQlByReqs($value, 10000);
-			if ($newFaded->abilityFaded > $faded->abilityFaded) {
+			$tempValue = $faded === null ? $value : $value - $faded->{$prefix . 'Faded'};
+			$newFaded = $this->findMaxImplantQlByReqs($tempValue, 10000);
+			if ($faded === null || $newFaded->{$prefix . 'Faded'} > $faded->{$prefix . 'Faded'}) {
+				if ($faded !== null) {
+					$value -= $faded->{$prefix . 'Faded'};
+					$blob .= "Remove faded QL $faded->ql\n\n";
+				}
 				$faded = $newFaded;
-				$value += $faded->abilityFaded;
-				$blob .= "Adding faded ql $faded->ql\n\n";
+				$value += $faded->{$prefix . 'Faded'};
+				$blob .= "<highlight>Add faded QL $faded->ql<end>\n\n";
 			}
 		}
 		
-		$blob .= "Ending ability: $value";
-		$msg = $this->text->make_blob("Ladder Results", $blob);
+		$blob .= "-------------------\n\nEnding $type: $value";
+		$msg = $this->text->make_blob("Ladder Results for $value " . ucfirst(strtolower($type)), $blob);
 		
 		$sendto->reply($msg);
 	}
