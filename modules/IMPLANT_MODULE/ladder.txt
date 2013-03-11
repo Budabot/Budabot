@@ -1,0 +1,5 @@
+To show sequence of laddering implants for an ability:
+<highlight><tab><symbol>ladder ability 'base ability amount'<end>
+
+To show sequence of laddering implants for treatment:
+<highlight><tab><symbol>ladder treatment 'base treatment amount'<end>
