@@ -262,8 +262,9 @@ class OnlineController {
 			$reason = time();
 			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $reason, $sender, $type);
 			$msg = "<highlight>$sender<end> is now AFK.";
-		} else if (preg_match("/^.?brb (.*)$/i", $message, $arr)) {
-			$reason = time() . '|' . $arr[1];
+		} else if (preg_match("/^.?brb(.*)$/i", $message, $arr)) {
+			$msg = trim($arr[1]);
+			$reason = time() . '|brb ' . $msg;
 			$this->db->exec("UPDATE online SET `afk` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $reason, $sender, $type);
 			$msg = "<highlight>$sender<end> is now AFK.";
 		} else if (preg_match("/^.?afk (.*)$/i", $message, $arr)) {
