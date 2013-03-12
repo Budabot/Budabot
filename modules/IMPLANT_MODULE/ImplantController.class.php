@@ -179,6 +179,17 @@ class ImplantController {
 		$prefix = $type == 'ability' ? 'ability' : 'skill';
 		
 		$blob = "Starting $type: $value\n\n-------------------\n\n";
+		
+		$that = $this;
+		if ($type == 'ability') {
+			$getMax = function($value) use ($that) {
+				return $that->findMaxImplantQlByReqs($value, 10000);
+			};
+		} else {
+			$getMax = function($value) use ($that) {
+				return $that->findMaxImplantQlByReqs(10000, $value);
+			};
+		} 
 
 		$shiny = null;
 		$bright = null;
@@ -186,7 +197,7 @@ class ImplantController {
 		for ($i = 0; $i < 5; $i++) {
 			// add shiny
 			$tempValue = $shiny === null ? $value : $value - $shiny->{$prefix . 'Shiny'};
-			$newShiny = $this->findMaxImplantQlByReqs($tempValue, 10000);
+			$newShiny = $getMax($tempValue);
 			if ($shiny === null || $newShiny->{$prefix . 'Shiny'} > $shiny->{$prefix . 'Shiny'}) {
 				if ($shiny !== null) {
 					$value -= $shiny->{$prefix . 'Shiny'};
@@ -194,12 +205,13 @@ class ImplantController {
 				}
 				$shiny = $newShiny;
 				$value += $shiny->{$prefix . 'Shiny'};
-				$blob .= "<highlight>Add shiny QL $shiny->ql<end>\n\n";
+				$lowest = $shiny->{'lowest' . ucfirst($prefix) . 'Shiny'};
+				$blob .= "<highlight>Add shiny QL $shiny->ql<end> ($lowest)\n\n";
 			}
 			
 			// add bright
 			$tempValue = $bright === null ? $value : $value - $bright->{$prefix . 'Bright'};
-			$newBright = $this->findMaxImplantQlByReqs($tempValue, 10000);
+			$newBright = $getMax($tempValue);
 			if ($bright === null || $newBright->{$prefix . 'Bright'} > $bright->{$prefix . 'Bright'}) {
 				if ($bright !== null) {
 					$value -= $bright->{$prefix . 'Bright'};
@@ -207,12 +219,13 @@ class ImplantController {
 				}
 				$bright = $newBright;
 				$value += $bright->{$prefix . 'Bright'};
-				$blob .= "<highlight>Add bright QL $bright->ql<end>\n\n";
+				$lowest = $bright->{'lowest' . ucfirst($prefix) . 'Bright'};
+				$blob .= "<highlight>Add bright QL $bright->ql<end>  ($lowest)\n\n";
 			}
 			
 			// add faded
 			$tempValue = $faded === null ? $value : $value - $faded->{$prefix . 'Faded'};
-			$newFaded = $this->findMaxImplantQlByReqs($tempValue, 10000);
+			$newFaded = $getMax($tempValue);
 			if ($faded === null || $newFaded->{$prefix . 'Faded'} > $faded->{$prefix . 'Faded'}) {
 				if ($faded !== null) {
 					$value -= $faded->{$prefix . 'Faded'};
@@ -220,7 +233,8 @@ class ImplantController {
 				}
 				$faded = $newFaded;
 				$value += $faded->{$prefix . 'Faded'};
-				$blob .= "<highlight>Add faded QL $faded->ql<end>\n\n";
+				$lowest = $faded->{'lowest' . ucfirst($prefix) . 'Faded'};
+				$blob .= "<highlight>Add faded QL $faded->ql<end> ($lowest)\n\n";
 			}
 		}
 		
