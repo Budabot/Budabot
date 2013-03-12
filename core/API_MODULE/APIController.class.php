@@ -101,8 +101,8 @@ class APIController {
 			$isSuperAdmin = $apiRequest->username == $this->chatBot->vars['SuperAdmin'];
 			$fromLocalHost = $clientHandler->getClientAddress() == '127.0.0.1';
 
-			// password is not needed for superadmin from 'localhost' if the superadmin hasn't set password yet
-			$noPasswordNeeded = $isSuperAdmin && $fromLocalHost && !$userPassword;
+			// password is not needed for superadmin from 'localhost'
+			$noPasswordNeeded = $isSuperAdmin && $fromLocalHost;
 
 			if (!$noPasswordNeeded) {
 				if ($userPassword === false) {
