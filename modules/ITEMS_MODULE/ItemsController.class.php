@@ -306,8 +306,9 @@ class ItemsController {
 		
 		$url = 'http://itemxml.xyphos.com/';
 	
-		$data = $this->http->get($url)->withQueryParams($params)->waitAndReturnResponse()->body;
-		if (empty($data) || '<error>' == substr($data, 0, 7)) {
+		$response = $this->http->get($url)->withQueryParams($params)->waitAndReturnResponse();
+		$data = $response->body;
+		if ($response->error || empty($data) || '<error>' == substr($data, 0, 7)) {
 			return null;
 		}
 		
