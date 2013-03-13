@@ -62,17 +62,17 @@ class GauntletController {
 	
 	public function getMessage($gauntlet) {
 		if ($gauntlet->Vizaresh != '-1') {
-			$msg .= "<highlight>Vizaresh<end>: " . $this->util->unixtime_to_readable($gauntlet->Vizaresh) . ". ";
+			$msg .= "<highlight>Vizaresh<end>: " . $this->util->unixtime_to_readable($gauntlet->Vizaresh, false) . ". ";
 		} else {
 			$msg .= "<highlight>Vizaresh<end>: Unknown spawn time. ";
 		}
 		
 		if ($gauntlet->Clan != '-1') {
-			$msg .= "<Clan>Clan<end>: " . $this->util->unixtime_to_readable($gauntlet->Clan) . ". ";
+			$msg .= "<Clan>Clan<end>: " . $this->util->unixtime_to_readable($gauntlet->Clan, false) . ". ";
 		}
 		
 		if ($gauntlet->Omni != '-1') {
-			$msg .= "<Omni>Omni<end>: " . $this->util->unixtime_to_readable($gauntlet->Omni) . ". ";
+			$msg .= "<Omni>Omni<end>: " . $this->util->unixtime_to_readable($gauntlet->Omni, false) . ". ";
 		}
 		return $msg;
 	}

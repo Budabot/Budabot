@@ -78,7 +78,7 @@ class PlayfieldController {
 			$msg = $this->text->make_blob("Playfields ($count)", $blob);
 		} else if ($count == 1) {
 			$row = $data[0];
-			$msg = "$row->long_name has ID <highlight>$row->id<end>";
+			$msg = "$row->long_name has ID <highlight>$row->id<end>.";
 		} else {
 			$msg = "There were no matches for your search.";
 		}
@@ -134,7 +134,7 @@ class PlayfieldController {
 
 		$playfield = $this->get_playfield_by_name($playfield_name);
 		if ($playfield === null) {
-			$sendto->reply("Could not find playfield '$playfield_name'");
+			$sendto->reply("Could not find playfield '$playfield_name'.");
 		} else {
 			$playfield_id = $playfield->id;
 			$playfield_name = $playfield->short_name;
