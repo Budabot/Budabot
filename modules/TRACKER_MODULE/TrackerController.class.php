@@ -10,7 +10,7 @@
  *	@DefineCommand(
  *		command     = 'track', 
  *		accessLevel = 'all', 
- *		description = 'Show and manage trackers players', 
+ *		description = 'Show and manage tracked players', 
  *		help        = 'track.txt'
  *	)
  */

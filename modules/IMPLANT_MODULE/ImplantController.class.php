@@ -171,7 +171,7 @@ class ImplantController {
 	
 	/**
 	 * @HandlesCommand("ladder")
-	 * @Matches("/^ladder (ability|treatment) (\d+)$/i")
+	 * @Matches("/^ladder (ability|treatment|treat) (\d+)$/i")
 	 */
 	public function ladderCommand($message, $channel, $sender, $sendto, $args) {
 		$type = strtolower($args[1]);
