@@ -171,7 +171,7 @@ class ImplantController {
 	
 	/**
 	 * @HandlesCommand("ladder")
-	 * @Matches("/^ladder (ability|treatment|treat) (\d+)$/i")
+	 * @Matches("/^ladder (ability|treatment) (\d+)$/i")
 	 */
 	public function ladderCommand($message, $channel, $sender, $sendto, $args) {
 		$type = strtolower($args[1]);
@@ -182,14 +182,24 @@ class ImplantController {
 		
 		$that = $this;
 		if ($type == 'ability') {
+			if ($value < 6) {
+				$sendto->reply("Base ability must be at least <highlight>6<end>.");
+				return;
+			}
+		
 			$getMax = function($value) use ($that) {
 				return $that->findMaxImplantQlByReqs($value, 10000);
 			};
 		} else {
+			if ($value < 11) {
+				$sendto->reply("Base treatment must be at least <highlight>11<end>.");
+				return;
+			}
+		
 			$getMax = function($value) use ($that) {
 				return $that->findMaxImplantQlByReqs(10000, $value);
 			};
-		} 
+		}
 
 		$shiny = null;
 		$bright = null;
@@ -239,6 +249,7 @@ class ImplantController {
 		}
 		
 		$blob .= "-------------------\n\nEnding $type: $value";
+		$blob .= "\n\n<highlight>Inspired by a command written by Lucier of the same name<end>";
 		$msg = $this->text->make_blob("Laddering to $value " . ucfirst(strtolower($type)), $blob);
 		
 		$sendto->reply($msg);
