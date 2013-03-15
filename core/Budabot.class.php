@@ -233,8 +233,7 @@ class Budabot extends AOChat {
 		forEach ($this->vars['module_load_paths'] as $path) {
 			if ($d = dir($path)) {
 				while (false !== ($MODULE_NAME = $d->read())) {
-					// filters out ., .., .svn
-					if (!is_dir($MODULE_NAME) && $MODULE_NAME != '.svn') {
+					if ($this->isModuleDir($path, $MODULE_NAME)) {
 						$this->registerModule($path, $MODULE_NAME);
 					}
 				}
@@ -244,7 +243,17 @@ class Budabot extends AOChat {
 		$this->callAndClearSetupHandlers();
 		$this->db->commit();
 	}
-	
+
+	private function isModuleDir($path, $moduleName) {
+		return !$this->isDotOrDotDot($moduleName)
+			&& $moduleName != '.svn'
+			&& is_dir("$path/$moduleName");
+	}
+
+	private function isDotOrDotDot($name) {
+		return is_dir($name);
+	}
+
 	/**
 	 * Calls all so far collected @Setup handlers and clears them after use.
 	 */
