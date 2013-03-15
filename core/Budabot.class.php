@@ -245,13 +245,12 @@ class Budabot extends AOChat {
 	}
 
 	private function isModuleDir($path, $moduleName) {
-		return !$this->isDotOrDotDot($moduleName)
-			&& $moduleName != '.svn'
+		return $this->isValidModuleName($moduleName)
 			&& is_dir("$path/$moduleName");
 	}
 
-	private function isDotOrDotDot($name) {
-		return is_dir($name);
+	private function isValidModuleName($name) {
+		return $name != '.' && $name != '..';
 	}
 
 	/**
