@@ -180,6 +180,8 @@ class IRCController {
 				forEach ($channel->users as $user) {
 					if ($user->nick == $this->setting->irc_nickname) {
 						$numirc--;
+					} else if ($user->nick == "Q" | $user->nick =="ChanServ") {
+						$numirc--;
 					} else {
 						$blob .= "<tab><tab>{$user->nick}\n";
 					}
