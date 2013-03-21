@@ -36,9 +36,9 @@
 /delay %1
 !dimach 3100
 /delay %1
-!fa
+!fullauto
 /delay %1
-!fa 2.2 2.4 2000 550
+!fullauto 2.2 2.4 2000 550
 /delay %1
 !fastattack
 /delay %1
