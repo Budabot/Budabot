@@ -7,10 +7,4 @@
 !rshow 30
 !rshow 3000
 
-!rb
-!rb aaaaa
-!rb comp
-!rbshow 30
-!rbshow 3000
-
 /text End RECIPE_MODULE

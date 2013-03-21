@@ -4,10 +4,6 @@
 /delay %1
 !whois tyrenceerror
 /delay %1
-!whoisall tyrence
-/delay %1
-!whoisall tyrenceerror
-/delay %1
 !history tyrence
 /delay %1
 !history tyrenceerror
@@ -17,8 +13,6 @@
 !history tyrenceerror 1
 /delay %1
 
-!namehistory tyrence
-!namehistory tyrenceerror
 !lookup tyrenceerror
 !lookup error
 !lookup 893395803
