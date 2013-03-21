@@ -406,6 +406,11 @@ class Util {
 		return substr_compare($string, $test, -$testlen) === 0;
 	}
 	
+	// taken from: http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
+	function startsWith($haystack, $needle) {
+		return !strncmp($haystack, $needle, strlen($needle));
+	}
+	
 	public function stripColors($msg) {
 		$msg = preg_replace("~<font color=#.{6}>~", "", $msg);
 		$msg = preg_replace("~</font>~", "", $msg);
