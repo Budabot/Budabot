@@ -1,2 +1,0 @@
-To show a list of players that have the specified profession as an alt:
-<highlight><tab><symbol>findprof 'profession'<end>

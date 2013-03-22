@@ -1,2 +1,0 @@
-To show a full list of players online with their alts:
-<highlight><tab><symbol>players<end>
