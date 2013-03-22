@@ -146,7 +146,7 @@
 	if (checkIfTableExists($db, "eventcfg_<myname>")) {
 		upgrade($db, "UPDATE eventcfg_<myname> SET type = LOWER(type)");
 	}
-	
+
 	// increase size of help and description
 	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, "cmdcfg_<myname>") && getColumnType($db, 'cmdcfg_<myname>', 'help') == 'varchar(25)') {
 		upgrade($db, "ALTER TABLE cmdcfg_<myname> CHANGE COLUMN help help VARCHAR(255)");
@@ -206,7 +206,7 @@
 			$db->begin_transaction();
 			$db->exec("ALTER TABLE cmdcfg_<myname> RENAME TO tmp_cmdcfg_<myname>");
 			// copied from Budabot.class.php (without 'IF NOT EXISTS')
-			$db->exec("CREATE TABLE cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(6), `type` VARCHAR(18), `file` TEXT, `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(50) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(25))");
+			$db->exec("CREATE TABLE cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(6), `type` VARCHAR(18), `file` TEXT, `cmd` VARCHAR(25), `admin` VARCHAR(10), `description` VARCHAR(75) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(255))");
 			$db->exec("INSERT INTO cmdcfg_<myname> SELECT * FROM tmp_cmdcfg_<myname>");
 			$db->exec("DROP TABLE tmp_cmdcfg_<myname>");
 			$db->commit();
