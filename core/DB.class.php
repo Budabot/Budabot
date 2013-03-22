@@ -143,17 +143,20 @@ class DB {
 
 	//Start of an transaction
 	function begin_transaction() {
+		LegacyLogger::log('DEBUG', "SQL", "Starting transaction");
 		$this->in_transaction = true;
 		$this->sql->beginTransaction();
 	}
 
 	//Commit an transaction
 	function commit() {
+		LegacyLogger::log('DEBUG', "SQL", "Committing transaction");
 		$this->in_transaction = false;
 		$this->sql->Commit();
 	}
 
 	function rollback() {
+		LegacyLogger::log('DEBUG', "SQL", "Rolling back transaction");
 		$this->in_transaction = false;
 		$this->sql->rollback();
 	}
