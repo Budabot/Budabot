@@ -1,7 +1,10 @@
 *****************************
-	Version 3.0_RC5:
+	Version 3.0_GA:
 *****************************
--added !play, !players, and !findprof commands (thanks Naturarum (RK2))
+-changes relating to server merge
+-chatbot.sh now accepts an optional bot name as a parameter
+-added !ladder
+-!inits and !specials are now combined into !weapon
 -added WEBUI_MODULE for viewing the bot console from a web browser
 -added core COLORS module for configuring bot colors (!config COLORS)
 -!settings is now in the core CONFIG module
@@ -17,7 +20,7 @@
 -bot should no longer pause when downloading large files from external resources or doing !orglist
 -added Xan bosses to !whereis, !boss, and !bossloot
 -!boss and !bossloot now include Inferno static bosses (thanks to Mansikka (RK1) for this suggestion)
--improved items db rip and updated to items db to 18.05.04
+-improved items db rip and updated to items db to 18.06.00
 -!items now shows exact matches first in the results, and shows a message when results have been limited (thanks to Deathmaster1 (RK2) for this suggestion)
 -nearly all commands and events (including core commands and events) are now configurable
 -mods and admins can no longer configure commands that require an access level higher than their own to execute
@@ -54,7 +57,7 @@
 -added !towerstats
 -added !nanoloc
 -added !showcommand
--removed !kos and replaced with !reputation
+-removed !kos and replaced with !reputationreputation
 -removed BIOR_GUARDIAN_MODULE and WAITLIST_MODULE due to low usage
 -various fixes for IRC relay
 -people in IRC now show up in !online
