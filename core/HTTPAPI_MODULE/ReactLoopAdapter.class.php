@@ -1,6 +1,8 @@
 <?php
 
-class ReactLoopAdapter implements React\EventLoop\LoopInterface {
+namespace Budabot\Core\Modules;
+
+class ReactLoopAdapter implements \React\EventLoop\LoopInterface {
 
 	private $socketManager;
 	private $readNotifiers;

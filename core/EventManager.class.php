@@ -1,14 +1,9 @@
 <?php
 
-/*
-`module` VARCHAR(50) NOT NULL
-`type` VARCHAR(18)
-`file` VARCHAR(255)
-`is_core` TINYINT NOT NULL
-`description` VARCHAR(50) NOT NULL DEFAULT ''
-`verify` INT DEFAULT 0
-`status` INT DEFAULT 1
-*/
+namespace Budabot\Core;
+
+use stdClass;
+use Exception;
 
 /**
  * @Instance

@@ -1,5 +1,10 @@
 <?php
 
+namespace Budabot\User\Modules;
+
+use Budabot\Core\AutoInject;
+use Budabot\Core\PrivateChannelCommandReply;
+
 /**
  * Authors: 
  *	- Tyrence (RK2)

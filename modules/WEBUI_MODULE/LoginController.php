@@ -1,6 +1,6 @@
 <?php
 
-namespace WebUi;
+namespace Budabot\User\Modules\WebUi;
 
 /**
  * @Instance
@@ -19,7 +19,7 @@ class LoginController {
 	/** @Inject */
 	public $preferences;
 
-	/** @Inject("WebUi\Template") */
+	/** @Inject */
 	public $template;
 
 	/**

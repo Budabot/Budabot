@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\Core;
+
 require_once 'CommandReply.class.php';
 
 class GuildChannelCommandReply implements CommandReply {

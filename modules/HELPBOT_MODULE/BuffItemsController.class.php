@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\User\Modules;
+
 /**
  * Authors: 
  *	- Imoutochan (RK1)

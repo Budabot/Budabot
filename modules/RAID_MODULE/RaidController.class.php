@@ -1,5 +1,9 @@
 <?php
 
+namespace Budabot\User\Modules;
+
+use stdClass;
+
 /**
  * Authors: 
  *	- Derroylo (RK2)

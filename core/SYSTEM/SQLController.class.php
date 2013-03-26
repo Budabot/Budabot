@@ -1,4 +1,9 @@
 <?php
+
+namespace Budabot\Core\Modules;
+
+use Budabot\Core\SQLException;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)

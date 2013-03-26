@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
 class ClientHandler {
 	private $client;
 	private $syncId;

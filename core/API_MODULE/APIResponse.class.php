@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
 define('API_SUCCESS', 0);
 define('API_INVALID_VERSION', 1);
 define('API_UNSET_PASSWORD', 2);

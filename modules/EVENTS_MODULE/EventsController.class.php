@@ -1,4 +1,7 @@
 <?php
+
+namespace Budabot\User\Modules;
+
 /**
  * Authors: 
  *	- Legendadv (RK2)

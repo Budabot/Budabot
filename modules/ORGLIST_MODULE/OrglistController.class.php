@@ -1,4 +1,9 @@
 <?php
+
+namespace Budabot\User\Modules;
+
+use stdClass;
+
 /**
  * Authors: 
  *	- Tyrence (RK2)

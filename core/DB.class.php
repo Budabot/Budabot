@@ -1,5 +1,10 @@
 <?php
 
+namespace Budabot\Core;
+
+use PDO;
+use PDOException;
+
 require_once 'DBRow.class.php';
 
 /**
@@ -70,7 +75,7 @@ class DB {
 		$args = $this->getParameters(func_get_args());
 
 		$ps = $this->executeQuery($sql, $args);
-		$result = $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
+		$result = $ps->fetchAll(PDO::FETCH_CLASS, 'budabot\core\DBRow');
 
 		if (count($result) == 0) {
 			return null;
@@ -85,7 +90,7 @@ class DB {
 		$args = $this->getParameters(func_get_args());
 
 		$ps = $this->executeQuery($sql, $args);
-		return $ps->fetchAll(PDO::FETCH_CLASS, 'DBRow');
+		return $ps->fetchAll(PDO::FETCH_CLASS, 'budabot\core\DBRow');
 	}
 
 	function exec($sql) {

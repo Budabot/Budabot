@@ -1,6 +1,8 @@
 <?php
 
-namespace WebUi;
+namespace Budabot\User\Modules\WebUi;
+
+use LoggerAppenderBuffer;
 
 /**
  * @Instance
@@ -28,10 +30,10 @@ class RootController {
 	/** @Inject */
 	public $accessManager;
 
-	/** @Inject("WebUi\LoginController") */
-	public $login;
+	/** @Inject */
+	public $loginController;
 
-	/** @Inject("WebUi\Template") */
+	/** @Inject */
 	public $template;
 
 	const LOG_EVENTS_TOPIC = 'http://localhost/logEvents';
@@ -93,7 +95,7 @@ class RootController {
 	}
 
 	public function handleRootResource($request, $response, $body, $session) {
-		if ($this->login->isLoggedIn($session)) {
+		if ($this->loginController->isLoggedIn($session)) {
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
 			$response->end($this->template->render('index.html', $session, array(
 				'webSocketUri' => $this->httpApi->getWebSocketUri(
@@ -108,13 +110,13 @@ class RootController {
 
 	public function hasAccessToLogConsole($session) {
 		$user = $session->getData('user');
-		return $this->login->isLoggedIn($session) &&
+		return $this->loginController->isLoggedIn($session) &&
 			$this->accessManager->checkAccess($user, $this->setting->log_console_access_level);
 	}
 
 	public function handleWsResource($request, $response, $body, $session) {
 		if ($request->isWebSocketHandshake()) {
-			if ($this->login->isLoggedIn($session)) {
+			if ($this->loginController->isLoggedIn($session)) {
 				$this->httpApi->upgradeToWebSocket($request, $response, $session);
 			} else {
 				$response->writeHead(403);

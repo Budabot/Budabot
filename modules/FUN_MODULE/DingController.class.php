@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\User\Modules;
+
 /**
  * Author:
  *  - Neksus (RK2)

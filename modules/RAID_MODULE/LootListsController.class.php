@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\User\Modules;
+
 /**
  * Authors: 
  *	- Marinerecon (RK2)

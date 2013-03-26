@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\Core;
+
 /**
  * @name: MMDBParser
  * @author: Tyrence (RK2)

@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\User\Modules;
+
 /**
  * @Instance
  *

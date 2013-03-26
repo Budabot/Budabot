@@ -1,8 +1,11 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
 use Ratchet\WebSocket\WsServer;
 use Ratchet\Wamp\WampServer;
 use React\Socket\Server as SocketServer;
+use stdClass;
 
 /**
  * @Instance("HttpApi")
@@ -91,7 +94,7 @@ class HttpApiController {
 	public function setup() {
 		$this->loop = new ReactLoopAdapter($this->socketManager);
 		$this->socket = new SocketServer($this->loop);
-		$this->httpServer = new React\Http\Server($this->socket);
+		$this->httpServer = new \React\Http\Server($this->socket);
 
 		$this->wamp = new WampHandler();
 		$this->wsServer = new WsServer(new WampServer($this->wamp));

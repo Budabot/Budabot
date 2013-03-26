@@ -1,4 +1,9 @@
 <?php
+
+namespace Budabot\User\Modules;
+
+use stdClass;
+
 /**
  * @Instance
  *
@@ -147,7 +152,7 @@ class TowerController {
 			$this->logger->log('ERROR', 'Given callback is not valid.');
 			return;
 		}
-		$listener = new StdClass();
+		$listener = new stdClass();
 		$listener->callback = $callback;
 		$listener->data = $data;
 		$this->attackListeners []= $listener;

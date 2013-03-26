@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\Core;
+
 /*
 * $Id: aochat.php,v 1.1 2006/12/08 15:17:54 genesiscl Exp $
 *

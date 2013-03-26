@@ -1,4 +1,10 @@
 <?php
+
+namespace Budabot\User\Modules;
+
+use Budabot\Core\AutoInject;
+use ReflectionAnnotatedMethod;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)

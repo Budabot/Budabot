@@ -1,5 +1,10 @@
 <?php
 
+namespace Budabot\Core;
+
+use LoggerConfiguratorDefault;
+use Logger;
+
 // isWindows is a little utility function to check
 // whether the bot is running Windows or something
 // else: returns true if under Windows, else false

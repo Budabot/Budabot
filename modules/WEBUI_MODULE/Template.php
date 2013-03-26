@@ -1,6 +1,6 @@
 <?php
 
-namespace WebUi;
+namespace Budabot\User\Modules\WebUi;
 
 /**
  * @Instance
@@ -10,8 +10,8 @@ class Template {
 	/** @Inject */
 	public $chatBot;
 
-	/** @Inject("WebUi\LoginController") */
-	public $login;
+	/** @Inject */
+	public $loginController;
 
 	/**
 	 * @var \Twig_Environment
@@ -31,7 +31,7 @@ class Template {
 		$parameters = array_merge(array(
 			'botname' => $this->chatBot->vars['name'],
 			'version' => $version,
-			'loggedIn' => $this->login->isLoggedIn($session)
+			'loggedIn' => $this->loginController->isLoggedIn($session)
 		), $parameters);
 		return $this->twig->render($name, $parameters);
 	}
