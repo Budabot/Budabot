@@ -46,13 +46,14 @@ class GauntletController {
 	 * @Matches("/^gauntlet$/i")
 	 */
 	public function gauntletCommand($message, $channel, $sender, $sendto, $args) {
-		$socket = fsockopen('gauntlet.jkbff.com', '14523', $errno, $errstr, 5);
-		$content = fgets($socket, 4096);
+		$response = $this->http->get("http://budabot.jkbff.com/gauntlet/index.php")->waitAndReturnResponse();
 
-		if ($errno != 0) {
-			$msg = "Could not get Gauntlet information: " . $errstr;
+		if ($response->error) {
+			$msg = "Could not get Gauntlet information: " . $response->error;
+		} else if (empty($response->body)) {
+			$msg = "Could not get Gauntlet information.";
 		} else {
-			$gauntlet = json_decode($content);
+			$gauntlet = json_decode($response->body);
 			
 			$blob = $this->getBlob($gauntlet);
 			$msg = $this->getMessage($gauntlet) . $this->text->make_blob("More info", $blob, "Gauntlet");
@@ -89,7 +90,11 @@ class GauntletController {
 		} else {
 			$blob .= "<Omni>Omni<end> does not currently have the Gauntlet buff.\n";
 		}
-		$blob .= "<highlight>Vizaresh<end> spawns in " . $this->util->unixtime_to_readable($gauntlet->Vizaresh) . ".\n";
+		if ($gauntlet->Vizaresh != '-1') {
+			$blob .= "<highlight>Vizaresh<end> spawns in " . $this->util->unixtime_to_readable($gauntlet->Vizaresh) . ".\n";
+		} else {
+			$blob .= "<highlight>Vizaresh<end> unknown spawn time.\n";
+		}
 		$blob .= "\nGauntlet info provided by <highlight>Macross (RK2)<end>";
 		return $blob;
 	}
