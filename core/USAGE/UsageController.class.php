@@ -213,7 +213,6 @@ class UsageController {
 		$settings['relay_enabled'] = ($this->settingManager->get('relaybot') == 'Off' ? '0' : '1');
 		$settings['relay_type'] = $this->settingManager->get('relaytype');
 		$settings['alts_inherit_admin'] = $this->settingManager->get('alts_inherit_admin');
-		$settings['bbin_status'] = $this->settingManager->get('bbin_status');
 		$settings['irc_status'] = $this->settingManager->get('irc_status');
 		$settings['first_and_last_alt_only'] = $this->settingManager->get('first_and_last_alt_only');
 		$settings['aodb_db_version'] = $this->settingManager->get('aodb_db_version');
@@ -222,7 +221,6 @@ class UsageController {
 		$settings['max_blob_size'] = $this->settingManager->get('max_blob_size');
 		$settings['logon_delay'] = $this->settingManager->get('logon_delay');
 		$settings['fancy_online'] = $this->settingManager->get('fancy_online');
-		$settings['online_group_by'] = $this->settingManager->get('online_group_by');
 		$settings['online_show_org_guild'] = $this->settingManager->get('online_show_org_guild');
 		$settings['online_show_org_priv'] = $this->settingManager->get('online_show_org_priv');
 		$settings['online_admin'] = $this->settingManager->get('online_admin');

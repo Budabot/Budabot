@@ -64,7 +64,6 @@ class OnlineController {
 		
 		$this->settingManager->add($this->moduleName, "online_expire", "How long to wait before clearing online list", "edit", "time", "15m", "2m;5m;10m;15m;20m", '', "mod");
 		$this->settingManager->add($this->moduleName, "fancy_online", "Show fancy delimiters and profession icons in the online display", "edit", "options", "1", "true;false", "1;0");
-		$this->settingManager->add($this->moduleName, "online_group_by", "How to group online list", "edit", "options", "profession", "profession;guild");
 		$this->settingManager->add($this->moduleName, "online_show_org_guild", "Show org/rank for players in guild channel", "edit", "options", "1", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
 		$this->settingManager->add($this->moduleName, "online_show_org_priv", "Show org/rank for players in private channel", "edit", "options", "2", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
 		$this->settingManager->add($this->moduleName, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
@@ -311,11 +310,7 @@ class OnlineController {
 			$prof_query = "AND `profession` = '$prof'";
 		}
 
-		if ($this->settingManager->get('online_group_by') == 'profession') {
-			$order_by = "ORDER BY `profession`, `level` DESC";
-		} else if ($this->settingManager->get('online_group_by') == 'guild') {
-			$order_by = "ORDER BY `channel` ASC, o.`name` ASC";
-		}
+		$order_by = "ORDER BY `profession`, `level` DESC";
 
 		$blob = '';
 
@@ -359,45 +354,6 @@ class OnlineController {
 	}
 
 	public function createList(&$data, $show_alts, $show_org_info) {
-		if ($this->settingManager->get('online_group_by') == 'profession') {
-			return $this->createListByProfession($data, $show_alts, $show_org_info);
-		} else if ($this->settingManager->get('online_group_by') == 'guild') {
-			return $this->createListByChannel($data, $show_alts, $show_org_info);
-		}
-	}
-
-	public function createListByChannel(&$data, $show_alts, $show_org_info) {
-		//Colorful temporary var settings (avoid a mess of if statements later in the function)
-		$fancyColon = "::";
-
-		$blob = '';
-		$current_channel = '';
-		forEach ($data as $row) {
-			if ($current_channel != $row->channel) {
-				$current_channel = $row->channel;
-				$blob .= "\n<tab><highlight>$current_channel<end>\n";
-			}
-			
-			$name = $this->text->make_chatcmd($row->name, "/tell $row->name");
-
-			$afk = $this->get_afk_info($row->afk, $fancyColon);
-			$alt = ($show_alts === true) ? $this->get_alt_char_info($row->name, $fancyColon) : "";
-
-			switch ($row->profession) {
-				case "":
-					$blob .= "<tab><tab>$name - Unknown$alt\n";
-					break;
-				default:
-					$admin = ($show_alts === true) ? $this->get_admin_info($row->name, $fancyColon) : "";
-					$guild = $this->get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
-					$blob .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
-			}
-		}
-
-		return $blob;
-	}
-
-	public function createListByProfession(&$data, $show_alts, $show_org_info) {
 		//Colorful temporary var settings (avoid a mess of if statements later in the function)
 		$fancyColon = "::";
 
