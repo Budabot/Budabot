@@ -1,4 +1,7 @@
 <?php
+
+namespace Budabot\User\Modules\WebUi;
+
 /**
  * @Instance
  */
@@ -15,12 +18,6 @@ class StaticController {
 
 	/** @Inject */
 	public $chatBot;
-
-	/** @Inject("WebUi\LoginController") */
-	public $login;
-
-	/** @Inject("WebUi\Template") */
-	public $template;
 
 	const LOG_EVENTS_TOPIC = 'http://localhost/logEvents';
 
