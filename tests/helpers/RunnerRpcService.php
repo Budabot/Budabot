@@ -1,5 +1,6 @@
 <?php
 
+use Budabot\Core\LegacyLogger;
 use Budabot\Core\Modules\ReactLoopAdapter;
 use stdClass;
 
