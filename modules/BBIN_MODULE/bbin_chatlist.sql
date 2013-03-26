@@ -1,2 +1,0 @@
-DROP TABLE IF EXISTS bbin_chatlist_<myname>;
-CREATE TABLE bbin_chatlist_<myname> (`name` CHAR(25) NOT NULL, `faction` CHAR(10) NOT NULL, `profession` CHAR(20) NOT NULL, `guild` CHAR(255) NOT NULL, `breed` CHAR(25) NOT NULL, `level` INT NOT NULL, `ai_level` INT NOT NULL, `afk` VARCHAR(255) NOT NULL, `guest` INT NOT NULL, `dimension` INT NOT NULL, `ircrelay` CHAR(25) NOT NULL, PRIMARY KEY (name, dimension));
