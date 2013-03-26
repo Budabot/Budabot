@@ -6,6 +6,8 @@ use Behat\Behat\Context\ClosuredContextInterface,
 	Behat\Behat\Exception\PendingException;
 use Behat\Gherkin\Node\PyStringNode,
 	Behat\Gherkin\Node\TableNode;
+	
+use stdClass;
 
 // load all composer dependencies
 require_once ROOT_PATH . '/lib/TestAOChatServer/AOChatServerStub.php';

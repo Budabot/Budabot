@@ -1,5 +1,8 @@
 <?php
 
+use Budabot\Core\Modules\ReactLoopAdapter;
+use stdClass;
+
 class RunnerRpcService {
 
 	/** @Inject */

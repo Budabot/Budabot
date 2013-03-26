@@ -1,5 +1,7 @@
 <?php
 
+use Exception;
+
 class RpcServerStub {
 	private $rpcClient = null;
 
