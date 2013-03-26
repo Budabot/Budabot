@@ -2,6 +2,9 @@
 
 namespace Budabot\Core\Modules;
 
+use Budabot\Core\SocketNotifier;
+use BadMethodCallException;
+
 class ReactLoopAdapter implements \React\EventLoop\LoopInterface {
 
 	private $socketManager;
@@ -84,6 +87,6 @@ class ReactLoopAdapter implements \React\EventLoop\LoopInterface {
 	}
 
 	public function stop() {
-		throw new BadMethodCallException("Running is not implemented by this event loop!");
+		throw new BadMethodCallException("Stopping is not implemented by this event loop!");
 	}
 }
