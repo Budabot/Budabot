@@ -1,6 +1,8 @@
 <?php
 namespace WebUiTest;
 
+use Budabot\User\Modules\WebUi\LoginController;
+
 require_once 'Phake.php';
 require_once 'PHPUnit/Autoload.php';
 require_once __DIR__ . '/../../../tests/helpers/BudabotTestCase.php';
@@ -22,7 +24,7 @@ class LoginControllerTest extends \BudabotTestCase {
 	private $ctrl;
 
 	function setUp() {
-		$this->ctrl = new \WebUi\LoginController();
+		$this->ctrl = new LoginController();
 		$this->ctrl->moduleName = 'WEBUI_MODULE';
 		$this->httpApi = $this->injectMock($this->ctrl, 'httpapi', 'HttpApiController');
 		$this->preferences = $this->injectMock($this->ctrl, 'preferences', 'Preferences');
