@@ -7,6 +7,8 @@ require_once 'RunnerRpcService.php';
 
 use Budabot\Core\BotRunner;
 use Budabot\Core\Registry;
+use Budabot\Core\AsyncHttp;
+use Budabot\Core\HttpRequest;
 
 class TestBotRunner extends BotRunner {
 
