@@ -26,9 +26,9 @@ class LoginControllerTest extends \BudabotTestCase {
 	function setUp() {
 		$this->ctrl = new LoginController();
 		$this->ctrl->moduleName = 'WEBUI_MODULE';
-		$this->httpApi = $this->injectMock($this->ctrl, 'httpapi', 'HttpApiController');
-		$this->preferences = $this->injectMock($this->ctrl, 'preferences', 'Preferences');
-		$this->template = $this->injectMock($this->ctrl, 'template', 'WebUi\Template');
+		$this->httpApi = $this->injectMock($this->ctrl, 'httpapi', 'Budabot\Core\Modules\HttpApiController');
+		$this->preferences = $this->injectMock($this->ctrl, 'preferences', 'Budabot\Core\Preferences');
+		$this->template = $this->injectMock($this->ctrl, 'template', 'Budabot\User\Modules\WebUi\Template');
 		$this->session = \Phake::mock('\Session');
 	}
 
