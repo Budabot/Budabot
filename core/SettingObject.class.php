@@ -1,4 +1,7 @@
 <?php
+
+namespace Budabot\Core;
+
 /**
  * @Instance("setting")
  */

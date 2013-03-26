@@ -1,5 +1,9 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
+use Exception;
+
 class APIException extends Exception {
 	private $responseMessage;
 

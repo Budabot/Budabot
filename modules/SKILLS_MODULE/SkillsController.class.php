@@ -1,5 +1,9 @@
 <?php
 
+namespace Budabot\User\Modules;
+
+use DOMDocument;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)

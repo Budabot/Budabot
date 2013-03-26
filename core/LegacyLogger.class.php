@@ -1,5 +1,10 @@
 <?php
 
+namespace Budabot\Core;
+
+use Logger;
+use LoggerLevel;
+
 class LegacyLogger {
 	public static $TIMESTAMP_FORMAT = "Ymd H:i:s";
 

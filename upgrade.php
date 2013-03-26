@@ -1,5 +1,8 @@
 <?php
 
+use Budabot\Core\DB;
+use Budabot\Core\SQLException;
+
 	/*
 	 ** This file is part of Budabot.
 	 **
@@ -17,7 +20,7 @@
 	 ** along with Budabot. If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	$db = Registry::getInstance('db');
+	$db = budabot\core\Registry::getInstance('db');
 
 	/**
 	 * Returns array of information of each column in the given $table.

@@ -1,19 +1,8 @@
 <?php
 
-/*
-`name` VARCHAR(30) NOT NULL
-`module` VARCHAR(50)
-`mode` VARCHAR(10)
-`is_core` TINYINT NOT NULL
-`setting` VARCHAR(50) DEFAULT '0'
-`options` VARCHAR(50) Default '0'
-`intoptions` VARCHAR(50) DEFAULT '0'
-`description` VARCHAR(50) NOT NULL DEFAULT ''
-`source` VARCHAR(5)
-`access_level` INT DEFAULT 0
-`help` VARCHAR(60)
-`verify` INT DEFAULT 1
-*/
+namespace Budabot\Core;
+
+use stdClass;
 
 /*
 Table Description

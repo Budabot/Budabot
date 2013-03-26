@@ -1,4 +1,7 @@
 <?php
+
+namespace Budabot\Core;
+
 /*
 ** Author: Sebuda, Derroylo (RK2)
 ** Description: AO xml abstaction layer for guild info, whois, player history and server status.

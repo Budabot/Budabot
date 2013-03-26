@@ -1,6 +1,6 @@
 <?php
 
-require_once 'SettingHandler.class.php';
+namespace Budabot\Core;
 
 class SettingHandler {
 	/** @Inject */
@@ -8,7 +8,7 @@ class SettingHandler {
 
 	protected $row;
 
-	public function __construct($row) {
+	public function __construct(DBRow $row) {
 		$this->row = $row;
 	}
 

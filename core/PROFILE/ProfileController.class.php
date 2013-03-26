@@ -1,5 +1,10 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
+use Budabot\Core\CommandReply;
+use Exception;
+
 /**
  * Authors: 
  *	- Tyrence (RK2)

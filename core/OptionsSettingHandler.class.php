@@ -1,10 +1,12 @@
 <?php
 
+namespace Budabot\Core;
+
 require_once 'SettingHandler.class.php';
 
 class OptionsSettingHandler extends SettingHandler {
 	
-	public function __construct($row) {
+	public function __construct(DBRow $row) {
 		parent::__construct($row);
 	}
 	

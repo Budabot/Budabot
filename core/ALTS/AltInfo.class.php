@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
 class AltInfo {
 	public $main; // The main for this character
 	public $alts = array(); // The list of alts for this character

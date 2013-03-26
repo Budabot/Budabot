@@ -1,5 +1,9 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
+use Budabot\Core\DB;
+
 /**
  * Authors:
  *  - Tyrence (RK2)

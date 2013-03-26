@@ -19,5 +19,5 @@
 
 require './core/BotRunner.php';
 
-$runner = new BotRunner($argv);
+$runner = new budabot\core\BotRunner($argv);
 $runner->run();

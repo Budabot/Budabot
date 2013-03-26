@@ -1,5 +1,10 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
+use Budabot\Core\SocketNotifier;
+use Exception;
+
 /**
  * Authors: 
  *  - Tyrence (RK2), 

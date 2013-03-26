@@ -1,5 +1,11 @@
 <?php
 
+namespace Budabot\Core;
+
+use stdClass;
+use ReflectionAnnotatedMethod;
+use Exception;
+
 /**
  * @Instance
  */

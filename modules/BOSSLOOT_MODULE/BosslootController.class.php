@@ -1,4 +1,7 @@
 <?php
+
+namespace Budabot\User\Modules;
+
 /**
  * Bossloot Module Ver 1.1
  * Written By Jaqueme

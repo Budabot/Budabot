@@ -1,5 +1,10 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
+use stdClass;
+use Budabot\Core\CommandAlias;
+
 /**
  * Authors:
  *  - Tyrence (RK2)
@@ -201,7 +206,7 @@ class UsageController {
 		$settings['db_type'] = $this->db->get_type();
 		$settings['bot_version'] = $version;
 		$settings['using_git'] = (file_exists("./modules/GIT_MODULE/GitController.class.php") === true ? '1' : '0');
-		$settings['os'] = (isWindows() === true ? 'Windows' : 'Other');
+		$settings['os'] = (\budabot\core\isWindows() === true ? 'Windows' : 'Other');
 		
 		$settings['symbol'] = $this->settingManager->get('symbol');
 		$settings['spam_protection'] = $this->settingManager->get('spam_protection');

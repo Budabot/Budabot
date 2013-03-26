@@ -1,5 +1,9 @@
 <?php
 
+namespace Budabot\User\Modules;
+
+use Budabot\Core\StopExecutionException;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)

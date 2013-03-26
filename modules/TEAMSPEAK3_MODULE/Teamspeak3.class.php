@@ -1,5 +1,9 @@
 <?php
 
+namespace Budabot\User\Modules;
+
+use Exception;
+
 /**
  * @author: Tshaar (RK2)
  */
