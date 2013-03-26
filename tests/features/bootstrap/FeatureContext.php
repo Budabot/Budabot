@@ -172,9 +172,7 @@ class FeatureContext extends BehatContext
 		assertObjectHasAttribute('relay_enabled', $stats->settings);
 		assertObjectHasAttribute('relay_type', $stats->settings);
 		assertObjectHasAttribute('alts_inherit_admin', $stats->settings);
-		assertObjectHasAttribute('bbin_status', $stats->settings);
 		assertObjectHasAttribute('irc_status', $stats->settings);
-		assertObjectHasAttribute('first_and_last_alt_only', $stats->settings);
 		assertObjectHasAttribute('aodb_db_version', $stats->settings);
 		assertObjectHasAttribute('guild_admin_access_level', $stats->settings);
 		assertObjectHasAttribute('guild_admin_rank', $stats->settings);
