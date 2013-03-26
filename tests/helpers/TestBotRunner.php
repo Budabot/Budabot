@@ -6,6 +6,7 @@ require_once __DIR__ . '/../../lib/TestAOChatServer/JSONRPCServer.php';
 require_once 'RunnerRpcService.php';
 
 use Budabot\Core\BotRunner;
+use Budabot\Core\Registry;
 
 class TestBotRunner extends BotRunner {
 
