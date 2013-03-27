@@ -2,6 +2,7 @@
 
 use Budabot\Core\DB;
 use Budabot\Core\SQLException;
+use Budabot\Core\Registry;
 
 	/*
 	 ** This file is part of Budabot.
@@ -20,7 +21,7 @@ use Budabot\Core\SQLException;
 	 ** along with Budabot. If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	$db = budabot\core\Registry::getInstance('db');
+	$db = Registry::getInstance('db');
 
 	/**
 	 * Returns array of information of each column in the given $table.
