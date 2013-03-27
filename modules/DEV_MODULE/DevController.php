@@ -4,6 +4,7 @@ namespace Budabot\User\Modules;
 
 use Budabot\Core\AutoInject;
 use ReflectionAnnotatedMethod;
+use Budabot\Core\Registry;
 
 /**
  * Authors: 

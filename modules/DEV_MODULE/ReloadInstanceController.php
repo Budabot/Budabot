@@ -3,6 +3,7 @@
 namespace Budabot\User\Modules;
 
 use Budabot\Core\AutoInject;
+use Budabot\Core\Registry;
 
 /**
  * Authors: 
