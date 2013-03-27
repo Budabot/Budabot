@@ -150,6 +150,7 @@ class PrivateChannelController {
 		$this->settingManager->add($this->moduleName, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "1", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
 		$this->settingManager->add($this->moduleName, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
+		$this->settingManager->add($this->moduleName, "add_member_on_join", "Automatically add player as member when they join", "edit", "options", "0", "true;false", "1;0");
 	}
 
 	/**
@@ -522,15 +523,28 @@ class PrivateChannelController {
 		// if the channel is locked, only raidleaders or higher can join manually
 		if ($this->settingManager->get("priv_status") == "0" && !$this->accessManager->checkAccess($sender, 'raidleader')) {
 			if ($this->settingManager->get("priv_status_reason") != "none") {
-				$sendto->reply("The private channel is locked. Reason: " . $this->settingManager->get("priv_status_reason"));
+				$msg = "The private channel is locked. Reason: " . $this->settingManager->get("priv_status_reason");
 			} else {
-				$sendto->reply("The private channel is locked.");
+				$msg = "The private channel is locked.";
 			}
-			return;
+		} else {
+			if (isset($this->chatBot->chatlist[$sender])) {
+				$msg = "You are already in the private channel.";
+			} else {
+				if ($this->settingManager->get('add_member_on_join') == 1) {
+					$row = $this->db->queryRow("SELECT * FROM members_<myname> WHERE `name` = ?", $sender);
+					if ($row === null) {
+						$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $sender, '1');
+						$msg = "You have been added as a member of this bot.  Use !autoinvite to control your auto invite preference.";
+					}
+				}
+				$this->chatBot->privategroup_invite($sender);
+			}
 		}
-
-		$this->chatBot->privategroup_kick($sender);
-		$this->chatBot->privategroup_invite($sender);
+		
+		if (isset($msg)) {
+			$sendto->reply($msg);
+		}
 	}
 	
 	/**
@@ -670,9 +684,6 @@ class PrivateChannelController {
 		if ($this->settingManager->get("guest_relay") == 1) {
 			$this->chatBot->sendGuild($msg, true);
 		}
-
-		// don't need this since the client tells you when someone leaves and we don't add any additional information
-		//$this->chatBot->sendPrivate($msg, true);
 	}
 	
 	/**
