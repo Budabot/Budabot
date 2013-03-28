@@ -113,7 +113,7 @@ class BroadcastController {
 			return;
 		}
 
-		$this->db->query("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES (?, ?, ?)", $name, $sender, time());
+		$this->db->exec("INSERT INTO broadcast_<myname> (`name`, `added_by`, `dt`) VALUES (?, ?, ?)", $name, $sender, time());
 		$msg = "Broadcast bot added successfully.";
 
 		// reload broadcast bot list
