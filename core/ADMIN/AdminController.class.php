@@ -80,8 +80,6 @@ class AdminController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		$className = get_class($this);
-		
 		$this->adminManager->uploadAdmins();
 	}
 	

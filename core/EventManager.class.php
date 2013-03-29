@@ -166,7 +166,7 @@ class EventManager {
 		$eventMethods = func_get_args();
 		array_shift($eventMethods);
 		forEach ($eventMethods as $eventMethod) {
-			$call = get_class($obj) . "." . $eventMethod;
+			$call = Registry::formatName(get_class($obj)) . "." . $eventMethod;
 			$type = $this->getEventTypeByMethod($obj, $eventMethod);
 			if ($type !== null) {
 				if (isset($this->events[$type]) && in_array($call, $this->events[$type])) {
@@ -192,7 +192,7 @@ class EventManager {
 		$eventMethods = func_get_args();
 		array_shift($eventMethods);
 		forEach ($eventMethods as $eventMethod) {
-			$call = get_class($obj) . "." . $eventMethod;
+			$call = Registry::formatName(get_class($obj)) . "." . $eventMethod;
 			$type = $this->getEventTypeByMethod($obj, $eventMethod);
 			if ($type !== null) {
 				if (!isset($this->events[$type]) || !in_array($call, $this->events[$type])) {

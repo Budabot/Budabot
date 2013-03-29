@@ -3,6 +3,7 @@
 namespace Budabot\Core\Modules;
 
 use ReflectionClass;
+use Budabot\Core\Registry;
 
 /**
  * @Instance
@@ -54,9 +55,10 @@ class ConfigController {
 		// construct list of command handlers
 		$filename = array();
 		$reflectedClass = new ReflectionClass($this);
+		$className = Registry::formatName(get_class($this));
 		forEach ($reflectedClass->getMethods() as $reflectedMethod) {
 			if (preg_match('/command$/i', $reflectedMethod->name)) {
-				$filename []= "{$reflectedMethod->class}.{$reflectedMethod->name}";
+				$filename []= "{$className}.{$reflectedMethod->name}";
 			}
 		}
 		$filename = implode(',', $filename);

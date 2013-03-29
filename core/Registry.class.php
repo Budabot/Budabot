@@ -10,7 +10,7 @@ class Registry {
 	private static $dependencies = array();
 
 	public static function setInstance($name, $obj) {
-		$name = Registry::formatName($name);
+		$name = strtolower($name);
 		LegacyLogger::log("DEBUG", "Registry", "Adding instance '$name'");
 		Registry::$repo[$name] = $obj;
 		self::injectDependencies($obj);
@@ -23,13 +23,13 @@ class Registry {
 	}
 
 	public static function instanceExists($name) {
-		$name = Registry::formatName($name);
+		$name = strtolower($name);
 
 		return isset(Registry::$repo[$name]);
 	}
 
 	public static function getInstance($name, $reload = false) {
-		$name = Registry::formatName($name);
+		$name = strtolower($name);
 		LegacyLogger::log("DEBUG", "Registry", "Requesting instance for '$name'");
 
 		$instance = Registry::$repo[$name];
@@ -119,7 +119,7 @@ class Registry {
 				if ($reflection->getAnnotation('Instance')->value != '') {
 					$name = $reflection->getAnnotation('Instance')->value;
 				} else {
-					$name = $className;
+					$name = Registry::formatName($className);
 				}
 				$newInstances[$name] = $className;
 			}

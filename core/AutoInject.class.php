@@ -5,7 +5,8 @@ namespace Budabot\Core;
 class AutoInject {
 	public function __get($name) {
 		if ($name == 'logger') {
-			$instance = new LoggerWrapper(get_class($this));
+			$tag = Registry::formatName(get_class($this));
+			$instance = new LoggerWrapper($tag);
 		} else {
 			$instance = Registry::getInstance($name);
 		}

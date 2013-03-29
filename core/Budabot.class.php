@@ -754,7 +754,7 @@ class Budabot extends AOChat {
 	}
 
 	public function registerInstance($MODULE_NAME, $name, &$obj) {
-		$name = strtolower($name);
+		$name = Registry::formatName(strtolower($name));
 		$this->logger->log('DEBUG', "Registering instance name '$name' for module '$MODULE_NAME'");
 		if (Registry::instanceExists($name)) {
 			$this->logger->log('WARN', "Instance with name '$name' already registered--replaced with new instance");

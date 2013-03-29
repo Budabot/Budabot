@@ -14,7 +14,7 @@ class AccessManager {
 	public $db;
 
 	/** @Inject */
-	public $settingManager;
+	public $setting;
 
 	/** @Inject */
 	public $chatBot;
@@ -73,7 +73,7 @@ class AccessManager {
 
 		$returnVal = $this->checkSingleAccess($sender, $accessLevel);
 
-		if ($returnVal === false && $this->settingManager->get('alts_inherit_admin') == 1) {
+		if ($returnVal === false && $this->setting->alts_inherit_admin == 1) {
 			// if current character doesn't have access,
 			// and if alts_inherit_admin is enabled,
 			// and if the current character is not a main character,
@@ -170,7 +170,7 @@ class AccessManager {
 
 		$accessLevel = $this->getSingleAccessLevel($sender);
 
-		if ($this->settingManager->get('alts_inherit_admin') == 1) {
+		if ($this->setting->alts_inherit_admin == 1) {
 			$altInfo = $this->altsController->get_alt_info($sender);
 			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
 				$mainAccessLevel = $this->getSingleAccessLevel($altInfo->main);
@@ -184,8 +184,8 @@ class AccessManager {
 	}
 
 	public function checkGuildAdmin($sender, $accessLevel) {
-		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->guildmembers[$sender] <= $this->settingManager->get('guild_admin_rank')) {
-			if ($this->compareAccessLevels($this->settingManager->get('guild_admin_access_level'), $accessLevel) >= 0) {
+		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->guildmembers[$sender] <= $this->setting->guild_admin_rank) {
+			if ($this->compareAccessLevels($this->setting->guild_admin_access_level, $accessLevel) >= 0) {
 				return true;
 			} else {
 				return false;
