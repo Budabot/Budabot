@@ -45,7 +45,6 @@ class Limits {
 	public function setup() {
 		$this->settingManager->add($this->moduleName, "tell_req_lvl", "Minimum level required to send tell to bot", "edit", "number", "0", "0;10;50;100;150;190;205;215");
 		$this->settingManager->add($this->moduleName, "tell_req_faction", "Faction required to send tell to bot", "edit", "options", "all", "all;Omni;Neutral;Clan;not Omni;not Neutral;not Clan");
-		$this->settingManager->add($this->moduleName, "tell_req_open", "General requirements to send tell to bot", "edit", "options", "all", "all;member;guild;rl;mod");
 		$this->settingManager->add($this->moduleName, "tell_min_player_age", "Minimum age of player to send tell to bot", "edit", "time", "1s", "1s;7days;14days;1month;2months;6months;1year;2years", '', 'mod', 'limits.txt');
 		$this->settingManager->add($this->moduleName, "tell_error_msg_type", "How to show error messages when limit requirements are not met", "edit", "options", "2", "Specific;Generic;None", "2;1;0");
 	}
@@ -79,11 +78,9 @@ class Limits {
 	}
 
 	public function runChecks($sender) {
-		// check access level
-		if ($this->settingManager->get("tell_req_open") != "all") {
-			if (!$this->accessManager->checkAccess($sender, $this->settingManager->get("tell_req_open"))) {
-				return "Error! You must have an access level of at least <highlight>" . $this->settingManager->get("tell_req_open") . "<end>.";
-			}
+		// if access level is at least member, skip checks
+		if ($this->accessManager->checkAccess($sender, 'member') {
+			return true;
 		}
 
 		if ($this->settingManager->get("tell_req_lvl") != 0 || $this->settingManager->get("tell_req_faction") != "all") {
