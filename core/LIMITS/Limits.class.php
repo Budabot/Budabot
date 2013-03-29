@@ -79,7 +79,7 @@ class Limits {
 
 	public function runChecks($sender) {
 		// if access level is at least member, skip checks
-		if ($this->accessManager->checkAccess($sender, 'member') {
+		if ($this->accessManager->checkAccess($sender, 'member')) {
 			return true;
 		}
 
