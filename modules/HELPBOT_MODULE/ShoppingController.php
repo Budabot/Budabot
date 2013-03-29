@@ -84,8 +84,8 @@ class ShoppingController {
 			} else {
 				$blob = '';
 				forEach ($results as $result) {
-					$senderLink = Text::make_chatcmd($result->sender, "/tell $result->sender");
-					$timeString = Util::unixtime_to_readable(time()- $result->time, false);
+					$senderLink = $this->text->make_chatcmd($result->sender, "/tell $result->sender");
+					$timeString = $this->util->unixtime_to_readable(time()- $result->time, false);
 					$post = preg_replace('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $result->message);
 					$blob .= "[$senderLink]: {$post} - <highlight>($timeString ago)<end>\n\n";
 				}
