@@ -19,7 +19,7 @@ INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`,
 INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`, `faded`) VALUES ('ear','Doctor','Intelligence','N/A','Tutoring','Intelligence');
 INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`, `faded`) VALUES ('ear','Enforcer','Agility','N/A','Concealment','Psychological Modifications');
 INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`, `faded`) VALUES ('ear','Engineer','Intelligence','N/A','Tutoring','Intelligence');
-INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`, `faded`) VALUES ('ear','Fixer','Intelligence','N/A','Turoring','Psychic');
+INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`, `faded`) VALUES ('ear','Fixer','Intelligence','N/A','Tutoring','Psychic');
 INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`, `faded`) VALUES ('ear','Keeper','Intelligence','N/A','Psychology','Psychological Modifications');
 INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`, `faded`) VALUES ('ear','Martial Artist','Intelligence','N/A','Tutoring','Psychological Modifications');
 INSERT INTO premade_implant (`slot`, `profession`, `ability`, `shiny`, `bright`, `faded`) VALUES ('ear','Meta-Physicist','Intelligence','N/A','Tutoring','Intelligence');
