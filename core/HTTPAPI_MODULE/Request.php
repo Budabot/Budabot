@@ -2,6 +2,8 @@
 
 namespace Budabot\Core\Modules;
 
+use React\Stream\WritableStreamInterface;
+
 class Request {
 
 	/**
@@ -53,7 +55,7 @@ class Request {
 		$this->request->close();
 	}
 
-	public function pipe(React\Stream\WritableStreamInterface $dest, array $options = array()) {
+	public function pipe(WritableStreamInterface $dest, array $options = array()) {
 		return $this->request->pipe($dest, $options);
 	}
 
