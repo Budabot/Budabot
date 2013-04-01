@@ -1,5 +1,7 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
 class Response {
 
 	/**

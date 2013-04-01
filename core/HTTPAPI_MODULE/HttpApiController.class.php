@@ -101,9 +101,9 @@ class HttpApiController {
 
 		$that = $this;
 		$this->httpServer->on('request', function ($request, $response) use ($that) {
-			$request = new \Request($request);
-			$response = new \Response($response);
-			$session = new \Session($that->sessionStorage, $request, $response);
+			$request = new Request($request);
+			$response = new Response($response);
+			$session = new Session($that->sessionStorage, $request, $response);
 
 			$httpRequest = new StdClass();
 			$httpRequest->request  = $request;

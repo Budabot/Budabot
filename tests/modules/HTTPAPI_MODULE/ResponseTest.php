@@ -5,6 +5,8 @@ require_once 'PHPUnit/Autoload.php';
 require_once __DIR__ . '/../../../lib/vendor/autoload.php';
 require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/Response.php';
 
+use Budabot\Core\Modules\Response;
+
 class ResponseTest extends \PHPUnit_Framework_TestCase {
 
 	/**
@@ -13,13 +15,13 @@ class ResponseTest extends \PHPUnit_Framework_TestCase {
 	private $wrapped;
 
 	/**
-	 * @var \Response
+	 * @var Budabot\Core\Modules\Response
 	 */
 	private $response;
 
 	function setUp() {
 		$this->wrapped = Phake::mock('React\Http\Response');
-		$this->response = new \Response($this->wrapped);
+		$this->response = new Response($this->wrapped);
 	}
 
 	function testIsWritableReturnsWrappedResult() {

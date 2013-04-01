@@ -8,32 +8,34 @@ require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/Response.php';
 require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/SessionStorage.php';
 require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/Session.php';
 
+use Budabot\Core\Modules\Session;
+
 class SessionTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * @var \Session
+	 * @var Budabot\Core\Modules\Session
 	 */
 	private $session;
 
 	/**
-	 * @var \Request
+	 * @var Budabot\Core\Modules\Request
 	 */
 	private $requestMock;
 
 	/**
-	 * @var \SessionStorage
+	 * @var Budabot\Core\Modules\SessionStorage
 	 */
 	private $storageMock;
 
 	/**
-	 * @var \Response
+	 * @var Budabot\Core\Modules\Response
 	 */
 	private $responseMock;
 
 	function setUp() {
-		$this->storageMock  = Phake::mock('SessionStorage');
-		$this->requestMock  = Phake::mock('Request');
-		$this->responseMock = Phake::mock('Response');
+		$this->storageMock  = Phake::mock('Budabot\Core\Modules\SessionStorage');
+		$this->requestMock  = Phake::mock('Budabot\Core\Modules\Request');
+		$this->responseMock = Phake::mock('Budabot\Core\Modules\Response');
 
 		$this->session = new Session(
 			$this->storageMock,

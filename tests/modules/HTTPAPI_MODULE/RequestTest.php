@@ -5,18 +5,20 @@ require_once 'PHPUnit/Autoload.php';
 require_once __DIR__ . '/../../../lib/vendor/autoload.php';
 require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/Request.php';
 
+use Budabot\Core\Modules\Request;
+
 class RequestTest extends \PHPUnit_Framework_TestCase {
 
 	private $wrapped;
 
 	/**
-	 * @var \Request
+	 * @var Budabot\Core\Modules\Request
 	 */
 	private $request;
 
 	function setUp() {
 		$this->wrapped = Phake::mock('React\Http\Request');
-		$this->request = new \Request($this->wrapped);
+		$this->request = new Request($this->wrapped);
 	}
 
 	function testGetMethodReturnsWrappedResult() {

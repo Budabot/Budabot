@@ -1,27 +1,29 @@
 <?php
 
+namespace Budabot\Core\Modules;
+
 class Session {
 
 	const SESSION_NAME = 'SESSION_ID';
 
 	/**
-	 * @var \SessionStorage
+	 * @var SessionStorage
 	 */
 	private $storage;
 
 	/**
-	 * @var \Request
+	 * @var Request
 	 */
 	private $request;
 
 	/**
-	 * @var \Response
+	 * @var Response
 	 */
 	private $response;
 
 	private $id;
 
-	public function __construct($storage, $request, $response) {
+	public function __construct(SessionStorage $storage, Request $request, Response $response) {
 		$this->storage = $storage;
 		$this->request = $request;
 		$this->response = $response;

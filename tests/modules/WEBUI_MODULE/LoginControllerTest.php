@@ -29,7 +29,7 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->httpApi = $this->injectMock($this->ctrl, 'httpapi', 'Budabot\Core\Modules\HttpApiController');
 		$this->preferences = $this->injectMock($this->ctrl, 'preferences', 'Budabot\Core\Preferences');
 		$this->template = $this->injectMock($this->ctrl, 'template', 'Budabot\User\Modules\WebUi\Template');
-		$this->session = \Phake::mock('\Session');
+		$this->session = \Phake::mock('Budabot\Core\Modules\Session');
 	}
 
 	function testIsAutoInstanced() {
