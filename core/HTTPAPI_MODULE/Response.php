@@ -75,7 +75,7 @@ class Response {
 
 	private static function setConnAccessible() {
 		if (!self::$connRefl) {
-			self::$connRefl = new ReflectionProperty('\React\Http\Response', 'conn');
+			self::$connRefl = new \ReflectionProperty('\React\Http\Response', 'conn');
 			self::$connRefl->setAccessible(true);
 		}
 	}
