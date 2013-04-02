@@ -409,7 +409,7 @@ class Util {
 	}
 	
 	// taken from: http://stackoverflow.com/questions/834303/php-startswith-and-endswith-functions
-	function startsWith($haystack, $needle) {
+	public function startsWith($haystack, $needle) {
 		return !strncmp($haystack, $needle, strlen($needle));
 	}
 	
@@ -417,6 +417,15 @@ class Util {
 		$msg = preg_replace("~<font color=#.{6}>~", "", $msg);
 		$msg = preg_replace("~</font>~", "", $msg);
 		return $msg;
+	}
+	
+	public function parseSpamMessage($message) {
+		$rawmsg = $this->util->stripColors($message);
+		if (preg_match_all("/\\[([^\\]]+)\\] (.+?) \\[([^\\]]+)\\]/s", $rawmsg, $arr, PREG_SET_ORDER) > 0) {
+		} else {
+			$this->logger->log("WARN", "Invalid spam message format: $rawmsg");
+		}
+		return $arr;
 	}
 	
 	public function generateQueryFromParams($params, $column) {
