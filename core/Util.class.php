@@ -9,6 +9,9 @@ class Util {
 
 	/** @Inject */
 	public $chatBot;
+	
+	/** @Logger */
+	public $logger;
 
 	const DATETIME = "d-M-Y H:i T";
 
@@ -420,7 +423,7 @@ class Util {
 	}
 	
 	public function parseSpamMessage($message) {
-		$rawmsg = $this->util->stripColors($message);
+		$rawmsg = $this->stripColors($message);
 		if (preg_match_all("/\\[([^\\]]+)\\] (.+?) \\[([^\\]]+)\\]/s", $rawmsg, $arr, PREG_SET_ORDER) > 0) {
 		} else {
 			$this->logger->log("WARN", "Invalid spam message format: $rawmsg");
