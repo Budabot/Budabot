@@ -1,13 +1,24 @@
 {
+	"repositories": [
+		{
+			"type": "vcs",
+			"url":  "git@github.com:Budabot/apigen.git"
+		}
+	],
+
 	"require": { 
 		"react/http": "0.2.6",
 		"cboden/Ratchet": "0.2.3",
-		"behat/behat": "2.4.*@stable",
-		"dhaarbrink/jsonrpc": "1.1.4",
-		"twig/twig": "1.*"
+		"twig/twig": "1.12.1"
+	},
+
+	"require-dev": {
+		"apigen/apigen": "dev-2.8.0-modified",
+		"behat/behat": "2.4.5",
+		"dhaarbrink/jsonrpc": "1.1.4"
 	},
 
 	"config": {
 		"bin-dir": "bin/"
 	}
-} 
+}
