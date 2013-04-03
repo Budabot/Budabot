@@ -139,7 +139,8 @@
 		<echo>Generate API documentation with ApiGen.</echo>
 		<!-- destination can be overridden at command line -->
 		<property name="apidoc.destination" value="docs/api" />
-		<apigen source="core,modules" destination="${apidoc.destination}" title="Budabot" />
+		<apigen source="core,modules" destination="${apidoc.destination}"
+			title="Budabot" executable="${project.basedir}/lib/bin/apigen.php.bat" />
 	</target>
 
 	<!-- ============================================  -->
