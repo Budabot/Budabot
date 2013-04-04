@@ -13,12 +13,13 @@
 	},
 
 	"require-dev": {
+		"phing/phing": "2.5.0",
 		"apigen/apigen": "dev-2.8.0-modified",
 		"behat/behat": "2.4.5",
 		"dhaarbrink/jsonrpc": "1.1.4"
 	},
 
 	"config": {
-		"bin-dir": "bin/"
+		"bin-dir": ".."
 	}
 }

@@ -140,7 +140,7 @@
 		<!-- destination can be overridden at command line -->
 		<property name="apidoc.destination" value="docs/api" />
 		<apigen source="core,modules" destination="${apidoc.destination}"
-			title="Budabot" executable="${project.basedir}/lib/bin/apigen.php.bat" />
+			title="Budabot" executable="apigen.php.bat" />
 	</target>
 
 	<!-- ============================================  -->
