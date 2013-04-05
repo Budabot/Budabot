@@ -146,7 +146,7 @@ class OnlineController {
 	 */
 	public function onlineCheckEvent($eventObj) {
 		if ($this->chatBot->is_ready()) {
-			$this->db->begin_transaction();
+			//$this->db->begin_transaction();
 			$data = $this->db->query("SELECT name, channel_type FROM `online`");
 
 			$guildArray = array();
@@ -195,7 +195,7 @@ class OnlineController {
 
 			$sql = "DELETE FROM `online` WHERE (`dt` < ? AND added_by = '<myname>') OR (`dt` < ?)";
 			$this->db->exec($sql, $time, ($time - $this->settingManager->get('online_expire')));
-			$this->db->commit();
+			//$this->db->commit();
 		}
 	}
 	
