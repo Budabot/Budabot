@@ -9,23 +9,9 @@ use stdClass;
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command       = 'addalias',
+ *		command       = 'alias',
  *		accessLevel   = 'mod',
- *		description   = 'Add a command alias',
- *		help          = 'alias.txt',
- *		defaultStatus = '1'
- *	)
- *	@DefineCommand(
- *		command       = 'aliaslist',
- *		accessLevel   = 'guild',
- *		description   = 'List all aliases',
- *		help          = 'alias.txt',
- *		defaultStatus = '1'
- *	)
- *	@DefineCommand(
- *		command       = 'remalias',
- *		accessLevel   = 'mod',
- *		description   = 'Remove a command alias',
+ *		description   = 'Manage command aliases',
  *		help          = 'alias.txt',
  *		defaultStatus = '1'
  *	)
@@ -40,14 +26,24 @@ class AliasController {
 
 	/** @Inject */
 	public $text;
+	
+	/**
+	 * @Setup
+	 * This handler is called on bot startup.
+	 */
+	public function setup() {
+		$this->commandAlias->register($this->moduleName, "alias list", "aliaslist");
+		$this->commandAlias->register($this->moduleName, "alias add", "addalias");
+		$this->commandAlias->register($this->moduleName, "alias rem", "remalias");
+	}
 
 	/**
 	 * This command handler add a command alias.
 	 *
-	 * @HandlesCommand("addalias")
-	 * @Matches("/^addalias ([a-z0-9]+) (.+)/si")
+	 * @HandlesCommand("alias")
+	 * @Matches("/^alias add ([a-z0-9]+) (.+)/si")
 	 */
-	public function addaliasCommand($message, $channel, $sender, $sendto, $args) {
+	public function aliasAddCommand($message, $channel, $sender, $sendto, $args) {
 		$alias = strtolower($args[1]);
 		$cmd = $args[2];
 	
@@ -85,10 +81,10 @@ class AliasController {
 	/**
 	 * This command handler list all aliases.
 	 *
-	 * @HandlesCommand("aliaslist")
-	 * @Matches("/^aliaslist$/i")
+	 * @HandlesCommand("alias")
+	 * @Matches("/^alias list$/i")
 	 */
-	public function aliaslistCommand($message, $channel, $sender, $sendto, $args) {
+	public function aliasListCommand($message, $channel, $sender, $sendto, $args) {
 		$paddingSize = 30;
 	
 		$a = $this->padRow("Alias", $paddingSize);
@@ -100,7 +96,7 @@ class AliasController {
 			} else {
 				$color = "highlight";
 			}
-			$removeLink = $this->text->make_chatcmd('Remove', "/tell <myname> remalias {$alias->alias}");
+			$removeLink = $this->text->make_chatcmd('Remove', "/tell <myname> alias rem {$alias->alias}");
 			$a = $this->padRow($alias->alias, $paddingSize);
 			$blob .= "<{$color}>{$a}{$alias->cmd}<end> $removeLink\n";
 		}
@@ -112,10 +108,10 @@ class AliasController {
 	/**
 	 * This command handler remove a command alias.
 	 *
-	 * @HandlesCommand("remalias")
-	 * @Matches("/^remalias ([a-z0-9]+)/i")
+	 * @HandlesCommand("alias")
+	 * @Matches("/^alias rem ([a-z0-9]+)/i")
 	 */
-	public function remaliasCommand($message, $channel, $sender, $sendto, $args) {
+	public function aliasRemCommand($message, $channel, $sender, $sendto, $args) {
 		$alias = strtolower($args[1]);
 	
 		$row = $this->commandAlias->get($alias);
