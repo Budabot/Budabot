@@ -176,6 +176,10 @@ class CommandAlias {
 		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` LIKE ?";
 		return $this->db->query($sql, $command);
 	}
+	
+	public function getCommandByAlias($alias) {
+		return $this->cmd_aliases[$alias];
+	}
 }
 
 ?>
