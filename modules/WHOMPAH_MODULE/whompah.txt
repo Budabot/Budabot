@@ -1,4 +1,4 @@
-To see the list whompah cities:
+To see the list of whompah cities:
 <highlight><tab><symbol>whompah<end>
 
 To see the list of destinations for a whompah city:
