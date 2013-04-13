@@ -35,6 +35,9 @@ class HelpController {
 
 	/** @Inject */
 	public $commandManager;
+	
+	/** @Inject */
+	public $commandAlias;
 
 	/** @Inject */
 	public $helpManager;
@@ -100,9 +103,18 @@ class HelpController {
 	 * @Matches("/^help (.+)$/i")
 	 */
 	public function helpShowCommand($message, $channel, $sender, $sendto, $args) {
-		$helpcmd = ucfirst($args[1]);
+		$helpcmd = strtolower($args[1]);
+	
+		// check for alias
+		$temp = $this->commandAlias->getCommandByAlias($helpcmd);
+		if ($temp !== null) {
+			$arr = explode(' ', $temp);
+			$helpcmd = $arr[0];
+		}
+
 		$blob = $this->helpManager->find($helpcmd, $sender);
 		if ($blob !== false) {
+			$helpcmd = ucfirst($helpcmd);
 			$msg = $this->text->make_blob("Help ($helpcmd)", $blob);
 			$sendto->reply($msg);
 		} else {

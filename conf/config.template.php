@@ -59,7 +59,7 @@
 
 	// Define additional paths from where Budabot should load modules at startup
 	$vars['module_load_paths'] = array(
-		'./modules'
+		'./modules', './extras'
 	);
 
 	// This should only be enabled during development and only if you understand the implications
