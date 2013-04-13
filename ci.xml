@@ -9,6 +9,7 @@
 	<property name="apidoc.upload_destination" value="/home/budabot/www/api/" />
 	<property name="build.upload_destination"  value="/home/budabot/www/builds/" />
 	<property name="behat.profile"             value="ci" />
+	<property name="apidoc.googlecseid"        value="002156385980800159355:7hijxzc1sdg" />
 
 	<!-- Mandatory properties -->
 	<property name="upload.username"           value="user" />
