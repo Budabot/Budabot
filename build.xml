@@ -142,9 +142,11 @@
 		<!-- Google Custom Search Engine ID for using google
 		     to search the API documentation -->
 		<property name="apidoc.googlecseid" value="" />
+		<!-- Base URL, required at least for Google Custom Search Engine -->
+		<property name="apidoc.baseurl" value="" />
 		<apigen source="core,modules" destination="${apidoc.destination}"
 			title="Budabot" executable="apigen.php.bat" debug="true"
-			googlecseid="${apidoc.googlecseid}" />
+			baseurl="${apidoc.baseurl}" googlecseid="${apidoc.googlecseid}" />
 	</target>
 
 	<!-- ============================================  -->
