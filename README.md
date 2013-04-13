@@ -9,6 +9,8 @@ You can download most recent version from link below. The download page contains
 
 http://code.google.com/p/budabot2/downloads/list
 
+**Linux**: See additional installation instructions in the forum: http://budabot.com/forum/viewtopic.php?f=5&t=850
+
 ### Unstable/Development Archives ###
 If you wish to use the most bleeding edge version of Budabot, you can download and extract development archives from link below. These archives are automatically build whenever new commits are pushed to Budabot's source code repository.
 
