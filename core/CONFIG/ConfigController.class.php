@@ -297,7 +297,7 @@ class ConfigController {
 	 * This command handler sets command's access level on a particular channel.
 	 * Note: This handler has not been not registered, only activated.
 	 *
-	 * @Matches("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|rl|mod|admin|guild|member)$/i")
+	 * @Matches("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|rl|mod|admin|guild|member|superadmin)$/i")
 	 */
 	public function setAccessLevelOfChannelCommand($message, $channel, $sender, $sendto, $args) {
 		$category = strtolower($args[1]);
