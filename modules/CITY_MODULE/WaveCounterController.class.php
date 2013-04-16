@@ -11,21 +11,9 @@ namespace Budabot\User\Modules;
  *
  * Commands this class contains:
  *	@DefineCommand(
- *		command     = 'startwave',
- *		accessLevel = 'guild',
- *		description = 'Manually start wave counter',
- *		help        = 'wavecounter.txt'
- *	)
- *	@DefineCommand(
- *		command     = 'stopwave',
- *		accessLevel = 'guild',
- *		description = 'Manually stops wave counter',
- *		help        = 'wavecounter.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'citywave',
  *		accessLevel = 'guild',
- *		description = 'Show the current city wave',
+ *		description = 'Shows/Starts/Stops the current city wave',
  *		help        = 'wavecounter.txt'
  *	)
  */
@@ -43,10 +31,10 @@ class WaveCounterController {
 	private $wave = null;
 	
 	/**
-	 * @HandlesCommand("startwave")
-	 * @Matches("/^startwave$/i")
+	 * @HandlesCommand("citywave")
+	 * @Matches("/^citywave start$/i")
 	 */
-	public function startwaveCommand($message, $channel, $sender, $sendto, $args) {
+	public function citywaveStartCommand($message, $channel, $sender, $sendto, $args) {
 		if (isset($this->wave)) {
 			$this->chatBot->sendGuild("A raid is already in progress.");
 		} else {
@@ -57,10 +45,10 @@ class WaveCounterController {
 	}
 
 	/**
-	 * @HandlesCommand("stopwave")
-	 * @Matches("/^stopwave$/i")
+	 * @HandlesCommand("citywave")
+	 * @Matches("/^citywave stop$/i")
 	 */
-	public function stopwaveCommand($message, $channel, $sender, $sendto, $args) {
+	public function citywaveStopCommand($message, $channel, $sender, $sendto, $args) {
 		unset($this->wave);
 		$this->chatBot->sendGuild("Wave counter stopped by $sender.");
 	}
@@ -72,10 +60,10 @@ class WaveCounterController {
 	public function citywaveCommand($message, $channel, $sender, $sendto, $args) {
 		if (!isset($this->wave)) {
 			$msg = "There is no raid in progress at this time.";
-		} else if ($this->wave['wave'] == 1) {
-			$msg = "Waiting for the first wave.";
+		} else if ($this->wave['wave'] == 9) {
+			$msg = "Waiting for General.";
 		} else {
-			$msg = "Current wave: " . ($this->wave['wave'] - 1);
+			$msg = "Waiting for wave: " . $this->wave['wave'] . ".";
 		}
 		$sendto->reply($msg);
 	}
