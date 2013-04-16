@@ -28,7 +28,18 @@ class WaveCounterController {
 	/** @Inject */
 	public $chatBot;
 	
+	/** @Inject */
+	public $commandAlias;
+	
 	private $wave = null;
+	
+	/**
+	 * @Setup
+	 */
+	public function setup() {
+		$this->commandAlias->register($this->moduleName, "citywave start", "startwave");
+		$this->commandAlias->register($this->moduleName, "citywave stop", "stopwave");
+	}
 	
 	/**
 	 * @HandlesCommand("citywave")
@@ -63,7 +74,7 @@ class WaveCounterController {
 		} else if ($this->wave['wave'] == 9) {
 			$msg = "Waiting for General.";
 		} else {
-			$msg = "Waiting for wave: " . $this->wave['wave'] . ".";
+			$msg = "Waiting for wave " . $this->wave['wave'] . ".";
 		}
 		$sendto->reply($msg);
 	}
