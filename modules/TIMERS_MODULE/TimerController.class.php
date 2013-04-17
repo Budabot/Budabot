@@ -3,6 +3,7 @@
 namespace Budabot\User\Modules;
 
 use stdClass;
+use Exception;
 
 /**
  * Authors: 
@@ -47,6 +48,12 @@ class TimerController {
 
 	/** @Inject */
 	public $util;
+	
+	/** @Inject */
+	public $settingManager;
+	
+	/** @Inject */
+	public $setting;
 
 	private $timers = array();
 
@@ -67,6 +74,25 @@ class TimerController {
 			}
 
 			$this->timers[strtolower($row->name)] = $row;
+		}
+		
+		$this->settingManager->add($this->moduleName, 'timer_alert_times', 'Times to display timer alerts', 'edit', 'text', '1h 15m 1m', '1h 15m 1m', '', 'mod', 'timer_alert_times.txt');
+		$this->settingManager->registerChangeListener('timer_alert_times', array($this, 'changeTimerAlertTimes'));
+	}
+	
+	public function changeTimerAlertTimes($settingName, $oldValue, $newValue, $data)  {
+		$alertTimes = array_reverse(explode(' ', $newValue));
+		$oldTime = 0;
+		forEach ($alertTimes as $alertTime) {
+			$time = $this->util->parseTime($alertTime);
+			if ($time == 0) {
+				// invalid time
+				throw new Exception("Error saving setting: invalid alert time('$alertTime'). For more info type !help timer_alert_times.");
+			} else if ($time <= $oldTime) {
+				// invalid alert order
+				throw new Exception("Error saving setting: invalid alert order('$alertTime'). For more info type !help timer_alert_times.");
+			}
+			$oldTime = $time;
 		}
 	}
 
@@ -252,25 +278,17 @@ class TimerController {
 	public function generateAlerts($sender, $name, $endTime) {
 		$alerts = array();
 		
-		if ($endTime - 60*60 > time()) {
-			$alert = new stdClass;
-			$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>1 hour<end> left. [set by <highlight>$sender<end>]";
-			$alert->time = $endTime - 60*60;
-			$alerts []= $alert;
-		}
-		
-		if ($endTime - 60*15 > time()) {
-			$alert = new stdClass;
-			$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>15 minutes<end> left. [set by <highlight>$sender<end>]";
-			$alert->time = $endTime - 60*15;
-			$alerts []= $alert;
-		}
-		
-		if ($endTime - 60 > time()) {
-			$alert = new stdClass;
-			$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>1 minute<end> left. [set by <highlight>$sender<end>]";
-			$alert->time = $endTime - 60;
-			$alerts []= $alert;
+		$alertTimes = explode(' ', $this->setting->timer_alert_times);
+		forEach ($alertTimes as $alertTime) {
+			$time = $this->util->parseTime($alertTime);
+			$timeString = $this->util->unixtime_to_readable($time);
+			if ($endTime - $time > time()) {
+				$alert = new stdClass;
+				$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>$timeString<end> left. [set by <highlight>$sender<end>]";
+				echo $alert->message . "\n";
+				$alert->time = $endTime - $time;
+				$alerts []= $alert;
+			}
 		}
 		
 		if ($endTime > time()) {
