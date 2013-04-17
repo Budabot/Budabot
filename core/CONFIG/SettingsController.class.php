@@ -131,7 +131,7 @@ class SettingsController {
 			} catch (Exception $e) {
 				$msg = $e->getMessage();
 			}
-			$sendto->reply($msg);
 		}
+		$sendto->reply($msg);
 	}
 }

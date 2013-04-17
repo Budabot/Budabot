@@ -1,0 +1,5 @@
+The <highlight>timer_alerts_time<end> setting takes a list of budatime (see <a href='chatcmd:///tell <myname> help budatime'><symbol>help budatime</a>) values to indicate when timer alerts should be displayed.
+
+For example, <highlight>1h 15m 1m<end> (the default value) indicates that timer alerts will be shown when timers have 1 hour left, 15 minutes left, and 1 minute left.
+
+The times must be valid budatimes, must be separated by a single space, and must be in descending order (greatest to least time).  The bot will always spam when the timer goes off so there is no need to include a 0s or 1s alert time.
