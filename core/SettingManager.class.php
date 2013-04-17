@@ -136,10 +136,7 @@ class SettingManager {
 				// notify any listeners
 				if (isset($this->changeListeners[$name])) {
 					forEach ($this->changeListeners[$name] as $listener) {
-						$result = call_user_func($listener->callback, $name, $this->settings[$name], $value, $listener->data);
-						if ($result === false) {
-							return false;
-						}
+						call_user_func($listener->callback, $name, $this->settings[$name], $value, $listener->data);
 					}
 				}
 				$this->settings[$name] = $value;
@@ -180,6 +177,8 @@ class SettingManager {
 	 * @param string   $settingName changed setting's name 
 	 * @param callback $callback    the callback function to call
 	 * $param mixed    $data        any data which will be passed to to the callback (optional)
+	 *
+	 * In the event of an invalid setting value, throw an exception with a message indicating why the value is invalid.
 	 */
 	public function registerChangeListener($settingName, $callback, $data) {
 		if (!is_callable($callback)) {
