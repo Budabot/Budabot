@@ -37,6 +37,9 @@ class SettingManager {
 
 	/** @Inject */
 	public $helpManager;
+	
+	/** @Inject */
+	public $accessManager;
 
 	/** @Logger */
 	public $logger;
@@ -58,13 +61,14 @@ class SettingManager {
 	 * @param: $help - a help file for this setting; if blank, will use a help topic with the same name as this setting if it exists (optional)
 	 * @description: Adds a new setting
 	 */
-	public function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $admin = 'mod', $help = '') {
+	public function add($module, $name, $description, $mode, $type, $value, $options = '', $intoptions = '', $accessLevel = 'mod', $help = '') {
 		$name = strtolower($name);
 		$type = strtolower($type);
 
-		if ($admin == '') {
-			$admin = 'mod';
+		if ($accessLevel == '') {
+			$accessLevel = 'mod';
 		}
+		$accessLevel = $this->accessManager->getAccessLevel($accessLevel);
 
 		if (!in_array($type, array('color', 'number', 'text', 'options', 'time'))) {
 			$this->logger->log('ERROR', "Error in registering Setting $module:setting($name). Type should be one of: 'color', 'number', 'text', 'options', 'time'. Actual: '$type'.");
@@ -86,10 +90,10 @@ class SettingManager {
 		try {
 			if (array_key_exists($name, $this->chatBot->existing_settings) || array_key_exists($name, $this->settings)) {
 				$sql = "UPDATE settings_<myname> SET `module` = ?, `type` = ?, `mode` = ?, `options` = ?, `intoptions` = ?, `description` = ?, `admin` = ?, `verify` = 1, `help` = ? WHERE `name` = ?";
-				$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $admin, $help, $name);
+				$this->db->exec($sql, $module, $type, $mode, $options, $intoptions, $description, $accessLevel, $help, $name);
 			} else {
 				$sql = "INSERT INTO settings_<myname> (`name`, `module`, `type`, `mode`, `value`, `options`, `intoptions`, `description`, `source`, `admin`, `verify`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-				$this->db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $admin, '1', $help);
+				$this->db->exec($sql, $name, $module, $type, $mode, $value, $options, $intoptions, $description, 'db', $accessLevel, '1', $help);
 				$this->settings[$name] = $value;
 			}
 		} catch (SQLException $e) {
