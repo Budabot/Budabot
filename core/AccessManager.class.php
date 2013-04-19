@@ -2,6 +2,8 @@
 
 namespace Budabot\Core;
 
+use Exception;
+
 /**
  * The AccessLevel class provides functionality for checking a player's access level.
  *
@@ -131,6 +133,9 @@ class AccessManager {
 		return $displayName;
 	}
 
+	/**
+	 * Returns the access level of $sender, ignoring guild admin and alts_inherit_admin settings
+	 */
 	public function getSingleAccessLevel($sender) {
 		if ($this->chatBot->vars["SuperAdmin"] == $sender){
 			return "superadmin";
@@ -165,6 +170,9 @@ class AccessManager {
 		return "all";
 	}
 
+	/**
+	 * Returns the access level of $sender, accounting for guild admin and alts_inherit_admin settings
+	 */
 	public function getAccessLevelForCharacter($sender) {
 		$sender = ucfirst(strtolower($sender));
 
@@ -207,6 +215,11 @@ class AccessManager {
 		return self::$ACCESS_LEVELS[$accessLevel2] - self::$ACCESS_LEVELS[$accessLevel1];
 	}
 
+	/**
+	 * Returns a positive number if the access level of $char1 is greater than the access level of $char2,
+	 * a negative number if the access level of $char1 is less than the access level of $char2,
+	 * and 0 if the access levels of $char1 and $char2 are equal.
+	 */
 	public function compareCharacterAccessLevels($char1, $char2) {
 		$char1 = ucfirst(strtolower($char1));
 		$char2 = ucfirst(strtolower($char2));
@@ -215,6 +228,14 @@ class AccessManager {
 		$char2AccessLevel = $this->getAccessLevelForCharacter($char2);
 
 		return $this->compareAccessLevels($char1AccessLevel, $char2AccessLevel);
+	}
+	
+	public function getAccessLevel($accessLevel) {
+		if (isset(self::$ACCESS_LEVELS[$accessLevel])) {
+			return strtolower($accessLevel);
+		} else {
+			throw new Exception("Invalid access level '$accessLevel'.");
+		}
 	}
 }
 

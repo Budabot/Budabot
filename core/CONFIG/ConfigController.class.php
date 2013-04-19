@@ -297,13 +297,13 @@ class ConfigController {
 	 * This command handler sets command's access level on a particular channel.
 	 * Note: This handler has not been not registered, only activated.
 	 *
-	 * @Matches("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (all|rl|mod|admin|guild|member|superadmin)$/i")
+	 * @Matches("/^config (subcmd|cmd) (.+) admin (msg|priv|guild|all) (.+)$/i")
 	 */
 	public function setAccessLevelOfChannelCommand($message, $channel, $sender, $sendto, $args) {
 		$category = strtolower($args[1]);
 		$command = strtolower($args[2]);
 		$channel = strtolower($args[3]);
-		$admin = strtolower($args[4]);
+		$accessLevel = $this->accessManager->getAccessLevel($args[4]);
 	
 		if ($category == "cmd") {
 			if ($channel == "all") {
@@ -321,15 +321,15 @@ class ConfigController {
 				}
 			} else if (!$this->checkCommandAccessLevels($data, $sender)) {
 				$msg = "You do not have the required access level to change this command.";
-			} else if (!$this->accessManager->checkAccess($sender, $admin)) {
+			} else if (!$this->accessManager->checkAccess($sender, $accessLevel)) {
 				$msg = "You may not set the access level for a command above your own access level.";
 			} else {
-				$this->commandManager->update_status($channel, $command, null, 1, $admin);
+				$this->commandManager->update_status($channel, $command, null, 1, $accessLevel);
 		
 				if ($channel == "all") {
-					$msg = "Updated access of command <highlight>$command<end> to <highlight>$admin<end>";
+					$msg = "Updated access of command <highlight>$command<end> to <highlight>$accessLevel<end>";
 				} else {
-					$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
+					$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$accessLevel<end>";
 				}
 			}
 		} else {  // if ($category == 'subcmd')
@@ -339,12 +339,12 @@ class ConfigController {
 				$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$channel<end>";
 			} else if (!$this->checkCommandAccessLevels($data, $sender)) {
 				$msg = "You do not have the required access level to change this subcommand.";
-			} else if (!$this->accessManager->checkAccess($sender, $admin)) {
+			} else if (!$this->accessManager->checkAccess($sender, $accessLevel)) {
 				$msg = "You may not set the access level for a subcommand above your own access level.";
 			} else {
-				$this->db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $admin, $channel, $command);
+				$this->db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $accessLevel, $channel, $command);
 				$this->subcommandManager->loadSubcommands();
-				$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$admin<end>";
+				$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$accessLevel<end>";
 			}
 		}
 		$sendto->reply($msg);

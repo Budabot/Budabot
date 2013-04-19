@@ -53,11 +53,12 @@ class CommandManager {
 	 * @name: register
 	 * @description: Registers a command
 	 */
-	public function register($module, $channel, $filename, $command, $admin, $description, $help = '', $defaultStatus = null) {
+	public function register($module, $channel, $filename, $command, $accessLevel, $description, $help = '', $defaultStatus = null) {
 		$command = strtolower($command);
 		$module = strtoupper($module);
+		$accessLevel = $this->accessManager->getAccessLevel($accessLevel);
 
-		if (!$this->chatBot->processCommandArgs($channel, $admin)) {
+		if (!$this->chatBot->processCommandArgs($channel, $accessLevel)) {
 			$this->logger->log('ERROR', "Invalid args for $module:command($command). Command not registered.");
 			return;
 		}
@@ -90,7 +91,7 @@ class CommandManager {
 		}
 
 		for ($i = 0; $i < count($channel); $i++) {
-			$this->logger->log('debug', "Adding Command to list:($command) File:($filename) Admin:({$admin[$i]}) Channel:({$channel[$i]})");
+			$this->logger->log('debug', "Adding Command to list:($command) File:($filename) Admin:({$accessLevel[$i]}) Channel:({$channel[$i]})");
 
 			try {
 				if (isset($this->chatBot->existing_commands[$channel[$i]][$command])) {
@@ -98,7 +99,7 @@ class CommandManager {
 					$this->db->exec($sql, $module, '1', $filename, $description, $help, $command, $channel[$i]);
 				} else {
 					$sql = "INSERT INTO cmdcfg_<myname> (`module`, `type`, `file`, `cmd`, `admin`, `description`, `verify`, `cmdevent`, `status`, `help`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-					$this->db->exec($sql, $module, $channel[$i], $filename, $command, $admin[$i], $description, '1', 'cmd', $status, $help);
+					$this->db->exec($sql, $module, $channel[$i], $filename, $command, $accessLevel[$i], $description, '1', 'cmd', $status, $help);
 				}
 			} catch (SQLException $e) {
 				$this->logger->log('ERROR', "Error registering method '$handler' for command '$command': " . $e->getMessage());
@@ -110,12 +111,12 @@ class CommandManager {
 	 * @name: activate
 	 * @description: Activates a command
 	 */
-	public function activate($channel, $filename, $command, $admin = 'all') {
+	public function activate($channel, $filename, $command, $accessLevel = 'all') {
 		$command = strtolower($command);
-		$admin = strtolower($admin);
+		$accessLevel = $this->accessManager->getAccessLevel($accessLevel);
 		$channel = strtolower($channel);
 
-		$this->logger->log('DEBUG', "Activate Command:($command) Admin Type:($admin) File:($filename) Channel:($channel)");
+		$this->logger->log('DEBUG', "Activate Command:($command) Admin Type:($accessLevel) File:($filename) Channel:($channel)");
 
 		forEach (explode(',', $filename) as $handler) {
 			list($name, $method) = explode(".", $handler);
@@ -127,7 +128,7 @@ class CommandManager {
 
 		$obj = new stdClass;
 		$obj->file = $filename;
-		$obj->admin = $admin;
+		$obj->admin = $accessLevel;
 
 		$this->commands[$channel][$command] = $obj;
 	}
