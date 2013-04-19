@@ -17,7 +17,7 @@ namespace Budabot\User\Modules;
  *		help        = 'wavecounter.txt'
  *	)
  */
-class WaveCounterController {
+class CityWaveController {
 
 	/**
 	 * Name of the module.
