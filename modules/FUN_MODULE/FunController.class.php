@@ -250,10 +250,10 @@ class FunController {
 	 * Developed by Sicarius Legion of Amra, a Age of Conan Guild on the Hyrkania server
 	 * Converted to Budabot by Tyrence (RK2)
 	 */
-	/*public function piratesCommand($message, $channel, $sender, $sendto, $args) {
+	public function piratesCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->getFunItem('pirates', $sender, $args[1]);
 		$sendto->reply($msg);
-	}*/
+	}
 }
 
 ?>
