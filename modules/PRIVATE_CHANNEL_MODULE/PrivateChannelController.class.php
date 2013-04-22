@@ -637,7 +637,7 @@ class PrivateChannelController {
 		$sender = $eventObj->sender;
 		$data = $this->db->query("SELECT * FROM members_<myname> WHERE name = ? AND autoinv = ?", $sender, '1');
 		if (count($data) != 0) {
-			$msg = "You have been auto invited to the <highlight><myname><end> channel.";
+			$msg = "You have been auto invited to the <highlight><myname><end> channel.  See <highlight><symbol>help autoinvite<end> for more info.";
 			$this->chatBot->privategroup_invite($sender);
 			$this->chatBot->sendTell($msg, $sender);
 		}
