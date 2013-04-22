@@ -1,0 +1,5 @@
+The <highlight>city_wave_times<end> setting takes a list of budatime (see <a href='chatcmd:///tell <myname> help budatime'><symbol>help budatime</a>) values to indicate when city wave alerts should be displayed.
+
+For example, <highlight>105s 150s 90s 120s 120s 120s 120s 120s 120s<end> (the default value) indicates that the alert for wave 1 will be shown 105 seconds after a raid starts, the alert for wave 2 will be shown 150 seconds after that, the alert for wave 3 will be shown 90 seconds after that and so on.
+
+The times must be valid budatime values, must be separated by a single space, and there must be nine values (8 waves + the general).

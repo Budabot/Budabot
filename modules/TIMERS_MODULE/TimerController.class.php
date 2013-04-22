@@ -285,7 +285,6 @@ class TimerController {
 			if ($endTime - $time > time()) {
 				$alert = new stdClass;
 				$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>$timeString<end> left. [set by <highlight>$sender<end>]";
-				echo $alert->message . "\n";
 				$alert->time = $endTime - $time;
 				$alerts []= $alert;
 			}
