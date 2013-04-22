@@ -81,11 +81,18 @@ class ChatAssistController {
 	/**
 	 * This command handler sets a new assist.
 	 * @HandlesCommand("assist (.+)")
+	 * @Matches("/^assist clear$/i")
 	 * @Matches("/^assist (.+)$/i")
 	 */
 	public function assistSetCommand($message, $channel, $sender, $sendto, $args) {
+		if (count($args) == 1) {
+			$this->assistMessage = null;
+			$sendto->reply("Assist has been cleared.");
+			return;
+		}
+	
 		$nameArray = explode(' ', $args[1]);
-
+		
 		if (count($nameArray) == 1) {
 			$name = ucfirst(strtolower($args[1]));
 			$uid = $this->chatBot->get_uid($name);
@@ -155,9 +162,16 @@ class ChatAssistController {
 	/**
 	 * This command handler sets a new Doc assist.
 	 * @HandlesCommand("heal (.+)")
+	 * @Matches("/^heal clear$/i")
 	 * @Matches("/^heal (.+)$/i")
 	 */
 	public function healSetCommand($message, $channel, $sender, $sendto, $args) {
+		if (count($args) == 1) {
+			$this->assistMessage = null;
+			$sendto->reply("Heal assist has been cleared.");
+			return;
+		}
+		
 		$nameArray = explode(' ', $args[1]);
 
 		if (count($nameArray) == 1) {
