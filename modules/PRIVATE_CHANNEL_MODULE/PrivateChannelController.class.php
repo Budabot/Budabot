@@ -297,7 +297,8 @@ class PrivateChannelController {
 
 		$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $sender);
 		if (count($data) == 0) {
-			$msg = "You are not a member of this bot.";
+			$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $sender, $onOrOff);
+			$msg = "You have been added as a member of this bot.  Use <highlight><symbol>autoinvite<end> to control your auto invite preference.";
 		} else {
 			$this->db->exec("UPDATE members_<myname> SET autoinv = ? WHERE name = ?", $onOrOff, $sender);
 			$msg = "Your auto invite preference has been updated.";
@@ -535,7 +536,7 @@ class PrivateChannelController {
 					$row = $this->db->queryRow("SELECT * FROM members_<myname> WHERE `name` = ?", $sender);
 					if ($row === null) {
 						$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $sender, '1');
-						$msg = "You have been added as a member of this bot.  Use !autoinvite to control your auto invite preference.";
+						$msg = "You have been added as a member of this bot.  Use <highlight><symbol>autoinvite<end> to control your auto invite preference.";
 					}
 				}
 				$this->chatBot->privategroup_invite($sender);
@@ -637,7 +638,7 @@ class PrivateChannelController {
 		$sender = $eventObj->sender;
 		$data = $this->db->query("SELECT * FROM members_<myname> WHERE name = ? AND autoinv = ?", $sender, '1');
 		if (count($data) != 0) {
-			$msg = "You have been auto invited to the <highlight><myname><end> channel.  See <highlight><symbol>help autoinvite<end> for more info.";
+			$msg = "You have been auto invited to the <highlight><myname><end> channel.  Use <highlight><symbol>autoinvite<end> to control your auto invite preference.";
 			$this->chatBot->privategroup_invite($sender);
 			$this->chatBot->sendTell($msg, $sender);
 		}
