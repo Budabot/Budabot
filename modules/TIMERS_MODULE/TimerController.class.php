@@ -312,6 +312,10 @@ class TimerController {
 		if ($runTime < 1) {
 			return "You must enter a valid time parameter.";
 		}
+		
+		if (strlen($name) > 255) {
+			return "You cannot use timer names longer than 255 characters.";
+		}
 
 		$endTime = time() + $runTime;
 		
