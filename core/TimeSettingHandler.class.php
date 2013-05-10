@@ -37,7 +37,7 @@ class TimeSettingHandler extends SettingHandler {
 		if ($time > 0) {
 			return $time;
 		} else {
-			throw new Exception("This is not a valid time for this setting.");
+			throw new \Exception("This is not a valid time for this setting.");
 		}
 	}
 }
