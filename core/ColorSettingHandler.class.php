@@ -2,6 +2,8 @@
 
 namespace Budabot\Core;
 
+use Exception;
+
 require_once 'SettingHandler.class.php';
 
 class ColorSettingHandler extends SettingHandler {
@@ -53,7 +55,7 @@ class ColorSettingHandler extends SettingHandler {
 		if (preg_match("/^#([0-9a-f]{6})$/i", $newValue)) {
 			return "<font color='$newValue'>";
 		} else {
-			throw new \Exception("<highlight>{$change_to_setting}<end> is not a valid HTML-Color (example: '#FF33DD').");
+			throw new Exception("<highlight>{$change_to_setting}<end> is not a valid HTML-Color (example: '#FF33DD').");
 		}
 	}
 }

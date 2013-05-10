@@ -2,6 +2,8 @@
 
 namespace Budabot\Core;
 
+use Exception;
+
 require_once 'SettingHandler.class.php';
 
 class OptionsSettingHandler extends SettingHandler {

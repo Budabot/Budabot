@@ -2,6 +2,8 @@
 
 namespace Budabot\Core;
 
+use Exception;
+
 /**
  * @Instance
  */

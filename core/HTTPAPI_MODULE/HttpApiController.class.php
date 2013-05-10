@@ -6,6 +6,7 @@ use Ratchet\WebSocket\WsServer;
 use Ratchet\Wamp\WampServer;
 use React\Socket\Server as SocketServer;
 use stdClass;
+use Exception;
 
 /**
  * @Instance("HttpApi")

@@ -2,6 +2,8 @@
 
 namespace Budabot\Core;
 
+use Exception;
+
 require_once 'SettingHandler.class.php';
 
 class NumberSettingHandler extends SettingHandler {
@@ -27,7 +29,7 @@ class NumberSettingHandler extends SettingHandler {
 		if (preg_match("/^[0-9]+$/i", $newValue)) {
 			return $newValue;
 		} else {
-			throw new \Exception("You must enter a number for this setting.");
+			throw new Exception("You must enter a number for this setting.");
 		}
 	}
 }

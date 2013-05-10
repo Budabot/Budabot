@@ -6,6 +6,7 @@ use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use Ratchet\Wamp\WampServerInterface;
 use Evenement\EventEmitter;
+use Exception;
 
 class WampHandler extends EventEmitter implements WampServerInterface {
 	function onOpen(ConnectionInterface $conn) {

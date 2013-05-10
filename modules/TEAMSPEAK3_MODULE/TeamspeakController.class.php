@@ -2,6 +2,8 @@
 
 namespace Budabot\User\Modules;
 
+use Exception;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)

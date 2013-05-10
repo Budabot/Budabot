@@ -4,6 +4,7 @@ namespace Budabot\Core;
 
 use PDO;
 use PDOException;
+use Exception;
 
 require_once 'DBRow.class.php';
 
