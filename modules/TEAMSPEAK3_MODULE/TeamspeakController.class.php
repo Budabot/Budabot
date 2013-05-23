@@ -83,21 +83,32 @@ class TeamspeakController {
 			$serverLink = $this->text->make_chatcmd($server, "/start http://ts3server:://$server:$clientPort");
 
 			$users = $ts->exec('clientlist');
+			$tmp = $ts->exec('channellist');
+			$channels = Array();
+			foreach($tmp as $c) {
+				$channels[$c['cid']]['name'] = str_replace('\s', ' ', $c['channel_name']);
+				$channels[$c['cid']]['users'] = Array();
+			}
 			$count = 0;
-			$blob = "Server: $serverLink\n";
-			$blob .= "Description: <highlight>" . $this->settingManager->get('ts_description') . "<end>\n\n";
-			$blob .= "Users:\n";
-			forEach ($users as $user) {
-				if ($user['client_type'] == 0) {
-					$blob .= "<highlight>{$user['client_nickname']}<end>\n";
+			foreach($users as $u) {
+				if($u['client_type'] == 0) {
+					$channels[$u['cid']]['users'][] = str_replace('\s', ' ', $u['client_nickname']);
 					$count++;
 				}
 			}
-			if ($count == 0) {
-				$blob .= "<i>No users connected</i>\n";
+			$msg = Array();
+			if($count) {
+				foreach($channels as $c) {
+					if(count($c['users'])) {
+						$msg[] = sprintf("<highlight>%s<end>:\n<tab>%s", $c['name'], implode(', ', $c['users']));
+					}
+				}
 			}
-			$blob .= "\n\nTeamspeak 3 support by Tshaar (RK2)";
-			$msg = $this->text->make_blob("{$count} user(s) on Teamspeak", $blob);
+			else {
+				$msg[] = '<i>No users connected</i>';
+			}
+			$msg = sprintf("Server: %s\nDescription: <highlight>%s<end>\n\n%s\n\nTeamspeak 3 support by Tshaar (RK2)", $serverLink, $this->settingManager->get('ts_description'), implode("\n\n", $msg));
+			$msg = $this->text->make_blob("$count user(s) on Teamspeak", $msg);
 		} catch (Exception $e) {
 			$msg = "Error! " . $e->getMessage();
 		}
