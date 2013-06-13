@@ -206,11 +206,17 @@ class ImplantController {
 		$shiny = null;
 		$bright = null;
 		$faded = null;
-		for ($i = 0; $i < 5; $i++) {
+		$added = true;
+
+		// will continue to loop as long as at least one implant is added each loop
+		while ($added) {
+			$added = false;
+			
 			// add shiny
 			$tempValue = $shiny === null ? $value : $value - $shiny->{$prefix . 'Shiny'};
 			$newShiny = $getMax($tempValue);
 			if ($shiny === null || $newShiny->{$prefix . 'Shiny'} > $shiny->{$prefix . 'Shiny'}) {
+				$added = true;
 				if ($shiny !== null) {
 					$value -= $shiny->{$prefix . 'Shiny'};
 					$blob .= "Remove shiny QL $shiny->ql\n\n";
@@ -225,6 +231,7 @@ class ImplantController {
 			$tempValue = $bright === null ? $value : $value - $bright->{$prefix . 'Bright'};
 			$newBright = $getMax($tempValue);
 			if ($bright === null || $newBright->{$prefix . 'Bright'} > $bright->{$prefix . 'Bright'}) {
+				$added = true;
 				if ($bright !== null) {
 					$value -= $bright->{$prefix . 'Bright'};
 					$blob .= "Remove bright QL $bright->ql\n\n";
@@ -239,6 +246,7 @@ class ImplantController {
 			$tempValue = $faded === null ? $value : $value - $faded->{$prefix . 'Faded'};
 			$newFaded = $getMax($tempValue);
 			if ($faded === null || $newFaded->{$prefix . 'Faded'} > $faded->{$prefix . 'Faded'}) {
+				$added = true;
 				if ($faded !== null) {
 					$value -= $faded->{$prefix . 'Faded'};
 					$blob .= "Remove faded QL $faded->ql\n\n";
