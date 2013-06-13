@@ -114,7 +114,7 @@ class ServerStatusController {
 		
 		$roundingVariation = 0.05;
 		$per = array_shift($list);
-		$y = $this->calcPercentPerPlayer($per - $roundingVariation, $per + $roundingVariation, 2, $list);
+		$y = $this->calcPercentPerPlayer($roundingVariation, $per - $roundingVariation, $per + $roundingVariation, 2, $list);
 		
 		$server->totalPlayers = round(100 / $y);
 		
@@ -123,12 +123,11 @@ class ServerStatusController {
 		return $server;
 	}
 	
-	public function calcPercentPerPlayer($min, $max, $num, $list) {
+	public function calcPercentPerPlayer($roundingVariation, $min, $max, $num, $list) {
 		if (empty($list)) {
 			return ($min + $max) / 2;
 		}
 		
-		$roundingVariation = 0.05;
 		$base = $list[0];
 		$currentMin = ($base - $roundingVariation) / $num;
 		$currentMax = ($base + $roundingVariation) / $num;
@@ -136,12 +135,12 @@ class ServerStatusController {
 		$newMax = min($currentMax, $max);
 		
 		if ($base > round($num * $max, 1)) {
-			return $this->calcPercentPerPlayer($min, $max, $num + 1, $list);
+			return $this->calcPercentPerPlayer($roundingVariation, $min, $max, $num + 1, $list);
 		} else if ($base < round($num * $min, 1)) {
-			return $this->calcPercentPerPlayer($min / $num * ($num - 1), $max / $num * ($num - 1), $num - 1, $list);
+			return $this->calcPercentPerPlayer($roundingVariation, $min / $num * ($num - 1), $max / $num * ($num - 1), $num - 1, $list);
 		} else {
 			array_shift($list);
-			return $this->calcPercentPerPlayer($newMin, $newMax, $num + 1, $list);
+			return $this->calcPercentPerPlayer($roundingVariation, $newMin, $newMax, $num + 1, $list);
 		}
 	}
 	
