@@ -15,7 +15,7 @@ use Exception;
  *	@DefineCommand(
  *		command     = 'profile', 
  *		accessLevel = 'admin', 
- *		description = 'Guides for AO', 
+ *		description = 'View, add, remove, and load profiles', 
  *		help        = 'profile.txt',
  *		alias       = 'profiles'
  *	)
