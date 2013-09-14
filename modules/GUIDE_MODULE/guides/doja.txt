@@ -32,7 +32,7 @@ Looted from: <a  href='chatcmd:///waypoint 2125.7 873.4 4321'>Icy Predators</a>,
 <a href='itemref://284959/284959/1'>Inferno</a>
 <a href='itemref://284959/284959/1'><img src='rdb://293711'></a>
 Level Range: <highlight>205-220<end>
-Looted from: <a  href='chatcmd:///waypoint 1671.8 1090.6 4005'>Demons of Shadow</a>, <a  href='chatcmd:///waypoint 1380.7 611.8 4005'>Fiery Chimeras</a> and <a  href='chatcmd:///waypoint 1680.8 869.94005'>Somphos Logees</a>
+Looted from: <a  href='chatcmd:///waypoint 1671.8 1090.6 4005'>Demons of Shadow</a>, <a  href='chatcmd:///waypoint 1380.7 611.8 4005'>Fiery Chimeras</a> and <a  href='chatcmd:///waypoint 1680.8 869.9 4005'>Somphos Logees</a>
 
 
 <header2>Special DOJA Chips<end>
