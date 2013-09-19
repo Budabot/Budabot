@@ -1,5 +1,5 @@
 Version: <version>
-Project Site: <a href='chatcmd:///start http://code.google.com/p/budabot2'>http://code.google.com/p/budabot2</a>
+Project Site: <a href='chatcmd:///start http://github.com/Budabot/Budabot'>http://github.com/Budabot/Budabot</a>
 Project Forum: <a href='chatcmd:///start http://budabot.com'>http://budabot.com</a>
 Project Statistics: <a href='chatcmd:///start https://www.ohloh.net/p/budabot2'>https://www.ohloh.net/p/budabot2</a>
 
