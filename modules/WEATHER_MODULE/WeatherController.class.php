@@ -182,11 +182,11 @@ class WeatherController {
 				}
 
 				$blob .= "High: <highlight>";
-				$blob .= $this->fix_num_space($high[1],3)."F";
-				$blob .= $this->fix_num_space($high[2],3)."C<end>    ";
+				$blob .= $high[1]."F";
+				$blob .= $high[2]."C<end>    ";
 
-				$blob .= "Low: <highlight>".$this->fix_num_space($low[1],3)."F";
-				$blob .= $this->fix_num_space($low[2],3)."C<end>\n\n";
+				$blob .= "Low: <highlight>".$low[1]."F";
+				$blob .= $low[2]."C<end>\n\n";
 
 			}
 		}
@@ -194,37 +194,5 @@ class WeatherController {
 		$msg = $this->text->make_blob('Weather: '.$location, $blob);
 
 		$sendto->reply($msg);
-	}
-
-	private function fix_num_space($number, $digits = 7) {
-
-		if (strlen($number) > $digits) {
-			return "ERR";
-		}
-
-		$digits--;
-		$number = strrev($number);
-		for ($pos=$digits; $pos>=0; $pos--) {
-
-			$setpoint = substr($number,$pos,1);
-
-			if ($setpoint == "" && $pos == $digits) {
-				$retval = "<black>_";
-				$inblack = true;
-			} else if ($setpoint == "") {
-				$retval .= "_";
-			} else if ($setpoint != "" && $inblack == true) {
-				$retval .= "<end>$setpoint";
-				$inblack = false;
-			} else if ($setpoint != "") {
-				$retval .= $setpoint;
-			}
-
-			if (($pos/3) == intval($pos/3) && $pos != 0) {
-				$retval .= ",";
-			}
-
-		}
-		return $retval;
 	}
 }
