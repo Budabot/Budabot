@@ -38,13 +38,12 @@ class WeatherController {
 		$location = $args[1];
 		$blob = '';
 
-		$host      = "api.wunderground.com";
-		$geolookup = "/auto/wui/geo/GeoLookupXML/index.xml?query=".urlencode($location);
-		$current   = "/auto/wui/geo/WXCurrentObXML/index.xml?query=".urlencode($location);
-		$forecast  = "/auto/wui/geo/ForecastXML/index.xml?query=".urlencode($location);
-		$alerts    = "/auto/wui/geo/AlertsXML/index.xml?query=".urlencode($location);
+		$geolookup = "http://api.wunderground.com/auto/wui/geo/GeoLookupXML/index.xml?query=".urlencode($location);
+		$current   = "http://api.wunderground.com/auto/wui/geo/WXCurrentObXML/index.xml?query=".urlencode($location);
+		$forecast  = "http://api.wunderground.com/auto/wui/geo/ForecastXML/index.xml?query=".urlencode($location);
+		$alerts    = "http://api.wunderground.com/auto/wui/geo/AlertsXML/index.xml?query=".urlencode($location);
 
-		$geolookup = $this->getweatherdata("api.wunderground.com", 80, $geolookup);
+		$geolookup = file_get_contents($geolookup);
 
 		// Geolookup
 		if (xml::spliceData($geolookup, "<wui_error>", "</wui_error>") != ""){
@@ -66,9 +65,9 @@ class WeatherController {
 
 		$sendto->reply("Collecting data for <highlight>".$location."<end>.");
 
-		$current   = $this->getweatherdata("api.wunderground.com", 80, $current);
-		$forecast  = $this->getweatherdata("api.wunderground.com", 80, $forecast);
-		$alerts    = $this->getweatherdata("api.wunderground.com", 80, $alerts);
+		$current   = file_get_contents($current);
+		$forecast  = file_get_contents($forecast);
+		$alerts    = file_get_contents($alerts);
 
 		// CURRENT
 		$updated = xml::spliceData($current, "<observation_time_rfc822>", "</observation_time_rfc822>");
@@ -196,45 +195,7 @@ class WeatherController {
 
 		$sendto->reply($msg);
 	}
-	
-	private function getweatherdata ($host, $port, $url) {
 
-		$ip = gethostbyname($host);
-		$port = 80;
-		if ($ip == $host) {
-			return -1;
-		} // Failed to get host
-
-		if (!($server = @fsockopen($ip, $port, $errno, $errstr, 5))) { // we connect?
-			return -2;
-		}
-
-		$request = "GET $url HTTP/1.1\r\nHost: $host\r\nUser-Agent: Mozilla/4.0 (compatible; MSIE 7.0b; Windows NT 6.0)\r\nAccept: text/xml,application/xml,application/xhtml+xml,text/html\r\nAccept-Language: en-us,en;q=0.5\r\nKeep-Alive: 300\r\nConnection: Keep-Alive\r\nCache-Control: max-age=0\r\n\r\n";
-		fputs($server, $request);
-		while (!feof($server)) {
-			$stream .= fread($server, 8192);
-		}
-		fclose($server);
-
-		$stream = substr($stream, strpos( $stream, "\r\n\r\n") +4); //remove packet info
-
-		while(true) {
-			$pos = @strpos($stream, "\r\n", 0);
-			if(!($pos === false) && $size === null) {
-				// we found CRLF, get len from hex
-				$size = hexdec(substr($stream, 0, $pos));
-				// get the actual chunk-len, reset $response, $size
-				$temp .= substr($stream, $pos+2, $size);
-				$stream = substr($stream, ($pos+2) + $size);
-				$size = null;
-			} else {
-				break;
-			}
-		}
-
-		return $temp;
-	}
-	
 	private function fix_num_space($number, $digits = 7) {
 
 		if (strlen($number) > $digits) {
