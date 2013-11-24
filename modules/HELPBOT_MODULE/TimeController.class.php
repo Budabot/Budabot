@@ -40,10 +40,12 @@ class TimeController {
 	public function timeListCommand($message, $channel, $sender, $sendto, $args) {
 		$link = "The following includes most of the timezones that exist but notice that this list doesn't show all countries within the timezones and also that some countries have 2 timezones.\n\nTo see the time in a specific timezone use <symbol>time 'timezone'.\n\nFor example <symbol>time CET\n\n";
 		$link .= "<header2>Australia<end>\n";
+		$link .= "<tab><highlight>Western Australia</end>\n";
+		$link .= "<tab><tab>Standard Time (AWST = GMT +8:00): " . $this->getTimezone("AWST")->time . "\n";
 		$link .= "<tab><highlight>Northern Territory/South Australia<end>\n";
 		$link .= "<tab><tab>Standard Time (ACST = GMT+9:30): " . $this->getTimezone("ACST")->time . "\n";
 		$link .= "<tab><tab>Summer Time (ACDT = GMT+10:30): " . $this->getTimezone("ACDT")->time . "\n";
-		$link .= "<tab><highlight>Quensland/Victory/Tasmanien<end>\n";
+		$link .= "<tab><highlight>Queensland/Victoria/Tasmania<end>\n";
 		$link .= "<tab><tab>Standard Time (AEST = GMT+10): " . $this->getTimezone("AEST")->time . "\n";
 		$link .= "<tab><tab>Summer Time (AEDT = GMT+11): " . $this->getTimezone("AEDT")->time . "\n\n";
 
@@ -57,7 +59,7 @@ class TimeController {
 		$link .= "<tab><highlight>Germany/France/Netherlands/Italy/Austria<end>\n";
 		$link .= "<tab><tab>Standard Time (CET = GMT+1): " . $this->getTimezone("CET")->time . "\n";
 		$link .= "<tab><tab>Summer Time (CEST = GMT+2): " . $this->getTimezone("CEST")->time . "\n";
-		$link .= "<tab><highlight>Ägypten/Bulgarien/Finnland/Griechenland<end>\n";
+		$link .= "<tab><highlight>Ã„gypten/Bulgarien/Finnland/Griechenland<end>\n";
 		$link .= "<tab><tab>Standard Time (EET = GMT+2): " . $this->getTimezone("EET")->time . "\n";
 		$link .= "<tab><tab>Summer Time (EEST/EEDT = GMT+3): " . $this->getTimezone("EEST")->time . "\n";
 		$link .= "<tab><highlight>Bahrain/Irak/Russland/Saudi Arabien<end>\n";
@@ -217,6 +219,10 @@ class TimeController {
 			case "JST":
 				$name = "Japan Standard Time (GMT+9)";
 				$offset = 3600*9;
+				break;
+			case "AWST":
+				$name = "Australian Western Standard Time (GMT+8)";
+				$offset = 3600*8;
 				break;
 			case "ACST":
 				$name = "Australian Central Standard Time (GMT+9:30)";
