@@ -104,8 +104,9 @@ class Text {
 
 		$lines = explode($symbol, $input);
 		forEach ($lines as $line) {
-			if ($symbol == "\n") {
-				$line .= "\n";
+			// retain new lines and spaces in output
+			if ($symbol == "\n" || $symbol == " ") {
+				$line .= $symbol;
 			}
 
 			$lineLength = strlen($line);
