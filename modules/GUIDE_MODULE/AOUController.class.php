@@ -196,7 +196,7 @@ class AOUController {
 	private function replaceWaypoint($arr) {
 		$label = $arr[2];
 		$params = explode(" ", $arr[1]);
-		forEach($params as $param) {
+		forEach ($params as $param) {
 			list($name, $value) = explode("=", $param);
 			$$name = $value;
 		}
@@ -226,7 +226,7 @@ class AOUController {
 		$input = str_replace("[/center]", "</center>", $input);
 		$input = str_replace("[i]", "<i>", $input);
 		$input = str_replace("[/i]", "</i>", $input);
-		$input = str_replace("[b]", "<header>", $input);
+		$input = str_replace("[b]", "<highlight>", $input);
 		$input = str_replace("[/b]", "<end>", $input);
 
 		$pattern = "/(\\[[^\\]]+\\])/";
@@ -242,10 +242,6 @@ class AOUController {
 	
 	private function processTag($tag) {
 		switch ($tag) {
-			case "[b]":
-				return "<highlight>";
-			case "[/b]":
-				return "<end>";
 			case "[ts_ts]":
 				return " + ";
 			case "[ts_ts2]":
