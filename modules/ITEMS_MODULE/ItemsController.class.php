@@ -63,10 +63,13 @@ class ItemsController {
 	 * @Options("30;40;50;60")
 	 */
 	public $defaultMaxitems = "40";
-
+	
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
+		
+		// Initialize settings - Demoder
+		$this->settingManager->add($this->moduleName, "items_database", "Use database", "edit", "text", 'local', 'local;central');
 	}
 
 	/**
@@ -91,7 +94,7 @@ class ItemsController {
 		}
 
 		$search = htmlspecialchars_decode($search);
-		$msg = $this->find_items_from_local($search, $ql);
+		$msg = $this->find_items($search, $ql);
 		$sendto->reply($msg);
 	}
 	
@@ -199,6 +202,50 @@ class ItemsController {
 		return $msg;
 	}
 
+	public function find_items($search, $ql) {
+		// Figure out which database to query - Demoder
+		$db = $this->settingManager->get('items_database');
+		echo "Database set to: " . $db . "\r\n";
+		switch($db) {
+			case 'local':
+				// Local database
+				return $this->find_items_from_local($search, $ql);
+			case 'central':
+				// Default CIDB
+				return $this->find_items_from_remote($search, $ql, "http://cidb.botsharp.net/");
+			default:
+				// Specified CIDB
+				return $this->find_items_from_remote($search, $ql, $db);
+		}
+	}
+	
+	/*
+	 * Method to query the Central Items Database - Demoder
+	 */
+	public function find_items_from_remote($search, $ql, $server) {		
+		$icons=true;
+		$max = $this->defaultMaxItems;
+		// Store parameters as an array, for easy assembly later.
+		$parameters = array(
+			// Should always specify which bot software is querying.
+			"bot=BudaBot", 
+			"output=aoml", 
+			"max=".$max,
+			"search=".urlencode($search),
+			"icons=".$icons);			
+		// Don't include QL in the query unless the user specified it.
+		if ($ql>0) {
+			$parameters[]="ql=".$ql;
+		}		
+		// Assemble query URL and retrieve results.
+		$url=$server . '?' . implode('&', $parameters);
+		$msg = file_get_contents($url);
+		if (empty($msg)) {
+			$msg = "Unable to query Central Items Database.";
+		}
+		return $msg;
+	}
+	
 	public function find_items_from_local($search, $ql) {
 		$tmp = explode(" ", $search);
 		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'name');
