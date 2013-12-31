@@ -66,11 +66,6 @@ class ItemsController {
 	
 	/** @Setup */
 	public function setup() {
-		/* TODO: Only load this if using local database.
-		 * This will require some hook for when the setting 
-		 * '$database' is altered, so that it can be loaded 
-		 * when changing from remote to local database.
-		 */
 		$this->db->loadSQLFile($this->moduleName, "aodb");
 		
 		// Initialize settings - Demoder
@@ -208,38 +203,41 @@ class ItemsController {
 	}
 
 	public function find_items($search, $ql) {
+		// Figure out which database to query - Demoder
 		$db = $this->settingManager->get('items_database');
 		echo "Database set to: " . $db . "\r\n";
 		switch($db) {
-			case 'central':
-				return $this->find_items_from_remote($search, $ql, "http://cidb.botsharp.net/");
 			case 'local':
+				// Local database
 				return $this->find_items_from_local($search, $ql);
+			case 'central':
+				// Default CIDB
+				return $this->find_items_from_remote($search, $ql, "http://cidb.botsharp.net/");
 			default:
+				// Specified CIDB
 				return $this->find_items_from_remote($search, $ql, $db);
 		}
 	}
 	
-	public function find_items_from_remote($search, $ql, $server) {
-		
+	/*
+	 * Method to query the Central Items Database - Demoder
+	 */
+	public function find_items_from_remote($search, $ql, $server) {		
 		$icons=true;
-		/*$color_header = 'DFDF00';
-		$color_highlight = '97BE37';
-		$color_normal = 'CCF0AD';*/
 		$max = $this->defaultMaxItems;
-		
+		// Store parameters as an array, for easy assembly later.
 		$parameters = array(
+			// Should always specify which bot software is querying.
 			"bot=BudaBot", 
 			"output=aoml", 
 			"max=".$max,
 			"search=".urlencode($search),
-			"icons=".$icons,
-			"color_header=".$color_header,
-			"color_highlight=".$color_highlight,
-			"color_normal=".$color_normal);
+			"icons=".$icons);			
+		// Don't include QL in the query unless the user specified it.
 		if ($ql>0) {
 			$parameters[]="ql=".$ql;
-		}
+		}		
+		// Assemble query URL and retrieve results.
 		$url=$server . '?' . implode('&', $parameters);
 		$msg = file_get_contents($url);
 		if (empty($msg)) {
