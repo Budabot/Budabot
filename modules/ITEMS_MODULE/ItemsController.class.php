@@ -64,12 +64,18 @@ class ItemsController {
 	 */
 	public $defaultMaxitems = "40";
 	
+	/**
+	 * @Setting("items_database")
+	 * @Description("Use central or local items database")
+	 * @Visibility("edit")
+	 * @Type("text")
+	 * @Options("local;central")
+	 */
+	public $defaultItemsDatabase = "local";
+	
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
-		
-		// Initialize settings - Demoder
-		$this->settingManager->add($this->moduleName, "items_database", "Use database", "edit", "text", 'local', 'local;central');
 	}
 
 	/**
@@ -205,7 +211,6 @@ class ItemsController {
 	public function find_items($search, $ql) {
 		// Figure out which database to query - Demoder
 		$db = $this->settingManager->get('items_database');
-		echo "Database set to: " . $db . "\r\n";
 		switch($db) {
 			case 'local':
 				// Local database
@@ -223,22 +228,22 @@ class ItemsController {
 	 * Method to query the Central Items Database - Demoder
 	 */
 	public function find_items_from_remote($search, $ql, $server) {		
-		$icons=true;
+		$icons = true;
 		$max = $this->defaultMaxItems;
 		// Store parameters as an array, for easy assembly later.
 		$parameters = array(
 			// Should always specify which bot software is querying.
-			"bot=BudaBot", 
+			"bot=Budabot", 
 			"output=aoml", 
-			"max=".$max,
-			"search=".urlencode($search),
-			"icons=".$icons);			
+			"max=" . $max,
+			"search=" . urlencode($search),
+			"icons=" . $icons);			
 		// Don't include QL in the query unless the user specified it.
-		if ($ql>0) {
-			$parameters[]="ql=".$ql;
+		if ($ql > 0) {
+			$parameters []= "ql=" . $ql;
 		}		
 		// Assemble query URL and retrieve results.
-		$url=$server . '?' . implode('&', $parameters);
+		$url = $server . '?' . implode('&', $parameters);
 		$msg = file_get_contents($url);
 		if (empty($msg)) {
 			$msg = "Unable to query Central Items Database.";
