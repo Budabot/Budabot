@@ -1,8 +1,14 @@
-To search for an item:
+To search for an item using the default database:
 <highlight><tab><symbol>items 'item name'<end>
 
 To search for a specific QL of an item:
 <highlight><tab><symbol>items 'QL' 'item name'<end>
+
+To search for an item using the local database:
+<highlight><tab><symbol>litems 'QL' 'item name'<end>
+
+To search for an item using the central database:
+<highlight><tab><symbol>citems 'QL' 'item name'<end>
 
 To search for an item by id:
 <highlight><tab><symbol>itemid 'id'<end>

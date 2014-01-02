@@ -12,6 +12,18 @@ use DOMDocument;
  *
  * Commands this controller contains:
  *	@DefineCommand(
+ *		command     = 'litems',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item using the local database',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'citems',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item using the central (remote) database',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = 'items',
  *		accessLevel = 'all',
  *		description = 'Searches for an item',
@@ -79,28 +91,38 @@ class ItemsController {
 	}
 
 	/**
-	 * This command handler searches for an item.
+	 * This command handler searches for an item using the default database.
 	 *
 	 * @HandlesCommand("items")
 	 * @Matches("/^items ([0-9]+) (.+)$/i")
 	 * @Matches("/^items (.+)$/i")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
-		if (count($args) == 3) {
-			$ql = $args[1];
-			if (!($ql >= 1 && $ql <= 500)) {
-				$msg = "QL must be between 1 and 500.";
-				$sendto->reply($msg);
-				return;
-			}
-			$search = $args[2];
-		} else {
-			$search = $args[1];
-			$ql = false;
-		}
-
-		$search = htmlspecialchars_decode($search);
-		$msg = $this->find_items($search, $ql);
+		$msg = $this->find_items($args, $ql);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * This command handler searches for an item using the local database.
+	 *
+	 * @HandlesCommand("litems")
+	 * @Matches("/^litems ([0-9]+) (.+)$/i")
+	 * @Matches("/^litems (.+)$/i")
+	 */
+	public function litemsCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->find_items($args, 'local');
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * This command handler searches for an item using the central database.
+	 *
+	 * @HandlesCommand("citems")
+	 * @Matches("/^citems ([0-9]+) (.+)$/i")
+	 * @Matches("/^citems (.+)$/i")
+	 */
+	public function citemsCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->find_items($args, 'central');
 		$sendto->reply($msg);
 	}
 	
@@ -208,47 +230,89 @@ class ItemsController {
 		return $msg;
 	}
 
-	public function find_items($search, $ql) {
+	public function find_items($args, $db = null) {
+		if (count($args) == 3) {
+			$ql = $args[1];
+			if (!($ql >= 1 && $ql <= 500)) {
+				return "QL must be between 1 and 500.";
+			}
+			$search = $args[2];
+		} else {
+			$search = $args[1];
+			$ql = false;
+		}
+
+		$search = htmlspecialchars_decode($search);
+	
 		// Figure out which database to query - Demoder
-		$db = $this->settingManager->get('items_database');
+		if ($db == null) {
+			$db = $this->settingManager->get('items_database');
+		}
 		switch($db) {
 			case 'local':
 				// Local database
-				return $this->find_items_from_local($search, $ql);
+				$data = $this->find_items_from_local($search, $ql);
+
+				$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
+				$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
+
+				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
+				break;
 			case 'central':
-				// Default CIDB
-				return $this->find_items_from_remote($search, $ql, "http://cidb.botsharp.net/");
+				$db = 'http://cidb.botsharp.net/';
+				// fall through to default
 			default:
-				// Specified CIDB
-				return $this->find_items_from_remote($search, $ql, $db);
+				// Default CIDB
+				$obj = $this->find_items_from_remote($search, $ql, $db);
+
+				if ($obj == null) {
+					$msg = "Unable to query Central Items Database.";
+				} else {
+					$footer = "Search results provided by " . $obj->server;
+					$msg = $this->createItemsBlob($obj->results, $search, $ql, $obj->version, $db, $footer);
+				}
+				break;
 		}
+		return $msg;
 	}
 	
 	/*
 	 * Method to query the Central Items Database - Demoder
 	 */
-	public function find_items_from_remote($search, $ql, $server) {		
-		$icons = true;
-		$max = $this->defaultMaxItems;
+	public function find_items_from_remote($search, $ql, $server) {
 		// Store parameters as an array, for easy assembly later.
 		$parameters = array(
 			// Should always specify which bot software is querying.
-			"bot=Budabot", 
-			"output=aoml", 
-			"max=" . $max,
-			"search=" . urlencode($search),
-			"icons=" . $icons);			
+			"bot=Budabot",
+			"output=json",
+			"max=" . $this->settingManager->get('maxitems'),
+			"version=" . "1.2",
+			"search=" . urlencode($search));
+
 		// Don't include QL in the query unless the user specified it.
 		if ($ql > 0) {
 			$parameters []= "ql=" . $ql;
-		}		
+		}
+
 		// Assemble query URL and retrieve results.
 		$url = $server . '?' . implode('&', $parameters);
-		$msg = file_get_contents($url);
-		if (empty($msg)) {
-			$msg = "Unable to query Central Items Database.";
+		$data = file_get_contents($url);
+		if (empty($data)) {
+			return null;
+		} else {
+			$obj = json_decode($data);
+			
+			// change attribute names data to match expected format
+			forEach ($obj->results as $item) {
+				$item->lowid = $item->LowID;
+				$item->highid = $item->HighID;
+				$item->lowql = $item->LowQL;
+				$item->highql = $item->HighQL;
+				$item->name = $item->Name;
+				$item->icon = $item->Icon;
+			}
+			return $obj;
 		}
-		return $msg;
 	}
 	
 	public function find_items_from_local($search, $ql) {
@@ -265,13 +329,12 @@ class ItemsController {
 		$data = $this->db->query($sql, $params);
 		$data = $this->orderSearchResults($data, $search);
 		$data = array_slice($data, 0, $this->settingManager->get("maxitems"));
-
-		$resultsLimited = false;
-		if (count($data) > $this->settingManager->get("maxitems")) {
-			$resultsLimited = true;
-		}
-		$num = count($data);
 		
+		return $data;
+	}
+	
+	public function createItemsBlob($data, $search, $ql, $version, $server, $footer) {
+		$num = count($data);
 		if ($num == 0) {
 			if ($ql) {
 				$msg = "No QL <highlight>$ql<end> items found matching <highlight>$search<end>.";
@@ -280,19 +343,18 @@ class ItemsController {
 			}
 			return $msg;
 		} else if ($num > 3) {
-			$blob = "Version: " . $this->settingManager->get('aodb_db_version') . "\n";
+			$blob = "Version: <highlight>$version<end>\n";
 			if ($ql) {
-				$blob .= "Search: QL $ql $search\n\n";
+				$blob .= "Search: <highlight>QL $ql $search<end>\n\n";
 			} else {
-				$blob .= "Search: $search\n\n";
+				$blob .= "Search: <highlight>$search<end>\n";
 			}
-			if ($resultsLimited === true) {
-				$blob .= "*Note: Results have been limited to the first " . $this->settingManager->get("maxitems") . " results.\n\n";
-			}
+			$blob .= "Server: <highlight>" . $server . "<end>\n\n";
 			$blob .= $this->formatSearchResults($data, $ql, true);
-			$xrdbLink = $this->text->make_chatcmd("XRDB", "/start http://www.xyphos.com/viewtopic.php?f=6&t=10000091");
-			$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start http://budabot.com/forum/viewtopic.php?f=7&t=873");
-			//$blob .= "\n\n<highlight>Item DB rips created using Xyphos' $xrdbLink tool and the $budabotItemsExtractorLink plugin<end>";
+			if ($num == $this->settingManager->get('maxitems')) {
+				$blob .= "\n\n<highlight>*Results have been limited to the first " . $this->settingManager->get("maxitems") . " results.<end>";
+			}
+			$blob .= "\n\n" . $footer;
 			$link = $this->text->make_blob("Item Search Results ($num)", $blob);
 
 			return $link;
@@ -341,14 +403,14 @@ class ItemsController {
 				$list .= $this->text->make_image($row->icon) . "\n";
 			}
 			if ($ql) {
-				$list .= "QL $ql ".$this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
+				$list .= "QL $ql " . $this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
 			} else {
 				$list .= $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
 			}
 			if ($row->lowql != $row->highql) {
-				$list .= " (QL".$row->lowql." - ".$row->highql.")\n";
+				$list .= " (QL" . $row->lowql . " - " . $row->highql . ")\n";
 			} else {
-				$list .= " (QL".$row->lowql.")\n";
+				$list .= " (QL" . $row->lowql . ")\n";
 			}
 			if ($showImages) {
 				$list .= "\n";
