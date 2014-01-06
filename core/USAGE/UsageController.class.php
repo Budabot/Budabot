@@ -224,6 +224,7 @@ class UsageController {
 		$settings['online_show_org_guild'] = $this->settingManager->get('online_show_org_guild');
 		$settings['online_show_org_priv'] = $this->settingManager->get('online_show_org_priv');
 		$settings['online_admin'] = $this->settingManager->get('online_admin');
+		$settings['items_database'] = $this->settingManager->get('items_database');
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $this->chatBot->vars['name'] . $this->chatBot->vars['dimension']);
