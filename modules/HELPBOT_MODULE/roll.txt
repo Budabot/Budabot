@@ -11,6 +11,10 @@ To roll a number between 1 and a number:
 To roll a number between a startvalue and a endvalue:
 <highlight><tab><symbol>roll 'startvalue' 'endvalue'<end>
 
+To roll a random value:
+<highlight><tab><symbol>roll 'value1' 'value2' 'value3' ...<end>
+Note that values must not contain spaces.
+
 <header2>Verify Command<end>
 
 To verify a roll:

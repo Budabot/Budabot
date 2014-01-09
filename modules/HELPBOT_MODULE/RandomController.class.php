@@ -48,6 +48,21 @@ class RandomController {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $util;
+	
+	/** @Inject */
+	public $settingManager;
+	
+	/**
+	 * @Setting("time_between_rolls")
+	 * @Description("How much time is required between rolls from the same person")
+	 * @Visibility("edit")
+	 * @Type("time")
+	 * @Options("10s;30s;60s;90s")
+	 */
+	public $defaultTimeBetweenRolls = "30s";
+	
 	/**
 	 * This handler is called on bot startup.
 	 * @Setup
@@ -102,7 +117,7 @@ class RandomController {
 	 * @Matches("/^roll ([0-9]+)$/i")
 	 * @Matches("/^roll ([0-9]+) ([0-9]+)$/i")
 	 */
-	public function rollSingleCommand($message, $channel, $sender, $sendto, $args) {
+	public function rollNumericCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 3) {
 			$min = $args[1];
 			$max = $args[2];
@@ -114,15 +129,37 @@ class RandomController {
 		if ($min >= $max) {
 			$msg = "The first number cannot be higher than or equal to the second number.";
 		} else {
-			$row = $this->db->queryRow("SELECT * FROM roll WHERE `name` = ? AND `time` >= ? LIMIT 1", $sender, time() - 30);
+			$timeBetweenRolls = $this->settingManager->get('time_between_rolls');
+			$row = $this->db->queryRow("SELECT * FROM roll WHERE `name` = ? AND `time` >= ? LIMIT 1", $sender, time() - $timeBetweenRolls);
 			if ($row === null) {
-				$num = rand($min, $max);
-				$this->db->exec("INSERT INTO roll (`time`, `name`, `type`, `start`, `end`, `result`) VALUES (?, ?, ?, ?, ?, ?)", time(), $sender, 1, $min, $max, $num);
-				$ver_num = $this->db->lastInsertId();
-				$msg = "Between $min and $max I rolled a <highlight>$num<end>, to verify do /tell <myname> verify $ver_num";
+				$options = array();
+				for ($i = $min; $i <= $max; $i++) {
+					$options []= $i;
+				}
+				list($ver_num, $result) = $this->roll($sender, $options);
+				$msg = "The roll is <highlight>$result<end> between $min and $max. To verify do /tell <myname> verify $ver_num";
 			} else {
-				$msg = "You can only flip or roll once every 30 seconds.";
+				$msg = "You can only flip or roll once every $timeBetweenRolls seconds.";
 			}
+		}
+
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("roll")
+	 * @Matches("/^roll (.+)$/i")
+	 */
+	public function rollNamesCommand($message, $channel, $sender, $sendto, $args) {
+		$names = $args[1];
+		$timeBetweenRolls = $this->settingManager->get('time_between_rolls');
+		$row = $this->db->queryRow("SELECT * FROM roll WHERE `name` = ? AND `time` >= ? LIMIT 1", $sender, time() - $timeBetweenRolls);
+		if ($row === null) {
+			$options = explode(' ', $names);
+			list($ver_num, $result) = $this->roll($sender, $options);
+			$msg = "The roll is <highlight>$result<end> out of possible options: $names. To verify do /tell <myname> verify $ver_num";
+		} else {
+			$msg = "You can only flip or roll once every $timeBetweenRolls seconds.";
 		}
 
 		$sendto->reply($msg);
@@ -133,18 +170,14 @@ class RandomController {
 	 * @Matches("/^flip$/i")
 	 */
 	public function flipCommand($message, $channel, $sender, $sendto, $args) {
-		$row = $this->db->queryRow("SELECT * FROM roll WHERE `name` = ? AND `time` >= ? LIMIT 1", $sender, time() - 30);
+		$timeBetweenRolls = $this->settingManager->get('time_between_rolls');
+		$row = $this->db->queryRow("SELECT * FROM roll WHERE `name` = ? AND `time` >= ? LIMIT 1", $sender, time() - $timeBetweenRolls);
 		if ($row === null) {
-			$flip = rand(1, 2);
-			$this->db->exec("INSERT INTO roll (`time`, `name`, `type`, `result`) VALUES (?, ?, ?, ?)", time(), $sender, 0, $flip);
-			$ver_num = $this->db->lastInsertId();
-			if ($flip == 1) {
-				$msg = "The coin landed <highlight>heads<end>, to verify do /tell <myname> verify $ver_num";
-			} else {
-				$msg = "The coin landed <highlight>tails<end>, to verify do /tell <myname> verify $ver_num";
-			}
+			$options = array('heads', 'tails');
+			list($ver_num, $result) = $this->roll($sender, $options);
+			$msg = "The coin landed <highlight>$result<end>. To verify do /tell <myname> verify $ver_num";
 		} else {
-			$msg = "You can only flip or roll once every 30 seconds.";
+			$msg = "You can only flip or roll once every $timeBetweenRolls seconds.";
 		}
 
 		$sendto->reply($msg);
@@ -158,21 +191,19 @@ class RandomController {
 		$id = $args[1];
 		$row = $this->db->queryRow("SELECT * FROM roll WHERE `id` = ?", $id);
 		if ($row === null) {
-			$msg = "That verify number does not exist.";
+			$msg = "Verify number <highlight>$id<end> does not exist.";
 		} else {
-			$time = time() - $row->time;
-			$msg = "$time seconds ago I told <highlight>$row->name<end>: ";
-			if ($row->type == 0) {
-				if ($row->result == 1) {
-					$msg .= "The coin landed <highlight>heads<end>.";
-				} else {
-					$msg .= "The coin landed <highlight>tails<end>.";
-				}
-			} else {
-				$msg .= "Between $row->start and $row->end I rolled a <highlight>$row->result<end>.";
-			}
+			$time = $this->util->unixtime_to_readable(time() - $row->time);
+			$msg = "<highlight>$row->result<end> rolled by <highlight>$row->name<end> $time ago. Possible options: ";
+			$msg .= str_replace("|", " ", $row->options) . ".";
 		}
 
 		$sendto->reply($msg);
+	}
+	
+	public function roll($sender, $options) {
+		$result = $this->util->rand_array_value($options);
+		$this->db->exec("INSERT INTO roll (`time`, `name`, `options`, `result`) VALUES (?, ?, ?, ?)", time(), $sender, implode($options, "|"), $result);
+		return array($this->db->lastInsertId(), $result);
 	}
 }

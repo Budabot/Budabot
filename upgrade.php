@@ -79,11 +79,6 @@ use Budabot\Core\Registry;
 	}
 	
 	function checkIfColumnExists($db, $table, $column) {
-		// If the table doesn't exist, return true since the table will be created with the correct column.
-		if (checkIfTableExists($db, $table) == false) {
-			return true;
-		}
-
 		// Else if the table exists but the column doesn't, return false so the table will be updated with the correct column.
 		try {
 			$data = $db->query("SELECT $column FROM $table");
@@ -108,5 +103,11 @@ use Budabot\Core\Registry;
 		forEach ($lines as $line) {
 			upgrade($db, $line);
 		}
+	}
+	
+	// if roll table has 'type' column, then drop it so it can be reloaded with new schema changes
+	// it shouldn't matter if the data in that table is lost -Tyrence
+	if (checkIfColumnExists($db, 'roll', 'type')) {
+		$db->exec("DROP TABLE roll");
 	}
 ?>
