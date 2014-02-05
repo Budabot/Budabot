@@ -229,7 +229,7 @@ class Util {
 			case "Adventurer":
 				$prof = "Adv";
 				break;
-			case "agent":
+			case "Agent":
 				$prof = "Agent";
 				break;
 			case "Bureaucrat":
