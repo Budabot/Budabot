@@ -194,6 +194,16 @@ class PlayerManager {
 
 		return $msg;
 	}
+	
+	public function searchForPlayers($search, $rkNum = null) {
+		if ($rkNum == null) {
+			$sql = "SELECT * FROM players WHERE name LIKE ?";
+			return $this->db->query($sql, $search);
+		} else {
+			$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ?";
+			return $this->db->query($sql, $search, $rkNum);
+		}
+	}
 }
 
 ?>

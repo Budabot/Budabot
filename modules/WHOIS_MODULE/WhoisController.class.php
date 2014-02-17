@@ -1,6 +1,7 @@
 <?php
 
 namespace Budabot\User\Modules;
+
 use Budabot\Core\DB;
 
 /**

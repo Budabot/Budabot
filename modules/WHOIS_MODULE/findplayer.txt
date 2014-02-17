@@ -1,0 +1,4 @@
+To find a player by name:
+<highlight><tab><symbol>findplayer 'search'<end>
+
+This will return all players that have 'search' in their name.  Note that you can use wildcards: '?' to indicate any single character or '*' to indicate any number of characters.

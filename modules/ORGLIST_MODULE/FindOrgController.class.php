@@ -14,7 +14,7 @@ use stdClass;
  *	@DefineCommand(
  *		command     = 'findorg', 
  *		accessLevel = 'all', 
- *		description = "Find orgs by name", 
+ *		description = 'Find orgs by name', 
  *		help        = 'findorg.txt'
  *	)
  */
