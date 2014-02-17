@@ -169,17 +169,17 @@ class PlayerManager {
 			$char->dimension, $char->source, time());
 	}
 
-	public function get_info(&$whois) {
+	public function get_info(&$whois, $showFirstAndLastName = true) {
 		$msg = '';
 
-		if ($whois->firstname) {
-			$msg = $whois->firstname." ";
+		if ($showFirstAndLastName && $whois->firstname) {
+			$msg = $whois->firstname . " ";
 		}
 
 		$msg .= "<highlight>\"{$whois->name}\"<end> ";
 
-		if ($whois->lastname) {
-			$msg .= $whois->lastname." ";
+		if ($showFirstAndLastName && $whois->lastname) {
+			$msg .= $whois->lastname . " ";
 		}
 
 		$msg .= "(<highlight>{$whois->level}<end>/<green>{$whois->ai_level}<end>";
