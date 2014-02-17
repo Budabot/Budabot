@@ -82,14 +82,15 @@ class UsageController {
 		// most used commands
 		$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE sender = ? AND dt > ? GROUP BY command ORDER BY count DESC";
 		$data = $this->db->query($sql, $player, $time);
+		$count = count($data);
 
-		if (count($data) > 0) {
+		if ($count > 0) {
 			$blob .= '';
 			forEach ($data as $row) {
 				$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
 			}
 
-			$msg = $this->text->make_blob("Usage for $player ({$timeString})", $blob);
+			$msg = $this->text->make_blob("Usage for $player - $timeString ($count)", $blob);
 		} else {
 			$msg = "No usage statistics found for <highlight>$player<end>.";
 		}
@@ -138,7 +139,7 @@ class UsageController {
 		$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE dt > ? GROUP BY command ORDER BY count DESC LIMIT $limit";
 		$data = $this->db->query($sql, $time);
 
-		$blob .= "<header2>Most Used Commands<end>\n";
+		$blob .= "<header2>$limit Most Used Commands<end>\n";
 		forEach ($data as $row) {
 			$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
 		}
@@ -147,13 +148,13 @@ class UsageController {
 		$sql = "SELECT sender, COUNT(sender) AS count FROM usage_<myname> WHERE dt > ? GROUP BY sender ORDER BY count DESC LIMIT $limit";
 		$data = $this->db->query($sql, $time);
 
-		$blob .= "\n<header2>Most Active Users<end>\n";
+		$blob .= "\n<header2>$limit Most Active Users<end>\n";
 		forEach ($data as $row) {
 			$senderLink = $this->text->make_chatcmd($row->sender, "/tell <myname> usage player $row->sender");
 			$blob .= "<highlight>{$senderLink}<end> ({$row->count})\n";
 		}
 
-		$msg = $this->text->make_blob("Usage Statistics ({$timeString})", $blob);
+		$msg = $this->text->make_blob("Usage Statistics - $timeString", $blob);
 		$sendto->reply($msg);
 	}
 
