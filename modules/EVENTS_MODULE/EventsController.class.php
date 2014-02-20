@@ -158,16 +158,16 @@ class EventsController {
 					$row = $this->db->queryRow("SELECT * FROM players WHERE name = ? AND dimension = '<dim>'", $name);
 					$info = '';
 					if ($row !== null) {
-						$info = " <white>Lvl $row->level $row->profession<end>\n";
+						$info = " <white>Lvl $row->level $row->profession<end>";
 					}
 
 					$altInfo = $this->altsController->get_alt_info($name);
 					$alt = '';
 					if (count($altInfo->alts) > 0) {
 						if ($altInfo->main == $name) {
-							$alt = "<highlight>::<end> " . $this->text->make_chatcmd("Alts", "/tell <myname> alts $name");
+							$alt = " <highlight>::<end> " . $this->text->make_chatcmd("Alts", "/tell <myname> alts $name");
 						} else {
-							$alt = "<highlight>::<end> " . $this->text->make_chatcmd("Alts of {$altInfo->main}", "/tell <myname> alts $name");
+							$alt = " <highlight>::<end> " . $this->text->make_chatcmd("Alts of {$altInfo->main}", "/tell <myname> alts $name");
 						}
 					}
 
