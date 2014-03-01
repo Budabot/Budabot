@@ -307,7 +307,7 @@ INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Shade', 'OFAB Shade Shoulder Wear', 'shoulder', 268005, 268005, 3);
 
 DROP TABLE IF EXISTS `ofabarmorcost`;
-CREATE TABLE `ofabarmorcost` (`slot` varchar(255) NOT NULL, `ql` int(11) NOT NULL, `vp` int(11) NOT NULL);
+CREATE TABLE `ofabarmorcost` (`slot` varchar(30) NOT NULL, `ql` int(11) NOT NULL, `vp` int(11) NOT NULL);
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('ring', 1, 100);
 
 INSERT INTO `ofabarmorcost` (`slot`, `ql`, `vp`) VALUES ('body', 25, 78);
