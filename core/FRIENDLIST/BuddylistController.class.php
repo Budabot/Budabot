@@ -79,6 +79,9 @@ class BuddylistController {
 					if ($cleanup) {
 						$this->buddylistManager->remove($value['name']);
 						$removed = "<red>REMOVED<end>";
+						
+						// don't count removed buddies
+						$count--;
 					}
 				}
 
