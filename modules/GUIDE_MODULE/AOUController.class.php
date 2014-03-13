@@ -39,7 +39,7 @@ class AOUController {
 	/** @Inject */
 	public $http;
 
-	private $url = "http://www.ao-universe.com/mobile/parser.php?bot=budabot";
+	const AOU_URL = "http://www.ao-universe.com/mobile/parser.php?bot=budabot";
 	
 	/**
 	 * View an AO-U guide.
@@ -54,7 +54,7 @@ class AOUController {
 			'mode' => 'view',
 			'id' => $guideid
 		);
-		$guide = $this->http->get($this->url)->withQueryParams($params)->waitAndReturnResponse()->body;
+		$guide = $this->http->get(self::AOU_URL)->withQueryParams($params)->waitAndReturnResponse()->body;
 
 		$dom = new DOMDocument;
 		$dom->loadXML($guide);
@@ -102,7 +102,7 @@ class AOUController {
 			'mode' => 'search',
 			'search' => $search
 		);
-		$results = $this->http->get($this->url)->withQueryParams($params)->waitAndReturnResponse()->body;
+		$results = $this->http->get(self::AOU_URL)->withQueryParams($params)->waitAndReturnResponse()->body;
 
 		$dom = new DOMDocument;
 		$dom->loadXML($results);
