@@ -274,7 +274,7 @@ class GuildController {
 		$name = ucfirst(strtolower($args[1]));
 		$uid = $this->chatBot->get_uid($name);
 		if (!$uid) {
-			$msg = "player <highlight>$name<end> does not exist.";
+			$msg = "Player <highlight>$name<end> does not exist.";
 		} else {
 			$altInfo = $this->altsController->get_alt_info($name);
 			$onlineAlts = $altInfo->get_online_alts();
