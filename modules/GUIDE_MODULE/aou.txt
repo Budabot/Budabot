@@ -1,5 +1,10 @@
 To search for a guide on AO-Universe:
 <highlight><tab><symbol>aou 'search'<end>
 
+To search for a guide on AO-Universe and include all results:
+<highlight><tab><symbol>aou all 'search'<end>
+
+<highlight>Note: By default, '<symbol>aou' search for guides that have your search terms in the name, category, and/or description.  Using '<symbol>aou all' will include guides that have your search terms in the guide text as well.<end>
+
 To view a guide on AO-Universe:
 <highlight><tab><symbol>aou 'guide id'<end>

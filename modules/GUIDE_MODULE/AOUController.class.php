@@ -89,6 +89,19 @@ class AOUController {
 	}
 	
 	/**
+	 * Search for an AO-U guide and include guides that have the search terms in the guide text.
+	 *
+	 * @HandlesCommand("aou")
+	 * @Matches("/^aou all (.+)$/i")
+	 */
+	public function aouAllSearch($message, $channel, $sender, $sendto, $args) {
+		$search = $args[1];
+
+		$msg = $this->searchForAOUGuide($search, true);
+		$sendto->reply($msg);
+	}
+	
+	/**
 	 * Search for an AO-U guide.
 	 *
 	 * @HandlesCommand("aou")
@@ -96,8 +109,14 @@ class AOUController {
 	 */
 	public function aouSearch($message, $channel, $sender, $sendto, $args) {
 		$search = $args[1];
-		$searchTerms = explode(" ", $search);
 
+		$msg = $this->searchForAOUGuide($search, false);
+		$sendto->reply($msg);
+	}
+	
+	public function searchForAOUGuide($search, $searchGuideText) {
+		$searchTerms = explode(" ", $search);
+	
 		$params = array(
 			'mode' => 'search',
 			'search' => $search
@@ -120,7 +139,7 @@ class AOUController {
 				$guideObj = $this->getGuideObject($guide);
 				// since aou returns guides that have keywords in the guide body, we filter the results again
 				// to only include guides that contain the keywords in the category, name, or description
-				if ($this->striposarray($category . ' ' . $guideObj->name . ' ' . $guideObj->description, $searchTerms)) {
+				if ($searchGuideText || $this->striposarray($category . ' ' . $guideObj->name . ' ' . $guideObj->description, $searchTerms)) {
 					$count++;
 					$tempBlob .= '  ' . $this->text->make_chatcmd("$guideObj->name", "/tell <myname> aou $guideObj->id") . " - " . $guideObj->description . "\n";
 					$found = true;
@@ -141,11 +160,10 @@ class AOUController {
 		} else {
 			$msg = "Could not find any guides containing: '$search'";
 		}
-		$sendto->reply($msg);
+		return $msg;
 	}
 	
 	private function striposarray($haystack, $needles) {
-		return true;
 		forEach ($needles as $needle) {
 			if (stripos($haystack, $needle) === false) {
 				return false;
