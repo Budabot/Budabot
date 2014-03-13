@@ -87,12 +87,13 @@ class DevController extends AutoInject {
 			}
 		}
 
-		if (count($regexes) > 0) {
+		$count = count($regexes);
+		if ($count > 0) {
 			$blob = '';
 			forEach ($regexes as $regex) {
 				$blob .= $regex . "\n";
 			}
-			$msg = $this->text->make_blob("Regexes for $cmd", $blob);
+			$msg = $this->text->make_blob("Regexes for $cmd ($count)", $blob);
 		} else {
 			$msg = "No regexes found for command <highlight>$cmd<end>.";
 		}
