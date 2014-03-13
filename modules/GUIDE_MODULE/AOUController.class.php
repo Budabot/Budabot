@@ -156,9 +156,17 @@ class AOUController {
 		$blob .= "\n<highlight>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 
 		if ($count > 0) {
-			$msg = $this->text->make_blob("AO-U Guides containing '$search' ($count)", $blob);
+			if ($searchGuideText) {
+				$title = "All AO-U Guides containing '$search' ($count)";
+			} else {
+				$title = "AO-U Guides containing '$search' ($count)";
+			}
+			$msg = $this->text->make_blob($title, $blob);
 		} else {
-			$msg = "Could not find any guides containing: '$search'";
+			$msg = "Could not find any guides containing: '$search'.";
+			if (!$searchGuideText) {
+				$msg .= " Try including all results with <highlight>!aou all $search<end>.";
+			}
 		}
 		return $msg;
 	}
