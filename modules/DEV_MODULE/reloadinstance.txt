@@ -1,4 +1,7 @@
 To reload a class instance:
 <highlight><tab><symbol>reloadinstance 'instance name'<end>
 
+To reload all class instances:
+<highlight><tab><symbol>reloadinstance all<end>
+
 Note that this is not needed when <highlight>USE_RUNKIT_CLASS_LOADING<end> is set to <highlight>true<end> in the config file as the bot will automatically reload the instance everytime it's requested.
