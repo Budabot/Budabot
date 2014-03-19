@@ -18,6 +18,12 @@ use DateTime;
  *		description = 'Show the time in the different timezones', 
  *		help        = 'time.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'timecalc', 
+ *		accessLevel = 'all', 
+ *		description = 'Show the time in ', 
+ *		help        = 'timecalc.txt'
+ *	)
  */
 class TimeController {
 
@@ -108,6 +114,26 @@ class TimeController {
 			$msg = $timezone->name." is <highlight>".$timezone->time."<end>";
 		} else {
 			$msg = "Unknown timezone.";
+		}
+
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("timecalc")
+	 * @Matches("/^timecalc ([a-z0-9]+)$/i")
+	 */
+	public function timeCalcCommand($message, $channel, $sender, $sendto, $args) {
+		$input = $args[1];
+		
+		$seconds = $this->util->parseTime($input);
+		
+		if ($seconds < 1) {
+			$msg = "You must enter a valid time parameter for the calculation.";
+		} else {
+			$newTime = $this->util->date(time() + $seconds);
+			$timeString = $this->util->unixtime_to_readable($seconds);
+			$msg = "In $timeString from now it will be $newTime.";
 		}
 
 		$sendto->reply($msg);

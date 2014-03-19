@@ -107,7 +107,6 @@ class VoteController {
 					$mstatus = 4;
 				}
 				$this->votes[$key]->status = $mstatus;
-
 			} else if ($timeleft <= 60 && $timeleft > 0 && $status != 4) {
 				$title = "60 seconds left: $question";
 				$this->votes[$key]->status = 4;
