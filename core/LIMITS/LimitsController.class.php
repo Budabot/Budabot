@@ -8,7 +8,7 @@ namespace Budabot\Core;
  *
  * @Instance
  */
-class Limits {
+class LimitsController {
 	/**
 	 * Name of the module.
 	 * Set automatically by module loader.
@@ -34,7 +34,7 @@ class Limits {
 	public $util;
 
 	/** @Inject */
-	public $whitelist;
+	public $whitelistController;
 	
 	/** @Logger */
 	public $logger;
@@ -52,7 +52,7 @@ class Limits {
 	public function check($sender, $message) {
 		if (preg_match("/^about$/i", $message)) {
 			return true;
-		} else if ($this->whitelist->check($sender) || $sender == ucfirst(strtolower($this->settingManager->get("relaybot")))) {
+		} else if ($this->whitelistController->check($sender) || $sender == ucfirst(strtolower($this->settingManager->get("relaybot")))) {
 			return true;
 		} else if ($this->accessManager->checkAccess($sender, 'mod')) {
 			// if mod or higher, grant access automatically

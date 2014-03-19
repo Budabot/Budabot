@@ -44,7 +44,7 @@ class Budabot extends AOChat {
 	public $util;
 	
 	/** @Inject */
-	public $limits;
+	public $limitsController;
 
 	/** @Inject */
 	public $buddylistManager;
@@ -625,7 +625,7 @@ class Budabot extends AOChat {
 		}
 
 		// check tell limits
-		if (!$this->limits->check($sender, $message)) {
+		if (!$this->limitsController->check($sender, $message)) {
 			return;
 		}
 

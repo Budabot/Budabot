@@ -17,7 +17,7 @@ namespace Budabot\Core\Modules;
  *		defaultStatus = '1'
  *	)
  */
-class Whitelist {
+class WhitelistController {
 	/**
 	 * Name of the module.
 	 * Set automatically by module loader.

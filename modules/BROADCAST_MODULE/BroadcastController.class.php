@@ -39,7 +39,7 @@ class BroadcastController {
 	public $settingManager;
 	
 	/** @Inject */
-	public $whitelist;
+	public $whitelistController;
 	
 	/** @Inject */
 	public $text;
@@ -119,7 +119,7 @@ class BroadcastController {
 		// reload broadcast bot list
 		$this->loadBroadcastListIntoMemory();
 
-		$this->whitelist->add($name, $sender . " (bot)");
+		$this->whitelistController->add($name, $sender . " (bot)");
 
 		$sendto->reply($msg);
 	}
@@ -142,7 +142,7 @@ class BroadcastController {
 		// reload broadcast bot list
 		$this->loadBroadcastListIntoMemory();
 
-		$this->whitelist->remove($name);
+		$this->whitelistController->remove($name);
 
 		$sendto->reply($msg);
 	}
