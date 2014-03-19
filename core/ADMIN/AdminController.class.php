@@ -141,20 +141,10 @@ class AdminController {
 			if ($this->adminManager->admins[$who]["level"] == 4) {
 				if ($who != "") {
 					$blob .= "<tab>$who";
-
 					if ($this->accessManager->checkAccess($who, 'superadmin')) {
 						$blob .= " (<highlight>Super-administrator<end>) ";
 					}
-
-					if ($this->buddylistManager->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
-						$blob .= " (<green>Online and in chat<end>)";
-					} else if ($this->buddylistManager->is_online($who) == 1) {
-						$blob .= " (<green>Online<end>)";
-					} else {
-						$blob .= " (<red>Offline<end>)";
-					}
-
-					$blob.= "\n";
+					$blob .= $this->getOnlineStatus($who) . "\n" . $this->getAltAdminInfo($who);
 				}
 			}
 		}
@@ -163,15 +153,7 @@ class AdminController {
 		forEach ($this->adminManager->admins as $who => $data){
 			if ($this->adminManager->admins[$who]["level"] == 3){
 				if ($who != "") {
-					$blob .= "<tab>$who";
-					if ($this->buddylistManager->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
-						$blob .= " (<green>Online and in chat<end>)";
-					} else if ($this->buddylistManager->is_online($who) == 1) {
-						$blob .= " (<green>Online<end>)";
-					} else {
-						$blob .= " (<red>Offline<end>)";
-					}
-					$blob.= "\n";
+					$blob .= "<tab>$who" . $this->getOnlineStatus($who) . "\n" . $this->getAltAdminInfo($who);
 				}
 			}
 		}
@@ -190,6 +172,31 @@ class AdminController {
 		forEach ($data as $row) {
 			$this->buddylistManager->add($row->name, 'admin');
 		}
+	}
+	
+	private function getOnlineStatus($who) {
+		if ($this->buddylistManager->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
+			return " (<green>Online and in chat<end>)";
+		} else if ($this->buddylistManager->is_online($who) == 1) {
+			return " (<green>Online<end>)";
+		} else {
+			return " (<red>Offline<end>)";
+		}
+	}
+	
+	private function getAltAdminInfo($who) {
+		$blob = '';
+		if ($this->settingManager->get("alts_inherit_admin") == 1) {
+			$altInfo = $this->altsController->get_alt_info($who);
+			if ($altInfo->main == $who) {
+				forEach ($altInfo->get_online_alts() as $alt) {
+					if ($alt != $who) {
+						$blob .= "<tab><tab>$alt" . $this->getOnlineStatus($alt) . "\n";
+					}
+				}
+			}
+		}
+		return $blob;
 	}
 	
 	public function add($who, $sender, $sendto, $intlevel, $rank) {
