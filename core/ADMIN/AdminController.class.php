@@ -148,6 +148,7 @@ class AdminController {
 				}
 			}
 		}
+		$blob .= $this->getGuildAdmins('admin');
 
 		$blob .= "<header2>Moderators<end>\n";
 		forEach ($this->adminManager->admins as $who => $data){
@@ -157,6 +158,7 @@ class AdminController {
 				}
 			}
 		}
+		$blob .= $this->getGuildAdmins('mod');
 
 		$link = $this->text->make_blob('Bot administrators', $blob);
 		$sendto->reply($link);
@@ -193,6 +195,21 @@ class AdminController {
 					if ($alt != $who) {
 						$blob .= "<tab><tab>$alt" . $this->getOnlineStatus($alt) . "\n";
 					}
+				}
+			}
+		}
+		return $blob;
+	}
+	
+	private function getGuildAdmins($accessLevel) {
+		$blob = '';
+		if ($this->settingManager->get('guild_admin_access_level') == $accessLevel) {
+			// grab all guild members with this rank
+			$sql = "SELECT * FROM players WHERE guild_id = ? AND guild_rank_id <= ?";
+			$players = $this->db->query($sql, $this->chatBot->vars["my_guild_id"], $this->settingManager->get('guild_admin_rank'));
+			forEach ($players as $player) {
+				if (!isset($this->adminManager->admins[$player->name]) && $this->accessManager->checkAccess($player->name, $accessLevel)) {
+					$blob .= "<tab>{$player->name}" . $this->getOnlineStatus($player->name) . "\n" . $this->getAltAdminInfo($player->name);
 				}
 			}
 		}
