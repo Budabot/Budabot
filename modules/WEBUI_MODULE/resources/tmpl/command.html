@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Command{% endblock %}
+
+{% block head %}
+{{ parent() }}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.pubsub.min.js"></script>
+<script type="text/javascript" src="http://autobahn.s3.amazonaws.com/js/autobahn.min.js"></script>
+<script type="text/javascript" src="js/logconsole.js"></script>
+<script type="text/javascript" src="js/wampconnection.js"></script>
+<script type="text/javascript">
+	WampConnection.connect('{{ webSocketUri }}');
+</script>
+{% endblock %}
+
+{% block content %}
+<article>
+	<header>
+		<h1>Commands</h1>
+	</header>
+	{{ commandOutput }}
+	<form method="post">
+		<input type="text" name="cmd" />
+		<input type="submit" value="Submit" />
+	</form>
+</article>
+{% endblock %}

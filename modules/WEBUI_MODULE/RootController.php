@@ -3,6 +3,7 @@
 namespace Budabot\User\Modules\WebUi;
 
 use LoggerAppenderBuffer;
+use Budabot\Core\CommandReply;
 
 /**
  * @Instance
@@ -32,6 +33,9 @@ class RootController {
 
 	/** @Inject */
 	public $loginController;
+	
+	/** @Inject */
+	public $commandManager;
 
 	/** @Inject */
 	public $template;
@@ -60,6 +64,9 @@ class RootController {
 
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/wsendpoint$|i",
 			array($this, 'handleWsResource'));
+			
+		$this->httpApi->registerHandler("|^/{$this->moduleName}/command|i",
+			array($this, 'handleCommandResource'));
 
 		$this->onLogEventsPublishToClients();
 		$this->onSubscribeSendLogEvents();
@@ -98,8 +105,7 @@ class RootController {
 		if ($this->loginController->isLoggedIn($session)) {
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
 			$response->end($this->template->render('index.html', $session, array(
-				'webSocketUri' => $this->httpApi->getWebSocketUri(
-					"/{$this->moduleName}/wsendpoint"),
+				'webSocketUri' => $this->httpApi->getWebSocketUri("/{$this->moduleName}/wsendpoint"),
 				'logEventsTopic' => self::LOG_EVENTS_TOPIC,
 				'logConsoleAllowed' => $this->hasAccessToLogConsole($session)
 			)));
@@ -123,5 +129,38 @@ class RootController {
 				$response->end();
 			}
 		}
+	}
+	
+	public function handleCommandResource($request, $response, $data, $session) {
+		if ($this->loginController->isLoggedIn($session) || true) {
+			$params = array();
+			parse_str($data, $params);
+			$cmd = $params['cmd'];
+			$commandOutput = "";
+			if (!empty($cmd)) {
+				$sendto = new WebCommandReply();
+				$sender = $session->getData('user');
+				$this->commandManager->process("msg", $cmd, $sender, $sendto);
+				$commandOutput = $sendto->getMsg();
+			}
+			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
+			$response->end($this->template->render('command.html', $session, array(
+				'commandOutput' => $commandOutput
+			)));
+		} else {
+			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
+		}
+	}
+}
+
+class WebCommandReply implements CommandReply {
+	private $msg;
+
+	public function reply($msg) {
+		$this->msg = $msg;
+	}
+	
+	public function getMsg() {
+		return $this->msg;
 	}
 }
