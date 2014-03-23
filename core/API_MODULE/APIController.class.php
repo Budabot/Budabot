@@ -77,6 +77,7 @@ class APIController {
 	/**
 	 * @Event("connect")
 	 * @Description("Start to listen for incoming command requests")
+	 * @DefaultStatus("0")
 	 */
 	function connectEvent($eventObj) {
 		// open the api socket if it is not open yet
