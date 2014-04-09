@@ -209,7 +209,7 @@ class AdminController {
 			$players = $this->db->query($sql, $this->chatBot->vars["my_guild_id"], $this->settingManager->get('guild_admin_rank'));
 			forEach ($players as $player) {
 				if (!isset($this->adminManager->admins[$player->name]) && $this->accessManager->checkAccess($player->name, $accessLevel)) {
-					$blob .= "<tab>{$player->name}" . $this->getOnlineStatus($player->name) . "\n" . $this->getAltAdminInfo($player->name);
+					$blob .= "<tab>{$player->name}" . $this->getOnlineStatus($player->name) . " (Guild Admin)\n" . $this->getAltAdminInfo($player->name);
 				}
 			}
 		}
