@@ -134,8 +134,15 @@ class AdminController {
 	/**
 	 * @HandlesCommand("adminlist")
 	 * @Matches("/^adminlist$/i")
+	 * @Matches("/^adminlist all$/i")
 	 */
 	public function adminlistCommand($message, $channel, $sender, $sendto) {
+		if (strtolower($message) == "adminlist all") {
+			$showOfflineAlts = true;
+		} else {
+			$showOfflineAlts = false;
+		}
+
 		$blob .= "<header2>Administrators<end>\n";
 		forEach ($this->adminManager->admins as $who => $data) {
 			if ($this->adminManager->admins[$who]["level"] == 4) {
@@ -144,21 +151,21 @@ class AdminController {
 					if ($this->accessManager->checkAccess($who, 'superadmin')) {
 						$blob .= " (<highlight>Super-administrator<end>) ";
 					}
-					$blob .= $this->getOnlineStatus($who) . "\n" . $this->getAltAdminInfo($who);
+					$blob .= $this->getOnlineStatus($who) . "\n" . $this->getAltAdminInfo($who, $showOfflineAlts);
 				}
 			}
 		}
-		$blob .= $this->getGuildAdmins('admin');
+		$blob .= $this->getGuildAdmins('admin', $showOfflineAlts);
 
 		$blob .= "<header2>Moderators<end>\n";
 		forEach ($this->adminManager->admins as $who => $data){
 			if ($this->adminManager->admins[$who]["level"] == 3){
 				if ($who != "") {
-					$blob .= "<tab>$who" . $this->getOnlineStatus($who) . "\n" . $this->getAltAdminInfo($who);
+					$blob .= "<tab>$who" . $this->getOnlineStatus($who) . "\n" . $this->getAltAdminInfo($who, $showOfflineAlts);
 				}
 			}
 		}
-		$blob .= $this->getGuildAdmins('mod');
+		$blob .= $this->getGuildAdmins('mod', $showOfflineAlts);
 
 		$link = $this->text->make_blob('Bot administrators', $blob);
 		$sendto->reply($link);
@@ -186,13 +193,13 @@ class AdminController {
 		}
 	}
 	
-	private function getAltAdminInfo($who) {
+	private function getAltAdminInfo($who, $showOfflineAlts) {
 		$blob = '';
 		if ($this->settingManager->get("alts_inherit_admin") == 1) {
 			$altInfo = $this->altsController->get_alt_info($who);
 			if ($altInfo->main == $who) {
-				forEach ($altInfo->get_online_alts() as $alt) {
-					if ($alt != $who) {
+				forEach ($altInfo->alts as $alt => $validated) {
+					if ($validated == 1 && ($showOfflineAlts || $this->buddylistManager->is_online($alt))) {
 						$blob .= "<tab><tab>$alt" . $this->getOnlineStatus($alt) . "\n";
 					}
 				}
@@ -201,15 +208,15 @@ class AdminController {
 		return $blob;
 	}
 	
-	private function getGuildAdmins($accessLevel) {
+	private function getGuildAdmins($accessLevel, $showOfflineAlts) {
 		$blob = '';
 		if ($this->settingManager->get('guild_admin_access_level') == $accessLevel) {
 			// grab all guild members with this rank
-			$sql = "SELECT * FROM players WHERE guild_id = ? AND guild_rank_id <= ?";
+			$sql = "SELECT * FROM players WHERE guild_id = ? AND guild_rank_id <= ? ORDER BY name ASC";
 			$players = $this->db->query($sql, $this->chatBot->vars["my_guild_id"], $this->settingManager->get('guild_admin_rank'));
 			forEach ($players as $player) {
-				if (!isset($this->adminManager->admins[$player->name]) && $this->accessManager->checkAccess($player->name, $accessLevel)) {
-					$blob .= "<tab>{$player->name}" . $this->getOnlineStatus($player->name) . " [Guild Admin]\n" . $this->getAltAdminInfo($player->name);
+				if (!isset($this->adminManager->admins[$player->name]) && $this->accessManager->getAccessLevelForCharacter($player->name) == $accessLevel) {
+					$blob .= "<tab>{$player->name}" . $this->getOnlineStatus($player->name) . " [Guild Admin]\n" . $this->getAltAdminInfo($player->name, $showOfflineAlts);
 				}
 			}
 		}
