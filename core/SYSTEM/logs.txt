@@ -6,3 +6,5 @@ To view a particular log file:
 
 To view lines in a particular log file that match a search critera:
 <highlight><tab><symbol>logs <i>filename</i> <i>search</i><end>
+
+Note: <i>search</i> is a regular expression (without delimiters) and is case-insensitive.
