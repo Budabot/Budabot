@@ -240,6 +240,10 @@ class CommandManager {
 
 		// if the character doesn't have access
 		if ($this->accessManager->checkAccess($sender, $commandHandler->admin) !== true) {
+			if ($channel == 'msg' && $this->settingManager->get('access_denied_notify_guild') == 1) {
+				$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$message<end>.");
+			}
+		
 			// if they've disabled feedback for guild or private channel, just return
 			if (($channel == 'guild' && $this->settingManager->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->settingManager->get('private_channel_cmd_feedback') == 0)) {
 				return;
