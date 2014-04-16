@@ -375,19 +375,19 @@ class SystemController {
 
 		$numAliases = count($this->commandAlias->cmd_aliases);
 
-		$blob .= "Number of active tell commands: <highlight>" . (count($this->commandManager->commands['msg']) - $numAliases) . "<end>\n";
-		$blob .= "Number of active private channel commands: <highlight>" . (count($this->commandManager->commands['priv']) - $numAliases) . "<end>\n";
-		$blob .= "Number of active guild channel commands: <highlight>" . (count($this->commandManager->commands['guild']) - $numAliases) . "<end>\n";
-		$blob .= "Number of active subcommands: <highlight>" . count($this->subcommandManager->subcommands) . "<end>\n";
-		$blob .= "Number of active command aliases: <highlight>" . $numAliases . "<end>\n";
-		$blob .= "Number of active events: <highlight>" . $eventnum . "<end>\n";
-		$blob .= "Number of active help commands: <highlight>" . count($this->helpManager->getAllHelpTopics(null)) . "<end>\n\n";
+		$blob .= "Active tell commands: <highlight>" . (count($this->commandManager->commands['msg']) - $numAliases) . "<end>\n";
+		$blob .= "Active private channel commands: <highlight>" . (count($this->commandManager->commands['priv']) - $numAliases) . "<end>\n";
+		$blob .= "Active guild channel commands: <highlight>" . (count($this->commandManager->commands['guild']) - $numAliases) . "<end>\n";
+		$blob .= "Active subcommands: <highlight>" . count($this->subcommandManager->subcommands) . "<end>\n";
+		$blob .= "Active command aliases: <highlight>" . $numAliases . "<end>\n";
+		$blob .= "Active events: <highlight>" . $eventnum . "<end>\n";
+		$blob .= "Active help commands: <highlight>" . count($this->helpManager->getAllHelpTopics(null)) . "<end>\n\n";
 
-		$blob .= "Number of characters on the friendlist: <highlight>$num_friendlist / " . count($this->buddylistManager->buddyList) . "<end>\n";
-		$blob .= "Number of characters in the private channel: <highlight>" . count($this->chatBot->chatlist) . "<end>\n";
-		$blob .= "Number of guild members: <highlight>" . count($this->chatBot->guildmembers) . "<end>\n";
-		$blob .= "Number of character infos in cache: <highlight>" . $num_player_cache . "<end>\n";
-		$blob .= "Number of messages in the chat queue: <highlight>" . count($this->chatBot->chatqueue->queue) . "<end>\n\n";
+		$blob .= "Characters on the friendlist: <highlight>$num_friendlist / " . count($this->buddylistManager->buddyList) . "<end>\n";
+		$blob .= "Characters in the private channel: <highlight>" . count($this->chatBot->chatlist) . "<end>\n";
+		$blob .= "Guild members: <highlight>" . count($this->chatBot->guildmembers) . "<end>\n";
+		$blob .= "Character infos in cache: <highlight>" . $num_player_cache . "<end>\n";
+		$blob .= "Messages in the chat queue: <highlight>" . count($this->chatBot->chatqueue->queue) . "<end>\n\n";
 
 		$blob .= "Public Channels:\n";
 		forEach ($this->chatBot->grp as $gid => $status) {
