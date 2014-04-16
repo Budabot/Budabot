@@ -54,9 +54,9 @@ class RootController {
 			'edit',
 			'options',
 			'superadmin',
-			'superadmin;admininistrator;moderator;raidleader;guild;member;all',
+			'superadmin;administrator;moderator;raidleader;guild;member;all',
 			'',
-			'admin'
+			'superadmin'
 		);
 
 		$this->httpApi->registerHandler("|^/{$this->moduleName}/$|i",
