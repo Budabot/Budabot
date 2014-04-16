@@ -145,13 +145,15 @@ class RootController {
 				$sendto = new WebCommandReply();
 				$sender = $session->getData('user');
 				
-				$this->logger->log_chat("Console Command", $sender, $cmd);
+				$this->logger->log_chat("Inc. Console", $sender, $cmd);
 				
 				$this->commandManager->process("msg", $cmd, $sender, $sendto);
 				$commandOutput = $sendto->getMsg();
 				if (is_array($commandOutput)) {
 					$commandOutput = implode($commandOutput);
 				}
+				
+				$this->logger->log_chat("Out. Console", $sender, $commandOutput);
 			}
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
 			$response->end($commandOutput);
