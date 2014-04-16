@@ -148,14 +148,12 @@ class RootController {
 				
 				$this->commandManager->process("msg", $cmd, $sender, $sendto);
 				$commandOutput = $sendto->getMsg();
+				if (is_array($commandOutput)) {
+					$commandOutput = implode($commandOutput);
+				}
 			}
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
-			$response->end($this->template->render('index.html', $session, array(
-				'webSocketUri' => $this->httpApi->getWebSocketUri("/{$this->moduleName}/wsendpoint"),
-				'logEventsTopic' => self::LOG_EVENTS_TOPIC,
-				'logConsoleAllowed' => $this->hasAccessToLogConsole($session),
-				'commandOutput' => $commandOutput
-			)));
+			$response->end($commandOutput);
 		} else {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
 		}

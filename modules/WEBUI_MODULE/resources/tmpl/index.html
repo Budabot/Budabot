@@ -12,6 +12,21 @@
 <script type="text/javascript">
 	WampConnection.connect('{{ webSocketUri }}');
 </script>
+<script type="text/javascript">
+	function sendCommand() {
+		var form = $('#commandForm')
+		$.ajax({
+			type: form.attr('method'),
+			url: form.attr('action'),
+			data: form.serialize(), // serializes the form's elements.
+			success: function(data) {
+				$('#commandOutput').text(data);
+			}
+		});
+		
+		$('#commandInput').val('');
+	}
+</script>
 {% endblock %}
 
 {% block content %}
@@ -23,15 +38,15 @@
 
 	<div id="log_console" data-topic="{{ logEventsTopic }}"></div>
 </article>
+<br />
 <article>
-	<header>
-		<h1>Commands</h1>
-	</header>
-	{{ commandOutput }}
-	<form method="post" action="/WEBUI_MODULE/command">
-		<input type="text" name="cmd" />
+	<form method="post" action="/WEBUI_MODULE/command" id="commandForm" onsubmit="sendCommand(); return false;">
+		<input type="text" name="cmd" id="commandInput" placeholder="Command" autocomplete="off" autofocus />
 		<input type="submit" value="Submit" />
 	</form>
+	<br />
+	<div id="commandOutput">
+	</div>
 </article>
 {% endif %}
 {% endblock %}
