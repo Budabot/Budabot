@@ -1,0 +1,4 @@
+To run a command by first decoding html entities:
+<highlight><tab><symbol>htmldecode 'command'<end>
+
+Note: this is useful when you need to send special characters to a command but otherwise can't because the client is encoding them.
