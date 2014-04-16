@@ -21,6 +21,9 @@ class LoginController {
 
 	/** @Inject */
 	public $template;
+	
+	/** @Logger */
+	public $logger;
 
 	/**
 	 * @Setup
@@ -51,6 +54,7 @@ class LoginController {
 	public function handleDoLoginResource($request, $response, $data, $session) {
 		$isValid = false;
 		list($user, $pass) = self::parseCredentialsFromQuery($data);
+		$user = ucfirst(strtolower($user));
 		if ($user && $pass) {
 			$isValid = $this->checkCredentials($user, $pass);
 		}
@@ -59,6 +63,9 @@ class LoginController {
 			$session->start();
 			$session->setData('logged in', true);
 			$session->setData('user', $user);
+			$this->logger->log('INFO', "$user logged in to console");
+		} else {
+			$this->logger->log('DEBUG', "$user failed authentication while attempting to log in to console");
 		}
 
 		$response->writeHead(200);

@@ -23,5 +23,15 @@
 
 	<div id="log_console" data-topic="{{ logEventsTopic }}"></div>
 </article>
+<article>
+	<header>
+		<h1>Commands</h1>
+	</header>
+	{{ commandOutput }}
+	<form method="post" action="/WEBUI_MODULE/command">
+		<input type="text" name="cmd" />
+		<input type="submit" value="Submit" />
+	</form>
+</article>
 {% endif %}
 {% endblock %}

@@ -39,6 +39,9 @@ class RootController {
 
 	/** @Inject */
 	public $template;
+	
+	/** @Logger */
+	public $logger;
 
 	const LOG_EVENTS_TOPIC = 'http://localhost/logEvents';
 
@@ -132,7 +135,7 @@ class RootController {
 	}
 	
 	public function handleCommandResource($request, $response, $data, $session) {
-		if ($this->loginController->isLoggedIn($session) || true) {
+		if ($this->loginController->isLoggedIn($session)) {
 			$params = array();
 			parse_str($data, $params);
 			$cmd = $params['cmd'];
@@ -140,11 +143,17 @@ class RootController {
 			if (!empty($cmd)) {
 				$sendto = new WebCommandReply();
 				$sender = $session->getData('user');
+				
+				$this->logger->log_chat("Console Command", $sender, $cmd);
+				
 				$this->commandManager->process("msg", $cmd, $sender, $sendto);
 				$commandOutput = $sendto->getMsg();
 			}
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
-			$response->end($this->template->render('command.html', $session, array(
+			$response->end($this->template->render('index.html', $session, array(
+				'webSocketUri' => $this->httpApi->getWebSocketUri("/{$this->moduleName}/wsendpoint"),
+				'logEventsTopic' => self::LOG_EVENTS_TOPIC,
+				'logConsoleAllowed' => $this->hasAccessToLogConsole($session),
 				'commandOutput' => $commandOutput
 			)));
 		} else {
