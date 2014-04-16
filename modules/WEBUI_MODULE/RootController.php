@@ -100,6 +100,7 @@ class RootController {
 		$appender = \Logger::getRootLogger()->getAppender('appenderBuffer');
 		if (!$appender) {
 			$appender = new LoggerAppenderBuffer();
+			$appender->setLogLimit(2000);
 		}
 		return $appender;
 	}
