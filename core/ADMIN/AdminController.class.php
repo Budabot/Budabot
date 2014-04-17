@@ -10,7 +10,7 @@ namespace Budabot\Core\Modules;
  *		command       = 'adminlist',
  *		accessLevel   = 'all',
  *		description   = 'Shows the list of administrators and moderators',
- *		help          = 'admin.txt',
+ *		help          = 'adminlist.txt',
  *		alias         = 'admins',
  *		defaultStatus = '1'
  *	)
@@ -32,14 +32,14 @@ namespace Budabot\Core\Modules;
  *		command       = 'addmod',
  *		accessLevel   = 'admin',
  *		description   = 'Add a moderator',
- *		help          = 'admin.txt',
+ *		help          = 'mod.txt',
  *		defaultStatus = '1'
  *	)
  *	@DefineCommand(
  *		command       = 'remmod',
  *		accessLevel   = 'admin',
  *		description   = 'Remove a moderator',
- *		help          = 'admin.txt',
+ *		help          = 'mod.txt',
  *		defaultStatus = '1'
  *	)
  */

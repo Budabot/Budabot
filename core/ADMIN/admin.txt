@@ -1,13 +1,5 @@
-To see the list of raidleaders, moderators, and administrators:
-<highlight><tab><symbol>adminlist<end>
-
-To see the list of raidleaders, moderators, and administrators including all offline alts (if <highlight>alts_inherit_admin<end> is enabled:
-<highlight><tab><symbol>adminlist all<end>
-
-To add or remove moderators (<highlight>access: Administrators<end>):
-<highlight><tab><symbol>addmod <i>player</i><end>
-<highlight><tab><symbol>remmod <i>player</i><end>
-
-To add or remove administrators (<highlight>access: Super-administrator<end>):
+To add an administrator:
 <highlight><tab><symbol>addadmin <i>player</i><end>
+
+To remove an administrator:
 <highlight><tab><symbol>remadmin <i>player</i><end>

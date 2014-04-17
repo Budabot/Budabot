@@ -1,0 +1,5 @@
+To see the list of moderators and administrators:
+<highlight><tab><symbol>adminlist<end>
+
+To see the list of moderators and administrators including all offline alts (if <a href='chatcmd:///tell <myname> settings change alts_inherit_admin'>alts_inherit_admin</a> is enabled):
+<highlight><tab><symbol>adminlist all<end>

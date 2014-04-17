@@ -1,0 +1,5 @@
+To add a moderator:
+<highlight><tab><symbol>addmod <i>player</i><end>
+
+To remove a moderator:
+<highlight><tab><symbol>remmod <i>player</i><end>
