@@ -153,6 +153,10 @@ class RootController {
 				$this->commandManager->process("msg", $cmd, $sender, $sendto);
 				$commandOutput = $sendto->getMsg();
 				
+				if (is_array($commandOutput)) {
+					$commandOutput = implode("--", $commandOutput);
+				}
+				
 				$this->logger->log_chat("Out. Console", $sender, $commandOutput);
 			}
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
@@ -163,17 +167,22 @@ class RootController {
 	}
 	
 	private function convertAOMLToHTML($input) {
-		if (is_array($input)) {
-			$input = implode($input);
-		}
-
 		$input = $this->text->format_message($input);
 		$input = preg_replace("/<a href=\"text:\\/\\/(.+)\">(.+)<\\/a>/sU", "$1", $input);
-		$input = preg_replace("/<a(\\s+)href='chatcmd:\\/\\/(.+)'>(.+)<\\/a>/sU", "$3", $input);
+		$input = preg_replace_callback("/<a(\\s+)href='chatcmd:\\/\\/(.+)'>(.+)<\\/a>/sU", array($this, 'replaceChatCmd'), $input);
 		$input = preg_replace("/<img(\\s+)src=(.+)>/sU", "", $input);
 		//$input = htmlspecialchars($input);
 		$input = str_replace("\n", "<br />", $input);
 		return $input;
+	}
+	
+	private function replaceChatCmd($arr) {
+		$botname = $this->chatBot->vars['name'];
+		if (preg_match("/\\/tell $botname (.+)/i", $arr[2], $matches)) {
+			return "<a href=\"#\" onclick=\"$('#commandInput').val('$matches[1]'); sendCommand();\" title=\"$matches[1]\">$arr[3]</a>";
+		} else {
+			return $arr[3];
+		}
 	}
 }
 

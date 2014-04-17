@@ -15,16 +15,18 @@
 <script type="text/javascript">
 	function sendCommand() {
 		var form = $('#commandForm')
+		var command = $('#commandInput').val()
 		$.ajax({
 			type: form.attr('method'),
 			url: form.attr('action'),
 			data: form.serialize(), // serializes the form's elements.
 			success: function(data) {
-				$('#commandOutput').html(data);
+				var output = command + "<br /><br />" + data
+				$('#commandOutput').html(output)
 			}
 		});
 		
-		$('#commandInput').val('');
+		$('#commandInput').val('')
 	}
 </script>
 {% endblock %}
