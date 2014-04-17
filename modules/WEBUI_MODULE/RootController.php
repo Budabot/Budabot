@@ -172,7 +172,7 @@ class RootController {
 		$input = preg_replace_callback("/<a(\\s+)href='chatcmd:\\/\\/(.+)'>(.+)<\\/a>/sU", array($this, 'replaceChatCmd'), $input);
 		$input = preg_replace("/<img(\\s+)src=(.+)>/sU", "", $input);
 		//$input = htmlspecialchars($input);
-		$input = str_replace("\n", "<br />", $input);
+		//$input = str_replace("\n", "<br />", $input);
 		return $input;
 	}
 	
