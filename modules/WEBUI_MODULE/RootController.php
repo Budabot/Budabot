@@ -154,7 +154,7 @@ class RootController {
 				$commandOutput = $sendto->getMsg();
 				
 				if (is_array($commandOutput)) {
-					$commandOutput = implode("--", $commandOutput);
+					$commandOutput = implode("\n\n", $commandOutput);
 				}
 				
 				$this->logger->log_chat("Out. Console", $sender, $commandOutput);
