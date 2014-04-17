@@ -124,10 +124,8 @@ class WhompahController {
 		$sql = "SELECT w2.* FROM whompah_cities_rel w1 JOIN whompah_cities w2 ON w1.city2_id = w2.id WHERE w1.city1_id = ?";
 		$data = $this->db->query($sql, $city->id);
 
-		$msg = "From {$city->city_name} you can get to: ";
-		forEach ($data as $row) {
-			$msg .= "<highlight>{$row->city_name}<end> ({$row->short_name}), ";
-		}
+		$msg = "From {$city->city_name} you can get to: " .
+			implode(", ", array_map(function($row) { return "<highlight>{$row->city_name}<end> ({$row->short_name})"; }, $data));
 
 		$sendto->reply($msg);
 	}
