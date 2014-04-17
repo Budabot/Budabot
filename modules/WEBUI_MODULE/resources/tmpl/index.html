@@ -20,7 +20,7 @@
 			url: form.attr('action'),
 			data: form.serialize(), // serializes the form's elements.
 			success: function(data) {
-				$('#commandOutput').text(data);
+				$('#commandOutput').html(data);
 			}
 		});
 		

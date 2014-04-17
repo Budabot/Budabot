@@ -40,6 +40,9 @@ class RootController {
 	/** @Inject */
 	public $template;
 	
+	/** @Inject */
+	public $text;
+	
 	/** @Logger */
 	public $logger;
 
@@ -149,17 +152,28 @@ class RootController {
 				
 				$this->commandManager->process("msg", $cmd, $sender, $sendto);
 				$commandOutput = $sendto->getMsg();
-				if (is_array($commandOutput)) {
-					$commandOutput = implode($commandOutput);
-				}
 				
 				$this->logger->log_chat("Out. Console", $sender, $commandOutput);
 			}
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
-			$response->end($commandOutput);
+			$response->end($this->convertAOMLToHTML($commandOutput));
 		} else {
 			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
 		}
+	}
+	
+	private function convertAOMLToHTML($input) {
+		if (is_array($input)) {
+			$input = implode($input);
+		}
+
+		$input = $this->text->format_message($input);
+		$input = preg_replace("/<a href=\"text:\\/\\/(.+)\">(.+)<\\/a>/sU", "$1", $input);
+		$input = preg_replace("/<a(\\s+)href='chatcmd:\\/\\/(.+)'>(.+)<\\/a>/sU", "$3", $input);
+		$input = preg_replace("/<img(\\s+)src=(.+)>/sU", "", $input);
+		//$input = htmlspecialchars($input);
+		$input = str_replace("\n", "<br />", $input);
+		return $input;
 	}
 }
 
