@@ -1,2 +1,0 @@
-To show which factions have the Gauntlet buff:
-<highlight><tab><symbol>gauntlet<end>
