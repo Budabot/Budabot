@@ -2,23 +2,26 @@
 Budabot is a next-generation chatbot for Anarchy Online.
 
 ## Support & Bug Reports ##
-For all support questions and bug reports please use the [forums](http://budabot.com/forum/). We have also IRC channel available at **irc.funcom.com #budabot**. For existing bugs and improvement ideas see the [issue tracker](http://code.google.com/p/budabot2/issues/list).
+For all support questions and bug reports please use the [forums](http://budabot.com/forum/). We have also IRC channel available at **irc.funcom.com #budabot**.
 
 ## Installation ##
-The preferred way of installation is to download and extract Budabot's release archive.
+There are three ways that you can obtain Budabot: Release Archives (recommended), Latest Development Archive, or Cloning the Repository.
 
 ### Release Archives ###
-You can download most recent version from link below. The download page contains separate archive for Microsoft Windows and another for any Linux variant. Just download an archive with appropriate postfix.
+You can download the latest stable version from link below. The download page contains an archive for Microsoft Windows and another for any Linux variant. Choose the appropriate download for your operating system.
 
 http://code.google.com/p/budabot2/downloads/list
 
 **Linux**: See additional installation instructions in the forum: http://budabot.com/forum/viewtopic.php?f=5&t=850
 
-### Unstable/Development Archives ###
-If you wish to use the most bleeding edge version of Budabot, you can download and extract development archives from link below. These archives are automatically build whenever new commits are pushed to Budabot's source code repository.
+### Latest Development Archivs ###
+You can download the very lastest version from the link below.  Note that this version is a development version, may not have been tested thoroughly, and may contain bugs.
 
-http://budabot.jkbff.com/builds/
+https://github.com/Budabot/Budabot/archive/master.zip
 
 ### Cloning The Repository ###
-The last way how to install Budabot is simply to clone the repository.
+Alternatively you can clone the Budabot git repository. The advantage to doing this is that as new changes are committed you can simply do `git pull` to pull those changes into your copy. Note that this version is a development version, may not have been tested thoroughly, and may contain bugs. If you are planning on developing on Budabot, we recommend that you use this method.
+
+https://github.com/Budabot/Budabot.git
+
 
