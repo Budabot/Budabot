@@ -75,18 +75,9 @@ class HttpApiController {
 	 * @Description("Server's IP-address or host name")
 	 * @Visibility("edit")
 	 * @Type("text")
+	 * @Options("localhost")
 	 */
 	public $defaultAddress = "localhost";
-	
-	/**
-	 * @Setting("httpapi_enabled")
-	 * @Description("HTTP api server is enabled")
-	 * @Visibility("edit")
-	 * @Type("options")
-	 * @Options("true;false")
-	 * @Intoptions("1;0")
-	 */
-	public $defaultEnabled = "0";
 
 	/**
 	 * @Setup
@@ -133,21 +124,6 @@ class HttpApiController {
 		$this->settingManager->registerChangeListener('httpapi_port', function($name, $oldValue, $newValue) use ($that) {
 			$that->listen($newValue);
 		});
-		
-		// listen or stop listening when httpapi_enabled setting is changed
-		$this->settingManager->registerChangeListener('httpapi_enabled', function($name, $oldValue, $newValue) use ($that) {
-			if ($newValue == 1) {
-				$port = $that->setting->httpapi_port;
-				$that->listen($port);
-			} else {
-				$that->stopListening();
-			}
-		});
-
-		if ($this->setting->httpapi_enabled == 1) {
-			$port = $this->setting->httpapi_port;
-			$that->listen($port);
-		}
 		
 		// make sure we close the socket before exit
 		register_shutdown_function(function() use ($that) {
@@ -276,7 +252,8 @@ class HttpApiController {
 		
 		try {
 			$this->socket->listen($port, '0.0.0.0');
-		} catch(Exception $e) {
+			$this->logger->log('INFO', "HTTP Server started on port $port");
+		} catch (Exception $e) {
 			$this->logger->log('ERROR', 'Starting HTTP API failed, reason: ' . $e->getMessage());
 		}
 	}
@@ -306,13 +283,13 @@ class HttpApiController {
 		$this->http->get('http://automation.whatismyip.com/n09230945.asp')
 			->withHeader('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:12.0) Gecko/20100101 Firefox/12.0')
 			->withCallback(function($response) use ($setting, $sendto) {
-			if ($response->error) {
-				$sendto->reply("Failed, error was: {$response->error}");
-			} else {
-				$setting->httpapi_address = $response->body;
-				$sendto->reply("Success, updated httpapi_address setting to: '{$setting->httpapi_address}'");
-			}
-		});
+				if ($response->error) {
+					$sendto->reply("Failed, error was: {$response->error}");
+				} else {
+					$setting->httpapi_address = $response->body;
+					$sendto->reply("Success, updated httpapi_address setting to: '{$setting->httpapi_address}'");
+				}
+			});
 	}
 
 	/** @internal */
@@ -433,5 +410,21 @@ class HttpApiController {
 		$request->removeAllListeners();
 		new WebSocketConnection($this->wsServer, $conn, $session);
 		$conn->emit('data', array($request->toRequestString($request), $conn));
+	}
+	
+	public function isListening() {
+		return !empty($this->socket->master);
+	}
+	
+	/**
+	 * @Event("1min")
+	 * @Description("Automatically start HTTP server")
+	 * @DefaultStatus("0")
+	 */
+	public function startHTTPServer() {
+		if (!$this->isListening()) {
+			$port = $this->setting->httpapi_port;
+			$this->listen($port);
+		}
 	}
 }

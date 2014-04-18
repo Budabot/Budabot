@@ -50,7 +50,7 @@ class TestBotRunner extends BotRunner {
 			AsyncHttp::$overridePort = $newValue;
 		});
 
-		Registry::getInstance('setting')->httpapi_enabled = 1;
+		Registry::getInstance('HttpApi')->startHTTPServer();
 	}
 
 	private function disableAoChatFloodLimiting() {

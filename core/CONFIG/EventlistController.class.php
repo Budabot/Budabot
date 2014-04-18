@@ -65,7 +65,7 @@ class EventlistController {
 				}
 	
 				if ($row->description != '') {
-					$blob .= "$row->type [$row->module] ($status): $on  $off - ($row->description)\n";
+					$blob .= "$row->type [$row->module] ($status): $on  $off - $row->description\n";
 				} else {
 					$blob .= "$row->type [$row->module] ($status): $on  $off\n";
 				}
