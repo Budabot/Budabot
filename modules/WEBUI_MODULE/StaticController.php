@@ -35,6 +35,8 @@ class StaticController {
 			__DIR__ .'/resources/js/wampconnection.js');
 		$this->registerStaticResource("|^/{$this->moduleName}/js/login.js|i",
 			__DIR__ .'/resources/js/login.js');
+		$this->registerStaticResource("|^/{$this->moduleName}/js/inputHistory.js|i",
+			__DIR__ .'/resources/js/inputHistory.js');
 	}
 
 	private function registerStaticResource($uriPath, $filePath) {
