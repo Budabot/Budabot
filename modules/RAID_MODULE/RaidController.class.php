@@ -163,7 +163,8 @@ class RaidController {
 			
 			$this->loot[$key] = $item;
 		}
-		$msg = "<highlight>{$item->name}<end> (x$item->multiloot) will be rolled in Slot <highlight>#$key<end>.";
+
+		$msg = "$sender added <highlight>{$item->name}<end> (x$item->multiloot) to Slot <highlight>#$key<end>.";
 		$msg .= " To add use <symbol>add $key, or <symbol>rem to remove yourself.";
 		$this->chatBot->sendPrivate($msg);
 	}
@@ -248,7 +249,7 @@ class RaidController {
 			$this->loot[$key] = $item;
 		}
 
-		$msg = "<highlight>{$item->name}<end> (x$item->multiloot) will be rolled in Slot <highlight>#$key<end>.";
+		$msg = "$sender added <highlight>{$item->name}<end> (x$item->multiloot) to Slot <highlight>#$key<end>.";
 		$msg .= " To add use <symbol>add $key, or <symbol>rem to remove yourself.";
 		$this->chatBot->sendPrivate($msg);
 	}
