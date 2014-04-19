@@ -224,7 +224,7 @@ class ImplantController {
 				$shiny = $newShiny;
 				$value += $shiny->{$prefix . 'Shiny'};
 				$lowest = $shiny->{'lowest' . ucfirst($prefix) . 'Shiny'};
-				$blob .= "<highlight>Add shiny QL $shiny->ql<end> ($lowest)\n\n";
+				$blob .= "<highlight>Add shiny QL $shiny->ql<end> ($lowest) - Treatment: {$shiny->treatment}, Ability: {$shiny->ability}\n\n";
 			}
 			
 			// add bright
@@ -239,7 +239,7 @@ class ImplantController {
 				$bright = $newBright;
 				$value += $bright->{$prefix . 'Bright'};
 				$lowest = $bright->{'lowest' . ucfirst($prefix) . 'Bright'};
-				$blob .= "<highlight>Add bright QL $bright->ql<end>  ($lowest)\n\n";
+				$blob .= "<highlight>Add bright QL $bright->ql<end>  ($lowest) - Treatment: {$bright->treatment}, Ability: {$bright->ability}\n\n";
 			}
 			
 			// add faded
@@ -254,7 +254,7 @@ class ImplantController {
 				$faded = $newFaded;
 				$value += $faded->{$prefix . 'Faded'};
 				$lowest = $faded->{'lowest' . ucfirst($prefix) . 'Faded'};
-				$blob .= "<highlight>Add faded QL $faded->ql<end> ($lowest)\n\n";
+				$blob .= "<highlight>Add faded QL $faded->ql<end> ($lowest) - Treatment: {$faded->treatment}, Ability: {$faded->ability}\n\n";
 			}
 		}
 		
