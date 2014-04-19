@@ -170,9 +170,7 @@ class RootController {
 		$input = $this->text->format_message($input);
 		$input = preg_replace("/<a href=\"text:\\/\\/(.+)\">(.+)<\\/a>/sU", "$1", $input);
 		$input = preg_replace_callback("/<a(\\s+)href='chatcmd:\\/\\/(.+)'>(.+)<\\/a>/sU", array($this, 'replaceChatCmd'), $input);
-		$input = preg_replace("/<img(\\s+)src=(.+)>/sU", "", $input);
-		//$input = htmlspecialchars($input);
-		//$input = str_replace("\n", "<br />", $input);
+		$input = preg_replace_callback("/<img(\\s+)src=(.+)>/sU", array($this, 'replaceImages'), $input);
 		return $input;
 	}
 	
@@ -182,6 +180,14 @@ class RootController {
 			return "<a href=\"#\" onclick=\"$('#commandInput').val('$matches[1]'); sendCommand();\" title=\"$matches[1]\">$arr[3]</a>";
 		} else {
 			return $arr[3];
+		}
+	}
+	
+	private function replaceImages($arr) {
+		if (preg_match("|'rdb://(\\d+)'|", $arr[2], $matches)) {
+			return "<img src='http://s2.aoitems.com/icon/{$matches[1]}' />";
+		} else {
+			return '';
 		}
 	}
 }

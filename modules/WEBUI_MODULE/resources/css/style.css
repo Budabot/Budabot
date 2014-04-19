@@ -53,3 +53,7 @@ footer {
 	font-family: monospace;
 	resize: both;
 }
+
+#command-console a, #command-console a:visited {
+	color: #0489B1;
+}

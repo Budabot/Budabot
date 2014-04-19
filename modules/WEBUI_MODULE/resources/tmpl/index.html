@@ -24,7 +24,7 @@
 			url: form.attr('action'),
 			data: form.serialize(), // serializes the form's elements.
 			success: function(data) {
-				var output = command + "<br /><br />" + data
+				var output = command + "<hr />" + data + "<hr />"
 				$('#commandOutput').html(output)
 			}
 		});
@@ -55,7 +55,7 @@
 	<div id="log_console" data-topic="{{ logEventsTopic }}"></div>
 </article>
 <br />
-<article>
+<article id="command-console">
 	<form method="post" action="/WEBUI_MODULE/command" id="commandForm" onsubmit="sendCommand(); return false;">
 		<input type="text" name="cmd" id="commandInput" class="input-history" size="100" placeholder="Command" autocomplete="off" autofocus />
 		<input type="submit" value="Submit" />
@@ -63,6 +63,9 @@
 	<br />
 	<pre id="commandOutput">
 	</pre>
+	<p>
+		Icons provided by <a href="http://aoitems.com">AOItems.com</a>
+	</p>
 </article>
 {% endif %}
 {% endblock %}
