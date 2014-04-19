@@ -28,7 +28,7 @@ class TestBotRunner extends BotRunner {
 
 	protected function startBot() {
 		$this->startRpcServer();
-		$this->sendHttpRequestsToHttpApi();
+		$this->sendHttpRequestsToHttpServer();
 		$this->disableAoChatFloodLimiting();
 
 		parent::startBot();
@@ -41,16 +41,16 @@ class TestBotRunner extends BotRunner {
 		$this->rpcService->start($vars['testbotrunner_rpc_port']);
 	}
 
-	private function sendHttpRequestsToHttpApi() {
+	private function sendHttpRequestsToHttpServer() {
 		AsyncHttp::$overrideAddress = '127.0.0.1';
-		AsyncHttp::$overridePort = Registry::getInstance('setting')->httpapi_port;
+		AsyncHttp::$overridePort = Registry::getInstance('setting')->http_server_port;
 		HttpRequest::$overridePathPrefix = '/tests';
 
-		Registry::getInstance('settingManager')->registerChangeListener('httpapi_port', function($a, $b, $newValue) {
+		Registry::getInstance('settingManager')->registerChangeListener('http_server_port', function($a, $b, $newValue) {
 			AsyncHttp::$overridePort = $newValue;
 		});
 
-		Registry::getInstance('HttpApi')->startHTTPServer();
+		Registry::getInstance('httpServerController')->startHTTPServer();
 	}
 
 	private function disableAoChatFloodLimiting() {

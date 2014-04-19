@@ -7,7 +7,7 @@ require_once 'Phake.php';
 require_once 'PHPUnit/Autoload.php';
 require_once __DIR__ . '/../../../tests/helpers/BudabotTestCase.php';
 require_once __DIR__ . '/../../../modules/WEBUI_MODULE/LoginController.php';
-require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/HttpApiController.class.php';
+require_once __DIR__ . '/../../../core/HTTP_SERVER_MODULE/HttpServerController.class.php';
 require_once __DIR__ . '/../../../modules/WEBUI_MODULE/Template.php';
 require_once __DIR__ . '/../../../core/PREFERENCES/Preferences.class.php';
 
@@ -26,7 +26,7 @@ class LoginControllerTest extends \BudabotTestCase {
 	function setUp() {
 		$this->ctrl = new LoginController();
 		$this->ctrl->moduleName = 'WEBUI_MODULE';
-		$this->httpApi = $this->injectMock($this->ctrl, 'httpapi', 'Budabot\Core\Modules\HttpApiController');
+		$this->httpServerController = $this->injectMock($this->ctrl, 'httpServerController', 'Budabot\Core\Modules\HttpServerController');
 		$this->preferences = $this->injectMock($this->ctrl, 'preferences', 'Budabot\Core\Preferences');
 		$this->template = $this->injectMock($this->ctrl, 'template', 'Budabot\User\Modules\WebUi\Template');
 		$this->session = \Phake::mock('Budabot\Core\Modules\Session');
@@ -40,8 +40,8 @@ class LoginControllerTest extends \BudabotTestCase {
 		$this->assertTrue($this->hasSetupHandler($this->ctrl));
 	}
 
-	function testHasHttpApiInject() {
-		$this->assertTrue($this->hasInjection($this->ctrl, 'httpapi'));
+	function testHasHttpServerControllerInject() {
+		$this->assertTrue($this->hasInjection($this->ctrl, 'httpServerController'));
 	}
 
 	function testHasPreferencesInject() {
@@ -50,7 +50,7 @@ class LoginControllerTest extends \BudabotTestCase {
 
 	function testSetupHandlerRegistersLoginResource() {
 		$this->callSetupHandler($this->ctrl);
-		\Phake::verify($this->httpApi)->registerHandler("|^/WEBUI_MODULE/login|i", $this->isCallable());
+		\Phake::verify($this->httpServerController)->registerHandler("|^/WEBUI_MODULE/login|i", $this->isCallable());
 	}
 
 	function testLoginHandlerWritesLoginHtmlResource() {
@@ -70,13 +70,13 @@ class LoginControllerTest extends \BudabotTestCase {
 	private function callHandlerCallback($path, $request, $response, $data = '', $session = null) {
 		$this->callSetupHandler($this->ctrl);
 		$callback = null;
-		\Phake::verify($this->httpApi)->registerHandler($path, \Phake::capture($callback));
+		\Phake::verify($this->httpServerController)->registerHandler($path, \Phake::capture($callback));
 		call_user_func($callback, $request, $response, $data, $session);
 	}
 
 	function testSetupHandlerRegistersCheckLoginResource() {
 		$this->callSetupHandler($this->ctrl);
-		\Phake::verify($this->httpApi)->registerHandler("|^/WEBUI_MODULE/do_login|i", $this->isCallable());
+		\Phake::verify($this->httpServerController)->registerHandler("|^/WEBUI_MODULE/do_login|i", $this->isCallable());
 	}
 
 	function testCheckLoginHandlerWritesSuccessOnValidCredentials() {

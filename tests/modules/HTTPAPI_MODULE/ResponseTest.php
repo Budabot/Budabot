@@ -3,7 +3,7 @@
 require_once 'Phake.php';
 require_once 'PHPUnit/Autoload.php';
 require_once __DIR__ . '/../../../lib/vendor/autoload.php';
-require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/Response.php';
+require_once __DIR__ . '/../../../core/HTTP_SERVER_MODULE/Response.php';
 
 use Budabot\Core\Modules\Response;
 

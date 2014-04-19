@@ -4,7 +4,7 @@ require_once 'Phake.php';
 require_once 'PHPUnit/Autoload.php';
 require_once __DIR__ . '/../../../lib/vendor/autoload.php';
 require_once __DIR__ . '/../../helpers/BudabotTestCase.php';
-require_once __DIR__ . '/../../../core/HTTPAPI_MODULE/SessionStorage.php';
+require_once __DIR__ . '/../../../core/HTTP_SERVER_MODULE/SessionStorage.php';
 
 use Budabot\Core\Modules\SessionStorage;
 

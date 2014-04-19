@@ -13,7 +13,7 @@ class RunnerRpcService {
 	public $eventManager;
 
 	/** @Inject */
-	public $httpApi;
+	public $httpServerController;
 
 	/** @Inject */
 	public $socketManager;
@@ -38,7 +38,7 @@ class RunnerRpcService {
 		$this->resultsMap[$key] = $result;
 
 		$that = $this;
-		$this->httpApi->registerHandler("|^/tests/|i", function ($request, $response, $body) use ($that) {
+		$this->httpServerController->registerHandler("|^/tests/|i", function ($request, $response, $body) use ($that) {
 			$headers = $request->getHeaders();
 			$key = $that->buildKey($headers['Host'], $request->getPath());
 

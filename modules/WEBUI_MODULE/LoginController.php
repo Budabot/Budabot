@@ -14,7 +14,7 @@ class LoginController {
 	public $moduleName;
 
 	/** @Inject */
-	public $httpApi;
+	public $httpServerController;
 
 	/** @Inject */
 	public $preferences;
@@ -29,11 +29,11 @@ class LoginController {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->httpApi->registerHandler("|^/{$this->moduleName}/login|i",
+		$this->httpServerController->registerHandler("|^/{$this->moduleName}/login|i",
 			array($this, 'handleLoginResource'));
-		$this->httpApi->registerHandler("|^/{$this->moduleName}/do_login|i",
+		$this->httpServerController->registerHandler("|^/{$this->moduleName}/do_login|i",
 			array($this, 'handleDoLoginResource'));
-		$this->httpApi->registerHandler("|^/{$this->moduleName}/logout|i",
+		$this->httpServerController->registerHandler("|^/{$this->moduleName}/logout|i",
 			array($this, 'handleLogoutResource'));
 	}
 
@@ -44,7 +44,7 @@ class LoginController {
 
 	public function handleLoginResource($request, $response, $body, $session) {
 		if ($this->isLoggedIn($session)) {
-			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/");
+			$this->httpServerController->redirectToPath($response, "/{$this->moduleName}/");
 		} else {
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
 			$response->end($this->template->render('login.html', $session));
@@ -75,7 +75,7 @@ class LoginController {
 	public function handleLogoutResource($request, $response, $data, $session) {
 		$session->start();
 		$session->setData('logged in', false);
-		$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
+		$this->httpServerController->redirectToPath($response, "/{$this->moduleName}/login");
 	}
 
 	private static function parseCredentialsFromQuery($data) {

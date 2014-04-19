@@ -17,7 +17,7 @@ class RootController {
 	public $moduleName;
 
 	/** @Inject */
-	public $httpApi;
+	public $httpServerController;
 
 	/** @Inject */
 	public $chatBot;
@@ -65,13 +65,13 @@ class RootController {
 			'superadmin'
 		);
 
-		$this->httpApi->registerHandler("|^/{$this->moduleName}/$|i",
+		$this->httpServerController->registerHandler("|^/{$this->moduleName}/$|i",
 			array($this, 'handleRootResource'));
 
-		$this->httpApi->registerHandler("|^/{$this->moduleName}/wsendpoint$|i",
+		$this->httpServerController->registerHandler("|^/{$this->moduleName}/wsendpoint$|i",
 			array($this, 'handleWsResource'));
 			
-		$this->httpApi->registerHandler("|^/{$this->moduleName}/command|i",
+		$this->httpServerController->registerHandler("|^/{$this->moduleName}/command|i",
 			array($this, 'handleCommandResource'));
 
 		$this->onLogEventsPublishToClients();
@@ -80,7 +80,7 @@ class RootController {
 
 	private function onSubscribeSendLogEvents() {
 		$that = $this;
-		$this->httpApi->onWampSubscribe(self::LOG_EVENTS_TOPIC, function ($connection, $topic) use ($that) {
+		$this->httpServerController->onWampSubscribe(self::LOG_EVENTS_TOPIC, function ($connection, $topic) use ($that) {
 			if ($that->hasAccessToLogConsole($connection->session)) {
 				$events = $that::getBufferAppender()->getEvents();
 				foreach ($events as $event) {
@@ -95,7 +95,7 @@ class RootController {
 	private function onLogEventsPublishToClients() {
 		$that = $this;
 		self::getBufferAppender()->onEvent(function ($event) use ($that) {
-			$that->httpApi->wampPublish($that::LOG_EVENTS_TOPIC, $event);
+			$that->httpServerController->wampPublish($that::LOG_EVENTS_TOPIC, $event);
 		});
 	}
 
@@ -112,12 +112,12 @@ class RootController {
 		if ($this->loginController->isLoggedIn($session)) {
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
 			$response->end($this->template->render('index.html', $session, array(
-				'webSocketUri' => $this->httpApi->getWebSocketUri("/{$this->moduleName}/wsendpoint"),
+				'webSocketUri' => $this->httpServerController->getWebSocketUri("/{$this->moduleName}/wsendpoint"),
 				'logEventsTopic' => self::LOG_EVENTS_TOPIC,
 				'logConsoleAllowed' => $this->hasAccessToLogConsole($session)
 			)));
 		} else {
-			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
+			$this->httpServerController->redirectToPath($response, "/{$this->moduleName}/login");
 		}
 	}
 
@@ -130,7 +130,7 @@ class RootController {
 	public function handleWsResource($request, $response, $body, $session) {
 		if ($request->isWebSocketHandshake()) {
 			if ($this->loginController->isLoggedIn($session)) {
-				$this->httpApi->upgradeToWebSocket($request, $response, $session);
+				$this->httpServerController->upgradeToWebSocket($request, $response, $session);
 			} else {
 				$response->writeHead(403);
 				$response->end();
@@ -162,7 +162,7 @@ class RootController {
 			$response->writeHead(200, array('Content-type' => 'text/html; charset=utf-8'));
 			$response->end($this->convertAOMLToHTML($commandOutput));
 		} else {
-			$this->httpApi->redirectToPath($response, "/{$this->moduleName}/login");
+			$this->httpServerController->redirectToPath($response, "/{$this->moduleName}/login");
 		}
 	}
 	

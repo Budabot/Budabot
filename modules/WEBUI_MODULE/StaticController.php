@@ -14,7 +14,7 @@ class StaticController {
 	public $moduleName;
 
 	/** @Inject */
-	public $httpApi;
+	public $httpServerController;
 
 	/** @Inject */
 	public $chatBot;
@@ -40,7 +40,7 @@ class StaticController {
 	}
 
 	private function registerStaticResource($uriPath, $filePath) {
-		$this->httpApi->registerHandler($uriPath, $this->handleStaticResource($filePath));
+		$this->httpServerController->registerHandler($uriPath, $this->handleStaticResource($filePath));
 	}
 
 	private function handleStaticResource($path) {

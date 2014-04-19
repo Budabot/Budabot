@@ -9,22 +9,22 @@ use stdClass;
 use Exception;
 
 /**
- * @Instance("HttpApi")
+ * @Instance
  * 
  * Author: Marebone
  *
  * @DefineCommand(
- *		command     = 'httpapi',
- *      description = "Provides web browser link to bot's HTTP API",
+ *		command     = 'httpserver',
+ *      description = "Provides web browser link to bot",
  *		accessLevel = 'all'
  * )
  * @DefineCommand(
- *		command     = 'httpapi updateipaddress',
+ *		command     = 'httpserver updateipaddress',
  *		accessLevel = 'admin',
- *		description = "Updates API's IP-address from whatismyip.com"
+ *		description = "Updates IP-address from whatismyip.com"
  *	)
  */
-class HttpApiController {
+class HttpServerController {
 
 	/** @Inject */
 	public $socketManager;
@@ -62,8 +62,8 @@ class HttpApiController {
 	public $handlers = array();
 
 	/**
-	 * @Setting("httpapi_port")
-	 * @Description("IP port where the HTTP api server listens at")
+	 * @Setting("http_server_port")
+	 * @Description("IP port where the HTTP server listens at")
 	 * @Visibility("edit")
 	 * @Type("number")
 	 * @Options("80;8080")
@@ -71,7 +71,7 @@ class HttpApiController {
 	public $defaultPort = "80";
 
 	/**
-	 * @Setting("httpapi_address")
+	 * @Setting("http_server_address")
 	 * @Description("Server's IP-address or host name")
 	 * @Visibility("edit")
 	 * @Type("text")
@@ -120,9 +120,11 @@ class HttpApiController {
 			$response->end("Hello Budabot!\n");
 		});
 
-		// switch server's port if httpapi_port setting is changed
-		$this->settingManager->registerChangeListener('httpapi_port', function($name, $oldValue, $newValue) use ($that) {
-			$that->listen($newValue);
+		// switch server's port if http_server_port setting is changed
+		$this->settingManager->registerChangeListener('http_server_port', function($name, $oldValue, $newValue) use ($that) {
+			if ($that->isListening) {
+				$that->listen($newValue);
+			}
 		});
 		
 		// make sure we close the socket before exit
@@ -133,7 +135,7 @@ class HttpApiController {
 
 	/**
 	 * Adds handler callback which will be called if given $path matches to
-	 * what has been requested through the HTTP API.
+	 * what has been requested through the HTTP server.
 	 *
 	 * The callback has following signature:
 	 * <code>
@@ -147,7 +149,7 @@ class HttpApiController {
 	 *
 	 * Example usage:
 	 * <code>
-	 *     $this->httpApi->registerHandler("|^/{$this->moduleName}/foo|i", function($request, $response, $requestBody) {
+	 *     $this->httpServerController->registerHandler("|^/{$this->moduleName}/foo|i", function($request, $response, $requestBody) {
 	 *         // ...
 	 *     } );
 	 * </code>
@@ -173,11 +175,11 @@ class HttpApiController {
 	 * 
 	 * Example usage:
 	 * <code>
-	 *     $uri = $this->httpApi->getUri('/foo');
+	 *     $uri = $this->httpServerController->getUri('/foo');
 	 * </code>
 	 * Returns: 'http://localhost/foo'
 	 *
-	 * Settings 'httpapi_address' and 'httpapi_port' affect what the returned
+	 * Settings 'http_server_address' and 'http_server_port' affect what the returned
 	 * URI will be.
 	 *
 	 * @param string $path path to uri resource
@@ -191,7 +193,7 @@ class HttpApiController {
 	}
 
 	private function getHostComponent() {
-		$host = $this->setting->httpapi_address;
+		$host = $this->setting->http_server_address;
 		if (!$host) {
 			return 'localhost';
 		}
@@ -199,7 +201,7 @@ class HttpApiController {
 	}
 
 	private function getPortComponent() {
-		$port = $this->setting->httpapi_port;
+		$port = $this->setting->http_server_port;
 		if ($port == 80) {
 			return '';
 		}
@@ -211,11 +213,11 @@ class HttpApiController {
 	 *
 	 * Example usage:
 	 * <code>
-	 *     $uri = $this->httpApi->getWebSocketUri();
+	 *     $uri = $this->httpServerController->getWebSocketUri();
 	 * </code>
 	 * Returns: 'ws://localhost/'
 	 *
-	 * Settings 'httpapi_address' and 'httpapi_port' affect what the returned
+	 * Settings 'http_server_address' and 'http_server_port' affect what the returned
 	 * URI will be.
 	 *
 	 * @param string $path path to uri resource
@@ -245,7 +247,7 @@ class HttpApiController {
 		// test if the port is available
 		$socket = socket_create(AF_INET, SOCK_STREAM, 0);
 		if (socket_bind($socket, '0.0.0.0', $port) === false) {
-			$this->logger->log('ERROR', "Starting HTTP API failed, port $port is already in use");
+			$this->logger->log('ERROR', "Starting HTTP server failed, port $port is already in use");
 			return;
 		}
 		socket_close($socket);
@@ -254,28 +256,28 @@ class HttpApiController {
 			$this->socket->listen($port, '0.0.0.0');
 			$this->logger->log('INFO', "HTTP Server started on port $port");
 		} catch (Exception $e) {
-			$this->logger->log('ERROR', 'Starting HTTP API failed, reason: ' . $e->getMessage());
+			$this->logger->log('ERROR', 'Starting HTTP server failed, reason: ' . $e->getMessage());
 		}
 	}
 
 	/**
 	 * This command handler shows web link to user.
 	 *
-	 * @HandlesCommand("httpapi")
+	 * @HandlesCommand("httpserver")
 	 * @internal
 	 */
-	public function httpapiCommand($message, $channel, $sender, $sendto, $args) {
+	public function httpserverCommand($message, $channel, $sender, $sendto, $args) {
 		$uri  = $this->getUri('/');
 		$link = $this->text->make_chatcmd( $uri, "/start $uri" );
-		$msg  = $this->text->make_blob('HTTP API', "Open $link to web browser.");
+		$msg  = $this->text->make_blob('HTTP Server', "Open $link to web browser.");
 		$sendto->reply($msg);
 	}
 
 	/**
 	 * This command handler checks from whatismyip.com bot's public IP-address
-	 * and updates the API's address.
+	 * and updates the HTTP server's address.
 	 *
-	 * @HandlesCommand("httpapi updateipaddress")
+	 * @HandlesCommand("httpserver updateipaddress")
 	 * @internal
 	 */
 	public function updateIpAddressCommand($message, $channel, $sender, $sendto, $args) {
@@ -286,8 +288,8 @@ class HttpApiController {
 				if ($response->error) {
 					$sendto->reply("Failed, error was: {$response->error}");
 				} else {
-					$setting->httpapi_address = $response->body;
-					$sendto->reply("Success, updated httpapi_address setting to: '{$setting->httpapi_address}'");
+					$setting->http_server_address = $response->body;
+					$sendto->reply("Success, updated http_server_address setting to: '{$setting->http_server_address}'");
 				}
 			});
 	}
@@ -347,7 +349,7 @@ class HttpApiController {
 	 *
 	 * Example usage:
 	 * <code>
-	 *     $this->httpApi->redirectToPath($response, "/{$this->moduleName}/redirected/path");
+	 *     $this->httpServerController->redirectToPath($response, "/{$this->moduleName}/redirected/path");
 	 * </code>
 	 *
 	 * @param $response http response object
@@ -365,8 +367,8 @@ class HttpApiController {
 	 *
 	 * Example usage:
 	 * <code>
-	 *     $uri = $this->httpApi->getUri('/hello_response');
-	 *     $this->httpApi->wampPublish($uri, 'hello world');
+	 *     $uri = $this->httpServerController->getUri('/hello_response');
+	 *     $this->httpServerController->wampPublish($uri, 'hello world');
 	 * </code>
 	 *
 	 * @param $topicName name or uri of the event topic
@@ -391,8 +393,8 @@ class HttpApiController {
      *
 	 * Example usage:
 	 * <code>
-	 *     $uri = $this->httpApi->getUri('/hello');
-	 *     $this->httpApi->onWampSubscribe($uri, function($client) {
+	 *     $uri = $this->httpServerController->getUri('/hello');
+	 *     $this->httpServerController->onWampSubscribe($uri, function($client) {
 	 *         $client->send($uri, 'Hello new client!');
 	 *     });
 	 * </code>
@@ -423,7 +425,7 @@ class HttpApiController {
 	 */
 	public function startHTTPServer() {
 		if (!$this->isListening()) {
-			$port = $this->setting->httpapi_port;
+			$port = $this->setting->http_server_port;
 			$this->listen($port);
 		}
 	}
