@@ -36,15 +36,9 @@ namespace Budabot\User\Modules;
  *		help        = "logoffadmin.txt"
  *	)
  *	@DefineCommand(
- *		command     = "lastseen", 
- *		accessLevel = "guild", 
- *		description = "Shows the last logoff time of a player", 
- *		help        = "lastseen.txt"
- *	)
- *	@DefineCommand(
  *		command     = "recentseen", 
  *		accessLevel = "guild", 
- *		description = "Shows recent org members who logged on", 
+ *		description = "Shows org members who have logged off recently", 
  *		help        = "recentseen.txt"
  *	)
  *	@DefineCommand(
@@ -267,45 +261,6 @@ class GuildController {
 	}
 	
 	/**
-	 * @HandlesCommand("lastseen")
-	 * @Matches("/^lastseen (.+)$/i")
-	 */
-	public function lastseenCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$uid = $this->chatBot->get_uid($name);
-		if (!$uid) {
-			$msg = "Player <highlight>$name<end> does not exist.";
-		} else {
-			$altInfo = $this->altsController->get_alt_info($name);
-			$onlineAlts = $altInfo->get_online_alts();
-			if (count($onlineAlts) > 0) {
-				$msg = "This player is currently <green>online<end> as " . implode(', ', $onlineAlts) . ".";
-			} else {
-				$namesSql = '';
-				forEach ($altInfo->get_all_alts() as $alt) {
-					if ($namesSql) {
-						$namesSql .= ", ";
-					}
-					$namesSql .= "'$alt'";
-				}
-				$row = $this->db->queryRow("SELECT * FROM org_members_<myname> WHERE `name` IN ($namesSql) AND `mode` != 'del' ORDER BY logged_off DESC");
-
-				if ($row !== null) {
-					if ($row->logged_off == 0) {
-						$msg = "<highlight>$name<end> has never logged on.";
-					} else {
-						$msg = "Last seen at " . $this->util->date($row->logged_off) . " on <highlight>" . $row->name . "<end>.";
-					}
-				} else {
-					$msg = "This player is not a member of the org.";
-				}
-			}
-		}
-
-		$sendto->reply($msg);
-	}
-	
-	/**
 	 * @HandlesCommand("recentseen")
 	 * @Matches("/^recentseen ([a-z0-9]+)/i")
 	 */
@@ -325,8 +280,7 @@ class GuildController {
 		$timeString = $this->util->unixtime_to_readable($time, false);
 		$time = time() - $time;
 
-		$data = $this->db->query("SELECT case when a.main is null then o.name else a.main end as main ,o.logged_off,o.name FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del'AND `logged_off` > ? ORDER BY 1, o.logged_off desc, o.name", $time); 
-
+		$data = $this->db->query("SELECT case when a.main is null then o.name else a.main end as main ,o.logged_off,o.name FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` > ? ORDER BY 1, o.logged_off desc, o.name", $time); 
 
 		if (count($data) == 0) {
 			$sendto->reply("No members recorded.");
@@ -336,7 +290,7 @@ class GuildController {
 		$numinactive = 0;
 		$highlight = 0;
 
-		$blob = "Org members who have logged off since <highlight>{$timeString}<end> ago.\n\n";
+		$blob = "Org members who have logged off within the last <highlight>{$timeString}<end>.\n\n";
 		
 		$prevtoon = '';
 		forEach ($data as $row) {
@@ -357,7 +311,7 @@ class GuildController {
 				}
 			} 
 		}
-		$msg = $this->text->make_blob("$numrecentcount Recent seen org members", $blob);
+		$msg = $this->text->make_blob("$numrecentcount recently seen org members", $blob);
 		$sendto->reply($msg);
 	}
 	

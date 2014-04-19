@@ -13,7 +13,8 @@ namespace Budabot\User\Modules;
  *		command     = 'is', 
  *		accessLevel = 'member', 
  *		description = "Checks if a player is online", 
- *		help        = 'isonline.txt'
+ *		help        = 'isonline.txt',
+ *		alias		= 'lastseen'
  *	)
  */
 class IsOnlineController {
@@ -34,6 +35,9 @@ class IsOnlineController {
 	public $buddylistManager;
 	
 	/** @Inject */
+	public $altsController;
+	
+	/** @Inject */
 	public $util;
 	
 	private $player = null;
@@ -49,27 +53,51 @@ class IsOnlineController {
 			$msg = "Character <highlight>$name<end> does not exist.";
 			$sendto->reply($msg);
 		} else {
-			//if the player is a buddy then
 			$online_status = $this->buddylistManager->is_online($name);
 			if ($online_status === null) {
 				$this->player['playername'] = $name;
 				$this->player['sendto'] = $sendto;
 				$this->buddylistManager->add($name, 'is_online');
 			} else {
-				$row = $this->db->queryRow("SELECT * FROM org_members_<myname> WHERE `name` = ?", $name);
-				if ($row !== null) {
-					if ($row->logged_off != "0") {
-						$logged_off = " Logged off at " . $this->util->date($row->logged_off);
+				$msg = "Character <highlight>$name<end> is ";
+			
+				if ($online_status) {
+					$msg .= "<green>online<end>.";
+				} else {
+					$msg .= "<red>offline<end>.";
+					
+					$altInfo = $this->altsController->get_alt_info($name);
+					$onlineAlts = $altInfo->get_online_alts();
+					if (count($onlineAlts) > 0) {
+						$msg .= " <green>Online<end> alts: " . implode(', ', $onlineAlts) . ".";
+					} else {
+						$msg .= $this->getLastLogoff($name, $altInfo);
 					}
 				}
-				if ($online_status) {
-					$status = "<green>online<end>";
-				} else {
-					$status = "<red>offline<end>".$logged_off;
-				}
-				$msg = "Character <highlight>$name<end> is $status.";
+
 				$sendto->reply($msg);
 			}
+		}
+	}
+	
+	private function getLastLogoff($name, $altInfo) {
+		$namesSql = '';
+		forEach ($altInfo->get_all_alts() as $alt) {
+			if ($namesSql) {
+				$namesSql .= ", ";
+			}
+			$namesSql .= "'$alt'";
+		}
+		$row = $this->db->queryRow("SELECT * FROM org_members_<myname> WHERE `name` IN ($namesSql) AND `mode` != 'del' ORDER BY logged_off DESC");
+
+		if ($row !== null) {
+			if ($row->logged_off == 0) {
+				return " <highlight>$name<end> has never logged on.";
+			} else {
+				return " Last seen at " . $this->util->date($row->logged_off) . " on <highlight>" . $row->name . "<end>.";
+			}
+		} else {
+			return '';
 		}
 	}
 	
