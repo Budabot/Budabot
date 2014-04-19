@@ -63,9 +63,9 @@ class LoginController {
 			$session->start();
 			$session->setData('logged in', true);
 			$session->setData('user', $user);
-			$this->logger->log('INFO', "$user logged in to console");
+			$this->logger->log('INFO', "$user logged in to web console");
 		} else {
-			$this->logger->log('DEBUG', "$user failed authentication while attempting to log in to console");
+			$this->logger->log('DEBUG', "$user failed authentication while attempting to log in to web console");
 		}
 
 		$response->writeHead(200);
