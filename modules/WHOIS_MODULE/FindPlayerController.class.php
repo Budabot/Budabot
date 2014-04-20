@@ -2,8 +2,6 @@
 
 namespace Budabot\User\Modules;
 
-use Budabot\Core\DB;
-
 /**
  * Authors: 
  *  - Tyrence (RK2)

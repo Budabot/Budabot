@@ -99,13 +99,16 @@ class ConfigController {
 			FROM
 				(SELECT module, status FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'
 				UNION
-				SELECT module, status FROM eventcfg_<myname>) t
+				SELECT module, status FROM eventcfg_<myname>
+				UNION
+				SELECT module, 1 FROM settings_<myname>) t
 			GROUP BY
 				module
 			ORDER BY
 				module ASC";
 	
 		$data = $this->db->query($sql);
+		$count = count($data);
 		forEach ($data as $row) {
 			if ($row->count_enabled > 0 && $row->count_disabled > 0) {
 				$a = "(<yellow>Partial<end>)";
@@ -122,7 +125,7 @@ class ConfigController {
 			$blob .= strtoupper($row->module)." $a ($on/$off) $c\n";
 		}
 	
-		$msg = $this->text->make_blob("Module Config", $blob);
+		$msg = $this->text->make_blob("Module Config ($count)", $blob);
 		$sendto->reply($msg);
 	}
 
