@@ -142,7 +142,12 @@ class RootController {
 		if ($this->loginController->isLoggedIn($session)) {
 			$params = array();
 			parse_str($data, $params);
+
 			$cmd = $params['cmd'];
+			if ($this->setting->symbol == $cmd[0]) {
+				$cmd = substr($cmd, 1);
+			}
+
 			$commandOutput = "";
 			if (!empty($cmd)) {
 				$sendto = new WebCommandReply();
