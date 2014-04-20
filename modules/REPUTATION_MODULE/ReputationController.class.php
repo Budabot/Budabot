@@ -63,7 +63,7 @@ class ReputationController {
 		$count = count($data);
 
 		if ($count == 0) {
-			$msg = "There are no character on the reputation list.";
+			$msg = "There are no characters on the reputation list.";
 			$sendto->reply($msg);
 			return;
 		}
