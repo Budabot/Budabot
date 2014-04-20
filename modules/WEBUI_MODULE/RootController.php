@@ -170,7 +170,8 @@ class RootController {
 		$input = $this->text->format_message($input);
 		$input = preg_replace("/<a href=\"text:\\/\\/(.+)\">(.+)<\\/a>/sU", "$1", $input);
 		$input = preg_replace_callback("/<a(\\s+)href='chatcmd:\\/\\/(.+)'>(.+)<\\/a>/sU", array($this, 'replaceChatCmd'), $input);
-		$input = preg_replace_callback("/<img(\\s+)src=(.+)>/sU", array($this, 'replaceImages'), $input);
+		$input = preg_replace_callback("/<a(\\s+)href='itemref:\\/\\/(\\d+)\\/(\\d+)\\/(\\d+)'>(.+)<\\/a>/sU", array($this, 'replaceItem'), $input);
+		$input = preg_replace_callback("/<img(\\s+)src=(.+)>/sU", array($this, 'replaceImage'), $input);
 		return $input;
 	}
 	
@@ -183,12 +184,16 @@ class RootController {
 		}
 	}
 	
-	private function replaceImages($arr) {
+	private function replaceImage($arr) {
 		if (preg_match("|'rdb://(\\d+)'|", $arr[2], $matches)) {
 			return "<img src='http://s2.aoitems.com/icon/{$matches[1]}' />";
 		} else {
 			return '';
 		}
+	}
+	
+	private function replaceItem($arr) {
+		return "<a href=\"javascript: window.open('http://aoitems.com/item/{$arr[2]}/{$arr[4]}')\">{$arr[5]}</a>";
 	}
 }
 
