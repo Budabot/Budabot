@@ -5,7 +5,6 @@ namespace Budabot\Core\Modules;
 /*
 ** Author: Derroylo (RK2)
 ** Description: Configuration of the Basicbot settings
-** Version: 0.3
 **
 ** Developed for: Budabot(http://sourceforge.net/projects/budabot)
 **

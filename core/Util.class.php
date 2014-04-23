@@ -329,7 +329,7 @@ class Util {
 	// checks to see if user is valid
 	// invalid values:
 	// $sender = -1 on 32bit
-	// $sender = 4294967295
+	// $sender = 4294967295 on 64bit
 	// this function handles both 32 and 64 bit
 	public function isValidSender($sender) {
 		return (int)0xFFFFFFFF == $sender ? false : true;

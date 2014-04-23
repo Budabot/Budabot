@@ -58,7 +58,7 @@ class AltInfo {
 			}
 			$online = $buddylistManager->is_online($row->alt);
 			if ($online === null) {
-				$blob .= " - No status.";
+				$blob .= " - No status";
 			} else if ($online == 1) {
 				$blob .= " - <green>Online<end> " . $text->make_chatcmd("Send tell", "/tell $row->alt");
 			} else {
