@@ -55,6 +55,8 @@ class ImplantController {
 	/** @Inject */
 	public $util;
 	
+	private $slots = array('head', 'eye', 'ear', 'rarm', 'chest', 'larm', 'rwrist', 'waist', 'lwrist', 'rhand', 'legs', 'lhand', 'feet');
+	
 	/**
 	 * @Setup
 	 */
@@ -116,11 +118,7 @@ class ImplantController {
 		if ($profession != '') {
 			$searchTerms = $profession;
 			$results = $this->searchByProfession($profession);
-		} else if ($searchTerms == 'head' || $searchTerms == 'eye' || $searchTerms == 'ear' || $searchTerms == 'rarm' ||
-			$searchTerms == 'chest' || $searchTerms == 'larm' || $searchTerms == 'rwrist' || $searchTerms == 'waist' ||
-			$searchTerms == 'lwrist' || $searchTerms == 'rhand' || $searchTerms == 'legs' || $searchTerms == 'lhand' ||
-			$searchTerms == 'feet') {
-
+		} else if (in_array($searchTerms, $this->slots)) {
 			$results = $this->searchBySlot($searchTerms);
 		} else {
 			$results = $this->searchByModifier($searchTerms);
