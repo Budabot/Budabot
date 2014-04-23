@@ -37,6 +37,7 @@ class ImplantDesignerController extends AutoInject {
 	 */
 	public function setup() {
 		$this->design = new stdClass;
+		$this->db->loadSQLFile($this->moduleName, "implant_ability_requirement");
 	}
 	
 	/**
