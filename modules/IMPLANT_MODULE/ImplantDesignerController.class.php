@@ -64,9 +64,9 @@ class ImplantDesignerController extends AutoInject {
 					$blob .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
 				}
 				$blob .= "\n";
-				$blob .= "<tab>" . $this->getClusterInfo($slot, 'shiny', $implant) . "\n";
-				$blob .= "<tab>" . $this->getClusterInfo($slot, 'bright', $implant) . "\n";
-				$blob .= "<tab>" . $this->getClusterInfo($slot, 'faded', $implant) . "\n";
+				$blob .= "<tab>" . $this->getClusterInfo($ql, $slot, 'shiny', $implant) . "\n";
+				$blob .= "<tab>" . $this->getClusterInfo($ql, $slot, 'bright', $implant) . "\n";
+				$blob .= "<tab>" . $this->getClusterInfo($ql, $slot, 'faded', $implant) . "\n";
 			} else {
 				$blob .= "\n";
 			}
@@ -80,12 +80,46 @@ class ImplantDesignerController extends AutoInject {
 		$sendto->reply($msg);
 	}
 	
-	private function getClusterInfo($slot, $type, $implant) {
-		$skillModName = 'skill' . ucfirst(strtolower($type));
-		if (empty($this->design->$slot->$type)) {
+	private function getClusterInfo($ql, $slot, $grade, $implant) {
+		$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
+		if (empty($this->design->$slot->$grade)) {
 			return '--';
 		} else {
-			return $this->design->$slot->$type . " ({$implant->$skillModName})";
+			$sql =
+				"SELECT
+					ID,
+					Name,
+					MinValLow,
+					MaxValLow,
+					MinValHigh,
+					MaxValHigh
+				FROM
+					EffectTypeMatrix
+				WHERE
+					ID = ?";
+
+			$row = $this->impDb->queryRow($sql, $implant->$effectTypeIdName);
+			
+			if ($ql < 201) {
+				$minVal = $row->MinValLow;
+				$maxVal = $row->MaxValLow;
+				$minQl = 1;
+				$maxQl = 200;
+			} else {
+				$minVal = $row->MinValHigh;
+				$maxVal = $row->MaxValHigh;
+				$minQl = 201;
+				$maxQl = 300;
+			}
+			
+			$modAmount = $this->skillsController->interpolate($minQl, $maxQl, $minVal, $maxVal, $ql);
+			if ($grade == 'bright') {
+				$modAmount = round($modAmount * 0.6, 0);
+			} else if ($grade == 'faded') {
+				$modAmount = round($modAmount * 0.4, 0);
+			}
+
+			return $this->design->$slot->$grade . " ($modAmount)";
 		}
 	}
 	
@@ -230,6 +264,9 @@ class ImplantDesignerController extends AutoInject {
 				i.TreatQL200,
 				i.TreatQL201,
 				i.TreatQL300,
+				c1.EffectTypeID as ShinyEffectTypeID,
+				c2.EffectTypeID as BrightEffectTypeID,
+				c3.EffectTypeID as FadedEffectTypeID,
 				a.Name AS AbilityName
 			FROM
 				((((ImplantMatrix i
