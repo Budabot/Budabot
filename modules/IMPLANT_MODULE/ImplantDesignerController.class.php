@@ -3,7 +3,9 @@
 namespace Budabot\User\Modules;
 
 use Budabot\Core\AutoInject;
+use Budabot\Core\DB;
 use \stdClass;
+use PDO;
 
 /**
  * Authors: 
@@ -31,13 +33,19 @@ class ImplantDesignerController extends AutoInject {
 	private $slots = array('head', 'eye', 'ear', 'rarm', 'chest', 'larm', 'rwrist', 'waist', 'lwrist', 'rhand', 'legs', 'lhand', 'feet');
 	
 	private $design;
+	private $impDb;
 	
 	/**
 	 * @Setup
 	 */
 	public function setup() {
 		$this->design = new stdClass;
-		$this->db->loadSQLFile($this->moduleName, "implant_ability_requirement");
+		
+		if (extension_loaded('pdo_odbc')) {
+			$this->impDb = new DB();
+			$dbFile =  __DIR__ . DIRECTORY_SEPARATOR . 'Data.mdb';
+			$this->impDb->connect(DB::ODBC, $dbFile);
+		}
 	}
 	
 	/**
@@ -50,9 +58,12 @@ class ImplantDesignerController extends AutoInject {
 			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
 			if (!empty($this->design->$slot)) {
 				$ql = empty($this->design->$slot->ql) ? 300 : $this->design->$slot->ql;
-				$implant = $this->implantController->getRequirements($ql);
-				$abilityName = $this->getAbilityRequirement($this->design->$slot->shiny, $this->design->$slot->bright, $this->design->$slot->faded);
-				$blob .= " QL" . $ql . " - Treatment: {$implant->treatment} {$abilityName}: {$implant->ability}\n";
+				$implant = $this->getImplantInfo($ql, $this->design->$slot->shiny, $this->design->$slot->bright, $this->design->$slot->faded);
+				$blob .= " QL" . $ql;
+				if ($implant !== null) {
+					$blob .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
+				}
+				$blob .= "\n";
 				$blob .= "<tab>" . $this->getClusterInfo($slot, 'shiny', $implant) . "\n";
 				$blob .= "<tab>" . $this->getClusterInfo($slot, 'bright', $implant) . "\n";
 				$blob .= "<tab>" . $this->getClusterInfo($slot, 'faded', $implant) . "\n";
@@ -101,9 +112,12 @@ class ImplantDesignerController extends AutoInject {
 		$spacing = "   ";
 		
 		$ql = empty($this->design->$slot->ql) ? 300 : $this->design->$slot->ql;
-		$implant = $this->implantController->getRequirements($ql);
-		$abilityName = $this->getAbilityRequirement($this->design->$slot->shiny, $this->design->$slot->bright, $this->design->$slot->faded);
-		$blob .= "<header2>QL<end> $ql - Treatment: {$implant->treatment} {$abilityName}: {$implant->ability}\n";
+		$blob .= "<header2>QL<end> $ql";
+		$implant = $this->getImplantInfo($ql, $this->design->$slot->shiny, $this->design->$slot->bright, $this->design->$slot->faded);
+		if ($implant !== null) {
+			$blob .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
+		}
+		$blob .= "\n";
 		forEach (array(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300) as $ql) {
 			$blob .= $this->text->make_chatcmd($ql, "/tell <myname> implantdesigner $slot $ql") . " ";
 		}
@@ -115,8 +129,7 @@ class ImplantDesignerController extends AutoInject {
 		}
 		$blob .= "\n";
 		$blob .= $this->text->make_chatcmd("Empty", "/tell <myname> implantdesigner $slot shiny clear") . $spacing;
-		$sql = "SELECT * FROM cluster WHERE shiny = ? ORDER BY skill ASC";
-		$data = $this->db->query($sql, $slot);
+		$data = $this->getClustersForSlot($slot, 'shiny');
 		forEach ($data as $row) {
 			$blob .= $this->text->make_chatcmd($row->skill, "/tell <myname> implantdesigner $slot shiny $row->skill") . $spacing;
 		}
@@ -128,8 +141,7 @@ class ImplantDesignerController extends AutoInject {
 		}
 		$blob .= "\n";
 		$blob .= $this->text->make_chatcmd("Empty", "/tell <myname> implantdesigner $slot bright clear") . $spacing;
-		$sql = "SELECT * FROM cluster WHERE bright = ? ORDER BY skill ASC";
-		$data = $this->db->query($sql, $slot);
+		$data = $this->getClustersForSlot($slot, 'bright');
 		forEach ($data as $row) {
 			$blob .= $this->text->make_chatcmd($row->skill, "/tell <myname> implantdesigner $slot bright $row->skill") . $spacing;
 		}
@@ -141,8 +153,7 @@ class ImplantDesignerController extends AutoInject {
 		}
 		$blob .= "\n";
 		$blob .= $this->text->make_chatcmd("Empty", "/tell <myname> implantdesigner $slot faded clear") . $spacing;
-		$sql = "SELECT * FROM cluster WHERE faded = ? ORDER BY skill ASC";
-		$data = $this->db->query($sql, $slot);
+		$data = $this->getClustersForSlot($slot, 'faded');
 		forEach ($data as $row) {
 			$blob .= $this->text->make_chatcmd($row->skill, "/tell <myname> implantdesigner $slot faded $row->skill") . $spacing;
 		}
@@ -204,14 +215,81 @@ class ImplantDesignerController extends AutoInject {
 		$sendto->reply($msg);
 	}
 	
-	public function getAbilityRequirement($shiny, $bright, $faded) {
-		$sql = "SELECT ability FROM implant_ability_requirement WHERE shiny = ? AND bright = ? AND faded = ?";
-		$row = $this->db->queryRow($sql, empty($shiny) ? '' : $shiny, empty($bright) ? '' : $bright, empty($faded) ? '' : $faded);
-		if ($row !== null) {
-			return $row->ability;
+	public function getImplantInfo($ql, $shiny, $bright, $faded) {
+		$shiny = empty($shiny) ? '' : $shiny;
+		$bright = empty($bright) ? '' : $bright;
+		$faded = empty($faded) ? '' : $faded;
+
+		$sql = 
+			"SELECT
+				i.AbilityQL1,
+				i.AbilityQL200,
+				i.AbilityQL201,
+				i.AbilityQL300,
+				i.TreatQL1,
+				i.TreatQL200,
+				i.TreatQL201,
+				i.TreatQL300,
+				a.Name AS AbilityName
+			FROM
+				((((ImplantMatrix i
+				INNER JOIN Cluster c1 ON i.ShiningID = c1.ClusterID)
+				INNER JOIN Cluster c2 ON i.BrightID = c2.ClusterID)
+				INNER JOIN Cluster c3 ON i.FadedID = c3.ClusterID)
+				INNER JOIN Ability a ON i.AbilityID = a.AbilityID)
+			WHERE
+				c1.LongName = ?
+				AND c2.LongName = ?
+				AND c3.LongName = ?";
+
+		$row = $this->impDb->queryRow($sql, $shiny, $bright, $faded, '', '', '', '');
+		if ($row === null) {
+			return null;
 		} else {
-			return 'Ability';
+			return $this->addImplantInfo($row, $ql);
 		}
+	}
+	
+	private function addImplantInfo($implantInfo, $ql) {
+		if ($ql < 201) {
+			$minAbility = $implantInfo->AbilityQL1;
+			$maxAbility = $implantInfo->AbilityQL200;
+			$minTreatment = $implantInfo->TreatQL1;
+			$maxTreatment = $implantInfo->TreatQL200;
+			$minQl = 1;
+			$maxQl = 200;
+		} else {
+			$minAbility = $implantInfo->AbilityQL201;
+			$maxAbility = $implantInfo->AbilityQL300;
+			$minTreatment = $implantInfo->TreatQL201;
+			$maxTreatment = $implantInfo->TreatQL300;
+			$minQl = 201;
+			$maxQl = 300;
+		}
+		
+		$implantInfo->Ability = $this->skillsController->interpolate($minQl, $maxQl, $minAbility, $maxAbility, $ql);
+		$implantInfo->Treatment = $this->skillsController->interpolate($minQl, $maxQl, $minTreatment, $maxTreatment, $ql);
+		
+		return $implantInfo;
+	}
+	
+	public function getClustersForSlot($implantType, $clusterType) {
+		$sql = 
+			"SELECT
+				LongName AS skill
+			FROM
+				(((Cluster c1
+				INNER JOIN ClusterImplantMap c2
+					ON c1.ClusterID = c2.ClusterID)
+				INNER JOIN ClusterType c3
+					ON c2.ClusterTypeID = c3.ClusterTypeID)
+				INNER JOIN ImplantType i
+					ON c2.ImplantTypeID = i.ImplantTypeID)
+			WHERE
+				i.ShortName = ?
+				AND c3.Name = ?";
+				
+		return $this->impDb->query($sql, strtolower($implantType), strtolower($clusterType));
 	}
 }
 
