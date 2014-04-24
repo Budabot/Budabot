@@ -51,7 +51,8 @@ class ImplantDesignerController extends AutoInject {
 			if (!empty($this->design->$slot)) {
 				$ql = empty($this->design->$slot->ql) ? 300 : $this->design->$slot->ql;
 				$implant = $this->implantController->getRequirements($ql);
-				$blob .= " QL" . $ql . " - Treatment: {$implant->treatment} Ability: {$implant->ability}\n";
+				$abilityName = $this->getAbilityRequirement($this->design->$slot->shiny, $this->design->$slot->bright, $this->design->$slot->faded);
+				$blob .= " QL" . $ql . " - Treatment: {$implant->treatment} {$abilityName}: {$implant->ability}\n";
 				$blob .= "<tab>" . $this->getClusterInfo($slot, 'shiny', $implant) . "\n";
 				$blob .= "<tab>" . $this->getClusterInfo($slot, 'bright', $implant) . "\n";
 				$blob .= "<tab>" . $this->getClusterInfo($slot, 'faded', $implant) . "\n";
@@ -101,7 +102,8 @@ class ImplantDesignerController extends AutoInject {
 		
 		$ql = empty($this->design->$slot->ql) ? 300 : $this->design->$slot->ql;
 		$implant = $this->implantController->getRequirements($ql);
-		$blob .= "<header2>QL<end> $ql - Treatment: {$implant->treatment} Ability: {$implant->ability}\n";
+		$abilityName = $this->getAbilityRequirement($this->design->$slot->shiny, $this->design->$slot->bright, $this->design->$slot->faded);
+		$blob .= "<header2>QL<end> $ql - Treatment: {$implant->treatment} {$abilityName}: {$implant->ability}\n";
 		forEach (array(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300) as $ql) {
 			$blob .= $this->text->make_chatcmd($ql, "/tell <myname> implantdesigner $slot $ql") . " ";
 		}
@@ -200,6 +202,16 @@ class ImplantDesignerController extends AutoInject {
 		$msg = "<highlight>$slot<end> has been cleared.";
 
 		$sendto->reply($msg);
+	}
+	
+	public function getAbilityRequirement($shiny, $bright, $faded) {
+		$sql = "SELECT ability FROM implant_ability_requirement WHERE shiny = ? AND bright = ? AND faded = ?";
+		$row = $this->db->queryRow($sql, empty($shiny) ? '' : $shiny, empty($bright) ? '' : $bright, empty($faded) ? '' : $faded);
+		if ($row !== null) {
+			return $row->ability;
+		} else {
+			return 'Ability';
+		}
 	}
 }
 

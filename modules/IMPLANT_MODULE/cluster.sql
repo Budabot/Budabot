@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS `cluster`;
 CREATE TABLE `cluster` (skill VARCHAR(50) NOT NULL, shiny VARCHAR(50) NOT NULL, bright VARCHAR(50) NOT NULL, faded VARCHAR(50) NOT NULL);
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('1h Blunt', 'rarm', 'rwrist', 'rhand');
-INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('1h Edged Weapon', 'rarm', 'rwrist', 'rhand');
+INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('1h Edged', 'rarm', 'rwrist', 'rhand');
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('2h Blunt', 'rarm', 'larm', 'chest');
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('2h Edged', 'rarm', 'larm', 'waist');
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('% Add All Def. Jobe', 'larm', 'rarm', 'feet');
@@ -57,7 +57,7 @@ INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('Max NCU Jobe', 'ear
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('Mech. Engi', 'head', 'eye', 'rarm');
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('Melee Ener', 'head', 'lwrist', 'rwrist');
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('Melee. Init', 'feet', 'legs', 'waist');
-INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('Melee/Ma AC', 'chest', 'waist', 'legs');
+INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('Melee/MA AC', 'chest', 'waist', 'legs');
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('MG / SMG', 'rarm', 'rhand', 'chest');
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('Multi Ranged', 'lwrist', 'rwrist', 'eye');
 INSERT INTO `cluster` (skill, shiny, bright, faded) VALUES ('Mult. Melee', 'lwrist', 'eye', 'rwrist');

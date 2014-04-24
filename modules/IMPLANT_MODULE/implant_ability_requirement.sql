@@ -5858,3 +5858,4 @@ INSERT INTO implant_ability_requirement (ability, shiny, bright, faded) VALUES (
 INSERT INTO implant_ability_requirement (ability, shiny, bright, faded) VALUES ('Strength','Brawling','2h Edged','Swimming');
 INSERT INTO implant_ability_requirement (ability, shiny, bright, faded) VALUES ('Strength','2h Edged','Brawling','');
 INSERT INTO implant_ability_requirement (ability, shiny, bright, faded) VALUES ('Strength','2h Edged','Brawling','Radiation AC');
+CREATE UNIQUE INDEX `implant_ability_req_index` ON `implant_ability_requirement` (`shiny, bright, faded`);
