@@ -21,10 +21,6 @@ class DB {
 
 	private $type;
 	private $sql;
-	private $dbName;
-	private $user;
-	private $pass;
-	private $host;
 	private $botname;
 	private $dim;
 	private $guild;
@@ -34,14 +30,11 @@ class DB {
 	
 	const MYSQL = 'mysql';
 	const SQLITE = 'sqlite';
+	const ODBC = 'odbc';
 
 	function connect($type, $dbName, $host = null, $user = null, $pass = null) {
 		global $vars;
 		$this->type = strtolower($type);
-		$this->dbName = $dbName;
-		$this->host = $host;
-		$this->user = $user;
-		$this->pass = $pass;
 		$this->botname = strtolower($vars["name"]);
 		$this->dim = $vars["dimension"];
 		$this->guild = str_replace("'", "''", $vars["my_guild"]);
@@ -54,12 +47,15 @@ class DB {
 			$this->exec("SET storage_engine = MyISAM");
 		} else if ($this->type == self::SQLITE) {
 			if ($host == null || $host == "" || $host == "localhost") {
-				$this->dbName = "./data/$this->dbName";
+				$dbName = "./data/$dbName";
 			} else {
-				$this->dbName = "$host/$this->dbName";
+				$dbName = "$host/$dbName";
 			}
 
-			$this->sql = new PDO("sqlite:".$this->dbName);
+			$this->sql = new PDO("sqlite:".$dbName);
+			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} else if ($this->type == self::ODBC) {
+			$this->sql = new PDO("odbc:Driver={Microsoft Access Driver (*.mdb)};Dbq={$dbName}");
 			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} else {
 			throw new Exception("Invalid database type: '$type'.  Expecting '" . self::MYSQL . "' or '" . self::SQLITE . "'.");
