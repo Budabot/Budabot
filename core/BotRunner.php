@@ -217,7 +217,7 @@ Contacts:      Tyrence, Marebone
 	protected function getServerAndPort() {
 		global $vars;
 		// Choose server
-		if ($vars['use_proxy'] === 1) {
+		if ($vars['use_proxy'] == 1) {
 			// For use with the AO chat proxy ONLY!
 			$server = $vars['proxy_server'];
 			$port = $vars['proxy_port'];
