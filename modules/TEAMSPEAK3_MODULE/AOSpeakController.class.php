@@ -75,7 +75,7 @@ class AOSpeakController {
 	/**
 	 * @HandlesCommand("aospeak")
 	 * @Matches("/^aospeak$/i")
-	 * @Matches("/^aospeak (\\d)$/i")
+	 * @Matches("/^aospeak (\d)$/i")
 	 */
 	public function aospeakCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 2) {
@@ -100,7 +100,7 @@ class AOSpeakController {
 			}
 
 			forEach ($channels as $name => $users) {
-				$blob .= "\n<green>$name<end>\n";
+				$blob .= "\n<header2>$name<end>\n";
 				forEach ($users as $user) {
 					if ($user->idleTime >= 300000) {
 						// if idle for at least 5 minutes
