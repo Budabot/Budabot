@@ -63,7 +63,7 @@ class ImplantController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "implant_requirements");
 		$this->db->loadSQLFile($this->moduleName, "premade_implant");
-		$this->db->loadSQLFile($this->moduleName, "cluster");
+		$this->db->loadSQLFile($this->moduleName, "cluster_skill");
 	}
 	
 	/**
@@ -140,15 +140,14 @@ class ImplantController {
 	 * @Matches("/^cluster (.+)$/i")
 	 */
 	public function clusterCommand($message, $channel, $sender, $sendto, $args) {
-		$name = trim($args[1]);
+		$search = trim($args[1]);
 
-		$info = "";
-		$sql = "SELECT * FROM cluster WHERE skill LIKE ?";
-		$results = $this->db->query($sql, '%' . str_replace(' ', '%', $name) . '%');
+		$sql = "SELECT * FROM cluster_skill WHERE skill LIKE ?";
+		$results = $this->db->query($sql, '%' . str_replace(' ', '%', $search) . '%');
 		$count = count($results);
 
 		if ($count == 0) {
-			$msg = "No skills found that match <highlight>$name<end>.";
+			$msg = "No skills found that match <highlight>$search<end>.";
 		} else if ($count == 1) {
 			$row = $results[0];
 			$msg = "$row->skill Cluster: $row->shiny, $row->bright, $row->faded";
