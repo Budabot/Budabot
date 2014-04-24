@@ -200,6 +200,8 @@ class ImplantDesignerController extends AutoInject {
 		}
 		$blob .= "\n\n\n";
 		
+		$blob .= $this->text->make_chatcmd("Show Build", "/tell <myname> implantdesigner");
+		$blob .= "<tab><tab>";
 		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
 		
 		$msg = $this->text->make_blob("Implant Designer ($slot)", $blob);
