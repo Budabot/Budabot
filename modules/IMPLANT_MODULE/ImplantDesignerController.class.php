@@ -33,7 +33,6 @@ class ImplantDesignerController extends AutoInject {
 	private $slots = array('head', 'eye', 'ear', 'rarm', 'chest', 'larm', 'rwrist', 'waist', 'lwrist', 'rhand', 'legs', 'lhand', 'feet');
 	
 	private $design;
-	private $impDb;
 	
 	/**
 	 * @Setup
@@ -41,11 +40,19 @@ class ImplantDesignerController extends AutoInject {
 	public function setup() {
 		$this->design = new stdClass;
 		
-		if (extension_loaded('pdo_odbc')) {
-			$this->impDb = new DB();
-			$dbFile =  __DIR__ . DIRECTORY_SEPARATOR . 'Data.mdb';
-			$this->impDb->connect(DB::ODBC, $dbFile);
-		}
+		$this->db->loadSQLFile($this->moduleName, "Ability");
+		$this->db->loadSQLFile($this->moduleName, "Cluster");
+		$this->db->loadSQLFile($this->moduleName, "ClusterImplantMap");
+		$this->db->loadSQLFile($this->moduleName, "ClusterType");
+		$this->db->loadSQLFile($this->moduleName, "EffectTypeMatrix");
+		$this->db->loadSQLFile($this->moduleName, "EffectValue");
+		$this->db->loadSQLFile($this->moduleName, "ImplantMatrix");
+		$this->db->loadSQLFile($this->moduleName, "ImplantType");
+		$this->db->loadSQLFile($this->moduleName, "Profession");
+		$this->db->loadSQLFile($this->moduleName, "Symbiant");
+		$this->db->loadSQLFile($this->moduleName, "SymbiantAbilityMatrix");
+		$this->db->loadSQLFile($this->moduleName, "SymbiantClusterMatrix");
+		$this->db->loadSQLFile($this->moduleName, "SymbiantProfessionMatrix");
 	}
 	
 	/**
@@ -98,7 +105,7 @@ class ImplantDesignerController extends AutoInject {
 				WHERE
 					ID = ?";
 
-			$row = $this->impDb->queryRow($sql, $implant->$effectTypeIdName);
+			$row = $this->db->queryRow($sql, $implant->$effectTypeIdName);
 			
 			if ($ql < 201) {
 				$minVal = $row->MinValLow;
@@ -269,17 +276,21 @@ class ImplantDesignerController extends AutoInject {
 				c3.EffectTypeID as FadedEffectTypeID,
 				a.Name AS AbilityName
 			FROM
-				((((ImplantMatrix i
-				INNER JOIN Cluster c1 ON i.ShiningID = c1.ClusterID)
-				INNER JOIN Cluster c2 ON i.BrightID = c2.ClusterID)
-				INNER JOIN Cluster c3 ON i.FadedID = c3.ClusterID)
-				INNER JOIN Ability a ON i.AbilityID = a.AbilityID)
+				ImplantMatrix i
+				JOIN Cluster c1
+					ON i.ShiningID = c1.ClusterID
+				JOIN Cluster c2
+					ON i.BrightID = c2.ClusterID
+				JOIN Cluster c3
+					ON i.FadedID = c3.ClusterID
+				JOIN Ability a
+					ON i.AbilityID = a.AbilityID
 			WHERE
 				c1.LongName = ?
 				AND c2.LongName = ?
 				AND c3.LongName = ?";
 
-		$row = $this->impDb->queryRow($sql, $shiny, $bright, $faded, '', '', '', '');
+		$row = $this->db->queryRow($sql, $shiny, $bright, $faded);
 		if ($row === null) {
 			return null;
 		} else {
@@ -315,18 +326,18 @@ class ImplantDesignerController extends AutoInject {
 			"SELECT
 				LongName AS skill
 			FROM
-				(((Cluster c1
-				INNER JOIN ClusterImplantMap c2
-					ON c1.ClusterID = c2.ClusterID)
-				INNER JOIN ClusterType c3
-					ON c2.ClusterTypeID = c3.ClusterTypeID)
-				INNER JOIN ImplantType i
-					ON c2.ImplantTypeID = i.ImplantTypeID)
+				Cluster c1
+				JOIN ClusterImplantMap c2
+					ON c1.ClusterID = c2.ClusterID
+				JOIN ClusterType c3
+					ON c2.ClusterTypeID = c3.ClusterTypeID
+				JOIN ImplantType i
+					ON c2.ImplantTypeID = i.ImplantTypeID
 			WHERE
 				i.ShortName = ?
 				AND c3.Name = ?";
 				
-		return $this->impDb->query($sql, strtolower($implantType), strtolower($clusterType));
+		return $this->db->query($sql, strtolower($implantType), strtolower($clusterType));
 	}
 }
 
