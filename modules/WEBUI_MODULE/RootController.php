@@ -191,7 +191,7 @@ class RootController {
 	
 	private function replaceImage($arr) {
 		if (preg_match("|'rdb://(\\d+)'|", $arr[2], $matches)) {
-			return "<img src='http://s2.aoitems.com/icon/{$matches[1]}' />";
+			return "<img src='http://static.aodevs.com/icon/{$matches[1]}' />";
 		} else {
 			return '';
 		}
