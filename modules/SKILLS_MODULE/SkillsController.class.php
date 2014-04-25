@@ -671,8 +671,8 @@ class SkillsController {
 	}
 
 	public function interpolate($x1, $x2, $y1, $y2, $x) {
-		$result = ($y2 - $y1)/($x2 - $x1) * ($x - $x1) + $y1;
-		$result = round($result,0);
+		$result = ($y2 - $y1) / ($x2 - $x1) * ($x - $x1) + $y1;
+		$result = round($result, 0);
 		return $result;
 	}
 

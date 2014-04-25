@@ -40,6 +40,8 @@ class ImplantDesignerController extends AutoInject {
 	public function setup() {
 		$this->design = new stdClass;
 		
+		$this->db->loadSQLFile($this->moduleName, "implant_design");
+		
 		$this->db->loadSQLFile($this->moduleName, "Ability");
 		$this->db->loadSQLFile($this->moduleName, "Cluster");
 		$this->db->loadSQLFile($this->moduleName, "ClusterImplantMap");
@@ -60,20 +62,22 @@ class ImplantDesignerController extends AutoInject {
 	 * @Matches("/^implantdesigner$/i")
 	 */
 	public function implantdesignerCommand($message, $channel, $sender, $sendto, $args) {
+		$design = $this->getDesign($sender, '@');
+	
 		$blob = '';
 		forEach ($this->slots as $slot) {
 			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
-			if (!empty($this->design->$slot)) {
-				$ql = empty($this->design->$slot->ql) ? 300 : $this->design->$slot->ql;
-				$implant = $this->getImplantInfo($ql, $this->design->$slot->shiny, $this->design->$slot->bright, $this->design->$slot->faded);
+			if (!empty($design->$slot)) {
+				$ql = empty($design->$slot->ql) ? 300 : $design->$slot->ql;
+				$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
 				$blob .= " QL" . $ql;
 				if ($implant !== null) {
 					$blob .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
 				}
 				$blob .= "\n";
-				$blob .= "<tab>" . $this->getClusterInfo($ql, $slot, 'shiny', $implant) . "\n";
-				$blob .= "<tab>" . $this->getClusterInfo($ql, $slot, 'bright', $implant) . "\n";
-				$blob .= "<tab>" . $this->getClusterInfo($ql, $slot, 'faded', $implant) . "\n";
+				$blob .= "<tab>" . $this->getClusterInfo($ql, $design->$slot->shiny, 'shiny', $implant) . "\n";
+				$blob .= "<tab>" . $this->getClusterInfo($ql, $design->$slot->bright, 'bright', $implant) . "\n";
+				$blob .= "<tab>" . $this->getClusterInfo($ql, $design->$slot->faded, 'faded', $implant) . "\n";
 			} else {
 				$blob .= "\n";
 			}
@@ -87,9 +91,9 @@ class ImplantDesignerController extends AutoInject {
 		$sendto->reply($msg);
 	}
 	
-	private function getClusterInfo($ql, $slot, $grade, $implant) {
+	private function getClusterInfo($ql, $cluster, $grade, $implant) {
 		$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
-		if (empty($this->design->$slot->$grade)) {
+		if (empty($cluster)) {
 			return '--';
 		} else {
 			$sql =
@@ -126,7 +130,7 @@ class ImplantDesignerController extends AutoInject {
 				$modAmount = round($modAmount * 0.4, 0);
 			}
 
-			return $this->design->$slot->$grade . " ($modAmount)";
+			return $cluster . " ($modAmount)";
 		}
 	}
 	
@@ -135,7 +139,7 @@ class ImplantDesignerController extends AutoInject {
 	 * @Matches("/^implantdesigner clear$/i")
 	 */
 	public function implantdesignerClearCommand($message, $channel, $sender, $sendto, $args) {
-		$this->design = new stdClass;
+		$this->saveDesign($sender, '@', new stdClass);
 
 		$msg = "Implant Designer has been cleared.";
 
@@ -150,11 +154,13 @@ class ImplantDesignerController extends AutoInject {
 		$slot = strtolower($args[1]);
 		$blob = '';
 		
+		$design = $this->getDesign($sender, '@');
+		
 		$spacing = "   ";
 		
-		$ql = empty($this->design->$slot->ql) ? 300 : $this->design->$slot->ql;
+		$ql = empty($design->$slot->ql) ? 300 : $design->$slot->ql;
 		$blob .= "<header2>QL<end> $ql";
-		$implant = $this->getImplantInfo($ql, $this->design->$slot->shiny, $this->design->$slot->bright, $this->design->$slot->faded);
+		$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
 		if ($implant !== null) {
 			$blob .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
 		}
@@ -165,8 +171,8 @@ class ImplantDesignerController extends AutoInject {
 		$blob .= "\n\n";
 		
 		$blob .= "<header2>Shiny<end>";
-		if (!empty($this->design->$slot->shiny)) {
-			$blob .= " - {$this->design->$slot->shiny}";
+		if (!empty($design->$slot->shiny)) {
+			$blob .= " - {$design->$slot->shiny}";
 		}
 		$blob .= "\n";
 		$blob .= $this->text->make_chatcmd("Empty", "/tell <myname> implantdesigner $slot shiny clear") . $spacing;
@@ -177,8 +183,8 @@ class ImplantDesignerController extends AutoInject {
 		$blob .= "\n\n";
 		
 		$blob .= "<header2>Bright<end>";
-		if (!empty($this->design->$slot->bright)) {
-			$blob .= " - {$this->design->$slot->bright}";
+		if (!empty($design->$slot->bright)) {
+			$blob .= " - {$design->$slot->bright}";
 		}
 		$blob .= "\n";
 		$blob .= $this->text->make_chatcmd("Empty", "/tell <myname> implantdesigner $slot bright clear") . $spacing;
@@ -189,8 +195,8 @@ class ImplantDesignerController extends AutoInject {
 		$blob .= "\n\n";
 		
 		$blob .= "<header2>Faded<end>";
-		if (!empty($this->design->$slot->faded)) {
-			$blob .= " - {$this->design->$slot->faded}";
+		if (!empty($design->$slot->faded)) {
+			$blob .= " - {$design->$slot->faded}";
 		}
 		$blob .= "\n";
 		$blob .= $this->text->make_chatcmd("Empty", "/tell <myname> implantdesigner $slot faded clear") . $spacing;
@@ -218,13 +224,17 @@ class ImplantDesignerController extends AutoInject {
 		$type = strtolower($args[2]);
 		$skill = $args[3];
 		
+		$design = $this->getDesign($sender, '@');
+		
 		if (strtolower($skill) == 'clear') {
-			unset($this->design->$slot->$type);
+			unset($design->$slot->$type);
 			$msg = "<highlight>$slot($type)<end> has been cleared.";
 		} else {
-			$this->design->$slot->$type = $skill;
+			$design->$slot->$type = $skill;
 			$msg = "<highlight>$slot($type)<end> has been set to <highlight>$skill<end>.";
 		}
+		
+		$this->saveDesign($sender, '@', $design);
 
 		$sendto->reply($msg);
 	}
@@ -237,7 +247,9 @@ class ImplantDesignerController extends AutoInject {
 		$slot = strtolower($args[1]);
 		$ql = $args[2];
 		
-		$this->design->$slot->ql = $ql;
+		$design = $this->getDesign($sender, '@');
+		$design->$slot->ql = $ql;
+		$this->saveDesign($sender, '@', $design);
 		
 		$msg = "<highlight>$slot<end> has been set to QL <highlight>$ql<end>.";
 
@@ -251,7 +263,9 @@ class ImplantDesignerController extends AutoInject {
 	public function implantdesignerSlotClearCommand($message, $channel, $sender, $sendto, $args) {
 		$slot = strtolower($args[1]);
 		
-		unset($this->design->$slot);
+		$design = $this->getDesign($sender, '@');
+		unset($design->$slot);
+		$this->saveDesign($sender, '@', $design);
 		
 		$msg = "<highlight>$slot<end> has been cleared.";
 
@@ -340,6 +354,26 @@ class ImplantDesignerController extends AutoInject {
 				AND c3.Name = ?";
 				
 		return $this->db->query($sql, strtolower($implantType), strtolower($clusterType));
+	}
+	
+	public function getDesign($sender, $name) {
+		$sql = "SELECT * FROM implant_design WHERE owner = ? AND name = ?";
+		$row = $this->db->queryRow($sql, $sender, $name);
+		if ($row === null) {
+			return new stdClass;
+		} else {
+			return json_decode($row->design);
+		}
+	}
+	
+	public function saveDesign($sender, $name, $design) {
+		$json = json_encode($design);
+		$sql = "UPDATE implant_design SET design = ?, dt = ? WHERE owner = ? AND name = ?";
+		$numRows = $this->db->exec($sql, $json, time(), $sender, $name);
+		if ($numRows == 0) {
+			$sql = "INSERT INTO implant_design (name, owner, dt, design) VALUES (?, ?, ?, ?)";
+			$this->db->exec($sql, $name, $sender, time(), $json);
+		}
 	}
 }
 
