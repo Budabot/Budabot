@@ -52,29 +52,33 @@ class PlayerHistoryController {
 			$blob = "Date           Level    AI     Faction    Breed        Guild(rank)\n";
 			$blob .= "________________________________________________ \n";
 			forEach ($history->data as $entry) {
-				if ($entry->defender_rank == "") {
-					$ailevel = "<green>0<end>";
-				} else {
-					$ailevel = "<green>$entry->defender_rank<end>";
-				}
-
-				if ($entry->faction == "Omni") {
-					$faction = "<omni>Omni<end>";
-				} else if ($entry->faction == "Clan") {
-					$faction = "<clan>Clan<end>";
-				} else {
-					$faction = "<neutral>Neutral<end>";
-				}
-
-				if ($entry->guild_name == "") {
-					$guild = "Not in a guild";
-				} else {
-					$guild = $entry->guild_name . "(" . $entry->guild_rank_name . ")";
-				}
-				
 				$date = date("d-M-Y", $entry->last_changed);
 
-				$blob .= "$date |  $entry->level  | $ailevel | $faction | $entry->breed | $guild\n";
+				if ($entry->deleted == 1) {
+					$blob .= "$date |   <red>DELETED<end>\n";
+				} else {
+					if ($entry->defender_rank == "") {
+						$ailevel = "<green>0<end>";
+					} else {
+						$ailevel = "<green>$entry->defender_rank<end>";
+					}
+
+					if ($entry->faction == "Omni") {
+						$faction = "<omni>Omni<end>";
+					} else if ($entry->faction == "Clan") {
+						$faction = "<clan>Clan<end>";
+					} else {
+						$faction = "<neutral>Neutral<end>";
+					}
+
+					if ($entry->guild_name == "") {
+						$guild = "Not in a guild";
+					} else {
+						$guild = $entry->guild_name . "(" . $entry->guild_rank_name . ")";
+					}
+
+					$blob .= "$date |  $entry->level  | $ailevel | $faction | $entry->breed | $guild\n";
+				}
 			}
 			$blob .= "\nHistory provided by Budabot.com and Auno.org";
 			$msg = $this->text->make_blob("History of $name for RK{$rk_num}", $blob);

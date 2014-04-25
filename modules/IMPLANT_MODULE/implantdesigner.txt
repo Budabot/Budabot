@@ -1,0 +1,23 @@
+To see your current implant design:
+<highlight><tab><symbol>implantdesigner<end>
+
+To see a specified slot in your current implant design:
+<highlight><tab><symbol>implantdesigner <i>slot</i><end>
+
+To add a cluster in a specified slot for your current implant design:
+<highlight><tab><symbol>implantdesigner <i>slot</i> <i>grade</i> <i>cluster</i><end>
+
+To set the QL for a specified slot in your current implant design:
+<highlight><tab><symbol>implantdesigner <i>slot</i> <i>QL</i><end>
+
+To remove all clusters from your current implant design:
+<highlight><tab><symbol>implantdesigner clear<end>
+
+To clear all clusters from a specified slot in your current implant design:
+<highlight><tab><symbol>implantdesigner <i>slot</i> clear<end>
+
+*<i>slot</i> can be one of: head, eye, ear, rarm, chest, larm, rwrist, waist, lwrist, rhand, legs, lhand, feet.
+**<i>grade</i> can be one of: shiny, bright faded.
+***<i>cluster</i> can be any skill name (exactly only).
+
+By default, <highlight><symbol>impdesign<end> is provided as an alias for <highlight><symbol>implantdesigner<end>.
