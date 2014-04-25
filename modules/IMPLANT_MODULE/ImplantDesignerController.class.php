@@ -123,7 +123,7 @@ class ImplantDesignerController extends AutoInject {
 				$maxQl = 300;
 			}
 			
-			$modAmount = $this->skillsController->interpolate($minQl, $maxQl, $minVal, $maxVal, $ql);
+			$modAmount = $this->util->interpolate($minQl, $maxQl, $minVal, $maxVal, $ql);
 			if ($grade == 'bright') {
 				$modAmount = round($modAmount * 0.6, 0);
 			} else if ($grade == 'faded') {
@@ -331,8 +331,8 @@ class ImplantDesignerController extends AutoInject {
 			$maxQl = 300;
 		}
 		
-		$implantInfo->Ability = $this->skillsController->interpolate($minQl, $maxQl, $minAbility, $maxAbility, $ql);
-		$implantInfo->Treatment = $this->skillsController->interpolate($minQl, $maxQl, $minTreatment, $maxTreatment, $ql);
+		$implantInfo->Ability = $this->util->interpolate($minQl, $maxQl, $minAbility, $maxAbility, $ql);
+		$implantInfo->Treatment = $this->util->interpolate($minQl, $maxQl, $minTreatment, $maxTreatment, $ql);
 		
 		return $implantInfo;
 	}
