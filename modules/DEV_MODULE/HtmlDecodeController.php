@@ -28,7 +28,7 @@ class HtmlDecodeController extends AutoInject {
 	
 	/**
 	 * @HandlesCommand("htmldecode")
-	 * @Matches("/^htmldecode (.+)$/i")
+	 * @Matches("/^htmldecode (.+)$/is")
 	 */
 	public function runasCommand($message, $channel, $sender, $sendto, $args) {
 		$command = html_entity_decode($args[1], ENT_QUOTES);
