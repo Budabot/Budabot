@@ -68,11 +68,7 @@ class ImplantDesignerController extends AutoInject {
 		forEach ($this->slots as $slot) {
 			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
 			if (!empty($design->$slot)) {
-				if (!empty($design->$slot->symb)) {
-					$blob .= $this->getSymbSummary($design->$slot->symb);
-				} else {
-					$blob .= $this->getImplantSummary($design->$slot);
-				}
+				$blob .= $this->getImplantSummary($design->$slot);
 			} else {
 				$blob .= "\n";
 			}
@@ -84,11 +80,6 @@ class ImplantDesignerController extends AutoInject {
 		$msg = $this->text->make_blob("Implant Designer", $blob);
 
 		$sendto->reply($msg);
-	}
-	
-	private function getSymbSummary($symb) {
-		$msg = "\n<tab>" . $symb . "\n";
-		return $msg;
 	}
 	
 	private function getImplantSummary($slotObj) {
@@ -220,17 +211,6 @@ class ImplantDesignerController extends AutoInject {
 		}
 		$blob .= "\n\n";
 		
-		$blob .= "<pagebreak><header2>Symb<end>";
-		if (!empty($design->$slot->symb)) {
-			$blob .= " - {$design->$slot->symb}";
-		}
-		$blob .= "\n";
-		$data = $this->getSymbsForSlot($slot, 'fixer', 100, 7);
-		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd($row->Name, "/tell <myname> implantdesigner $slot symb $row->Name") . "\n";
-		}
-		$blob .= "\n\n";
-		
 		$blob .= $this->text->make_chatcmd("Show Build", "/tell <myname> implantdesigner");
 		$blob .= "<tab><tab>";
 		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
@@ -256,31 +236,8 @@ class ImplantDesignerController extends AutoInject {
 			$msg = "<highlight>$slot($type)<end> has been cleared.";
 		} else {
 			$design->$slot->$type = $skill;
-			unset($design->$slot->symb);
 			$msg = "<highlight>$slot($type)<end> has been set to <highlight>$skill<end>.";
 		}
-		
-		$this->saveDesign($sender, '@', $design);
-
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("implantdesigner")
-	 * @Matches("/^implantdesigner (head|eye|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|lhand|feet) symb (.+)$/i")
-	 */
-	public function implantdesignerSlotAddSymbCommand($message, $channel, $sender, $sendto, $args) {
-		$slot = strtolower($args[1]);
-		$symb = $args[2];
-		
-		$design = $this->getDesign($sender, '@');
-		
-		$design->$slot->symb = $symb;
-		unset($design->$slot->shiny);
-		unset($design->$slot->bright);
-		unset($design->$slot->faded);
-		unset($design->$slot->ql);
-		$msg = "<highlight>$slot<end> has been set to <highlight>$symb<end>.";
 		
 		$this->saveDesign($sender, '@', $design);
 
@@ -297,7 +254,6 @@ class ImplantDesignerController extends AutoInject {
 		
 		$design = $this->getDesign($sender, '@');
 		$design->$slot->ql = $ql;
-		unset($design->$slot->symb);
 		$this->saveDesign($sender, '@', $design);
 		
 		$msg = "<highlight>$slot<end> has been set to QL <highlight>$ql<end>.";
@@ -404,30 +360,7 @@ class ImplantDesignerController extends AutoInject {
 				
 		return $this->db->query($sql, strtolower($implantType), strtolower($clusterType));
 	}
-	
-	public function getSymbsForSlot($implantType, $profession, $maxLevel, $num) {
-		$sql = 
-			"SELECT
-				s.Name
-			FROM
-				Symbiant s
-				JOIN ImplantType i
-					ON s.SlotID = i.ImplantTypeID
-				JOIN SymbiantProfessionMatrix s2
-					ON s.ID = s2.SymbiantID
-				JOIN Profession p
-					ON s2.ProfessionID = p.ID
-			WHERE
-				i.ShortName = ?
-				AND p.Name = ?
-				AND s.LevelReq <= ?
-			ORDER BY
-				s.LevelReq DESC
-			LIMIT " . $num;
-				
-		return $this->db->query($sql, strtolower($implantType), ucfirst(strtolower($profession)), $maxLevel);
-	}
-	
+
 	public function getDesign($sender, $name) {
 		$sql = "SELECT * FROM implant_design WHERE owner = ? AND name = ?";
 		$row = $this->db->queryRow($sql, $sender, $name);
