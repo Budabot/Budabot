@@ -46,7 +46,7 @@ class OrgHistoryController {
 	 * @Matches("/^orghistory ([0-9]+)$/i")
 	 */
 	public function orghistoryCommand($message, $channel, $sender, $sendto, $args) {
-		$pageSize = 20;
+		$pageSize = 40;
 		$page = 1;
 		if (count($args) == 2) {
 			$page = $args[1];
@@ -60,7 +60,13 @@ class OrgHistoryController {
 		$data = $this->db->query($sql);
 		if (count($data) != 0) {
 			forEach ($data as $row) {
-				$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
+				switch ($row->action) {
+					case 'left':
+						$blob .= "<highlight>$row->actor<end> $row->action. [$row->organization] " . $this->util->date($row->time) . "\n";
+						break;
+					default:
+						$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
+				}
 			}
 
 			$msg = $this->text->make_blob('Org History', $blob);
@@ -80,16 +86,18 @@ class OrgHistoryController {
 
 		$blob = '';
 
-		$blob .= "\n<header2>Actions on $player<end>\n";
 		$sql = "SELECT actor, actee, action, organization, time FROM `org_history` WHERE actee LIKE ? ORDER BY time DESC";
 		$data = $this->db->query($sql, $player);
+		$count = count($data);
+		$blob .= "\n<header2>Actions on $player ($count)<end>\n";
 		forEach ($data as $row) {
 			$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
 		}
 
-		$blob .= "\n<header2>Actions by $player<end>\n";
 		$sql = "SELECT actor, actee, action, organization, time FROM `org_history` WHERE actor LIKE ? ORDER BY time DESC";
 		$data = $this->db->query($sql, $player);
+		$count = count($data);
+		$blob .= "\n<header2>Actions by $player ($count)<end>\n";
 		forEach ($data as $row) {
 			$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
 		}
