@@ -323,8 +323,21 @@ class ImplantDesignerController extends AutoInject {
 			}
 		}
 		
-		// sort mods alphabetically
+		// sort mods by name alphabetically
 		ksort($mods);
+		
+		// sort clusters by name alphabetically, and then by grade, shiny first
+		$grades = $this->grades;
+		usort($clusters, function($cluster1, $cluster2) use($grades) {
+			$val = strcmp($cluster1->name, $cluster2->name);
+			if ($val == 0) {
+				$val1 = array_search($cluster1->grade, $grades);
+				$val2 = array_search($cluster2->grade, $grades);
+				return $val1 > $val2;
+			} else {
+				return $val > 0;
+			}
+		});
 		
 		$blob = "<header2>Requirements to Equip Implants<end>\n";
 		forEach ($reqs as $requirement => $amount) {
