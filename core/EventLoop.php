@@ -27,16 +27,20 @@ class EventLoop {
 		$this->shouldQuit = false;
 
 		while (!$this->shouldQuit) {
-			$this->processAoChatPackets();
+			$this->execSingleLoop();
+		}
+	}
+	
+	public function execSingleLoop() {
+		$this->processAoChatPackets();
 
-			if ($this->isBotReady()) {
-				$this->executeSocketEvents();
-				$this->executeConnectEvents();
-				$this->executeTimerEvents();
-				$this->executeCronEvents();
+		if ($this->isBotReady()) {
+			$this->executeSocketEvents();
+			$this->executeConnectEvents();
+			$this->executeTimerEvents();
+			$this->executeCronEvents();
 
-				usleep(10000);
-			}
+			usleep(10000);
 		}
 	}
 
