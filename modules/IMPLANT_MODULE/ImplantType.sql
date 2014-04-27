@@ -5,7 +5,7 @@ INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (2,'Head','head'
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (3,'Ear','ear');
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (4,'Chest','chest');
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (5,'Waist','waist');
-INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (6,'Leg','leg');
+INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (6,'Leg','legs');
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (7,'Feet','feet');
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (8,'Left Arm','larm');
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (9,'Left Wrist','lwrist');
