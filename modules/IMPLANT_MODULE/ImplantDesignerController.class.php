@@ -291,32 +291,75 @@ class ImplantDesignerController extends AutoInject {
 		
 		$mods = array();
 		$reqs = array();
+		$implants = array();
+		$clusters = array();
 		
 		forEach ($this->slots as $slot) {
 			if (!empty($design->$slot)) {
+				$ql = 300;
+				if (!empty($design->$slot->ql)) {
+					$ql = $design->$slot->ql;
+				}
+				
+				// add reqs
+				$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
+				if ($implant->Treatment > $reqs['treatment']) {
+					$reqs['Treatment'] = $implant->Treatment;
+				}
+				if ($implant->Ability > $reqs[$implant->AbilityName]) {
+					$reqs[$implant->AbilityName] = $implant->Ability;
+				}
+				
+				// add implant
+				$obj = new stdClass;
+				$obj->ql = $ql;
+				$obj->slot = $slot;
+				$implants []= $obj;
+				
+				// add mods
 				forEach ($this->grades as $grade) {
-					$ql = 300;
-					if (!empty($design->$slot->ql)) {
-						$ql = $design->$slot->ql;
-					}
-					$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
-					if ($implant->Treatment > $reqs['treatment']) {
-						$reqs['treatment'] = $implant->Treatment;
-					}
-					if ($implant->Ability > $reqs[$implant->AbilityName]) {
-						$reqs[$implant->AbilityName] = $implant->Ability;
-					}
 					if (!empty($design->$slot->$grade)) {
 						$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
 						$effectId = $implant->$effectTypeIdName;
 						$mods[$design->$slot->$grade] += $this->getClusterModAmount($ql, $grade, $effectId);
+						
+						// add cluster
+						$obj = new stdClass;
+						$obj->ql = $this->implantController->getClusterMinQl($ql, $grade);
+						$obj->slot = $slot;
+						$obj->grade = $grade;
+						$obj->name = $design->$slot->$grade;
+						$clusters []= $obj;
 					}
 				}
 			}
 		}
 		
-		$blob = print_r($reqs, true);
-		$blob .= print_r($mods, true);
+		// sort mods alphabetically
+		ksort($mods);
+		
+		$blob = "<header2>Requirements to Equip Implants<end>\n";
+		forEach ($reqs as $requirement => $amount) {
+			$blob .= "$requirement: <highlight>$amount<end>\n";
+		}
+		$blob .= "\n";
+		
+		$blob .= "<header2>Skills Gained from Implants<end>\n";
+		forEach ($mods as $skill => $amount) {
+			$blob .= "$skill: <highlight>$amount<end>\n";
+		}
+		$blob .= "\n";
+		
+		$blob .= "<header2>Basic Implants Needed<end>\n";
+		forEach ($implants as $implant) {
+			$blob .= "$implant->slot ($implant->ql)\n";
+		}
+		$blob .= "\n";
+		
+		$blob .= "<header2>Clusters Needed<end>\n";
+		forEach ($clusters as $cluster) {
+			$blob .= "{$cluster->name}, {$cluster->grade} ({$cluster->ql}+)\n";
+		}
 		
 		$msg = $this->text->make_blob("Implant Designer Results", $blob);
 

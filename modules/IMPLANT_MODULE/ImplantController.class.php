@@ -368,9 +368,9 @@ class ImplantController {
 		$obj->abilityTotal = $obj->abilityShiny + $obj->abilityBright + $obj->abilityFaded;
 		$obj->skillTotal = $obj->skillShiny + $obj->skillBright + $obj->skillFaded;
 
-		$obj->minShinyClusterQl = round($obj->ql * 0.86);
-		$obj->minBrightClusterQl = round($obj->ql * 0.84);
-		$obj->minFadedClusterQl = round($obj->ql * 0.82);
+		$obj->minShinyClusterQl = $this->getClusterMinQl($obj->ql, 'shiny');
+		$obj->minBrightClusterQl = $this->getClusterMinQl($obj->ql, 'bright');
+		$obj->minFadedClusterQl = $this->getClusterMinQl($obj->ql, 'faded');
 
 		// if implant ql is 201+, then clusters must be refined and must be ql 201+ also
 		if ($obj->ql >= 201) {
@@ -384,6 +384,18 @@ class ImplantController {
 			if ($obj->minFadedClusterQl < 201) {
 				$obj->minFadedClusterQl = 201;
 			}
+		}
+	}
+	
+	public function getClusterMinQl($ql, $grade) {
+		if ($grade == 'shiny') {
+			return round($ql * 0.86);
+		} else if ($grade == 'bright') {
+			return round($ql * 0.84);
+		} else if ($grade == 'faded') {
+			return round($ql * 0.82);
+		} else {
+			throw new \Exception("Invalid grade: '$grade'.  Must be one of: 'shiny', 'bright', 'faded'");
 		}
 	}
 
