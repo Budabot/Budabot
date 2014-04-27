@@ -291,7 +291,7 @@ class ImplantDesignerController extends AutoInject {
 				
 				// add reqs
 				$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
-				if ($implant->Treatment > $reqs['treatment']) {
+				if ($implant->Treatment > $reqs['Treatment']) {
 					$reqs['Treatment'] = $implant->Treatment;
 				}
 				if ($implant->Ability > $reqs[$implant->AbilityName]) {
