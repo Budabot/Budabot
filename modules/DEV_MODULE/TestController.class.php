@@ -62,10 +62,10 @@ use stdClass;
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'testmsgsize',
- *		accessLevel = 'admin',
- *		description = "Test the bot commands",
- *		help        = 'testmsgsize.txt'
+ *		command     = 'msgsize',
+ *		accessLevel = 'all',
+ *		description = "Show the number of characters in a command response",
+ *		help        = 'msgsize.txt'
  *	)
  */
 class TestController extends AutoInject {
@@ -265,10 +265,10 @@ class TestController extends AutoInject {
 	}
 	
 	/**
-	 * @HandlesCommand("testmsgsize")
-	 * @Matches("/^testmsgsize (.+)$/i")
+	 * @HandlesCommand("msgsize")
+	 * @Matches("/^msgsize (.+)$/i")
 	 */
-	public function testmsgsizeCommand($message, $channel, $sender, $sendto, $args) {
+	public function msgsizeCommand($message, $channel, $sender, $sendto, $args) {
 		$cmd = $args[1];
 
 		$mockSendto = new ReplySizeCommandReply($sendto);
