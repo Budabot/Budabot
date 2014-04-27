@@ -96,11 +96,11 @@ class ImplantDesignerController extends AutoInject {
 		
 		forEach ($this->grades as $grade) {
 			if (empty($slotObj->$grade)) {
-				$msg .= "<tab>-Empty-\n";
+				$msg .= "<tab><highlight>-Empty-<end>\n";
 			} else {
 				$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
 				$effectId = $implant->$effectTypeIdName;
-				$msg .= "<tab>{$slotObj->$grade} (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")\n";
+				$msg .= "<tab><highlight>{$slotObj->$grade}<end> (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")\n";
 			}
 		}
 		return $msg;
@@ -181,40 +181,13 @@ class ImplantDesignerController extends AutoInject {
 		$blob .= "\n\n";
 		
 		$blob .= "<header2>Shiny<end>";
-		if (!empty($design->$slot->shiny)) {
-			$blob .= " - {$design->$slot->shiny}";
-		}
-		$blob .= "\n";
-		$blob .= $this->text->make_chatcmd("-Empty-", "/tell <myname> implantdesigner $slot shiny clear") . $spacing;
-		$data = $this->getClustersForSlot($slot, 'shiny');
-		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd($row->skill, "/tell <myname> implantdesigner $slot shiny $row->skill") . $spacing;
-		}
-		$blob .= "\n\n";
+		$blob .= $this->showClusterChoices($design, $slot, 'shiny');
 		
 		$blob .= "<header2>Bright<end>";
-		if (!empty($design->$slot->bright)) {
-			$blob .= " - {$design->$slot->bright}";
-		}
-		$blob .= "\n";
-		$blob .= $this->text->make_chatcmd("-Empty-", "/tell <myname> implantdesigner $slot bright clear") . $spacing;
-		$data = $this->getClustersForSlot($slot, 'bright');
-		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd($row->skill, "/tell <myname> implantdesigner $slot bright $row->skill") . $spacing;
-		}
-		$blob .= "\n\n";
+		$blob .= $this->showClusterChoices($design, $slot, 'bright');
 		
 		$blob .= "<header2>Faded<end>";
-		if (!empty($design->$slot->faded)) {
-			$blob .= " - {$design->$slot->faded}";
-		}
-		$blob .= "\n";
-		$blob .= $this->text->make_chatcmd("-Empty-", "/tell <myname> implantdesigner $slot faded clear") . $spacing;
-		$data = $this->getClustersForSlot($slot, 'faded');
-		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd($row->skill, "/tell <myname> implantdesigner $slot faded $row->skill") . $spacing;
-		}
-		$blob .= "\n\n";
+		$blob .= $this->showClusterChoices($design, $slot, 'faded');
 		
 		$blob .= $this->text->make_chatcmd("Show Build", "/tell <myname> implantdesigner");
 		$blob .= "<tab><tab>";
@@ -223,6 +196,21 @@ class ImplantDesignerController extends AutoInject {
 		$msg = $this->text->make_blob("Implant Designer ($slot)", $blob);
 
 		$sendto->reply($msg);
+	}
+	
+	private function showClusterChoices($design, $slot, $grade) {
+		$msg = '';
+		if (!empty($design->$slot->$grade)) {
+			$msg .= " - {$design->$slot->$grade}";
+		}
+		$msg .= "\n";
+		$msg .= $this->text->make_chatcmd("-Empty-", "/tell <myname> implantdesigner $slot $grade clear") . "\n";
+		$data = $this->getClustersForSlot($slot, $grade);
+		forEach ($data as $row) {
+			$msg .= $this->text->make_chatcmd($row->skill, "/tell <myname> implantdesigner $slot $grade $row->skill") . "\n";
+		}
+		$msg .= "\n\n";
+		return $msg;
 	}
 	
 	/**
@@ -352,13 +340,13 @@ class ImplantDesignerController extends AutoInject {
 		
 		$blob .= "<header2>Basic Implants Needed<end>\n";
 		forEach ($implants as $implant) {
-			$blob .= "$implant->slot ($implant->ql)\n";
+			$blob .= "<highlight>$implant->slot<end> ($implant->ql)\n";
 		}
 		$blob .= "\n";
 		
 		$blob .= "<header2>Clusters Needed<end>\n";
 		forEach ($clusters as $cluster) {
-			$blob .= "{$cluster->name}, {$cluster->grade} ({$cluster->ql}+)\n";
+			$blob .= "<highlight>{$cluster->name}<end>, {$cluster->grade} ({$cluster->ql}+)\n";
 		}
 		
 		$msg = $this->text->make_blob("Implant Designer Results", $blob);
