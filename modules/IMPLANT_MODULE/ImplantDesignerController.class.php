@@ -31,6 +31,7 @@ class ImplantDesignerController extends AutoInject {
 	public $moduleName;
 	
 	private $slots = array('head', 'eye', 'ear', 'rarm', 'chest', 'larm', 'rwrist', 'waist', 'lwrist', 'rhand', 'legs', 'lhand', 'feet');
+	private $grades = array('shiny', 'bright', 'faded');
 	
 	private $design;
 	
@@ -75,7 +76,9 @@ class ImplantDesignerController extends AutoInject {
 			$blob .= "\n";
 		}
 		
-		$blob .= "\n" . $this->text->make_chatcmd("Clear All", "/tell <myname> implantdesigner clear");
+		$seeResultsLink = $this->text->make_chatcmd("Results", "/tell <myname> implantdesigner results");
+		$clearDesignLink = $this->text->make_chatcmd("Clear All", "/tell <myname> implantdesigner clear");
+		$blob .= "\n{$seeResultsLink}<tab>{$clearDesignLink}";
 
 		$msg = $this->text->make_blob("Implant Designer", $blob);
 
@@ -90,53 +93,55 @@ class ImplantDesignerController extends AutoInject {
 			$msg .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
 		}
 		$msg .= "\n";
-		$msg .= "<tab>" . $this->getClusterInfo($ql, $slotObj->shiny, 'shiny', $implant) . "\n";
-		$msg .= "<tab>" . $this->getClusterInfo($ql, $slotObj->bright, 'bright', $implant) . "\n";
-		$msg .= "<tab>" . $this->getClusterInfo($ql, $slotObj->faded, 'faded', $implant) . "\n";
+		
+		forEach ($this->grades as $grade) {
+			if (empty($slotObj->$grade)) {
+				$msg .= "<tab>-Empty-\n";
+			} else {
+				$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
+				$effectId = $implant->$effectTypeIdName;
+				$msg .= "<tab>{$slotObj->$grade} (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")\n";
+			}
+		}
 		return $msg;
 	}
 	
-	private function getClusterInfo($ql, $cluster, $grade, $implant) {
-		$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
-		if (empty($cluster)) {
-			return '--';
+	private function getClusterModAmount($ql, $grade, $effectId) {
+		$sql =
+			"SELECT
+				ID,
+				Name,
+				MinValLow,
+				MaxValLow,
+				MinValHigh,
+				MaxValHigh
+			FROM
+				EffectTypeMatrix
+			WHERE
+				ID = ?";
+
+		$row = $this->db->queryRow($sql, $effectId);
+		
+		if ($ql < 201) {
+			$minVal = $row->MinValLow;
+			$maxVal = $row->MaxValLow;
+			$minQl = 1;
+			$maxQl = 200;
 		} else {
-			$sql =
-				"SELECT
-					ID,
-					Name,
-					MinValLow,
-					MaxValLow,
-					MinValHigh,
-					MaxValHigh
-				FROM
-					EffectTypeMatrix
-				WHERE
-					ID = ?";
-
-			$row = $this->db->queryRow($sql, $implant->$effectTypeIdName);
-			
-			if ($ql < 201) {
-				$minVal = $row->MinValLow;
-				$maxVal = $row->MaxValLow;
-				$minQl = 1;
-				$maxQl = 200;
-			} else {
-				$minVal = $row->MinValHigh;
-				$maxVal = $row->MaxValHigh;
-				$minQl = 201;
-				$maxQl = 300;
-			}
-			
-			$modAmount = $this->util->interpolate($minQl, $maxQl, $minVal, $maxVal, $ql);
-			if ($grade == 'bright') {
-				$modAmount = round($modAmount * 0.6, 0);
-			} else if ($grade == 'faded') {
-				$modAmount = round($modAmount * 0.4, 0);
-			}
-
-			return $cluster . " ($modAmount)";
+			$minVal = $row->MinValHigh;
+			$maxVal = $row->MaxValHigh;
+			$minQl = 201;
+			$maxQl = 300;
 		}
+		
+		$modAmount = $this->util->interpolate($minQl, $maxQl, $minVal, $maxVal, $ql);
+		if ($grade == 'bright') {
+			$modAmount = round($modAmount * 0.6, 0);
+		} else if ($grade == 'faded') {
+			$modAmount = round($modAmount * 0.4, 0);
+		}
+
+		return $modAmount;
 	}
 	
 	/**
@@ -273,6 +278,47 @@ class ImplantDesignerController extends AutoInject {
 		$this->saveDesign($sender, '@', $design);
 		
 		$msg = "<highlight>$slot<end> has been cleared.";
+
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("implantdesigner")
+	 * @Matches("/^implantdesigner (result|results)$/i")
+	 */
+	public function implantdesignerResultCommand($message, $channel, $sender, $sendto, $args) {
+		$design = $this->getDesign($sender, '@');
+		
+		$mods = array();
+		$reqs = array();
+		
+		forEach ($this->slots as $slot) {
+			if (!empty($design->$slot)) {
+				forEach ($this->grades as $grade) {
+					$ql = 300;
+					if (!empty($design->$slot->ql)) {
+						$ql = $design->$slot->ql;
+					}
+					$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
+					if ($implant->Treatment > $reqs['treatment']) {
+						$reqs['treatment'] = $implant->Treatment;
+					}
+					if ($implant->Ability > $reqs[$implant->AbilityName]) {
+						$reqs[$implant->AbilityName] = $implant->Ability;
+					}
+					if (!empty($design->$slot->$grade)) {
+						$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
+						$effectId = $implant->$effectTypeIdName;
+						$mods[$design->$slot->$grade] += $this->getClusterModAmount($ql, $grade, $effectId);
+					}
+				}
+			}
+		}
+		
+		$blob = print_r($reqs, true);
+		$blob .= print_r($mods, true);
+		
+		$msg = $this->text->make_blob("Implant Designer Results", $blob);
 
 		$sendto->reply($msg);
 	}

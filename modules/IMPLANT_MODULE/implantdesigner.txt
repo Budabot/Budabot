@@ -10,6 +10,9 @@ To add a cluster in a specified slot for your current implant design:
 To set the QL for a specified slot in your current implant design:
 <highlight><tab><symbol>implantdesigner <i>slot</i> <i>QL</i><end>
 
+To see the result of your current implant design:
+<highlight><tab><symbol>implantdesigner <i>results</i><end>
+
 To remove all clusters from your current implant design:
 <highlight><tab><symbol>implantdesigner clear<end>
 
