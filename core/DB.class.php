@@ -254,7 +254,7 @@ class DB {
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
 			LegacyLogger::log('ERROR', 'SQL', $msg);
-			return;
+			return $msg;
 		}
 		
 		// make sure setting is verified so it doesn't get deleted

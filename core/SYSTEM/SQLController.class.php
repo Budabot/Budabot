@@ -13,7 +13,7 @@ use Budabot\Core\SQLException;
  * Commands this controller contains:
  *	@DefineCommand(
  *		command       = 'loadsql',
- *		accessLevel   = 'mod',
+ *		accessLevel   = 'admin',
  *		description   = 'Manually reload an sql file',
  *		help          = 'loadsql.txt'
  *	)

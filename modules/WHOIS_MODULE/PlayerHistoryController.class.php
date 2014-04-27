@@ -49,7 +49,7 @@ class PlayerHistoryController {
 		if ($history === null) {
 			$msg = "Could not get History of $name on RK$rk_num.";
 		} else {
-			$blob = "Date           Level    AI     Faction    Breed        Guild(rank)\n";
+			$blob = "Date           Level    AI     Faction    Breed        Guild (rank)\n";
 			$blob .= "________________________________________________ \n";
 			forEach ($history->data as $entry) {
 				$date = date("d-M-Y", $entry->last_changed);
@@ -74,7 +74,7 @@ class PlayerHistoryController {
 					if ($entry->guild_name == "") {
 						$guild = "Not in a guild";
 					} else {
-						$guild = $entry->guild_name . "(" . $entry->guild_rank_name . ")";
+						$guild = $entry->guild_name . " (" . $entry->guild_rank_name . ")";
 					}
 
 					$blob .= "$date |  $entry->level  | $ailevel | $faction | $entry->breed | $guild\n";
