@@ -78,8 +78,8 @@ class PocketbossController {
 		$data = $this->db->query("SELECT * FROM pbdb WHERE pb = ? ORDER BY ql", $name);
 		$symbs = '';
 		forEach ($data as $symb) {
-			$name = "QL $symb->ql $symb->line $symb->slot Symbiant, $symb->type Unit Aban";
-			$symbs .= $this->text->make_item($symb->itemid, $symb->itemid, $symb->ql, $name)."\n";
+			$name = "$symb->line $symb->slot Symbiant, $symb->type Unit Aban";
+			$symbs .= $this->text->make_item($symb->itemid, $symb->itemid, $symb->ql, $name) . " ($symb->ql)\n";
 		}
 		
 		$blob = "Location: <highlight>$symb->pb_location, $symb->bp_location<end>\n";
@@ -178,8 +178,8 @@ class PocketbossController {
 		if ($numrows != 0) {
 			$blob = '';
 			forEach ($data as $row) {
-				$name = "QL $row->ql $row->line $row->slot Symbiant, $row->type Unit Aban";
-				$blob .= "<pagebreak>" . $this->text->make_item($row->itemid, $row->itemid, $row->ql, $name)."\n";
+				$name = "$row->line $row->slot Symbiant, $row->type Unit Aban";
+				$blob .= "<pagebreak>" . $this->text->make_item($row->itemid, $row->itemid, $row->ql, $name)." ($row->ql)\n";
 				$blob .= "Found on " . $this->text->make_chatcmd($row->pb, "/tell <myname> pb $row->pb");
 				$blob .= "\n\n";
 			}
