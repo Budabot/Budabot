@@ -30,24 +30,23 @@ use Budabot\Core\Registry;
 		$results = array();
 		try {
 			switch ($db->get_type()) {
-			case DB::MYSQL:
-				$rows = $db->query("DESCRIBE $table");
-				// normalize the output somewhat to make it more compatible
-				// with sqlite
-				forEach ($rows as $row) {
-					$row->name = $row->Field;
-					unset($row->Field);
-					$row->type = $row->Type;
-					unset($row->Type);
-				}
-				return $rows;
+				case DB::MYSQL:
+					$rows = $db->query("DESCRIBE $table");
+					// normalize the output somewhat to make it more compatible with sqlite
+					forEach ($rows as $row) {
+						$row->name = $row->Field;
+						unset($row->Field);
+						$row->type = $row->Type;
+						unset($row->Type);
+					}
+					return $rows;
 
-			case DB::SQLITE:
-				return $db->query("PRAGMA table_info($table)");
+				case DB::SQLITE:
+					return $db->query("PRAGMA table_info($table)");
 
-			default:
-				LegacyLogger::log("ERROR", 'Upgrade', "Unknown database type '". $db->get_type() ."'");
-				break;
+				default:
+					LegacyLogger::log("ERROR", 'Upgrade', "Unknown database type '". $db->get_type() ."'");
+					break;
 			}
 		} catch (SQLException $e) {
 			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
@@ -69,7 +68,6 @@ use Budabot\Core\Registry;
 	}
 	
 	function checkIfTableExists($db, $table) {
-		// If the table doesn't exist, return true since the table will be created with the correct column.
 		try {
 			$data = $db->query("SELECT * FROM $table LIMIT 1");
 		} catch (SQLException $e) {
@@ -79,14 +77,11 @@ use Budabot\Core\Registry;
 	}
 	
 	function checkIfColumnExists($db, $table, $column) {
-		// Else if the table exists but the column doesn't, return false so the table will be updated with the correct column.
 		try {
-			$data = $db->query("SELECT $column FROM $table");
+			$data = $db->query("SELECT $column FROM $table LIMIT 1");
 		} catch (SQLException $e) {
 			return false;
 		}
-
-		// Else return true because both the table and the column exist.
 		return true;
 	}
 
