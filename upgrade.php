@@ -65,6 +65,7 @@ use Budabot\Core\Registry;
 				return strtolower($col->type);
 			}
 		}
+		return null;
 	}
 	
 	function checkIfTableExists($db, $table) {
@@ -104,5 +105,9 @@ use Budabot\Core\Registry;
 	// it shouldn't matter if the data in that table is lost -Tyrence
 	if (checkIfColumnExists($db, 'roll', 'type')) {
 		$db->exec("DROP TABLE roll");
+	}
+	
+	if ($db->get_type() == DB::MYSQL && getColumnType($db, 'cmdcfg_<myname>', 'cmd') != 'VARCHAR(50)') {
+		$db->exec("ALTER TABLE cmdcfg_<myname> MODIFY cmd VARCHAR(50)");
 	}
 ?>
