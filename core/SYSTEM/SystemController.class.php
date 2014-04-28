@@ -249,6 +249,17 @@ class SystemController {
 	 * @AccessLevel("mod")
 	 */
 	public $defaultAccessDeniedNotifyGuild = "1";
+	
+	/**
+	 * @Setting("access_denied_notify_priv")
+	 * @Description("Notify private channel when a player is denied access to a command in tell")
+	 * @Visibility("edit")
+	 * @Type("options")
+	 * @Options("true;false")
+	 * @Intoptions("1;0")
+	 * @AccessLevel("mod")
+	 */
+	public $defaultAccessDeniedNotifyPriv = "1";
 
 	/**
 	 * @Setup
