@@ -67,7 +67,7 @@ class ConfigController {
 		$this->commandManager->activate("guild", $filename, "config", "mod");
 		$this->commandManager->activate("priv", $filename, "config", "mod");
 
-		$this->helpManager->register($this->moduleName, "config", "config.txt", "mod", "Configure Commands/Events of the Bot");
+		$this->helpManager->register($this->moduleName, "config", "config.txt", "mod", "Configure Commands/Events");
 	}
 
 	/**
@@ -155,7 +155,7 @@ class ConfigController {
 		$sql = "UPDATE cmdcfg_<myname> SET `status` = $status WHERE (`cmdevent` = 'cmd' OR `cmdevent` = 'subcmd') AND ($typeSql)";
 		$this->db->exec($sql);
 	
-		$sendto->reply("Command(s) updated successfully.");
+		$sendto->reply("Commands updated successfully.");
 	}
 
 	/**
@@ -219,38 +219,38 @@ class ConfigController {
 	
 		if (count($data) == 0) {
 			if ($args[1] == "mod" && $type == "all") {
-				$msg = "Could not find the Module <highlight>$module<end>";
+				$msg = "Could not find Module <highlight>$module<end>.";
 			} else if ($args[1] == "mod" && $type != "all") {
-				$msg = "Could not find the Module <highlight>$module<end> for Channel <highlight>$type<end>";
+				$msg = "Could not find module <highlight>$module<end> for channel <highlight>$type<end>.";
 			} else if ($args[1] == "cmd" && $type != "all") {
-				$msg = "Could not find the Command <highlight>$cmd<end> for Channel <highlight>$type<end>";
+				$msg = "Could not find command <highlight>$cmd<end> for channel <highlight>$type<end>.";
 			} else if ($args[1] == "cmd" && $type == "all") {
-				$msg = "Could not find the Command <highlight>$cmd<end>";
+				$msg = "Could not find command <highlight>$cmd<end>.";
 			} else if ($args[1] == "subcmd" && $type != "all") {
-				$msg = "Could not find the Subcommand <highlight>$cmd<end> for Channel <highlight>$type<end>";
+				$msg = "Could not find subcommand <highlight>$cmd<end> for channel <highlight>$type<end>.";
 			} else if ($args[1] == "subcmd" && $type == "all") {
-				$msg = "Could not find the Subcommand <highlight>$cmd<end>";
+				$msg = "Could not find subcommand <highlight>$cmd<end>.";
 			} else if ($args[1] == "event" && $file != "") {
-				$msg = "Could not find the Event <highlight>$event_type<end> for File <highlight>$file<end>";
+				$msg = "Could not find event <highlight>$event_type<end> for handler <highlight>$file<end>.";
 			}
 			$sendto->reply($msg);
 			return;
 		}
 	
 		if ($args[1] == "mod" && $type == "all") {
-			$msg = "Updated status of the module <highlight>$module<end> to <highlight>".$args[3]."d<end>";
+			$msg = "Updated status of module <highlight>$module<end> to <highlight>".$args[3]."d<end>.";
 		} else if ($args[1] == "mod" && $type != "all") {
-			$msg = "Updated status of the module <highlight>$module<end> in Channel <highlight>$type<end> to <highlight>".$args[3]."d<end>";
+			$msg = "Updated status of module <highlight>$module<end> in channel <highlight>$type<end> to <highlight>".$args[3]."d<end>.";
 		} else if ($args[1] == "cmd" && $type != "all") {
-			$msg = "Updated status of command <highlight>$cmd<end> to <highlight>".$args[3]."d<end> in Channel <highlight>$type<end>";
+			$msg = "Updated status of command <highlight>$cmd<end> to <highlight>".$args[3]."d<end> in channel <highlight>$type<end>.";
 		} else if ($args[1] == "cmd" && $type == "all") {
-			$msg = "Updated status of command <highlight>$cmd<end> to <highlight>".$args[3]."d<end>";
+			$msg = "Updated status of command <highlight>$cmd<end> to <highlight>".$args[3]."d<end>.";
 		} else if ($args[1] == "subcmd" && $type != "all") {
-			$msg = "Updated status of subcommand <highlight>$cmd<end> to <highlight>".$args[3]."d<end> in Channel <highlight>$type<end>";
+			$msg = "Updated status of subcommand <highlight>$cmd<end> to <highlight>".$args[3]."d<end> in channel <highlight>$type<end>.";
 		} else if ($args[1] == "subcmd" && $type == "all") {
-			$msg = "Updated status of subcommand <highlight>$cmd<end> to <highlight>".$args[3]."d<end>";
+			$msg = "Updated status of subcommand <highlight>$cmd<end> to <highlight>".$args[3]."d<end>.";
 		} else if ($args[1] == "event" && $file != "") {
-			$msg = "Updated status of event <highlight>$event_type<end> to <highlight>".$args[3]."d<end>";
+			$msg = "Updated status of event <highlight>$event_type<end> to <highlight>".$args[3]."d<end>.";
 		}
 	
 		$sendto->reply($msg);
@@ -318,9 +318,9 @@ class ConfigController {
 	
 			if (count($data) == 0) {
 				if ($channel == "all") {
-					$msg = "Could not find the command <highlight>$command<end>";
+					$msg = "Could not find command <highlight>$command<end>.";
 				} else {
-					$msg = "Could not find the command <highlight>$command<end> for Channel <highlight>$channel<end>";
+					$msg = "Could not find command <highlight>$command<end> for channel <highlight>$channel<end>.";
 				}
 			} else if (!$this->checkCommandAccessLevels($data, $sender)) {
 				$msg = "You do not have the required access level to change this command.";
@@ -330,16 +330,16 @@ class ConfigController {
 				$this->commandManager->update_status($channel, $command, null, 1, $accessLevel);
 		
 				if ($channel == "all") {
-					$msg = "Updated access of command <highlight>$command<end> to <highlight>$accessLevel<end>";
+					$msg = "Updated access of command <highlight>$command<end> to <highlight>$accessLevel<end>.";
 				} else {
-					$msg = "Updated access of command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$accessLevel<end>";
+					$msg = "Updated access of command <highlight>$command<end> in channel <highlight>$channel<end> to <highlight>$accessLevel<end>.";
 				}
 			}
 		} else {  // if ($category == 'subcmd')
 			$sql = "SELECT * FROM cmdcfg_<myname> WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?";
 			$data = $this->db->query($sql, $channel, $command);
 			if (count($data) == 0) {
-				$msg = "Could not find the subcmd <highlight>$command<end> for Channel <highlight>$channel<end>";
+				$msg = "Could not find subcommand <highlight>$command<end> for channel <highlight>$channel<end>.";
 			} else if (!$this->checkCommandAccessLevels($data, $sender)) {
 				$msg = "You do not have the required access level to change this subcommand.";
 			} else if (!$this->accessManager->checkAccess($sender, $accessLevel)) {
@@ -347,7 +347,7 @@ class ConfigController {
 			} else {
 				$this->db->exec("UPDATE cmdcfg_<myname> SET `admin` = ? WHERE `type` = ? AND `cmdevent` = 'subcmd' AND `cmd` = ?", $accessLevel, $channel, $command);
 				$this->subcommandManager->loadSubcommands();
-				$msg = "Updated access of sub command <highlight>$command<end> in Channel <highlight>$channel<end> to <highlight>$accessLevel<end>";
+				$msg = "Updated access of subcommand <highlight>$command<end> in channel <highlight>$channel<end> to <highlight>$accessLevel<end>.";
 			}
 		}
 		$sendto->reply($msg);
@@ -382,7 +382,7 @@ class ConfigController {
 	
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ?", $cmd);
 		if (count($data) == 0) {
-			$msg = "Could not find the command '<highlight>$cmd<end>'";
+			$msg = "Could not find command <highlight>$cmd<end>.";
 		} else {
 			$blob = '';
 			$aliases = $this->commandAlias->find_aliases_by_command($cmd);
@@ -439,7 +439,7 @@ class ConfigController {
 				$blob .= "<header>Help ($cmd)<end>\n\n" . $help;
 			}
 	
-			$msg = $this->text->make_blob(ucfirst($cmd)." config", $blob);
+			$msg = $this->text->make_blob(ucfirst($cmd)." Config", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -568,7 +568,7 @@ class ConfigController {
 		if ($found) {
 			$msg = $this->text->make_blob("$module Configuration", $blob);
 		} else {
-			$msg = "Could not find module '<highlight>$module<end>'";
+			$msg = "Could not find module <highlight>$module<end>.";
 		}
 		$sendto->reply($msg);
 	}
