@@ -358,7 +358,7 @@ class AOChat {
 
 	/* User and group lookup functions */
 	function lookup_user($u) {
-		$u = ucfirst(strtolower(trim($u)));
+		$u = ucfirst(strtolower($u));
 
 		if ($u == '') {
 			return false;
