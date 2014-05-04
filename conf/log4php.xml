@@ -40,7 +40,7 @@
 
 	<!-- Direct log to memory buffer -->
 	<appender name="appenderBuffer" class="LoggerAppenderBuffer">
-		<param name="logLimit" value="50" />
+		<param name="logLimit" value="2000" />
 		<layout class="LoggerLayoutTTCC">
 			<param name="threadPrinting" value="false" />
 			<param name="microSecondsPrinting" value="false" />
