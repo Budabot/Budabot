@@ -398,15 +398,15 @@ class ConfigController {
 				$blob .= "Aliases: <highlight>$aliases_blob<end>\n\n";
 			}
 	
-			$blob .= "<header2>Tells:<end>\n";
+			$blob .= "<header2>Tells:<end> ";
 			$blob .= $this->getCommandInfo($cmd, 'msg');
 			$blob .= "\n\n";
 
-			$blob .= "<header2>Private Channel:<end>\n";
+			$blob .= "<header2>Private Channel:<end> ";
 			$blob .= $this->getCommandInfo($cmd, 'priv');
 			$blob .= "\n\n";
 			
-			$blob .= "<header2>Guild Channel:<end>\n";
+			$blob .= "<header2>Guild Channel:<end> ";
 			$blob .= $this->getCommandInfo($cmd, 'guild');
 			$blob .= "\n\n";
 	
@@ -588,7 +588,7 @@ class ConfigController {
 		$msg = "";
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ? AND `type` = ?", $cmd, $type);
 		if (count($data) == 0) {
-			$msg .= "Current Status: <red>Unused<end>. \n";
+			$msg .= "<red>Unused<end>\n";
 		} else if (count($data) == 1) {
 			$row = $data[0];
 
@@ -602,12 +602,12 @@ class ConfigController {
 				$status = "<red>Disabled<end>";
 			}
 
-			$msg .= "Current Status: $status (Access: $row->admin) \n";
-			$msg .= "Enable or Disable Command: ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} enable {$type}'>ON</a>  ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} disable {$type}'>OFF</a>\n";
+			$msg .= "$status (Access: $row->admin) \n";
+			$msg .= "Set status: ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} enable {$type}'>Enabled</a>  ";
+			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} disable {$type}'>Disabled</a>\n";
 
-			$msg .= "Set minimum access lvl to use this command: ";
+			$msg .= "Set access level: ";
 			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} all'>All</a>  ";
 			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} member'>Member</a>  ";
 			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} guild'>Guild</a>  ";
@@ -641,11 +641,11 @@ class ConfigController {
 			}
 
 			$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
-			$subcmd_list .= "Enable or Disable Command: ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} enable {$type}'>ON</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} disable {$type}'>OFF</a>\n";
+			$subcmd_list .= "Set status: ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} enable {$type}'>Enabled</a>  ";
+			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} disable {$type}'>Disabled</a>\n";
 
-			$subcmd_list .= "Set min. access lvl to use this command: ";
+			$subcmd_list .= "Set access level: ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} all'>All</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} member'>Member</a>  ";
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} guild'>Guild</a>  ";
