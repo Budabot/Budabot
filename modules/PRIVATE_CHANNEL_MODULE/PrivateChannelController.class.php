@@ -81,14 +81,14 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = 'join', 
  *		accessLevel = 'member', 
- *		description = "Join command for guests", 
+ *		description = "Join command for characters who want to join the private channel", 
  *		help        = 'private_channel.txt',
  *		channels    = 'guild msg'
  *	)
  *	@DefineCommand(
  *		command     = 'leave', 
  *		accessLevel = 'all', 
- *		description = "Enables Privatechat Kick", 
+ *		description = "Leave command for characters in private channel", 
  *		help        = 'private_channel.txt',
  *		channels    = 'priv msg'
  *	)
