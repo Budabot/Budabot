@@ -56,12 +56,6 @@ use Budabot\Core\PrivateMessageCommandReply;
  *		help          = 'system.txt',
  *		defaultStatus = '1'
  *	)
- *	@DefineCommand(
- *		command       = 'reloadconfig',
- *		accessLevel   = 'admin',
- *		description   = 'Reload the config file',
- *		help          = 'system.txt'
- *	)
  */
 class SystemController {
 
@@ -303,37 +297,6 @@ class SystemController {
 		$this->chatBot->disconnect();
 		$this->logger->log('INFO', "The Bot is shutting down.");
 		die("The Bot is shutting down.");
-	}
-
-	/**
-	 * @HandlesCommand("reloadconfig")
-	 * @Matches("/^reloadconfig$/i")
-	 */
-	public function reloadconfigCommand($message, $channel, $sender, $sendto, $args) {
-		global $configFile;
-		$configFile->load();
-		$vars = $configFile->getVars();
-
-		// remove variables that shouldn't change without a restart
-		unset($vars['name']);
-		unset($vars['login']);
-		unset($vars['password']);
-		unset($vars['dimension']);
-
-		unset($vars["DB Type"]);
-		unset($vars["DB Name"]);
-		unset($vars["DB Host"]);
-		unset($vars["DB username"]);
-		unset($vars["DB password"]);
-
-		forEach ($vars as $key => $value) {
-			$this->chatBot->vars[$key] = $value;
-
-			// since the logger accesses the global $vars variable we must change the values there also
-			$GLOBALS['vars'][$key] = $value;
-		}
-
-		$sendto->reply('Config file has been reloaded.');
 	}
 
 	/**

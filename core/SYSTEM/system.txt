@@ -4,9 +4,6 @@ To restart the bot:
 To shutdown the bot:
 <highlight><tab><symbol>shutdown<end>
 
-To manually load changes from the config file:
-<highlight><tab><symbol>reloadconfig<end>
-
 To see an overview of the bot systems:
 <highlight><tab><symbol>system<end>
 
