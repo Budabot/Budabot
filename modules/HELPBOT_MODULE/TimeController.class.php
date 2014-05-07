@@ -44,7 +44,6 @@ class TimeController {
 	 * @Matches("/^time$/i")
 	 */
 	public function timeListCommand($message, $channel, $sender, $sendto, $args) {
-		$link = "The following includes most of the timezones that exist but notice that this list doesn't show all countries within the timezones and also that some countries have 2 timezones.\n\nTo see the time in a specific timezone use <symbol>time 'timezone'.\n\nFor example <symbol>time CET\n\n";
 		$link .= "<header2>Australia<end>\n";
 		$link .= "<tab><highlight>Western Australia</end>\n";
 		$link .= "<tab><tab>Standard Time (AWST = GMT +8:00): " . $this->getTimezone("AWST")->time . "\n";

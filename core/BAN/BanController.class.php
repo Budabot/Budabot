@@ -324,7 +324,7 @@ class BanController {
 		}
 	
 		if ($this->accessManager->compareCharacterAccessLevels($sender, $who) <= 0) {
-			$sendto->reply("You must have a higher access level than <highlight>$who<end> to perform this function.");
+			$sendto->reply("You must have an access level higher than <highlight>$who<end> to perform this action.");
 			return;
 		}
 
