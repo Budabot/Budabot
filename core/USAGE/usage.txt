@@ -9,3 +9,9 @@ To show usage stats for the past 7 days for a particular player:
 
 To show usage stats for the past specific time period for a particular player:
 <highlight><tab><symbol>usage player 'player' 'budatime'<end>
+
+To show usage stats for the past 7 days for a particular command:
+<highlight><tab><symbol>usage cmd 'command'<end>
+
+To show usage stats for the past specific time period for a particular command:
+<highlight><tab><symbol>usage cmd 'command' 'budatime'<end>

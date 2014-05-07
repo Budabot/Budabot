@@ -79,7 +79,6 @@ class UsageController {
 	
 		$player = ucfirst(strtolower($args[1]));
 	
-		// most used commands
 		$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE sender = ? AND dt > ? GROUP BY command ORDER BY count DESC";
 		$data = $this->db->query($sql, $player, $time);
 		$count = count($data);
@@ -93,6 +92,46 @@ class UsageController {
 			$msg = $this->text->make_blob("Usage for $player - $timeString ($count)", $blob);
 		} else {
 			$msg = "No usage statistics found for <highlight>$player<end>.";
+		}
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("usage")
+	 * @Matches("/^usage cmd ([0-9a-z_-]+)$/i")
+	 * @Matches("/^usage cmd ([0-9a-z_-]+) ([a-z0-9]+)$/i")
+	 */
+	public function usageCmdCommand($message, $channel, $sender, $sendto, $args) {
+		if (count($args) == 3) {
+			$time = $this->util->parseTime($args[2]);
+			if ($time == 0) {
+				$msg = "Please enter a valid time.";
+				$sendto->reply($msg);
+				return;
+			}
+			$time = $time;
+		} else {
+			$time = 604800;
+		}
+
+		$timeString = $this->util->unixtime_to_readable($time);
+		$time = time() - $time;
+	
+		$cmd = strtolower($args[1]);
+	
+		$sql = "SELECT sender, COUNT(sender) AS count FROM usage_<myname> WHERE command = ? AND dt > ? GROUP BY command ORDER BY count DESC";
+		$data = $this->db->query($sql, $cmd, $time);
+		$count = count($data);
+
+		if ($count > 0) {
+			$blob .= '';
+			forEach ($data as $row) {
+				$blob .= "<highlight>{$row->sender}<end> ({$row->count})\n";
+			}
+
+			$msg = $this->text->make_blob("Usage for $cmd - $timeString ($count)", $blob);
+		} else {
+			$msg = "No usage statistics found for <highlight>$cmd<end>.";
 		}
 		$sendto->reply($msg);
 	}
@@ -141,7 +180,8 @@ class UsageController {
 
 		$blob .= "<header2>$limit Most Used Commands<end>\n";
 		forEach ($data as $row) {
-			$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
+			$commandLink = $this->text->make_chatcmd($row->command, "/tell <myname> usage cmd $row->command");
+			$blob .= "<highlight>{$commandLink}<end> ({$row->count})\n";
 		}
 
 		// users who have used the most commands
