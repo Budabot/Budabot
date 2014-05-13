@@ -94,18 +94,15 @@ class OrglistController {
 			} else if ($count == 1) {
 				$this->checkOrglist($orgs[0]->id, $sendto);
 			} else {
-				$this->findOrgController->findOrgCommand($message, $channel, $sender, $sendto, $args);
+				$blob = $this->findOrgController->formatResults($orgs);
+				$msg = $this->text->make_blob("Org Search Results for '{$search}' ($count)", $blob);
+				$sendto->reply($msg);
 			}
 		}
 	}
 	
 	public function getMatches($search) {
 		$orgs = $this->findOrgController->lookupOrg('%' . $search . '%');
-		
-		// if one and only one org is found, use that org
-		if (count($orgs) == 1) {
-			return $orgs;
-		}
 
 		// check if search is a character and add character's org to org list if it's not already in the list		
 		$name = ucfirst(strtolower($search));
@@ -123,6 +120,8 @@ class OrglistController {
 				$obj = new stdClass;
 				$obj->name = $whois->guild;
 				$obj->id = $whois->guild_id;
+				$obj->faction = $whois->faction;
+				$obj->numMembers = 'unknown';
 				$orgs []= $obj;
 			}
 		}
