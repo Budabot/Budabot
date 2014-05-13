@@ -38,7 +38,7 @@ class ReloadInstanceController extends AutoInject {
 	 * @HandlesCommand("reloadinstance")
 	 * @Matches("/^reloadinstance all$/i")
 	 */
-	public function reloadinstanceCommand($message, $channel, $sender, $sendto, $args) {
+	public function reloadinstanceAllCommand($message, $channel, $sender, $sendto, $args) {
 		$instances = Registry::getAllInstances();
 		$count = count($instances);
 		$blob = '';
@@ -55,7 +55,7 @@ class ReloadInstanceController extends AutoInject {
 	 * @HandlesCommand("reloadinstance")
 	 * @Matches("/^reloadinstance (.+)$/i")
 	 */
-	public function reloadinstanceAllCommand($message, $channel, $sender, $sendto, $args) {
+	public function reloadinstanceCommand($message, $channel, $sender, $sendto, $args) {
 		$instanceName = $args[1];
 		
 		$instance = Registry::getInstance($instanceName, true);
