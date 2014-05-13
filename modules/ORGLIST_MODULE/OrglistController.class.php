@@ -101,6 +101,11 @@ class OrglistController {
 	
 	public function getMatches($search) {
 		$orgs = $this->findOrgController->lookupOrg('%' . $search . '%');
+		
+		// if one and only one org is found, use that org
+		if (count($orgs) == 1) {
+			return $orgs;
+		}
 
 		// check if search is a character and add character's org to org list if it's not already in the list		
 		$name = ucfirst(strtolower($search));
