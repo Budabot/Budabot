@@ -51,8 +51,8 @@ class OrglistController {
 	/** @Inject */
 	public $findOrgController;
 	
-	private $orglist = null;
-	private $orgrankmap = array();
+	protected $orglist = null;
+	protected $orgrankmap = array();
 	
 	public function __construct() {
 		$this->orgrankmap["Anarchism"]  = array("Anarchist");
