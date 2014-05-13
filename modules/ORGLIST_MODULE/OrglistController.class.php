@@ -94,26 +94,19 @@ class OrglistController {
 			} else if ($count == 1) {
 				$this->checkOrglist($orgs[0]->id, $sendto);
 			} else {
-				$blob = '';
-				forEach ($orgs as $org) {
-					$orglistLink = $this->text->make_chatcmd("Orglist", "/tell <myname> orglist $org->id");
-					$blob .= trim($org->name) . " (" . $org->id . ") " . $orglistLink . "\n";
-				}
-				$msg = $this->text->make_blob("Orglist Matches ($count)", $blob);
-				$sendto->reply($msg);
+				$this->findOrgController->findOrgCommand($message, $channel, $sender, $sendto, $args);
 			}
 		}
 	}
 	
 	public function getMatches($search) {
 		$orgs = $this->findOrgController->lookupOrg('%' . $search . '%');
-		
+
+		// check if search is a character and add character's org to org list if it's not already in the list		
 		$name = ucfirst(strtolower($search));
 		$whois = $this->playerManager->get_by_name($name);
-		
 		if ($whois !== null && $whois->guild_id != 0) {
 			$found = false;
-			
 			forEach ($orgs as $org) {
 				if ($org->id == $whois->guild_id) {
 					$found = true;
@@ -128,6 +121,7 @@ class OrglistController {
 				$orgs []= $obj;
 			}
 		}
+
 		return $orgs;
 	}
 	

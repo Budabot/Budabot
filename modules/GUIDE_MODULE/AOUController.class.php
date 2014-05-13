@@ -31,9 +31,6 @@ class AOUController {
 	public $text;
 	
 	/** @Inject */
-	public $settingManager;
-	
-	/** @Inject */
 	public $itemsController;
 
 	/** @Inject */

@@ -55,9 +55,7 @@ class FindOrgController {
 				$orglist = $this->text->make_chatcmd('Orglist', "/tell <myname> orglist {$row->id}");
 				$orgranks = $this->text->make_chatcmd('Orgranks', "/tell <myname> orgranks {$row->id}");
 				$orgmembers = $this->text->make_chatcmd('Orgmembers', "/tell <myname> orgmembers {$row->id}");
-				$tower_attacks = $this->text->make_chatcmd('Tower Attacks', "/tell <myname> attacks org {$row->name}");
-				$tower_victories = $this->text->make_chatcmd('Tower Victories', "/tell <myname> victory org {$row->name}");
-				$blob .= "{$row->name} ({$row->id}) [$whoisorg] [$orglist] [$orgranks] [$orgmembers] [$tower_attacks] [$tower_victories]\n";
+				$blob .= "<{$row->faction}>{$row->name}<end> ({$row->id}) - {$row->numMembers} members [$orglist] [$whoisorg] [$orgranks] [$orgmembers]\n\n";
 			}
 
 			$msg = $this->text->make_blob("Org Search Results for '{$search}' ($count)", $blob);
@@ -70,13 +68,29 @@ class FindOrgController {
 	public function lookupOrg($search, $limit = 50) {
 		$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
 		$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
-		preg_match_all('|<a href="http://people.anarchy-online.com/org/stats/d/(\d+)/name/(\d+)">([^<]+)</a>|s', $response->body, $arr, PREG_SET_ORDER);
+		
+		$pattern = '@(<tr>|<tr class="lastRow">)
+               <td align="left">
+                 <a href="http://people.anarchy-online.com/org/stats/d/(\d+)/name/(\d+)">
+                   ([^<]+)</a></td>
+               <td align="right">(\d+)</td>
+               <td align="right">(\d+)</td>
+               <td align="left">([^<]+)</td>
+               <td align="left">([^<]+)</td>
+               <td align="left" class="dim">RK5</td>
+             </tr>@s';
+		
+		preg_match_all($pattern, $response->body, $arr, PREG_SET_ORDER);
 		$orgs = array();
 		forEach ($arr as $match) {
 			$obj = new stdClass;
-			$obj->name = trim($match[3]);
-			$obj->id = $match[2];
+			$obj->server = $match[2];
+			$obj->name = trim($match[4]);
+			$obj->id = $match[3];
+			$obj->numMembers = $match[5];
+			$obj->faction = $match[7];
 			$orgs []= $obj;
+
 			if (count($orgs) == $limit) {
 				break;
 			}
