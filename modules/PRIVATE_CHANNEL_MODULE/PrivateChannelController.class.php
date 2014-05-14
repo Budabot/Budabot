@@ -680,7 +680,7 @@ class PrivateChannelController {
 	 */
 	public function leavePrivateChannelMessageEvent($eventObj) {
 		$sender = $eventObj->sender;
-		$msg = "$sender has left the private channel";
+		$msg = "$sender has left the private channel.";
 
 		if ($this->settingManager->get("guest_relay") == 1) {
 			$this->chatBot->sendGuild($msg, true);
