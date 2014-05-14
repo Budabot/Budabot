@@ -249,7 +249,8 @@ class TimerController {
 	 */
 	public function timersListCommand($message, $channel, $sender, $sendto, $args) {
 		$timers = $this->getAllTimers();
-		if (count($timers) == 0) {
+		$count = count($timers);
+		if ($count == 0) {
 			$msg = "No timers currently running.";
 		} else {
 			$blob = '';
@@ -270,7 +271,7 @@ class TimerController {
 				$blob .= "Time left: <highlight>$time_left<end> $repeatingInfo\n";
 				$blob .= "Set by: <highlight>$owner<end>\n\n";
 			}
-			$msg = $this->text->make_blob("Timers currently running", $blob);
+			$msg = $this->text->make_blob("Timers ($count)", $blob);
 		}
 		$sendto->reply($msg);
 	}
