@@ -136,11 +136,7 @@ class OrglistController {
 			$sendto->reply($msg);
 			return;
 		}
-	
-		$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
-		$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
-		$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
-	
+		
 		$this->orglist["start"] = time();
 		$this->orglist["sendto"] = $sendto;
 
@@ -164,13 +160,13 @@ class OrglistController {
 			// Writing the whois info for all names
 			// Name (Level 1/1, Sex Breed Profession)
 			$thismember  = '<highlight>'.$member->name.'<end>';
-			$thismember .= ' (Level '.$orgcolor["onlineH"].$member->level."<end>";
+			$thismember .= ' (Level <highlight>'.$member->level."<end>";
 			if ($member->ai_level > 0) {
 				$thismember .= "<green>/".$member->ai_level."<end>";
 			}
 			$thismember .= ", ".$member->gender;
 			$thismember .= " ".$member->breed;
-			$thismember .= " ".$orgcolor["onlineH"].$member->profession."<end>)";
+			$thismember .= " <highlight>".$member->profession."<end>)";
 
 			$this->orglist["result"][$member->name]["post"] = $thismember;
 
@@ -243,9 +239,6 @@ class OrglistController {
 	}
 	
 	public function orglistEnd() {
-		// Don't want to reboot to see changes in color edits, so I'll store them in an array outside the function.
-		$orgcolor["header"]  = "<font color='#FFFFFF'>";   // Org Rank title
-		$orgcolor["onlineH"] = "<highlight>";              // Highlights on whois info
 		$orgcolor["offline"] = "<font color='#555555'>";   // Offline names
 
 		$msg = $this->orgmatesformat($this->orglist, $orgcolor, $this->orglist["start"], $this->orglist["org"]);
@@ -258,7 +251,7 @@ class OrglistController {
 		unset($this->orglist);
 	}
 	
-	function orgmatesformat($memberlist, $color, $timestart, $orgname) {
+	function orgmatesformat($memberlist, $orgcolor, $timestart, $orgname) {
 		$map = $memberlist["orgtype"];
 
 		$totalonline = 0;
@@ -285,7 +278,7 @@ class OrglistController {
 					if ($offlinelist != "") {
 						$offlinelist .= ", ";
 						if (($olcount % 50) == 0) {
-							$offlinelist .= "<end><pagebreak>" . $color["offline"];
+							$offlinelist .= "<end><pagebreak>" . $orgcolor["offline"];
 						}
 					}
 					$offlinelist .= $newlist[$rankid][$i];
@@ -295,23 +288,19 @@ class OrglistController {
 
 			$totalonline += $rank_online;
 
-			$blob .= "\n" . $color["header"] . $map[$rankid] . "</font> ";
-			$blob .= "(" . $color["onlineH"] . "{$rank_online}</font> online of " . $color["onlineH"] . "{$rank_total}</font>)\n";
+			$blob .= "\n<header2>" . $map[$rankid] . "<end> ({$rank_online} / {$rank_total})\n";
 
 			if ($onlinelist != "") {
 				$blob .= $onlinelist;
 			}
 			if ($offlinelist != "") {
-				$blob .= $color["offline"] . $offlinelist . "<end>\n";
+				$blob .= $orgcolor["offline"] . $offlinelist . "<end>\n";
 			}
 			$blob .= "\n";
 		}
 
 		$totaltime = time() - $timestart;
-		$header  = $color["onlineH"].$orgname."<end> has ";
-		$header .= $color["onlineH"]."$totalonline</font> online out of a total of ".$color["onlineH"]."$totalcount</font> members. ";
-		$header .= "(".$color["onlineH"]."$totaltime</font> seconds)\n\n";
-		$blob = $header . $blob;
+		$blob .= "\nLookup took $totaltime seconds.";
 		
 		return $this->text->make_blob("Orglist for '".$this->orglist["org"]."' ($totalonline / $totalcount)", $blob);
 	}
