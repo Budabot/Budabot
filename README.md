@@ -14,7 +14,7 @@ http://code.google.com/p/budabot2/downloads/list
 
 **Linux**: See additional installation instructions in the forum: http://budabot.com/forum/viewtopic.php?f=5&t=850
 
-### Latest Development Archivs ###
+### Latest Development Archives ###
 You can download the very lastest version from the link below.  Note that this version is a development version, may not have been tested thoroughly, and may contain bugs.
 
 https://github.com/Budabot/Budabot/archive/master.zip
