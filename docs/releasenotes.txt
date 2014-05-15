@@ -1,4 +1,32 @@
 *****************************
+	Version 3.2_RC1:
+*****************************
+-fixed various typos and bugs
+-condensed some of the command output to be more succinct
+-removed !reloadconfig
+-added !usage cmd to see usage for a particular command
+-added !implantdesigner (alias !impdesign) for building an implant set (based on iMatrix database)
+-!history should now work again and also show when a character is deleted
+-enhanced WEBUI_MODULE (can now execute commands and see command output; can see up to 2000 lines of console history; up and down arrows for previous and next commands)
+-merged !lastseen into !is
+-!ladder now shows implant requirements
+-!adminlist now shows online alts and includes guild admins (!adminlist all to see all admins and their alts regardless of online status)
+-added !timecalc
+-!aou all allows you to search the body of guides for matches
+-added !findplayer
+-updated to items db to 18.06.11
+-added !citems for forcing an items lookup using the CIDB
+-added !litems for forcing an items lookup using the local DB
+-added support for CIDB (change setting 'items_database' to determine whether !items use local DB or CIDB)
+-!roll can now accept strings as possible roll values
+-!weather should now work again
+-users in !ts output now sorted by channels
+-added !heal clear and !assist clear
+-combined all alias commands into !alias
+-added setting 'add_member_on_join' to control whether the bot automatically adds players who !join the bot as members
+-bot core rewritten to use namespaces (old modules will need to add 'use' declarations at the top of class files)
+
+*****************************
 	Version 3.0_GA:
 *****************************
 -changes relating to server merge
