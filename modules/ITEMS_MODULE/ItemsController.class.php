@@ -294,9 +294,8 @@ class ItemsController {
 			$parameters []= "ql=" . $ql;
 		}
 
-		// Assemble query URL and retrieve results.
-		$url = $server . '?' . implode('&', $parameters);
-		$data = file_get_contents($url);
+		// retrieve results.
+		$data = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
 		if (empty($data)) {
 			return null;
 		} else {
