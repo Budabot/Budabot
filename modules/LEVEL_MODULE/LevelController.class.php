@@ -106,7 +106,7 @@ class LevelController {
 	public function levelCommand($message, $channel, $sender, $sendto, $args) {
 		$level = $args[1];
 		if (($row = $this->get_level_info($level)) != false) {
-			$msg = "<white>L $row->level: team {$row->teamMin}-{$row->teamMax}<end><highlight> | <end><cyan>PvP {$row->pvpMin}-{$row->pvpMax}<end><highlight> | <end><yellow>".number_format($row->xpsk)." XP/SK<end><highlight> | <end><orange>Missions {$row->missions}<end><highlight> | <end><blue>{$row->tokens} token(s)<end>";
+			$msg = "<white>L $row->level: Team {$row->teamMin}-{$row->teamMax}<end><highlight> | <end><cyan>PvP {$row->pvpMin}-{$row->pvpMax}<end><highlight> | <end><yellow>".number_format($row->xpsk)." XP/SK<end><highlight> | <end><orange>Missions {$row->missions}<end><highlight> | <end><blue>{$row->tokens} token(s)<end>";
 		} else {
 			$msg = "Level must be between <highlight>1<end> and <highlight>220<end>.";
 		}
