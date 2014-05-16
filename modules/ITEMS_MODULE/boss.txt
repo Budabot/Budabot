@@ -1,0 +1,5 @@
+To see the drop table for a boss:
+<highlight><tab><symbol>boss 'boss name'<end>
+
+To see which boss drops an item:
+<highlight><tab><symbol>bossloot 'item'<end>
