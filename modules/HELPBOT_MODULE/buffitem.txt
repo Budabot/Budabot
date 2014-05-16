@@ -1,8 +1,0 @@
-To look up buff items:
-<highlight><tab><symbol>buffitem 'item name'<end>
-
-<header2>Example<end>
-To to look up Nova Dillon armor:
-<highlight><tab><symbol>buffitem nova dil<end>
-
-by Imoutochan, RK1
