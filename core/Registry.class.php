@@ -7,13 +7,11 @@ use ReflectionClass;
 
 class Registry {
 	private static $repo = array();
-	private static $dependencies = array();
 
 	public static function setInstance($name, $obj) {
 		$name = strtolower($name);
 		LegacyLogger::log("DEBUG", "Registry", "Adding instance '$name'");
 		Registry::$repo[$name] = $obj;
-		self::injectDependencies($obj);
 	}
 	
 	public static function formatName($name) {
@@ -55,8 +53,12 @@ class Registry {
 				} else {
 					$dependencyName = $property->name;
 				}
-				$dependencyName = strtolower($dependencyName);
-				self::$dependencies[$dependencyName] []= array($instance, $property->name);
+				$dependency = Registry::getInstance($dependencyName);
+				if ($dependency == null) {
+					LegacyLogger::log("WARN", "Registry", "Could resolve dependency '$dependencyName'");
+				} else {
+					$instance->{$property->name} = $dependency;
+				}
 			} else if ($property->hasAnnotation('Logger')) {
 				if (@$property->getAnnotation('Logger')->value != '') {
 					$tag = $property->getAnnotation('Logger')->value;
@@ -66,26 +68,6 @@ class Registry {
 				}
 				$instance->{$property->name} = new LoggerWrapper($tag);
 			}
-		}
-		forEach (self::$repo as $instanceName => $instance) {
-			if (isset(self::$dependencies[$instanceName]) && !empty(self::$dependencies[$instanceName])) {
-				forEach (self::$dependencies[$instanceName] as $injection) {
-					list($injectObject, $injectVariable) = $injection;
-					$injectObject->{$injectVariable} = $instance;
-				}
-				unset(self::$dependencies[$instanceName]);
-			}
-		}
-	}
-	
-	public static function checkForMissingDependencies() {
-		forEach (self::$dependencies as $name => $arr) {
-			$dependers = array();
-			forEach ($arr as $obj) {
-				list($injectObject, $injectVariable) = $obj;
-				$dependers []= get_class($injectObject);
-			}
-			LegacyLogger::log("WARN", "Registry", "Could not find instance '$name' to inject to: ". implode(",", $dependers));
 		}
 	}
 

@@ -70,19 +70,12 @@ class Budabot extends AOChat {
 	var $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
 		'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
 		'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
-
-	private $setupHandlers = array();
 	
 	public function init(&$vars) {
 		$this->vars = $vars;
 
 		// Set startup time
 		$this->vars["startup"] = time();
-
-		// set default value for module load paths if not set correctly
-		if (!isset($this->vars['module_load_paths']) || !is_array($this->vars['module_load_paths'])) {
-			$this->vars['module_load_paths'] = array('./modules');
-		}
 	
 		$this->logger->log('DEBUG', 'Initializing bot');
 
@@ -130,13 +123,14 @@ class Budabot extends AOChat {
 		forEach ($data as $row) {
 			$this->existing_cmd_aliases[$row->alias] = true;
 		}
-
-		$this->loadCoreModules();
-
-		//Load user modules
-		$this->loadUserModules();
 		
-		Registry::checkForMissingDependencies();
+		$this->db->begin_transaction();
+		forEach (Registry::getAllInstances() as $name => $instance) {
+			if (isset($instance->moduleName)) {
+				$this->registerInstance($name, $instance);
+			}
+		}
+		$this->db->commit();
 		
 		//remove arrays
 		unset($this->existing_commands);
@@ -214,92 +208,6 @@ class Budabot extends AOChat {
 		} else {
 			$this->ready = true;
 			return false;
-		}
-	}
-
-	function loadCoreModules() {
-		// Load the Core Modules
-		$this->logger->log('INFO', "Loading CORE modules...");
-		$core_modules = array('CONFIG', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE', 'HTTP_SERVER_MODULE', 'PROFILE', 'COLORS');
-		$this->db->begin_transaction();
-		forEach ($core_modules as $MODULE_NAME) {
-			$this->registerModule("./core", $MODULE_NAME);
-		}
-		$this->callAndClearSetupHandlers();
-		$this->db->commit();
-	}
-
-	/**
-	 * @name: loadUserModules
-	 * @description: load all user modules
-	 */
-	function loadUserModules() {
-		$this->logger->log('INFO', "Loading USER modules...");
-		$this->db->begin_transaction();
-		forEach ($this->vars['module_load_paths'] as $path) {
-			if ($d = dir($path)) {
-				while (false !== ($MODULE_NAME = $d->read())) {
-					if ($this->isModuleDir($path, $MODULE_NAME)) {
-						$this->registerModule($path, $MODULE_NAME);
-					}
-				}
-				$d->close();
-			}
-		}
-		$this->callAndClearSetupHandlers();
-		$this->db->commit();
-	}
-
-	private function isModuleDir($path, $moduleName) {
-		return $this->isValidModuleName($moduleName)
-			&& is_dir("$path/$moduleName");
-	}
-
-	private function isValidModuleName($name) {
-		return $name != '.' && $name != '..';
-	}
-
-	/**
-	 * Calls all so far collected @Setup handlers and clears them after use.
-	 */
-	private function callAndClearSetupHandlers() {
-		// changed to while loop since other setupHandlers can be added
-		// during the loop due to LegacyController
-		while (!empty($this->setupHandlers)) {
-			$handler = array_shift($this->setupHandlers);
-			$handler[0] = Registry::getInstance($handler[0]);
-			if (call_user_func($handler) === false) {
-				$this->logger->log('ERROR', "Failed to call setup handler");
-			}
-		}
-	}
-
-	public function registerModule($baseDir, $MODULE_NAME) {
-		// read module.ini file (if it exists) from module's directory
-		if (file_exists("{$baseDir}/{$MODULE_NAME}/module.ini")) {
-			$entries = parse_ini_file("{$baseDir}/{$MODULE_NAME}/module.ini");
-			// check that current PHP version is greater or equal than module's
-			// minimum required PHP version
-			if (isset($entries["minimum_php_version"])) {
-				$minimum = $entries["minimum_php_version"];
-				$current = phpversion();
-				if (strnatcmp($minimum, $current) > 0) {
-					$this->logger->log('WARN', "Could not load module"
-					." {$MODULE_NAME} as it requires at least PHP version '$minimum',"
-					." but current PHP version is '$current'");
-					return;
-				}
-			}
-		}
-
-		$newInstances = Registry::getNewInstancesInDir("{$baseDir}/{$MODULE_NAME}");
-		forEach ($newInstances as $name => $className) {
-			$this->registerInstance($MODULE_NAME, $name, new $className);
-		}
-
-		if (count($newInstances) == 0) {
-			$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. No classes found with @Instance annotation!");
-			return;
 		}
 	}
 
@@ -753,14 +661,9 @@ class Budabot extends AOChat {
 		$this->eventManager->fireEvent($eventObj);
 	}
 
-	public function registerInstance($MODULE_NAME, $name, &$obj) {
-		$name = Registry::formatName(strtolower($name));
+	public function registerInstance($name, &$obj) {
 		$this->logger->log('DEBUG', "Registering instance name '$name' for module '$MODULE_NAME'");
-		if (Registry::instanceExists($name)) {
-			$this->logger->log('WARN', "Instance with name '$name' already registered--replaced with new instance");
-		}
-		$obj->moduleName = $MODULE_NAME;
-		Registry::setInstance($name, $obj);
+		$MODULE_NAME = $obj->moduleName;
 
 		// register settings annotated on the class
 		$reflection = new ReflectionAnnotatedClass($obj);
@@ -814,7 +717,9 @@ class Budabot extends AOChat {
 
 		forEach ($reflection->getMethods() as $method) {
 			if ($method->hasAnnotation('Setup')) {
-				$this->setupHandlers[] = array($name, $method->name);
+				if (call_user_func(array($obj, $method->name)) === false) {
+					$this->logger->log('ERROR', "Failed to call setup handler for '$name'");
+				}
 			} else if ($method->hasAnnotation('HandlesCommand')) {
 				$commandName = $method->getAnnotation('HandlesCommand')->value;
 				$methodName  = $method->name;

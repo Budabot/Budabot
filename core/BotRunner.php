@@ -53,7 +53,9 @@ class BotRunner {
 
 		$this->logStartupMessage();
 
-		$this->createGlobalInstances();
+		$classLoader = new ClassLoader($vars['module_load_paths']);
+		Registry::injectDependencies($classLoader);
+		$classLoader->loadInstances();
 
 		$this->connectToDatabase();
 		$this->clearDatabaseInformation();
@@ -141,6 +143,7 @@ Contacts:      Tyrence, Marebone
 
 	private function loadEssentialCoreClasses() {
 		require_once './core/Registry.class.php';
+		require_once './core/ClassLoader.class.php';
 		require_once './core/LegacyLogger.class.php';
 		require_once './core/LoggerWrapper.class.php';
 		require_once './core/annotations.php';
@@ -163,7 +166,8 @@ Contacts:      Tyrence, Marebone
 		$vars["name"] = ucfirst(strtolower($vars["name"]));
 	}
 
-	private function configureLogger() { // Configure log files to be separate for each bot
+	// Configure log files to be separate for each bot
+	private function configureLogger() {
 		$configurator = new LoggerConfiguratorDefault();
 		$config = $configurator->parse('conf/log4php.xml');
 		$file = $config['appenders']['defaultFileAppender']['params']['file'];
@@ -183,13 +187,6 @@ Contacts:      Tyrence, Marebone
 	private function logStartupMessage() {
 		global $vars;
 		LegacyLogger::log('INFO', 'StartUp', "Starting {$vars['name']} on RK{$vars['dimension']}...");
-	}
-
-	private function createGlobalInstances() {
-		$newInstances = Registry::getNewInstancesInDir("./core");
-		forEach ($newInstances as $name => $className) {
-			Registry::setInstance($name, new $className);
-		}
 	}
 
 	private function connectToDatabase() {
