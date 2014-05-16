@@ -24,6 +24,9 @@ class WhatBuffsController {
 	public $text;
 	
 	/** @Inject */
+	public $db;
+	
+	/** @Inject */
 	public $util;
 	
 	/** @Inject */
@@ -33,11 +36,10 @@ class WhatBuffsController {
 	public $logger;
 	
 	private $types = array('Weapon' => '-3', 'Armor' => '-4', 'Utility' => '-6');
-	private $skills = array('Agility', 'Intelligence', 'Psychic', 'Sense', 'Stamina', 'Strength');
 	
 	/** @Setup */
 	public function setup() {
-		
+		$this->db->loadSQLFile($this->moduleName, "skills");
 	}
 
 	/**
@@ -55,9 +57,10 @@ class WhatBuffsController {
 			$msg = $this->text->make_blob("WhatBuffs - Choose Type", $blob);
 		} else if (count($args) == 2) {
 			$type = ucfirst(strtolower($args[1]));
+			$data = $this->db->query("SELECT name FROM skills WHERE common = 1");
 			$blob = '';
-			forEach ($this->skills as $skill) {
-				$blob .= $this->text->make_chatcmd(ucfirst($skill), "/tell <myname> whatbuffs $type $skill") . "\n";
+			forEach ($data as $row) {
+				$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $type $row->name") . "\n";
 			}
 			$msg = $this->text->make_blob("WhatBuffs - Choose Skill", $blob);
 		} else if (count($args) == 3) {
@@ -72,15 +75,22 @@ class WhatBuffsController {
 			
 			preg_match_all("@<a href=\"/ao/db.php\?id=(\d+)\">([^>]+)</a>@", $contents, $matches, PREG_SET_ORDER);
 			
-			$blob = '';
+			$blob = $this->text->make_chatcmd("See results on Auno.org", "/start $newUrl") . "\n\n";
+			$count = 0;
 			forEach ($matches as $match) {
 				$item = $this->itemsController->findById($match[1]);
 				if ($item !== null) {
+					$count++;
 					$blob .= $this->text->make_item($item->lowid, $item->highid, $item->highql, $item->name) . "\n";
 				}
 			}
 			$blob .= "\nSearch results provied by Auno.org";
-			$msg = $this->text->make_blob("WhatBuffs - $type $skill", $blob);
+			
+			if ($count > 0) {
+				$msg = $this->text->make_blob("WhatBuffs - $type $skill ($count)", $blob);
+			} else {
+				$msg = "No results found for $type $skill.";
+			}
 		}
 		$sendto->reply($msg);
 	}
