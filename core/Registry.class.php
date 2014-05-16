@@ -82,33 +82,6 @@ class Registry {
 		runkit_import($reflection->getFileName(), RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_FUNCTIONS | RUNKIT_IMPORT_OVERRIDE);
 	}
 	
-	public static function getNewInstancesInDir($path) {
-		$original = get_declared_classes();
-		if ($dir = dir($path)) {
-			while (false !== ($file = $dir->read())) {
-				if (!is_dir($path . '/' . $file) && preg_match("/\\.php$/i", $file)) {
-					require_once "{$path}/{$file}";
-				}
-			}
-			$dir->close();
-		}
-		$new = array_diff(get_declared_classes(), $original);
-
-		$newInstances = array();
-		forEach ($new as $className) {
-			$reflection = new ReflectionAnnotatedClass($className);
-			if ($reflection->hasAnnotation('Instance')) {
-				if ($reflection->getAnnotation('Instance')->value != '') {
-					$name = $reflection->getAnnotation('Instance')->value;
-				} else {
-					$name = Registry::formatName($className);
-				}
-				$newInstances[$name] = $className;
-			}
-		}
-		return $newInstances;
-	}
-	
 	public static function getAllInstances() {
 		return self::$repo;
 	}

@@ -2,6 +2,8 @@
 
 namespace Budabot\Core;
 
+use ReflectionAnnotatedClass;
+
 class ClassLoader {
 	/** @Logger */
 	public $logger;
@@ -13,7 +15,7 @@ class ClassLoader {
 	}
 
 	public function loadInstances() {
-		$newInstances = Registry::getNewInstancesInDir("./core");
+		$newInstances = $this->getNewInstancesInDir("./core");
 		forEach ($newInstances as $name => $className) {
 			Registry::setInstance($name, new $className);
 		}
@@ -82,7 +84,7 @@ class ClassLoader {
 			}
 		}
 
-		$newInstances = Registry::getNewInstancesInDir("{$baseDir}/{$MODULE_NAME}");
+		$newInstances = $this->getNewInstancesInDir("{$baseDir}/{$MODULE_NAME}");
 		forEach ($newInstances as $name => $className) {
 			$obj = new $className;
 			$obj->moduleName = $MODULE_NAME;
@@ -96,6 +98,33 @@ class ClassLoader {
 			$this->logger->log('ERROR', "Could not load module {$MODULE_NAME}. No classes found with @Instance annotation!");
 			return;
 		}
+	}
+	
+	public static function getNewInstancesInDir($path) {
+		$original = get_declared_classes();
+		if ($dir = dir($path)) {
+			while (false !== ($file = $dir->read())) {
+				if (!is_dir($path . '/' . $file) && preg_match("/\\.php$/i", $file)) {
+					require_once "{$path}/{$file}";
+				}
+			}
+			$dir->close();
+		}
+		$new = array_diff(get_declared_classes(), $original);
+
+		$newInstances = array();
+		forEach ($new as $className) {
+			$reflection = new ReflectionAnnotatedClass($className);
+			if ($reflection->hasAnnotation('Instance')) {
+				if ($reflection->getAnnotation('Instance')->value != '') {
+					$name = $reflection->getAnnotation('Instance')->value;
+				} else {
+					$name = Registry::formatName($className);
+				}
+				$newInstances[$name] = $className;
+			}
+		}
+		return $newInstances;
 	}
 }
 
