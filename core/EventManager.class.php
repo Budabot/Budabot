@@ -251,7 +251,7 @@ class EventManager {
 
 		$this->logger->log('DEBUG', "Executing cron events at '$time'");
 		forEach ($this->cronevents as $key => $event) {
-			if ($event['nextevent'] <= $time) {
+			if ($this->cronevents[$key]['nextevent'] <= $time) {
 				$this->logger->log('DEBUG', "Executing cron event '${event['filename']}'");
 
 				$eventObj = new stdClass;
