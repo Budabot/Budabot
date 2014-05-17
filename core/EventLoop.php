@@ -32,13 +32,13 @@ class EventLoop {
 	}
 	
 	public function execSingleLoop() {
-		$this->processAoChatPackets();
+		$this->chatBot->processAllPackets();
 
-		if ($this->isBotReady()) {
-			$this->executeSocketEvents();
-			$this->executeConnectEvents();
-			$this->executeTimerEvents();
-			$this->executeCronEvents();
+		if ($this->chatBot->is_ready()) {
+			$this->socketManager->checkMonitoredSockets();
+			$this->eventManager->executeConnectEvents();
+			$this->timer->executeTimerEvents();
+			$this->eventManager->crons();
 
 			usleep(10000);
 		}
@@ -50,29 +50,5 @@ class EventLoop {
 	 */
 	public function quit() {
 		$this->shouldQuit = true;
-	}
-
-	private function isBotReady() {
-		return $this->chatBot->is_ready();
-	}
-
-	private function processAoChatPackets() {
-		$this->chatBot->processAllPackets();
-	}
-
-	private function executeTimerEvents() {
-		$this->timer->executeTimerEvents();
-	}
-
-	private function executeSocketEvents() {
-		$this->socketManager->checkMonitoredSockets();
-	}
-
-	private function executeCronEvents() {
-		$this->eventManager->crons();
-	}
-
-	private function executeConnectEvents() {
-		$this->eventManager->executeConnectEvents();
 	}
 }
