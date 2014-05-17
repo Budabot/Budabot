@@ -149,7 +149,7 @@ class BankController {
 		if (count($data) > 0) {
 			forEach ($data as $row) {
 				$item_link = $this->text->make_item($row->lowid, $row->highid, $row->ql, $row->name);
-				$blob .= "{$item_link} ({$row->ql}) (<green>{$row->player}<end>, {$row->container})\n";
+				$blob .= "{$item_link} ({$row->ql}) (<highlight>{$row->player}<end>, {$row->container})\n";
 			}
 
 			$msg = $this->text->make_blob("Bank Search Results for {$args[1]}", $blob);

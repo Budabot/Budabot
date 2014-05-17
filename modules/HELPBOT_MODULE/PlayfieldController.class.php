@@ -54,7 +54,7 @@ class PlayfieldController {
 		$sql = "SELECT * FROM playfields ORDER BY long_name";
 		$data = $this->db->query($sql);
 		forEach ($data as $row) {
-			$blob .= "{$row->id}   <green>{$row->long_name}<end>   <cyan>({$row->short_name})<end>\n";
+			$blob .= "{$row->id}   <highlight>{$row->long_name}<end>   ({$row->short_name})\n";
 		}
 
 		$msg = $this->text->make_blob("Playfields", $blob);
