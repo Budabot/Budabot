@@ -35,7 +35,7 @@ class WhatBuffsController {
 	/** @Logger */
 	public $logger;
 	
-	private $types = array('Weapon' => '-3', 'Armor' => '-4', 'Utility' => '-6');
+	private $types = array('Nano' => -2, 'Weapon' => '-3', 'Armor' => '-4', 'Utility' => '-6');
 	
 	/** @Setup */
 	public function setup() {
@@ -75,24 +75,59 @@ class WhatBuffsController {
 			
 			preg_match_all("@<a href=\"/ao/db.php\?id=(\d+)\">([^>]+)</a>@", $contents, $matches, PREG_SET_ORDER);
 			
-			$blob = $this->text->make_chatcmd("See results on Auno.org", "/start $newUrl") . "\n\n";
-			$count = 0;
-			forEach ($matches as $match) {
-				$item = $this->itemsController->findById($match[1]);
-				if ($item !== null) {
-					$count++;
-					$blob .= $this->text->make_item($item->lowid, $item->highid, $item->highql, $item->name) . "\n";
-				}
-			}
-			$blob .= "\nSearch results provied by Auno.org";
-			
-			if ($count > 0) {
-				$msg = $this->text->make_blob("WhatBuffs - $type $skill ($count)", $blob);
+			if ($type == 'Nano') {
+				$result = $this->formatNanos($matches);
 			} else {
-				$msg = "No results found for $type $skill.";
+				$result = $this->formatItems($matches);
+			}
+
+			if ($result === null) {
+				$msg = "No {$type}s found that buff $skill.";
+			} else {
+				list($count, $blob) = $result;
+				$blob = $this->text->make_chatcmd("See results on Auno.org", "/start $url") . "\n\n" . $blob;
+				$blob .= "\nSearch results provied by Auno.org";
+				$msg = $this->text->make_blob("WhatBuffs - $type $skill ($count)", $blob);
 			}
 		}
 		$sendto->reply($msg);
+	}
+	
+	public function formatItems($matches) {
+		$items = array();
+		forEach ($matches as $match) {
+			$item = $this->itemsController->findById($match[1]);
+			if ($item !== null) {
+				$items []= $item;
+			}
+		}
+		$items = array_unique($items, SORT_REGULAR);
+		
+		$blob = '';
+		forEach ($items as $item) {
+			$blob .= $this->text->make_item($item->lowid, $item->highid, $item->highql, $item->name) . "\n";
+		}
+
+		$count = count($items);		
+		if ($count > 0) {
+			return array($count, $blob);
+		} else {
+			return null;
+		}
+	}
+	
+	public function formatNanos($matches) {
+		$blob = '';
+		forEach ($matches as $match) {
+			$blob .= $match[2] . "\n";
+		}
+
+		$count = count($matches);		
+		if ($count > 0) {
+			return array($count, $blob);
+		} else {
+			return null;
+		}
 	}
 }
 
