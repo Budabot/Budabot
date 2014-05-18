@@ -26,9 +26,7 @@ class GitController extends AutoInject {
 	 */
 	public $moduleName;
 	
-	/**
-	 * @Setup
-	 */
+	/** @Setup */
 	public function setup() {
 		$this->settingManager->add($this->moduleName, "gitpath", "Path to git binary", "edit", "text", "git", "git;/usr/bin/git;C:/Program Files (x86)/Git/bin/git.exe");
 	}

@@ -45,8 +45,8 @@ class WhatBuffsController {
 	/**
 	 * @HandlesCommand("whatbuffs")
 	 * @Matches("/^whatbuffs$/i")
-	 * @Matches("/^whatbuffs ([^ ]+)$/i")
-	 * @Matches("/^whatbuffs ([^ ]+) (.*)$/i")
+	 * @Matches("/^whatbuffs (nano|weapon|armor|utility)$/i")
+	 * @Matches("/^whatbuffs (nano|weapon|armor|utility) (.*)$/i")
 	 */
 	public function whatbuffsCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 1) {
