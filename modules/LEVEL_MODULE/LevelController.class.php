@@ -176,11 +176,11 @@ class LevelController {
 					}
 				}
 				if ($sk > 0 && $xp > 0) {
-					$msg = "From the beginning of <highlight>$minLevel<end> to <highlight>$maxLevel<end>, you need <highlight>".number_format($xp)."<end> XP and <highlight>".number_format($sk)."<end> SK.";
+					$msg = "From the beginning of level <highlight>$minLevel<end> you need <highlight>".number_format($xp)."<end> XP and <highlight>".number_format($sk)."<end> SK to reach level <highlight>$maxLevel<end>.";
 				} else if ($sk > 0) {
-					$msg = "From the beginning of <highlight>$minLevel<end> to <highlight>$maxLevel<end>, you need <highlight>" .number_format($sk)."<end> SK.";
+					$msg = "From the beginning of level <highlight>$minLevel<end> you need <highlight>".number_format($sk)."<end> SK to reach level <highlight>$maxLevel<end>.";
 				} else if ($xp > 0) {
-					$msg = "From the beginning of <highlight>$minLevel<end> to <highlight>$maxLevel<end>, you need <highlight>".number_format($xp)."<end> XP.";
+					$msg = "From the beginning of level <highlight>$minLevel<end> you need <highlight>".number_format($xp)."<end> XP to reach level <highlight>$maxLevel<end>.";
 				}
 			} else {
 				$msg = "The start level cannot be higher than the end level.";

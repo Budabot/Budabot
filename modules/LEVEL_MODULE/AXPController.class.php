@@ -134,7 +134,7 @@ class AXPController {
 					$axp_comp += $this->axp[$i];
 				}
 
-				$msg = "From the beginning of AI level <highlight>$startLevel<end> to AI level <highlight>$endLevel<end> you need <highlight>".number_format($axp_comp)."<end> AXP to level up.";
+				$msg = "From the beginning of AI level <highlight>$startLevel<end> you need <highlight>".number_format($axp_comp)."<end> AXP to reach AI level <highlight>$endLevel<end>.";
 			} else {
 				$msg = "The start level cannot be higher than the end level.";
 			}
