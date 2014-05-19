@@ -3,3 +3,5 @@ To show sequence of laddering implants for an ability:
 
 To show sequence of laddering implants for treatment:
 <highlight><tab><symbol>ladder treatment 'base treatment amount'<end>
+
+The base amount should be the treatment or ability you have with all nano buffs and items-buffing equipment equipped, but minus any implants you have equipped.
