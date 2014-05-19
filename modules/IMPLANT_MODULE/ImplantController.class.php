@@ -170,26 +170,27 @@ class ImplantController {
 	
 	/**
 	 * @HandlesCommand("ladder")
-	 * @Matches("/^ladder (ability|treatment) (\d+)$/i")
+	 * @Matches("/^ladder (.+) (\d+)$/i")
 	 */
 	public function ladderCommand($message, $channel, $sender, $sendto, $args) {
 		$type = strtolower($args[1]);
+		
+		// allow treatment, ability, or any of the 6 abilities
+		if ($type != 'treatment' && $type != 'ability') {
+			$type = $this->util->get_ability($type, true);
+			if ($type === null) {
+				return false;
+			}
+			$type = strtolower($type);
+		}
+
 		$value = $args[2];
-		$prefix = $type == 'ability' ? 'ability' : 'skill';
+		$prefix = $type == 'treatment' ? 'skill' : 'ability';
 		
 		$blob = "Starting $type: $value\n\n-------------------\n\n";
 		
 		$that = $this;
-		if ($type == 'ability') {
-			if ($value < 6) {
-				$sendto->reply("Base ability must be at least <highlight>6<end>.");
-				return;
-			}
-		
-			$getMax = function($value) use ($that) {
-				return $that->findMaxImplantQlByReqs($value, 10000);
-			};
-		} else {
+		if ($type == 'treatment') {
 			if ($value < 11) {
 				$sendto->reply("Base treatment must be at least <highlight>11<end>.");
 				return;
@@ -197,6 +198,15 @@ class ImplantController {
 		
 			$getMax = function($value) use ($that) {
 				return $that->findMaxImplantQlByReqs(10000, $value);
+			};
+		} else {
+			if ($value < 6) {
+				$sendto->reply("Base ability must be at least <highlight>6<end>.");
+				return;
+			}
+		
+			$getMax = function($value) use ($that) {
+				return $that->findMaxImplantQlByReqs($value, 10000);
 			};
 		}
 
