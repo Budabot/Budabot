@@ -119,7 +119,7 @@ class UsageController {
 	
 		$cmd = strtolower($args[1]);
 	
-		$sql = "SELECT sender, COUNT(sender) AS count FROM usage_<myname> WHERE command = ? AND dt > ? GROUP BY command ORDER BY count DESC";
+		$sql = "SELECT sender, COUNT(sender) AS count FROM usage_<myname> WHERE command = ? AND dt > ? GROUP BY sender ORDER BY count DESC";
 		$data = $this->db->query($sql, $cmd, $time);
 		$count = count($data);
 
