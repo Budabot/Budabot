@@ -303,7 +303,7 @@ class CommandManager {
 				} else {
 					// methods will return false to indicate a syntax error, so when a false is returned,
 					// we set $syntaxError = true, otherwise we set it to false
-					$syntaxError = ($instance->$method($message, $channel, $sender, $sendto, $arr) !== false ? false : true);
+					$syntaxError = ($instance->$method($message, $channel, $sender, $sendto, $arr) === false);
 					if ($syntaxError == false) {
 						// we can stop looking, command was handled succesfully
 						break;

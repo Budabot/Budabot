@@ -119,7 +119,7 @@ class WhatBuffsController {
 	public function formatNanos($matches) {
 		$blob = '';
 		forEach ($matches as $match) {
-			$blob .= $match[2] . "\n";
+			$blob .= $this->text->make_chatcmd($match[2], "/tell <myname> nano $match[2]") . "\n";
 		}
 
 		$count = count($matches);		
