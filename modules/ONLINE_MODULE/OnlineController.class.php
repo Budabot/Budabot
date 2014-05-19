@@ -354,7 +354,6 @@ class OnlineController {
 	}
 
 	public function createList(&$data, $show_alts, $show_org_info) {
-		//Colorful temporary var settings (avoid a mess of if statements later in the function)
 		$fancyColon = "::";
 
 		$current_profession = "";
@@ -411,14 +410,14 @@ class OnlineController {
 
 			$name = $this->text->make_chatcmd($row->name, "/tell $row->name");
 			$afk  = $this->get_afk_info($row->afk, $fancyColon);
-			$alt  = ($show_alts == true) ? $this->get_alt_char_info($row->name, $fancyColon):"";
+			$alt  = ($show_alts == true) ? $this->get_alt_char_info($row->name, $fancyColon) : "";
 
 			switch ($row->profession) {
 				case "":
 					$blob .= "<tab><tab>$name - Unknown$alt\n";
 					break;
 				default:
-					$admin = ($show_alts == true) ? $this->get_admin_info($row->name, $fancyColon):"";
+					$admin = ($show_alts == true) ? $this->get_admin_info($row->name, $fancyColon) : "";
 					$guild = $this->get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
 					$blob .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 			}

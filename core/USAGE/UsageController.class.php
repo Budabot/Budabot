@@ -213,7 +213,7 @@ class UsageController {
 	 * @Description("Submits anonymous usage stats to Budabot website")
 	 * @DefaultStatus("1")
 	 */
-	public function submitUsage($eventObj) {
+	public function submitAnonymousUsage($eventObj) {
 		$debug = false;
 		$time = time();
 		$settingName = 'last_submitted_stats';
