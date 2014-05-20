@@ -26,10 +26,6 @@ class CommandlistController {
 	public $db;
 
 	/**
-	 * This command handler shows a list of all commands on the bot.
-	 * Additionally, a search string can be provided to show only commands
-	 * which match the string.
-	 *
 	 * @HandlesCommand("cmdlist")
 	 * @Matches("/^cmdlist$/i")
 	 * @Matches("/^cmdlist (.*)$/i")
@@ -37,8 +33,8 @@ class CommandlistController {
 	public function cmdlistCommand($message, $channel, $sender, $sendto, $args) {
 		$params = array();
 		if ($args[1] != '') {
-			$params []= '%' . $args[1] . '%';
-			$cmdSearchSql = "AND c.cmd LIKE ?";
+			$params []= $this->accessManager->normalizeAccessLevel($args[1]);
+			$cmdSearchSql = "AND c.admin LIKE ?";
 		}
 	
 		$sql = "
