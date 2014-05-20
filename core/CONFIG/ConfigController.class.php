@@ -101,7 +101,7 @@ class ConfigController {
 				UNION
 				SELECT module, status FROM eventcfg_<myname>
 				UNION
-				SELECT module, 1 FROM settings_<myname>) t
+				SELECT module, 2 FROM settings_<myname>) t
 			GROUP BY
 				module
 			ORDER BY
