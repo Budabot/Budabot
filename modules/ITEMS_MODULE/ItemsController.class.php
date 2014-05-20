@@ -283,23 +283,23 @@ class ItemsController {
 		// Store parameters as an array, for easy assembly later.
 		$parameters = array(
 			// Should always specify which bot software is querying.
-			"bot=Budabot",
-			"output=json",
-			"max=" . $this->settingManager->get('maxitems'),
-			"version=" . "1.2",
-			"search=" . urlencode($search));
+			"bot" => "Budabot",
+			"output" => "json",
+			"max" => $this->settingManager->get('maxitems'),
+			"version" => "1.2",
+			"search" => $search);
 
 		// Don't include QL in the query unless the user specified it.
 		if ($ql > 0) {
-			$parameters []= "ql=" . $ql;
+			$parameters["ql"] = $ql;
 		}
 
 		// retrieve results.
 		$data = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
-		if (empty($data)) {
+		if (empty($data) || empty($data->body)) {
 			return null;
 		} else {
-			$obj = json_decode($data);
+			$obj = json_decode($data->body);
 			
 			// change attribute names data to match expected format
 			forEach ($obj->results as $item) {
