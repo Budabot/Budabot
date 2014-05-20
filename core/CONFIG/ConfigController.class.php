@@ -608,12 +608,13 @@ class ConfigController {
 			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} disable {$type}'>Disabled</a>\n";
 
 			$msg .= "Set access level: ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} all'>All</a>  ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} member'>Member</a>  ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} guild'>Guild</a>  ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} rl'>RL</a>  ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} mod'>Mod</a>  ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} admin'>Admin</a>\n";
+			forEach ($this->accessManager->getAccessLevels() as $accessLevel => $level) {
+				if ($accessLevel == 'none') {
+					continue;
+				}
+				$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} $accessLevel'>" . ucfirst($accessLevel) . "</a>  ";
+			}
+			$msg .= "\n";
 		} else {
 			$this->logger->log("ERROR", "Multiple rows exists for cmd: '$cmd' and type: '$type'");
 		}
@@ -646,12 +647,13 @@ class ConfigController {
 			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} disable {$type}'>Disabled</a>\n";
 
 			$subcmd_list .= "Set access level: ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} all'>All</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} member'>Member</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} guild'>Guild</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} rl'>RL</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} mod'>Mod</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} admin'>Admin</a>\n\n";
+			forEach ($this->accessManager->getAccessLevels() as $accessLevel => $level) {
+				if ($accessLevel == 'none') {
+					continue;
+				}
+				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} $accessLevel'>" . ucfirst($accessLevel) . "</a>  ";
+			}
+			$subcmd_list .= "\n\n";
 		}
 		return $subcmd_list;
 	}

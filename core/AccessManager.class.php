@@ -10,7 +10,7 @@ use Exception;
  * @Instance
  */
 class AccessManager {
-	public static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'rl' => 4, 'guild' => 6, 'member' => 7, 'all' => 8);
+	private static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'rl' => 4, 'guild' => 6, 'member' => 7, 'all' => 8);
 
 	/** @Inject */
 	public $db;
@@ -211,8 +211,10 @@ class AccessManager {
 	public function compareAccessLevels($accessLevel1, $accessLevel2) {
 		$accessLevel1 = $this->normalizeAccessLevel($accessLevel1);
 		$accessLevel2 = $this->normalizeAccessLevel($accessLevel2);
+		
+		$accessLevels = $this->getAccessLevels();
 
-		return self::$ACCESS_LEVELS[$accessLevel2] - self::$ACCESS_LEVELS[$accessLevel1];
+		return $accessLevels[$accessLevel2] - $accessLevels[$accessLevel1];
 	}
 
 	/**
@@ -231,11 +233,16 @@ class AccessManager {
 	}
 	
 	public function getAccessLevel($accessLevel) {
-		if (isset(self::$ACCESS_LEVELS[$accessLevel])) {
+		$accessLevels = $this->getAccessLevels();
+		if (isset($accessLevels[$accessLevel])) {
 			return strtolower($accessLevel);
 		} else {
 			throw new Exception("Invalid access level '$accessLevel'.");
 		}
+	}
+	
+	public function getAccessLevels() {
+		return self::$ACCESS_LEVELS;
 	}
 }
 
