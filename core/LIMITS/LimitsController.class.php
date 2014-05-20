@@ -51,15 +51,16 @@ class LimitsController {
 	
 	public function check($sender, $message) {
 		if (preg_match("/^about$/i", $message)) {
-			return true;
+			$msg = true;
 		} else if ($this->whitelistController->check($sender) || $sender == ucfirst(strtolower($this->settingManager->get("relaybot")))) {
-			return true;
-		} else if ($this->accessManager->checkAccess($sender, 'mod')) {
-			// if mod or higher, grant access automatically
-			return true;
+			$msg = true;
+		} else if ($this->accessManager->checkAccess($sender, 'member')) {
+			// if access level is at least member, skip checks
+			$msg = true;
+		} else {
+			$msg = $this->runChecks($sender);
 		}
 	
-		$msg = $this->runChecks($sender);
 		if ($msg === true) {
 			return true;
 		} else {
@@ -73,16 +74,19 @@ class LimitsController {
 			} else {
 				// else do not send a message
 			}
+			
+			if ($this->settingManager->get('access_denied_notify_guild') == 1) {
+				$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$message<end> due to limit checks.", true);
+			}
+			if ($this->settingManager->get('access_denied_notify_priv') == 1) {
+				$this->chatBot->sendPrivate("Player <highlight>$sender<end> was denied access to command <highlight>$message<end> due to limit checks.", true);
+			}
+
 			return false;
 		}
 	}
 
 	public function runChecks($sender) {
-		// if access level is at least member, skip checks
-		if ($this->accessManager->checkAccess($sender, 'member')) {
-			return true;
-		}
-
 		if ($this->settingManager->get("tell_req_lvl") != 0 || $this->settingManager->get("tell_req_faction") != "all") {
 			// get player info which is needed for following checks
 			$whois = $this->playerManager->get_by_name($sender);
