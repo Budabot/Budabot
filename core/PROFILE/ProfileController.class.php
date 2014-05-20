@@ -149,6 +149,12 @@ class ProfileController {
 				}
 				$contents .= "!config cmd {$row->cmd} {$status} {$row->type}\n";
 			}
+			$contents .= "\n# Aliases\n";
+			$data = $this->db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1' ORDER BY alias ASC");
+			forEach ($data as $row) {
+				$contents .= "!alias rem {$row->alias}\n";
+				$contents .= "!alias add {$row->alias} {$row->cmd}\n";
+			}
 			file_put_contents($filename, $contents);
 			$msg = "Profile <highlight>$profileName<end> has been saved.";
 		}
