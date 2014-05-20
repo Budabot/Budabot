@@ -112,8 +112,8 @@ class WhitelistController {
 	public function check($user) {
 		$user = ucfirst(strtolower($user));
 
-		$data = $this->db->query("SELECT * FROM whitelist WHERE name = ?", $user);
-		if (count($data) == 0) {
+		$row = $this->db->queryRow("SELECT * FROM whitelist WHERE name = ? LIMIT 1", $user);
+		if ($row === null) {
 			return false;
 		} else {
 			return true;
