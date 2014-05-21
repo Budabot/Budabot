@@ -1337,7 +1337,7 @@ class TowerController {
 		$blob = "Short name: <highlight>{$row->short_name} {$row->site_number}<end>\n";
 		$blob .= "Long name: <highlight>{$row->site_name}, {$row->long_name}<end>\n";
 		$blob .= "Level range: <highlight>{$row->min_ql}-{$row->max_ql}<end>\n";
-		$blob .= "Centre coordinates: $waypointLink\n";
+		$blob .= "Center coordinates: $waypointLink\n";
 		$blob .= $attacksLink . "\n";
 		$blob .= $victoryLink;
 		
