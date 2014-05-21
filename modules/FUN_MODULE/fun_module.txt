@@ -5,9 +5,6 @@ To show a ding gratz message:
 <highlight><tab><symbol>ding 'your new level'<end>
 <highlight><tab><symbol>ding<end>
 
-To show a random doh message:
-<highlight><tab><symbol>doh<end>
-
 To show a random beer message:
 <highlight><tab><symbol>beer<end>
 

@@ -41,12 +41,6 @@ namespace Budabot\User\Modules;
  *		help        = 'fun_module.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'doh',
- *		accessLevel = 'all',
- *		description = 'Shows a random doh message',
- *		help        = 'fun_module.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'dwight',
  *		accessLevel = 'all',
  *		description = 'Shows a random Dwight quote',
@@ -98,7 +92,6 @@ class FunController {
 		$this->db->loadSQLFile($this->moduleName, "chuck");
 		$this->db->loadSQLFile($this->moduleName, "credz");
 		$this->db->loadSQLFile($this->moduleName, "cybor");
-		$this->db->loadSQLFile($this->moduleName, "doh");
 		$this->db->loadSQLFile($this->moduleName, "dwight");
 		$this->db->loadSQLFile($this->moduleName, "fc");
 		$this->db->loadSQLFile($this->moduleName, "homer");
@@ -190,18 +183,6 @@ class FunController {
 	 */
 	public function cyborCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->getFunItem('cybor', $sender, $args[1]);
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("doh")
-	 * @Matches("/^doh$/i")
-	 * @Matches("/^doh (\d+)$/i")
-	 *
-	 * Author: Neksus (RK2)
-	 */
-	public function dohCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getFunItem('doh', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
