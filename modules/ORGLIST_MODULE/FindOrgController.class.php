@@ -95,9 +95,8 @@ class FindOrgController {
 		forEach ($orgs as $row) {
 			$whoisorg = $this->text->make_chatcmd('Whoisorg', "/tell <myname> whoisorg {$row->id}");
 			$orglist = $this->text->make_chatcmd('Orglist', "/tell <myname> orglist {$row->id}");
-			$orgranks = $this->text->make_chatcmd('Orgranks', "/tell <myname> orgranks {$row->id}");
 			$orgmembers = $this->text->make_chatcmd('Orgmembers', "/tell <myname> orgmembers {$row->id}");
-			$blob .= "<{$row->faction}>{$row->name}<end> ({$row->id}) - {$row->numMembers} members [$orglist] [$whoisorg] [$orgranks] [$orgmembers]\n\n";
+			$blob .= "<{$row->faction}>{$row->name}<end> ({$row->id}) - {$row->numMembers} members [$orglist] [$whoisorg] [$orgmembers]\n\n";
 		}
 		return $blob;
 	}
