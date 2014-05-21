@@ -1,2 +1,0 @@
-To see the QL of items that a mob can drop:
-<highlight><tab><symbol>mobloot 'QL of mob'<end>

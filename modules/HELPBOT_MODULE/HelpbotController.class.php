@@ -12,12 +12,6 @@ namespace Budabot\User\Modules;
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'mobloot', 
- *		accessLevel = 'all', 
- *		description = 'Show loot QL info', 
- *		help        = 'mobloot.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'dyna', 
  *		accessLevel = 'all', 
  *		description = 'Search for RK Dynabosses', 
@@ -65,25 +59,6 @@ class HelpbotController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'dyna');
-	}
-
-	/**
-	 * @HandlesCommand("mobloot")
-	 * @Matches("/^mobloot ([0-9]+)$/i")
-	 */
-	public function moblootCommand($message, $channel, $sender, $sendto, $args) {
-		$lvl = trim($args[1]);
-
-		if ($lvl > 300 || $lvl < 1) {
-			$msg = "Level entered is out of range... please enter a number between <highlight>1 and 300<end>.";
-		} else {
-			$high = floor($lvl * 1.25);
-			$low = ceil($lvl * 0.75);
-
-			$msg .= "Monster level <highlight>". $lvl ."<end>: ";
-			$msg .= "QL <highlight>".$low."<end> - <highlight>".$high."<end>";
-		}
-		$sendto->reply($msg);
 	}
 	
 	/**
