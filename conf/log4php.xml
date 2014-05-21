@@ -34,8 +34,8 @@
 			<param name="threadPrinting" value="false" />
 			<param name="microSecondsPrinting" value="false" />
 		</layout>
-			<param name="file" value="./logs/budabot_%s.log" />
-			<param name="datePattern" value="Y-m" />
+		<param name="file" value="./logs/budabot_%s.log" />
+		<param name="datePattern" value="Y-m" />
 	</appender>
 
 	<!-- Direct log to memory buffer -->
