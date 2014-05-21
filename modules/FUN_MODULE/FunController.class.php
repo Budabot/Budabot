@@ -84,7 +84,6 @@ class FunController {
 		$this->db->loadSQLFile($this->moduleName, "beer");
 		$this->db->loadSQLFile($this->moduleName, "brain");
 		$this->db->loadSQLFile($this->moduleName, "chuck");
-		$this->db->loadSQLFile($this->moduleName, "credz");
 		$this->db->loadSQLFile($this->moduleName, "cybor");
 		$this->db->loadSQLFile($this->moduleName, "dwight");
 		$this->db->loadSQLFile($this->moduleName, "fc");
