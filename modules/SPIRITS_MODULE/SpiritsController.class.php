@@ -24,18 +24,6 @@ namespace Budabot\User\Modules;
  *		description = 'Search for spirits by level requirement', 
  *		help        = 'spirits.txt'
  *	)
- *	@DefineCommand(
- *		command     = 'spiritsagi', 
- *		accessLevel = 'all', 
- *		description = 'Search for spirits for agility requirement', 
- *		help        = 'spirits.txt'
- *	)
- *	@DefineCommand(
- *		command     = 'spiritssen', 
- *		accessLevel = 'all', 
- *		description = 'Search for spirits by sense requirement', 
- *		help        = 'spirits.txt'
- *	)
  */
 class SpiritsController {
 
@@ -237,94 +225,7 @@ class SpiritsController {
 			return false;
 		}
 	}
-	
-	/**
-	 * @HandlesCommand("spiritsagi")
-	 * @Matches("/^spiritsagi (.+)$/i")
-	 */
-	public function spiritsagiCommand($message, $channel, $sender, $sendto, $args) {
-		if (preg_match ("/^spiritsagi ([0-9]+)$/i", $message, $arr)) {
-			$agility = $arr[1];
-			if ($agility < 1) {
-				$msg = "Invalid Agility specified(1-1276)";
-				$sendto->reply($msg);
-				return;
-			}
-			$loagility = $agility - 10;
-			$title = "Spirits Database for Agility Requirement of $agility";
-			$data = $this->db->query("SELECT * FROM spiritsdb WHERE agility <= ? AND agility >= ? ORDER BY level", $agility, $loagility);
-			$spirits .= $this->formatSpiritOutput($data);
-		}
-			// If searched by Agility and slot
-		else if (preg_match ("/^spiritsagi ([0-9]+) (.+)$/i", $message, $arr)) {
-			$agility = $arr[1];
-			$loagility = $agility - 10;
-			$slot = ucwords(strtolower($arr[2]));
-			$title = "$slot Spirits With Agility Req of $agility";
-			if ($agility < 1) {
-				$msg = "Invalid Agility specified.";
-				$sendto->reply($msg);
-				return;
-			}
-			else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
-				$spirits .= "Invalid Input\n\n";
-				$spirits .= $this->getValidSlotTypes();
-			} else {
-				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND agility <= ? AND agility >= ? ORDER BY ql", $slot, $agility, $loagility);
-				$spirits .= $this->formatSpiritOutput($data);
-			}
-		}
-		if ($spirits) {
-			$spirits = $this->text->make_blob("Spirits", $spirits, $title);
-			$sendto->reply($spirits);
-		} else {
-			return false;
-		}
-	}
-	
-	/**
-	 * @HandlesCommand("spiritssen")
-	 * @Matches("/^spiritssen (.+)$/i")
-	 */
-	public function spiritssenCommand($message, $channel, $sender, $sendto, $args) {
-		if (preg_match ("/^spiritssen ([0-9]+)$/i", $message, $arr)) {
-			$sense = $arr[1];
-			if ($sense < 1) {
-				$msg = "Invalid Sense specified(1-1276)";
-				$sendto->reply($msg);
-				return;
-			}
-			$losense = $sense - 10;
-			$title = "Spirits Database for Sense Requirement of $sense";
-			$data = $this->db->query("SELECT * FROM spiritsdb WHERE sense <= ? AND sense >= ? ORDER BY level", $sense, $losense);
-			$spirits .= $this->formatSpiritOutput($data);
-		}
-			// If searched by Sensel and slot
-		else if (preg_match ("/^spiritssen ([0-9]+) (.+)$/i", $message, $arr)) {
-			$sense = $arr[1];
-			$losense = $sense - 10;
-			$slot = ucwords(strtolower($arr[2]));
-			$title = "$slot Spirits With Sense Req of $sense";
-			if ($sense < 1) {
-				$msg = "Invalid Sense specified.";
-				$sendto->reply($msg);
-				return;
-			} else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
-				$spirits .= "Invalid Input\n\n";
-				$spirits .= $this->getValidSlotTypes();
-			} else {
-				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND sense <= ? AND sense >= ? ORDER BY ql", $slot, $sense, $losense);
-				$spirits .= $this->formatSpiritOutput($data);
-			}
-		}
-		if ($spirits) {
-			$spirits = $this->text->make_blob("Spirits", $spirits, $title);
-			$sendto->reply($spirits);
-		} else {
-			return false;
-		}
-	}
-	
+
 	public function formatSpiritOutput($data) {
 		if (count($data) == 0) {
 			return "No matches found.";

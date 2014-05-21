@@ -33,37 +33,27 @@ class AltInfo {
 		if (count($this->alts) == 0) {
 			return "No registered alts.";
 		}
+		
+		$online = $buddylistManager->is_online($this->main);
+		$blob .= $this->formatCharName($this->main, $online);
 
-		$blob .= "{$this->main}";
 		$character = $playerManager->get_by_name($this->main);
 		if ($character !== null) {
 			$blob .= " ({$character->level}/<green>{$character->ai_level}<end> {$character->profession})";
 		}
-		$online = $buddylistManager->is_online($this->main);
-		if ($online === null) {
-			$blob .= " - No status\n";
-		} else if ($online == 1) {
-			$blob .= " - <green>Online<end> " . $text->make_chatcmd("Send tell", "/tell $this->main") . "\n";
-		} else {
-			$blob .= " - <red>Offline<end>\n";
-		}
+		$blob .= $this->formatOnlineStatus($online);
+		$blob .= "\n";
 
 		$sql = "SELECT `alt`, `main`, `validated`, p.* FROM `alts` a LEFT JOIN players p ON (a.alt = p.name AND p.dimension = '<dim>') WHERE `main` LIKE ? ORDER BY level DESC, ai_level DESC, profession ASC, name ASC";
 		$data = $db->query($sql, $this->main);
 		$count = count($data) + 1;
 		forEach ($data as $row) {
-			$blob .= "{$row->alt}";
+			$online = $buddylistManager->is_online($row->alt);
+			$blob .= $this->formatCharName($row->alt, $online);
 			if ($row->profession !== null) {
 				$blob .= " ({$row->level}/<green>{$row->ai_level}<end> {$row->profession})";
 			}
-			$online = $buddylistManager->is_online($row->alt);
-			if ($online === null) {
-				$blob .= " - No status";
-			} else if ($online == 1) {
-				$blob .= " - <green>Online<end> " . $text->make_chatcmd("Send tell", "/tell $row->alt");
-			} else {
-				$blob .= " - <red>Offline<end>";
-			}
+			$blob .= $this->formatOnlineStatus($online);
 
 			if ($showValidateLinks && $settingManager->get('alts_inherit_admin') == 1 && $row->validated == 0) {
 				$blob .= " [Unvalidated] " . $text->make_chatcmd('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}");
@@ -124,6 +114,25 @@ class AltInfo {
 			return $this->main;
 		} else {
 			return $sender;
+		}
+	}
+	
+	public function formatCharName($name, $online) {
+		if ($online == 1) {
+			$text = Registry::getInstance('text');
+			return $text->make_chatcmd($name, "/tell $name");
+		} else {
+			return $name;
+		}
+	}
+	
+	public function formatOnlineStatus($online) {
+		if ($online === null) {
+			return " - No status";
+		} else if ($online == 1) {
+			return " - <green>Online<end>";
+		} else {
+			return " - <red>Offline<end>";
 		}
 	}
 }

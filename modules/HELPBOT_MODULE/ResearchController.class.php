@@ -63,7 +63,7 @@ class ResearchController {
 			$blob .= "You need <highlight>$sk SK<end> to reach <highlight>Research Level $level<end> per research line.\n\n";
 			$blob .= "This equals <highlight>$xp XP<end>.\n\n";
 			$blob .= "Your research will cap at <highlight>~$capxp XP<end> or <highlight>~$capsk SK<end>.";
-			$msg = $this->text->make_blob("XP/SK Needed for Research Levels", $blob);
+			$msg = $this->text->make_blob("Research Level $level", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -95,7 +95,7 @@ class ResearchController {
 			$blob = "You must be <highlight>Level $row->levelcap<end> to reach Research Level <highlight>$hilevel.<end>\n";
 			$blob .= "It takes <highlight>$sk SK<end> to go from Research Level <highlight>$lolevel<end> to Research Level <highlight>$hilevel<end> per research line.\n\n";
 			$blob .= "This equals <highlight>$xp XP<end>.";
-			$msg = $this->text->make_blob("XP/SK Needed for Research Levels", $blob);
+			$msg = $this->text->make_blob("Research Levels $lolevel - $hilevel", $blob);
 		}
 
 		$sendto->reply($msg);

@@ -167,7 +167,7 @@ class WhoisController {
 				$blob = "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
 				$blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
 				$blob .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
-				$blob .= "<pagebreak>" . $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
+				$blob .= $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
 
 				$msg = $this->text->make_blob("Basic Info for $name", $blob);
 			} else {
@@ -186,16 +186,7 @@ class WhoisController {
 
 				$blob .= "Source: $whois->source\n\n";
 
-				$blob .= "<pagebreak>" . $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
-
-				$blob .= "\n<pagebreak><header2>Options<end>\n\n";
-
-				$blob .= $this->text->make_chatcmd('History', "/tell <myname> history $name") . "\n";
-				$blob .= $this->text->make_chatcmd('Online Status', "/tell <myname> is $name") . "\n";
-				if ($whois->guild_id != 0) {
-					$blob .= $this->text->make_chatcmd('Whoisorg', "/tell <myname> whoisorg $whois->guild_id") . "\n";
-					$blob .= $this->text->make_chatcmd('Orglist', "/tell <myname> orglist $whois->guild_id") . "\n";
-				}
+				$blob .= $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
 
 				$msg = $this->playerManager->get_info($whois) . " :: " . $this->text->make_blob("More Info", $blob, "Detailed Info for {$name}");
 

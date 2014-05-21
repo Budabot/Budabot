@@ -174,7 +174,7 @@ class PrivateChannelController {
 					$status = "(<orange>Unknown<end>)";
 				}
 
-				$list .= "<tab>- $row->name {$status}\n";
+				$list .= "$row->name {$status}\n";
 			}
 
 			$msg = $this->text->make_blob("Members ($count)", $list);
@@ -505,10 +505,10 @@ class PrivateChannelController {
 			return;
 		}
 
-		$msg = "The private channel has been opened by <highlight>$sender<end>.";
+		$msg = "The private channel has been unlocked by <highlight>$sender<end>.";
 		$this->chatBot->sendPrivate($msg);
 		if ($channel != "priv") {
-			$msg = "You have opened the private channel.";
+			$msg = "You have unlocked the private channel.";
 			$this->chatBot->sendTell($msg, $sender);
 		}
 

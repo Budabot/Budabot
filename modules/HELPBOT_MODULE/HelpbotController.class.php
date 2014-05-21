@@ -12,22 +12,10 @@ namespace Budabot\User\Modules;
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'mobloot', 
- *		accessLevel = 'all', 
- *		description = 'Show loot QL info', 
- *		help        = 'mobloot.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'dyna', 
  *		accessLevel = 'all', 
  *		description = 'Search for RK Dynabosses', 
  *		help        = 'dyna.txt'
- *	)
- *	@DefineCommand(
- *		command     = 'inspect', 
- *		accessLevel = 'all', 
- *		description = 'Inspect Christmas/Eart Gifts and Peren. Containers', 
- *		help        = 'inspect.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'oe', 
@@ -65,25 +53,6 @@ class HelpbotController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'dyna');
-	}
-
-	/**
-	 * @HandlesCommand("mobloot")
-	 * @Matches("/^mobloot ([0-9]+)$/i")
-	 */
-	public function moblootCommand($message, $channel, $sender, $sendto, $args) {
-		$lvl = trim($args[1]);
-
-		if ($lvl > 300 || $lvl < 1) {
-			$msg = "Level entered is out of range... please enter a number between <highlight>1 and 300<end>.";
-		} else {
-			$high = floor($lvl * 1.25);
-			$low = ceil($lvl * 0.75);
-
-			$msg .= "Monster level <highlight>". $lvl ."<end>: ";
-			$msg .= "QL <highlight>".$low."<end> - <highlight>".$high."<end>";
-		}
-		$sendto->reply($msg);
 	}
 	
 	/**
@@ -135,50 +104,6 @@ class HelpbotController {
 			$blob .="Level: <highlight>{$row->minQl}-{$row->maxQl}<end>\n\n";
 		}
 		return $blob;
-	}
-	
-	/**
-	 * Can identify Christmas Gift, Expensive Gift from Earth, and Light Perennium Container
-	 *
-	 * @HandlesCommand("inspect")
-	 * @Matches("/^inspect (.+)$/i")
-	 */
-	public function inspectCommand($message, $channel, $sender, $sendto, $args) {
-		$search = $args[1];
-		if (preg_match("~<a href=\"itemref://(\\d{6})/(\\d{6})/(\\d{1,3})\">([^<]+)</a>~i", $search, $matches)) {
-			$highId = $matches[2];
-			$ql = $matches[3];
-
-			switch ($highId) {
-				case 205842:
-					$type = "Funny Arrow";
-					break;
-				case 205843:
-					$type = "Monster Sunglasses";
-					break;
-				case 205844:
-					$type = "Karlsson Propellor Cap";
-					break;
-				case 216286:
-					$type = "Funk Flamingo Sunglasses or Disco Duck Sunglasses or Electric Boogie Sunglasses or Gurgling River Sprite";
-					break;
-				case 245658:
-					$type = "Blackpack";
-					break;
-				case 245596:
-					$type = "Doctor's Pill Pack";
-					break;
-				case 245594:
-					$type = "Syndicate Shades";
-					break;
-				default:
-					$type = "Unidentified";
-			}
-			$msg = "QL $ql of $type";
-			$sendto->reply($msg);
-		} else {
-			return false;
-		}
 	}
 	
 	/**

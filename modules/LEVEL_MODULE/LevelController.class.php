@@ -31,13 +31,6 @@ namespace Budabot\User\Modules;
  *		help        = 'xp.txt',
  *		alias       = 'sk'
  *	)
- *	@DefineCommand(
- *		command     = 'capxp', 
- *		accessLevel = 'all', 
- *		description = 'Show how much xp you need to cap', 
- *		help        = 'capxp.txt',
- *		alias       = 'capsk'
- *	)
  */
 class LevelController {
 
@@ -63,42 +56,7 @@ class LevelController {
 		$this->commandAlias->register($this->moduleName, "level", "pvp");
 		$this->commandAlias->register($this->moduleName, "level", "lvl");
 	}
-	
-	/**
-	 * @HandlesCommand("capxp")
-	 * @Matches("/^capxp ([0-9]+) ([0-9]+)$/i")
-	 */
-	public function capxpCommand($message, $channel, $sender, $sendto, $args) {
-		$reward = $args[1];
-		$level = $args[2];
 
-		if ($level > 219 || $level < 1) {
-			$sendto->reply("Level cannot be greater than 219 or less than 1.");
-			return;
-		}
-
-		$row = $this->get_level_info($level);
-
-		if ($level < 200) {
-			$xp = $row->xpsk;
-			$research = (1-(($xp*.2)/$reward))*100;
-		} else {
-			$sk = $row->xpsk;
-			$research = (1-(($sk*.2)/$reward))*100;
-		}
-		if ($research < 0) {
-			$research = 0;
-		}
-
-		if ($level < 200) {
-			$msg = "At level <highlight>".number_format($level)."<end> you need <highlight>".number_format($xp)."<end> XP to level. With a mission reward of <highlight>".number_format($reward)."<end> XP, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum XP from this mission reward.";
-		} else {
-			$msg = "At level <highlight>".number_format($level)."<end> you need <highlight>".number_format($sk)."<end> SK to level. With a mission reward of <highlight>".number_format($reward)."<end> SK, set your research bar to <highlight>".ceil($research)."%<end> to receive maximum SK from this mission reward.";
-		}
-
-		$sendto->reply($msg);
-	}
-	
 	/**
 	 * @HandlesCommand("level")
 	 * @Matches("/^level ([0-9]+)$/i")

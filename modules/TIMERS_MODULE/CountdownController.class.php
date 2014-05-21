@@ -54,7 +54,7 @@ class CountdownController {
 		}
 
 		if ($this->lastCountdown >= (time() - 30)) {
-			$msg = "You can only start a countdown every 30 seconds.";
+			$msg = "You can only start a countdown once every 30 seconds.";
 			$sendto->reply($msg);
 			return;
 		}

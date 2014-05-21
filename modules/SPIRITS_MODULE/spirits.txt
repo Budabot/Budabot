@@ -12,9 +12,3 @@ To return a list of Spirits that meet the specified criteria.  The syntax above 
 <highlight><tab><symbol>spiritslvl 'lowlevel-highlevel'<end>
 <highlight><tab><symbol>spiritslvl 'level' 'slot'<end>
 <highlight><tab><symbol>spiritslvl 'lowlevel-highlevel' 'slot'<end>
-
-To return a list of spirits that require the specified amount of Agility:
-<highlight><tab><symbol>spiritsagi 'amount'<end>
-
-To return a list of spirits that require the specified amount of Sense:
-<highlight><tab><symbol>spiritssen 'amount'<end>

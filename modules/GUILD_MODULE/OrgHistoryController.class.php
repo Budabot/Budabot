@@ -60,13 +60,7 @@ class OrgHistoryController {
 		$data = $this->db->query($sql);
 		if (count($data) != 0) {
 			forEach ($data as $row) {
-				switch ($row->action) {
-					case 'left':
-						$blob .= "<highlight>$row->actor<end> $row->action. [$row->organization] " . $this->util->date($row->time) . "\n";
-						break;
-					default:
-						$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
-				}
+				$blob .= $this->formatOrgAction($row);
 			}
 
 			$msg = $this->text->make_blob('Org History', $blob);
@@ -82,7 +76,7 @@ class OrgHistoryController {
 	 * @Matches("/^orghistory (.+)$/i")
 	 */
 	public function orghistoryPlayerCommand($message, $channel, $sender, $sendto, $args) {
-		$player = $args[1];
+		$player = ucfirst(strtolower($args[1]));
 
 		$blob = '';
 
@@ -91,7 +85,7 @@ class OrgHistoryController {
 		$count = count($data);
 		$blob .= "\n<header2>Actions on $player ($count)<end>\n";
 		forEach ($data as $row) {
-			$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
+			$blob .= $this->formatOrgAction($row);
 		}
 
 		$sql = "SELECT actor, actee, action, organization, time FROM `org_history` WHERE actor LIKE ? ORDER BY time DESC";
@@ -99,12 +93,21 @@ class OrgHistoryController {
 		$count = count($data);
 		$blob .= "\n<header2>Actions by $player ($count)<end>\n";
 		forEach ($data as $row) {
-			$blob .= "<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
+			$blob .= $this->formatOrgAction($row);
 		}
 
-		$msg = $this->text->make_blob('Org History', $blob);
+		$msg = $this->text->make_blob("Org History for $player", $blob);
 
 		$sendto->reply($msg);
+	}
+	
+	public function formatOrgAction($row) {
+		switch ($row->action) {
+			case 'left':
+				return "<highlight>$row->actor<end> $row->action. [$row->organization] " . $this->util->date($row->time) . "\n";
+			default:
+				return"<highlight>$row->actor<end> $row->action <highlight>$row->actee<end>. [$row->organization] " . $this->util->date($row->time) . "\n";
+		}
 	}
 
 	/**

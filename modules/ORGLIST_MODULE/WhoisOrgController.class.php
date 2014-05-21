@@ -73,12 +73,12 @@ class WhoisOrgController {
 			}
 		}
 
-		$msg = "Getting Org info. Please stand by...";
+		$msg = "Getting org info...";
 		$sendto->reply($msg);
 
 		$org = $this->guildManager->get_by_id($org_id, $rk_num);
 		if ($org === null) {
-			$msg = "Error in getting the Org info. Either the org does not exist or AO's server was too slow to respond.";
+			$msg = "Error in getting the org info. Either the org does not exist or AO's server was too slow to respond.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -180,23 +180,22 @@ class WhoisOrgController {
 		$link .= "Gender: <highlight>$president_gender<end>\n";
 		$link .= "Breed: <highlight>$president_breed<end>\n\n";
 
-		$link .= "<header2>Members<end>\n";
-		$link .= "Number of Members: <highlight>$num_members<end>\n";
-		$link .= "Adventurer: <highlight>$num_adv<end> (".round(($num_adv*100)/$num_members, 1)."% of total)\n";
-		$link .= "Agents: <highlight>$num_agent<end> (".round(($num_agent*100)/$num_members, 1)."% of total)\n";
-		$link .= "Bureaucrats: <highlight>$num_crat<end> (".round(($num_crat*100)/$num_members, 1)."% of total)\n";
-		$link .= "Doctors: <highlight>$num_doc<end> (".round(($num_doc*100)/$num_members, 1)."% of total)\n";
-		$link .= "Enforcers: <highlight>$num_enf<end> (".round(($num_enf*100)/$num_members, 1)."% of total)\n";
-		$link .= "Engineers: <highlight>$num_eng<end> (".round(($num_eng*100)/$num_members, 1)."% of total)\n";
-		$link .= "Fixers: <highlight>$num_fix<end> (".round(($num_fix*100)/$num_members, 1)."% of total)\n";
-		$link .= "Keepers: <highlight>$num_keep<end> (".round(($num_keep*100)/$num_members, 1)."% of total)\n";
-		$link .= "Martial Artists: <highlight>$num_ma<end> (".round(($num_ma*100)/$num_members, 1)."% of total)\n";
-		$link .= "Meta-Physicists: <highlight>$num_mp<end> (".round(($num_mp*100)/$num_members, 1)."% of total)\n";
-		$link .= "Nano-Technicians: <highlight>$num_nt<end> (".round(($num_nt*100)/$num_members, 1)."% of total)\n";
-		$link .= "Shades: <highlight>$num_shade<end> (".round(($num_shade*100)/$num_members, 1)."% of total)\n";
-		$link .= "Soldiers: <highlight>$num_sol<end> (".round(($num_sol*100)/$num_members, 1)."% of total)\n";
-		$link .= "Traders: <highlight>$num_trad<end> (".round(($num_trad*100)/$num_members, 1)."% of total)\n";
-		$msg = $this->text->make_blob("Org Info $org->orgname", $link);
+		$link .= "<header2>Members<end> ($num_members)\n";
+		$link .= "Adventurer: <highlight>$num_adv<end> (".round(($num_adv*100)/$num_members, 1)."%)\n";
+		$link .= "Agents: <highlight>$num_agent<end> (".round(($num_agent*100)/$num_members, 1)."%)\n";
+		$link .= "Bureaucrats: <highlight>$num_crat<end> (".round(($num_crat*100)/$num_members, 1)."%)\n";
+		$link .= "Doctors: <highlight>$num_doc<end> (".round(($num_doc*100)/$num_members, 1)."%)\n";
+		$link .= "Enforcers: <highlight>$num_enf<end> (".round(($num_enf*100)/$num_members, 1)."%)\n";
+		$link .= "Engineers: <highlight>$num_eng<end> (".round(($num_eng*100)/$num_members, 1)."%)\n";
+		$link .= "Fixers: <highlight>$num_fix<end> (".round(($num_fix*100)/$num_members, 1)."%)\n";
+		$link .= "Keepers: <highlight>$num_keep<end> (".round(($num_keep*100)/$num_members, 1)."%)\n";
+		$link .= "Martial Artists: <highlight>$num_ma<end> (".round(($num_ma*100)/$num_members, 1)."%)\n";
+		$link .= "Meta-Physicists: <highlight>$num_mp<end> (".round(($num_mp*100)/$num_members, 1)."%)\n";
+		$link .= "Nano-Technicians: <highlight>$num_nt<end> (".round(($num_nt*100)/$num_members, 1)."%)\n";
+		$link .= "Shades: <highlight>$num_shade<end> (".round(($num_shade*100)/$num_members, 1)."%)\n";
+		$link .= "Soldiers: <highlight>$num_sol<end> (".round(($num_sol*100)/$num_members, 1)."%)\n";
+		$link .= "Traders: <highlight>$num_trad<end> (".round(($num_trad*100)/$num_members, 1)."%)\n";
+		$msg = $this->text->make_blob("Org Info for $org->orgname", $link);
 
 		$sendto->reply($msg);
 	}

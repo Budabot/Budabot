@@ -29,21 +29,9 @@ namespace Budabot\User\Modules;
  *		help        = 'fun_module.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'credz',
- *		accessLevel = 'all',
- *		description = 'Shows a random credits message',
- *		help        = 'fun_module.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'cybor',
  *		accessLevel = 'all',
  *		description = 'Shows a random cybor message',
- *		help        = 'fun_module.txt'
- *	)
- *	@DefineCommand(
- *		command     = 'doh',
- *		accessLevel = 'all',
- *		description = 'Shows a random doh message',
  *		help        = 'fun_module.txt'
  *	)
  *	@DefineCommand(
@@ -96,9 +84,7 @@ class FunController {
 		$this->db->loadSQLFile($this->moduleName, "beer");
 		$this->db->loadSQLFile($this->moduleName, "brain");
 		$this->db->loadSQLFile($this->moduleName, "chuck");
-		$this->db->loadSQLFile($this->moduleName, "credz");
 		$this->db->loadSQLFile($this->moduleName, "cybor");
-		$this->db->loadSQLFile($this->moduleName, "doh");
 		$this->db->loadSQLFile($this->moduleName, "dwight");
 		$this->db->loadSQLFile($this->moduleName, "fc");
 		$this->db->loadSQLFile($this->moduleName, "homer");
@@ -168,18 +154,6 @@ class FunController {
 	}
 	
 	/**
-	 * @HandlesCommand("credz")
-	 * @Matches("/^credz$/i")
-	 * @Matches("/^credz (\d+)$/i")
-	 *
-	 * Author: Derroylo (RK2)
-	 */
-	public function credzCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getFunItem('credz', $sender, $args[1]);
-		$sendto->reply($msg);
-	}
-	
-	/**
 	 * @HandlesCommand("cybor")
 	 * @Matches("/^cybor$/i")
 	 * @Matches("/^cybor (\d+)$/i")
@@ -190,18 +164,6 @@ class FunController {
 	 */
 	public function cyborCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->getFunItem('cybor', $sender, $args[1]);
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("doh")
-	 * @Matches("/^doh$/i")
-	 * @Matches("/^doh (\d+)$/i")
-	 *
-	 * Author: Neksus (RK2)
-	 */
-	public function dohCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getFunItem('doh', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	
