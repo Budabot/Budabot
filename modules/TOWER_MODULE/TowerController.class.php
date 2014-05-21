@@ -1331,8 +1331,8 @@ class TowerController {
 	
 	private function formatSiteInfo($row) {
 		$waypointLink = $this->text->make_chatcmd($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}");
-		$attacksLink = $this->text->make_chatcmd("Recent attacks on this base", "/tell <myname> attacks {$row->short_name} {$row->site_number}");
-		$victoryLink = $this->text->make_chatcmd("Recent victories on this base", "/tell <myname> victory {$row->short_name} {$row->site_number}");
+		$attacksLink = $this->text->make_chatcmd("Recent attacks", "/tell <myname> attacks {$row->short_name} {$row->site_number}");
+		$victoryLink = $this->text->make_chatcmd("Recent victories", "/tell <myname> victory {$row->short_name} {$row->site_number}");
 
 		$blob = "Short name: <highlight>{$row->short_name} {$row->site_number}<end>\n";
 		$blob .= "Long name: <highlight>{$row->site_name}, {$row->long_name}<end>\n";
