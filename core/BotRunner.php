@@ -136,7 +136,6 @@ Contacts:      Tyrence, Marebone
 		require_once './lib/addendum-0.4.1/annotations.php';
 		require_once './lib/apache-log4php-2.2.0/Logger.php';
 		require_once './lib/Net_SmartIRC-1.0.2/SmartIRC.php';
-		require_once './lib/ReverseFileReader.class.php';
 		require_once './lib/vendor/autoload.php';
 		require_once './lib/LoggerAppenderBuffer.php';
 	}

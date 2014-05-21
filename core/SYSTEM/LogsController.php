@@ -3,7 +3,6 @@
 namespace Budabot\Core\Modules;
 
 use Exception;
-use ReverseFileReader;
 
 /**
  * Authors: 
@@ -79,22 +78,22 @@ class LogsController {
 		$readsize = $this->settingManager->get('max_blob_size') - 500;
 
 		try {
-			$file = new ReverseFileReader($filename);
+			if (isset($args[2])) {
+				$search = $args[2];
+			} else {
+				$search = ' ';
+			}
+			$fileContents = file_get_contents($filename);
+			preg_match_all("/(.*)({$search})(.*)/i", $fileContents, $matches);
+			$matches = array_reverse($matches[0]);
 			$contents = '';
-			while (!$file->sof()) {
-				$line = $file->getLine();
-
-				// if user entered search criteria, filter by that
-				if (isset($args[2]) && !preg_match("/{$args[2]}/i", $line)) {
-					continue;
-				}
-
+			forEach ($matches as $line) {
 				if (strlen($contents . $line) > $readsize) {
 					break;
 				}
-				$contents .= $line;
+				$contents .= $line . "\n";
 			}
-			$file->close();
+			
 			if (empty($contents)) {
 				$msg = "File is empty or nothing matched your search criteria.";
 			} else {
