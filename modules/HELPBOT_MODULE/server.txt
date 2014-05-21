@@ -1,9 +1,0 @@
-To shows the status of the current server:
-<highlight><tab><symbol>server<end>
-
-To show the status of a specific server:
-<highlight><tab><symbol>server 'server id'<end>
-
-<header2>Server ids:<end>
-<tab>5 = Rubi-Ka
-<tab>t = Test Server
