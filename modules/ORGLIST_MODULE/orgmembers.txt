@@ -1,6 +1,2 @@
-To show members of your own guild sorted by name:
-<highlight><tab><symbol>orgmembers<end>
-
-To show members of another guild sorted by name:
-<highlight><tab><symbol>orgmembers 'character'<end>
+To show members of a guild sorted by name:
 <highlight><tab><symbol>orgmembers 'guild id'<end>
