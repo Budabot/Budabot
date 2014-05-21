@@ -29,12 +29,6 @@ namespace Budabot\User\Modules;
  *		help        = 'fun_module.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'credz',
- *		accessLevel = 'all',
- *		description = 'Shows a random credits message',
- *		help        = 'fun_module.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'cybor',
  *		accessLevel = 'all',
  *		description = 'Shows a random cybor message',
@@ -157,18 +151,6 @@ class FunController {
 	 */
 	public function chuckCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->getFunItem('chuck', $sender, $args[1]);
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("credz")
-	 * @Matches("/^credz$/i")
-	 * @Matches("/^credz (\d+)$/i")
-	 *
-	 * Author: Derroylo (RK2)
-	 */
-	public function credzCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->getFunItem('credz', $sender, $args[1]);
 		$sendto->reply($msg);
 	}
 	

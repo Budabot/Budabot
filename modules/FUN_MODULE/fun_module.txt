@@ -8,9 +8,6 @@ To show a ding gratz message:
 To show a random beer message:
 <highlight><tab><symbol>beer<end>
 
-To show a random credits message:
-<highlight><tab><symbol>credz<end>
-
 To show a random Chuck Norris joke:
 <highlight><tab><symbol>chuck<end>
 
