@@ -96,7 +96,7 @@ class OrgHistoryController {
 			$blob .= $this->formatOrgAction($row);
 		}
 
-		$msg = $this->text->make_blob('Org History for $player', $blob);
+		$msg = $this->text->make_blob("Org History for $player", $blob);
 
 		$sendto->reply($msg);
 	}
