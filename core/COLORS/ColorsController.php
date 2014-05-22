@@ -20,7 +20,7 @@ class ColorsController {
 	 * @Type("color")
 	 * @AccessLevel("mod")
 	 */
-	public $defaultDefaultGuildColor = "<font color='#84FFFF'>";
+	public $defaultDefaultGuildColor = "<font color='#89D2E8'>";
 
 	/**
 	 * @Setting("default_priv_color")
@@ -29,7 +29,7 @@ class ColorsController {
 	 * @Type("color")
 	 * @AccessLevel("mod")
 	 */
-	public $defaultDefaultPrivColor = "<font color='#84FFFF'>";
+	public $defaultDefaultPrivColor = "<font color='#89D2E8'>";
 
 	/**
 	 * @Setting("default_window_color")
@@ -38,7 +38,7 @@ class ColorsController {
 	 * @Type("color")
 	 * @AccessLevel("mod")
 	 */
-	public $defaultDefaultWindowColor = "<font color='#84FFFF'>";
+	public $defaultDefaultWindowColor = "<font color='#89D2E8'>";
 
 	/**
 	 * @Setting("default_tell_color")
@@ -47,7 +47,7 @@ class ColorsController {
 	 * @Type("color")
 	 * @AccessLevel("mod")
 	 */
-	public $defaultDefaultTellColor = "<font color='#DDDDDD'>";
+	public $defaultDefaultTellColor = "<font color='#89D2E8'>";
 
 	/**
 	 * @Setting("default_highlight_color")
@@ -56,7 +56,7 @@ class ColorsController {
 	 * @Type("color")
 	 * @AccessLevel("mod")
 	 */
-	public $defaultDefaultHighlightColor = "<font color='#9CC6E7'>";
+	public $defaultDefaultHighlightColor = "<font color='#FFFFFF'>";
 
 	/**
 	 * @Setting("default_header_color")
@@ -92,7 +92,7 @@ class ColorsController {
 	 * @Type("color")
 	 * @AccessLevel("mod")
 	 */
-	public $defaultDefaultOmniColor = "<font color='#00FFFF'>";
+	public $defaultDefaultOmniColor = "<font color='#FA8484'>";
 
 	/**
 	 * @Setting("default_neut_color")
@@ -101,7 +101,7 @@ class ColorsController {
 	 * @Type("color")
 	 * @AccessLevel("mod")
 	 */
-	public $defaultDefaultNeutColor = "<font color='#EEEEEE'>";
+	public $defaultDefaultNeutColor = "<font color='#E6E1A6'>";
 
 	/**
 	 * @Setting("default_unknown_color")
