@@ -505,19 +505,19 @@ class ConfigController {
 			if ($row->cmdevent == 'cmd') {
 				$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
 				$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
-				$adv = "<a href='chatcmd:///tell <myname> config cmd $row->cmd'>Adv.</a>";
+				$cmdNameLink = $this->text->make_chatcmd($row->cmd, "/tell <myname> config cmd $row->cmd");
 			} else if ($row->cmdevent == 'subcmd') {
 				$on = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd enable all'>ON</a>";
 				$off = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd disable all'>OFF</a>";
-				//$adv = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd'>Adv.</a>";
+				$cmdNameLink = $row->cmd;
 			}
 	
 			if ($row->msg_avail == 0) {
 				$tell = "|_";
 			} else if ($row->msg_status == 1) {
-				$tell = "|<green>T<end>";
+				$tell = "<green>T<end>";
 			} else {
-				$tell = "|<red>T<end>";
+				$tell = "<red>T<end>";
 			}
 	
 			if ($row->guild_avail == 0) {
@@ -537,9 +537,9 @@ class ConfigController {
 			}
 	
 			if ($row->description != "") {
-				$blob .= "$row->cmd ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
+				$blob .= "$cmdNameLink ($adv$tell$guild$priv): $on  $off - ($row->description)\n";
 			} else {
-				$blob .= "$row->cmd - ($adv$tell$guild$priv): $on  $off\n";
+				$blob .= "$cmdNameLink - ($adv$tell$guild$priv): $on  $off\n";
 			}
 		}
 	
