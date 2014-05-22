@@ -16,7 +16,7 @@ class ColorSettingHandler extends SettingHandler {
 	 * @return String
 	 */
 	function displayValue() {
-		return $this->row->value."Current Color</font>";
+		return $this->row->value . htmlspecialchars($this->row->value) . "</font>";
 	}
 	
 	/**
