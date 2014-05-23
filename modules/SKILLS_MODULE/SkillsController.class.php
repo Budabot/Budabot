@@ -601,27 +601,27 @@ class SkillsController {
 		
 		if (in_array('FullAuto', $flags)) {
 			list($hard_cap, $skill_cap) = $this->cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
-			$blob .= "FullAutoRecharge: $full_auto_recharge -- You will need at least <highlight>".$skill_cap."<end> Full Auto skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
+			$blob .= "FullAutoRecharge: $full_auto_recharge -- You need <highlight>".$skill_cap."<end> Full Auto skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if (in_array('Burst', $flags)) {
 			list($hard_cap, $skill_cap) = $this->cap_burst($attack_time, $recharge_time, $burst_recharge);
-			$blob .= "BurstRecharge: $burst_recharge -- You need <highlight>".$skill_cap."<end> Burst Skill to cap your burst at <highlight>".$hard_cap."<end>s.\n\n";
+			$blob .= "BurstRecharge: $burst_recharge -- You need <highlight>".$skill_cap."<end> Burst skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if (in_array('FlingShot', $flags)) {
 			list($hard_cap, $skill_cap) = $this->cap_fling_shot($attack_time);
-			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Skill to cap your fling at <highlight>".$hard_cap."<end>s.\n\n";
+			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Skill skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if (in_array('FastAttack', $flags)) {
 			list($hard_cap, $skill_cap) = $this->cap_fast_attack($attack_time);
-			$blob .= "FastAttackRecharge: You need <highlight>".$skill_cap."<end> Fast Atk Skill to cap your fast attack at <highlight>".$hard_cap."<end>s.\n\n";
+			$blob .= "FastAttackRecharge: You need <highlight>".$skill_cap."<end> Fast Attack skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if (in_array('AimedShot', $flags)) {
 			list($hard_cap, $skill_cap) = $this->cap_aimed_shot($attack_time, $recharge_time);
-			$blob .= "AimedShotRecharge: You need <highlight>".$skill_cap."<end> AS skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
+			$blob .= "AimedShotRecharge: You need <highlight>".$skill_cap."<end> Aimed Shot skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 
