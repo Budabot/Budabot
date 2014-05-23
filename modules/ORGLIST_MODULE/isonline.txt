@@ -1,2 +1,0 @@
-To see if a player is online:
-<highlight><tab><symbol>is 'player'<end>

@@ -14,13 +14,14 @@ use Budabot\Core\DB;
  *	@DefineCommand(
  *		command     = 'whois',
  *		accessLevel = 'all', 
- *		description = 'Show player info and name history', 
- *		help        = 'whois.txt'
+ *		description = 'Show character info, online status, and name history', 
+ *		help        = 'whois.txt',
+ *		alias       = 'is'
  *	)
  *	@DefineCommand(
  *		command     = 'lookup',
  *		accessLevel = 'all', 
- *		description = 'Find the charId for a player', 
+ *		description = 'Find the charId for a character', 
  *		help        = 'lookup.txt'
  *	)
  */
@@ -50,7 +51,12 @@ class WhoisController {
 	/** @Inject */
 	public $playerManager;
 	
+	/** @Inject */
+	public $buddylistManager;
+	
 	private $nameHistoryCache = array();
+	
+	private $replyInfo = null;
 	
 	/** @Setup */
 	public function setup() {
@@ -160,45 +166,93 @@ class WhoisController {
 		$name = ucfirst(strtolower($args[1]));
 		$uid = $this->chatBot->get_uid($name);
 		if ($uid) {
-			$lookupNameLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $name");
-			$lookupCharIdLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $uid");
-			$whois = $this->playerManager->get_by_name($name);
-			if ($whois === null) {
-				$blob = "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
-				$blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
-				$blob .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
-				$blob .= $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
-
-				$msg = $this->text->make_blob("Basic Info for $name", $blob);
+			$online = $this->buddylistManager->is_online($name);
+			if ($online === null) {
+				$this->replyInfo['charname'] = $name;
+				$this->replyInfo['sendto'] = $sendto;
+				$this->buddylistManager->add($name, 'is_online');
 			} else {
-				$blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
-				if ($whois->guild) {
-					$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
-					$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
-				}
-				$blob .= "Breed: <highlight>{$whois->breed}<end>\n";
-				$blob .= "Gender: <highlight>{$whois->gender}<end>\n";
-				$blob .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
-				$blob .= "Level: <highlight>{$whois->level}<end>\n";
-				$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
-				$blob .= "Faction: <highlight>{$whois->faction}<end>\n";
-				$blob .= "Character ID: <highlight>{$whois->charid}<end> {$lookupCharIdLink}\n\n";
-
-				$blob .= "Source: $whois->source\n\n";
-
-				$blob .= $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
-
-				$msg = $this->playerManager->get_info($whois) . " :: " . $this->text->make_blob("More Info", $blob, "Detailed Info for {$name}");
-
-				$altInfo = $this->altsController->get_alt_info($name);
-				if (count($altInfo->alts) > 0) {
-					$msg .= " :: " . $altInfo->get_alts_blob(false, true);
-				}
+				$sendto->reply($this->getOutput($name, $online));
 			}
 		} else {
-			$msg = "Character <highlight>{$name}<end> does not exist.";
+			$sendto->reply("Character <highlight>{$name}<end> does not exist.");
 		}
+	}
+	
+	public function getOutput($name, $online) {
+		$lookupNameLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $name");
+		$lookupCharIdLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $uid");
+		$whois = $this->playerManager->get_by_name($name);
+		if ($whois === null) {
+			$blob = "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
+			$blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
+			$blob .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
+			$blob .= $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
 
-		$sendto->reply($msg);
+			$msg = $this->text->make_blob("Basic Info for $name", $blob);
+		} else {
+			$blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
+			if ($whois->guild) {
+				$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
+				$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
+			}
+			$blob .= "Breed: <highlight>{$whois->breed}<end>\n";
+			$blob .= "Gender: <highlight>{$whois->gender}<end>\n";
+			$blob .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
+			$blob .= "Level: <highlight>{$whois->level}<end>\n";
+			$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
+			$blob .= "Faction: <highlight>{$whois->faction}<end>\n";
+			$blob .= "Online: ";
+			if ($online) {
+				$blob .= "<green>Online<end>\n";
+			} else {
+				$blob .= "<red>Offline<end>\n";
+			}
+			$blob .= "Character ID: <highlight>{$whois->charid}<end> {$lookupCharIdLink}\n\n";
+
+			$blob .= "Source: $whois->source\n\n";
+
+			$blob .= $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
+
+			$msg = $this->playerManager->get_info($whois);
+			if ($online) {
+				$msg .= " :: <green>Online<end>";
+			} else {
+				$msg .= " :: <red>Offline<end>";
+			}
+			$msg .= " :: " . $this->text->make_blob("More Info", $blob, "Detailed Info for {$name}");
+
+			$altInfo = $this->altsController->get_alt_info($name);
+			if (count($altInfo->alts) > 0) {
+				$msg .= " :: " . $altInfo->get_alts_blob(false, true);
+			}
+		}
+		return $msg;
+	}
+	
+	/**
+	 * @Event("logOn")
+	 * @Description("Gets online status of character")
+	 */
+	public function logonEvent($eventObj) {
+		$name = $eventObj->sender;
+		if ($this->replyInfo !== null && $name == $this->replyInfo['charname']) {
+			$this->replyInfo['sendto']->reply($this->getOutput($name, 1));
+			$this->buddylistManager->remove($name, 'is_online');
+			$this->replyInfo = null;
+		}
+	}
+	
+	/**
+	 * @Event("logOff")
+	 * @Description("Gets offline status of character")
+	 */
+	public function logoffEvent($eventObj) {
+		$name = $eventObj->sender;
+		if ($this->replyInfo !== null && $name == $this->replyInfo['charname']) {
+			$this->replyInfo['sendto']->reply($this->getOutput($name, 0));
+			$this->buddylistManager->remove($name, 'is_online');
+			$this->replyInfo = null;
+		}
 	}
 }

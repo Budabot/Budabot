@@ -1,2 +1,2 @@
-To show info about a player on the current server:
-<highlight><tab><symbol>whois 'player'<end>
+To show character info, online status, and name history for a character:
+<highlight><tab><symbol>whois 'character'<end>
