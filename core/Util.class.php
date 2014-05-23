@@ -496,6 +496,17 @@ class Util {
 		$result = round($result, 0);
 		return $result;
 	}
+	
+	public function mapFilterCombine($arr, $glue, $func) {
+		$newArr = array();
+		forEach ($arr as $key => $value) {
+			$result = call_user_func($func, $key, $value);
+			if ($result !== null) {
+				$newArr []= $result;
+			}
+		}
+		return implode($glue, $newArr);
+	}
 }
 
 ?>

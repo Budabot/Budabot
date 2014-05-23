@@ -90,12 +90,15 @@ class TrickleController {
 	private function processAbilities($abilities, $sendto) {
 		$msg = "";
 
-		$blob = '';
-		forEach ($abilities as $ability => $value) {
-			if ($value != 0) {
-				$blob .= ucfirst($ability) . " <highlight>" . $value . "<end>, ";
+		
+		$that = $this;
+		$blob = $this->util->mapFilterCombine($abilities, ", ", function($ability, $value) use ($that) {
+			if ($value == 0) {
+				return null;
+			} else {
+				return $that->util->get_ability($ability, true) . " <highlight>" . $value . "<end>";
 			}
-		}
+		}); 
 		$blob .= "\n";
 
 		$results = $this->getTrickleResults($abilities);
