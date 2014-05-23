@@ -193,7 +193,7 @@ class RandomController {
 		if ($row === null) {
 			$msg = "Verify number <highlight>$id<end> does not exist.";
 		} else {
-			$time = $this->util->unixtime_to_readable(time() - $row->time);
+			$time = $this->util->unixtimeToReadable(time() - $row->time);
 			$msg = "<highlight>$row->result<end> rolled by <highlight>$row->name<end> $time ago. Possible options: ";
 			$msg .= str_replace("|", " ", $row->options) . ".";
 		}
@@ -202,7 +202,7 @@ class RandomController {
 	}
 	
 	public function roll($sender, $options) {
-		$result = $this->util->rand_array_value($options);
+		$result = $this->util->randomArrayValue($options);
 		$this->db->exec("INSERT INTO roll (`time`, `name`, `options`, `result`) VALUES (?, ?, ?, ?)", time(), $sender, implode($options, "|"), $result);
 		return array($this->db->lastInsertId(), $result);
 	}

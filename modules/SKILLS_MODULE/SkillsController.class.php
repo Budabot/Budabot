@@ -330,7 +330,7 @@ class SkillsController {
 		$MA_dim_rech = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $MA_rech_list[$i], $MA_rech_list[($i+1)], $dim_skill);
 		$blob .= "Class: <highlight>Martial Artist<end>\n";
 		$blob .= "Damage: <highlight>".$MA_dmg."<end>-<highlight>".$MA_dmg."<end>(<highlight>1<end>)\n";
-		$blob .= "Recharge ".$this->util->unixtime_to_readable($MA_dim_rech)."\n\n";
+		$blob .= "Recharge ".$this->util->unixtimeToReadable($MA_dim_rech)."\n\n";
 
 		$keep_heal	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $keep_heal_list[$i],$keep_heal_list[($i+1)], $dim_skill);
 		$blob .= "Class: <highlight>Keeper<end>\n";
@@ -343,7 +343,7 @@ class SkillsController {
 		$blob .= "Class: <highlight>Shade<end>\n";
 		$blob .= "Damage: <highlight>".$shad_dmg."<end>-<highlight>".$shad_dmg."<end>(<highlight>1<end>)\n";
 		$blob .= "HP drain: <font color=#ff9999>".$shad_rec."</font>%\n";
-		$blob .= "Recharge ".$this->util->unixtime_to_readable($shad_dim_rech)."\n\n";
+		$blob .= "Recharge ".$this->util->unixtimeToReadable($shad_dim_rech)."\n\n";
 
 		$gen_dmg = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $gen_dmg_list[$i],  $gen_dmg_list[($i+1)], $dim_skill);
 		$blob .= "Class: <highlight>All classes besides MA, Shade and Keeper<end>\n";

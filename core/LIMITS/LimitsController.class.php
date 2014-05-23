@@ -121,7 +121,7 @@ class LimitsController {
 				// TODO check for rename
 
 				if ($entry->last_changed > $minAge) {
-					$timeString = $this->util->unixtime_to_readable($this->settingManager->get("tell_min_player_age"));
+					$timeString = $this->util->unixtimeToReadable($this->settingManager->get("tell_min_player_age"));
 					return "Error! You must be at least <highlight>$timeString<end> old.";
 				}
 			}

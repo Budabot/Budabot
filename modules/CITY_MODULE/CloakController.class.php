@@ -64,7 +64,7 @@ class CloakController {
 		} else {
 			$row = array_shift($data);
 			$timeSinceChange = time() - $row->time;
-			$timeString = $this->util->unixtime_to_readable(3600 - $timeSinceChange, false);
+			$timeString = $this->util->unixtimeToReadable(3600 - $timeSinceChange, false);
 
 			if ($timeSinceChange >= 3600 && $row->action == "off") {
 				$msg = "The cloaking device is <orange>disabled<end>. It is possible to enable it.";
@@ -130,7 +130,7 @@ class CloakController {
 				// disabled past the the time that the cloaking device could be enabled.
 				$interval = $this->settingManager->get('cloak_reminder_interval');
 				if ($timeSinceChange >= 60*60 && ($timeSinceChange % $interval >= 0 && $timeSinceChange % $interval <= 60 )) {
-					$timeString = $this->util->unixtime_to_readable(time() - $row->time, false);
+					$timeString = $this->util->unixtimeToReadable(time() - $row->time, false);
 					$this->chatBot->sendGuild("The cloaking device was disabled by <highlight>{$row->player}<end> $timeString ago. It is possible to enable it.");
 				}
 			} else if ($row->action == "on") {
@@ -153,7 +153,7 @@ class CloakController {
 
 			if ($row->action == "off") {
 				$timeSinceChange = time() - $row->time;
-				$timeString = $this->util->unixtime_to_readable(3600 - $timeSinceChange, false);
+				$timeString = $this->util->unixtimeToReadable(3600 - $timeSinceChange, false);
 
 				// 10 minutes before, send tell to player
 				if ($timeSinceChange >= 49*60 && $timeSinceChange <= 50*60) {
@@ -189,7 +189,7 @@ class CloakController {
 			$case = 0;
 			if ($row !== null) {
 				$timeSinceChange = time() - $row->time;
-				$timeString = $this->util->unixtime_to_readable(3600 - $timeSinceChange, false);
+				$timeString = $this->util->unixtimeToReadable(3600 - $timeSinceChange, false);
 
 				if ($timeSinceChange >= 60*60 && $row->action == "off") {
 					$case = 1;

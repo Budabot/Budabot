@@ -34,7 +34,7 @@ class HelpManager {
 		$command = strtolower($command);
 
 		// Check if the file exists
-		$actual_filename = $this->util->verify_filename($module . '/' . $filename);
+		$actual_filename = $this->util->verifyFilename($module . '/' . $filename);
 		if ($actual_filename == '') {
 			$this->logger->log('ERROR', "Error in registering the File $filename for Help command $module:help($command). The file doesn't exist!");
 			return;
@@ -101,7 +101,7 @@ class HelpManager {
 	}
 
 	public function checkForHelpFile($module, $file) {
-		$actualFilename = $this->util->verify_filename($module . '/' . $file);
+		$actualFilename = $this->util->verifyFilename($module . '/' . $file);
 		if ($actualFilename == '') {
 			$this->logger->log('WARN', "Error in registering the help file {$module}/{$file}. The file doesn't exist!");
 		}

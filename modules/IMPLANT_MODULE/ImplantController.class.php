@@ -114,7 +114,7 @@ class ImplantController {
 		$searchTerms = strtolower($args[1]);
 		$results = null;
 
-		$profession = $this->util->get_profession_name($searchTerms);
+		$profession = $this->util->getProfessionName($searchTerms);
 		if ($profession != '') {
 			$searchTerms = $profession;
 			$results = $this->searchByProfession($profession);
@@ -177,7 +177,7 @@ class ImplantController {
 		
 		// allow treatment, ability, or any of the 6 abilities
 		if ($type != 'treatment' && $type != 'ability') {
-			$type = $this->util->get_ability($type, true);
+			$type = $this->util->getAbility($type, true);
 			if ($type === null) {
 				return false;
 			}

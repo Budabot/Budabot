@@ -109,7 +109,7 @@ class BanController {
 			return $result;
 		}
 
-		$timeString = $this->util->unixtime_to_readable($length);
+		$timeString = $this->util->unixtimeToReadable($length);
 		$sendto->reply("You have banned <highlight>$who<end> from this bot for $timeString.");
 		if ($this->settingManager->get('notify_banned_player') == 1) {
 			$this->chatBot->sendTell("You have been banned from this bot by <highlight>$sender<end> for $timeString. Reason: $reason", $who);
@@ -134,7 +134,7 @@ class BanController {
 			return $result;
 		}
 	
-		$timeString = $this->util->unixtime_to_readable($length);
+		$timeString = $this->util->unixtimeToReadable($length);
 		$sendto->reply("You have banned <highlight>$who<end> from this bot for $timeString.");
 		if ($this->settingManager->get('notify_banned_player') == 1) {
 			$this->chatBot->sendTell("You have been banned from this bot by <highlight>$sender<end> for $timeString.", $who);
@@ -206,7 +206,7 @@ class BanController {
 				$blob .= "<tab>Date: <highlight>" . $this->util->date($ban->time) . "<end>\n";
 				$blob .= "<tab>By: <highlight>{$ban->admin}<end>\n";
 				if ($ban->banend != 0) {
-					$blob .= "<tab>Ban ends: <highlight>" . $this->util->unixtime_to_readable($ban->banend - time(), false) . "<end>\n";
+					$blob .= "<tab>Ban ends: <highlight>" . $this->util->unixtimeToReadable($ban->banend - time(), false) . "<end>\n";
 				} else {
 					$blob .= "<tab>Ban ends: <highlight>Never<end>\n";
 				}

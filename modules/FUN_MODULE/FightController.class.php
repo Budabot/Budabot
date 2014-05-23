@@ -54,7 +54,7 @@ class FightController {
 				"$player1 can't fight $player2, it may break the voids of space and time!",
 				"As much as I'd love to see $player1 punching himself/herself in the face, it just isn't theoretical...");
 
-			$sendto->reply($this->util->rand_array_value($twin));
+			$sendto->reply($this->util->randomArrayValue($twin));
 			return;
 		}
 

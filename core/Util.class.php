@@ -15,7 +15,7 @@ class Util {
 
 	const DATETIME = "d-M-Y H:i T";
 
-	public function bytes_convert($bytes) {
+	public function bytesConvert($bytes) {
 		$ext = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 		$unitCount = 0;
 		for (; $bytes > 1024; $unitCount++) {
@@ -25,7 +25,7 @@ class Util {
 	}
 
 	// taken from http://www.php.net/manual/en/function.date-diff.php
-	public function unixtime_to_readable($time, $show_seconds = true) {
+	public function unixtimeToReadable($time, $show_seconds = true) {
 		if ($time == 0) {
 			return '0 secs';
 		}
@@ -128,7 +128,7 @@ class Util {
 	 * Takes two version numbers.  Returns 1 if the first is greater than the second.
 	 * Returns -1 if the second is greater than the first.  Returns 0 if they are equal.
 	 */
-	public function compare_version_numbers($ver1, $ver2) {
+	public function compareVersionNumbers($ver1, $ver2) {
 		$ver1Array = explode('.', $ver1);
 		$ver2Array = explode('.', $ver2);
 
@@ -150,10 +150,10 @@ class Util {
 	}
 
 	/**
-	 * @name: get_profession_name
+	 * @name: getProfessionName
 	 * @description: returns the full profession name given the search string passed in
 	 */
-	public function get_profession_name($search) {
+	public function getProfessionName($search) {
 		$search = strtolower($search);
 		switch ($search) {
 			case "adv":
@@ -224,7 +224,7 @@ class Util {
 		return $prof;
 	}
 
-	public function get_profession_abbreviation($profession) {
+	public function getProfessionAbbreviation($profession) {
 		switch ($profession) {
 			case "Adventurer":
 				$prof = "Adv";
@@ -277,10 +277,10 @@ class Util {
 	}
 
 	/**
-	 * @name: verify_filename
+	 * @name: verifyFilename
 	 * @description: returns true if filename matches budabot naming convention and false otherwise
 	 */
-	public function verify_filename($filename) {
+	public function verifyFilename($filename) {
 		//Replace all \ characters with /
 		$filename = str_replace("\\", "/", $filename);
 
@@ -299,7 +299,7 @@ class Util {
 		return "";
 	}
 
-	public function get_ability($ability, $getFullName = false) {
+	public function getAbility($ability, $getFullName = false) {
 		$abilities = array(
 			'agi' => 'Agility',
 			'int' => 'Intelligence',
@@ -322,7 +322,7 @@ class Util {
 		}
 	}
 
-	public function rand_array_value($array) {
+	public function randomArrayValue($array) {
 		return $array[rand(0, count($array) - 1)];
 	}
 

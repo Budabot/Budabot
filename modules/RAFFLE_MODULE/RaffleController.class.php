@@ -84,7 +84,7 @@ class RaffleController {
 			$count = 1;
 		}
 		$seconds = $this->settingManager->get("defaultraffletime");
-		$timeString = $this->util->unixtime_to_readable($seconds);
+		$timeString = $this->util->unixtimeToReadable($seconds);
 
 		$this->raffles = array(
 			"running" => true,
@@ -335,7 +335,7 @@ class RaffleController {
 
 	function show_raffle_reminder() {
 		// there is a raffle running
-		$time_string = $this->util->unixtime_to_readable($this->raffles["time"] - $this->raffles["nextmsgtime"]);
+		$time_string = $this->util->unixtimeToReadable($this->raffles["time"] - $this->raffles["nextmsgtime"]);
 		$item = $this->raffles["item"];
 		$count = $this->raffles["count"];
 

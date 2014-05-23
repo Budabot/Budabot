@@ -94,7 +94,7 @@ class FunController {
 	public function getFunItem($type, $sender, $number = null) {
 		$data = $this->db->query("SELECT * FROM fun WHERE type = ?", $type);
 		if ($number === null) {
-			$row = $this->util->rand_array_value($data);
+			$row = $this->util->randomArrayValue($data);
 		} else {
 			$row = $data[$number];
 		}

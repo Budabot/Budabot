@@ -60,7 +60,7 @@ class AOSpeakController {
 			forEach ($users as $user) {
 				if ($user->idleTime >= 300000) {
 					// if idle for at least 5 minutes
-					$blob .= "<highlight>{$user->name}<end> ({$user->country}, idle for " . $this->util->unixtime_to_readable($user->idleTime / 1000, false) . ")\n";
+					$blob .= "<highlight>{$user->name}<end> ({$user->country}, idle for " . $this->util->unixtimeToReadable($user->idleTime / 1000, false) . ")\n";
 				} else {
 					$blob .= "<highlight>{$user->name}<end> ({$user->country})\n";
 				}
@@ -104,7 +104,7 @@ class AOSpeakController {
 				forEach ($users as $user) {
 					if ($user->idleTime >= 300000) {
 						// if idle for at least 5 minutes
-						$blob .= "<tab><highlight>{$user->name}<end> (RK{$user->dim}, {$user->country}, idle for " . $this->util->unixtime_to_readable($user->idleTime / 1000, false) . ")\n";
+						$blob .= "<tab><highlight>{$user->name}<end> (RK{$user->dim}, {$user->country}, idle for " . $this->util->unixtimeToReadable($user->idleTime / 1000, false) . ")\n";
 					} else {
 						$blob .= "<tab><highlight>{$user->name}<end> (RK{$user->dim}, {$user->country})\n";
 					}

@@ -131,7 +131,7 @@ class TimeController {
 			$msg = "You must enter a valid time parameter for the calculation.";
 		} else {
 			$newTime = $this->util->date(time() + $seconds);
-			$timeString = $this->util->unixtime_to_readable($seconds);
+			$timeString = $this->util->unixtimeToReadable($seconds);
 			$msg = "In $timeString from now it will be $newTime.";
 		}
 

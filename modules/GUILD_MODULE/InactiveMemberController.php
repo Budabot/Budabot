@@ -53,7 +53,7 @@ class InactiveMemberController {
 			return;
 		}
 
-		$timeString = $this->util->unixtime_to_readable($time, false);
+		$timeString = $this->util->unixtimeToReadable($time, false);
 		$time = time() - $time;
 
 		$data = $this->db->query("SELECT * FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` < ?  ORDER BY o.name", $time);

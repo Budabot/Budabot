@@ -74,7 +74,7 @@ class UsageController {
 			$time = 604800;
 		}
 
-		$timeString = $this->util->unixtime_to_readable($time);
+		$timeString = $this->util->unixtimeToReadable($time);
 		$time = time() - $time;
 	
 		$player = ucfirst(strtolower($args[1]));
@@ -114,7 +114,7 @@ class UsageController {
 			$time = 604800;
 		}
 
-		$timeString = $this->util->unixtime_to_readable($time);
+		$timeString = $this->util->unixtimeToReadable($time);
 		$time = time() - $time;
 	
 		$cmd = strtolower($args[1]);
@@ -154,7 +154,7 @@ class UsageController {
 			$time = 604800;
 		}
 
-		$timeString = $this->util->unixtime_to_readable($time);
+		$timeString = $this->util->unixtimeToReadable($time);
 		$time = time() - $time;
 		$limit = 25;
 		

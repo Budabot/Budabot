@@ -322,7 +322,7 @@ class GuildController {
 			return;
 		}
 
-		$timeString = $this->util->unixtime_to_readable($time, false);
+		$timeString = $this->util->unixtimeToReadable($time, false);
 		$time = time() - $time;
 
 		$data = $this->db->query("SELECT case when a.main is null then o.name else a.main end as main ,o.logged_off,o.name FROM org_members_<myname> o LEFT JOIN alts a ON o.name = a.alt WHERE `mode` != 'del' AND `logged_off` > ? ORDER BY 1, o.logged_off desc, o.name", $time); 

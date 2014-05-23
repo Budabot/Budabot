@@ -122,7 +122,7 @@ class TestController extends AutoInject {
 			$lines = file($this->path . $file, FILE_IGNORE_NEW_LINES);
 			$this->runTests($lines, $sender, $type, $mockSendto);
 		}
-		$time = $this->util->unixtime_to_readable(time() - $starttime);
+		$time = $this->util->unixtimeToReadable(time() - $starttime);
 		$sendto->reply("Finished tests. Time: $time");
 	}
 	
@@ -147,7 +147,7 @@ class TestController extends AutoInject {
 			$starttime = time();
 			$sendto->reply("Starting test $file...");
 			$this->runTests($lines, $sender, $type, $mockSendto);
-			$time = $this->util->unixtime_to_readable(time() - $starttime);
+			$time = $this->util->unixtimeToReadable(time() - $starttime);
 			$sendto->reply("Finished test $file. Time: $time");
 		}
 	}

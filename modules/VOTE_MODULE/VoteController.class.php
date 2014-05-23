@@ -151,7 +151,7 @@ class VoteController {
 
 				$msg = "$author's Vote: <highlight>".$question."<end>\n";
 				if ($timeleft > 0) {
-					$msg .= $this->util->unixtime_to_readable($timeleft)." until this vote closes!\n\n";
+					$msg .= $this->util->unixtimeToReadable($timeleft)." until this vote closes!\n\n";
 				} else {
 					$msg .= "<red>This vote has ended.<end>\n\n";
 				}
@@ -217,7 +217,7 @@ class VoteController {
 
 				$timeleft = $started + $duration - time();
 				if ($timeleft>0) {
-					$running .= $line . "\n(" . $this->util->unixtime_to_readable($timeleft) . " left)\n";
+					$running .= $line . "\n(" . $this->util->unixtimeToReadable($timeleft) . " left)\n";
 				} else {
 					$over .= $line . "\n";
 				}
@@ -359,9 +359,9 @@ class VoteController {
 
 			$blob = "$author's Vote: <highlight>".$question."<end>\n";
 			if ($timeleft > 0) {
-				$blob .= $this->util->unixtime_to_readable($timeleft)." till this vote closes!\n\n";
+				$blob .= $this->util->unixtimeToReadable($timeleft)." till this vote closes!\n\n";
 			} else {
-				$blob .= "<red>This vote has ended " . $this->util->unixtime_to_readable(time() - ($started + $duration), 1) . " ago.<end>\n\n";
+				$blob .= "<red>This vote has ended " . $this->util->unixtimeToReadable(time() - ($started + $duration), 1) . " ago.<end>\n\n";
 			}
 
 			forEach ($results as $key => $value) {

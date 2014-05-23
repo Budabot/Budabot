@@ -43,7 +43,7 @@ class DingController {
 			"When are you people going to start using me right! Gratz for your level though.",
 			"Gratz! But what are we looking at? I need a level next time.");
 
-		$sendto->reply($this->util->rand_array_value($dingText));
+		$sendto->reply($this->util->randomArrayValue($dingText));
 	}
 	
 	/**
@@ -131,6 +131,6 @@ class DingController {
 				"Come on, COME ON! Only $lvl more levels to go until 220!");
 		}
 
-		$sendto->reply($this->util->rand_array_value($dingText));
+		$sendto->reply($this->util->randomArrayValue($dingText));
 	}
 }

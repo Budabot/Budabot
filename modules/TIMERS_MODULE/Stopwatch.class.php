@@ -57,7 +57,7 @@ class Stopwatch {
 			$time = time() - $this->time;
 			$this->time = 0;
 
-			$timeString = $this->util->unixtime_to_readable($time);
+			$timeString = $this->util->unixtimeToReadable($time);
 
 			$msg = "Stopwatch has been stopped. Duration: <highlight>$timeString<end>.";
 		}
@@ -74,7 +74,7 @@ class Stopwatch {
 		} else {
 			$time = time() - $this->time;
 
-			$timeString = $this->util->unixtime_to_readable($time);
+			$timeString = $this->util->unixtimeToReadable($time);
 
 			$msg = "Elapsed time: <highlight>$timeString<end>.";
 		}

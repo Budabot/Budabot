@@ -184,7 +184,7 @@ class ItemsController {
 				if (preg_match("/^aodb(.*)\\.sql$/i", $item->a, $arr)) {
 					if ($latestVersion === null) {
 						$latestVersion = $arr[1];
-					} else if ($this->util->compare_version_numbers($arr[1], $currentVersion)) {
+					} else if ($this->util->compareVersionNumbers($arr[1], $currentVersion)) {
 						$latestVersion = $arr[1];
 					}
 				}
@@ -199,7 +199,7 @@ class ItemsController {
 			$currentVersion = $this->settingManager->get("aodb_db_version");
 
 			// if server version is greater than current version, download and load server version
-			if ($currentVersion === false || $this->util->compare_version_numbers($latestVersion, $currentVersion) > 0) {
+			if ($currentVersion === false || $this->util->compareVersionNumbers($latestVersion, $currentVersion) > 0) {
 				// download server version and save to ITEMS_MODULE directory
 				$contents = $this->http->get("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE/aodb{$latestVersion}.sql")
 					->waitAndReturnResponse()->body;

@@ -193,7 +193,7 @@ class NanoController {
 	}
 
 	private function nanolinesList($profession, $sendto) {
-		$profession = $this->util->get_profession_name($profession);
+		$profession = $this->util->getProfessionName($profession);
 		if ($profession == '') {
 			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
 			$sendto->reply($msg);

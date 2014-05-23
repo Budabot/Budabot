@@ -188,7 +188,7 @@ class ReputationController {
 					$blob .= "<green>";
 				}
 
-				$time = $this->util->unixtime_to_readable(time() - $row->dt);
+				$time = $this->util->unixtimeToReadable(time() - $row->dt);
 				$blob .= "({$row->reputation}) $row->comment <end> $row->by <white>{$time} ago<end>\n\n";
 			}
 			

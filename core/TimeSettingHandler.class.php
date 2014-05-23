@@ -18,7 +18,7 @@ class TimeSettingHandler extends SettingHandler {
 	 * @return String
 	 */
 	function displayValue() {
-		return "<highlight>" . $this->util->unixtime_to_readable($this->row->value) . "<end>";
+		return "<highlight>" . $this->util->unixtimeToReadable($this->row->value) . "<end>";
 	}
 	
 	/**

@@ -213,7 +213,7 @@ class DB {
 
 		$settingName = $name . "_db_version";
 
-		$dir = $this->util->verify_filename($module);
+		$dir = $this->util->verifyFilename($module);
 		if (empty($dir)) {
 			$msg = "Could not find module '$module'.";
 			LegacyLogger::log('ERROR', 'SQL', $msg);
@@ -243,7 +243,7 @@ class DB {
 						break;
 					}
 
-					if ($this->util->compare_version_numbers($arr[1], $maxFileVersion) >= 0) {
+					if ($this->util->compareVersionNumbers($arr[1], $maxFileVersion) >= 0) {
 						$maxFileVersion = $arr[1];
 						$file = $entry;
 					}
@@ -260,7 +260,7 @@ class DB {
 		// make sure setting is verified so it doesn't get deleted
 		$this->settingManager->add($module, $settingName, $settingName, 'noedit', 'text', 0);
 		
-		if ($forceUpdate || $this->util->compare_version_numbers($maxFileVersion, $currentVersion) > 0) {
+		if ($forceUpdate || $this->util->compareVersionNumbers($maxFileVersion, $currentVersion) > 0) {
 			$handle = @fopen("$dir/$file", "r");
 			if ($handle) {
 				try {

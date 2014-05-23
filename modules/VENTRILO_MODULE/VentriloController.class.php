@@ -106,7 +106,7 @@ class VentriloController {
 			if ($this->settingManager->get("showextendedinfo") == 1) {
 				$page .= "Voice Encoder: <highlight>{$stat->m_voicecodec_code}<end> - {$stat->m_voicecodec_desc}\n";
 				$page .= "Voice Format: <highlight>{$stat->m_voiceformat_code}<end> - {$stat->m_voiceformat_desc}\n";
-				$page .= "Server Uptime: " . $this->util->unixtime_to_readable($stat->m_uptime, false) . "\n";
+				$page .= "Server Uptime: " . $this->util->unixtimeToReadable($stat->m_uptime, false) . "\n";
 				$page .= "Server Platform: <highlight>{$stat->m_platform}<end>\n";
 				$page .= "Server Version: <highlight>{$stat->m_version}<end>\n";
 				$page .= "Number of channels: <highlight>{$stat->m_channelcount}<end>\n";

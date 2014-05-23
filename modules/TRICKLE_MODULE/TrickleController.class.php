@@ -53,7 +53,7 @@ class TrickleController {
 		$array = explode(" ", $message);
 		array_shift($array);
 		for ($i = 0; isset($array[$i]); $i += 2) {
-			$ability = $this->util->get_ability($array[$i]);
+			$ability = $this->util->getAbility($array[$i]);
 			if ($ability == null) {
 				return false;
 			}
@@ -61,7 +61,8 @@ class TrickleController {
 			$abilities[$ability] = $array[1 + $i];
 		}
 
-		$this->processAbilities($abilities, $sendto);
+		$msg = $this->processAbilities($abilities);
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -76,7 +77,7 @@ class TrickleController {
 		$array = explode(" ", $message);
 		array_shift($array);
 		for ($i = 0; isset($array[$i]); $i += 2) {
-			$ability = $this->util->get_ability($array[1 + $i]);
+			$ability = $this->util->getAbility($array[1 + $i]);
 			if ($ability == null) {
 				return false;
 			}
@@ -84,7 +85,8 @@ class TrickleController {
 			$abilities[$ability] = $array[$i];
 		}
 
-		$this->processAbilities($abilities, $sendto);
+		$msg = $this->processAbilities($abilities);
+		$sendto->reply($msg);
 	}
 	
 	private function processAbilities($abilities, $sendto) {
@@ -96,7 +98,7 @@ class TrickleController {
 			if ($value == 0) {
 				return null;
 			} else {
-				return $that->util->get_ability($ability, true) . " <highlight>" . $value . "<end>";
+				return $that->util->getAbility($ability, true) . " <highlight>" . $value . "<end>";
 			}
 		}); 
 		$blob .= "\n";
@@ -104,8 +106,7 @@ class TrickleController {
 		$results = $this->getTrickleResults($abilities);
 		$blob .= $this->formatOutput($results, $amount, $abilities);
 		$blob .= "\nBy Tyrence (RK2), inspired by the Bebot command of the same name";
-		$msg = $this->text->make_blob("Trickle Results", $blob);
-		$sendto->reply($msg);
+		return $this->text->make_blob("Trickle Results", $blob);
 	}
 	
 	function getTrickleResults($abilities) {

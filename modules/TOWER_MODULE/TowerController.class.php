@@ -439,7 +439,7 @@ class TowerController {
 			return;
 		}
 
-		$penaltyTimeString = $this->util->unixtime_to_readable($time, false);
+		$penaltyTimeString = $this->util->unixtimeToReadable($time, false);
 	
 		$data = $this->getSitesInPenalty(time() - $time);
 	
@@ -451,7 +451,7 @@ class TowerController {
 					$blob .= "\n<header2>{$row->att_faction}<end>\n";
 					$current_faction = $row->att_faction;
 				}
-				$timeString = $this->util->unixtime_to_readable(time() - $row->penalty_time, false);
+				$timeString = $this->util->unixtimeToReadable(time() - $row->penalty_time, false);
 				$blob .= "<{$row->att_faction}>{$row->att_guild_name}<end> - $timeString ago\n";
 			}
 			$msg = $this->text->make_blob("Orgs in penalty ($penaltyTimeString)", $blob);
@@ -606,7 +606,7 @@ class TowerController {
 			return;
 		}
 
-		$timeString = $this->util->unixtime_to_readable($time);
+		$timeString = $this->util->unixtimeToReadable($time);
 
 		$blob = '';
 
@@ -966,7 +966,7 @@ class TowerController {
 			$blob .= $this->text->make_header_links($links) . "\n\n";
 
 			forEach ($data as $row) {
-				$timeString = $this->util->unixtime_to_readable(time() - $row->time);
+				$timeString = $this->util->unixtimeToReadable(time() - $row->time);
 				$blob .= "Time: " . $this->util->date($row->time) . " (<highlight>$timeString<end> ago)\n";
 				if ($row->att_faction == '') {
 					$att_faction = "unknown";
@@ -1041,7 +1041,7 @@ class TowerController {
 			$blob = "The last $page_size Tower Results (page $page_label)\n\n";
 			$blob .= $this->text->make_header_links($links) . "\n\n";
 			forEach ($data as $row) {
-				$timeString = $this->util->unixtime_to_readable(time() - $row->victory_time);
+				$timeString = $this->util->unixtimeToReadable(time() - $row->victory_time);
 				$blob .= "Time: " . $this->util->date($row->victory_time) . " (<highlight>$timeString<end> ago)\n";
 
 				if (!$win_side = strtolower($row->win_faction)) {

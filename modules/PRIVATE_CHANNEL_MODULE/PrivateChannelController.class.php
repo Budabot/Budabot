@@ -435,7 +435,7 @@ class PrivateChannelController {
 	 * @Matches("/^count (.*)$/i")
 	 */
 	public function countCommand($message, $channel, $sender, $sendto, $args) {
-		$prof = $this->util->get_profession_name($args[1]);
+		$prof = $this->util->getProfessionName($args[1]);
 		if ($prof == '') {
 			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, trader or all";
 		} else {

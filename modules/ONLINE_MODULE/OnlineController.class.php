@@ -82,7 +82,7 @@ class OnlineController {
 		if (count($args) == 2) {
 			$prof = strtolower($args[1]);
 			if ($prof != 'all') {
-				$prof = $this->util->get_profession_name($prof);
+				$prof = $this->util->getProfessionName($prof);
 			}
 
 			if ($prof == null) {
@@ -246,7 +246,7 @@ class OnlineController {
 
 			if ($row !== null && $row->afk != '') {
 				list($time, $reason) = explode('|', $row->afk);
-				$timeString = $this->util->unixtime_to_readable(time() - $time);
+				$timeString = $this->util->unixtimeToReadable(time() - $time);
 				// $sender is back
 				$this->db->exec("UPDATE online SET `afk` = '' WHERE `name` = ? AND added_by = '<myname>' AND channel_type = ?", $sender, $type);
 				$msg = "<highlight>{$sender}<end> is back after $timeString.";
@@ -453,10 +453,10 @@ class OnlineController {
 		if (empty($afk)) {
 			return '';
 		} else if (empty($reason)) {
-			$timeString = $this->util->unixtime_to_readable(time() - $time);
+			$timeString = $this->util->unixtimeToReadable(time() - $time);
 			return " $fancyColon <red>AFK for $timeString<end>";
 		} else {
-			$timeString = $this->util->unixtime_to_readable(time() - $time);
+			$timeString = $this->util->unixtimeToReadable(time() - $time);
 			return " $fancyColon <red>AFK for $timeString - {$reason}<end>";
 		}
 	}

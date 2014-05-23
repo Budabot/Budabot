@@ -329,17 +329,17 @@ class SystemController {
 		$blob .= "OS: <highlight>" . php_uname('s') . ' ' . php_uname('r') . ' ' . php_uname('m') . "<end>\n";
 		$blob .= "Database: <highlight>" . $this->db->get_type() . "<end>\n\n";
 
-		$blob .= "Current Memory Usage: <highlight>" . $this->util->bytes_convert(memory_get_usage()) . "<end>\n";
-		$blob .= "Current Memory Usage (Real): <highlight>" . $this->util->bytes_convert(memory_get_usage(1)) . "<end>\n";
+		$blob .= "Current Memory Usage: <highlight>" . $this->util->bytesConvert(memory_get_usage()) . "<end>\n";
+		$blob .= "Current Memory Usage (Real): <highlight>" . $this->util->bytesConvert(memory_get_usage(1)) . "<end>\n";
 		if (version_compare(PHP_VERSION, '5.2.0', '>=')) {
-			$blob .= "Peak Memory Usage: <highlight>" . $this->util->bytes_convert(memory_get_peak_usage()) . "<end>\n";
-			$blob .= "Peak Memory Usage (Real): <highlight>" . $this->util->bytes_convert(memory_get_peak_usage(1)) . "<end>\n\n";
+			$blob .= "Peak Memory Usage: <highlight>" . $this->util->bytesConvert(memory_get_peak_usage()) . "<end>\n";
+			$blob .= "Peak Memory Usage (Real): <highlight>" . $this->util->bytesConvert(memory_get_peak_usage(1)) . "<end>\n\n";
 		}
 		
 		$blob .= "Runkit Classloading: <highlight>" . (USE_RUNKIT_CLASS_LOADING ? "enabled" : "disabled") . "<end>\n";
 		$blob .= "Using Chat Proxy: <highlight>" . ($this->chatBot->vars['use_proxy'] == "1" ? "enabled" : "disabled") . "<end>\n";
 
-		$date_string = $this->util->unixtime_to_readable(time() - $this->chatBot->vars['startup']);
+		$date_string = $this->util->unixtimeToReadable(time() - $this->chatBot->vars['startup']);
 		$blob .= "Uptime: <highlight>$date_string<end>\n\n";
 
 		$eventnum = 0;

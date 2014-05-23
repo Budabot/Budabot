@@ -176,8 +176,8 @@ class TimerController {
 
 		$this->add($timerName, $sender, $channel, $endTime, $alerts, "repeating", $runTime);
 
-		$initialTimerSet = $this->util->unixtime_to_readable($initialRunTime);
-		$timerSet = $this->util->unixtime_to_readable($runTime);
+		$initialTimerSet = $this->util->unixtimeToReadable($initialRunTime);
+		$timerSet = $this->util->unixtimeToReadable($runTime);
 		$msg = "Repeating timer <highlight>$timerName<end> will go off in $initialTimerSet and repeat every $timerSet.";
 
 		$sendto->reply($msg);
@@ -193,7 +193,7 @@ class TimerController {
 		if ($timer == null) {
 			$msg = "Could not find timer named <highlight>$name<end>.";
 		} else {
-			$time_left = $this->util->unixtime_to_readable($timer->timer - time());
+			$time_left = $this->util->unixtimeToReadable($timer->timer - time());
 			$name = $timer->name;
 
 			$msg = "Timer <highlight>$name<end> has <highlight>$time_left<end> left.";
@@ -255,7 +255,7 @@ class TimerController {
 		} else {
 			$blob = '';
 			forEach ($timers as $timer) {
-				$time_left = $this->util->unixtime_to_readable($timer->timer - time());
+				$time_left = $this->util->unixtimeToReadable($timer->timer - time());
 				$name = $timer->name;
 				$owner = $timer->owner;
 
@@ -263,7 +263,7 @@ class TimerController {
 
 				$repeatingInfo = '';
 				if ($timer->callback == 'repeating') {
-					$repeatingTimeString = $this->util->unixtime_to_readable($timer->callback_param);
+					$repeatingTimeString = $this->util->unixtimeToReadable($timer->callback_param);
 					$repeatingInfo = " (Repeats every $repeatingTimeString)";
 				}
 
@@ -282,7 +282,7 @@ class TimerController {
 		$alertTimes = explode(' ', $this->setting->timer_alert_times);
 		forEach ($alertTimes as $alertTime) {
 			$time = $this->util->parseTime($alertTime);
-			$timeString = $this->util->unixtime_to_readable($time);
+			$timeString = $this->util->unixtimeToReadable($time);
 			if ($endTime - $time > time()) {
 				$alert = new stdClass;
 				$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>$timeString<end> left. [set by <highlight>$sender<end>]";
@@ -326,7 +326,7 @@ class TimerController {
 
 		$this->add($name, $sender, $channel, $endTime, $alerts);
 
-		$timerset = $this->util->unixtime_to_readable($runTime);
+		$timerset = $this->util->unixtimeToReadable($runTime);
 		return "Timer <highlight>$name<end> has been set for $timerset.";
 	}
 
