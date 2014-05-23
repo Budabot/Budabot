@@ -26,19 +26,19 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = "logonadmin", 
  *		accessLevel = "mod", 
- *		description = "Admin command for editing another player's logon message", 
+ *		description = "Admin command for editing another character's logon message", 
  *		help        = "logonadmin.txt"
  *	)
  *	@DefineCommand(
  *		command     = "logoffadmin", 
  *		accessLevel = "mod", 
- *		description = "Admin command for editing another player's logoff message", 
+ *		description = "Admin command for editing another character's logoff message", 
  *		help        = "logoffadmin.txt"
  *	)
  *	@DefineCommand(
  *		command     = "lastseen", 
  *		accessLevel = "guild", 
- *		description = "Shows the last logoff time of a player", 
+ *		description = "Shows the last logoff time of a character", 
  *		help        = "lastseen.txt"
  *	)
  *	@DefineCommand(
@@ -56,7 +56,7 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = "notify", 
  *		accessLevel = "mod", 
- *		description = "Add a player to the notify list manually", 
+ *		description = "Adds a character to the notify list manually", 
  *		help        = "notify.txt"
  *	)
  *	@DefineCommand(
@@ -274,12 +274,12 @@ class GuildController {
 		$name = ucfirst(strtolower($args[1]));
 		$uid = $this->chatBot->get_uid($name);
 		if (!$uid) {
-			$msg = "Player <highlight>$name<end> does not exist.";
+			$msg = "Character <highlight>$name<end> does not exist.";
 		} else {
 			$altInfo = $this->altsController->get_alt_info($name);
 			$onlineAlts = $altInfo->get_online_alts();
 			if (count($onlineAlts) > 0) {
-				$msg = "This player is currently <green>online<end> as " . implode(', ', $onlineAlts) . ".";
+				$msg = "This character is currently <green>online<end> as " . implode(', ', $onlineAlts) . ".";
 			} else {
 				$namesSql = '';
 				forEach ($altInfo->get_all_alts() as $alt) {
@@ -297,7 +297,7 @@ class GuildController {
 						$msg = "Last seen at " . $this->util->date($row->logged_off) . " on <highlight>" . $row->name . "<end>.";
 					}
 				} else {
-					$msg = "This player is not a member of the org.";
+					$msg = "This character is not a member of the org.";
 				}
 			}
 		}
@@ -346,12 +346,12 @@ class GuildController {
 				$logged = $row->logged_off;
 				$lasttoon = $row->name;
 
-				$player = $row->main." [{$alts}]\nLast seen as [$lasttoon] on " . $this->util->date($logged) . "\n\n";
+				$character = $row->main." [{$alts}]\nLast seen as [$lasttoon] on " . $this->util->date($logged) . "\n\n";
 				if ($highlight == 1) {
-					$blob .= "<highlight>$player<end>";
+					$blob .= "<highlight>$character<end>";
 					$highlight = 0;
 				} else {
-					$blob .= $player;
+					$blob .= $character;
 					$highlight = 1;
 				}
 			} 
@@ -490,7 +490,7 @@ class GuildController {
 					continue;
 				}
 
-				//If there exists already data about the player just update him/her
+				//If there exists already data about the character just update him/her
 				if (isset($dbentrys[$member->name])) {
 					if ($dbentrys[$member->name]["mode"] == "del") {
 						// members who are not on notify should not be on the buddy list but should remain in the database
@@ -555,7 +555,7 @@ class GuildController {
 	
 	/**
 	 * @Event("orgmsg")
-	 * @Description("Automatically update guild roster as players join and leave the guild")
+	 * @Description("Automatically update guild roster as characters join and leave the guild")
 	 */
 	public function autoNotifyOrgMembersEvent($eventObj) {
 		$message = $eventObj->message;
