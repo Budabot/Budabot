@@ -1,5 +1,2 @@
 To show info about a player on the current server:
 <highlight><tab><symbol>whois 'player'<end>
-
-To show info about a player on all servers:
-<highlight><tab><symbol>whoisall 'player'<end>
