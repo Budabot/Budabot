@@ -18,6 +18,8 @@ class SubcommandManager {
 
 	/** @Logger */
 	public $logger;
+	
+	public $subcommands = array();
 
 	/**
 	 * @name: register

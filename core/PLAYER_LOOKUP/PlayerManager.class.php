@@ -60,7 +60,7 @@ class PlayerManager {
 	}
 
 	public function findInDb($name, $rk_num) {
-		$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ?";
+		$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ? LIMIT 1";
 		return $this->db->queryRow($sql, $name, $rk_num);
 	}
 

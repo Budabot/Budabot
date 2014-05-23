@@ -7,29 +7,29 @@ namespace Budabot\User\Modules;
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'assist', 
- *      alias       = 'callers',
- *		accessLevel = 'all', 
- *		description = 'Shows an Assist macro', 
- *		help        = 'assist.txt'
+ *		command     = 'assist',
+ *		accessLevel = 'all',
+ *		description = 'Shows the assist macro',
+ *		help        = 'assist.txt',
+ *      alias       = 'callers'
  *	)
  *	@DefineCommand(
- *		command     = 'assist (.+)', 
- *		accessLevel = 'rl', 
- *		description = 'Set a new assist', 
+ *		command     = 'assist .+', 
+ *		accessLevel = 'rl',
+ *		description = 'Sets a new assist',
  *		help        = 'assist.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'heal',
  *      alias       = 'healassist',
- *		accessLevel = 'all', 
- *		description = 'Creates/showes an Doc Assist macro', 
+ *		accessLevel = 'all',
+ *		description = 'Creates/shows an Doc Assist macro',
  *		help        = 'healassist.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'heal (.+)', 
- *		accessLevel = 'rl', 
- *		description = 'Set a new Doc assist', 
+ *		command     = 'heal .+',
+ *		accessLevel = 'rl',
+ *		description = 'Sets a new Doc assist',
  *		help        = 'healassist.txt'
  *	)
  */
@@ -58,7 +58,6 @@ class ChatAssistController {
 	private $healMessage;
 
 	/**
-	 * This command handler shows an Assist macro.
 	 * @HandlesCommand("assist")
 	 * @Matches("/^assist$/i")
 	 */
@@ -77,32 +76,31 @@ class ChatAssistController {
 			}
 		}
 	}
+	
+	/**
+	 * @HandlesCommand("assist .+")
+	 * @Matches("/^assist clear$/i")
+	 */
+	public function assistClearCommand($message, $channel, $sender, $sendto, $args) {
+		$this->assistMessage = null;
+		$sendto->reply("Assist has been cleared.");
+	}
 
 	/**
-	 * This command handler sets a new assist.
-	 * @HandlesCommand("assist (.+)")
-	 * @Matches("/^assist clear$/i")
+	 * @HandlesCommand("assist .+")
 	 * @Matches("/^assist (.+)$/i")
 	 */
 	public function assistSetCommand($message, $channel, $sender, $sendto, $args) {
-		if (count($args) == 1) {
-			$this->assistMessage = null;
-			$sendto->reply("Assist has been cleared.");
-			return;
-		}
-	
 		$nameArray = explode(' ', $args[1]);
 		
 		if (count($nameArray) == 1) {
 			$name = ucfirst(strtolower($args[1]));
 			$uid = $this->chatBot->get_uid($name);
-			if ($channel == "priv" && !isset($this->chatBot->chatlist[$name])) {
-				$msg = "Character <highlight>$name<end> is not in this bot.";
-				$sendto->reply($msg);
-			}
-
 			if (!$uid) {
 				$msg = "Character <highlight>$name<end> does not exist.";
+				$sendto->reply($msg);
+			} else if ($channel == "priv" && !isset($this->chatBot->chatlist[$name])) {
+				$msg = "Character <highlight>$name<end> is not in this bot.";
 				$sendto->reply($msg);
 			}
 
@@ -112,15 +110,14 @@ class ChatAssistController {
 			forEach ($nameArray as $key => $name) {
 				$name = ucfirst(strtolower($name));
 				$uid = $this->chatBot->get_uid($name);
-				if ($channel == "priv" && !isset($this->chatBot->chatlist[$name])) {
+				if (!$uid) {
+					$msg = "Character <highlight>$name<end> does not exist.";
+					$sendto->reply($msg);
+				} else if ($channel == "priv" && !isset($this->chatBot->chatlist[$name])) {
 					$msg = "Character <highlight>$name<end> is not in this bot.";
 					$sendto->reply($msg);
 				}
 
-				if (!$uid) {
-					$msg = "Character <highlight>$name<end> does not exist.";
-					$sendto->reply($msg);
-				}
 				$nameArray[$key] = "/assist $name";
 			}
 
@@ -139,7 +136,6 @@ class ChatAssistController {
 	}
 
 	/**
-	 * This command handler showes an Doc Assist macro.
 	 * @HandlesCommand("heal")
 	 * @Matches("/^heal$/i")
 	 */
@@ -158,20 +154,21 @@ class ChatAssistController {
 			}
 		}
 	}
+	
+	/**
+	 * @HandlesCommand("heal .+")
+	 * @Matches("/^heal clear$/i")
+	 */
+	public function healClearCommand($message, $channel, $sender, $sendto, $args) {
+		$this->assistMessage = null;
+		$sendto->reply("Heal assist has been cleared.");
+	}
 
 	/**
-	 * This command handler sets a new Doc assist.
-	 * @HandlesCommand("heal (.+)")
-	 * @Matches("/^heal clear$/i")
+	 * @HandlesCommand("heal .+")
 	 * @Matches("/^heal (.+)$/i")
 	 */
 	public function healSetCommand($message, $channel, $sender, $sendto, $args) {
-		if (count($args) == 1) {
-			$this->assistMessage = null;
-			$sendto->reply("Heal assist has been cleared.");
-			return;
-		}
-		
 		$nameArray = explode(' ', $args[1]);
 
 		if (count($nameArray) == 1) {
