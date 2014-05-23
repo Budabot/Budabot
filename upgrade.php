@@ -110,4 +110,6 @@ use Budabot\Core\Registry;
 	if ($db->get_type() == DB::MYSQL && getColumnType($db, 'cmdcfg_<myname>', 'cmd') != 'VARCHAR(50)') {
 		$db->exec("ALTER TABLE cmdcfg_<myname> MODIFY cmd VARCHAR(50)");
 	}
+	
+	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ?", "lastseen");
 ?>
