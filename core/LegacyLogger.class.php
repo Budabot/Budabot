@@ -63,7 +63,7 @@ class LegacyLogger {
 
 		if ($channel == "Buddy") {
 			$line = "[$channel] $sender $message";
-		} else if ($sender == '-1') {
+		} else if ($sender == '-1' || $sender == '4294967295') {
 			$line = "[$channel] $message";
 		} else {
 			$line = "[$channel] $sender: $message";
