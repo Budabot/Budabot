@@ -54,7 +54,7 @@ class LogsController {
 	 * @Matches("/^logs$/i")
 	 */
 	public function logsCommand($message, $channel, $sender, $sendto, $args) {
-		$files = $this->util->getFilesInDirectory($this->logger->get_logging_directory());
+		$files = $this->util->getFilesInDirectory($this->logger->getLoggingDirectory());
 		sort($files);
 		$blob = '';
 		forEach ($files as $file) {
@@ -74,7 +74,7 @@ class LogsController {
 	 * @Matches("/^logs ([a-zA-Z0-9-_\.]+) (.+)$/i")
 	 */
 	public function logsFileCommand($message, $channel, $sender, $sendto, $args) {
-		$filename = $this->logger->get_logging_directory() . "/" . $args[1];
+		$filename = $this->logger->getLoggingDirectory() . "/" . $args[1];
 		$readsize = $this->settingManager->get('max_blob_size') - 500;
 
 		try {

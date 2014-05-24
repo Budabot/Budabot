@@ -3,6 +3,7 @@
 use Budabot\Core\DB;
 use Budabot\Core\SQLException;
 use Budabot\Core\Registry;
+use Budabot\Core\LoggerWrapper;
 
 	/*
 	 ** This file is part of Budabot.
@@ -22,6 +23,7 @@ use Budabot\Core\Registry;
 	*/
 
 	$db = Registry::getInstance('db');
+	$logger = new LoggerWrapper('Upgrade');
 
 	/**
 	 * Returns array of information of each column in the given $table.
@@ -45,11 +47,11 @@ use Budabot\Core\Registry;
 					return $db->query("PRAGMA table_info($table)");
 
 				default:
-					LegacyLogger::log("ERROR", 'Upgrade', "Unknown database type '". $db->get_type() ."'");
+					$logger->log("ERROR", "Unknown database type '". $db->get_type() ."'");
 					break;
 			}
 		} catch (SQLException $e) {
-			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
+			$logger->log("ERROR", $e->getMessage());
 		}
 		return array();
 	}

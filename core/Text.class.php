@@ -121,7 +121,7 @@ class Text {
 					$newResult = $this->paginate($line, $maxLength, $symbols);
 					$result = array_merge($result, $newResult);
 				} else {
-					LegacyLogger::log('ERROR', 'Text', "Could not successfully page blob");
+					$this->logger->log('ERROR', "Could not successfully page blob");
 					$result []= $line;
 				}
 			} else if ($pageSize + $lineLength < $maxLength) {

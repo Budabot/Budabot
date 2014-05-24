@@ -28,9 +28,15 @@ class DB {
 	private $in_transaction = false;
 	public $table_replaces = array();
 	
+	private $logger;
+	
 	const MYSQL = 'mysql';
 	const SQLITE = 'sqlite';
 	const ODBC = 'odbc';
+	
+	public function __construct() {
+		$this->logger = new LoggerWrapper('SQL');
+	}
 
 	function connect($type, $dbName, $host = null, $user = null, $pass = null) {
 		global $vars;
@@ -120,7 +126,7 @@ class DB {
 
 	private function executeQuery($sql, $params) {
 		$this->lastQuery = $sql;
-		LegacyLogger::log('DEBUG', "SQL", $sql . " - " . print_r($params, true));
+		$this->logger->log('DEBUG', $sql . " - " . print_r($params, true));
 
 		try {
 			$ps = $this->sql->prepare($sql);
@@ -145,20 +151,20 @@ class DB {
 
 	//Start of an transaction
 	function begin_transaction() {
-		LegacyLogger::log('DEBUG', "SQL", "Starting transaction");
+		$this->logger->log('DEBUG', "Starting transaction");
 		$this->in_transaction = true;
 		$this->sql->beginTransaction();
 	}
 
 	//Commit an transaction
 	function commit() {
-		LegacyLogger::log('DEBUG', "SQL", "Committing transaction");
+		$this->logger->log('DEBUG', "Committing transaction");
 		$this->in_transaction = false;
 		$this->sql->Commit();
 	}
 
 	function rollback() {
-		LegacyLogger::log('DEBUG', "SQL", "Rolling back transaction");
+		$this->logger->log('DEBUG', "Rolling back transaction");
 		$this->in_transaction = false;
 		$this->sql->rollback();
 	}
@@ -207,7 +213,7 @@ class DB {
 		// only letters, numbers, underscores are allowed
 		if (!preg_match('/^[a-z0-9_]+$/i', $name)) {
 			$msg = "Invalid SQL file name: '$name' for module: '$module'!  Only numbers, letters, and underscores permitted!";
-			LegacyLogger::log('ERROR', 'SQL', $msg);
+			$this->logger->log('ERROR', $msg);
 			return $msg;
 		}
 
@@ -216,7 +222,7 @@ class DB {
 		$dir = $this->util->verifyFilename($module);
 		if (empty($dir)) {
 			$msg = "Could not find module '$module'.";
-			LegacyLogger::log('ERROR', 'SQL', $msg);
+			$this->logger->log('ERROR', $msg);
 			return $msg;
 		}
 		$d = dir($dir);
@@ -253,7 +259,7 @@ class DB {
 
 		if ($file === false) {
 			$msg = "No SQL file found with name '$name' in module '$module'!";
-			LegacyLogger::log('ERROR', 'SQL', $msg);
+			$this->logger->log('ERROR', $msg);
 			return $msg;
 		}
 		
@@ -276,22 +282,22 @@ class DB {
 
 					if ($maxFileVersion != 0) {
 						$msg = "Updated '$name' database from '$currentVersion' to '$maxFileVersion'";
-						LegacyLogger::log('DEBUG', 'SQL', $msg);
+						$this->logger->log('DEBUG', $msg);
 					} else {
 						$msg = "Updated '$name' database";
-						LegacyLogger::log('DEBUG', 'SQL', $msg);
+						$this->logger->log('DEBUG', $msg);
 					}
 				} catch (SQLException $e) {
 					$msg = "Error loading sql file '$file': " . $e->getMessage();
-					LegacyLogger::log('ERROR', 'SQL', $msg);
+					$this->logger->log('ERROR', $msg);
 				}
 			} else {
 				$msg = "Could not load SQL file: '$dir/$file'";
-				LegacyLogger::log('ERROR', 'SQL', $msg);
+				$this->logger->log('ERROR', $msg);
 			}
 		} else {
 			$msg = "'$name' database already up to date! version: '$currentVersion'";
-			LegacyLogger::log('DEBUG', 'SQL', $msg);
+			$this->logger->log('DEBUG', $msg);
 		}
 
 		return $msg;
