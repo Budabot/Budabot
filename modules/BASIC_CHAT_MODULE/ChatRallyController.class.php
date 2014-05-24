@@ -124,7 +124,7 @@ class ChatRallyController {
 		}
 	}
 
-	private function set($name, $playfield_id, $x_coords, $y_coords) {
+	public function set($name, $playfield_id, $x_coords, $y_coords) {
 		$link = $this->text->make_chatcmd("Rally: {$x_coords}x{$y_coords} {$name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
 		$blob = "Click here to use rally: $link";
 		$rally = $this->text->make_blob("Rally: {$x_coords}x{$y_coords} {$name}", $blob);
@@ -134,15 +134,15 @@ class ChatRallyController {
 		return $rally;
 	}
 
-	private function get() {
+	public function get() {
 		return $this->settingManager->get("rally");
 	}
 
-	private function clear() {
+	public function clear() {
 		$this->settingManager->save("rally", '');
 	}
 	
-	private function replyCurrentRally($channel, $sendto) {
+	public function replyCurrentRally($channel, $sendto) {
 		$rally = $this->get();
 		if ('' == $rally) {
 			$msg = "No rally set.";
