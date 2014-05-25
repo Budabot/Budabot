@@ -81,9 +81,7 @@ class ChatTopicController {
 	 * @Matches("/^topic (?!clear)(.+)$/i")
 	 */
 	public function topicSetCommand($message, $channel, $sender, $sendto, $args) {
-		$this->settingManager->save("topic_time", time());
-		$this->settingManager->save("topic_setby", $sender);
-		$this->settingManager->save("topic", $args[1]);
+		$this->setTopic(time(), $sender, $args[1]);
 		$msg = "Topic has been updated.";
 		$sendto->reply($msg);
 	}
@@ -94,9 +92,7 @@ class ChatTopicController {
 	 * @Matches("/^topic clear$/i")
 	 */
 	public function topicClearCommand($message, $channel, $sender, $sendto, $args) {
-		$this->settingManager->save("topic_time", time());
-		$this->settingManager->save("topic_setby", $sender);
-		$this->settingManager->save("topic", "");
+		$this->setTopic(time(), $sender, "");
 		$msg = "Topic has been cleared.";
 		$sendto->reply($msg);
 	}
@@ -126,11 +122,17 @@ class ChatTopicController {
 		$msg = $this->buildTopicMessage();
 		$this->chatBot->sendTell($msg, $eventObj->sender);
 	}
+	
+	public function setTopic($time, $name, $msg) {
+		$this->settingManager->save("topic_time", time());
+		$this->settingManager->save("topic_setby", $sender);
+		$this->settingManager->save("topic", "");
+	}
 
 	/**
 	 * Builds current topic information message and returns it.
 	 */
-	private function buildTopicMessage() {
+	public function buildTopicMessage() {
 		$date_string = $this->util->unixtimeToReadable(time() - $this->settingManager->get('topic_time'), false);
 		$topic = $this->settingManager->get('topic');
 		$set_by = $this->settingManager->get('topic_setby');
