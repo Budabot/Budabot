@@ -579,7 +579,7 @@ class TowerController {
 		}
 	
 		if ($ct_ql < $tower_info->min_ql || $ct_ql > $tower_info->max_ql) {
-			return "$playfield->short_name $tower_info->site_number can only accept Control Tower of ql {$tower_info->min_ql}-{$tower_info->max_ql}";
+			return "$playfield->short_name $tower_info->site_number can only accept Control Tower of ql {$tower_info->min_ql}-{$tower_info->max_ql}.";
 		}
 	
 		$closing_time_array = explode(':', $closing_time);
@@ -612,10 +612,10 @@ class TowerController {
 			$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks.\n\n";
 			$check_blob .= $forcescoutLink;
 
-			return $this->text->make_blob('Scouting problems', $check_blob);
+			return $this->text->make_blob("Scouting problems for $playfield->short_name $site_number", $check_blob);
 		} else {
 			$this->add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
-			return "Scout info for $playfield->short_name $tower_info->site_number has been updated.";
+			return "Scout info for <highlight>$playfield->short_name $site_number<end> has been updated.";
 		}
 	}
 
