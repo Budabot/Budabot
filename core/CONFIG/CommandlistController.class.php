@@ -33,7 +33,7 @@ class CommandlistController {
 	public function cmdlistCommand($message, $channel, $sender, $sendto, $args) {
 		$params = array();
 		if ($args[1] != '') {
-			$params []= $this->accessManager->normalizeAccessLevel($args[1]);
+			$params []= $this->accessManager->getAccessLevel($args[1]);
 			$cmdSearchSql = "AND c.admin LIKE ?";
 		}
 	

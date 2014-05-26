@@ -99,25 +99,8 @@ class AccessManager {
 		return ($this->compareAccessLevels($charAccessLevel, $accessLevel) >= 0);
 	}
 
-	public function normalizeAccessLevel($accessLevel) {
-		$accessLevel = strtolower($accessLevel);
-		switch ($accessLevel) {
-			case "raidleader":
-				$accessLevel = "rl";
-				break;
-			case "moderator":
-				$accessLevel = "mod";
-				break;
-			case "administrator":
-				$accessLevel = "admin";
-				break;
-		}
-
-		return $accessLevel;
-	}
-
 	public function getDisplayName($accessLevel) {
-		$displayName = strtolower($accessLevel);
+		$displayName = $this->getAccessLevel($accessLevel);
 		switch ($displayName) {
 			case "rl":
 				$displayName = "raidleader";
@@ -209,8 +192,8 @@ class AccessManager {
 	 * and 0 if the access levels are equal.
 	 */
 	public function compareAccessLevels($accessLevel1, $accessLevel2) {
-		$accessLevel1 = $this->normalizeAccessLevel($accessLevel1);
-		$accessLevel2 = $this->normalizeAccessLevel($accessLevel2);
+		$accessLevel1 = $this->getAccessLevel($accessLevel1);
+		$accessLevel2 = $this->getAccessLevel($accessLevel2);
 		
 		$accessLevels = $this->getAccessLevels();
 
@@ -233,6 +216,19 @@ class AccessManager {
 	}
 	
 	public function getAccessLevel($accessLevel) {
+		$accessLevel = strtolower($accessLevel);
+		switch ($accessLevel) {
+			case "raidleader":
+				$accessLevel = "rl";
+				break;
+			case "moderator":
+				$accessLevel = "mod";
+				break;
+			case "administrator":
+				$accessLevel = "admin";
+				break;
+		}
+	
 		$accessLevels = $this->getAccessLevels();
 		if (isset($accessLevels[$accessLevel])) {
 			return strtolower($accessLevel);
