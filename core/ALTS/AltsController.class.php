@@ -112,9 +112,9 @@ class AltsController {
 			if (count($altInfo->alts) > 0) {
 				// already registered to someone else
 				if ($altInfo->main == $name) {
-					$msg = "<highlight>$name<end> is already registered as a main with alts.";
+					$msg = "Cannot add alt because <highlight>$name<end> is already registered as a main with alts.";
 				} else {
-					$msg = "<highlight>$name<end> is already registered as an of alt of <highlight>{$altInfo->main}<end>.";
+					$msg = "Cannot add alt because <highlight>$name<end> is already registered as an of alt of <highlight>{$altInfo->main}<end>.";
 				}
 				$sendto->reply($msg);
 				continue;
