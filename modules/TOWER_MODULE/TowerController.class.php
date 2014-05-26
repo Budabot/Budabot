@@ -498,17 +498,33 @@ class TowerController {
 	/**
 	 * @HandlesCommand("scout")
 	 * @Matches("/^scout ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i")
+	 * @Matches("/^scout ([a-z0-9]+) ([0-9]+) (.*)$/i")
 	 */
 	public function scoutCommand($message, $channel, $sender, $sendto, $args) {
 		$skip_checks = false;
-	
-		$playfield_name = $args[1];
-		$site_number = $args[2];
-		$closing_time = $args[3];
-		$ct_ql = $args[4];
-		$faction = ucfirst(strtolower($args[5]));
-		$guild_name = $args[6];
-	
+		
+		if (count($args) == 7) {
+			$playfield_name = $args[1];
+			$site_number = $args[2];
+			$closing_time = $args[3];
+			$ct_ql = $args[4];
+			$faction = $this->getFaction($args[5]);
+			$guild_name = $args[6];
+		} else {
+			$pattern = "@Control Tower - ([^ ]+) Level: (\d+) Danger level: (.+) Alignment: ([^ ]+)  Organization: (.+) Created at UTC: ([^ ]+) ([^ ]+)@si";
+			if (preg_match($pattern, $args[3], $arr)) {
+				$playfield_name = $args[1];
+				$site_number = $args[2];
+				$closing_time = $arr[7];
+				$ct_ql = $arr[2];
+				$faction = $this->getFaction($arr[1]);
+				$guild_name = $arr[5];
+			} else {
+				// syntax error
+				return false;
+			}
+		}
+
 		$msg = $this->addScoutInfo($sender, $playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks);
 		$sendto->reply($msg);
 	}
@@ -516,16 +532,32 @@ class TowerController {
 	/**
 	 * @HandlesCommand("forcescout")
 	 * @Matches("/^forcescout ([a-z0-9]+) ([0-9]+) ([0-9]{1,2}:[0-9]{2}:[0-9]{2}) ([0-9]+) ([a-z]+) (.*)$/i")
+	 * @Matches("/^forcescout ([a-z0-9]+) ([0-9]+) (.*)$/i")
 	 */
 	public function forcescoutCommand($message, $channel, $sender, $sendto, $args) {
 		$skip_checks = true;
-	
-		$playfield_name = $args[1];
-		$site_number = $args[2];
-		$closing_time = $args[3];
-		$ct_ql = $args[4];
-		$faction = ucfirst(strtolower($args[5]));
-		$guild_name = $args[6];
+
+		if (count($args) == 7) {
+			$playfield_name = $args[1];
+			$site_number = $args[2];
+			$closing_time = $args[3];
+			$ct_ql = $args[4];
+			$faction = $this->getFaction($args[5]);
+			$guild_name = $args[6];
+		} else {
+			$pattern = "@Control Tower - ([^ ]+) Level: (\d+) Danger level: (.+) Alignment: ([^ ]+)  Organization: (.+) Created at UTC: ([^ ]+) ([^ ]+)@si";
+			if (preg_match($pattern, $args[3], $arr)) {
+				$playfield_name = $args[1];
+				$site_number = $args[2];
+				$closing_time = $arr[7];
+				$ct_ql = $arr[2];
+				$faction = $this->getFaction($arr[1]);
+				$guild_name = $arr[5];
+			} else {
+				// syntax error
+				return false;
+			}
+		}
 	
 		$msg = $this->addScoutInfo($sender, $playfield_name, $site_number, $closing_time, $ct_ql, $faction, $guild_name, $skip_checks);
 		$sendto->reply($msg);
@@ -583,7 +615,7 @@ class TowerController {
 			return $this->text->make_blob('Scouting problems', $check_blob);
 		} else {
 			$this->add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
-			return "Scout info has been updated.";
+			return "Scout info for $playfield->short_name $tower_info->site_number has been updated.";
 		}
 	}
 
@@ -1342,6 +1374,14 @@ class TowerController {
 		$blob .= $victoryLink;
 		
 		return $blob;
+	}
+	
+	public function getFaction($input) {
+		$faction = ucfirst(strtolower($input));
+		if ($faction == "Neut") {
+			$faction = "Neutral";
+		}
+		return $faction;
 	}
 }
 
