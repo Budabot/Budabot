@@ -35,6 +35,9 @@ class ChatTopicController {
 	
 	/** @Inject */
 	public $util;
+	
+	/** @Inject */
+	public $chatRallyController;
 
 	/**
 	 * @Setting("topic")
@@ -126,7 +129,11 @@ class ChatTopicController {
 	public function setTopic($time, $name, $msg) {
 		$this->settingManager->save("topic_time", time());
 		$this->settingManager->save("topic_setby", $sender);
-		$this->settingManager->save("topic", "");
+		$this->settingManager->save("topic", $msg);
+
+		if (empty($msg)) {
+			$this->chatRallyController->clear();
+		}
 	}
 
 	/**
