@@ -90,7 +90,7 @@ class AltsController {
 	
 		$success = 0;
 	
-		/* Pop a name from the array until none are left (checking for null) */
+		// Pop a name from the array until none are left
 		forEach ($names as $name) {
 			$name = ucfirst(strtolower($name));
 	
@@ -125,7 +125,7 @@ class AltsController {
 				$validated = 1;
 			}
 	
-			/* insert into database */
+			// insert into database
 			$this->add_alt($senderAltInfo->main, $name, $validated);
 			$success++;
 	
@@ -426,7 +426,7 @@ class AltsController {
 	/**
 	 * This method adds given @a $alt as @a $main's alt character.
 	 */
-	private function add_alt($main, $alt, $validated) {
+	public function add_alt($main, $alt, $validated) {
 		$main = ucfirst(strtolower($main));
 		$alt = ucfirst(strtolower($alt));
 
@@ -437,7 +437,7 @@ class AltsController {
 	/**
 	 * This method removes given @a $alt from being @a $main's alt character.
 	 */
-	private function rem_alt($main, $alt) {
+	public function rem_alt($main, $alt) {
 		$sql = "DELETE FROM `alts` WHERE `alt` LIKE ? AND `main` LIKE ?";
 		return $this->db->exec($sql, $alt, $main);
 	}
