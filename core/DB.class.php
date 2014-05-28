@@ -298,6 +298,37 @@ class DB {
 
 		return $msg;
 	}
+	
+	/**
+	 * Returns array of information of each column in the given $table.
+	 */
+	public function describeTable($table) {
+		$results = array();
+		try {
+			switch ($this->get_type()) {
+				case DB::MYSQL:
+					$rows = $this->query("DESCRIBE $table");
+					// normalize the output somewhat to make it more compatible with sqlite
+					forEach ($rows as $row) {
+						$row->name = $row->Field;
+						unset($row->Field);
+						$row->type = $row->Type;
+						unset($row->Type);
+					}
+					$results = $rows;
+
+				case DB::SQLITE:
+					$results = $this->query("PRAGMA table_info($table)");
+
+				default:
+					$logger->log("ERROR", "Unknown database type '". $this->get_type() ."'");
+					break;
+			}
+		} catch (SQLException $e) {
+			$logger->log("ERROR", $e->getMessage());
+		}
+		return $results;
+	}
 }
 
 ?>

@@ -24,44 +24,13 @@ use Budabot\Core\LoggerWrapper;
 
 	$db = Registry::getInstance('db');
 	$logger = new LoggerWrapper('Upgrade');
-
-	/**
-	 * Returns array of information of each column in the given $table.
-	 */
-	function describeTable($db, $table) {
-		$results = array();
-		try {
-			switch ($db->get_type()) {
-				case DB::MYSQL:
-					$rows = $db->query("DESCRIBE $table");
-					// normalize the output somewhat to make it more compatible with sqlite
-					forEach ($rows as $row) {
-						$row->name = $row->Field;
-						unset($row->Field);
-						$row->type = $row->Type;
-						unset($row->Type);
-					}
-					return $rows;
-
-				case DB::SQLITE:
-					return $db->query("PRAGMA table_info($table)");
-
-				default:
-					$logger->log("ERROR", "Unknown database type '". $db->get_type() ."'");
-					break;
-			}
-		} catch (SQLException $e) {
-			$logger->log("ERROR", $e->getMessage());
-		}
-		return array();
-	}
 	
 	/**
 	 * Returns db-type of given $column name as a string.
 	 */
 	function getColumnType($db, $table, $column) {
 		$column = strtolower($column);
-		$columns = describeTable($db, $table);
+		$columns = $db->describeTable($table);
 		forEach ($columns as $col) {
 			if (strtolower($col->name) == $column) {
 				return strtolower($col->type);
