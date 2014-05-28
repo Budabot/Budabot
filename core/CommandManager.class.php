@@ -242,10 +242,10 @@ class CommandManager {
 		if ($this->accessManager->checkAccess($sender, $commandHandler->admin) !== true) {
 			if ($channel == 'msg') {
 				if ($this->settingManager->get('access_denied_notify_guild') == 1) {
-					$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$message<end>.", true);
+					$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$cmd<end>.", true);
 				}
 				if ($this->settingManager->get('access_denied_notify_priv') == 1) {
-					$this->chatBot->sendPrivate("Player <highlight>$sender<end> was denied access to command <highlight>$message<end>.", true);
+					$this->chatBot->sendPrivate("Player <highlight>$sender<end> was denied access to command <highlight>$cmd<end>.", true);
 				}
 			}
 		
