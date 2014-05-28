@@ -10,7 +10,6 @@
 -removed !credz
 -removed !doh
 -removed !capxp due to low usage
--removed !inspect due to low usage
 -removed !mobloot due to low usage
 -removed !orgranks due to low usage
 -removed !spiritssen and !spiritsagi due to low usage
