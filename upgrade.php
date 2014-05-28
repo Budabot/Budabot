@@ -113,5 +113,7 @@ use Budabot\Core\LoggerWrapper;
 		$db->exec("ALTER TABLE cmdcfg_<myname> MODIFY cmd VARCHAR(50)");
 	}
 	
-	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ?", "lastseen");
+	if (checkIfTableExists($db, 'cmd_alias_<myname>')) {
+		$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ?", "lastseen");
+	}
 ?>
