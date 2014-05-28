@@ -24,7 +24,7 @@ To show a random Pink/Brain quote: (Developed by Mastura (RK2) of Shadow Ops)
 <highlight><tab><symbol>pinky<end>
 <highlight><tab><symbol>brain<end>
 
-To show a random quotes from the movie Pirates of the Caribbeane:  (Developed by JungleGeorge (RK2))
+To show a random quotes from the movie Pirates of the Caribbean:  (Developed by JungleGeorge (RK2))
 <highlight><tab><symbol>pirates<end>
 
 To let two players fight each other:

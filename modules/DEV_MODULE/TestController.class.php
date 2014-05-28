@@ -47,7 +47,7 @@ use stdClass;
  *		command     = 'testevent',
  *		accessLevel = 'admin',
  *		description = "Test the bot commands",
- *		help        = 'test.txt'
+ *		help        = 'testevent.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'testcloaklower',
