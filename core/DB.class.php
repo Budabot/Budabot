@@ -32,7 +32,6 @@ class DB {
 	
 	const MYSQL = 'mysql';
 	const SQLITE = 'sqlite';
-	const ODBC = 'odbc';
 	
 	public function __construct() {
 		$this->logger = new LoggerWrapper('SQL');
@@ -59,9 +58,6 @@ class DB {
 			}
 
 			$this->sql = new PDO("sqlite:".$dbName);
-			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		} else if ($this->type == self::ODBC) {
-			$this->sql = new PDO("odbc:Driver={Microsoft Access Driver (*.mdb)};Dbq={$dbName}");
 			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} else {
 			throw new Exception("Invalid database type: '$type'.  Expecting '" . self::MYSQL . "' or '" . self::SQLITE . "'.");

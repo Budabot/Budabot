@@ -92,7 +92,6 @@ Contacts:      Tyrence, Marebone
 			dl("php_sockets.dll");
 			dl("php_pdo_sqlite.dll");
 			dl("php_pdo_mysql.dll");
-			dl("php_pdo_odbc.dll");
 		} else {
 			// Load database extensions, if not already loaded
 			// These are normally present in a modern Linux system--this is a safeguard
@@ -101,9 +100,6 @@ Contacts:      Tyrence, Marebone
 			}
 			if (!extension_loaded('pdo_mysql')) {
 				@dl('pdo_mysql.so');
-			}
-			if (!extension_loaded('pdo_odbc')) {
-				@dl('pdo_odbc.so');
 			}
 		}
 	}
