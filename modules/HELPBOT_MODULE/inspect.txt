@@ -1,0 +1,2 @@
+To inspect Christmas Gift, Light Perennium Container, and Expensive Gift from Earth:
+<highlight><tab><symbol>inspect 'drop item'<end>
