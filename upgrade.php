@@ -23,12 +23,12 @@ use Budabot\Core\LoggerWrapper;
 	*/
 
 	$db = Registry::getInstance('db');
-	$logger = new LoggerWrapper('Upgrade');
 
 	/**
 	 * Returns array of information of each column in the given $table.
 	 */
 	function describeTable($db, $table) {
+		$logger = new LoggerWrapper('Upgrade');
 		$results = array();
 		try {
 			switch ($db->get_type()) {
@@ -92,7 +92,8 @@ use Budabot\Core\LoggerWrapper;
 		try {
 			$db->exec($sql);
 		} catch (SQLException $e) {
-			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
+			$logger = new LoggerWrapper('Upgrade');
+			$logger->log("ERROR", 'Upgrade', $e->getMessage());
 		}
 	}
 	
