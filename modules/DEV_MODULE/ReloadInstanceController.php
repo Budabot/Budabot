@@ -83,9 +83,9 @@ class ReloadInstanceController extends AutoInject {
 	
 	public function checkSyntax($filename) {
 		if (\budabot\core\isWindows()) {
-			$command = ".\win32\php.exe -l $filename";
+			$command = ".\win32\php.exe -l $filename 2>&1";
 		} else {
-			$command = "php -l $filename";
+			$command = "php -l $filename 2>&1";
 		}
 		
 		$output = array();
