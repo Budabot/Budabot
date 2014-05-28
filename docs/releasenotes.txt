@@ -1,7 +1,29 @@
 *****************************
-	Version 3.2_RC1:
+	Version 3.2_RC2:
 *****************************
 -fixed various typos and bugs
+-various changes to allow better integration and customization by third party modules
+-!scout and !forcescout can now accept pasting the ct blob info
+-updated text.mdb so that bot can correctly interpret org msg messages
+-merged !is into !whois
+-new installations will have a slightly updated color scheme
+-removed !credz
+-removed !doh
+-removed !capxp due to low usage
+-removed !inspect due to low usage
+-removed !mobloot due to low usage
+-removed !orgranks due to low usage
+-removed !spiritssen and !spiritsagi due to low usage
+-removed !server since FC hasn't provided server info since merge
+-saving profiles now includes command aliases
+-limit checks can now notify private and guild channels of failed attempts
+-!cmdlist can now optionally show commands based on current access level
+-fix so that cron events don't execute multiple times on startup
+-removed !orgcities since all cities are now instanced
+-!whatbuffs has been rewritten to provide many more items
+-removed !buffitem
+-merged BOSSLOOT_MODULE into ITEMS_MODULE
+-core classes can now be overridden
 -condensed some of the command output to be more succinct
 -removed !reloadconfig
 -added !usage cmd to see usage for a particular command
