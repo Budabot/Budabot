@@ -321,11 +321,11 @@ class DB {
 					$results = $this->query("PRAGMA table_info($table)");
 
 				default:
-					$logger->log("ERROR", "Unknown database type '". $this->get_type() ."'");
+					$this->logger->log("ERROR", "Unknown database type '". $this->get_type() ."'");
 					break;
 			}
 		} catch (SQLException $e) {
-			$logger->log("ERROR", $e->getMessage());
+			$this->logger->log("ERROR", $e->getMessage());
 		}
 		return $results;
 	}
