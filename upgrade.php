@@ -23,37 +23,33 @@ use Budabot\Core\LoggerWrapper;
 	*/
 
 	$db = Registry::getInstance('db');
-	$logger = new LoggerWrapper('Upgrade');
 
 	/**
 	 * Returns array of information of each column in the given $table.
 	 */
 	function describeTable($db, $table) {
 		$results = array();
-		try {
-			switch ($db->get_type()) {
-				case DB::MYSQL:
-					$rows = $db->query("DESCRIBE $table");
-					// normalize the output somewhat to make it more compatible with sqlite
-					forEach ($rows as $row) {
-						$row->name = $row->Field;
-						unset($row->Field);
-						$row->type = $row->Type;
-						unset($row->Type);
-					}
-					return $rows;
 
-				case DB::SQLITE:
-					return $db->query("PRAGMA table_info($table)");
+		switch ($db->get_type()) {
+			case DB::MYSQL:
+				$rows = $db->query("DESCRIBE $table");
+				// normalize the output somewhat to make it more compatible with sqlite
+				forEach ($rows as $row) {
+					$row->name = $row->Field;
+					unset($row->Field);
+					$row->type = $row->Type;
+					unset($row->Type);
+				}
+				$results = $rows;
 
-				default:
-					$logger->log("ERROR", "Unknown database type '". $db->get_type() ."'");
-					break;
-			}
-		} catch (SQLException $e) {
-			$logger->log("ERROR", $e->getMessage());
+			case DB::SQLITE:
+				$results = $db->query("PRAGMA table_info($table)");
+
+			default:
+				throw new Exception("Unknown database type '". $db->get_type() ."'");
 		}
-		return array();
+
+		return $results;
 	}
 	
 	/**
@@ -87,21 +83,6 @@ use Budabot\Core\LoggerWrapper;
 		}
 		return true;
 	}
-
-	function upgrade($db, $sql, $params = null) {
-		try {
-			$db->exec($sql);
-		} catch (SQLException $e) {
-			LegacyLogger::log("ERROR", 'Upgrade', $e->getMessage());
-		}
-	}
-	
-	function loadSQLFile($db, $filename) {
-		$lines = explode("\n", file_get_contents($filename));
-		forEach ($lines as $line) {
-			upgrade($db, $line);
-		}
-	}
 	
 	// if roll table has 'type' column, then drop it so it can be reloaded with new schema changes
 	// it shouldn't matter if the data in that table is lost -Tyrence
@@ -109,9 +90,11 @@ use Budabot\Core\LoggerWrapper;
 		$db->exec("DROP TABLE roll");
 	}
 	
-	if ($db->get_type() == DB::MYSQL && getColumnType($db, 'cmdcfg_<myname>', 'cmd') != 'VARCHAR(50)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, 'cmdcfg_<myname>') && getColumnType($db, 'cmdcfg_<myname>', 'cmd') != 'VARCHAR(50)') {
 		$db->exec("ALTER TABLE cmdcfg_<myname> MODIFY cmd VARCHAR(50)");
 	}
 	
-	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ?", "lastseen");
+	if (checkIfTableExists($db, 'cmd_alias_<myname>')) {
+		$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ?", "lastseen");
+	}
 ?>

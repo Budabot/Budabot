@@ -65,14 +65,17 @@ class LimitsController {
 			return true;
 		} else {
 			$this->logger->log('Info', "$sender denied access to bot due to: $msg");
-			
+
 			$this->handleLimitCheckFail($msg, $sender);
-		
+
+			list($cmd, $params) = explode(' ', $message, 2);
+			$cmd = strtolower($cmd);
+
 			if ($this->settingManager->get('access_denied_notify_guild') == 1) {
-				$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$message<end> due to limit checks.", true);
+				$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$cmd<end> due to limit checks.", true);
 			}
 			if ($this->settingManager->get('access_denied_notify_priv') == 1) {
-				$this->chatBot->sendPrivate("Player <highlight>$sender<end> was denied access to command <highlight>$message<end> due to limit checks.", true);
+				$this->chatBot->sendPrivate("Player <highlight>$sender<end> was denied access to command <highlight>$cmd<end> due to limit checks.", true);
 			}
 
 			return false;

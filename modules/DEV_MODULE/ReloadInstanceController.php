@@ -4,6 +4,7 @@ namespace Budabot\User\Modules;
 
 use Budabot\Core\AutoInject;
 use Budabot\Core\Registry;
+use ReflectionClass;
 
 /**
  * Authors: 
@@ -58,12 +59,39 @@ class ReloadInstanceController extends AutoInject {
 	public function reloadinstanceCommand($message, $channel, $sender, $sendto, $args) {
 		$instanceName = $args[1];
 		
-		$instance = Registry::getInstance($instanceName, true);
+		$instance = Registry::getInstance($instanceName);
 		if ($instance === null) {
 			$msg = "Could not find instance <highlight>$instanceName<end>.";
 		} else {
-			$msg = "Instance <highlight>$instanceName<end> has been reloaded.";
+			try {
+				$reflection = new ReflectionClass($instance);
+				$syntaxResult = $this->checkSyntax($reflection->getFileName());
+			} catch(ReflectionException $e) {
+				LegacyLogger::log("WARN", "Registry", "RUNKIT: Failed to reflect class, reason was: '" . $e->getMessage() . "'");
+				return;
+			}
+
+			if (preg_match("/^No syntax errors detected/", $syntaxResult)) {
+				Registry::getInstance($instanceName, true);
+				$msg = "Instance <highlight>$instanceName<end> has been reloaded.";
+			} else {
+				$msg = "Error reloading instance <highlight>$instanceName<end>: $syntaxResult";
+			}
 		}
 		$sendto->reply($msg);
+	}
+	
+	public function checkSyntax($filename) {
+		if (\budabot\core\isWindows()) {
+			$command = ".\win32\php.exe -l $filename 2>&1";
+		} else {
+			$command = "php -l $filename 2>&1";
+		}
+		
+		$output = array();
+		$return_var = '';
+		exec($command, $output, $return_var);
+
+		return implode("\n", $output);
 	}
 }
