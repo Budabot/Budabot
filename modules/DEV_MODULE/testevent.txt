@@ -1,0 +1,4 @@
+To test an event:
+<highlight><tab><symbol>testevent 'instancename.methodname'<end>
+
+Note that the $eventObj will be null, so this typically only works for cron events.
