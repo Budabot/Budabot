@@ -41,9 +41,11 @@ use Budabot\Core\LoggerWrapper;
 					unset($row->Type);
 				}
 				$results = $rows;
+				break;
 
 			case DB::SQLITE:
 				$results = $db->query("PRAGMA table_info($table)");
+				break;
 
 			default:
 				throw new Exception("Unknown database type '". $db->get_type() ."'");
