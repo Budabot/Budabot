@@ -65,16 +65,9 @@ class LimitsController {
 			return true;
 		} else {
 			$this->logger->log('Info', "$sender denied access to bot due to: $msg");
-		
-			if ($this->settingManager->get('tell_error_msg_type') == 2) {
-				$this->chatBot->sendTell($msg, $sender);
-			} else if ($this->settingManager->get('tell_error_msg_type') == 1) {
-				$msg = "Error! You do not have access to this bot.";
-				$this->chatBot->sendTell($msg, $sender);
-			} else {
-				// else do not send a message
-			}
 			
+			$this->handleLimitCheckFail($msg, $sender);
+		
 			if ($this->settingManager->get('access_denied_notify_guild') == 1) {
 				$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$message<end> due to limit checks.", true);
 			}
@@ -83,6 +76,17 @@ class LimitsController {
 			}
 
 			return false;
+		}
+	}
+	
+	public function handleLimitCheckFail($msg, $sender) {
+		if ($this->settingManager->get('tell_error_msg_type') == 2) {
+			$this->chatBot->sendTell($msg, $sender);
+		} else if ($this->settingManager->get('tell_error_msg_type') == 1) {
+			$msg = "Error! You do not have access to this bot.";
+			$this->chatBot->sendTell($msg, $sender);
+		} else {
+			// else do not send a message
 		}
 	}
 
