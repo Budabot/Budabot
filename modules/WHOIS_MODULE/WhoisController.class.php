@@ -202,7 +202,7 @@ class WhoisController {
 			$blob .= "Level: <highlight>{$whois->level}<end>\n";
 			$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
 			$blob .= "Faction: <highlight>{$whois->faction}<end>\n";
-			$blob .= "Online: ";
+			$blob .= "Status: ";
 			if ($online) {
 				$blob .= "<green>Online<end>\n";
 			} else {
