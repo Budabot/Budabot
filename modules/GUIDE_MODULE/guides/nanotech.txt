@@ -1,19 +1,17 @@
 <header> ::::: Guide to Nano Technicians ::::: <end>
 
-<font color = yellow>Nano Technician</font>
-
 <font color = green>* Main Weapons: Poor with all weapons, but Pistol is default</font>
 * Alternate Weapons: Shotgun
 * Main Nanoskills: MC for Nukes, MM/TS for Humidity Extractor
 * Tradeskills: Average
 * Overall Difficulty: Medium
 
-<pagebreak><font color = yellow>Chapter One. What's a Nano-Technician?</font>
+<pagebreak><header2>Chapter One. What's a Nano-Technician?<end>
 
 <font color = green>We are the direct damage specialists in Rubi-Ka. We take those little nanoparticles floating around in the air, and turn them into streams of acid, flying knives, blasts of fire... you get the picture? Our defense though is a bit 'lacking'. What else can we do, we can keep people vanpools refilling and we are one of the 3 'calming' classes in the game. Have a look at the nanolines father down and you'll get the picture. Also we spend time in labs, doing nanoprogramming making implants and such, basically, we're techies with ATTITUDE!</font>
 
 
-<pagebreak><font color = yellow>Chapter Two. Breed.</font>
+<pagebreak><header2>Chapter Two. Breed.<end>
 
 <font color = green>Well, as you know, entering Rubi-Ka gets you are genetically altered to one of 4 breeds. Whilst personally I am a nanomage (don't you just love the glowing blue eyes!), I will look at each of the breeds as best as I can.</font>
 
@@ -29,7 +27,7 @@ Endnote
 
 You want to be a caster, go Nanomage, you want to be a generalist, go Solitus, you want the best survival chance, go Atrox, you want to be different, be an evasion king, go Opifex.
 	
-<pagebreak><font color = yellow>Chapter Three. Abilities and Skills.</font>
+<pagebreak><header2>Chapter Three. Abilities and Skills.<end>
 
 <font color = green>Abilities.</font>
 
@@ -40,7 +38,7 @@ Skills.
 
 There are some skills I feel are of major importance and you should max at every level. All nanoskills, nano init and treatment. These are all vital to you. The next would be Comp Lit, Dodge Ranged, Evade Close and Break and Entry. Next you would have runspeed, nano resistance and any weapons you wish to use. Yes weapons LAST, NTs mainly work through their nanos, and in Shadowlands a new item called the cyberdeck will be available to us, but it will mean we can't use weapons any more.
 
-<pagebreak><font color = yellow>Chapter Four. Concepts</font>
+<pagebreak><header2>Chapter Four. Concepts<end>
 
 <font color = green>NTs are the masters of nano lines.</font> While other professions control pets, other equip large guns or weapons, or hit things with their fists, we use the very notum in the environment for our affects. So there are naturally a couple of concepts that go with this. First nano-resistance, our bane. Whenever you cast a nano at a target it has a chance of resisting our affects. Unlike the combat evades that scale damage down from crits to normal to missing, NR is an on off thing, it either works or it doesn't. And that's another thing, nukes don't crit. The damage you see on the nukes is the damage you will do, normally towards the low end if not minimum regularly.
 
@@ -80,7 +78,7 @@ BM - Biological Metamorphoses
 PM - Psychological Modifications
 SI - Sensory Improvement and Modifications
 	
-<pagebreak><font color = yellow>Chapter Five. Nano Lines</font>
+<pagebreak><header2>Chapter Five. Nano Lines<end>
 
 <font color = green>Ok this is going to take awhile, you KNOW how many nanos lines we got? </font>OK stupid question, you wouldn't be reading most of this if you knew the answers. Ok I just going to thro a BIG thanks at Jayde! This guy is the tops, he's got all these things categorized and sorted in this database of his, even down to the profession level. No nanos can be bought in shops above ql 125, these have to be missioned for, bought of the trade channel found or drop off specific mobs.
 
@@ -185,7 +183,7 @@ Corruption of the Pest, a nasty stream of chemicals here, very suited to who dro
 
 OK the last type of nukes we have are not popular at all with smurfs... yeah that's right the blues guys and gals you see running around. You see what they REALLY are, is a projection from a holo transmitter that's patched between them and the grid. If you the fluctuate the space ar... Ok I lost you, don't matter, TRUST me this HURTS them like its a hot poker in the eye. Outdoor camping only for things like Partial Gridspace Inversion. these are PvP only nukes (bar one mob).
 	
-<pagebreak><font color = yellow>Chapter Six. Nano Programming</font>
+<pagebreak><header2>Chapter Six. Nano Programming<end>
 
 <font color = green>What IS nano programming</font>, I've mentioned it before but haven't said what it is! Well its very simple, you can stick things in your body to improve your self, they are called implants. Well nano programming is the creation of implants. Ok the first thing you do is grab this little tool Nano Nanny. Ok its got an odd name, but it allows you to design your implants, mess around and get some idea of what they are going to do! Ok now its VERY simple to make an implant.
 
@@ -197,7 +195,7 @@ OK the last type of nukes we have are not popular at all with smurfs... yeah tha
 Now all implants can hold three clusters, shining, bright and faded. A bright cluster and a faded cluster added together comes to approximately a shining cluster. Now don't panic further own I've got some suggested implant layouts to get you started.
 
 
-<pagebreak><font color = yellow>Chapter Seven. NTs and Other Professions</font>
+<pagebreak><header2>Chapter Seven. NTs and Other Professions<end>
 
 <font color = green>Ok lets look at each profession</font>, now, I'll state now I'm no PvP guru, in fact I've been owned by a GA fixer (OK so I wasn't paying attention, I was reading that months nano-Programming Monthly). I'll make a few observations, but PvP I'll leave to the experts. So in alphabetical order...
 
@@ -234,7 +232,7 @@ Ok these guys are cool, they can make you nuke faster like docs can with Offensi
 Traders.
 These peps have got a very odd reputation, some love em, some loath em. Might be something to do with draining all your skills and giving it your back on the end of a shotgun.. hmmm just maybe These guys main thing for us is something called a wrangle. In PvP don't expect to have any skills left, make sure you have a second bar with lower MC req nanos on it ready.
 
-<pagebreak><font color = yellow>Chapter Eight. NT Items.</font>
+<pagebreak><header2>Chapter Eight. NT Items.<end>
 
 <font color = green>OK there are a few NT items only in game</font>, I mentioned earlier what the breeds can use and I'm not going to mention all the NT items here.
 

@@ -14,10 +14,10 @@ evades, including the highly coveted Grid Armor line of nanos that allow them
 to become virtually untouchable in combat. Their nanoskills, however, are all
 dark blue. Opifex is the race of choice.
 
-<pagebreak><font color = yellow>Chapter One: What is a Fixer?</font>
+<pagebreak><header2>Chapter One: What is a Fixer?<end>
 What is a fixer? Some people think of us as useless for anything but our run-, NCU- and hot buffs. Others think of us as a nice bunch they can ask to fetch items for. Yet others just don't know what fixers are, can and will do. So, what can we do? Well, we do run pretty fast, and we seem to be able to find almost everything on Rubi-Ka. And people do like to have someone with them that can
 
-<pagebreak><font color = yellow>Chapter Two: Breeds - What breed suits your play style?</font>
+<pagebreak><header2>Chapter Two: Breeds - What breed suits your play style?<end>
 
 Atrox: Is the breed with the most HP. The difference is that Opifex and Solitus get 3hp per body dev while Atrox gets 4hp for each body dev. point. So this means when fixer breed caps at 666 (I think this is the right number) Atrox will have 666 more hp they others and twice as much compared to Nanomage. The skill that Atrox lacks is intelligence which will have to be compensated with some heavier implanting or by putting up a few towers. Also they will have a lower nano pull that means about 1000 or more nano less then others.
 
@@ -27,7 +27,7 @@ Solitus: Has a 300 HP advantage over Opifex breed at level 200, easier choice of
 
 Opifex: Agility and Sense are green and the cap is over 500, which translate, in additional points in the weapon skills like SMG and Burst, which at the end adds additions attack rating. Also some specific fixer items may require agility or stamina to wear so if you don't wont to implant every time you want wear it.
 
-<pagebreak><font color = yellow>Chapter Three: Abilities and Skills. -Where should I spend my IPs?</font>
+<pagebreak><header2>Chapter Three: Abilities and Skills. -Where should I spend my IPs?<end>
 
 Abilities:
 Basically you will have to raise all abilities almost constantly. Now you don't have to max them all out, but you should focus on Agility and Sense, as those are the main fixer abilities. Intelligence is another good thing to max, or at least keep as high as possible, as the tickledown in this ability raises all your nano-skills and your complit. Stamina should be high on the list too as it helps your Body dev raise, and thus gives you more hit points. Body dev is one of the skills you always should max, as you need your hit points. Raise your Nano Pool as you see fit. Make sure you have enough to cast the best nanos you can get.

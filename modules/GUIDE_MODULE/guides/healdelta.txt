@@ -43,12 +43,12 @@ Stamina  -> HD tick standing/sitting
 
 by Imoutochan, RK1
 
-hitpoints for breeds
+<header2>Hitpoints by Breed<end>
 
-atrox 4 hitpoints from each point in bodydev
-opifex 3 hitpoints
-solitus 3 hitpoints
-nanomage 2 hitpoints
+Atrox 4 hitpoints from each point in bodydev
+Opifex 3 hitpoints
+Solitus 3 hitpoints
+Nanomage 2 hitpoints
 
 The amount of healdelta you get is:
 base + (bodydev / 100) + healdelta items

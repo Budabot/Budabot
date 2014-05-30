@@ -1,11 +1,8 @@
 <header>::::: Information about all the In Game Buffs :::::<end>
 
-<font color = yellow> Work in Progress
-
 Here's a list of nanos you can seek to buff the base abilities. The list here does not include any that are self-only, or profession-only. These are over and above the generic boosts (+12). For weapons & nano skill buffs of the base abilities see below.
-</font>
 
-<pagebreak><font color = #31D6FF>Abilities</font>
+<pagebreak><header2>Abilities<end>
 
 <font color = yellow>* Strength </font>
   o Prodigious Strength (QL 136) - Enforcer: +40 / 42 NCU
@@ -50,7 +47,7 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
     - OET Co Jess pistols (+40 for a pair)
     - Shades of Lucubration (Nanomage only, +30)
 
-<pagebreak><font color = #31D6FF>Body skills</font>
+<pagebreak><header2>Body skills<end>
 <font color = yellow>* Martial Arts</font>
   o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
   o Martial Arts Mastery - Martial Artist: +50 / ? NCU
@@ -62,7 +59,7 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
 <font color = yellow>* Swimming</font> - Expertise only
 </font>
 
-<pagebreak><font color = #31D6FF>Melee</font>
+<pagebreak><header2>Melee<end>
 <font color = yellow>* 1h Blunt</font>
   o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
   o Brutal Thug - Enforcer
@@ -85,7 +82,7 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
 <font color = yellow>* Fast Attack</font>
 </font>
 
-<pagebreak><font color = #31D6FF>Misc Weapons</font>
+<pagebreak><header2>Misc Weapons<end>
 <font color = yellow>* Sharp Obj</font>
 <font color = yellow>* Grenade</font>
   o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
@@ -94,7 +91,7 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
   o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
 </font>
 
-<pagebreak><font color = #31D6FF>Ranged</font>
+<pagebreak><header2>Ranged<end>
 <font color = yellow>* Bow</font>
   o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
 <font color = yellow>* Pistol</font>
@@ -132,7 +129,7 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
 <font color = yellow>* Multi Ranged</font> - No nanoprogram buffs (except for Composites)
 </font>
 
-<pagebreak><font color = #31D6FF>Speed skills</font>
+<pagebreak><header2>Speed skills<end>
 <font color = yellow>* Melee. Init.</font>
 <font color = yellow>* Ranged. Init.</font>
 <font color = yellow>* Physic. Init</font>
@@ -151,7 +148,7 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
   o Quickness - General: +30/ ? NCU
 </font>
 
-<pagebreak><font color = #31D6FF>Trade And Repair</font>
+<pagebreak><header2>Trade And Repair<end>
 <font color = yellow>* Mech. Engi</font>
   o Maestro Line (QL 152-156) - Trader: +125 / 47-48 NCU
 <font color = yellow>* Elec. Engi</font>
@@ -175,7 +172,7 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
 <font color = yellow>* Tutoring</font> - Expertise only
 </font>
 
-<pagebreak><font color = #31D6FF>Nano And Aiding</font>
+<pagebreak><header2>Nano And Aiding<end>
 <font color = yellow>* Matt.Metam</font>
   o Skill Wrangler (Premium) (QL 189) - Trader: +131 / 58 NCU
   o Mocham's Gift Line (QL 162-169) - Meta-Physicist: +140 / 51 NCU
@@ -208,7 +205,7 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
     - Treatment Library
 </font>
 
-<pagebreak><font color = #31D6FF>Spying</font>
+<pagebreak><header2>Spying<end>
 <font color = yellow>* Concealment</font>
 <font color = yellow>* Break&Entry</font>
   o Karma Harvest (QL 152) - Fixer: +130 / 47 NCU. Also adds +130 to Perception and Trap Disarmament.
@@ -224,17 +221,16 @@ Here's a list of nanos you can seek to buff the base abilities. The list here do
   o Blood Makes Noise (QL 116) - Fixer: +107 / 36 NCU.
 </font>
 
-<pagebreak><font color = #31D6FF>Navigation</font>
+<pagebreak><header2>Navigation<end>
 <font color = yellow>* Vehicle Air</font> - No nanoprogram buffs
 <font color = yellow>* Vehicle Ground</font> - No nanoprogram buffs
 <font color = yellow>* Vehicle Water</font> - No nanoprogram buffs
 <font color = yellow>* Map Navig.</font> - No nanoprogram buffs
 </font>
 
-<pagebreak><font color = #31D6FF>Other</font>
+<pagebreak><header2>Other<end>
 <font color = yellow>* Max NCU</font>
    o Active Viral Compressor (QL 149) - Fixer: +195 / 1 NCU
    o Other common buffs include Carbonum Armor, Salesman's Hat
 
 Again, keep in mind that many of the buffs here have lesser ones available in the same line. So you may be able to get something lower if there's a level-lock involved, or you contact a lower-level profession.
-</font>

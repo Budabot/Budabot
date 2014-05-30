@@ -1,6 +1,6 @@
 <header>::::: Guide to Soldiers :::::<end>
 
-<font color = yellow>At a glance</font>
+<header2>At a glance<end>
 <font color = red>* Main Weapons: Ranged Energy, Assault Rifle, Pistol, Shotgun</font>
 * Alternate Weapons: Any Ranged Weapon
 * Main Nanoskills: MC/TS for Damage Shields, PM for Taunts
@@ -17,7 +17,7 @@ So, get a bit of paper and start writing down the ones that interest you. I have
 
 The tables within each skill will show you the maximum achievable amounts with max abilities, but without buffs, implants or any other kinds of boost.
 
-<font color = red>3.1. Abilities</font>
+<header2>3.1. Abilities<end>
 
 Strength - Rating: 10
 Strength used to have a great bearing upon the amount you could carry, but no longer seems to impact this. What it does affect is the level of armour that you can use, as the best soldier armour has a primary or secondary strength requirement. Also, this will affect certain skills that a soldier will need.
@@ -186,7 +186,7 @@ Tutoring - Rating: 1
 Tutoring has severe problems associated with it at this time, so I'd avoid this at all cost. Along with Swimming, this has to be the most useless skill of all time.
 
 
-<font color = red>3.8. Nano & Aiding</font>
+<header2>3.8. Nano & Aiding<end>
 
 Matter Metamorphosis - Rating: 3
 Affected By: 80% Intelligence | 20% Psychic
@@ -221,7 +221,7 @@ Treatment - Rating: 10
 Affected By: 50% Intelligence | 30% Agility | 20% Sense
 There are two reasons that this need to be high. Firstly, once you've finished a fight you want to be able to heal yourself back to maximum health, so you're going to need Treatment Kits that are good quality. Secondly, implants require that you have a good amount of Treatment in order to put them into your body. A key skill.
 
-<font color = red>3.9. Spying</font>
+<header2>3.9. Spying<end>
 
 Concealment - Rating: 5
 Affected By: 50% Intelligence | 30% Agility | 20% Sense
@@ -238,7 +238,7 @@ Perception - Rating: 6
 Affected By: 50% Intelligence | 30% Agility | 20% Sense
 Yatamutchy's use this skill in abundance, but it's not cheap. Make sure you know what you are doing and what advantage you will gain before putting IP into this skill. Becomes more and more useful later on though.
 
-<font color = red>3.10. Navigation</font>
+<header2>3.10. Navigation<end>
 
 Vehicle Airborne - Rating: 6
 Affected By: 60% Sense | 20% Agility | 20% Intelligence
@@ -292,7 +292,7 @@ Token Farming may not be as critical as it was before the 13.8 patch for the fol
 
 Things have now changed though. You now get a token that is worth a certain amount according to your level. i.e. At level 99 I would get a token worth 4 tokens to my Token Board. Then once I reached level 100, the token increased to a value of 5. There is also, reportedly a very large jump from 8 to 15 in value at the very top end of the scale.
 
-<font color = red>4.3 Joining A Guild</font>
+<header2>4.3 Joining A Guild<end>
 
 The reason that I am adding this to the guide is that I feel that the social aspect of the game is just as important as gaining levels, getting unique equipment, etc. The social aspect makes AO what it is' a community. There are times when things can go badly wrong, and whether these are based on your own errors, or just through simple bugs that occur from time to time, you will undoubtedly need someone to help you through your career in AO.
 
@@ -300,7 +300,7 @@ The best way of making friends is through joining a guild.
 
 There are hundreds of guilds on Rubi-Ka, and all of them are different from each other. Take some time to look through the various sites in the appendices, and look for a guild that will recruit new people. I would primarily advise that you chose a guild that has an organised recruitment policy and structure, so that you can get to grips with how a guild works, and one that will have people like yourself in both level and experience. Later on you can look into forming your own guild, but the experience you will gain from a big guild will teach you many lessons both in playing and socialising.
 
-<font color = red>5. Following A Plan - Level 15 to 50</font>
+<header2>5. Following A Plan - Level 15 to 50<end>
 
 Having already got through the first skill cap (you'll know what a skill cap is when you hit it), you will now be starting on the rocky road to L200 properly.
 
@@ -326,7 +326,7 @@ Many people find that they go out, gain a large number of levels, then go to do 
 
 Unless you are prepared to tolerate a great deal of missions, or have equipment handed down that you can use for your higher levels, then spread the time evenly between missions and teaming. That way you get some cash in your pocket, and some friends to team with later.
 
-<font color = red>6. Getting Serious - Level 50 to 100</font>
+<header2>6. Getting Serious - Level 50 to 100<end>
 
 When you finally get to level 50, you have reached the point that you are serious about a soldier (and you've passed through another skill cap). You will be getting a few more IP to spend each level, the mobs you will face will start getting slightly harder, and equipment will start to get expensive. Most importantly, you are going to be faced with longer journeys to mission and spawns.
 

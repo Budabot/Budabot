@@ -1,8 +1,6 @@
 <header>::::: Guide To Adventurers :::::<end>
 
--= The Adventurer's Handbook =-
-
-<font color = yellow>At a glance</font>
+<header2>At a glance<end>
 <font color = green>* Main Weapons: Pistol or 1-Handed Edged</font>
 * Alternate Weapons: Pretty much any other weapon
 * Main Nanoskills: MM/BM/SI for Polymorphs, MM/BM for Heals
@@ -10,7 +8,7 @@
 * Overall Difficulty: Easy
   The Anarchy Online equivalent of the 'Ranger' class, the Adventurer is a dual-wielding specialist, often focusing on pistols or 1-handed edged weapons. The adventurer has decent one-shot heals, modest defensive abilities, and makes a versatile combatant.  The damage is highly-dependent on equipment, some of which is difficult to obtain, but in general, you will hit for small amounts of damage very quickly, rather than big hits. The Adventurer has a great selection of Adventurer-only equipment, as well.
 
-<pagebreak><font color = yellow>What weapons should I use?</font>
+<pagebreak><header2>What weapons should I use?<end>
 <font color = green>
   Adventurers come in two flavors: melee and ranged.</font> The Adventurer profession is very flexible, and has many weapon options. Probably the most popular, however, are Pistol and 1H Edged.
 
@@ -20,7 +18,7 @@
 
   In the end--very much like breeds--pick what you think suits you. Adventurers will do well under many circumstances, so feel free to experiment if you see fit.
 
-<pagebreak><font color = yellow>What skills should I raise?</font>
+<pagebreak><header2>What skills should I raise?<end>
 <font color = green>
   Generally speaking, here is the priority list:</font>
 
@@ -70,7 +68,7 @@
 
     You will probably want to raise Vehicle Air to use a Yalm around level 50-70. Find the lowest level Yalm you can, and raise this skill as little as possible.
 
-<pagebreak><font color = yellow>Weapons List</font>
+<pagebreak><header2>Weapons List<end>
 <font color = green>Here is a list of weapons you will want to keep in mind:</font>
 
 <font color = yellow>Melee Weapons:</font>

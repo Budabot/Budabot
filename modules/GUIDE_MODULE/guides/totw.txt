@@ -16,7 +16,7 @@ Lower level players may still go there, but there are huge amount of mobs in eve
 Below there are list of what You may find in ToTW, theres a lot of it. Besides good exp from mobs there, what You really need is Guardian Circuit Board (100% loot from Guardian of Tommorow), Memory Loop (from Lien the Memorystalker and Windcaller Yatila), Dark Memory (Lien the Memorystalker and Windcaller Yatila). Exarch robe (from every exarch)
 Of course there are a lot more good items (unfortunately almost every one of them is NODROP), but I find the ones I listed, most useful
 
-<pagebreak>Monster list:
+<pagebreak><header2>Monster list<end>
 
 Cultist (casts 'Ire of the Immortal')
 Exarchs
@@ -33,7 +33,7 @@ Uklesh the Frozen
 Lien the Memorystalker
 Windcaller Yatila
 
-<pagebreak>Loot table:
+<pagebreak><header2>Loot table<end>
 
 Weapons:
 
@@ -65,7 +65,7 @@ Weapons:
 
 
 
-<pagebreak>Armor:
+<pagebreak><header2>Armor<end>
 
 <img src='rdb://22395'><a href='itemref://204748/204748/1'>Guardian Tank Armor</a> |Rare| Best armor if you have 191 Str/Stam
 
@@ -83,7 +83,7 @@ Weapons:
 
 <img src='rdb://13281'><a href='itemref://204757/204757/1'>Fist of Orion</a> (MA only dmg gloves)
 
-<pagebreak>Shadowfade Armor: (agent only)
+<pagebreak><header2>Shadowfade Armor<end> (agent only)
 
 <img src='rdb://13249'><a href='itemref://204699/204699/1'>Shadowfade Armor (Body)</a>
 
@@ -98,7 +98,7 @@ Weapons:
 <img src='rdb://13227'><a href='itemref://204700/204700/1'>Shadowfade Armor (Sleeves)</a>
 
 
-<pagebreak>Damage Rings:
+<pagebreak><header2>Damage Rings<end>
 
 <img src='rdb://286794'><a href='itemref://204579/204579/1'>Notum Ring of the Three</a> Best ring. +10dmg, +6ncu +PM +SI
 
@@ -119,7 +119,7 @@ Weapons:
 <img src='rdb://286790'><a href='itemref://204571/204571/1'>Bronze Ring of the Three</a>
 
 
-<pagebreak>Specialty Rings:
+<pagebreak><header2>Specialty Rings<end>
 
 <img src='rdb://84060'><a href='itemref://204593/204593/1'>Ring of Tattered Flame</a>
 
@@ -132,14 +132,14 @@ Weapons:
 <img src='rdb://84066'><a href='itemref://204569/204569/1'>Ring of Memory Loss</a> |Uncommon|
 
 
-<pagebreak>Shoulder Pads:
+<pagebreak><header2>Shoulder Pads<end>
 
 <img src='rdb://289777'><a href='itemref://204698/204698/1'>Withered Flesh</a> 500pt absorb shield, +100hp
 
 <img src='rdb://144709'><a href='itemref://204653/204653/1'>Barrow Strength</a> +15dmg, & +50 dmg every20mins
 
 
-<pagebreak>NCU & Belt:
+<pagebreak><header2>NCU & Belt<end>
 
 <img src='rdb://149938'><a href='itemref://204601/204601/1'>Guardian Circuit Board</a>
 
@@ -148,7 +148,7 @@ Weapons:
 <img src='rdb://119139'><a href='itemref://204603/204603/1'>Memory Loop</a> |VeryRare|
 
 
-<pagebreak>Implants:
+<pagebreak><header2>Implants<end>
 
 <img src='rdb://12665'><a href='itemref://204649/204649/1'>Notum Splice</a>
 
@@ -161,12 +161,12 @@ Weapons:
 <img src='rdb://195259'><a href='itemref://204647/204647/1'>Skull of the Ancient</a> |VeryRare| |NeedTeam|
 
 
-<pagebreak>Nanos:
+<pagebreak><header2>Nanos<end>
 
 <img src='rdb://295591'><a href='itemref://204829/204829/390'>Nano Crystal (Lien's Crystalizer)</a> (Cast this to spawn shell, use an Urn on the shell to spawn a scythe wielding Legionnaire skeliton)
 
 
-<pagebreak>Misc:
+<pagebreak><header2>Misc<end>
 
 <img src='rdb://100306'><a href='itemref://204608/204608/1'>Purifying Rod</a>
 
@@ -197,6 +197,6 @@ Weapons:
 <img src='rdb://286783'><a href='itemref://204715/204715/1'>Tattered book: Ape Fist of Khalum (section 5)</a> MA Attack (97dmg, 2sec stun) when completed by visiting <a href='chatcmd:///waypoint 827 2298 647'>Hermit</a>
 
 
-<pagebreak>Bracers:
+<pagebreak><header2>Bracers<end>
 
 <img src='rdb://84053'><a href='itemref://204756/204756/1'>Bracelet of Amplified Sound</a>

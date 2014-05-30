@@ -11,7 +11,7 @@ the same skin tone and body build as a "normal" human. A handful of Solitus
 breed-locked items exist, as well, and they tend to be well-rounded.
 
 
-<header> ::: Solitus Breed Caps ::: <end>
+<header2> ::: Solitus Breed Caps ::: <end>
 
 * <font color='#0088CC'>Strength</font> 472/772
 * <font color='#0088CC'>Agility</font> 480/780
@@ -28,7 +28,7 @@ Max % Add Nano Cost -50%
 3 max nano per 1 point of nanopool
 
 
-<pagebreak><header> ::: Solitus Shadowbreeds List ::: <end>
+<pagebreak><header2> ::: Solitus Shadowbreeds List ::: <end>
 
 <green>Solitus (Clan) Shadowbreeds<end>
 
@@ -131,7 +131,7 @@ Casts a DoT (1k, 8 hits, 3 sec delay)
 Roots your opponents
 
 
-<pagebreak><header> ::: Solitus Alien Invasion Perks ::: <end>
+<pagebreak><header2> ::: Solitus Alien Invasion Perks ::: <end>
 
 <green>Solitus Alpha Genome<end>
 

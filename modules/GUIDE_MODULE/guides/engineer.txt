@@ -20,7 +20,7 @@ If you need to remake your robot you can do so by right clicking on the Nano Pro
 
 This bot will last you until you terminate it, it dies, or you log off. If you lose your connection the bot will wait for 2 minutes for you to reconnect before powering down.
 
-<pagebreak>3. Controlling Yourself and the Bot
+<pagebreak><header2>3. Controlling Yourself and the Bot<end>
 
 Pets are controlled through the command line (ie hit enter, type in the command). But don't panic there are ways to make this much easier!
 
@@ -130,7 +130,7 @@ This section covers two issues.
     * Command Range - You can only issue commands to your bot within a relatively small range (approximately 10 - 15 metres). Issuing commands outside of this range will have no effect.
     * Maximum Range - Pets will cease fighting and return to us if the pet gets 50 metres or further away from us. You will recieve a warning and some time to get back in range when this happens.
 	
-<pagebreak>4. Affording your Engineer
+<pagebreak><header2>4. Affording your Engineer<end>
 
 Getting enough credits to fund your character is pretty hard to start off with, this is the same for all professions, but I think more so on those that depend on their nanos.
 
@@ -191,7 +191,7 @@ Converting Monster Parts to Blood Plasma will need a bit of Pharma Tech.
 
 Check out the trade skill section later on to see what others you might want to do.
 
-<pagebreak>5. Skills
+<pagebreak><header2>5. Skills<end>
 
 5.1. Essential Skills
 
@@ -334,7 +334,7 @@ Unfortunately not all bots obey the rules, as they have been sabotaged while lea
     * Flawed Warmachine - Nano upload requirement is 751 MC and TS. Shell requirement is 753 MC and TS. Should require 601 MC and TS to be within OE. Actual requirement is 612 MC and TS.
     * Slayerdroid Protector - Should require 682 MC and TS to be within OE. Actual requirement is ~686 MC and TS.
 	
-<pagebreak>7. Weapon Choices
+<pagebreak><header2>7. Weapon Choices<end>
 
 As Engineers we get a quite few weapon choices, this section covers many of the options available to us.
 
@@ -406,7 +406,7 @@ It's well worth noting that Add All Def in your implant set (Level 100+ only) an
 
 Multi Ranged and Multi Melee are both the ability to hold and use two weapons as once. When you wear a ranged weapon the lowest of the two Multi requiremensts is used to figure out if you can wear it - both of these skills are very very expensive for us so normally left until high levels.
 
-<pagebreak>8. Trimmers & Android NCU Upgrades
+<pagebreak><header2>8. Trimmers & Android NCU Upgrades<end>
 
 This section covers the items you can use on your robot to enhance it's performance. Trimmers can be used as many times as you need and won't disapear on use. NCU Upgrades are single use only.
 
@@ -458,7 +458,7 @@ For the most part these NCU Upgrades are unnecessary as the bots generally have 
 
 The lower Quality NCU upgrades tend to be more useful than the higher level ones as you're unlikely to need 110 more NCU on a robot.
 
-<pagebreak>10. Soloing & Teaming
+<pagebreak><header2>10. Soloing & Teaming<end>
 
 This is where it all comes together, in this section I'm going to give a few pointers and suggestions to make everything that we've done up to now work.
 
@@ -650,7 +650,7 @@ In effect this line provides us with some basic crowd control, it's not as effec
 
 They are short range and will break on a single point of damage, or if another offensive program lands on the target.
 
-<pagebreak>11. Trade Skills
+<pagebreak><header2>11. Trade Skills<end>
 
 11.1. Introduction to Trade Skills
 
@@ -772,7 +772,7 @@ Tutoring is absolutely essential for many high level trade skills, but it takes 
 
 So while you might want tutoring eventually, it's probably little use to you before level 150.
 
-<pagebreak>13.2. Where to find parts for the Engineer Pistol
+<pagebreak><header2>13.2. Where to find parts for the Engineer Pistol<end>
 
 Most of this is taken from Lyricia's guide at the Tir School of Engineering
 
