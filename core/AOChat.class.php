@@ -56,8 +56,8 @@ if (!extension_loaded("sockets")) {
 	die("AOChat class needs the Sockets extension to work.\n");
 }
 
-if (!extension_loaded("gmp") && !extension_loaded("bcmath") && !extension_loaded("aokex")) {
-	die("AOChat class needs either AOkex, GMP or BCMath extension to work.\n");
+if (!extension_loaded("gmp") && !extension_loaded("bcmath")) {
+	die("AOChat class needs either GMP or BCMath extension to work.\n");
 }
 
 set_time_limit(0);
@@ -94,16 +94,18 @@ define('AOEM_AI_HQ_REMOVE_INIT',      0x35);
 define('AOEM_AI_HQ_REMOVE',           0x36);
 
 class AOChat {
-	var $state, $debug, $id, $gid, $chars, $char, $grp, $buddies;
+	var $state, $id, $gid, $chars, $char, $grp, $buddies;
 	var $socket, $last_packet, $last_ping;
 	var $serverseed, $chatqueue;
 	
 	var $mmdbParser;
+	var $logger;
 
 	/* Initialization */
 	function __construct() {
 		$this->disconnect();
 		$this->mmdbParser = new MMDBParser('data/text.mdb');
+		$this->logger = new LoggerWrapper('AOChat');
 	}
 
 	function disconnect() {
@@ -127,26 +129,28 @@ class AOChat {
 	/* Network stuff */
 	function connect($server, $port) {
 		if ($this->state !== "connect") {
-			die("AOChat: not expecting connect.\n");
+			$this->logger->log('error', "AOChat: not expecting connect");
+			die();
 		}
 
 		$s = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
 		if (!is_resource($s)) { /* this is fatal */
-			die("Could not create socket.\n");
+			$this->logger->log('error', "Could not create socket");
+			die();
 		}
 
 		$this->socket = $s;
 		$this->state = "auth";
 
 		if (@socket_connect($s, $server, $port) === false) {
-			trigger_error("Could not connect to the AO Chat server ($server:$port): " . socket_strerror(socket_last_error($s)), E_USER_WARNING);
+			$this->logger->log('error', "Could not connect to the AO Chat server ($server:$port): " . socket_strerror(socket_last_error($s)));
 			$this->disconnect();
 			return false;
 		}
 
 		$packet = $this->get_packet();
 		if (!is_object($packet) || $packet->type != AOCP_LOGIN_SEED) {
-			trigger_error("Received invalid greeting packet from AO Chat server.", E_USER_WARNING);
+			$this->logger->log('error', "Received invalid greeting packet from AO Chat server");
 			$this->disconnect();
 			return false;
 		}
@@ -195,10 +199,12 @@ class AOChat {
 		while ($rlen > 0) {
 			if (($tmp = socket_read($this->socket, $rlen)) === false) {
 				$last_error = socket_strerror(socket_last_error($this->socket));
-				die("Read error: $last_error\n");
+				$this->logger->log('error', "Read error: $last_error");
+				die();
 			}
 			if ($tmp == "") {
-				die("Read error: EOF\n(Someone else logging on to same account?)\n");
+				$this->logger->log('error', "Read error: EOF - (Someone else logging on to same account?)");
+				die();
 			}
 			$data .= $tmp;
 			$rlen -= strlen($tmp);
@@ -216,14 +222,11 @@ class AOChat {
 
 		$data = $this->read_data($len);
 
-		if (is_resource($this->debug)) {
-			fwrite($this->debug, "<<<<<\n");
-			fwrite($this->debug, $head);
-			fwrite($this->debug, $data);
-			fwrite($this->debug, "\n=====\n");
-		}
-
 		$packet = new AOChatPacket("in", $type, $data);
+		
+		if ($this->logger->isEnabledFor('debug')) {
+			$this->logger->log('debug', print_r($packet, true));
+		}
 
 		switch ($type) {
 			case AOCP_LOGIN_SEED:
@@ -263,7 +266,7 @@ class AOChat {
 					if ($packet->args[5] !== null) {
 						$packet->args[6] = vsprintf($packet->args[4], $packet->args[5]);
 					} else {
-						print_r($packet);
+						$this->logger->log('error', "Could not parse chat notice: " . print_r($packet, true));
 					}
 				}
 				break;
@@ -276,11 +279,9 @@ class AOChat {
 
 	function send_packet($packet) {
 		$data = pack("n2", $packet->type, strlen($packet->data)) . $packet->data;
-		if (is_resource($this->debug)) {
-			fwrite($this->debug, ">>>>>\n");
-			fwrite($this->debug, $data);
-			fwrite($this->debug, "\n=====\n");
-		}
+		
+		$this->logger->log('debug', $data);
+
 		socket_write($this->socket, $data, strlen($data));
 		return true;
 	}
@@ -288,7 +289,8 @@ class AOChat {
 	/* Login functions */
 	function authenticate($username, $password) {
 		if ($this->state != "auth") {
-			die("AOChat: not expecting authentication.\n");
+			$this->logger->log('error', "AOChat: not expecting authentication");
+			die();
 		}
 
 		$key = $this->generate_login_key($this->serverseed, $username, $password);
@@ -315,7 +317,8 @@ class AOChat {
 
 	function login($char) {
 		if ($this->state != "login") {
-			die("AOChat: not expecting login.\n");
+			$this->logger->log('error', "AOChat: not expecting login");
+			die();
 		}
 
 		if (is_int($char)) {
@@ -339,7 +342,7 @@ class AOChat {
 		}
 
 		if (!is_array($char)) {
-			echo "AOChat: no valid character to login.\n";
+			$this->logger->log('error', "AOChat: no valid character to login");
 			return false;
 		}
 
@@ -731,7 +734,8 @@ class AOChat {
 			$dhX = $this->bcmath_powm($dhG, $dhx, $dhN);
 			$dhK = $this->bcmath_powm($dhY, $dhx, $dhN);
 		} else {
-			die("generate_login_key(): no idea how to powm...\n");
+			$this->logger->log('error', "generate_login_key(): no idea how to powm...");
+			die();
 		}
 
 		$str = sprintf("%s|%s|%s", $username, $servkey, $password);
@@ -845,7 +849,7 @@ class AOChat {
 					break;
 
 				default:
-					echo "Error! could not parse argument: '$data_type'\n";
+					$this->logger->log('warn', "Unknown argument type '$data_type'");
 					return null;
 					break;
 			}
@@ -896,7 +900,7 @@ class AOChat {
 
 		$obj->args = $this->parse_ext_params($msg);
 		if ($obj->args === null) {
-			echo "Error parsing parameters for category: '$obj->category' instance: '$obj->instance' string: '$msg'\n";
+			$this->logger->log('warn', "Error parsing parameters for category: '$obj->category' instance: '$obj->instance' string: '$msg'");
 		} else {
 			$obj->message_string = $this->mmdbParser->get_message_string($obj->category, $obj->instance);
 			if ($obj->message_string !== null) {

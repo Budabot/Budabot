@@ -44,6 +44,11 @@ class LoggerWrapper {
 		global $vars;
 		return "./logs/{$vars['name']}.{$vars['dimension']}";
 	}
+	
+	public function isEnabledFor($category) {
+		$level = LegacyLogger::getLoggerLevel($category);
+		return $this->logger->isEnabledFor($level);
+	}
 }
 
 ?>
