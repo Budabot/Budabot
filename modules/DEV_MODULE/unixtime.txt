@@ -1,0 +1,2 @@
+To show the data and time for a unix timestamp:
+<highlight><tab><symbol>unixtime 'timestamp'<end>
