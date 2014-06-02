@@ -38,12 +38,11 @@ class News {
 	 * @Setup
 	 */
 	public function setup() {
-		$this->db->add_table_replace('#__news', 'news');
 		$this->db->loadSQLFile($this->moduleName, 'news');
 	}
 
 	public function getNews() {
-		$data = $this->db->query("SELECT * FROM `#__news` ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
+		$data = $this->db->query("SELECT * FROM `news` WHERE deleted = 0 ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
 		$msg = '';
 		if (count($data) != 0) {
 			$blob = '';
@@ -123,7 +122,7 @@ class News {
 	 */
 	public function newsAddCommand($message, $channel, $sender, $sendto, $arr) {
 		$news = $arr[1];
-		$this->db->exec("INSERT INTO `#__news` (`time`, `name`, `news`, `sticky`) VALUES (?, ?, ?, 0)", time(), $sender, $news);
+		$this->db->exec("INSERT INTO `news` (`time`, `name`, `news`, `sticky`, `deleted`) VALUES (?, ?, ?, 0, 0)", time(), $sender, $news);
 		$msg = "News has been added successfully.";
 
 		$sendto->reply($msg);
@@ -137,10 +136,12 @@ class News {
 	 */
 	public function newsRemCommand($message, $channel, $sender, $sendto, $arr) {
 		$id = $arr[1];
-		$rows = $this->db->exec("DELETE FROM `#__news` WHERE `id` = ?", $id);
-		if ($rows == 0) {
+		
+		$row = $this->getNewsItem($id);
+		if ($row === null) {
 			$msg = "No news entry found with the ID <highlight>{$id}<end>.";
 		} else {
+			$this->db->exec("UPDATE `news` SET deleted = 1 WHERE `id` = ?", $id);
 			$msg = "News entry <highlight>{$id}<end> was deleted successfully.";
 		}
 
@@ -156,12 +157,12 @@ class News {
 	public function stickyCommand($message, $channel, $sender, $sendto, $arr) {
 		$id = $arr[1];
 
-		$row = $this->db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
+		$row = $this->getNewsItem($id);
 
 		if ($row->sticky == 1) {
 			$msg = "News ID $id is already stickied.";
 		} else {
-			$this->db->exec("UPDATE `#__news` SET `sticky` = 1 WHERE `id` = ?", $id);
+			$this->db->exec("UPDATE `news` SET `sticky` = 1 WHERE `id` = ?", $id);
 			$msg = "News ID $id successfully stickied.";
 		}
 		$sendto->reply($msg);
@@ -176,15 +177,19 @@ class News {
 	public function unstickyCommand($message, $channel, $sender, $sendto, $arr) {
 		$id = $arr[1];
 
-		$row = $this->db->queryRow("SELECT * FROM `#__news` WHERE `id` = ?", $id);
+		$row = $this->getNewsItem($id);
 
 		if ($row->sticky == 0) {
 			$msg = "News ID $id is not stickied.";
 		} else if ($row->sticky == 1) {
-			$this->db->exec("UPDATE `#__news` SET `sticky` = 0 WHERE `id` = ?", $id);
+			$this->db->exec("UPDATE `news` SET `sticky` = 0 WHERE `id` = ?", $id);
 			$msg = "News ID $id successfully unstickied.";
 		}
 		$sendto->reply($msg);
+	}
+	
+	public function getNewsItem($id) {
+		return $this->db->queryRow("SELECT * FROM `news` WHERE `deleted` = 0 AND `id` = ?", $id);
 	}
 }
 

@@ -99,4 +99,8 @@ use Budabot\Core\LoggerWrapper;
 	if (checkIfTableExists($db, 'cmd_alias_<myname>')) {
 		$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ?", "lastseen");
 	}
+	
+	if (checkIfTableExists($db, 'news') && !checkIfColumnExists($db, 'news', 'deleted')) {
+		$db->exec("ALTER TABLE news ADD COLUMN deleted TINYINT NOT NULL DEFAULT 0");
+	}
 ?>
