@@ -26,7 +26,6 @@ class DB {
 	private $guild;
 	private $lastQuery;
 	private $in_transaction = false;
-	public $table_replaces = array();
 	
 	private $logger;
 	
@@ -175,9 +174,6 @@ class DB {
 	}
 
 	function formatSql($sql) {
-		forEach ($this->table_replaces as $search => $replace) {
-			$sql = str_replace($search, $replace, $sql);
-		}
 		$sql = str_replace("<dim>", $this->dim, $sql);
 		$sql = str_replace("<myname>", $this->botname, $sql);
 		$sql = str_replace("<myguild>", $this->guild, $sql);
@@ -187,14 +183,6 @@ class DB {
 
 	function getLastQuery() {
 		return $this->lastQuery;
-	}
-
-	/**
-	 * @name: add_table_replace
-	 * @description: creates a replace string to run on queries
-	 */
-	public function add_table_replace($search, $replace) {
-		$this->table_replaces[$search] = $replace;
 	}
 
 	/**
