@@ -37,6 +37,12 @@ use Budabot\Core\Registry;
  *		description = "Test the bot commands",
  *		help        = 'test.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'cmdhandlers',
+ *		accessLevel = 'admin',
+ *		description = "Show command handlers for a command",
+ *		help        = 'cmdhandlers.txt'
+ *	)
  */
 class DevController extends AutoInject {
 
@@ -145,6 +151,35 @@ class DevController extends AutoInject {
 	 */
 	public function stacktraceCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->text->make_blob("Current Stacktrace", $this->util->getStackTrace());
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("cmdhandlers")
+	 * @Matches("/^cmdhandlers (.*)$/i")
+	 */
+	public function cmdhandlersCommand($message, $channel, $sender, $sendto, $args) {
+		$cmdArray = explode(" ", $args[1], 2);
+		$cmd = $cmdArray[0];
+		
+		$blob = '';
+
+		// command
+		forEach ($this->commandManager->commands as $channelName => $channel) {
+			if (isset($channel[$cmd])) {
+				$blob .= "<header2>$channelName ($cmd)<end>\n";
+				$blob .= $channel[$cmd]->file . "\n\n";
+			}
+		}
+
+		// subcommand
+		forEach ($this->subcommandManager->subcommands[$cmd] as $row) {
+			$blob .= "<header2>$row->type ($row->cmd)<end>\n";
+			$blob .= $row->file . "\n\n";
+		}
+
+		$msg = $this->text->make_blob("Command Handlers for '$cmd'", $blob);
+		
 		$sendto->reply($msg);
 	}
 }

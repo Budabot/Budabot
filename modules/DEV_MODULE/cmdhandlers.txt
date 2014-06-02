@@ -1,0 +1,2 @@
+To show command handlers for a command:
+<highlight><tab><symbol>cmdhandlers 'command'<end>
