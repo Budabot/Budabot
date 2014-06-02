@@ -381,6 +381,10 @@ class SystemController {
 	public function checkaccessCommand($message, $channel, $sender, $sendto, $args) {
 		if (isset($args[1])) {
 			$name = ucfirst(strtolower($args[1]));
+			if (!$this->chatBot->get_uid($name)) {
+				$sendto->reply("Character <highlight>{$name}<end> does not exist.");
+				return;
+			}
 		} else {
 			$name = $sender;
 		}
