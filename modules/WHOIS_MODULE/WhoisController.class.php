@@ -142,14 +142,14 @@ class WhoisController {
 		$sendto->reply($msg);
 	}
 	
-	public function getNameHistory($charid, $rk_num) {
+	public function getNameHistory($charId, $rk_num) {
 		$sql = "SELECT * FROM name_history WHERE charid = ? AND dimension = ? ORDER BY dt DESC";
-		$data = $this->db->query($sql, $charid, $rk_num);
+		$data = $this->db->query($sql, $charId, $rk_num);
 
 		$blob = "<header2>Name History<end>\n\n";
 		if (count($data) > 0) {
 			forEach ($data as $row) {
-				$blob .= "<green>{$row->name}<end> " . $this->util->date($row->dt) . "\n";
+				$blob .= "<highlight>{$row->name}<end> " . $this->util->date($row->dt) . "\n";
 			}
 		} else {
 			$blob .= "No name history available\n";
@@ -180,14 +180,15 @@ class WhoisController {
 	}
 	
 	public function getOutput($name, $online) {
+		$charId = $this->chatBot->get_uid($name);
 		$lookupNameLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $name");
-		$lookupCharIdLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $uid");
+		$lookupCharIdLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $charId");
 		$whois = $this->playerManager->get_by_name($name);
 		if ($whois === null) {
 			$blob = "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
 			$blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
-			$blob .= "Character ID: <highlight>{$uid}<end> {$lookupCharIdLink}\n\n";
-			$blob .= $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
+			$blob .= "Character ID: <highlight>{$charId}<end> {$lookupCharIdLink}\n\n";
+			$blob .= $this->getNameHistory($charId, $this->chatBot->vars['dimension']);
 
 			$msg = $this->text->make_blob("Basic Info for $name", $blob);
 		} else {
@@ -212,7 +213,7 @@ class WhoisController {
 
 			$blob .= "Source: $whois->source\n\n";
 
-			$blob .= $this->getNameHistory($uid, $this->chatBot->vars['dimension']);
+			$blob .= $this->getNameHistory($charId, $this->chatBot->vars['dimension']);
 
 			$msg = $this->playerManager->get_info($whois);
 			if ($online) {
