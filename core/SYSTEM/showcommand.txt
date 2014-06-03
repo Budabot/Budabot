@@ -1,7 +1,7 @@
-To show command output to another player:
-<highlight><tab><symbol>showcommand 'player' 'command'<end>
+To show command output to another character:
+<highlight><tab><symbol>showcommand <i>character</i> <i>command</i><end>
 
 <header2>Example:<end>
 <highlight><tab><symbol>showcommand Tyrence online<end>
 
-Executing this command will show the online list to 'Tyrence'
+Executing this command will show the online list to Tyrence.

@@ -8,12 +8,12 @@ To see an overview of the bot systems:
 <highlight><tab><symbol>system<end>
 
 To execute a query on the database:
-<highlight><tab><symbol>executesql 'query'<end>
+<highlight><tab><symbol>executesql <i>query</i><end>
 
 Note: 'query' should be an INSERT, UPDATE, or DELETE only as it won't return a result set
 
 To query the database:
-<highlight><tab><symbol>querysql 'query'<end>
+<highlight><tab><symbol>querysql <i>query</i><end>
 
 Note: 'query' should be a SELECT
 

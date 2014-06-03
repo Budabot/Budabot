@@ -2,12 +2,12 @@ To show a list of the current aliases:
 <highlight><tab><symbol>alias list<end>
 
 To create an alias:
-<highlight><tab><symbol>alias add 'alias name' 'command name'<end>
+<highlight><tab><symbol>alias add <i>alias_name</i> <i>command_name</i><end>
 
 To remove an alias:
-<highlight><tab><symbol>alias rem 'alias name'<end>
+<highlight><tab><symbol>alias rem <i>alias_name</i><end>
 
-Note that while 'command name' can have multiple words, the 'alias name' can only be a single word.  The first word is interpreted as the alias name and all subsequent words are interpreted as the command name.
+Note that while <i>command_name</i> can have multiple words, the <i>alias_name</i> parameter can only be a single word.  The first word is interpreted as the alias name and all subsequent words are interpreted as the command name.
 
 <header2> ::: Examples ::: <end>
 

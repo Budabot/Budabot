@@ -2,9 +2,9 @@ To see a list of character on the whitelist:
 <highlight><tab><symbol>whitelist<end>
 
 To add a character to the whitelist:
-<highlight><tab><symbol>whitelist add 'character'<end>
+<highlight><tab><symbol>whitelist add <i>character</i><end>
 
 To remove a character from the whitelist:
-<highlight><tab><symbol>whitelist rem 'character'<end>
+<highlight><tab><symbol>whitelist rem <i>character</i><end>
 
 Note: The <highlight>whitelist<end> command lets you specify certain characters that should be able to access the bot, but would not normally be able to due to limits being set. See <a href='chatcmd:///tell <myname> help limits'><symbol>limits</a>

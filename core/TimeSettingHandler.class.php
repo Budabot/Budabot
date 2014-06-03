@@ -27,7 +27,7 @@ class TimeSettingHandler extends SettingHandler {
 	function getDescription() {
 		$msg = "For this setting you must enter a time value. See <a href='chatcmd:///tell <myname> help budatime'>budatime</a> for info on the format of the 'time' parameter.\n\n";
 		$msg .= "To change this setting:\n\n";
-		$msg .= "<highlight>/tell <myname> settings save {$this->row->name} 'time'<end>\n\n";
+		$msg .= "<highlight>/tell <myname> settings save {$this->row->name} <i>time</i><end>\n\n";
 		return $msg;
 	}
 	

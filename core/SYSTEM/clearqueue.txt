@@ -1,2 +1,2 @@
-To clear the queue for guild channel and tell messages:
+To clear the chat queue for guild channel and tell messages:
 <highlight><tab><symbol>clearqueue<end>

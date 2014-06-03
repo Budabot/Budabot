@@ -25,7 +25,7 @@ class ColorSettingHandler extends SettingHandler {
 	function getDescription() {
 		$msg = "For this setting you can set any Color in the HTML Hexadecimal Color Format.\n";
 		$msg .= "You can change it manually with the command: \n\n";
-		$msg .= "/tell <myname> settings save {$this->row->name} #'HTML-Color'\n\n";
+		$msg .= "/tell <myname> settings save {$this->row->name} <i>HTML-Color</i>\n\n";
 		$msg .= "Or you can choose one of the following Colors\n\n";
 		$msg .= "Red: <font color='#ff0000'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$this->row->name} #ff0000'>Save it</a>) \n";
 		$msg .= "White: <font color='#FFFFFF'>Example Text</font> (<a href='chatcmd:///tell <myname> settings save {$this->row->name} #FFFFFF'>Save it</a>) \n";
@@ -55,7 +55,7 @@ class ColorSettingHandler extends SettingHandler {
 		if (preg_match("/^#([0-9a-f]{6})$/i", $newValue)) {
 			return "<font color='$newValue'>";
 		} else {
-			throw new Exception("<highlight>{$change_to_setting}<end> is not a valid HTML-Color (example: '#FF33DD').");
+			throw new Exception("<highlight>{$change_to_setting}<end> is not a valid HTML-Color (example: <i>#FF33DD</i>).");
 		}
 	}
 }

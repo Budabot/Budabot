@@ -2,16 +2,16 @@ To show usage stats for the past 7 days:
 <highlight><tab><symbol>usage<end>
 
 To show usage stats for the past specific time period:
-<highlight><tab><symbol>usage 'budatime'<end>
+<highlight><tab><symbol>usage <i>budatime</i><end>
 
-To show usage stats for the past 7 days for a particular player:
-<highlight><tab><symbol>usage player 'player'<end>
+To show usage stats for the past 7 days for a particular character:
+<highlight><tab><symbol>usage player <i>character</i><end>
 
-To show usage stats for the past specific time period for a particular player:
-<highlight><tab><symbol>usage player 'player' 'budatime'<end>
+To show usage stats for the past specific time period for a particular character:
+<highlight><tab><symbol>usage player <i>character</i> <i>budatime</i><end>
 
 To show usage stats for the past 7 days for a particular command:
-<highlight><tab><symbol>usage cmd 'command'<end>
+<highlight><tab><symbol>usage cmd <i>command</i><end>
 
 To show usage stats for the past specific time period for a particular command:
-<highlight><tab><symbol>usage cmd 'command' 'budatime'<end>
+<highlight><tab><symbol>usage cmd <i>command</i> <i>budatime</i><end>

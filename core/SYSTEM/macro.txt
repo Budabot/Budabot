@@ -1,5 +1,5 @@
 To execute multiple commands at once:
-<highlight><tab><symbol>macro 'command1'|'command2'|'command3' ...<end>
+<highlight><tab><symbol>macro <i>command1</i>|<i>command2</i>|<i>command3</i> ...<end>
 
 <header2>Example:<end>
 <highlight><tab><symbol>macro online|aospeak<end>

@@ -2,15 +2,15 @@ To see the list of available profiles:
 <highlight><tab><symbol>profile<end>
 
 To load a profile:
-<highlight><tab><symbol>profile load 'profile name'<end>
+<highlight><tab><symbol>profile load <i>profile_name</i><end>
 
 To view a profile:
-<highlight><tab><symbol>profile view 'profile name'<end>
+<highlight><tab><symbol>profile view <i>profile_name</i><end>
 
 To save the current configuration as a profile:
-<highlight><tab><symbol>profile save 'profile name'<end>
+<highlight><tab><symbol>profile save <i>profile_name</i><end>
 
 To remove a profile:
-<highlight><tab><symbol>profile rem 'profile name'<end>
+<highlight><tab><symbol>profile rem <i>profile_name</i><end>
 
-Note: Profiles are stored in ./core/PROFILE/profiles.  Only lines that start with '!' will be executed and all other lines will be ignored.  Feel free to add or edit profiles as you wish.
+Note: Profiles are stored in ./data/profiles.  Only lines that start with '!' will be executed and all other lines will be ignored.  Feel free to add or edit profiles as you wish.

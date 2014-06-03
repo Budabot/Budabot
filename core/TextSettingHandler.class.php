@@ -18,7 +18,7 @@ class TextSettingHandler extends SettingHandler {
 	function getDescription() {
 		$msg = "For this setting you can enter any text you want (max. 255 chararacters).\n";
 		$msg .= "To change this setting:\n\n";
-		$msg .= "<highlight>/tell <myname> settings save {$this->row->name} 'text'<end>\n\n";
+		$msg .= "<highlight>/tell <myname> settings save {$this->row->name} <i>text</i><end>\n\n";
 		return $msg;
 	}
 	

@@ -2,4 +2,4 @@ To show the list of all commands and their statuses:
 <highlight><tab><symbol>cmdlist<end>
 
 To show the list of all commands and their statuses that require a certain access level:
-<highlight><tab><symbol>cmdlist 'access level'<end>
+<highlight><tab><symbol>cmdlist <i>access_level</i><end>

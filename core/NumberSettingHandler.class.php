@@ -18,7 +18,7 @@ class NumberSettingHandler extends SettingHandler {
 	function getDescription() {
 		$msg = "For this setting you can set any number.\n";
 		$msg .= "To change this setting: \n\n";
-		$msg .= "<highlight>/tell <myname> settings save {$this->row->name} 'number'<end>\n\n";
+		$msg .= "<highlight>/tell <myname> settings save {$this->row->name} <i>number</i><end>\n\n";
 		return $msg;
 	}
 	
