@@ -252,9 +252,7 @@ class AOChat {
 			case AOCP_GROUP_MESSAGE:
 				/* Hack to support extended messages */
 				if ($packet->args[1] === 0 && substr($packet->args[2], 0, 2) == "~&") {
-					$em = $this->readExtMsg($packet->args[2]);
-					$packet->args[2] = $em->message;
-					$packet->args['extended_message'] = $em;
+					$packet->args[2] = $this->readExtMsg($packet->args[2]);
 				}
 				break;
 
@@ -794,7 +792,7 @@ class AOChat {
 		return array($a, $b);
 	}
 	
-	public function parse_ext_params($msg) {
+	public function parse_ext_params(&$msg) {
 		$args = array();
 		while ($msg != '') {
 			$data_type = $msg[0];
@@ -808,9 +806,9 @@ class AOChat {
 					break;
 
 				case "s":
-					$len = ord($msg[0]) - 1;
-					$str = substr($msg, 1, $len);
-					$msg = substr($msg, $len + 1);
+					$len = ord($msg[0]);
+					$str = substr($msg, 1, $len - 1);
+					$msg = substr($msg, $len);
 					$args[] = $str;
 					break;
 
@@ -846,6 +844,10 @@ class AOChat {
 						$str = "Unknown ($cat, $ins)";
 					}
 					$args[] = $str;
+					break;
+					
+				case "~":
+					// reached end of message
 					break;
 
 				default:
@@ -889,26 +891,34 @@ class AOChat {
 	 * ~: end of message
 	 */
 	public function readExtMsg($msg) {
-		if (empty($msg) || substr($msg, 0, 2) != "~&" || substr($msg, -1) != "~") {
+		if (empty($msg)) {
 			return false;
 		}
-		$msg = substr($msg, 2, -1);
 		
-		$obj = new AOExtMsg();
-		$obj->category = $this->b85g($msg);
-		$obj->instance = $this->b85g($msg);
+		$message = '';
+		while (substr($msg, 0, 2) == "~&") {
+			// remove header '~&'
+			$msg = substr($msg, 2);
+		
+			$obj = new AOExtMsg();
+			$obj->category = $this->b85g($msg);
+			$obj->instance = $this->b85g($msg);
 
-		$obj->args = $this->parse_ext_params($msg);
-		if ($obj->args === null) {
-			$this->logger->log('warn', "Error parsing parameters for category: '$obj->category' instance: '$obj->instance' string: '$msg'");
-		} else {
-			$obj->message_string = $this->mmdbParser->get_message_string($obj->category, $obj->instance);
-			if ($obj->message_string !== null) {
-				$obj->message = vsprintf($obj->message_string, $obj->args);
+			$obj->args = $this->parse_ext_params($msg);
+			if ($obj->args === null) {
+				$this->logger->log('warn', "Error parsing parameters for category: '$obj->category' instance: '$obj->instance' string: '$msg'");
+			} else {
+				$obj->message_string = $this->mmdbParser->get_message_string($obj->category, $obj->instance);
+				if ($obj->message_string !== null) {
+					$message = vsprintf($obj->message_string, $obj->args);
+				}
 			}
+			
+			// remove footer '~'
+			$msg = substr($msg, 1);
 		}
 		
-		return $obj;
+		return $message;
 	}
 }
 
