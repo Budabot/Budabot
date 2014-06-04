@@ -4,6 +4,7 @@ namespace Budabot\User\Modules;
 
 use Budabot\Core\AutoInject;
 use Budabot\Core\CommandReply;
+use Budabot\Core\Registry;
 use stdClass;
 
 /**
@@ -231,7 +232,16 @@ class TestController extends AutoInject {
 	public function testeventCommand($message, $channel, $sender, $sendto, $args) {
 		$event = $args[1];
 		
-		$this->eventManager->callEventHandler(null, $event);
+		list($instanceName, $methodName) = explode(".", $event);
+		$instance = Registry::getInstance($instanceName);
+		if ($instance == null) {
+			$sendto->reply("Instance <highlight>$instanceName<end> does not exist.");
+		} else if (!method_exists($instance, $methodName)) {
+			$sendto->reply("Method <highlight>$methodName<end> does not exist on instance <highlight>$instanceName<end>.");
+		} else {
+			$this->eventManager->callEventHandler(null, $event);
+			$sendto->reply("Event has been fired.");
+		}
 	}
 	
 	/**
