@@ -84,7 +84,7 @@ class ChatTopicController {
 	 * @Matches("/^topic (?!clear)(.+)$/i")
 	 */
 	public function topicSetCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setTopic(time(), $sender, $args[1]);
+		$this->setTopic($sender, $args[1]);
 		$msg = "Topic has been updated.";
 		$sendto->reply($msg);
 	}
@@ -95,7 +95,7 @@ class ChatTopicController {
 	 * @Matches("/^topic clear$/i")
 	 */
 	public function topicClearCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setTopic(time(), $sender, "");
+		$this->setTopic($sender, "");
 		$msg = "Topic has been cleared.";
 		$sendto->reply($msg);
 	}
@@ -126,9 +126,9 @@ class ChatTopicController {
 		$this->chatBot->sendTell($msg, $eventObj->sender);
 	}
 	
-	public function setTopic($time, $name, $msg) {
+	public function setTopic($name, $msg) {
 		$this->settingManager->save("topic_time", time());
-		$this->settingManager->save("topic_setby", $sender);
+		$this->settingManager->save("topic_setby", $name);
 		$this->settingManager->save("topic", $msg);
 
 		if (empty($msg)) {
