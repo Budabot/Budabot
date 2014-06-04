@@ -848,7 +848,7 @@ class AOChat {
 					
 				case "~":
 					// reached end of message
-					break;
+					break 2;
 
 				default:
 					$this->logger->log('warn', "Unknown argument type '$data_type'");
@@ -899,7 +899,7 @@ class AOChat {
 		while (substr($msg, 0, 2) == "~&") {
 			// remove header '~&'
 			$msg = substr($msg, 2);
-		
+
 			$obj = new AOExtMsg();
 			$obj->category = $this->b85g($msg);
 			$obj->instance = $this->b85g($msg);
@@ -910,12 +910,9 @@ class AOChat {
 			} else {
 				$obj->message_string = $this->mmdbParser->get_message_string($obj->category, $obj->instance);
 				if ($obj->message_string !== null) {
-					$message = vsprintf($obj->message_string, $obj->args);
+					$message .= vsprintf($obj->message_string, $obj->args);
 				}
 			}
-			
-			// remove footer '~'
-			$msg = substr($msg, 1);
 		}
 		
 		return $message;
