@@ -146,9 +146,13 @@ class AsyncHttp {
 
 	private function buildResponse() {
 		$response = new StdClass();
-		$response->error   = $this->errorString;
-		$response->headers = $this->responseHeaders;
-		$response->body    = $this->getResponseBody();
+		if (empty($this->errorString)) {
+			$response->headers = $this->responseHeaders;
+			$response->body    = $this->getResponseBody();
+		} else {
+			$response->error   = $this->errorString;
+		}
+
 		return $response;
 	}
 
@@ -172,8 +176,8 @@ class AsyncHttp {
 
 	private function getStreamUri() {
 		$scheme = $this->request->getScheme();
-		$host = self::$overrideAddress? self::$overrideAddress: $this->request->getHost();
-		$port = self::$overridePort? self::$overridePort: $this->request->getPort();
+		$host = self::$overrideAddress ? self::$overrideAddress : $this->request->getHost();
+		$port = self::$overridePort ? self::$overridePort : $this->request->getPort();
 		return "$scheme://$host:$port";
 	}
 
@@ -232,11 +236,13 @@ class AsyncHttp {
 			$this->processHeaders();
 		}
 
-		if ($this->isBodyLengthKnown() && $this->isBodyFullyReceived()) {
-			$this->finish();
-		}
-
-		if ($this->isStreamClosed()) {
+		if ($this->isBodyLengthKnown()) {
+			if ($this->isBodyFullyReceived()) {
+				$this->finish();
+			} else if ($this->isStreamClosed()) {
+				$this->abortWithMessage("Stream closed before receiving all data");
+			}
+		} else if ($this->isStreamClosed()) {
 			$this->finish();
 		}
 	}
