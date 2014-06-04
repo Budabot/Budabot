@@ -42,6 +42,7 @@ class ChatRallyController {
 	public function rallyCommand($message, $channel, $sender, $sendto, $args) {
 		$this->replyCurrentRally($channel, $sendto);
 	}
+	
 	/**
 	 * This command handler ...
 	 * @HandlesCommand("rally")
@@ -52,28 +53,6 @@ class ChatRallyController {
 		$msg = "Rally has been cleared.";
 		$sendto->reply($msg);
 	}
-	/**
-	 * This command handler sets rally waypoint, using following example syntaxes:
-	 *  - rally (10.9 30 y 20 <playfield id>)
-	 *  - rally 10.9 30 y 20 <playfield id>
-	 *
-	 * @HandlesCommand("rally")
-	 * @Matches("/^rally \(?([0-9\.]+) ([0-9\.]+) y ([0-9\.]+) ([0-9]+)\)?$/i")
-	 */
-	public function rallySet1Command($message, $channel, $sender, $sendto, $args) {
-		$x_coords = $args[1];
-		$y_coords = $args[2];
-		$playfield_id = $args[4];
-		$name = $playfield_id;
-
-		$playfield = $this->playfieldController->get_playfield_by_id($playfield_id);
-		if ($playfield !== null) {
-			$name = $playfield->short_name;
-		}
-		$this->set($name, $playfield_id, $x_coords, $y_coords);
-
-		$this->replyCurrentRally($channel, $sendto);
-	}
 
 	/**
 	 * This command handler sets rally waypoint, using following example syntaxes:
@@ -83,7 +62,7 @@ class ChatRallyController {
 	 *  - etc...
 	 *
 	 * @HandlesCommand("rally")
-	 * @Matches("/^rally ([0-9\.]+)([x,. ]+)([0-9\.]+)([x,. ]+)(.+)$/i")
+	 * @Matches("/^rally ([0-9\.]+)([x,. ]+)([0-9\.]+)([x,. ]+)([^ ]+)$/i")
 	 */
 	public function rallySet2Command($message, $channel, $sender, $sendto, $args) {
 		$x_coords = $args[1];
@@ -107,6 +86,33 @@ class ChatRallyController {
 			$playfield_id = $playfield->id;
 		}
 		$this->set($playfield_name, $playfield_id, $x_coords, $y_coords);
+
+		$this->replyCurrentRally($channel, $sendto);
+	}
+	
+	/**
+	 * This command handler sets rally waypoint, using following example syntaxes:
+	 *  - rally (10.9 30 y 20 2434234)
+	 *  - rally 10.9, 30, 20
+	 *
+	 * @HandlesCommand("rally")
+	 * @Matches("/^rally (.+)$/i")
+	 */
+	public function rallySet1Command($message, $channel, $sender, $sendto, $args) {
+		if (preg_match("/(\d+\.\d) (\d+\.\d) y \d+\.\d (\d+)/", $args[1], $matches)) {
+			$x_coords = $matches[1];
+			$y_coords = $matches[2];
+			$playfield_id = $matches[3];
+		} else {
+			return false;
+		}
+
+		$name = $playfield_id;
+		$playfield = $this->playfieldController->get_playfield_by_id($playfield_id);
+		if ($playfield !== null) {
+			$name = $playfield->short_name;
+		}
+		$this->set($name, $playfield_id, $x_coords, $y_coords);
 
 		$this->replyCurrentRally($channel, $sendto);
 	}

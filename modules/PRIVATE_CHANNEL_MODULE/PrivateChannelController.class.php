@@ -371,15 +371,6 @@ class PrivateChannelController {
 			$online[$row->profession] = $row->count;
 		}
 
-		/*
-		forEach ($online as $prof => $count) {
-			if ($count > 0) {
-				$msg .= "<highlight>{$count}<end> {$prof}, ";
-			}
-		}
-		*/
-
-		// TODO: Holy nerd batman! that's a lot of duplicated code!
 		$msg .= "<highlight>".$online['Adventurer']."<end> Adv, "
 			. "<highlight>".$online['Agent']."<end> Agent, "
 			. "<highlight>".$online['Bureaucrat']."<end> Crat, "

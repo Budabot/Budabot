@@ -2,9 +2,10 @@ To see the current rally:
 <highlight><tab><symbol>rally<end>
 
 To set the rally:
-<highlight><tab><symbol>rally 'x' 'y' 'playfield'<end>
+<highlight><tab><symbol>rally <i>x</i> <i>y</i> <i>playfield</i><end>
+<highlight><tab><symbol>rally <i>paste_coords</i><end>
 
 To clear the rally:
 <highlight><tab><symbol>rally clear<end>
 
-Note: 'playfield' can be the playfield id, or any of the short or long names defined in <symbol>playfields
+Note: <i>playfield</i> can be the playfield id, or any of the short or long names defined in <symbol>playfields.
