@@ -25,7 +25,7 @@ class GuildManager {
 	/** @Inject */
 	public $playerManager;
 
-	public function get_by_id($guild_id, $rk_num = 0, $force_update = false) {
+	public function get_by_id($guild_id, $rk_num = 0, $forceUpdate = false) {
 		// if no server number is specified use the one on which the bot is logged in
 		if ($rk_num == 0) {
 			$rk_num = $this->chatBot->vars["dimension"];
@@ -48,7 +48,7 @@ class GuildManager {
 			}
 		};
 
-		$cacheResult = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge);
+		$cacheResult = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge, $forceUpdate);
 
 		// if there is still no valid data available give an error back
 		if ($cacheResult->success !== true) {

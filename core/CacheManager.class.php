@@ -28,7 +28,7 @@ class CacheManager {
 		}
 	}
 
-	public function lookup($url, $groupName, $filename, $isValidCallback, $maxCacheAge = 86400) {
+	public function lookup($url, $groupName, $filename, $isValidCallback, $maxCacheAge = 86400, $forceUpdate = false) {
 		if (empty($groupName)) {
 			throw new Exception("Cache group name cannot be empty");
 		}
@@ -36,7 +36,7 @@ class CacheManager {
 		$cacheResult = new CacheResult();
 	
 		// Check if a xml file of the person exists and if it is uptodate
-		if ($this->cacheExists($groupName, $filename)) {
+		if (!$forceUpdate && $this->cacheExists($groupName, $filename)) {
 			$cacheAge = $this->getCacheAge($groupName, $filename);
 			if ($cacheAge < $maxCacheAge) {
 				$data = $this->retrieve($groupName, $filename);
@@ -53,7 +53,7 @@ class CacheManager {
 			}
 		}
 
-		//If no old history file was found or it was invalid try to update it from auno.org
+		//If no old history file was found or it was invalid try to update it from url
 		if ($cacheResult->success !== true) {
 			$response = $this->http->get($url)->waitAndReturnResponse();
 			$data = $response->body;
