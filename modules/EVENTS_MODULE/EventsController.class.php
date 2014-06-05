@@ -303,7 +303,7 @@ class EventsController {
 	public function logonEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if ($this->chatBot->is_ready() && isset($this->chatBot->guildmembers[$sender])) {
-			$sevenDaysAgo = time() - (86400 * 7)
+			$sevenDaysAgo = time() - (86400 * 7);
 			$row = $this->db->queryRow("SELECT * FROM events WHERE `event_date` > ? LIMIT 1", $sevenDaysAgo);
 			if ($row !== null) {
 				$this->chatBot->sendTell($this->getEvents(), $sender);
@@ -317,7 +317,7 @@ class EventsController {
 	 */
 	public function joinPrivEvent($eventObj) {
 		$sender = $eventObj->sender;
-		$sevenDaysAgo = time() - (86400 * 7)
+		$sevenDaysAgo = time() - (86400 * 7);
 		$row = $this->db->queryRow("SELECT * FROM events WHERE `event_date` > ? LIMIT 1", $sevenDaysAgo);
 		if ($row !== null) {
 			$this->chatBot->sendTell($this->getEvents(), $sender);
