@@ -8,9 +8,9 @@ For all support questions and bug reports please use the [forums](http://budabot
 There are three ways that you can obtain Budabot: Release Archives (recommended), Latest Development Archive, or Cloning the Repository.
 
 ### Release Archives ###
-You can download the latest stable version from link below. The download page contains an archive for Microsoft Windows and another for any Linux variant. Choose the appropriate download for your operating system.
+You can download the latest stable version from link below. If you want the most stable version, choose the latest GA release.  If you want to test some of the newest features, choose an RC release.
 
-http://code.google.com/p/budabot2/downloads/list
+https://github.com/Budabot/Budabot/releases
 
 **Linux**: See additional installation instructions in the forum: http://budabot.com/forum/viewtopic.php?f=5&t=850
 
