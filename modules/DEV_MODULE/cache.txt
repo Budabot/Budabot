@@ -1,0 +1,11 @@
+To view a list of cache categories:
+<highlight><tab><symbol>cache<end>
+
+To view a list of files in a cache category:
+<highlight><tab><symbol>cache browse <i>cache_category</i><end>
+
+To view the contents of a cache file:
+<highlight><tab><symbol>cache view <i>cache_category</i> <i>cache_file</i><end>
+
+To delete a cache file:
+<highlight><tab><symbol>cache rem <i>cache_category</i> <i>cache_file</i><end>

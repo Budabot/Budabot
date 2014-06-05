@@ -385,19 +385,6 @@ class Util {
 		return $seeks;
 	}
 	
-	public function getFilesInDirectory($path) {
-		$files = array();
-		if ($dir = dir($path)) {
-			while (false !== ($entry = $dir->read())) {
-				if (!is_dir($path . "/" . $entry)) {
-					$files []= $entry;
-				}
-			}
-			$dir->close();
-		}
-		return $files;
-	}
-	
 	public function date($unixtime) {
 		return date(self::DATETIME, $unixtime);
 	}
@@ -506,6 +493,25 @@ class Util {
 			}
 		}
 		return implode($glue, $newArr);
+	}
+	
+	public function getFilesInDirectory($path) {
+		$files = array();
+		if ($dir = dir($path)) {
+			while (false !== ($entry = $dir->read())) {
+				if (!is_dir($path . "/" . $entry)) {
+					$files []= $entry;
+				}
+			}
+			$dir->close();
+		}
+		return $files;
+	}
+	
+	public function getDirectoriesInDirectory($path) {
+	   return array_filter(scandir($path), function ($f) use($path) {
+		   return $f != '.' && $f != '..' && is_dir($path . DIRECTORY_SEPARATOR . $f);
+	   });
 	}
 }
 

@@ -15,6 +15,9 @@ class CacheManager {
 	/** @Inject */
 	public $http;
 	
+	/** @Inject */
+	public $util;
+	
 	private $cache;
 
 	/** @Setup */
@@ -137,6 +140,16 @@ class CacheManager {
 		$cacheFile = "$this->cache/$groupName/$filename";
 		
 		@unlink($cacheFile);
+	}
+	
+	public function getFilesInGroup($groupName) {
+		$path = "$this->cache/$groupName/";
+	
+		return $this->util->getFilesInDirectory($path);
+	}
+	
+	public function getGroups() {
+		return $this->util->getDirectoriesInDirectory($this->cache);
 	}
 }
 
