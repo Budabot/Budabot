@@ -78,10 +78,9 @@ class News {
 	public function logonEvent($eventObj) {
 		$sender = $eventObj->sender;
 
-		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
-			$msg = $this->getNews();
-			if ($msg != '') {
-				$this->chatBot->sendTell($msg, $sender);
+		if ($this->chatBot->is_ready() && isset($this->chatBot->guildmembers[$sender])) {
+			if ($this->hasRecentNews()) {
+				$this->chatBot->sendTell($this->getNews(), $sender);
 			}
 		}
 	}
@@ -93,10 +92,15 @@ class News {
 	public function privateChannelJoinEvent($eventObj) {
 		$sender = $eventObj->sender;
 
-		$msg = $this->getNews();
-		if ($msg != '') {
-			$this->chatBot->sendTell($msg, $sender);
+		if ($this->hasRecentNews()) {
+			$this->chatBot->sendTell($this->getNews(), $sender);
 		}
+	}
+	
+	public function hasRecentNews() {
+		$thirtyDays = time() - (86400 * 30);
+		$row = $this->db->queryRow("SELECT * FROM `news` WHERE deleted = 0 AND time > ? LIMIT 1", $thirtyDays);
+		return $row !== null;
 	}
 
 	/**
