@@ -41,7 +41,7 @@ class FightController {
 		$player2 = $args[2];
 
 		// Checks if user is trying to get Chuck Norris to fight another Chuck Norris
-		if ((strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) &&  (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0)) {
+		if ((strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) && (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0)) {
 			$msg = "Theres only enough room in this world for one Chuck Norris!";
 			$sendto->reply($msg);
 			return;
@@ -58,8 +58,12 @@ class FightController {
 			return;
 		}
 
-		// Checks if Player 1/2 is chuck or chuck norris, and if so, sets HP to 100k and adds 10k - 100k damage to ensure victory.
-		if (strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) {
+		if ($this->util->startsWith($player1, "tyrence")) {
+			$hp1 = 500000;
+			$add_damage_P1 = rand(10000, 100000);
+			$wep_P1 = "bot";
+		} else if (strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) {
+			// Checks if Player 1/2 is chuck or chuck norris, and if so, sets HP to 100k and adds 10k - 100k damage to ensure victory.
 			$hp1 = 100000;
 			$add_damage_P1 = rand(10000, 100000);
 			$wep_P1 = "round house kick";
@@ -68,7 +72,12 @@ class FightController {
 			$add_damage_P1 = 0;
 			$wep_P1 = "nerfstick";
 		}
-		if (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0) {
+		
+		if ($this->util->startsWith($player2, "tyrence")) {
+			$hp2 = 500000;
+			$add_damage_P2 = rand(10000, 100000);
+			$wep_P2 = "bot";
+		} else if (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0) {
 			$hp2 = 100000;
 			$add_damage_P2 = rand(10000, 100000);
 			$wep_P2 = "round house kick";
