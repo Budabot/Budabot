@@ -276,7 +276,7 @@ class Budabot extends AOChat {
 		}
 	}
 
-	public function sendTell($message, $character, $priority = null) {
+	public function sendTell($message, $character, $priority = null, $formatMessage = true) {
 		// for when $text->make_blob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
@@ -289,8 +289,10 @@ class Budabot extends AOChat {
 			$priority = AOC_PRIORITY_MED;
 		}
 
-		$message = $this->text->format_message($message);
-		$tellColor = $this->settingManager->get("default_tell_color");
+		if ($formatMessage) {
+			$message = $this->text->format_message($message);
+			$tellColor = $this->settingManager->get("default_tell_color");
+		}
 
 		$this->logger->log_chat("Out. Msg.", $character, $message);
 		$this->send_tell($character, $tellColor.$message, "\0", $priority);
