@@ -1,2 +1,5 @@
 To show the list of all events and their statuses:
 <highlight><tab><symbol>eventlist<end>
+
+To show the list of all events of a certain type and their statuses:
+<highlight><tab><symbol>eventlist <i>event_type</i><end>
