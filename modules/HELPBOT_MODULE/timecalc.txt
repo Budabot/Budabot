@@ -1,4 +1,0 @@
-To the what time it will be after a specified amount of time:
-<highlight><tab><symbol>timecalc 'time'<end>
-
-See <a href='chatcmd:///tell <myname> help budatime'><symbol>help budatime</a> for info on the format of the 'time' parameter.
