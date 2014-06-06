@@ -910,7 +910,7 @@ class AOChat {
 			} else {
 				$obj->message_string = $this->mmdbParser->get_message_string($obj->category, $obj->instance);
 				if ($obj->message_string !== null) {
-					$message .= vsprintf($obj->message_string, $obj->args);
+					$message .= trim(vsprintf($obj->message_string, $obj->args));
 				}
 			}
 		}

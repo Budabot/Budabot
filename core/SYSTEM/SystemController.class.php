@@ -173,7 +173,7 @@ class SystemController {
 
 	/**
 	 * @Setting("http_timeout")
-	 * @Description("Max time to wait for response from when making http queries")
+	 * @Description("Max time to wait for response from making http queries")
 	 * @Visibility("edit")
 	 * @Type("time")
 	 * @Options("1s;2s;5s;10s;30s")
