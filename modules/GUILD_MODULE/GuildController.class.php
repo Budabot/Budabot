@@ -48,12 +48,6 @@ namespace Budabot\User\Modules;
  *		help        = "recentseen.txt"
  *	)
  *	@DefineCommand(
- *		command     = "tellall", 
- *		accessLevel = "rl", 
- *		description = "Sends a tell to all online guild members", 
- *		help        = "tellall.txt"
- *	)
- *	@DefineCommand(
  *		command     = "notify", 
  *		accessLevel = "mod", 
  *		description = "Adds a character to the notify list manually", 
@@ -358,20 +352,6 @@ class GuildController {
 		}
 		$msg = $this->text->make_blob("$numrecentcount recently seen org members", $blob);
 		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("tellall")
-	 * @Matches("/^tellall (.+)$/i")
-	 */
-	public function tellallCommand($message, $channel, $sender, $sendto, $args) {
-		$tellmsg = $args[1];
-		$data = $this->db->query("SELECT name FROM online WHERE channel_type = 'guild'");
-		forEach ($data as $row) {
-			$this->chatBot->sendTell("Message from $sender: <yellow>$tellmsg<end>", $row->name);
-		}
-
-		$sendto->reply("Your message has been sent to all online org members.");
 	}
 	
 	/**
