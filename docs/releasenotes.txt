@@ -36,9 +36,6 @@
 -!aou all allows you to search the body of guides for matches
 -added !findplayer
 -updated to items db to 18.06.11
--added !citems for forcing an items lookup using the CIDB
--added !litems for forcing an items lookup using the local DB
--added support for CIDB (change setting 'items_database' to determine whether !items use local DB or CIDB)
 -!roll can now accept strings as possible roll values
 -!weather should now work again
 -users in !ts output now sorted by channels
