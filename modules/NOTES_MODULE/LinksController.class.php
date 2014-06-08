@@ -77,7 +77,7 @@ class LinksController {
 		$website = htmlspecialchars($args[1]);
 		$comments = $args[2];
 
-		$this->db->query("INSERT INTO links (`name`, `website`, `comments`, `dt`) VALUES(?, ?, ?, ?)", $sender, $website, $comments, time());
+		$this->db->exec("INSERT INTO links (`name`, `website`, `comments`, `dt`) VALUES (?, ?, ?, ?)", $sender, $website, $comments, time());
 		$msg = "Link added successfully.";
 		$sendto->reply($msg);
 	}

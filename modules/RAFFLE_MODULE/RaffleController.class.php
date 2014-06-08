@@ -65,7 +65,7 @@ class RaffleController {
 	 */
 	public function raffleStartCommand($message, $channel, $sender, $sendto, $args) {
 		if ("msg" == $channel) {
-			$msg = "You can't start a raffle in tells, please use org-chat or private channel.";
+			$msg = "You cannot start a raffle in tells.  Use the org channel or private channel.";
 			$sendto->reply($msg);
 			return;
 		}
