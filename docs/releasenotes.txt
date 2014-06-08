@@ -20,7 +20,7 @@
 -removed !server since FC hasn't provided server info since merge
 -saving profiles now includes command aliases
 -limit checks can now notify private and guild channels of failed attempts
--!cmdlist can now optionally show commands based on current access level
+-!cmdlist can now optionally show commands based on specified access level
 -fix so that cron events don't execute multiple times on startup
 -removed !orgcities since all cities are now instanced
 -!whatbuffs has been rewritten to provide many more items
@@ -36,7 +36,6 @@
 -merged !lastseen into !is
 -!ladder now shows implant requirements
 -!adminlist now shows online alts and includes guild admins (!adminlist all to see all admins and their alts regardless of online status)
--added !timecalc
 -!aou all allows you to search the body of guides for matches
 -added !findplayer
 -updated to items db to 18.06.11
