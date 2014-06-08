@@ -48,10 +48,6 @@
 /delay %1
 !fling 1.2 900
 /delay %1
-!inits
-/delay %1
-!inits <a href="itemref://280727/280727/300">Sloth of the Xan</a>
-/delay %1
 !mafist
 /delay %1
 !mafist 100
@@ -66,9 +62,9 @@
 /delay %1
 !nanoinit 1.2 1200
 /delay %1
-!specials
+!weapon
 /delay %1
-!specials <a href="itemref://280727/280727/300">Sloth of the Xan</a>
+!weapon <a href="itemref://280727/280727/300">Sloth of the Xan</a>
 /delay %1
 /text End SKILLS_MODULE
 

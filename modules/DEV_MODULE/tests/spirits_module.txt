@@ -70,22 +70,6 @@
 /delay %1
 !spiritslvl 110-125 feet
 /delay %1
-!spiritsagi 0
-/delay %1
-!spiritsagi 600
-/delay %1
-!spiritsagi 0 feet
-/delay %1
-!spiritsagi 600 feet
-/delay %1
-!spiritssen 0
-/delay %1
-!spiritssen 600
-/delay %1
-!spiritssen 0 feet
-/delay %1
-!spiritssen 600 feet
-/delay %1
 /text End SPIRITS_MODULE
 
 /skills_module.txt %1

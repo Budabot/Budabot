@@ -23,11 +23,6 @@
 !level 220
 !level 221
 
-!capxp 10000 200
-!capxp 10000 2
-!capxp 10000 -1
-!capxp 10000 221
-
 !missions 1
 !missions 200
 !missions 250

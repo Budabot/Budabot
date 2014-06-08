@@ -1,7 +1,5 @@
 #raid_module
 /text Start RAID_MODULE
-!list
-/delay %1
 !loot
 /delay %1
 !loot clear
@@ -12,7 +10,7 @@
 /delay %1
 !loot test
 /delay %1
-!list
+!loot
 /delay %1
 !loot clear
 /delay %1
@@ -22,15 +20,15 @@
 /delay %1
 !multiloot 5 test2
 /delay %1
-!list
+!loot
 /delay %1
 !add 2
 /delay %1
-!list
+!loot
 /delay %1
 !add 1
 /delay %1
-!list
+!loot
 /delay %1
 !remloot
 /delay %1
@@ -38,11 +36,11 @@
 /delay %1
 !remloot 1
 /delay %1
-!list
+!loot
 /delay %1
 !add 1
 /delay %1
-!list
+!loot
 /delay %1
 !flatroll
 /delay %1
@@ -52,11 +50,11 @@
 /delay %1
 !add 1
 /delay %1
-!list
+!loot
 /delay %1
 !rem
 /delay %1
-!list
+!loot
 /delay %1
 !add 1
 /delay %1
@@ -64,7 +62,7 @@
 /delay %1
 !reroll
 /delay %1
-!list
+!loot
 /delay %1
 !13
 /delay %1

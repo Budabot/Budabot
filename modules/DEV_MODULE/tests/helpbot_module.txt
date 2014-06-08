@@ -1,17 +1,11 @@
 #helpbot_module
 /text Start HELPBOT_MODULE
 
-!buffitem error
-!buffitem rifle
-!buffitem windchaser
 !whatbuffs
-!whatbuffs error
-!whatbuffs met
-!whatbuffs bio met
-
-!mobloot 0
-!mobloot 301
-!mobloot 225
+!whatbuffs nano
+!whatbuffs weapon
+!whatbuffs nano Agility
+!whatbuffs weapon Agility
 
 !dyna 200
 !dyna -1
@@ -36,10 +30,6 @@
 !oe 10000
 
 !calc 1+1
-
-!orgcities
-!orgcities pw
-!orgcities error
 
 !playfields
 !playfields pw
@@ -77,12 +67,6 @@
 !research 10 10
 !research 20 30
 !research 8 5
-
-!server
-!server 1
-!server 2
-!server t
-!server 10
 
 !time
 !time est

@@ -8,4 +8,4 @@
 /delay %1
 /text End WEATHER_MODULE
 
-/waitlist_module.txt %1
+/vote_module.txt %1
