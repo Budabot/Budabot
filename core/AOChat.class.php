@@ -321,7 +321,7 @@ class AOChat {
 
 		if (is_int($char)) {
 			$field = "id";
-		} else if(is_string($char)) {
+		} else if (is_string($char)) {
 			$field = "name";
 			$char  = ucfirst(strtolower($char));
 		}
@@ -728,7 +728,7 @@ class AOChat {
 			$dhN = gmp_init($dhN);
 			$dhX = gmp_strval(gmp_powm($dhG, $dhx, $dhN), 16);
 			$dhK = gmp_strval(gmp_powm($dhY, $dhx, $dhN), 16);
-		} else if(extension_loaded("bcmath")) {
+		} else if (extension_loaded("bcmath")) {
 			$dhX = $this->bcmath_powm($dhG, $dhx, $dhN);
 			$dhK = $this->bcmath_powm($dhY, $dhx, $dhN);
 		} else {

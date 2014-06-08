@@ -28,7 +28,7 @@ class Text {
 	 * @name: make_blob
 	 * @description: creates an info window
 	 */
-	function make_blob($name, $content, $header = null) {
+	public function make_blob($name, $content, $header = null) {
 		if ($header === null) {
 			$header = $name;
 		}
@@ -67,7 +67,7 @@ class Text {
 		}
 	}
 
-	function make_legacy_blob($name, $content) {
+	public function make_legacy_blob($name, $content) {
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 
@@ -96,7 +96,7 @@ class Text {
 		}
 	}
 
-	function paginate($input, $maxLength, $symbols) {
+	public function paginate($input, $maxLength, $symbols) {
 		$pageSize = 0;
 		$currentPage = '';
 		$result = array();
@@ -148,7 +148,7 @@ class Text {
 	 * @param: $content - the chatcmd to execute
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
-	function make_chatcmd($name, $content, $style = null) {
+	public function make_chatcmd($name, $content, $style = null) {
 		$content = str_replace("'", '&#39;', $content);
 		return "<a $style href='chatcmd://$content'>$name</a>";
 	}
@@ -159,7 +159,7 @@ class Text {
 	 * @param: $name - the name the user to create a link for
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
-	function make_userlink($user, $style = null) {
+	public function make_userlink($user, $style = null) {
 		return "<a $style href='user://$user'>$user</a>";
 	}
 
