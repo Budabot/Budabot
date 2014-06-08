@@ -244,11 +244,8 @@ class SkillsController {
 			$i = 0;
 		} else if ($brawl_skill < 2001) {
 			$i = 2;
-		} else if ($brawl_skill < 3001) {
-			$i = 4;
 		} else {
-			$sendto->reply("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.");
-			return;
+			$i = 4;
 		}
 
 		$min  = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $min_list[$i], $min_list[($i+1)], $brawl_skill);
@@ -315,13 +312,10 @@ class SkillsController {
 
 		if ($dim_skill < 1001) {
 			$i = 0;
-		} elseif ($dim_skill < 2001) {
+		} else if ($dim_skill < 2001) {
 			$i = 2;
-		} elseif ($dim_skill < 3001) {
-			$i = 4;
 		} else {
-			$sendto->reply("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.");
-			return;
+			$i = 4;
 		}
 
 		$blob = "Dimach Skill: <highlight>".$dim_skill."<end>\n\n";
@@ -470,11 +464,8 @@ class SkillsController {
 			$i = 1;
 		} else if ($MaSkill < 2001) {
 			$i = 3;
-		} else if ($MaSkill < 3001) {
-			$i = 5;
 		} else {
-			$sendto->reply("Skill entered is out of range... please enter a number between <highlight>1 and 3000<end>.");
-			return;
+			$i = 5;
 		}
 
 		$fistql = round($MaSkill/2,0);
@@ -625,7 +616,7 @@ class SkillsController {
 			$found = true;
 		}
 
-		// brawl, dimach don't depend on weapon at all
+		// brawl and dimach don't depend on weapon at all
 		// we don't have a formula for sneak attack
 
 		if (!$found) {
