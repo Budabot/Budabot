@@ -59,9 +59,9 @@ class FightController {
 		}
 
 		if ($this->util->startsWith($player1, "tyrence")) {
-			$hp2 = 500000;
-			$add_damage_P2 = rand(10000, 100000);
-			$wep_P2 = "php exploit";
+			$hp1 = 500000;
+			$add_damage_P1 = rand(10000, 100000);
+			$wep_P1 = "bot";
 		} else if (strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) {
 			// Checks if Player 1/2 is chuck or chuck norris, and if so, sets HP to 100k and adds 10k - 100k damage to ensure victory.
 			$hp1 = 100000;
@@ -74,9 +74,9 @@ class FightController {
 		}
 		
 		if ($this->util->startsWith($player2, "tyrence")) {
-			$hp1 = 500000;
-			$add_damage_P1 = rand(10000, 100000);
-			$wep_P1 = "php exploit";
+			$hp2 = 500000;
+			$add_damage_P2 = rand(10000, 100000);
+			$wep_P2 = "bot";
 		} else if (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0) {
 			$hp2 = 100000;
 			$add_damage_P2 = rand(10000, 100000);
