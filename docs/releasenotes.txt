@@ -1,7 +1,11 @@
 *****************************
-	Version 3.2_RC2:
+	Version 3.2_GA:
 *****************************
 -fixed various typos and bugs
+-!rally, !assist, and !heal will no longer spam 3x in private channel
+-bot should now better detect when an HTTP request fails prematurely (such as when downloading the org roster)
+-bot will now parse "defence shield disabled" messages properly
+-news items are marked as deleted instead of actually being deleted from the database
 -various changes to allow better integration and customization by third party modules
 -!scout and !forcescout can now accept pasting the ct blob info
 -updated text.mdb so that bot can correctly interpret org msg messages
