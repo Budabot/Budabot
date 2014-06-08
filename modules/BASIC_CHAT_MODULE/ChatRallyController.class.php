@@ -93,7 +93,6 @@ class ChatRallyController {
 	/**
 	 * This command handler sets rally waypoint, using following example syntaxes:
 	 *  - rally (10.9 30 y 20 2434234)
-	 *  - rally 10.9, 30, 20
 	 *
 	 * @HandlesCommand("rally")
 	 * @Matches("/^rally (.+)$/i")
@@ -156,12 +155,6 @@ class ChatRallyController {
 			return;
 		}
 		$sendto->reply($rally);
-
-		// send message 2 more times (3 total) if used in private channel
-		if ($channel == "priv") {
-			$sendto->reply($rally);
-			$sendto->reply($rally);
-		}
 	}
 }
 

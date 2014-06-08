@@ -68,12 +68,6 @@ class ChatAssistController {
 			return;
 		} else {
 			$sendto->reply($this->assistMessage);
-
-			// send message 2 more times (3 total) if used in private channel
-			if ($channel == "priv") {
-				$sendto->reply($this->assistMessage);
-				$sendto->reply($this->assistMessage);
-			}
 		}
 	}
 	
@@ -127,12 +121,6 @@ class ChatAssistController {
 		}
 
 		$sendto->reply($this->assistMessage);
-
-		// send message 2 more times (3 total) if used in private channel
-		if ($channel == "priv") {
-			$sendto->reply($this->assistMessage);
-			$sendto->reply($this->assistMessage);
-		}
 	}
 
 	/**
@@ -146,12 +134,6 @@ class ChatAssistController {
 			return;
 		} else {
 			$sendto->reply($this->healMessage);
-
-			// send message 2 more times (3 total) if used in private channel
-			if ($channel == "priv") {
-				$sendto->reply($this->healMessage);
-				$sendto->reply($this->healMessage);
-			}
 		}
 	}
 	
@@ -200,11 +182,5 @@ class ChatAssistController {
 		}
 
 		$sendto->reply($this->healMessage);
-
-		// send message 2 more times (3 total) if used in private channel
-		if ($channel == "priv") {
-			$sendto->reply($this->healMessage);
-			$sendto->reply($this->healMessage);
-		}
 	}
 }
