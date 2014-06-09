@@ -54,7 +54,7 @@ class SettingManager {
 	 * @param: $name - the name of the setting
 	 * @param: $description - a description for the setting (will appear in the config)
 	 * @param: $mode - 'edit', 'noedit', or 'hide'
-	 * @param: $type - 'color', 'number', 'text', or 'options'
+	 * @param: $type - 'color', 'number', 'text', 'options', or 'time'
 	 * @param: $options - a list of values that the setting can be, semi-colon delimited (optional)
 	 * @param: $intoptions - int values corresponding to $options; if empty, the values from $options will be what is stored in the database (optional)
 	 * @param: $admin - the permission level needed to change this setting (default: mod) (optional)

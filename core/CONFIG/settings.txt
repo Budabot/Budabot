@@ -4,7 +4,7 @@ To see a list of all settings on the bot:
 Note: When a setting is editable, it will include a 'Modify' link next to the setting name.
 
 To see info about a particular setting:
-<highlight><tab><symbol>settings change <i>setting name</i><end>
+<highlight><tab><symbol>settings change <i>setting_name</i><end>
 
 To save a value for a particular setting:
-<highlight><tab><symbol>settings save <i>setting name</i> <i>value</i><end>
+<highlight><tab><symbol>settings save <i>setting_name</i> <i>value</i><end>
