@@ -32,6 +32,6 @@ Events can be enabled or disabled--there are no other configuration options.  Fo
 
 Commands can be registered for tells, private channel, and guild channel.  For each channel, a command can be enabled or disabled.  Additionally, for each channel, a command can have a different access level.  This is important to know because when you enable or disable a command, or adjust the access level, you will typically want to do it for all three channels.
 
-<header2>Configuring Your Bot - Getting Started<end>
+<header2>Getting Started<end>
 
 Most often, when you want to configure your bot, you should use <a href='chatcmd:///tell <myname> config'><symbol>config</a>.  This shows all the modules in the bot.  Selecting a module will show all settings, events, and commands for that module.  You can either enable or disable the entire module, or change the settings, events, and commands individually.
