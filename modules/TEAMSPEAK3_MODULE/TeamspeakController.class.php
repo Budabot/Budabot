@@ -108,7 +108,7 @@ class TeamspeakController {
 				$msg[] = '<i>No users connected</i>';
 			}
 			$msg = sprintf("Server: %s\nDescription: <highlight>%s<end>\n\n%s\n\nTeamspeak 3 support by Tshaar (RK2)", $serverLink, $this->settingManager->get('ts_description'), implode("\n\n", $msg));
-			$msg = $this->text->make_blob("$count user(s) on Teamspeak", $msg);
+			$msg = $this->text->make_blob("Teamspeak ($count)", $msg);
 		} catch (Exception $e) {
 			$msg = "Error! " . $e->getMessage();
 		}
