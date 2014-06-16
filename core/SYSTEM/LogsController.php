@@ -84,7 +84,7 @@ class LogsController {
 				$search = ' ';
 			}
 			$fileContents = file_get_contents($filename);
-			preg_match_all("/(.*)({$search})(.*)/i", $fileContents, $matches);
+			preg_match_all("/.*({$search}).*/i", $fileContents, $matches);
 			$matches = array_reverse($matches[0]);
 			$contents = '';
 			forEach ($matches as $line) {
