@@ -111,30 +111,6 @@ class GitController extends AutoInject {
 		$blob .= implode("\n", $output);
 		return $blob;
 	}
-	
-	/**
-	 * @Event("165h")
-	 * @Description("Check for updates to the bot")
-	 */
-	public function checkForUpdatesEvent($eventObj) {
-		$gitpath = $this->settingManager->get('gitpath');
-	
-		$output = array();
-		$return_var = '';
-		
-		$command = "$gitpath fetch origin 2>&1";
-		exec($command, $output, $return_var);
-		
-		$command = "$gitpath log master ...origin/master 2>&1";
-		exec($command, $output, $return_var);
-		$output = implode("\n", $output);
-		
-		if (!empty($output)) {
-			$msg = "There are updates to the bot.  Use <highlight><symbol>git incoming<end> to see them.  Use <highlight><symbol>git pull<end> to bring the updates into your bot.  It is recommended that you restart your bot after doing this.";
-			$this->chatBot->sendGuild($msg, true);
-			$this->chatBot->sendPrivate($msg, true);
-		}
-	}
 }
 
 ?>
