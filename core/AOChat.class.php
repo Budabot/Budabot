@@ -141,6 +141,10 @@ class AOChat {
 
 		$this->socket = $s;
 		$this->state = "auth";
+		
+		// prevents bot from hanging on startup when chatserver does not send login seed
+		$timeout = 10;
+		socket_set_option($this->socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => $timeout, 'usec' => 0));
 
 		if (@socket_connect($s, $server, $port) === false) {
 			$this->logger->log('error', "Could not connect to the AO Chat server ($server:$port): " . socket_strerror(socket_last_error($s)));
