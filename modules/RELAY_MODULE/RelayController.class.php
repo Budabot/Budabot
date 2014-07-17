@@ -9,12 +9,6 @@ namespace Budabot\User\Modules;
  * @Instance
  *
  * Commands this controller contains:
- *	@DefineCommand(
- *		command     = 'tellrelay',
- *		accessLevel = 'mod',
- *		description = 'Convenience command to quickly set up org relay over tells between two orgs',
- *		help        = 'tellrelay.txt'
- *	)
  *  @DefineCommand(
  *		command     = 'grc',
  *		accessLevel = 'all',
@@ -67,28 +61,8 @@ class RelayController {
 		$this->settingManager->add($this->moduleName, 'relay_color_guild', "Color of messages from relay to guild channel", 'edit', "color", "<font color='#C3C3C3'>");
 		$this->settingManager->add($this->moduleName, 'relay_color_priv', "Color of messages from relay to private channel", 'edit', "color", "<font color='#C3C3C3'>");
 		$this->settingManager->add($this->moduleName, 'relay_guild_abbreviation', 'Abbreviation to use for org name', 'edit', 'text', 'none', 'none');
-	}
-	
-	/**
-	 * @HandlesCommand("tellrelay")
-	 * @Matches("/^tellrelay (.*)$/i")
-	 */
-	public function tellrelayCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$uid = $this->chatBot->get_uid($name);
-
-		if (!$uid) {
-			$msg = "Character <highlight>$name<end> does not exist.";
-			$sendto->reply($msg);
-			return;
-		}
-
-		$this->settingManager->save('relaytype', 1);  // 1 for 'tell'
-		$this->settingManager->save('relaysymbol', 'Always relay');
-		$this->settingManager->save('relaybot', $name);
-
-		$msg = "Relay set up successfully with <highlight>$name<end>.  Please issue command '/tell $name tellrelay <myname>' if not done so already to complete the setup.";
-		$sendto->reply($msg);
+		
+		$this->commandAlias->register($this->moduleName, "macro settings save relaytype 1|settings save relaysymbol Always relay|settings save relaybot", "tellrelay");
 	}
 	
 	/**
