@@ -48,6 +48,9 @@ class RelayController {
 	/** @Inject */
 	public $playerManager;
 	
+	/** @Inject */
+	public $commandAlias;
+	
 	/** @Logger */
 	public $logger;
 
