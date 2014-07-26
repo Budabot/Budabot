@@ -284,7 +284,7 @@ class OnlineController {
 			}
 			
 			// if 'afk' was used as a command, throw StopExecutionException to prevent
-			// normal command handling to occur
+			// normal command handling from occurring
 			if ($message[0] == $this->settingManager->get('symbol')) {
 				throw new StopExecutionException();
 			}
