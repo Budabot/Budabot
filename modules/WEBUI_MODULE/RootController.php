@@ -183,6 +183,8 @@ class RootController {
 		$botname = $this->chatBot->vars['name'];
 		if (preg_match("/\\/tell $botname (.+)/i", $arr[2], $matches)) {
 			return "<a href=\"#\" onclick=\"$('#commandInput').val('$matches[1]'); sendCommand();\" title=\"$matches[1]\">$arr[3]</a>";
+		} else if (preg_match("/\\/start (.+)/i", $arr[2], $matches)) {
+			return "<a href=\"javascript: window.open('{$matches[1]}')\">{$arr[3]}</a>";
 		} else {
 			return $arr[3];
 		}
