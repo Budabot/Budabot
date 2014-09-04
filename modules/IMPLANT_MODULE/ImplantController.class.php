@@ -174,6 +174,7 @@ class ImplantController {
 	 */
 	public function ladderCommand($message, $channel, $sender, $sendto, $args) {
 		$type = strtolower($args[1]);
+		$startingValue = $args[2];
 		
 		// allow treatment, ability, or any of the 6 abilities
 		if ($type != 'treatment' && $type != 'ability') {
@@ -184,7 +185,7 @@ class ImplantController {
 			$type = strtolower($type);
 		}
 
-		$value = $args[2];
+		$value = $startingValue;
 		$prefix = $type == 'treatment' ? 'skill' : 'ability';
 		
 		$blob = "Starting $type: $value\n\n-------------------\n\n";
@@ -267,7 +268,7 @@ class ImplantController {
 		
 		$blob .= "-------------------\n\nEnding $type: $value";
 		$blob .= "\n\n<highlight>Inspired by a command written by Lucier of the same name<end>";
-		$msg = $this->text->make_blob("Laddering to $value " . ucfirst(strtolower($type)), $blob);
+		$msg = $this->text->make_blob("Laddering from $startingValue to $value " . ucfirst(strtolower($type)), $blob);
 		
 		$sendto->reply($msg);
 	}
