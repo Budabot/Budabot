@@ -251,7 +251,7 @@ class ImplantController {
 				$bright = $newBright;
 				$value += $bright->{$prefix . 'Bright'};
 				$lowest = $bright->{'lowest' . ucfirst($prefix) . 'Bright'};
-				$blob .= "<highlight>Add bright QL $bright->ql<end>  ($lowest) - Treatment: {$bright->treatment}, Ability: {$bright->ability}\n\n";
+				$blob .= "<highlight>Add bright QL $bright->ql<end> ($lowest) - Treatment: {$bright->treatment}, Ability: {$bright->ability}\n\n";
 			}
 			
 			// add faded
