@@ -176,6 +176,10 @@ class ImplantController {
 		$type = strtolower($args[1]);
 		$startingValue = $args[2];
 		
+		if ($type == 'treat') {
+			$type = 'treatment';
+		}
+		
 		// allow treatment, ability, or any of the 6 abilities
 		if ($type != 'treatment' && $type != 'ability') {
 			$type = $this->util->getAbility($type, true);
