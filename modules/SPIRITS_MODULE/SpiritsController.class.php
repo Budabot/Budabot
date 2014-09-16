@@ -18,12 +18,6 @@ namespace Budabot\User\Modules;
  *		description = 'Search for spirits', 
  *		help        = 'spirits.txt'
  *	)
- *	@DefineCommand(
- *		command     = 'spiritslvl', 
- *		accessLevel = 'all', 
- *		description = 'Search for spirits by level requirement', 
- *		help        = 'spirits.txt'
- *	)
  */
 class SpiritsController {
 
@@ -141,80 +135,6 @@ class SpiritsController {
 				$spirits .= $this->getValidSlotTypes();
 			} else {
 				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND ql >= ? AND ql <= ? ORDER BY ql", $slot, $qllorange, $qlhirange);
-				$spirits .= $this->formatSpiritOutput($data);
-			}
-		}
-		if ($spirits) {
-			$spirits = $this->text->make_blob("Spirits", $spirits, $title);
-			$sendto->reply($spirits);
-		} else {
-			return false;
-		}
-	}
-	
-	/**
-	 * @HandlesCommand("spiritslvl")
-	 * @Matches("/^spiritslvl (.+)$/i")
-	 */
-	public function spiritslvlCommand($message, $channel, $sender, $sendto, $args) {
-		if (preg_match ("/^spiritslvl ([0-9]+)$/i", $message, $arr)) {
-			$lvl = $arr[1];
-			if ($lvl < 1 OR $lvl > 219) {
-				$msg = "Invalid Level specified.";
-				$sendto->reply($msg);
-				return;
-			}
-			$title = "Spirits Level $lvl";
-			$lolvl = $lvl-10;
-			$data = $this->db->query("SELECT * FROM spiritsdb where level <= ? AND level >= ? ORDER BY level", $lvl, $lolvl);
-			$spirits .= $this->formatSpiritOutput($data);
-		}
-			// If searched by minimum level range
-		else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+)$/i", $message, $arr)) {
-			$lvllorange = $arr[1];
-			$lvlhirange = $arr[2];
-			if ($lvllorange < 1 OR $lvlhirange > 219 OR $lvllorange >= $lvlhirange) {
-				$msg = "Invalid Level range specified.";
-				$sendto->reply($msg);
-				return;
-			}
-			$title = "Spirits Level $lvllorange to $lvlhirange";
-			$data = $this->db->query("SELECT * FROM spiritsdb where level >= ? AND level <= ? ORDER BY level", $lvllorange, $lvlhirange);
-			$spirits .= $this->formatSpiritOutput($data);
-		}
-			// If searched by minimum level and slot
-		else if (preg_match ("/^spiritslvl ([0-9]+) (.+)$/i", $message, $arr)) {
-			$lvl = $arr[1];
-			$slot = ucwords(strtolower($arr[2]));
-			$title = "$slot Spirits Level $lvl";
-			if ($lvl < 1 OR $lvl > 219) {
-				$msg = "Invalid Level specified.";
-				$sendto->reply($msg);
-				return;
-			} else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
-				$spirits .= "Invalid Input\n\n";
-				$spirits .= $this->getValidSlotTypes();
-			} else {
-				$lolvl = $lvl-10;
-				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND level <= ? AND level >= ? ORDER BY level", $slot, $lvl, $lolvl);
-				$spirits .= $this->formatSpiritOutput($data);
-			}
-		}
-			// If searched by minimum level range and slot
-		else if (preg_match("/^spiritslvl ([0-9]+)-([0-9]+) (.+)$/i", $message, $arr)) {
-			$lvllorange = $arr[1];
-			$lvlhirange = $arr[2];
-			$slot = ucwords(strtolower($arr[3]));
-			$title = "$slot Spirits Level $lvllorange to $lvlhirange";
-			if ($lvllorange < 1 OR $lvlhirange > 219 OR $lvllorange >= $lvlhirange) {
-				$msg = "Invalid Level range specified.";
-				$sendto->reply($msg);
-				return;
-			} else if (preg_match("/[^chest|ear|eye|feet|head|larm|legs|lhand|lwrist|rarm|rhand|rwrist|waist]/i", $slot)) {
-				$spirits .= "Invalid Input\n\n";
-				$spirits .= $this->getValidSlotTypes();
-			} else {
-				$data = $this->db->query("SELECT * FROM spiritsdb where spot = ? AND level >= ? AND level <= ? ORDER BY level", $slot, $lvllorange, $lvlhirange);
 				$spirits .= $this->formatSpiritOutput($data);
 			}
 		}
