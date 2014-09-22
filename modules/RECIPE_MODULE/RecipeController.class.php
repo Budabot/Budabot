@@ -17,12 +17,6 @@ namespace Budabot\User\Modules;
  *		description = 'Search for a recipe',
  *		help        = 'recipe.txt'
  *	)
- *  @DefineCommand(
- *		command     = 'rshow',
- *		accessLevel = 'all',
- *		description = 'Show a recipe',
- *		help        = 'recipe.txt'
- *	)
  */
 class RecipeController {
 
@@ -53,6 +47,34 @@ class RecipeController {
 	
 	/**
 	 * @HandlesCommand("recipe")
+	 * @Matches("/^recipe ([0-9]+)$/i")
+	 */
+	public function recipeShowCommand($message, $channel, $sender, $sendto, $args) {
+		$id = $args[1];
+		
+		$url = "/show/id/" . $id . "/format/json/bot/budabot";
+		$that = $this;
+		$this->http->get($this->baseUrl . $url)->withCallback(function($response) use ($that, $sendto) {
+			$obj = json_decode($response->body);
+			if (!empty($obj->error)) {
+				$msg = "Error showing recipe: " . $obj->error;
+			} else {
+				$recipe_name = $obj->recipe_name;
+				$author = empty($obj->recipe_author) ? "Unknown" : $obj->recipe_author;
+
+				$recipeText = "Author: <highlight>$author<end>\n\n";
+				$recipeText .= $that->formatRecipeText($obj->recipe_text);
+
+				$recipeText .= $that->getAORecipebookFooter();
+
+				$msg = $that->text->make_blob("Recipe for $recipe_name", $recipeText);
+			}
+			$sendto->reply($msg);
+		});
+	}
+	
+	/**
+	 * @HandlesCommand("recipe")
 	 * @Matches("/^recipe (.+)$/i")
 	 */
 	public function recipeSearchCommand($message, $channel, $sender, $sendto, $args) {
@@ -76,40 +98,12 @@ class RecipeController {
 				$blob = '';
 				$count = count($obj);
 				forEach ($obj as $recipe) {
-					$blob .= $that->text->make_chatcmd($recipe->recipe_name, "/tell <myname> rshow $recipe->recipe_id") . "\n";
+					$blob .= $that->text->make_chatcmd($recipe->recipe_name, "/tell <myname> recipe $recipe->recipe_id") . "\n";
 				}
 
 				$blob .= $that->getAORecipebookFooter();
 
 				$msg = $that->text->make_blob("Recipes matching '$search' ($count)", $blob);
-			}
-			$sendto->reply($msg);
-		});
-	}
-	
-	/**
-	 * @HandlesCommand("rshow")
-	 * @Matches("/^rshow ([0-9]+)$/i")
-	 */
-	public function recipeShowCommand($message, $channel, $sender, $sendto, $args) {
-		$id = $args[1];
-		
-		$url = "/show/id/" . $id . "/format/json/bot/budabot";
-		$that = $this;
-		$this->http->get($this->baseUrl . $url)->withCallback(function($response) use ($that, $sendto) {
-			$obj = json_decode($response->body);
-			if (!empty($obj->error)) {
-				$msg = "Error showing recipe: " . $obj->error;
-			} else {
-				$recipe_name = $obj->recipe_name;
-				$author = empty($obj->recipe_author) ? "Unknown" : $obj->recipe_author;
-
-				$recipeText = "Author: <highlight>$author<end>\n\n";
-				$recipeText .= $that->formatRecipeText($obj->recipe_text);
-
-				$recipeText .= $that->getAORecipebookFooter();
-
-				$msg = $that->text->make_blob("Recipe for $recipe_name", $recipeText);
 			}
 			$sendto->reply($msg);
 		});
