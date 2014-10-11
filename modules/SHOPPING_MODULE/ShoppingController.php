@@ -89,9 +89,9 @@ class ShoppingController {
 
 		$shopDatabase = $this->settingManager->get('shop_database');
 		if ($shopDatabase == 'local') {
-			$results = searchRemote($shopDatabase, $search, $minQl, $maxQl);
+			$results = $this->searchRemote($shopDatabase, $search, $minQl, $maxQl);
 		} else {
-			$results = searchLocal($search, $minQl, $maxQl);
+			$results = $this->searchLocal($search, $minQl, $maxQl);
 		}
 		
 		$count = count($results);
