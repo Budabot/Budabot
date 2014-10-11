@@ -6,9 +6,3 @@ To return a list of Spirits that meet the specified criteria.  The syntax above 
 <highlight><tab><symbol>spirits 'name' 'slot'<end>
 <highlight><tab><symbol>spirits 'ql' 'slot'<end>
 <highlight><tab><symbol>spirits 'lowql-highql' 'slot'<end>
-
-To return a list of Spirits that meet the specified criteria.  The syntax above must be used, i.e. a "-" must be used between the two values in a level range.
-<highlight><tab><symbol>spiritslvl 'level'<end>
-<highlight><tab><symbol>spiritslvl 'lowlevel-highlevel'<end>
-<highlight><tab><symbol>spiritslvl 'level' 'slot'<end>
-<highlight><tab><symbol>spiritslvl 'lowlevel-highlevel' 'slot'<end>
