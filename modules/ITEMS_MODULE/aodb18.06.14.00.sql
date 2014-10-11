@@ -4684,9 +4684,9 @@ INSERT INTO aodb VALUES (274705, 274705, 100, 100, 'Cloak of the Reanimated Heal
 INSERT INTO aodb VALUES (274706, 274706, 100, 100, 'Cloak of the Reanimated Healer (4/5)', 274689);
 INSERT INTO aodb VALUES (274707, 274707, 100, 100, 'Cloak of the Reanimated Healer (5/5)', 274689);
 INSERT INTO aodb VALUES (274715, 274715, 100, 100, 'Cloak of the Reanimated Illusionist', 274692);
-INSERT INTO aodb VALUES (275139, 275139, 100, 100, 'Cloak of the Reanimated Illusionist', 274692);
 INSERT INTO aodb VALUES (274713, 274713, 100, 100, 'Cloak of the Reanimated Illusionist (1/5)', 274692);
 INSERT INTO aodb VALUES (274714, 274714, 100, 100, 'Cloak of the Reanimated Illusionist (2/5)', 274692);
+INSERT INTO aodb VALUES (275139, 275139, 100, 100, 'Cloak of the Reanimated Illusionist (3/5)', 274692);
 INSERT INTO aodb VALUES (274716, 274716, 100, 100, 'Cloak of the Reanimated Illusionist (4/5)', 274692);
 INSERT INTO aodb VALUES (274717, 274717, 100, 100, 'Cloak of the Reanimated Illusionist (5/5)', 274692);
 INSERT INTO aodb VALUES (274718, 274718, 100, 100, 'Cloak of the Reanimated Jester (1/5)', 274687);
@@ -8539,6 +8539,7 @@ INSERT INTO aodb VALUES (163516, 163516, 1, 1, 'GM Pet Shell: Vulture Squabbler'
 INSERT INTO aodb VALUES (100002, 100002, 1, 1, 'GM Suit', 99995);
 INSERT INTO aodb VALUES (100003, 100003, 1, 1, 'GM Trenchcoat', 99993);
 INSERT INTO aodb VALUES (40844, 40844, 1, 1, 'GPS Recordings', 25803);
+INSERT INTO aodb VALUES (301560, 301560, 30, 30, 'GRACE', 301561);
 INSERT INTO aodb VALUES (264079, 264079, 1, 1, 'GSP T-shirt', 266233);
 INSERT INTO aodb VALUES (158795, 158795, 1, 1, 'Gaily Painted Hood', 82924);
 INSERT INTO aodb VALUES (168513, 168513, 200, 200, 'Galactic Jewel of Burning Plasma', 286771);
@@ -17006,7 +17007,7 @@ INSERT INTO aodb VALUES (29412, 29412, 43, 43, 'Nano Crystal (Sense Imp Mastery)
 INSERT INTO aodb VALUES (27294, 27294, 4, 4, 'Nano Crystal (Sense Imp Proficiency)', 12226);
 INSERT INTO aodb VALUES (44209, 44209, 185, 185, 'Nano Crystal (Sentient Nano Gorger)', 42449);
 INSERT INTO aodb VALUES (210519, 210519, 199, 199, 'Nano Crystal (Sentinel Ward)', 42452);
-INSERT INTO aodb VALUES (82813, 82813, 172, 172, 'Nano Crystal (Shackles of Obediance)', 42449);
+INSERT INTO aodb VALUES (82813, 82813, 172, 172, 'Nano Crystal (Shackles of Obedience)', 42449);
 INSERT INTO aodb VALUES (265454, 265454, 175, 175, 'Nano Crystal (Shade''s Caress)', 292049);
 INSERT INTO aodb VALUES (32103, 32103, 20, 20, 'Nano Crystal (Shadow Crown)', 12226);
 INSERT INTO aodb VALUES (223128, 223128, 50, 50, 'Nano Crystal (Shadow Step)', 12225);
@@ -20241,6 +20242,8 @@ INSERT INTO aodb VALUES (254372, 254372, 1, 1, 'Overclocked Belt Component Platf
 INSERT INTO aodb VALUES (245860, 245860, 250, 250, 'Overcoat of the Firmament', 245846);
 INSERT INTO aodb VALUES (260684, 260684, 250, 250, 'Overcoat of the Firmament', 245846);
 INSERT INTO aodb VALUES (251220, 251221, 1, 300, 'Overheated Compiler', 119132);
+INSERT INTO aodb VALUES (301333, 301333, 300, 300, 'Overheated Light Tank Armor', 301339);
+INSERT INTO aodb VALUES (301327, 301327, 300, 300, 'Overheated Shoulderpad', 301328);
 INSERT INTO aodb VALUES (251789, 251789, 1, 1, 'Overrule', 255622);
 INSERT INTO aodb VALUES (293324, 293324, 1, 1, 'Oversized Pirate Cutlass - Left', 293163);
 INSERT INTO aodb VALUES (293325, 293325, 1, 1, 'Oversized Pirate Cutlass - Right', 293163);
@@ -21130,6 +21133,7 @@ INSERT INTO aodb VALUES (294167, 294167, 2, 2, 'Play Costume - Holiday Series #2
 INSERT INTO aodb VALUES (296544, 296544, 1, 1, 'Play Costume - Holiday Series #3', 296543);
 INSERT INTO aodb VALUES (294818, 294818, 1, 1, 'Play Costume - Naughty Nightwear', 295015);
 INSERT INTO aodb VALUES (287165, 287165, 1, 1, 'Play Costume - Second Edition', 287212);
+INSERT INTO aodb VALUES (301462, 301462, 1, 1, 'Play Costume - Sixth Edition', 301468);
 INSERT INTO aodb VALUES (290025, 290025, 1, 1, 'Play Costume - Third Edition', 290153);
 INSERT INTO aodb VALUES (295856, 295856, 1, 1, 'Player vs. Player (PvP)', 277964);
 INSERT INTO aodb VALUES (284441, 284441, 1, 1, 'Plumbo XXX Leaflet', 285355);
@@ -26917,6 +26921,7 @@ INSERT INTO aodb VALUES (206890, 206890, 20, 20, 'Tanned Piece of Rollerrat Fles
 INSERT INTO aodb VALUES (144090, 144091, 41, 80, 'Tanto', 113986);
 INSERT INTO aodb VALUES (227221, 227221, 1, 1, 'Tap Notum Source', 239193);
 INSERT INTO aodb VALUES (248233, 248233, 1, 1, 'Tap Vitae', 239207);
+INSERT INTO aodb VALUES (301456, 301456, 1, 1, 'Tarasque No Attack', 227249);
 INSERT INTO aodb VALUES (100293, 100293, 1, 1, 'Targeted Radiation Extractor', 100307);
 INSERT INTO aodb VALUES (295863, 295863, 1, 1, 'Targeting', 277964);
 INSERT INTO aodb VALUES (137189, 137190, 1, 200, 'Targeting Scope', 83326);
@@ -27113,6 +27118,8 @@ INSERT INTO aodb VALUES (296168, 296168, 1, 1, 'The Beast Action Figure', 296039
 INSERT INTO aodb VALUES (157974, 157974, 1, 1, 'The Beer and Booze T-Shirt', 157940);
 INSERT INTO aodb VALUES (259721, 259721, 1, 1, 'The Black Grin', 259717);
 INSERT INTO aodb VALUES (259741, 259741, 1, 1, 'The Black Grin - Pwned Version', 259717);
+INSERT INTO aodb VALUES (301357, 301357, 1, 1, 'The Black Mankini', 290250);
+INSERT INTO aodb VALUES (301358, 301358, 1, 1, 'The Blue Mankini', 290249);
 INSERT INTO aodb VALUES (234917, 234917, 1, 1, 'The Book of Insignificant Rituals', 136329);
 INSERT INTO aodb VALUES (256581, 256581, 1, 1, 'The Book of Insignificant Rituals', 136329);
 INSERT INTO aodb VALUES (296108, 296108, 1, 1, 'The Briefcase', 296107);
@@ -27185,6 +27192,7 @@ INSERT INTO aodb VALUES (226264, 226264, 1, 1, 'The Girl that Saw it All - Chapt
 INSERT INTO aodb VALUES (226257, 226257, 1, 1, 'The Girl that Saw it All - Chapter 2', 154677);
 INSERT INTO aodb VALUES (226258, 226258, 1, 1, 'The Girl that Saw it All - Chapter 3', 154677);
 INSERT INTO aodb VALUES (226259, 226259, 1, 1, 'The Girl that Saw it All - Chapter 4', 154677);
+INSERT INTO aodb VALUES (301359, 301359, 1, 1, 'The Green Mankini', 290246);
 INSERT INTO aodb VALUES (282062, 282062, 1, 1, 'The Grind Shirt', 282060);
 INSERT INTO aodb VALUES (282058, 282058, 1, 1, 'The Grind Staff Shirt', 282060);
 INSERT INTO aodb VALUES (282061, 282061, 1, 1, 'The Grind Staff Shirt', 282060);
@@ -27295,10 +27303,13 @@ INSERT INTO aodb VALUES (271577, 271578, 1, 300, 'The Original Plasma-Emitter - 
 INSERT INTO aodb VALUES (271581, 271582, 1, 300, 'The Original Plasma-Emitter - 401', 33145);
 INSERT INTO aodb VALUES (271583, 271584, 1, 300, 'The Original Plasma-Emitter - C01', 33145);
 INSERT INTO aodb VALUES (295340, 295340, 1, 1, 'The Overcompensator', 295342);
+INSERT INTO aodb VALUES (301360, 301360, 1, 1, 'The Pink Mankini', 290251);
 INSERT INTO aodb VALUES (152039, 152039, 1, 1, 'The Pioneer Backpack', 151882);
 INSERT INTO aodb VALUES (156831, 156831, 1, 1, 'The Pioneer Backpack (Modified Version)', 151882);
 INSERT INTO aodb VALUES (206246, 206246, 1, 1, 'The Primeval Skull', 195259);
+INSERT INTO aodb VALUES (301361, 301361, 1, 1, 'The Purple Mankini', 290252);
 INSERT INTO aodb VALUES (262907, 262907, 1, 1, 'The Raymond Richards III Trophy', 262912);
+INSERT INTO aodb VALUES (301362, 301362, 1, 1, 'The Red Mankini', 290248);
 INSERT INTO aodb VALUES (159196, 159197, 1, 400, 'The Repressor', 156092);
 INSERT INTO aodb VALUES (152787, 152787, 165, 165, 'The Rhyme of the Ancient Mariner', 37933);
 INSERT INTO aodb VALUES (284150, 284150, 1, 1, 'The Riding Crop', 284080);
@@ -27329,12 +27340,14 @@ INSERT INTO aodb VALUES (215443, 215443, 1, 1, 'The Unknown Path', 290379);
 INSERT INTO aodb VALUES (151885, 151885, 1, 1, 'The Veteran Advisor Suit', 151872);
 INSERT INTO aodb VALUES (152822, 152822, 1, 1, 'The Veteran Guardian', 151880);
 INSERT INTO aodb VALUES (296557, 296557, 1, 1, 'The VioL33T Action Figure', 296974);
+INSERT INTO aodb VALUES (301342, 301342, 1, 1, 'The White Mankini', 21876);
 INSERT INTO aodb VALUES (263878, 263878, 1, 1, 'The Word of Ocra', 263875);
 INSERT INTO aodb VALUES (263877, 263877, 1, 1, 'The Word of Roch', 263876);
 INSERT INTO aodb VALUES (204610, 204610, 1, 1, 'The XXX Test Helmet (for Atrox)', 160562);
 INSERT INTO aodb VALUES (204611, 204611, 1, 1, 'The XXX Test Helmet (for Nano)', 160562);
 INSERT INTO aodb VALUES (204612, 204612, 1, 1, 'The XXX Test Helmet (for Opifex)', 160562);
 INSERT INTO aodb VALUES (204320, 204320, 1, 1, 'The XXX Test Helmet (for Solitus)', 160562);
+INSERT INTO aodb VALUES (301363, 301363, 1, 1, 'The Yellow Mankini', 290247);
 INSERT INTO aodb VALUES (277847, 277847, 1, 1, 'The Zooming Witch Shirt', 277895);
 INSERT INTO aodb VALUES (253353, 253353, 100, 100, 'The briefcase of Gilbert Glove', 99662);
 INSERT INTO aodb VALUES (262957, 262957, 100, 100, 'The briefcase of Omni-Pol Commissioner Lee', 99662);
@@ -27447,6 +27460,9 @@ INSERT INTO aodb VALUES (230485, 230486, 250, 299, 'Thousand Stings of Panic', 2
 INSERT INTO aodb VALUES (230481, 230482, 150, 199, 'Thousand Stings of Sorrow', 218707);
 INSERT INTO aodb VALUES (200464, 200464, 200, 200, 'Threatening Trousers', 30937);
 INSERT INTO aodb VALUES (292873, 292873, 1, 1, 'Three Leet Moon Poster', 293846);
+INSERT INTO aodb VALUES (301330, 301330, 30, 30, 'Threefold Bright Eye Twinking Implant', 12712);
+INSERT INTO aodb VALUES (301331, 301331, 30, 30, 'Threefold Faded Right Hand Twinking Implant', 12670);
+INSERT INTO aodb VALUES (301329, 301329, 30, 30, 'Threefold Shiny Brain Twinking Implant', 195261);
 INSERT INTO aodb VALUES (234915, 234915, 1, 1, 'Thrice Enchanted Hellion Trinity Talisman', 218767);
 INSERT INTO aodb VALUES (165122, 165123, 1, 200, 'Throwing Grenade Basic Kit', 156202);
 INSERT INTO aodb VALUES (156602, 156602, 100, 100, 'Thugs notebooks, Volume 1', 37933);
