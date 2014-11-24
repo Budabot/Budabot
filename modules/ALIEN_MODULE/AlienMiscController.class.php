@@ -157,8 +157,8 @@ class AlienMiscController {
 	 * This command handler shows list of ofab armors available to a given profession.
 	 *
 	 * @HandlesCommand("ofabarmor")
-	 * @Matches("/^ofabarmor (\S+)$/i")
-	 * @Matches("/^ofabarmor (\S+) (\d+)$/i")
+	 * @Matches("/^ofabarmor (.+) (\d+)$/i")
+	 * @Matches("/^ofabarmor (.+)$/i")
 	 */
 	public function ofabarmorInfoCommand($message, $channel, $sender, $sendto, $args) {
 		$ql = isset($args[2])? intval($args[2]): 300;
