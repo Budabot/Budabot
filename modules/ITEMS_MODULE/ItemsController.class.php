@@ -127,16 +127,19 @@ class ItemsController {
 		$this->logger->log('DEBUG', "Starting items db update");
 
 		// get list of files in ITEMS_MODULE
-		$data = $this->http->get("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE/")->waitAndReturnResponse()->body;
-		$data = str_replace("<hr noshade>", "", $data);  // not valid xml
+		$data = $this->http
+			->get("https://api.github.com/repos/Budabot/Budabot/contents/modules/ITEMS_MODULE")
+			->withHeader('User-Agent', 'Budabot')
+			->waitAndReturnResponse()
+			->body;
 
 		try {
-			$xml = new SimpleXmlElement($data);
-
+			$json = json_decode($data);
+		
 			// find the latest items db version on the server
 			$latestVersion = null;
-			forEach ($xml->body->ul->li as $item) {
-				if (preg_match("/^aodb(.*)\\.sql$/i", $item->a, $arr)) {
+			forEach ($json as $item) {
+				if (preg_match("/^aodb(.*)\\.sql$/i", $item->name, $arr)) {
 					if ($latestVersion === null) {
 						$latestVersion = $arr[1];
 					} else if ($this->util->compareVersionNumbers($arr[1], $currentVersion)) {
@@ -156,8 +159,12 @@ class ItemsController {
 			// if server version is greater than current version, download and load server version
 			if ($currentVersion === false || $this->util->compareVersionNumbers($latestVersion, $currentVersion) > 0) {
 				// download server version and save to ITEMS_MODULE directory
-				$contents = $this->http->get("http://budabot2.googlecode.com/svn/trunk/modules/ITEMS_MODULE/aodb{$latestVersion}.sql")
-					->waitAndReturnResponse()->body;
+				$contents = $this->http
+					->get("https://raw.githubusercontent.com/Budabot/Budabot/master/modules/ITEMS_MODULE/aodb{$latestVersion}.sql")
+					->withHeader('User-Agent', 'Budabot')
+					->waitAndReturnResponse()
+					->body;
+
 				$fh = fopen("./modules/ITEMS_MODULE/aodb{$latestVersion}.sql", 'w');
 				fwrite($fh, $contents);
 				fclose($fh);
