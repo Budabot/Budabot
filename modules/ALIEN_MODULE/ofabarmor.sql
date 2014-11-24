@@ -297,10 +297,16 @@ INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Trader', 'OFAB Trader Protective Gear', 'back', 267935, 267935, 3);
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Shade', 'OFAB Shade Protective Gear', 'back', 267934, 267934, 3);
 
+INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Adventurer', 'OFAB Adventurer Shoulder Wear', 'shoulder', 301693, 301693, 3);
+INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Agent', 'OFAB Agent Shoulder Wear', 'shoulder', 301698, 301698, 3);
+INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Bureaucrat', 'OFAB Bureaucrat Shoulder Wear', 'shoulder', 301696, 301696, 3);
+INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Doctor', 'OFAB Doctor Shoulder Wear', 'shoulder', 301697, 301697, 3);
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Enforcer', 'OFAB Enforcer Shoulder Wear', 'shoulder', 267511, 267511, 3);
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Engineer', 'OFAB Engineer Shoulder Wear', 'shoulder', 268003, 268003, 3);
+INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Fixer', 'OFAB Fixer Shoulder Wear', 'shoulder', 301694, 301694, 3);
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Keeper', 'OFAB Keeper Shoulder Wear', 'shoulder', 267514, 267514, 3);
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Martial Artist', 'OFAB Martial Artist Shoulder Wear', 'shoulder', 268004, 268004, 3);
+INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Meta-Physicist', 'OFAB Metaphysicist Shoulder Wear', 'shoulder', 301695, 301695, 3);
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Nano-Technician', 'OFAB Nano Technician Shoulder Wear', 'shoulder', 268081, 268081, 3);
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Soldier', 'OFAB Soldier Shoulder Wear', 'shoulder', 268186, 268186, 3);
 INSERT INTO ofabarmor (profession, name, slot, lowid, highid, upgrade) VALUES ('Trader', 'OFAB Trader Shoulder Wear', 'shoulder', 268006, 268006, 3);
