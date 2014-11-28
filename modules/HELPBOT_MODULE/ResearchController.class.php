@@ -54,8 +54,8 @@ class ResearchController {
 			$levelcap = $row->levelcap;
 			$sk = $row->sk;
 			$xp = $sk * 1000;
-			$capxp = round($xp * .05);
-			$capsk = round($sk * .05);
+			$capxp = round($xp * .1);
+			$capsk = round($sk * .1);
 			$xp = number_format($xp);
 			$sk = number_format($sk);
 
