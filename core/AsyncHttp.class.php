@@ -115,14 +115,11 @@ class AsyncHttp {
 	private function finish() {
 		$this->finished = true;
 		if ($this->timeoutEvent) {
-			$this->timeoutEvent->abort();
+			$this->timer->abortEvent($this->timeoutEvent);
 			$this->timeoutEvent = null;
 		}
 		$this->close();
 		$this->callCallback();
-		if ($this->loop) {
-			$this->loop->quit();
-		}
 	}
 
 	/**
@@ -160,6 +157,7 @@ class AsyncHttp {
 		if ($this->timeout === null) {
 			$this->timeout = $this->setting->http_timeout;
 		}
+
 		$this->timeoutEvent = $this->timer->callLater($this->timeout, array($this, 'abortWithMessage'),
 			"Timeout error after waiting {$this->timeout} seconds for: {$this->uri}");
 	}
@@ -212,7 +210,7 @@ class AsyncHttp {
 			return;
 		}
 
-		$this->timeoutEvent->restart();
+		$this->timer->restartEvent($this->timeoutEvent);
 
 		switch ($type) {
 			case SocketNotifier::ACTIVITY_READ:
@@ -374,7 +372,7 @@ class AsyncHttp {
 
 	/**
 	 * Waits until response is fully received from remote server and returns
-	 * the response. Note that this blocks execution, but do not freeze the bot
+	 * the response. Note that this blocks execution, but does not freeze the bot
 	 * as the execution will return to event loop while waiting.
 	 *
 	 * @return mixed
@@ -383,7 +381,9 @@ class AsyncHttp {
 		// run in event loop, waiting for loop->quit()
 		$this->loop = new EventLoop();
 		Registry::injectDependencies($this->loop);
-		$this->loop->exec();
+		while (!$this->finished) {
+			$this->loop->execSingleLoop();
+		}
 
 		return $this->buildResponse();
 	}

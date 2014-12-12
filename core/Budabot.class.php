@@ -188,7 +188,9 @@ class Budabot extends AOChat {
 	public function run() {
 		$loop = new EventLoop();
 		Registry::injectDependencies($loop);
-		$loop->exec();
+		while (true) {
+			$loop->execSingleLoop();
+		}
 	}
 
 	public function processAllPackets() {

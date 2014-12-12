@@ -14,7 +14,8 @@ class Timer {
 
 	public function executeTimerEvents() {
 		// execute timer events
-		while (count($this->timerEvents) > 0 && $this->timerEvents[0]->time <= time()) {
+		$time = time();
+		while (count($this->timerEvents) > 0 && $this->timerEvents[0]->time <= $time) {
 			$timerEvent = array_shift($this->timerEvents);
 			$timerEvent->callCallback();
 		}
@@ -52,7 +53,7 @@ class Timer {
 	/**
 	 * @internal
 	 */
-	public function abortEvent( $event ) {
+	public function abortEvent($event) {
 		$key = array_search($event, $this->timerEvents, true);
 		if ($key !== false) {
 			unset($this->timerEvents[$key]);
@@ -63,11 +64,8 @@ class Timer {
 	/**
 	 * @internal
 	 */
-	public function restartEvent( $event ) {
-		$key = array_search($event, $this->timerEvents, true);
-		if ($key === false) {
-			$this->timerEvents []= $event;
-		}
+	public function restartEvent($event) {
+		$event->time = intval($event->delay) + time();
 		$this->sortEventsByTime();
 	}
 
@@ -76,8 +74,8 @@ class Timer {
 	 * $callback will be called with arguments $args array after $delay seconds.
 	 */
 	private function addTimerEvent($delay, $callback, $args) {
-		$event = new TimerEvent($this, $delay, $callback, $args);
-		$this->restartEvent($event);
+		$event = new TimerEvent(time() + $delay, $delay, $callback, $args);
+		$this->timerEvents []= $event;
 		$this->sortEventsByTime();
 		return $event;
 	}
