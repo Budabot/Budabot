@@ -210,8 +210,6 @@ class AsyncHttp {
 			return;
 		}
 
-		$this->timer->restartEvent($this->timeoutEvent);
-
 		switch ($type) {
 			case SocketNotifier::ACTIVITY_READ:
 				$this->processResponse();
@@ -286,6 +284,12 @@ class AsyncHttp {
 			}
 			$data .= $chunk;
 		}
+		
+		if (!empty($data)) {
+			// since data was read, reset timeout
+			$this->timer->restartEvent($this->timeoutEvent);
+		}
+		
 		return $data;
 	}
 
@@ -315,6 +319,9 @@ class AsyncHttp {
 				$this->abortWithMessage("Cannot write request headers for uri '{$this->uri}' to stream");
 			} else if ($written > 0) {
 				$this->requestData = substr($this->requestData, $written);
+
+				// since data was written, reset timeout
+				$this->timer->restartEvent($this->timeoutEvent);
 			}
 		}
 	}
