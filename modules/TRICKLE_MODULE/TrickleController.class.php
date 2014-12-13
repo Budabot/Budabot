@@ -58,7 +58,7 @@ class TrickleController {
 				return false;
 			}
 
-			$abilities[$ability] = $array[1 + $i];
+			$abilities[$ability] += $array[1 + $i];
 		}
 
 		$msg = $this->processAbilities($abilities);
@@ -82,7 +82,7 @@ class TrickleController {
 				return false;
 			}
 
-			$abilities[$ability] = $array[$i];
+			$abilities[$ability] += $array[$i];
 		}
 
 		$msg = $this->processAbilities($abilities);
