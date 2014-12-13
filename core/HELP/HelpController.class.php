@@ -88,8 +88,8 @@ class HelpController {
 					$blob .= "\n<pagebreak><header2>{$row->module}:<end>\n";
 					$current_module = $row->module;
 				}
-				$helpLink = $this->text->make_chatcmd("More info", "/tell <myname> help $row->name");
-				$blob .= "  {$row->name}: {$row->description} $helpLink\n";
+				$helpLink = $this->text->make_chatcmd($row->name, "/tell <myname> help $row->name");
+				$blob .= "  {$helpLink}: {$row->description}\n";
 			}
 
 			$msg = $this->text->make_blob("Help (main)", $blob);
