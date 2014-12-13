@@ -56,6 +56,14 @@ class BankController {
 	 * @Options("30;40;50;60")
 	 */
 	public $defaultMaxBankItems = "200";
+	
+	/**
+	 * This handler is called on bot startup.
+	 * @Setup
+	 */
+	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, 'bank');
+	}
 
 	/**
 	 * Lists all known org banks.
@@ -175,8 +183,7 @@ class BankController {
 		array_shift($lines);
 
 		$this->db->begin_transaction();
-		$this->db->exec("DROP TABLE IF EXISTS bank");
-		$this->db->exec("CREATE TABLE bank (name varchar(150), lowid int, highid int, ql int, player VARCHAR(20), container VARCHAR(150), container_id INT, location VARCHAR(150))");
+		$this->db->exec("DELETE FROM bank");
 
 		forEach ($lines as $line) {
 			// this is the order of columns in the CSV file (AOIA v1.1.3.0):
