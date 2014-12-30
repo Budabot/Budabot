@@ -103,4 +103,8 @@ use Budabot\Core\LoggerWrapper;
 	if (checkIfTableExists($db, 'news') && !checkIfColumnExists($db, 'news', 'deleted')) {
 		$db->exec("ALTER TABLE news ADD COLUMN deleted TINYINT NOT NULL DEFAULT 0");
 	}
+	
+	if (checkIfTableExists($db, 'usage_<myname>') && !checkIfColumnExists($db, 'usage_<myname>', 'handler')) {
+		$db->exec("ALTER TABLE usage_<myname> ADD COLUMN handler VARCHAR(100) NOT NULL DEFAULT ''");
+	}
 ?>

@@ -198,14 +198,14 @@ class UsageController {
 		$sendto->reply($msg);
 	}
 
-	public function record($type, $cmd, $sender, $commandHandler) {
+	public function record($type, $cmd, $sender, $handler) {
 		// don't record stats for !grc command or command aliases
-		if ($cmd == 'grc' || $commandHandler->file == CommandAlias::ALIAS_HANDLER) {
+		if ($cmd == 'grc' || "CommandAlias.process" == $handler) {
 			return;
 		}
 
-		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES (?, ?, ?, ?)";
-		$this->db->exec($sql, $type, $cmd, $sender, time());
+		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt, handler) VALUES (?, ?, ?, ?, ?)";
+		$this->db->exec($sql, $type, $cmd, $sender, time(), $handler);
 	}
 
 	/**
@@ -219,15 +219,15 @@ class UsageController {
 		$settingName = 'last_submitted_stats';
 		$lastSubmittedStats = $this->settingManager->get($settingName);
 
-		$postArray['stats'] = json_encode($this->getUsageInfo($lastSubmittedStats, $debug));
+		$postArray['stats'] = json_encode($this->getUsageInfo($lastSubmittedStats, $time, $debug));
 
-		$url = 'http://budabot.jkbff.com/stats/submitUsage.php';
+		$url = 'http://budabot.jkbff.com/stats2/submitUsage.php';
 		$this->http->post($url)->withQueryParams($postArray);
 
 		$this->settingManager->save($settingName, $time);
 	}
 
-	public function getUsageInfo($lastSubmittedStats, $debug = false) {
+	public function getUsageInfo($lastSubmittedStats, $now, $debug = false) {
 		global $version;
 
 		$botid = $this->settingManager->get('botid');
@@ -236,8 +236,8 @@ class UsageController {
 			$this->settingManager->save('botid', $botid);
 		}
 
-		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= ?";
-		$data = $this->db->query($sql, $lastSubmittedStats);
+		$sql = "SELECT type, command, handler FROM usage_<myname> WHERE dt >= ? AND dt < ?";
+		$data = $this->db->query($sql, $lastSubmittedStats, $now);
 
 		$settings = array();
 		$settings['dimension'] = $this->chatBot->vars['dimension'];

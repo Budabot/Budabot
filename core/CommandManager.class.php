@@ -260,18 +260,9 @@ class CommandManager {
 		}
 
 		try {
-			// record usage stats (in try/catch loop in case there is an error)
-			if ($this->settingManager->get('record_usage_stats') == 1) {
-				$this->usageController->record($channel, $cmd, $sender, $commandHandler);
-			}
-		} catch (Exception $e) {
-			$this->logger->log("ERROR", $e->getMessage(), $e);
-		}
+			$handler = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
 
-		try {
-			$syntaxError = $this->callCommandHandler($commandHandler, $message, $channel, $sender, $sendto);
-
-			if ($syntaxError === true) {
+			if ($handler === null) {
 				$help = $this->getHelpForCommand($cmd, $channel, $sender);
 				$sendto->reply($help);
 			}
@@ -279,17 +270,26 @@ class CommandManager {
 			throw $e;
 		} catch (SQLException $e) {
 			$this->logger->log("ERROR", $e->getMessage(), $e);
-			$sendto->reply("There was an sql error executing your command.");
+			$sendto->reply("There was an SQL error executing your command.");
 		} catch (Exception $e) {
 			$this->logger->log("ERROR", "Error executing '$message': " . $e->getMessage(), $e);
 			$sendto->reply("There was an error executing your command: " . $e->getMessage());
+		}
+		
+		try {
+			// record usage stats (in try/catch block in case there is an error)
+			if ($this->settingManager->get('record_usage_stats') == 1) {
+				$this->usageController->record($channel, $cmd, $sender, $handler);
+			}
+		} catch (Exception $e) {
+			$this->logger->log("ERROR", $e->getMessage(), $e);
 		}
 
 		$this->chatBot->spam[$sender] += 10;
 	}
 
 	public function callCommandHandler($commandHandler, $message, $channel, $sender, CommandReply $sendto) {
-		$syntaxError = false;
+		$successfulHandler = null;
 
 		forEach (explode(',', $commandHandler->file) as $handler) {
 			list($name, $method) = explode(".", $handler);
@@ -298,21 +298,21 @@ class CommandManager {
 				$this->logger->log('ERROR', "Could not find instance for name '$name'");
 			} else {
 				$arr = $this->checkMatches($instance, $method, $message);
-				if ($arr === false) {
-					$syntaxError = true;
-				} else {
+				if ($arr !== false) {
 					// methods will return false to indicate a syntax error, so when a false is returned,
 					// we set $syntaxError = true, otherwise we set it to false
 					$syntaxError = ($instance->$method($message, $channel, $sender, $sendto, $arr) === false);
 					if ($syntaxError == false) {
-						// we can stop looking, command was handled succesfully
+						// we can stop looking, command was handled successfully
+						
+						$successfulHandler = $handler;
 						break;
 					}
 				}
 			}
 		}
 
-		return $syntaxError;
+		return $successfulHandler;
 	}
 
 	public function getActiveCommandHandler($cmd, $channel, $message) {
