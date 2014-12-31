@@ -63,7 +63,7 @@ class ShoppingController {
 		$this->db->loadSQLFile($this->moduleName, "shopping_items");
 		
 		$this->settingManager->add($this->moduleName, "shop_message_age", "How long to keep shopping messages", "edit", "time", "10d", "1d;2d;5d;10d;15d;20d");
-		$this->settingManager->add($this->moduleName, "shop_database", "Where to look for shopping messages", "edit", "text", "http://budabot.jkbff.com/shopping/index.php", "local;http://budabot.jkbff.com/shopping/index.php");
+		$this->settingManager->add($this->moduleName, "shop_database", "Where to look for shopping messages", "edit", "text", "http://shopping.budabot.jkbff.com/shopping/index.php", "local;http://shopping.budabot.jkbff.com/shopping/index.php");
 	}
 
 	/**

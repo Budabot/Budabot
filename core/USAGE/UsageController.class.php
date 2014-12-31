@@ -221,7 +221,7 @@ class UsageController {
 
 		$postArray['stats'] = json_encode($this->getUsageInfo($lastSubmittedStats, $time, $debug));
 
-		$url = 'http://budabot.jkbff.com/stats2/submitUsage.php';
+		$url = 'http://stats.budabot.jkbff.com/stats2/submitUsage.php';
 		$this->http->post($url)->withQueryParams($postArray);
 
 		$this->settingManager->save($settingName, $time);

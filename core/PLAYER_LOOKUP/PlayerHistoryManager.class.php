@@ -17,7 +17,7 @@ class PlayerHistoryManager {
 	
 	public function lookup($name, $rk_num) {
 		$name = ucfirst(strtolower($name));
-		$url = "http://budabot.jkbff.com/pork/history.php?server=$rk_num&name=$name";
+		$url = "http://pork.budabot.jkbff.com/pork/history.php?server=$rk_num&name=$name";
 		$groupName = "player_history";
 		$filename = "$name.$rk_num.history.json";
 		$maxCacheAge = 86400;

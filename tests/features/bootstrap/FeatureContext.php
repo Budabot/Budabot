@@ -133,7 +133,7 @@ class FeatureContext extends BehatContext
 		);
 		// empty response for usage upload
 		ContextHelpers::$runnerRpcStub->givenRequestToUriReturnsResult(
-			'http://budabot.jkbff.com/stats/submitUsage.php', ''
+			'http://stats.budabot.jkbff.com/stats/submitUsage.php', ''
 		);
 	}
 
@@ -155,7 +155,7 @@ class FeatureContext extends BehatContext
 	 * @Then /^the received stats post contains all necessary information$/
 	 */
 	public function theStatsPostContainsAllNecessaryInformation() {
-		$request = ContextHelpers::waitReceivedRequestForUri('http://budabot.jkbff.com/stats/submitUsage.php');
+		$request = ContextHelpers::waitReceivedRequestForUri('http://stats.budabot.jkbff.com/stats/submitUsage.php');
 		parse_str($request, $params);
 		$stats = json_decode($params['stats']);
 
