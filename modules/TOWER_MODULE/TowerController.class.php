@@ -1260,8 +1260,6 @@ class TowerController {
 	}
 
 	private function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
-		$this->db->begin_transaction();
-
 		$this->db->exec("DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?", $playfield_id, $site_number);
 
 		$sql = "
@@ -1286,12 +1284,6 @@ class TowerController {
 			)";
 
 		$numrows = $this->db->exec($sql, $playfield_id, $site_number, time(), $scouted_by, $ct_ql, $guild_name, $faction, $close_time);
-
-		if ($numrows == 0) {
-			$this->db->rollback();
-		} else {
-			$this->db->commit();
-		}
 
 		return $numrows;
 	}

@@ -92,7 +92,7 @@ use Budabot\Core\LoggerWrapper;
 		$db->exec("DROP TABLE roll");
 	}
 	
-	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, 'cmdcfg_<myname>') && getColumnType($db, 'cmdcfg_<myname>', 'cmd') != 'VARCHAR(50)') {
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, 'cmdcfg_<myname>') && getColumnType($db, 'cmdcfg_<myname>', 'cmd') != 'varchar(50)') {
 		$db->exec("ALTER TABLE cmdcfg_<myname> MODIFY cmd VARCHAR(50)");
 	}
 	
@@ -106,5 +106,9 @@ use Budabot\Core\LoggerWrapper;
 	
 	if (checkIfTableExists($db, 'usage_<myname>') && !checkIfColumnExists($db, 'usage_<myname>', 'handler')) {
 		$db->exec("ALTER TABLE usage_<myname> ADD COLUMN handler VARCHAR(100) NOT NULL DEFAULT ''");
+	}
+	
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, 'scout_info') && getColumnType($db, 'scout_info', 'scouted_on') != 'int(11)') {
+		$db->exec("ALTER TABLE scout_info MODIFY COLUMN scouted_on INT NOT NULL DEFAULT 0");
 	}
 ?>
