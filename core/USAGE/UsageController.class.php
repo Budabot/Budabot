@@ -203,6 +203,10 @@ class UsageController {
 		if ($cmd == 'grc' || "CommandAlias.process" == $handler) {
 			return;
 		}
+		
+		if ($handler === null) {
+			$handler = '';
+		}
 
 		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt, handler) VALUES (?, ?, ?, ?, ?)";
 		$this->db->exec($sql, $type, $cmd, $sender, time(), $handler);
