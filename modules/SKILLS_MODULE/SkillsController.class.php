@@ -109,6 +109,8 @@ class SkillsController {
 	 * @Setup
 	 */
 	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, "weapon_attributes");
+	
 		$this->commandAlias->register($this->moduleName, "weapon", "specials");
 		$this->commandAlias->register($this->moduleName, "weapon", "inits");
 	}
@@ -142,13 +144,13 @@ class SkillsController {
 			$InitResult = 100;
 		}
 
-		$Initatta1 = round((((100 - 87.5) * 0.02) + 1 - $AttTim) * (-600),0);
-		$Initrech1 = round((((100-87.5)*0.02)+1-$RechT)*(-300),0);
+		$Initatta1 = round((((100 - 87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
+		$Initrech1 = round((((100 - 87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta1 > 1200) {
-			$Initatta1 = round((((((100-87.5)*0.02)+1-$AttTim+2)*(-1800)))+1200,0);
+			$Initatta1 = round(((((100 - 87.5) * 0.02) + 1 - $AttTim + 2) * (-1800)) + 1200, 0);
 		}
 		if ($Initrech1 > 1200) {
-			$Initrech1 = round((((((100-87.5)*0.02)+1-$AttTim+4)*(-900)))+1200,0);
+			$Initrech1 = round(((((100 - 87.5) * 0.02) + 1 - $AttTim + 4) * (-900)) + 1200, 0);
 		}
 		if ($Initatta1 < $Initrech1) {
 			$Init1 = $Initrech1;
@@ -156,13 +158,13 @@ class SkillsController {
 			$Init1 = $Initatta1;
 		}
 
-		$Initatta2 = round((((87.5-87.5)*0.02)+1-$AttTim)*(-600),0);
-		$Initrech2 = round((((87.5-87.5)*0.02)+1-$RechT)*(-300),0);
+		$Initatta2 = round((((87.5 - 87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
+		$Initrech2 = round((((87.5 - 87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta2 > 1200) {
-			$Initatta2 = round((((((87.5-87.5)*0.02)+1-$AttTim+2)*(-1800)))+1200,0);
+			$Initatta2 = round(((((87.5 - 87.5) * 0.02) + 1 - $AttTim + 2) * (-1800)) + 1200, 0);
 		}
 		if ($Initrech2 > 1200) {
-			$Initrech2 = round((((((87.5-87.5)*0.02)+1-$AttTim+4)*(-900)))+1200,0);
+			$Initrech2 = round(((((87.5 - 87.5) * 0.02) + 1 - $AttTim + 4) * (-900)) + 1200, 0);
 		}
 		if ($Initatta2 < $Initrech2) {
 			$Init2 = $Initrech2;
@@ -170,13 +172,13 @@ class SkillsController {
 			$Init2 = $Initatta2;
 		}
 
-		$Initatta3 = round((((0-87.5)*0.02)+1-$AttTim)*(-600),0);
-		$Initrech3 = round((((0-87.5)*0.02)+1-$RechT)*(-300),0);
+		$Initatta3 = round((((-87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
+		$Initrech3 = round((((-87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta3 > 1200) {
-			$Initatta3 = round((((((0-87.5)*0.02)+1-$AttTim+2)*(-1800)))+1200,0);
+			$Initatta3 = round(((((-87.5) * 0.02) + 1 - $AttTim + 2) * (-1800)) + 1200, 0);
 		}
 		if ($Initrech3 > 1200) {
-			$Initrech3 = round((((((0-87.5)*0.02)+1-$AttTim+4)*(-900)))+1200,0);
+			$Initrech3 = round(((((-87.5) * 0.02) + 1 - $AttTim + 4) * (-900)) + 1200, 0);
 		}
 		if ($Initatta3 < $Initrech3) {
 			$Init3 = $Initrech3;
@@ -468,15 +470,15 @@ class SkillsController {
 			$i = 5;
 		}
 
-		$fistql = round($MaSkill/2,0);
+		$fistql = round($MaSkill / 2, 0);
 		if ($fistql <= 200) {
 			$speed = 1.25;
 		} else if ($fistql <= 500) {
-			$speed = 1.25 + (0.2*(($fistql-200)/300));
+			$speed = 1.25 + (0.2 * (($fistql - 200) / 300));
 		} else if ($fistql <= 1000)	{
-			$speed = 1.45 + (0.2*(($fistql-500)/500));
+			$speed = 1.45 + (0.2 * (($fistql - 500) / 500));
 		} else if ($fistql <= 1500)	{
-			$speed = 1.65 + (0.2*(($fistql-1000)/500));
+			$speed = 1.65 + (0.2 * (($fistql - 1000) / 500));
 		}
 		$speed = round($speed,2);
 
@@ -624,7 +626,6 @@ class SkillsController {
 		}
 
 		$blob .= "Written by Tyrence (RK2)\n";
-		$blob .= "Stats and inits provided by Xyphos (xyphos.com) and Kilmanagh (RK2) (ao-central.com)";
 		$msg = $this->text->make_blob("Weapon Info for $name", $blob);
 
 		$sendto->reply($msg);
@@ -719,9 +720,9 @@ class SkillsController {
 		// 12 positions...
 		$blob = '';
 		for ($i = 11; $i > -1; $i--) {
-			$perc = floor((100/11) * $i);
-			$diminish = 1/3;
-			$scale = 2/12;
+			$perc = floor((100 / 11) * $i);
+			$diminish = 1 / 3;
+			$scale = 2 / 12;
 			$factor = -1.25 + ($scale * (12 - $i));
 			$init = max($this->fireinit($attack + $factor), $this->rechargeinit($recharge + $factor));
 			if ($init > 1200) {
@@ -734,7 +735,7 @@ class SkillsController {
 				$blob .= "=";
 			}
 			$blob .= "][";
-			for ($x = 12; $x > ($i+1); $x--) {
+			for ($x = 12; $x > ($i + 1); $x--) {
 				$blob .= "=";
 			}
 			$blob .= "&lt;AGG";
