@@ -558,28 +558,38 @@ class SkillsController {
 			$highid = $args[1];
 			$ql = $args[2];
 		}
-		$item = $this->itemsController->doXyphosLookup($highid, $ql);
+		
+		$sql = "SELECT
+			a.*,
+			w1.attack_time AS low_attack_time,
+			w1.recharge_time AS low_recharge_time,
+			w1.full_auto AS low_full_auto,
+			w1.burst AS low_burst,
+			w1.fling_shot AS fling_shot,
+			w1.fast_attack AS fast_attack,
+			w1.aimed_shot AS aimed_shot,
+			w2.attack_time AS high_attack_time,
+			w2.recharge_time AS high_recharge_time,
+			w2.full_auto AS high_full_auto,
+			w2.burst AS high_burst
+		FROM
+			aodb a
+			JOIN weapon_attributes w1 ON a.lowid = w1.id
+			JOIN weapon_attributes w2 ON a.highid = w2.id
+		WHERE
+			a.highid = ? AND a.lowql <= ? AND a.highql >= ?";
+		$row = $this->db->queryRow($sql, $highid, $ql, $ql);
+		print_r($row);
 
-		if ($item === null) {
-			$msg = "Unable to query Items XML Database or invalid item.";
+		if ($row === null) {
+			$msg = "Item is not a weapon or does not exist in the items database.";
 			$sendto->reply($msg);
 			return;
 		}
-		
-		if ($item->attributes->EquipmentPage->extra != "Weapon") {
-			$msg = "Item is not a weapon.";
-			$sendto->reply($msg);
-			return;
-		}
 
-		$name = $item->name;
-		$flags = $item->attributes->Can->extra;
-		$attack_time = $item->attributes->AttackDelay->value;
-		$recharge_time = $item->attributes->RechargeDelay->value;
-		$full_auto_recharge = $item->attributes->FullAutoRecharge->value;
-		$burst_recharge = $item->attributes->BurstRecharge->value;
-		
-		$flags = explode(', ', $flags);
+		$name = $row->name;
+		$attack_time = $this->util->interpolate($row->lowql, $row->highql, $row->low_attack_time, $row->high_attack_time, $ql);
+		$recharge_time = $this->util->interpolate($row->lowql, $row->highql, $row->low_recharge_time, $row->high_recharge_time, $ql);
 		$recharge_time /= 100;
 		$attack_time /= 100;
 
@@ -592,27 +602,29 @@ class SkillsController {
 		$blob .= $this->getInitDisplay($attack_time, $recharge_time);
 		$blob .= "\n\n";
 		
-		if (in_array('FullAuto', $flags)) {
+		if ($row->high_full_auto !== null) {
+			$full_auto_recharge = $this->util->interpolate($row->lowql, $row->highql, $row->low_full_auto, $row->high_full_auto, $ql);
 			list($hard_cap, $skill_cap) = $this->cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
 			$blob .= "FullAutoRecharge: $full_auto_recharge -- You need <highlight>".$skill_cap."<end> Full Auto skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
-		if (in_array('Burst', $flags)) {
+		if ($row->high_burst !== null) {
+			$burst_recharge = $this->util->interpolate($row->lowql, $row->highql, $row->low_burst, $row->high_burst, $ql);
 			list($hard_cap, $skill_cap) = $this->cap_burst($attack_time, $recharge_time, $burst_recharge);
 			$blob .= "BurstRecharge: $burst_recharge -- You need <highlight>".$skill_cap."<end> Burst skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
-		if (in_array('FlingShot', $flags)) {
+		if ($row->fling_shot == 1) {
 			list($hard_cap, $skill_cap) = $this->cap_fling_shot($attack_time);
 			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Skill skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
-		if (in_array('FastAttack', $flags)) {
+		if ($row->fast_attack == 1) {
 			list($hard_cap, $skill_cap) = $this->cap_fast_attack($attack_time);
 			$blob .= "FastAttackRecharge: You need <highlight>".$skill_cap."<end> Fast Attack skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
-		if (in_array('AimedShot', $flags)) {
+		if ($row->aimed_shot == 1) {
 			list($hard_cap, $skill_cap) = $this->cap_aimed_shot($attack_time, $recharge_time);
 			$blob .= "AimedShotRecharge: You need <highlight>".$skill_cap."<end> Aimed Shot skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
