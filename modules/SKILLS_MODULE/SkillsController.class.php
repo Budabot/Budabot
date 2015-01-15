@@ -579,7 +579,6 @@ class SkillsController {
 		WHERE
 			a.highid = ? AND a.lowql <= ? AND a.highql >= ?";
 		$row = $this->db->queryRow($sql, $highid, $ql, $ql);
-		print_r($row);
 
 		if ($row === null) {
 			$msg = "Item is not a weapon or does not exist in the items database.";
