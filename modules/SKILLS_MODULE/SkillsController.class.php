@@ -559,25 +559,7 @@ class SkillsController {
 			$ql = $args[2];
 		}
 		
-		$sql = "SELECT
-			a.*,
-			w1.attack_time AS low_attack_time,
-			w1.recharge_time AS low_recharge_time,
-			w1.full_auto AS low_full_auto,
-			w1.burst AS low_burst,
-			w1.fling_shot AS fling_shot,
-			w1.fast_attack AS fast_attack,
-			w1.aimed_shot AS aimed_shot,
-			w2.attack_time AS high_attack_time,
-			w2.recharge_time AS high_recharge_time,
-			w2.full_auto AS high_full_auto,
-			w2.burst AS high_burst
-		FROM
-			aodb a
-			JOIN weapon_attributes w1 ON a.lowid = w1.id
-			JOIN weapon_attributes w2 ON a.highid = w2.id
-		WHERE
-			a.highid = ? AND a.lowql <= ? AND a.highql >= ?";
+		$sql = "SELECT * FROM aodb WHERE highid = ? AND lowql <= ? AND a.highql >= ?";
 		$row = $this->db->queryRow($sql, $highid, $ql, $ql);
 
 		if ($row === null) {
@@ -585,10 +567,13 @@ class SkillsController {
 			$sendto->reply($msg);
 			return;
 		}
+		
+		$lowAttributes = $this->db->queryRow("SELECT * FROM weapon_attributes WHERE id = ?", $row->lowid);
+		$highAttributes = $this->db->queryRow("SELECT * FROM weapon_attributes WHERE id = ?", $row->highid);
 
 		$name = $row->name;
-		$attack_time = $this->util->interpolate($row->lowql, $row->highql, $row->low_attack_time, $row->high_attack_time, $ql);
-		$recharge_time = $this->util->interpolate($row->lowql, $row->highql, $row->low_recharge_time, $row->high_recharge_time, $ql);
+		$attack_time = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->attack_time, $highAttributes->attack_time, $ql);
+		$recharge_time = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->recharge_time, $highAttributes->recharge_time, $ql);
 		$recharge_time /= 100;
 		$attack_time /= 100;
 
@@ -602,28 +587,28 @@ class SkillsController {
 		$blob .= "\n\n";
 		
 		if ($row->high_full_auto !== null) {
-			$full_auto_recharge = $this->util->interpolate($row->lowql, $row->highql, $row->low_full_auto, $row->high_full_auto, $ql);
+			$full_auto_recharge = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->full_auto, $highAttributes->full_auto, $ql);
 			list($hard_cap, $skill_cap) = $this->cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
 			$blob .= "FullAutoRecharge: $full_auto_recharge -- You need <highlight>".$skill_cap."<end> Full Auto skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if ($row->high_burst !== null) {
-			$burst_recharge = $this->util->interpolate($row->lowql, $row->highql, $row->low_burst, $row->high_burst, $ql);
+			$burst_recharge = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->burst, $highAttributes->burst, $ql);
 			list($hard_cap, $skill_cap) = $this->cap_burst($attack_time, $recharge_time, $burst_recharge);
 			$blob .= "BurstRecharge: $burst_recharge -- You need <highlight>".$skill_cap."<end> Burst skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
-		if ($row->fling_shot == 1) {
+		if ($highAttributes->fling_shot == 1) {
 			list($hard_cap, $skill_cap) = $this->cap_fling_shot($attack_time);
 			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Skill skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
-		if ($row->fast_attack == 1) {
+		if ($highAttributes->fast_attack == 1) {
 			list($hard_cap, $skill_cap) = $this->cap_fast_attack($attack_time);
 			$blob .= "FastAttackRecharge: You need <highlight>".$skill_cap."<end> Fast Attack skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
-		if ($row->aimed_shot == 1) {
+		if ($highAttributes->aimed_shot == 1) {
 			list($hard_cap, $skill_cap) = $this->cap_aimed_shot($attack_time, $recharge_time);
 			$blob .= "AimedShotRecharge: You need <highlight>".$skill_cap."<end> Aimed Shot skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
