@@ -563,13 +563,19 @@ class SkillsController {
 		$row = $this->db->queryRow($sql, $highid, $ql, $ql);
 
 		if ($row === null) {
-			$msg = "Item is not a weapon or does not exist in the items database.";
+			$msg = "Item does not exist in the items database.";
 			$sendto->reply($msg);
 			return;
 		}
 		
 		$lowAttributes = $this->db->queryRow("SELECT * FROM weapon_attributes WHERE id = ?", $row->lowid);
 		$highAttributes = $this->db->queryRow("SELECT * FROM weapon_attributes WHERE id = ?", $row->highid);
+		
+		if ($lowAttributes === null || $highAttributes === null) {
+			$msg = "Could not find any weapon info for this item.";
+			$sendto->reply($msg);
+			return;
+		}
 
 		$name = $row->name;
 		$attack_time = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->attack_time, $highAttributes->attack_time, $ql);
