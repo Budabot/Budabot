@@ -559,7 +559,7 @@ class SkillsController {
 			$ql = $args[2];
 		}
 		
-		$sql = "SELECT * FROM aodb WHERE highid = ? AND lowql <= ? AND a.highql >= ?";
+		$sql = "SELECT * FROM aodb WHERE highid = ? AND lowql <= ? AND highql >= ?";
 		$row = $this->db->queryRow($sql, $highid, $ql, $ql);
 
 		if ($row === null) {
@@ -586,13 +586,13 @@ class SkillsController {
 		$blob .= $this->getInitDisplay($attack_time, $recharge_time);
 		$blob .= "\n\n";
 		
-		if ($row->high_full_auto !== null) {
+		if ($highAttributes->full_auto !== null) {
 			$full_auto_recharge = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->full_auto, $highAttributes->full_auto, $ql);
 			list($hard_cap, $skill_cap) = $this->cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
 			$blob .= "FullAutoRecharge: $full_auto_recharge -- You need <highlight>".$skill_cap."<end> Full Auto skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
-		if ($row->high_burst !== null) {
+		if ($highAttributes->burst !== null) {
 			$burst_recharge = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->burst, $highAttributes->burst, $ql);
 			list($hard_cap, $skill_cap) = $this->cap_burst($attack_time, $recharge_time, $burst_recharge);
 			$blob .= "BurstRecharge: $burst_recharge -- You need <highlight>".$skill_cap."<end> Burst skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
