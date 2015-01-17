@@ -235,6 +235,11 @@ class ImplantDesignerController extends AutoInject {
 		$this->saveDesign($sender, '@', $design);
 
 		$sendto->reply($msg);
+		
+		// send results
+		$blob = $this->getImplantDesignerResults($sender);
+		$msg = $this->text->make_blob("Implant Designer Results", $blob);
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -251,6 +256,11 @@ class ImplantDesignerController extends AutoInject {
 		
 		$msg = "<highlight>$slot<end> has been set to QL <highlight>$ql<end>.";
 
+		$sendto->reply($msg);
+		
+		// send results
+		$blob = $this->getImplantDesignerResults($sender);
+		$msg = $this->text->make_blob("Implant Designer Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -275,7 +285,15 @@ class ImplantDesignerController extends AutoInject {
 	 * @Matches("/^implantdesigner (result|results)$/i")
 	 */
 	public function implantdesignerResultCommand($message, $channel, $sender, $sendto, $args) {
-		$design = $this->getDesign($sender, '@');
+		$blob = $this->getImplantDesignerResults($sender);
+		
+		$msg = $this->text->make_blob("Implant Designer Results", $blob);
+
+		$sendto->reply($msg);
+	}
+	
+	public function getImplantDesignerResults($name) {
+		$design = $this->getDesign($name, '@');
 		
 		$mods = array();
 		$reqs = array();
@@ -362,9 +380,7 @@ class ImplantDesignerController extends AutoInject {
 			$blob .= "<highlight>{$cluster->name}<end>, {$cluster->grade} ({$cluster->ql}+)\n";
 		}
 		
-		$msg = $this->text->make_blob("Implant Designer Results", $blob);
-
-		$sendto->reply($msg);
+		return $blob;
 	}
 	
 	public function getImplantInfo($ql, $shiny, $bright, $faded) {
