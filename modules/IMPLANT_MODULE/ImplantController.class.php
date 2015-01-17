@@ -63,7 +63,6 @@ class ImplantController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "implant_requirements");
 		$this->db->loadSQLFile($this->moduleName, "premade_implant");
-		$this->db->loadSQLFile($this->moduleName, "cluster_skill");
 	}
 	
 	/**
@@ -142,27 +141,28 @@ class ImplantController {
 	public function clusterCommand($message, $channel, $sender, $sendto, $args) {
 		$search = trim($args[1]);
 
-		$sql = "SELECT * FROM cluster_skill WHERE skill LIKE ?";
-		$results = $this->db->query($sql, '%' . str_replace(' ', '%', $search) . '%');
-		$count = count($results);
+		$sql = "SELECT ClusterID, LongName FROM Cluster WHERE LongName LIKE ?";
+		$data = $this->db->query($sql, '%' . str_replace(' ', '%', $search) . '%');
+		$count = count($data);
 
 		if ($count == 0) {
 			$msg = "No skills found that match <highlight>$search<end>.";
-		} else if ($count == 1) {
-			$row = $results[0];
-			$msg = "$row->skill Cluster: $row->shiny, $row->bright, $row->faded";
 		} else {
-			$blob .= "";
-			forEach ($results as $row) {
-				$blob .= "<pagebreak>";
-				$blob .= "<highlight>$row->skill Cluster<end>:\n<tab><font color=#ffcc33>Shiny</font>: ".$row->shiny.
-					"<tab><font color=#ffff55>Bright</font>: ".$row->bright.
-					"<tab><font color=#FFFF99>Faded</font>: ".$row->faded;
+			$blob = "Click 'Add' to add cluster to $implantDesignerLink.\n\n";
+			forEach ($data as $cluster) {
+				$sql = "SELECT i.ShortName as Slot, c2.Name AS ClusterType FROM ClusterImplantMap c1 JOIN ClusterType c2 ON c1.ClusterTypeID = c2.ClusterTypeID JOIN ImplantType i ON c1.ImplantTypeID = i.ImplantTypeID WHERE c1.ClusterID = ? ORDER BY c2.ClusterTypeID DESC";
+				$results = $this->db->query($sql, $cluster->ClusterID);
+				
+				$implantDesignerLink = $this->text->make_chatcmd("implant designer", "/tell <myname> implantdesigner");
+				$blob .= "<pagebreak><highlight>$cluster->LongName Cluster<end>:\n<tab>";
+
+				forEach ($results as $row) {
+					$impDesignerLink = $this->text->make_chatcmd("Add", "/tell <myname> implantdesigner $row->Slot $row->ClusterType $cluster->LongName");
+					$clusterType = ucfirst($row->ClusterType);
+					$blob .= "<font color=#ffcc33>$clusterType</font>: $row->Slot ($impDesignerLink)<tab>";
+				}
 				$blob .= "\n\n";
 			}
-		
-			$blob .= "\n\nby Imoutochan (RK1)";
-
 			$msg = $this->text->make_blob("Cluster search results ($count)", $blob);
 		}
 		$sendto->reply($msg);
