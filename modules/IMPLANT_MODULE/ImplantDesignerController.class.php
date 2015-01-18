@@ -86,21 +86,25 @@ class ImplantDesignerController extends AutoInject {
 	}
 	
 	private function getImplantSummary($slotObj) {
-		$ql = empty($slotObj->ql) ? 300 : $slotObj->ql;
-		$implant = $this->getImplantInfo($ql, $slotObj->shiny, $slotObj->bright, $slotObj->faded);
-		$msg = " QL" . $ql;
-		if ($implant !== null) {
-			$msg .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
-		}
-		$msg .= "\n";
-		
-		forEach ($this->grades as $grade) {
-			if (empty($slotObj->$grade)) {
-				$msg .= "<tab><highlight>-Empty-<end>\n";
-			} else {
-				$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
-				$effectId = $implant->$effectTypeIdName;
-				$msg .= "<tab><highlight>{$slotObj->$grade}<end> (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")\n";
+		if ($slotObj->symb !== null) {
+			$msg = " " . $slotObj->symb->name . "\n";
+		} else {
+			$ql = empty($slotObj->ql) ? 300 : $slotObj->ql;
+			$implant = $this->getImplantInfo($ql, $slotObj->shiny, $slotObj->bright, $slotObj->faded);
+			$msg = " QL" . $ql;
+			if ($implant !== null) {
+				$msg .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
+			}
+			$msg .= "\n";
+			
+			forEach ($this->grades as $grade) {
+				if (empty($slotObj->$grade)) {
+					$msg .= "<tab><highlight>-Empty-<end>\n";
+				} else {
+					$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
+					$effectId = $implant->$effectTypeIdName;
+					$msg .= "<tab><highlight>{$slotObj->$grade}<end> (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")\n";
+				}
 			}
 		}
 		return $msg;
@@ -165,31 +169,48 @@ class ImplantDesignerController extends AutoInject {
 		$blob = '';
 		
 		$design = $this->getDesign($sender, '@');
+		$slotObj = &$design->$slot;
 		
 		$spacing = "\n";
 		
-		$ql = empty($design->$slot->ql) ? 300 : $design->$slot->ql;
-		$blob .= "<header2>QL<end> $ql";
-		$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
-		if ($implant !== null) {
-			$blob .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
+		if ($slotObj->symb !== null) {
+			$symb = &$slotObj->symb;
+			$blob .= $symb->name ."\n\n";
+			$blob .= "<header2>Requirements<end>\n";
+			$blob .= "Treatment: {$symb->Treatment}\n";
+			$blob .= "Level: {$symb->Level}\n";
+			forEach ($symb->reqs as $req){
+				$blob .= "{$req->Name}: {$req->Amount}\n";
+			}
+			$blob .= "\n<header2>Modifications<end>\n";
+			forEach ($symb->mods as $mod){
+				$blob .= "{$mod->Name}: {$mod->Amount}\n";
+			}
+			$blob .= "\n\n";
+		} else {
+			$ql = empty($design->$slot->ql) ? 300 : $design->$slot->ql;
+			$blob .= "<header2>QL<end> $ql";
+			$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
+			if ($implant !== null) {
+				$blob .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
+			}
+			$blob .= "\n";
+			forEach (array(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300) as $ql) {
+				$blob .= $this->text->make_chatcmd($ql, "/tell <myname> implantdesigner $slot $ql") . " ";
+			}
+			$blob .= "\n\n";
+			
+			$blob .= "<header2>Shiny<end>";
+			$blob .= $this->showClusterChoices($design, $slot, 'shiny');
+			
+			$blob .= "<header2>Bright<end>";
+			$blob .= $this->showClusterChoices($design, $slot, 'bright');
+			
+			$blob .= "<header2>Faded<end>";
+			$blob .= $this->showClusterChoices($design, $slot, 'faded');
 		}
-		$blob .= "\n";
-		forEach (array(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300) as $ql) {
-			$blob .= $this->text->make_chatcmd($ql, "/tell <myname> implantdesigner $slot $ql") . " ";
-		}
-		$blob .= "\n\n";
 		
-		$blob .= "<header2>Shiny<end>";
-		$blob .= $this->showClusterChoices($design, $slot, 'shiny');
-		
-		$blob .= "<header2>Bright<end>";
-		$blob .= $this->showClusterChoices($design, $slot, 'bright');
-		
-		$blob .= "<header2>Faded<end>";
-		$blob .= $this->showClusterChoices($design, $slot, 'faded');
-		
-		$blob .= $this->text->make_chatcmd("Show Build", "/tell <myname> implantdesigner");
+		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
 		$blob .= "<tab><tab>";
 		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
 		
@@ -215,27 +236,86 @@ class ImplantDesignerController extends AutoInject {
 	
 	/**
 	 * @HandlesCommand("implantdesigner")
-	 * @Matches("/^implantdesigner (head|eye|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|lhand|feet) (shiny|bright|faded) (.+)$/i")
+	 * @Matches("/^implantdesigner (head|eye|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|lhand|feet) (shiny|bright|faded|symb) (.+)$/i")
 	 */
 	public function implantdesignerSlotAddClusterCommand($message, $channel, $sender, $sendto, $args) {
 		$slot = strtolower($args[1]);
 		$type = strtolower($args[2]);
-		$skill = $args[3];
+		$item = $args[3];
 		
 		$design = $this->getDesign($sender, '@');
+		$slotObj = &$design->$slot;
 		
-		if (strtolower($skill) == 'clear') {
-			unset($design->$slot->$type);
-			$msg = "<highlight>$slot($type)<end> has been cleared.";
+		if ($type == 'symb') {
+			if (strtolower($item) == 'clear') {
+				if ($slotObj->symb === null) {
+					$msg = "There is no symb in <highlight>$slot<end>.";
+				} else {
+					unset($slotObj->symb);
+					$msg = "<highlight>$slot(symb)<end> has been cleared.";
+				}
+			} else {
+				$sql = 
+					"SELECT
+						s.ID,
+						s.Name,
+						s.TreatmentReq,
+						s.LevelReq
+					FROM
+						Symbiant s
+						JOIN ImplantType i
+							ON s.SlotID = i.ImplantTypeID
+					WHERE
+						i.ShortName = ?
+						AND s.Name = ?";
+				
+				$symbRow = $this->db->queryRow($sql, $slot, $item);
+				
+				if ($symbRow === null) {
+					$msg = "Could not find symbiant <highlight>$item<end>.";
+				} else {
+					// convert slot to symb
+					unset($slotObj->shiny);
+					unset($slotObj->bright);
+					unset($slotObj->faded);
+					unset($slotObj->ql);
+					
+					$symb = new stdClass;
+					$symb->name = $symbRow->Name;
+					$symb->Treatment = $symbRow->TreatmentReq;
+					$symb->Level = $symbRow->LevelReq;
+					
+					// add requirements
+					$sql = "SELECT a.Name, s.Amount FROM SymbiantAbilityMatrix s JOIN Ability a ON s.AbilityID = a.AbilityID WHERE SymbiantID = ?";
+					$symb->reqs = $this->db->query($sql, $symbRow->ID);
+					
+					// add mods
+					$sql = "SELECT c.LongName AS Name, s.Amount FROM SymbiantClusterMatrix s JOIN Cluster c ON s.ClusterID = c.ClusterID WHERE SymbiantID = ?";
+					$symb->mods = $this->db->query($sql, $symbRow->ID);
+					
+					$slotObj->symb = $symb;
+					$msg = "<highlight>$slot(symb)<end> has been set to <highlight>$symb->name<end>.";
+				}
+			}
 		} else {
-			$design->$slot->$type = $skill;
-			$msg = "<highlight>$slot($type)<end> has been set to <highlight>$skill<end>.";
+			if (strtolower($item) == 'clear') {
+				if ($slotObj->$type === null) {
+					$msg = "There is no cluster in <highlight>$slot($type)<end>.";
+				} else {
+					unset($slotObj->$type);
+					$msg = "<highlight>$slot($type)<end> has been cleared.";
+				}
+			} else {
+				unset($slotObj->symb);
+				$slotObj->$type = $item;
+				$msg = "<highlight>$slot($type)<end> has been set to <highlight>$item<end>.";
+			}
 		}
 		
 		$this->saveDesign($sender, '@', $design);
-
-		$sendto->reply($msg);
 		
+		$sendto->reply($msg);
+	
 		// send results
 		$blob = $this->getImplantDesignerResults($sender);
 		$msg = $this->text->make_blob("Implant Designer Results", $blob);
@@ -251,7 +331,9 @@ class ImplantDesignerController extends AutoInject {
 		$ql = $args[2];
 		
 		$design = $this->getDesign($sender, '@');
-		$design->$slot->ql = $ql;
+		$slotObj = &$design->$slot;
+		unset($slotObj->symb);
+		$slotObj->ql = $ql;
 		$this->saveDesign($sender, '@', $design);
 		
 		$msg = "<highlight>$slot<end> has been set to QL <highlight>$ql<end>.";
@@ -296,19 +378,47 @@ class ImplantDesignerController extends AutoInject {
 		$design = $this->getDesign($name, '@');
 		
 		$mods = array();
-		$reqs = array();
+		$reqs = array('Treatment' => 0, 'Level' => 1);  // force treatment and level to be shown first
 		$implants = array();
 		$clusters = array();
 		
 		forEach ($this->slots as $slot) {
-			if (!empty($design->$slot)) {
+			$slotObj = &$design->$slot;
+			
+			// skip empty slots
+			if (empty($slotObj)) {
+				continue;
+			}
+			
+			if (!empty($slotObj->symb)) {
+				$symb = &$slotObj->symb;
+				
+				// add reqs
+				if ($symb->Treatment > $reqs['Treatment']) {
+					$reqs['Treatment'] = $symb->Treatment;
+				}
+				if ($symb->Level > $reqs['Level']) {
+					$reqs['Level'] = $symb->Level;
+				}
+				forEach ($symb->reqs as $req) {
+					if ($req->Amount > $reqs[$req->Name]) {
+						$reqs[$req->Name] = $req->Amount;
+					}
+				}
+				
+				// add mods
+				forEach ($symb->mods as $mod) {
+					$mods[$mod->Name] += $mod->Amount;
+				}
+				
+			} else {
 				$ql = 300;
-				if (!empty($design->$slot->ql)) {
-					$ql = $design->$slot->ql;
+				if (!empty($slotObj->ql)) {
+					$ql = $slotObj->ql;
 				}
 				
 				// add reqs
-				$implant = $this->getImplantInfo($ql, $design->$slot->shiny, $design->$slot->bright, $design->$slot->faded);
+				$implant = $this->getImplantInfo($ql, $slotObj->shiny, $slotObj->bright, $slotObj->faded);
 				if ($implant->Treatment > $reqs['Treatment']) {
 					$reqs['Treatment'] = $implant->Treatment;
 				}
@@ -324,17 +434,17 @@ class ImplantDesignerController extends AutoInject {
 				
 				// add mods
 				forEach ($this->grades as $grade) {
-					if (!empty($design->$slot->$grade)) {
+					if (!empty($slotObj->$grade)) {
 						$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
 						$effectId = $implant->$effectTypeIdName;
-						$mods[$design->$slot->$grade] += $this->getClusterModAmount($ql, $grade, $effectId);
+						$mods[$slotObj->$grade] += $this->getClusterModAmount($ql, $grade, $effectId);
 						
 						// add cluster
 						$obj = new stdClass;
 						$obj->ql = $this->implantController->getClusterMinQl($ql, $grade);
 						$obj->slot = $slot;
 						$obj->grade = $grade;
-						$obj->name = $design->$slot->$grade;
+						$obj->name = $slotObj->$grade;
 						$clusters []= $obj;
 					}
 				}
@@ -357,13 +467,13 @@ class ImplantDesignerController extends AutoInject {
 			}
 		});
 		
-		$blob = "<header2>Requirements to Equip Implants<end>\n";
+		$blob = "<header2>Requirements to Equip<end>\n";
 		forEach ($reqs as $requirement => $amount) {
 			$blob .= "$requirement: <highlight>$amount<end>\n";
 		}
 		$blob .= "\n";
 		
-		$blob .= "<header2>Skills Gained from Implants<end>\n";
+		$blob .= "<header2>Skills Gained<end>\n";
 		forEach ($mods as $skill => $amount) {
 			$blob .= "$skill: <highlight>$amount<end>\n";
 		}
@@ -379,6 +489,8 @@ class ImplantDesignerController extends AutoInject {
 		forEach ($clusters as $cluster) {
 			$blob .= "<highlight>{$cluster->name}<end>, {$cluster->grade} ({$cluster->ql}+)\n";
 		}
+		
+		$blob .= "\n" . $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
 		
 		return $blob;
 	}
