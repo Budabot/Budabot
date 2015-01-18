@@ -63,9 +63,19 @@ class ImplantDesignerController extends AutoInject {
 	 * @Matches("/^implantdesigner$/i")
 	 */
 	public function implantdesignerCommand($message, $channel, $sender, $sendto, $args) {
+		$blob = $this->getImplantDesignerBuild($sender);
+		$msg = $this->text->make_blob("Implant Designer", $blob);
+		$sendto->reply($msg);
+	}
+	
+	private function getImplantDesignerBuild($sender) {
 		$design = $this->getDesign($sender, '@');
 	
-		$blob = '';
+		$blob = $this->text->make_chatcmd("Results", "/tell <myname> implantdesigner results");
+		$blob .= "<tab>";
+		$blob .= $this->text->make_chatcmd("Clear All", "/tell <myname> implantdesigner clear");
+		$blob .= "\n-----------------\n\n";
+
 		forEach ($this->slots as $slot) {
 			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
 			if (!empty($design->$slot)) {
@@ -75,14 +85,8 @@ class ImplantDesignerController extends AutoInject {
 			}
 			$blob .= "\n";
 		}
-		
-		$seeResultsLink = $this->text->make_chatcmd("Results", "/tell <myname> implantdesigner results");
-		$clearDesignLink = $this->text->make_chatcmd("Clear All", "/tell <myname> implantdesigner clear");
-		$blob .= "\n{$seeResultsLink}<tab>{$clearDesignLink}";
 
-		$msg = $this->text->make_blob("Implant Designer", $blob);
-
-		$sendto->reply($msg);
+		return $blob;
 	}
 	
 	private function getImplantSummary($slotObj) {
@@ -166,16 +170,19 @@ class ImplantDesignerController extends AutoInject {
 	 */
 	public function implantdesignerSlotCommand($message, $channel, $sender, $sendto, $args) {
 		$slot = strtolower($args[1]);
-		$blob = '';
+
+		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+		$blob .= "<tab>";
+		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+		$blob .= "\n-------------------------\n\n";
 		
 		$design = $this->getDesign($sender, '@');
 		$slotObj = &$design->$slot;
 		
-		$spacing = "\n";
-		
 		if ($slotObj->symb !== null) {
 			$symb = &$slotObj->symb;
 			$blob .= $symb->name ."\n\n";
+			$blob .= $this->getSymbiantsLinks($slot) . "\n\n";
 			$blob .= "<header2>Requirements<end>\n";
 			$blob .= "Treatment: {$symb->Treatment}\n";
 			$blob .= "Level: {$symb->Level}\n";
@@ -200,6 +207,8 @@ class ImplantDesignerController extends AutoInject {
 			}
 			$blob .= "\n\n";
 			
+			$blob .= $this->getSymbiantsLinks($slot) . "\n\n";
+			
 			$blob .= "<header2>Shiny<end>";
 			$blob .= $this->showClusterChoices($design, $slot, 'shiny');
 			
@@ -210,13 +219,18 @@ class ImplantDesignerController extends AutoInject {
 			$blob .= $this->showClusterChoices($design, $slot, 'faded');
 		}
 		
-		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
-		$blob .= "<tab><tab>";
-		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
-		
 		$msg = $this->text->make_blob("Implant Designer ($slot)", $blob);
 
 		$sendto->reply($msg);
+	}
+	
+	private function getSymbiantsLinks($slot) {
+		$artilleryLink = $this->text->make_chatcmd("Artillery", "/tell <myname> symb $slot artillery");
+		$controlLink = $this->text->make_chatcmd("Control", "/tell <myname> symb $slot control");
+		$exterminationLink = $this->text->make_chatcmd("Extermination", "/tell <myname> symb $slot extermination");
+		$infantryLink = $this->text->make_chatcmd("Infantry", "/tell <myname> symb $slot infantry");
+		$supportLink = $this->text->make_chatcmd("Support", "/tell <myname> symb $slot support");
+		return "<header2>Symbiants<end>  $artilleryLink  $controlLink  $exterminationLink  $infantryLink  $supportLink";
 	}
 	
 	private function showClusterChoices($design, $slot, $grade) {
@@ -247,55 +261,46 @@ class ImplantDesignerController extends AutoInject {
 		$slotObj = &$design->$slot;
 		
 		if ($type == 'symb') {
-			if (strtolower($item) == 'clear') {
-				if ($slotObj->symb === null) {
-					$msg = "There is no symb in <highlight>$slot<end>.";
-				} else {
-					unset($slotObj->symb);
-					$msg = "<highlight>$slot(symb)<end> has been cleared.";
-				}
+			$sql = 
+				"SELECT
+					s.ID,
+					s.Name,
+					s.TreatmentReq,
+					s.LevelReq
+				FROM
+					Symbiant s
+					JOIN ImplantType i
+						ON s.SlotID = i.ImplantTypeID
+				WHERE
+					i.ShortName = ?
+					AND s.Name = ?";
+			
+			$symbRow = $this->db->queryRow($sql, $slot, $item);
+			
+			if ($symbRow === null) {
+				$msg = "Could not find symbiant <highlight>$item<end>.";
 			} else {
-				$sql = 
-					"SELECT
-						s.ID,
-						s.Name,
-						s.TreatmentReq,
-						s.LevelReq
-					FROM
-						Symbiant s
-						JOIN ImplantType i
-							ON s.SlotID = i.ImplantTypeID
-					WHERE
-						i.ShortName = ?
-						AND s.Name = ?";
+				// convert slot to symb
+				unset($slotObj->shiny);
+				unset($slotObj->bright);
+				unset($slotObj->faded);
+				unset($slotObj->ql);
 				
-				$symbRow = $this->db->queryRow($sql, $slot, $item);
+				$symb = new stdClass;
+				$symb->name = $symbRow->Name;
+				$symb->Treatment = $symbRow->TreatmentReq;
+				$symb->Level = $symbRow->LevelReq;
 				
-				if ($symbRow === null) {
-					$msg = "Could not find symbiant <highlight>$item<end>.";
-				} else {
-					// convert slot to symb
-					unset($slotObj->shiny);
-					unset($slotObj->bright);
-					unset($slotObj->faded);
-					unset($slotObj->ql);
-					
-					$symb = new stdClass;
-					$symb->name = $symbRow->Name;
-					$symb->Treatment = $symbRow->TreatmentReq;
-					$symb->Level = $symbRow->LevelReq;
-					
-					// add requirements
-					$sql = "SELECT a.Name, s.Amount FROM SymbiantAbilityMatrix s JOIN Ability a ON s.AbilityID = a.AbilityID WHERE SymbiantID = ?";
-					$symb->reqs = $this->db->query($sql, $symbRow->ID);
-					
-					// add mods
-					$sql = "SELECT c.LongName AS Name, s.Amount FROM SymbiantClusterMatrix s JOIN Cluster c ON s.ClusterID = c.ClusterID WHERE SymbiantID = ?";
-					$symb->mods = $this->db->query($sql, $symbRow->ID);
-					
-					$slotObj->symb = $symb;
-					$msg = "<highlight>$slot(symb)<end> has been set to <highlight>$symb->name<end>.";
-				}
+				// add requirements
+				$sql = "SELECT a.Name, s.Amount FROM SymbiantAbilityMatrix s JOIN Ability a ON s.AbilityID = a.AbilityID WHERE SymbiantID = ?";
+				$symb->reqs = $this->db->query($sql, $symbRow->ID);
+				
+				// add mods
+				$sql = "SELECT c.LongName AS Name, s.Amount FROM SymbiantClusterMatrix s JOIN Cluster c ON s.ClusterID = c.ClusterID WHERE SymbiantID = ?";
+				$symb->mods = $this->db->query($sql, $symbRow->ID);
+				
+				$slotObj->symb = $symb;
+				$msg = "<highlight>$slot(symb)<end> has been set to <highlight>$symb->name<end>.";
 			}
 		} else {
 			if (strtolower($item) == 'clear') {
@@ -306,7 +311,7 @@ class ImplantDesignerController extends AutoInject {
 					$msg = "<highlight>$slot($type)<end> has been cleared.";
 				}
 			} else {
-				unset($slotObj->symb);
+				unset($slotObj->$type);
 				$slotObj->$type = $item;
 				$msg = "<highlight>$slot($type)<end> has been set to <highlight>$item<end>.";
 			}
@@ -317,8 +322,8 @@ class ImplantDesignerController extends AutoInject {
 		$sendto->reply($msg);
 	
 		// send results
-		$blob = $this->getImplantDesignerResults($sender);
-		$msg = $this->text->make_blob("Implant Designer Results", $blob);
+		$blob = $this->getImplantDesignerBuild($sender);
+		$msg = $this->text->make_blob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -341,8 +346,8 @@ class ImplantDesignerController extends AutoInject {
 		$sendto->reply($msg);
 		
 		// send results
-		$blob = $this->getImplantDesignerResults($sender);
-		$msg = $this->text->make_blob("Implant Designer Results", $blob);
+		$blob = $this->getImplantDesignerBuild($sender);
+		$msg = $this->text->make_blob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -467,7 +472,10 @@ class ImplantDesignerController extends AutoInject {
 			}
 		});
 		
-		$blob = "<header2>Requirements to Equip<end>\n";
+		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+		$blob .= "\n---------\n\n";
+		
+		$blob .= "<header2>Requirements to Equip<end>\n";
 		forEach ($reqs as $requirement => $amount) {
 			$blob .= "$requirement: <highlight>$amount<end>\n";
 		}
@@ -489,8 +497,6 @@ class ImplantDesignerController extends AutoInject {
 		forEach ($clusters as $cluster) {
 			$blob .= "<highlight>{$cluster->name}<end>, {$cluster->grade} ({$cluster->ql}+)\n";
 		}
-		
-		$blob .= "\n" . $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
 		
 		return $blob;
 	}

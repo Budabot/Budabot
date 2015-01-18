@@ -148,13 +148,13 @@ class ImplantController {
 		if ($count == 0) {
 			$msg = "No skills found that match <highlight>$search<end>.";
 		} else {
+			$implantDesignerLink = $this->text->make_chatcmd("implant designer", "/tell <myname> implantdesigner");
 			$blob = "Click 'Add' to add cluster to $implantDesignerLink.\n\n";
 			forEach ($data as $cluster) {
 				$sql = "SELECT i.ShortName as Slot, c2.Name AS ClusterType FROM ClusterImplantMap c1 JOIN ClusterType c2 ON c1.ClusterTypeID = c2.ClusterTypeID JOIN ImplantType i ON c1.ImplantTypeID = i.ImplantTypeID WHERE c1.ClusterID = ? ORDER BY c2.ClusterTypeID DESC";
 				$results = $this->db->query($sql, $cluster->ClusterID);
 				
-				$implantDesignerLink = $this->text->make_chatcmd("implant designer", "/tell <myname> implantdesigner");
-				$blob .= "<pagebreak><highlight>$cluster->LongName Cluster<end>:\n<tab>";
+				$blob .= "<pagebreak><highlight>$cluster->LongName<end>:\n<tab>";
 
 				forEach ($results as $row) {
 					$impDesignerLink = $this->text->make_chatcmd("Add", "/tell <myname> implantdesigner $row->Slot $row->ClusterType $cluster->LongName");

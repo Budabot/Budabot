@@ -117,45 +117,58 @@ class PocketbossController {
 			switch (strtolower($args[$i])) {
 				case "eye":
 				case "ocular":
+					$impDesignSlot = 'eye';
 					$slot = "Ocular";
 					break;
 				case "brain":
 				case "head":
+					$impDesignSlot = 'head';
 					$slot = "Brain";
 					break;
 				case "ear":
+					$impDesignSlot = 'ear';
 					$slot = "Ear";
 					break;
 				case "rarm":
+					$impDesignSlot = 'rarm';
 					$slot = "Right Arm";
 					break;
 				case "chest":
+					$impDesignSlot = 'chest';
 					$slot = "Chest";
 					break;
 				case "larm":
+					$impDesignSlot = 'larm';
 					$slot = "Left Arm";
 					break;
 				case "rwrist":
+					$impDesignSlot = 'rwrist';
 					$slot = "Right Wrist";
 					break;
 				case "waist":
+					$impDesignSlot = 'waist';
 					$slot = "Waist";
 					break;
 				case "lwrist":
+					$impDesignSlot = 'lwrist';
 					$slot = "Left Wrist";
 					break;
 				case "rhand":
+					$impDesignSlot = 'rhand';
 					$slot = "Right Hand";
 					break;
 				case "leg":
 				case "legs":
 				case "thigh":
+					$impDesignSlot = 'legs';
 					$slot = "Thigh";
 					break;
 				case "lhand":
+					$impDesignSlot = 'lhand';
 					$slot = "Left Hand";
 					break;
 				case "feet":
+					$impDesignSlot = 'feet';
 					$slot = "Feet";
 					break;
 				default:
@@ -176,10 +189,12 @@ class PocketbossController {
 		$data = $this->db->query("SELECT * FROM pbdb WHERE `slot` LIKE ? AND `type` LIKE ? ORDER BY `ql` DESC, `type` ASC", $slot, $symbtype);
 		$numrows = count($data);
 		if ($numrows != 0) {
-			$blob = '';
+			$implantDesignerLink = $this->text->make_chatcmd("implant designer", "/tell <myname> implantdesigner");
+			$blob = "Click 'Add' to add symbiant to $implantDesignerLink.\n\n";
 			forEach ($data as $row) {
 				$name = "$row->line $row->slot Symbiant, $row->type Unit Aban";
-				$blob .= "<pagebreak>" . $this->text->make_item($row->itemid, $row->itemid, $row->ql, $name)." ($row->ql)\n";
+				$impDesignerAddLink = $this->text->make_chatcmd("Add", "/tell <myname> implantdesigner $impDesignSlot symb $name");
+				$blob .= "<pagebreak>" . $this->text->make_item($row->itemid, $row->itemid, $row->ql, $name)." ($row->ql) $impDesignerAddLink\n";
 				$blob .= "Found on " . $this->text->make_chatcmd($row->pb, "/tell <myname> pb $row->pb");
 				$blob .= "\n\n";
 			}
