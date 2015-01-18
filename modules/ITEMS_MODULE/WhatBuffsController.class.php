@@ -105,7 +105,12 @@ class WhatBuffsController {
 		
 		$blob = '';
 		forEach ($items as $item) {
-			$blob .= $this->text->make_item($item->lowid, $item->highid, $item->highql, $item->name) . "\n";
+			$ql = $item->highql;
+			if ($item->lowql != $item->highql) {
+				$ql = $item->lowql . " - " . $item->highql;
+			}
+			
+			$blob .= $this->text->make_item($item->lowid, $item->highid, $item->highql, $item->name) . " ($ql)\n";
 		}
 
 		$count = count($items);		
