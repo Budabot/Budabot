@@ -92,7 +92,6 @@ class TestController extends AutoInject {
 	 * @Matches("/^test$/i")
 	 */
 	public function testListCommand($message, $channel, $sender, $sendto, $args) {
-		/*
 		$files = $this->util->getFilesInDirectory($this->path);
 		$count = count($files);
 		sort($files);
@@ -103,10 +102,6 @@ class TestController extends AutoInject {
 		}
 		$msg = $this->text->make_blob("Tests Available ($count)", $blob);
 		$sendto->reply($msg);
-		*/
-		
-		$response = $this->http->get('http://budabot.jkbff.com/test/delay.php')->waitAndReturnResponse();
-		$sendto->reply($response->body);
 	}
 
 	/**
