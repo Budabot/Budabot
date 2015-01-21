@@ -158,9 +158,12 @@ class ImplantDesignerController extends AutoInject {
 	 */
 	public function implantdesignerClearCommand($message, $channel, $sender, $sendto, $args) {
 		$this->saveDesign($sender, '@', new stdClass);
-
 		$msg = "Implant Designer has been cleared.";
-
+		$sendto->reply($msg);
+		
+		// send results
+		$blob = $this->getImplantDesignerBuild($sender);
+		$msg = $this->text->make_blob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -174,6 +177,12 @@ class ImplantDesignerController extends AutoInject {
 		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
 		$blob .= "<tab>";
 		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+		$blob .= "\n-------------------------\n";
+		$blob .= "<header2>Implants<end>  ";
+		forEach (array(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300) as $ql) {
+			$blob .= $this->text->make_chatcmd($ql, "/tell <myname> implantdesigner $slot $ql") . " ";
+		}
+		$blob .= "\n\n" . $this->getSymbiantsLinks($slot);
 		$blob .= "\n-------------------------\n\n";
 		
 		$design = $this->getDesign($sender, '@');
@@ -182,7 +191,6 @@ class ImplantDesignerController extends AutoInject {
 		if ($slotObj->symb !== null) {
 			$symb = &$slotObj->symb;
 			$blob .= $symb->name ."\n\n";
-			$blob .= $this->getSymbiantsLinks($slot) . "\n\n";
 			$blob .= "<header2>Requirements<end>\n";
 			$blob .= "Treatment: {$symb->Treatment}\n";
 			$blob .= "Level: {$symb->Level}\n";
@@ -201,13 +209,7 @@ class ImplantDesignerController extends AutoInject {
 			if ($implant !== null) {
 				$blob .= " - Treatment: {$implant->Treatment} {$implant->AbilityName}: {$implant->Ability}";
 			}
-			$blob .= "\n";
-			forEach (array(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300) as $ql) {
-				$blob .= $this->text->make_chatcmd($ql, "/tell <myname> implantdesigner $slot $ql") . " ";
-			}
 			$blob .= "\n\n";
-			
-			$blob .= $this->getSymbiantsLinks($slot) . "\n\n";
 			
 			$blob .= "<header2>Shiny<end>";
 			$blob .= $this->showClusterChoices($design, $slot, 'shiny');
@@ -364,6 +366,11 @@ class ImplantDesignerController extends AutoInject {
 		
 		$msg = "<highlight>$slot<end> has been cleared.";
 
+		$sendto->reply($msg);
+		
+		// send results
+		$blob = $this->getImplantDesignerBuild($sender);
+		$msg = $this->text->make_blob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 	
