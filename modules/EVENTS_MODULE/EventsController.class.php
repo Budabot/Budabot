@@ -188,7 +188,7 @@ class EventsController {
 	 */
 	public function eventsAddCommand($message, $channel, $sender, $sendto, $args) {
 		$eventName = $args[1];
-		$this->db->exec("INSERT INTO events (`time_submitted`, `submitter_name`, `event_name`) VALUES (?, ?, ?)", time(), $sender, $eventName);
+		$this->db->exec("INSERT INTO events (`time_submitted`, `submitter_name`, `event_name`, `event_date`) VALUES (?, ?, ?, null)", time(), $sender, $eventName);
 		$event_id = $this->db->lastInsertId();
 		$msg = "Event: '$eventName' was added [Event ID $event_id].";
 		$sendto->reply($msg);

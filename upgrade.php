@@ -111,4 +111,11 @@ use Budabot\Core\LoggerWrapper;
 	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, 'scout_info') && getColumnType($db, 'scout_info', 'scouted_on') != 'int(11)') {
 		$db->exec("ALTER TABLE scout_info MODIFY COLUMN scouted_on INT NOT NULL DEFAULT 0");
 	}
+	
+	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, 'events') && getColumnType($db, 'events', 'event_date') != 'int(11)') {
+		$db->exec("ALTER TABLE events MODIFY COLUMN time_submitted INT NOT NULL");
+		$db->exec("ALTER TABLE events MODIFY COLUMN submitter_name VARCHAR(25) NOT NULL");
+		$db->exec("ALTER TABLE events MODIFY COLUMN event_name VARCHAR(255) NOT NULL");
+		$db->exec("ALTER TABLE events MODIFY COLUMN event_date INT");
+	}
 ?>

@@ -1,1 +1,1 @@
-CREATE TABLE IF NOT EXISTS `events` (`id` INTEGER PRIMARY KEY AUTO_INCREMENT, `time_submitted` INT, `submitter_name` VARCHAR(25), `event_name` VARCHAR(25), `event_date` BIGINT NOT NULL, `event_desc` TEXT, `event_attendees` TEXT);
+CREATE TABLE IF NOT EXISTS `events` (`id` INTEGER PRIMARY KEY AUTO_INCREMENT, `time_submitted` INT NOT NULL, `submitter_name` VARCHAR(25) NOT NULL, `event_name` VARCHAR(255) NOT NULL, `event_date` INT, `event_desc` TEXT, `event_attendees` TEXT);
