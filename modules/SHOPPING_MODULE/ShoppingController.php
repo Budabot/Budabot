@@ -234,12 +234,14 @@ class ShoppingController {
 		$message = preg_replace("/<font(.+)>/U", "", $message);
 		$message = preg_replace("/<\/font>/U", "", $message);
 		
-		// messageType: 1=WTS, 2=WTB, 3=WTT, default to WTS
+		// messageType: 1=WTS, 2=WTB, 3=WTT, 4=WTH, default to WTS
 		$messageType = 1;
 		if (preg_match("/^(.{0,3})wtb/i", $message)) {
 			$messageType = 2;
 		} else if (preg_match("/^(.{0,3})wtt/i", $message)) {
 			$messageType = 3;
+		} else if (preg_match("/^(.{0,3})wth/i", $message)) {
+			$messageType = 4;
 		}
 		
 		$matches = array();
