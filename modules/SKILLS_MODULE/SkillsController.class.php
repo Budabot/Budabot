@@ -124,6 +124,13 @@ class SkillsController {
 		$RechT = $args[2];
 		$InitS = $args[3];
 
+		$blob = $this->getAggDefOutput($AttTim, $RechT, $InitS);
+
+		$msg = $this->text->make_blob("Agg/Def Results", $blob);
+		$sendto->reply($msg);
+	}
+	
+	public function getAggDefOutput($AttTim, $RechT, $InitS) {
 		if ($InitS < 1200) {
 			$AttCalc	= round(((($AttTim - ($InitS / 600)) - 1)/0.02) + 87.5, 0);
 			$RechCalc	= round(((($RechT - ($InitS / 300)) - 1)/0.02) + 87.5, 0);
@@ -144,6 +151,26 @@ class SkillsController {
 			$InitResult = 100;
 		}
 
+		$initsFullAgg = $this->getInitsNeededFullAgg($AttTim, $RechT);
+		$initsNeutral = $this->getInitsNeededNeutral($AttTim, $RechT);
+		$initsFullDef = $this->getInitsNeededFullDef($AttTim, $RechT);
+
+		$blob = "Attack:<highlight> ". $AttTim ." <end>second(s)\n";
+		$blob .= "Recharge: <highlight>". $RechT ." <end>second(s)\n";
+		$blob .= "Init Skill: <highlight>". $InitS ."<end>\n";
+		$blob .= "Def/Agg: <highlight>". $InitResult ."%<end>\n";
+		$blob .= "You must set your AGG bar at <highlight>". $InitResult ."% (". round($InitResult*8/100,2) .") <end>to wield your weapon at 1/1.\n\n";
+		$blob .= "Init needed for max speed at Full Agg (100%): <highlight>". $initsFullAgg ." <end>inits\n";
+		$blob .= "Init needed for max speed at Neutral (88%): <highlight>". $initsNeutral ." <end>inits\n";
+		$blob .= "Init needed for max speed at Full Def (0%): <highlight>". $initsFullDef ." <end>inits\n\n";
+		$blob .= "Note that at the neutral position (88%), your attack and recharge time will match that of the weapon you are using.";
+		$blob .= "\n\nBased upon a RINGBOT module made by NoGoal(RK2)\n";
+		$blob .= "Modified for Budabot by Healnjoo(RK2)";
+		
+		return $blob;
+	}
+	
+	public function getInitsNeededFullAgg($AttTim, $RechT) {
 		$Initatta1 = round((((100 - 87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
 		$Initrech1 = round((((100 - 87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta1 > 1200) {
@@ -157,7 +184,10 @@ class SkillsController {
 		} else {
 			$Init1 = $Initatta1;
 		}
-
+		return $Init1;
+	}
+	
+	public function getInitsNeededNeutral($AttTim, $RechT) {
 		$Initatta2 = round((((87.5 - 87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
 		$Initrech2 = round((((87.5 - 87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta2 > 1200) {
@@ -171,7 +201,10 @@ class SkillsController {
 		} else {
 			$Init2 = $Initatta2;
 		}
-
+		return $Init2;
+	}
+	
+	public function getInitsNeededFullDef($AttTim, $RechT) {
 		$Initatta3 = round((((-87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
 		$Initrech3 = round((((-87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta3 > 1200) {
@@ -185,20 +218,7 @@ class SkillsController {
 		} else {
 			$Init3 = $Initatta3;
 		}
-
-		$blob = "Attack:<highlight> ". $AttTim ." <end>second(s)\n";
-		$blob .= "Recharge: <highlight>". $RechT ." <end>second(s)\n";
-		$blob .= "Init Skill: <highlight>". $InitS ."<end>\n";
-		$blob .= "Def/Agg: <highlight>". $InitResult ."%<end>\n";
-		$blob .= "You must set your AGG bar at <highlight>". $InitResult ."% (". round($InitResult*8/100,2) .") <end>to wield your weapon at 1/1.\n\n";
-		$blob .= "Init needed for max speed at Full Agg: <highlight>". $Init1 ." <end>inits\n";
-		$blob .= "Init needed for max speed at neutral (88%bar): <highlight>". $Init2 ." <end>inits\n";
-		$blob .= "Init needed for max speed at Full Def: <highlight>". $Init3 ." <end>inits";
-		$blob .= "\n\nBased upon a RINGBOT module made by NoGoal(RK2)\n";
-		$blob .= "Modified for Budabot by Healnjoo(RK2)";
-
-		$msg = $this->text->make_blob("Agg/Def Results", $blob);
-		$sendto->reply($msg);
+		return $Init3;
 	}
 	
 	/**
