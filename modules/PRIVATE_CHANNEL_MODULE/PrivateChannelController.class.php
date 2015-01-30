@@ -727,7 +727,9 @@ class PrivateChannelController {
 	public function addUser($name) {
 		$name = ucfirst(strtolower($name));
 		$uid = $this->chatBot->get_uid($name);
-		if (!$uid) {
+		if ($this->chatBot->vars["name"] == $name) {
+			$msg = "You cannot add the bot as a member of itself.";
+		} else if (!$uid) {
 			$msg = "Character <highlight>$name<end> does not exist.";
 		} else {
 			$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);
