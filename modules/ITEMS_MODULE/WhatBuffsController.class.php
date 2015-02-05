@@ -75,10 +75,10 @@ class WhatBuffsController {
 	 * @Matches("/^whatbuffs (nano|weapon|armor|utility) (.*)$/i")
 	 */
 	public function whatbuffs3Command($message, $channel, $sender, $sendto, $args) {
-		$category = ucfirst(strtolower($args[1]));
+		$category = $args[1];
 		$skill = $args[2];
 		
-		$msg = $this->getSearchResults($category, $skill);
+		$msg = $this->showSearchResults($category, $skill);
 		$sendto->reply($msg);
 	}
 	
@@ -87,10 +87,10 @@ class WhatBuffsController {
 	 * @Matches("/^whatbuffs (.*) (nano|weapon|armor|utility)$/i")
 	 */
 	public function whatbuffs4Command($message, $channel, $sender, $sendto, $args) {
-		$category = ucfirst(strtolower($args[2]));
+		$category = $args[2];
 		$skill = $args[1];
 		
-		$msg = $this->getSearchResults($category, $skill);
+		$msg = $this->showSearchResults($category, $skill);
 		$sendto->reply($msg);
 	}
 	
@@ -101,10 +101,7 @@ class WhatBuffsController {
 	public function whatbuffs5Command($message, $channel, $sender, $sendto, $args) {
 		$skill = $args[1];
 		
-		$tmp = explode(" ", $skill);
-		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'name');
-		
-		$data = $this->db->query("SELECT name FROM skills WHERE common = 1 AND $query", $params);
+		$data = $this->searchForSkill($skill);
 		$count = count($data);
 		
 		if ($count == 0) {
@@ -153,6 +150,13 @@ class WhatBuffsController {
 		return $msg;
 	}
 	
+	public function searchForSkill($skill) {
+		$tmp = explode(" ", $skill);
+		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'name');
+		
+		return $this->db->query("SELECT name FROM skills WHERE common = 1 AND $query", $params);
+	}
+	
 	public function formatItems($matches) {
 		$items = array();
 		forEach ($matches as $match) {
@@ -193,6 +197,28 @@ class WhatBuffsController {
 		} else {
 			return null;
 		}
+	}
+	
+	public function showSearchResults($category, $skill) {
+		$category = ucfirst(strtolower($category));
+		
+		$data = $this->searchForSkill($skill);
+		$count = count($data);
+		
+		if ($count == 0) {
+			$msg = "Could not find any skills matching <highlight>$skill<end>.";
+		} else if ($count == 1) {
+			$row = $data[0];
+			$msg = $this->getSearchResults($category, $row->name);
+		} else {
+			$blob = '';
+			forEach ($data as $row) {
+				$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $category $row->name") . "\n";
+			}
+			$msg = $this->text->make_blob("WhatBuffs - Choose Skill", $blob);
+		}
+		
+		return $msg;
 	}
 }
 
