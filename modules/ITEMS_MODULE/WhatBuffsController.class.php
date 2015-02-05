@@ -94,6 +94,38 @@ class WhatBuffsController {
 		$sendto->reply($msg);
 	}
 	
+	/**
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs (.*)$/i")
+	 */
+	public function whatbuffs5Command($message, $channel, $sender, $sendto, $args) {
+		$skill = $args[1];
+		
+		$tmp = explode(" ", $skill);
+		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'name');
+		
+		$data = $this->db->query("SELECT name FROM skills WHERE common = 1 AND $query", $params);
+		$count = count($data);
+		
+		if ($count == 0) {
+			$msg = "Could not find any skills matching <highlight>$skill<end>.";
+		} else if ($count == 1) {
+			$row = $data[0];
+			$blob = '';
+			forEach ($this->types as $type => $typeId) {
+				$blob .= $this->text->make_chatcmd(ucfirst($type), "/tell <myname> whatbuffs $type $row->name") . "\n";
+			}
+			$msg = $this->text->make_blob("WhatBuffs - Choose Type for $row->name", $blob);
+		} else {
+			$blob = '';
+			forEach ($data as $row) {
+				$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $row->name") . "\n";
+			}
+			$msg = $this->text->make_blob("WhatBuffs - Choose Skill", $blob);
+		}
+		$sendto->reply($msg);
+	}
+	
 	public function getSearchResults($category, $skill) {
 		$typeId = $this->types[$category];
 		$postParams = array('submit' => 'search', 'conditions' => "EFF($skill)>=1", 'searchtype' => $typeId);
