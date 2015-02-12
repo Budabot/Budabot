@@ -1,0 +1,82 @@
+Enhance DNA|1|10|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 4, Sta 4, Intel 4, Psy 4, Sen 4, Agi 4
+Enhance DNA|2|30|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 4, Sta 4, Intel 4, Psy 4, Sen 4, Agi 4
+Enhance DNA|3|50|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 4, Sta 4, Intel 4, Psy 4, Sen 4, Agi 4
+Enhance DNA|4|70|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 4, Sta 4, Intel 4, Psy 4, Sen 4, Agi 4
+Enhance DNA|5|90|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 4, Sta 4, Intel 4, Psy 4, Sen 4, Agi 4
+Enhance DNA|6|110|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 4, Sta 4, Intel 4, Psy 4, Sen 4, Agi 4
+Enhance DNA|7|130|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 5, Sta 5, Intel 5, Psy 5, Sen 5, Agi 5
+Enhance DNA|8|150|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 5, Sta 5, Intel 5, Psy 5, Sen 5, Agi 5
+Enhance DNA|9|170|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 5, Sta 5, Intel 5, Psy 5, Sen 5, Agi 5
+Enhance DNA|10|190|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 6, Sta 6, Intel 6, Psy 6, Sen 6, Agi 6
+ 
+FirstAid|1|30|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Treat 10, FirstAid 10
+FirstAid|2|70|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Treat 20, FirstAid 20
+FirstAid|3|130|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Treat 30, FirstAid 30
+FirstAid|4|180|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Treat 40, FirstAid 40
+ 
+Freak Strength|1|120|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 5, Sta 5
+Freak Strength|2|200|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 5, Sta 5
+Freak Strength|3|208|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Str 10, Sta 10
+ 
+Genius|1|60|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Intel 8, Psy 8
+Genius|2|110|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Intel 12, Psy 12
+Genius|3|190|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Trader|Intel 20, Psy 20
+ 
+Assault Force Medic|1|60|Doc|Treat 2, FirstAid 1
+Assault Force Medic|2|80|Doc|Treat 2, FirstAid 1
+Assault Force Medic|3|100|Doc|Treat 3, FirstAid 1
+Assault Force Medic|4|120|Doc|Treat 3, FirstAid 2
+Assault Force Medic|5|150|Doc|Treat 4, FirstAid 2
+Assault Force Medic|6|190|Doc|Treat 4, FirstAid 2
+Assault Force Medic|7|200|Doc|Treat 5, FirstAid 3
+Assault Force Medic|8|204|Doc|Treat 5, FirstAid 3
+Assault Force Medic|9|208|Doc|Treat 6, FirstAid 4
+Assault Force Medic|10|212|Doc|Treat 6, FirstAid 6
+ 
+Nano Surgeon|1|40|Doc|Treat 5, FirstAid 4
+Nano Surgeon|2|80|Doc|Treat 6, FirstAid 4
+Nano Surgeon|3|120|Doc|Treat 7, FirstAid 6
+Nano Surgeon|4|150|Doc|Treat 10, FirstAid 7
+Nano Surgeon|5|180|Doc|Treat 12, FirstAid 10
+Nano Surgeon|6|201|Doc|Treat 14, FirstAid 14
+ 
+Mountaineer|1|50|Adv, Agent, Enf, Fix, Keep, Sol|Str 4, Sta 4
+Mountaineer|2|110|Adv, Agent, Enf, Fix, Keep, Sol|Str 6, Sta 6
+Mountaineer|3|190|Adv, Agent, Enf, Fix, Keep, Sol|Str 7, Sta 7
+Mountaineer|4|202|Adv, Agent, Enf, Fix, Keep, Sol|Str 8, Sta 8
+Mountaineer|5|207|Adv, Agent, Enf, Fix, Keep, Sol|Str 10, Sta 10
+ 
+Acrobat|1|30|Adv, Fix, MA, Shade|Agi 4
+Acrobat|2|60|Adv, Fix, MA, Shade|Agi 6
+Acrobat|3|100|Adv, Fix, MA, Shade|Agi 8
+Acrobat|4|140|Adv, Fix, MA, Shade|Agi 12
+ 
+Thief|1|30|Fix|Sen 3
+Thief|2|60|Fix|Sen 5
+Thief|3|100|Fix|Sen 8
+Thief|4|170|Fix|Sen 14
+ 
+Notum Source|1|20|MP, NT|Int 1, Psy 1
+Notum Source|2|50|MP, NT|Int 1, Psy 1
+Notum Source|3|80|MP, NT|Int 1, Psy 1
+Notum Source|4|110|MP, NT|Int 1, Psy 1
+Notum Source|5|140|MP, NT|Int 1, Psy 1
+Notum Source|6|180|MP, NT|Int 1, Psy 1
+Notum Source|7|201|MP, NT|Int 1, Psy 1
+Notum Source|8|203|MP, NT|Int 2, Psy 2
+Notum Source|9|207|MP, NT|Int 2, Psy 2
+Notum Source|10|210|MP, NT|Int 4, Psy 4
+ 
+Lightstalker|1|20|Adv|Agi 1
+Lightstalker|2|70|Adv|Agi 2
+Lightstalker|3|110|Adv|Agi 3
+Lightstalker|4|150|Adv|Agi 4
+Lightstalker|5|200|Adv|Agi 6
+Lightstalker|6|206|Adv|Agi 9
+ 
+Shadowstalker|1|20|Adv|Agi 1
+Shadowstalker|2|70|Adv|Agi 2
+Shadowstalker|3|110|Adv|Agi 3
+Shadowstalker|4|150|Adv|Agi 4
+Shadowstalker|5|200|Adv|Agi 6
+Shadowstalker|6|206|Adv|Agi 9

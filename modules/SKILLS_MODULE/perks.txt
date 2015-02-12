@@ -1,0 +1,6 @@
+To see what perks you can use for buffing treatment, first aid, and abilities:
+<highlight><tab><symbol>perks<end>
+<highlight><tab><symbol>perks 'level' 'profession'<end>
+<highlight><tab><symbol>perks 'profession' 'level'<end>
+
+Note that an asterisk (*) next to the perk level indicates that you can perk the maximum level for that perk.
