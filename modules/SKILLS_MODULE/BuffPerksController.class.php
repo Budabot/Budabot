@@ -141,7 +141,8 @@ class BuffPerksController {
 				$buffs[$row->skill] += $row->buff_amount;
 			}
 
-			$blob .= "\n------------------------------------\n\n<header2>Total<end> - $numPerks perks\n\n";		
+			$blob .= "\n------------------------------------\n\n<header2>Total<end> - $numPerks perks\n\n";
+			ksort($buffs);
 			forEach ($buffs as $skill => $amount) {
 				$blob .= "$skill <highlight>$amount<end>\n";
 			}
