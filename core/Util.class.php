@@ -212,6 +212,7 @@ class Util {
 				$prof = "Soldier";
 				break;
 			case "trader":
+			case "tra":
 				$prof = "Trader";
 				break;
 			case "shade":
