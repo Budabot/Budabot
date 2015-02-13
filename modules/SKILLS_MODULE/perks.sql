@@ -8,4 +8,4 @@ DROP TABLE IF EXISTS perk_level_prof;
 CREATE TABLE perk_level_prof (perk_level_id INT NOT NULL, profession VARCHAR(25) NOT NULL);
 
 DROP TABLE IF EXISTS perk_level_buffs;
-CREATE TABLE perk_level_buffs (perk_level_id INT NOT NULL, skill VARCHAR(25) NOT NULL, amount INT NOT NULL);
+CREATE TABLE perk_level_buffs (perk_level_id INT NOT NULL, skill VARCHAR(50) NOT NULL, amount INT NOT NULL);
