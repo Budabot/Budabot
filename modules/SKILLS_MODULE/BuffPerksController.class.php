@@ -32,7 +32,44 @@ class BuffPerksController {
 	public $util;
 	
 	/** @Inject */
+	public $db;
+	
+	/** @Inject */
 	public $playerManager;
+	
+	/** @Setup */
+	public function setup() {
+		$this->db->loadSQLFile($this->moduleName, "perks");
+		
+		$perkInfo = $this->getPerkInfo();
+		
+		$this->db->exec("DELETE FROM perk");
+		$this->db->exec("DELETE FROM perk_level");
+		$this->db->exec("DELETE FROM perk_level_prof");
+		$this->db->exec("DELETE FROM perk_level_buffs");
+
+		$perkId = 1;
+		$perkLevelId = 1;
+		forEach ($perkInfo as $perk) {
+			$this->db->exec("INSERT INTO perk (id, name) VALUES (?, ?)", $perkId, $perk->name);
+			
+			forEach ($perk->levels as $level) {
+				$this->db->exec("INSERT INTO perk_level (id, perk_id, number, min_level) VALUES (?, ?, ?, ?)", $perkLevelId, $perkId, $level->perkLevel, $level->minLevel);
+				
+				forEach ($level->professions as $profession) {
+					$this->db->exec("INSERT INTO perk_level_prof (perk_level_id, profession) VALUES (?, ?)", $perkLevelId, $profession);
+				}
+
+				forEach ($level->buffs as $buff => $amount) {
+					$this->db->exec("INSERT INTO perk_level_buffs (perk_level_id, skill, amount) VALUES (?, ?, ?)", $perkLevelId, $buff, $amount);
+				}
+				
+				$perkLevelId++;
+			}
+
+			$perkId++;
+		}
+	}
 	
 	/**
 	 * @HandlesCommand("perks")
@@ -61,55 +98,50 @@ class BuffPerksController {
 				$profession = $second;
 				$minLevel = $args[1];
 			} else {
-				$msg = "Choose a valid profession.";
-				$sendto->reply($msg);
-				return;
+				return false;
 			}
 		}
 		
-		$blob = '';
-		$perkInfo = $this->getPerkInfo();
-		$buffs = array();
-		$numPerks = 0;
-		forEach ($perkInfo as $perk) {
-			$maxPerkLevel = 0;
-			$perkBuffs = array();
-			$maxLevel = true;
-			forEach ($perk->levels as $level) {
-				if ($level->minLevel > $minLevel) {
-					$maxLevel = false;
-					break;
-				}
-				
-				if (!in_array($profession, $level->professions)) {
-					break;
-				}
-				
-				$numPerks++;
-				$maxPerkLevel = $level->perkLevel;
-
-				forEach ($level->buffs as $buff => $amount) {
-					$perkBuffs[$buff] += $amount;
-					$buffs[$buff] += $amount;
-				}
-			}
-			
-			if ($maxPerkLevel > 0) {
-				$maxLevelIndicator = '';
-				if ($maxLevel) {
-					$maxLevelIndicator = '*';
-				}
-				$blob .= "\n<header2>$perk->name {$maxPerkLevel}{$maxLevelIndicator}<end>\n";
-				forEach ($perkBuffs as $buff => $amount) {
-					$blob .= "$buff <highlight>$amount<end>\n";
-				}
-			}
-		}
+		$sql = "SELECT
+				p.name AS perk_name,
+				MAX(pl.number) AS max_perk_level,
+				SUM(plb.amount) AS buff_amount,
+				plb.skill
+			FROM
+				perk_level_prof plp
+				JOIN perk_level pl ON plp.perk_level_id = pl.id
+				JOIN perk_level_buffs plb ON pl.id = plb.perk_level_id
+				JOIN perk p ON pl.perk_id = p.id
+			WHERE
+				plp.profession = ?
+				AND pl.min_level <= ?
+			GROUP BY
+				p.name,
+				plb.skill
+			ORDER BY
+				p.name";
 		
-		if (empty($buffs)) {
+		$data = $this->db->query($sql, $profession, $minLevel);
+		
+		if (empty($data)) {
 			$msg = "Could not find any perks matching your criteria.";
 		} else {
-			$blob .= "\n------------------------------------\n\n<header2>Totals<end> - $numPerks perks\n\n";		
+			$currentPerk = '';
+			$buffs = array();
+			$blob = '';
+			$numPerks = 0;
+			forEach ($data as $row) {
+				if ($row->perk_name != $currentPerk) {
+					$blob .= "\n<header2>$row->perk_name {$row->max_perk_level}<end>\n";
+					$currentPerk = $row->perk_name;
+					$numPerks += $row->max_perk_level;
+				}
+				
+				$blob .= "$row->skill <highlight>$row->buff_amount<end>\n";
+				$buffs[$row->skill] += $row->buff_amount;
+			}
+
+			$blob .= "\n------------------------------------\n\n<header2>Total<end> - $numPerks perks\n\n";		
 			forEach ($buffs as $skill => $amount) {
 				$blob .= "$skill <highlight>$amount<end>\n";
 			}
@@ -158,19 +190,13 @@ class BuffPerksController {
 			$level->buffs = array();
 			$buffs = explode(",", $buffs);
 			forEach ($buffs as $buff) {
-				list($skill, $amount) = explode(" ", trim($buff));
-				if ($skill == 'Treat') {
-					$name = 'Treatment';
-				} else if ($skill == 'FirstAid') {
-					$name = 'First Aid';
-				} else {
-					$name = $this->util->getAbility($skill, true);
-				}
-				if (empty($name)) {
-					echo "Error parsing skill: '$name'\n";
-				} else {
-					$level->buffs[$name] = $amount;
-				}
+				$buff = trim($buff);
+				$pos = strrpos($buff, " ");
+
+				$skill = substr($buff, 0, $pos + 1);
+				$amount = substr($buff, $pos + 1);
+
+				$level->buffs[$skill] = $amount;
 			}
 		}
 		
