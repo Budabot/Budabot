@@ -74,8 +74,10 @@ class BuffPerksController {
 	/**
 	 * @HandlesCommand("perks")
 	 * @Matches("/^perks$/i")
-	 * @Matches("/^perks (.*) (\d+)$/i")
-	 * @Matches("/^perks (\d+) (.*)$/i")
+	 * @Matches("/^perks ([a-z-]*) (\d+)$/i")
+	 * @Matches("/^perks ([a-z-]*) (\d+) (.*)$/i")
+	 * @Matches("/^perks (\d+) ([a-z-]*)$/i")
+	 * @Matches("/^perks (\d+) ([a-z-]*) (.*)$/i")
 	 */
 	public function buffPerksCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 1) {
@@ -102,6 +104,13 @@ class BuffPerksController {
 			}
 		}
 		
+		$params = array ($profession, $minLevel);
+		
+		if (count($args) == 4) {
+			$params []= '%' . $args[3] . '%';
+			$skillQuery = "AND plb.skill LIKE ?";
+		}
+		
 		$sql = "SELECT
 				p.name AS perk_name,
 				MAX(pl.number) AS max_perk_level,
@@ -115,13 +124,14 @@ class BuffPerksController {
 			WHERE
 				plp.profession = ?
 				AND pl.min_level <= ?
+				$skillQuery
 			GROUP BY
 				p.name,
 				plb.skill
 			ORDER BY
 				p.name";
 		
-		$data = $this->db->query($sql, $profession, $minLevel);
+		$data = $this->db->query($sql, $params);
 		
 		if (empty($data)) {
 			$msg = "Could not find any perks matching your criteria.";
@@ -139,12 +149,6 @@ class BuffPerksController {
 				
 				$blob .= "$row->skill <highlight>$row->buff_amount<end>\n";
 				$buffs[$row->skill] += $row->buff_amount;
-			}
-
-			$blob .= "\n------------------------------------\n\n<header2>Total<end> - $numPerks perks\n\n";
-			ksort($buffs);
-			forEach ($buffs as $skill => $amount) {
-				$blob .= "$skill <highlight>$amount<end>\n";
 			}
 			
 			$msg = $this->text->make_blob("Buff Perks for $minLevel $profession", $blob);

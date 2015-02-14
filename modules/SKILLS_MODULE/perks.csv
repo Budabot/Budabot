@@ -80,14 +80,14 @@ Training Seminar|2|60|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, S
 Training Seminar|3|100|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|XP Modifier 2
 Training Seminar|4|150|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|XP Modifier 3
 
-Notum Repulsor|1|30|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Biological metamorphosis -200, Matter creation -200, Matter metamorphosis -200, Psychological modifications -200, Sensory improvement -200, Time and space -200, Nano resist 300
-Notum Repulsor|2|60|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Biological metamorphosis -400, Matter creation -400, Matter metamorphosis -400, Psychological modifications -400, Sensory improvement -400, Time and space -400, Nano resist 900
-Notum Repulsor|3|90|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Biological metamorphosis -800, Matter creation -800, Matter metamorphosis -800, Psychological modifications -800, Sensory improvement -800, Time and space -800, Nano resist 1200
-Notum Repulsor|4|110|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Biological metamorphosis -1000, Matter creation -1000, Matter metamorphosis -1000, Psychological modifications -1000, Sensory improvement -1000, Time and space -1000, Nano resist 1500
-Notum Repulsor|5|130|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Biological metamorphosis -1100, Matter creation -1100, Matter metamorphosis -1100, Psychological modifications -1100, Sensory improvement -1100, Time and space -1100, Nano resist 1900
-Notum Repulsor|6|200|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Biological metamorphosis -1200, Matter creation -1200, Matter metamorphosis -1200, Psychological modifications -1200, Sensory improvement -1200, Time and space -1200, Nano resist 2200
-Notum Repulsor|7|203|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Biological metamorphosis -1300, Matter creation -1300, Matter metamorphosis -1300, Psychological modifications -1300, Sensory improvement -1300, Time and space -1300, Nano resist 4000
-Notum Repulsor|8|207|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Biological metamorphosis -2000, Matter creation -2000, Matter metamorphosis -2000, Psychological modifications -2000, Sensory improvement -2000, Time and space -2000, Nano resist 8000
+Notum Repulsor|1|30|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Nano resist 300
+Notum Repulsor|2|60|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Nano resist 900
+Notum Repulsor|3|90|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Nano resist 1200
+Notum Repulsor|4|110|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Nano resist 1500
+Notum Repulsor|5|130|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Nano resist 1900
+Notum Repulsor|6|200|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Nano resist 2200
+Notum Repulsor|7|203|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Nano resist 4000
+Notum Repulsor|8|207|Adv, Agent, Crat, Doc, Enf, Engi, Fix, Keep, MA, MP, NT, Shade, Sol, Tra|Nano resist 8000
 
 Edged Mastery|1|20|Adv, Enf|1h Edged 10, Fast attack 2
 Edged Mastery|2|50|Adv, Enf|1h Edged 10, Fast attack 2
