@@ -118,8 +118,8 @@ class AlienMiscController {
 					$blob .= "\n<tab><yellow>$type<end>\n";
 				}
 
-				$proc_trigger = "<green>" . substr($row->proc_trigger, 0, 3) . ".<end>";
-				$blob .= "$row->name [$row->research_lvl] <orange>$row->modifiers<end> $proc_trigger $row->duration\n";
+				$proc_trigger = "<green>$row->proc_trigger<end>";
+				$blob .= "[$row->research_lvl] $row->name <orange>$row->modifiers<end> $row->duration $proc_trigger\n";
 			}
 			$blob .= "\n\nNote: Offensive procs have a 5% chance of firing every time you attack; Defensive procs have a 10% chance of firing every time something attacks you.";
 			$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
