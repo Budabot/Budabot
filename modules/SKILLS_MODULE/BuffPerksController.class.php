@@ -107,8 +107,9 @@ class BuffPerksController {
 		$params = array ($profession, $minLevel);
 		
 		if (count($args) == 4) {
-			$params []= '%' . $args[3] . '%';
-			$skillQuery = "AND plb.skill LIKE ?";
+			$tmp = explode(" ", $args[3]);
+			list($skillQuery, $newParams) = $this->util->generateQueryFromParams($tmp, 'plb.skill');
+			$params = array_merge($newParams, $params);
 		}
 		
 		$sql = "SELECT
@@ -122,9 +123,9 @@ class BuffPerksController {
 				JOIN perk_level_buffs plb ON pl.id = plb.perk_level_id
 				JOIN perk p ON pl.perk_id = p.id
 			WHERE
-				plp.profession = ?
-				AND pl.min_level <= ?
 				$skillQuery
+				AND plp.profession = ?
+				AND pl.min_level <= ?
 			GROUP BY
 				p.name,
 				plb.skill
