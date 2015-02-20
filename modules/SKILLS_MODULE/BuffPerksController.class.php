@@ -109,7 +109,7 @@ class BuffPerksController {
 		if (count($args) == 4) {
 			$tmp = explode(" ", $args[3]);
 			list($skillQuery, $newParams) = $this->util->generateQueryFromParams($tmp, 'plb.skill');
-			$params = array_merge($newParams, $params);
+			$params = array_merge($params, $newParams);
 			$skillQuery = "AND " . $skillQuery;
 		}
 		
@@ -132,7 +132,7 @@ class BuffPerksController {
 				plb.skill
 			ORDER BY
 				p.name";
-		
+
 		$data = $this->db->query($sql, $params);
 		
 		if (empty($data)) {
