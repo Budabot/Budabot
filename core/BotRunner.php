@@ -35,14 +35,15 @@ class BotRunner {
 
 		echo $this->getInitialInfoMessage();
 		$this->loadPhpExtensions();
+		
+		// these must happen first since the classes that are loaded may be used by processes below
+		$this->loadPhpLibraries();
+		$this->loadEssentialCoreClasses();
 
 		global $vars;
 		$vars = $this->getConfigVars();
 
 		$this->setErrorHandling();
-
-		$this->loadPhpLibraries();
-		$this->loadEssentialCoreClasses();
 
 		$this->showSetupDialog();
 		$this->canonicalizeBotCharacterName();
