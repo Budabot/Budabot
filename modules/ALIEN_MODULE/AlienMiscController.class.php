@@ -86,7 +86,7 @@ class AlienMiscController {
 			$professionLink = $this->text->make_chatcmd($row->profession, "/tell <myname> leprocs $row->profession");
 			$blob .= $professionLink . "\n";
 		}
-		$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
+		$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2), DrUrban";
 
 		$msg = $this->text->make_blob("LE Procs", $blob);
 		$sendto->reply($msg);
