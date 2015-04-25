@@ -48,7 +48,7 @@ class DB {
 			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->exec("SET sql_mode = 'TRADITIONAL,NO_BACKSLASH_ESCAPES'");
 			$this->exec("SET time_zone = '+00:00'");
-			$this->exec("SET storage_engine = MyISAM");
+			$this->exec("SET default_storage_engine = MyISAM");
 		} else if ($this->type == self::SQLITE) {
 			if ($host == null || $host == "" || $host == "localhost") {
 				$dbName = "./data/$dbName";
