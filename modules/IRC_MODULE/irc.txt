@@ -25,7 +25,7 @@ Note: to disable the password set it to 'none'.
 Thanks and enjoy.
 
 **Features:**
-<tab>Ingame posted items are converted to Auno links in IRC.
+<tab>Ingame posted items are converted to AOItems links in IRC.
 <tab>Org log ons/offs shown in IRC.
 <tab>Private chat joins/leaves shown in IRC.
 <tab>IRC join/leave/quits shown in-game.
