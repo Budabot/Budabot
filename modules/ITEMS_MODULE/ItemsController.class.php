@@ -83,7 +83,7 @@ class ItemsController {
 	 * @Type("text")
 	 * @Options("local;central")
 	 */
-	public $defaultItemsDatabase = "local";
+	public $defaultItemsDatabase = "central";
 	
 	/** @Setup */
 	public function setup() {
