@@ -1,4 +1,19 @@
 *****************************
+	Version 3.3_RC1:
+*****************************
+-other various fixes and changes
+-various changes relating to 18.7 patch
+-support for CIDB has been added, and !items will default to using aoitems.com for item search results
+-updated to work with MySQL 5.5+
+-added !perks
+-!findorg and !orglist should now work again
+-improved !impdesign, can now add symbs
+-!weapon should now work again
+-added ofab shoulder wear to !ofabarmor
+-added more changes to prevent bot from hanging when AO servers go down
+-added !guides adminhelp to help new Budabot admins
+
+*****************************
 	Version 3.2_GA:
 *****************************
 -fixed various typos and bugs
