@@ -330,7 +330,10 @@ class ItemsController {
 		return $list;
 	}
 	
-	public function doXyphosLookup($id, $ql = null) {
+	public function getDetailedItemInfo($id, $ql = null) {
+		// leaving this function here in case something replaces this functionality in the future
+		return null;
+		
 		$params = array('id' => $id);
 		if ($ql !== null) {
 			$params['ql'] = $ql;

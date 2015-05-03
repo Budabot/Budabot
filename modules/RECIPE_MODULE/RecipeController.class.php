@@ -137,7 +137,7 @@ class RecipeController {
 		if ($row !== null) {
 			$output = $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
 		} else {
-			$obj = $this->itemsController->doXyphosLookup($id);
+			$obj = $this->itemsController->getDetailedItemInfo($id);
 			if (null == $obj) {
 				$output = "#L \"{$arr[1]}\" \"/tell <myname> itemid {$arr[2]}\"";
 			} else if ($obj->icon == 0) {  // for perks and items that aren't displayable in game
