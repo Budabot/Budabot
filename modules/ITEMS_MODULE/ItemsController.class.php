@@ -12,6 +12,18 @@ use DOMDocument;
  *
  * Commands this controller contains:
  *	@DefineCommand(
+ *		command     = 'litems',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item using the local database',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'citems',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item using the central (remote) database',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = 'items',
  *		accessLevel = 'all',
  *		description = 'Searches for an item',
@@ -64,6 +76,15 @@ class ItemsController {
 	 */
 	public $defaultMaxitems = "40";
 	
+	/**
+	 * @Setting("items_database")
+	 * @Description("Use central or local items database")
+	 * @Visibility("edit")
+	 * @Type("text")
+	 * @Options("local;central")
+	 */
+	public $defaultItemsDatabase = "local";
+	
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
@@ -78,6 +99,30 @@ class ItemsController {
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->find_items($args, $ql);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * This command handler searches for an item using the local database.
+	 *
+	 * @HandlesCommand("litems")
+	 * @Matches("/^litems ([0-9]+) (.+)$/i")
+	 * @Matches("/^litems (.+)$/i")
+	 */
+	public function litemsCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->find_items($args, 'local');
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * This command handler searches for an item using the central database.
+	 *
+	 * @HandlesCommand("citems")
+	 * @Matches("/^citems ([0-9]+) (.+)$/i")
+	 * @Matches("/^citems (.+)$/i")
+	 */
+	public function citemsCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->find_items($args, 'central');
 		$sendto->reply($msg);
 	}
 	
@@ -205,15 +250,75 @@ class ItemsController {
 		}
 
 		$search = htmlspecialchars_decode($search);
+	
+		// Figure out which database to query - Demoder
+		if ($db == null) {
+			$db = $this->settingManager->get('items_database');
+		}
+		switch($db) {
+			case 'local':
+				// Local database
+				$data = $this->find_items_from_local($search, $ql);
 
-		$data = $this->find_items_from_local($search, $ql);
+				$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
+				$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
 
-		$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
-		$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
+				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
+				break;
+			case 'central':
+				$db = 'http://cidb.botsharp.net/';
+				// fall through to default
+			default:
+				// Default CIDB
+				$obj = $this->find_items_from_remote($search, $ql, $db);
 
-		$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
-
+				if ($obj == null) {
+					$msg = "Unable to query Central Items Database.";
+				} else {
+					$footer = "Search results provided by " . $obj->server;
+					$msg = $this->createItemsBlob($obj->results, $search, $ql, $obj->version, $db, $footer);
+				}
+				break;
+		}
 		return $msg;
+	}
+	
+	/*
+	 * Method to query the Central Items Database - Demoder
+	 */
+	public function find_items_from_remote($search, $ql, $server) {
+		// Store parameters as an array, for easy assembly later.
+		$parameters = array(
+			// Should always specify which bot software is querying.
+			"bot" => "Budabot",
+			"output" => "json",
+			"max" => $this->settingManager->get('maxitems'),
+			"version" => "1.2",
+			"search" => $search);
+
+		// Don't include QL in the query unless the user specified it.
+		if ($ql > 0) {
+			$parameters["ql"] = $ql;
+		}
+
+		// retrieve results.
+		$data = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
+		if (empty($data) || empty($data->body)) {
+			return null;
+		} else {
+			$obj = json_decode($data->body);
+			
+			// change attribute names data to match expected format
+			forEach ($obj->results as $item) {
+				$item->lowid = $item->LowID;
+				$item->highid = $item->HighID;
+				$item->lowql = $item->LowQL;
+				$item->highql = $item->HighQL;
+				$item->name = $item->Name;
+				$item->icon = $item->Icon;
+			}
+			return $obj;
+		}
 	}
 	
 	public function find_items_from_local($search, $ql) {
