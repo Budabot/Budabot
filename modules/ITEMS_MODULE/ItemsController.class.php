@@ -180,8 +180,7 @@ class ItemsController {
 				if ($obj == null) {
 					$msg = "Unable to query Central Items Database.";
 				} else {
-					$footer = "Search results provided by " . $obj->server;
-					$msg = $this->createItemsBlob($obj->results, $search, $ql, $obj->version, $db, $footer);
+					$msg = $this->createItemsBlob($obj->results, $search, $ql, $obj->version, $db, $footer, $obj->elapsed);
 				}
 				break;
 		}
@@ -197,7 +196,7 @@ class ItemsController {
 			// Should always specify which bot software is querying.
 			"bot" => "Budabot",
 			"output" => "json",
-			"max" => $this->settingManager->get('maxitems'),
+			"max" => "250",
 			"version" => "1.2",
 			"search" => $search);
 
@@ -207,11 +206,14 @@ class ItemsController {
 		}
 
 		// retrieve results.
+		$startTime = microtime(true);
 		$data = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
+		$elapsed = microtime(true) - $startTime;
 		if (empty($data) || empty($data->body)) {
 			return null;
 		} else {
 			$obj = json_decode($data->body);
+			$obj->elapsed = $elapsed;
 			
 			// change attribute names data to match expected format
 			forEach ($obj->results as $item) {
@@ -222,6 +224,11 @@ class ItemsController {
 				$item->name = $item->Name;
 				$item->icon = $item->Icon;
 			}
+			
+			// sort results to match Budabot local results order, and restrict to first 40 results
+			$data = $this->orderSearchResults($obj->results, $search);
+			$obj->results = array_slice($data, 0, $this->settingManager->get("maxitems"));
+			
 			return $obj;
 		}
 	}
@@ -244,7 +251,7 @@ class ItemsController {
 		return $data;
 	}
 	
-	public function createItemsBlob($data, $search, $ql, $version, $server, $footer) {
+	public function createItemsBlob($data, $search, $ql, $version, $server, $footer, $elapsed) {
 		$num = count($data);
 		if ($num == 0) {
 			if ($ql) {
@@ -260,7 +267,11 @@ class ItemsController {
 			} else {
 				$blob .= "Search: <highlight>$search<end>\n";
 			}
-			$blob .= "Server: <highlight>" . $server . "<end>\n\n";
+			$blob .= "Server: <highlight>" . $server . "<end>\n";
+			if (isset($elapsed)) {
+				$blob .= "Time: <highlight>" . round($elapsed, 2) . "s<end>\n";
+			}
+			$blob .= "\n";
 			$blob .= $this->formatSearchResults($data, $ql, true);
 			if ($num == $this->settingManager->get('maxitems')) {
 				$blob .= "\n\n<highlight>*Results have been limited to the first " . $this->settingManager->get("maxitems") . " results.<end>";
@@ -277,7 +288,6 @@ class ItemsController {
 	// sort by exact word matches higher than partial word matches
 	public function orderSearchResults($data, $search) {
 		$searchTerms = explode(" ", $search);
-		$newData = array();
 		forEach ($data as $row) {
 			if (strcasecmp($search, $row->name) == 0) {
 				$numExactMatches = 100;
