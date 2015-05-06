@@ -30,19 +30,17 @@ class RecipeController {
 	public $db;
 
 	/** @Inject */
-	public $http;
+	public $util;
 
 	/** @Inject */
 	public $text;
 	
 	/** @Inject */
 	public $itemsController;
-	
-	private $baseUrl = "http://aodevnet.com/recipes/api";
 
 	/** @Setup */
 	public function setup() {
-		
+		$this->db->loadSQLFile($this->moduleName, "recipes");
 	}
 	
 	/**
@@ -52,25 +50,14 @@ class RecipeController {
 	public function recipeShowCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
 		
-		$url = "/show/id/" . $id . "/format/json/bot/budabot";
-		$that = $this;
-		$this->http->get($this->baseUrl . $url)->withCallback(function($response) use ($that, $sendto) {
-			$obj = json_decode($response->body);
-			if (!empty($obj->error)) {
-				$msg = "Error showing recipe: " . $obj->error;
-			} else {
-				$recipe_name = $obj->recipe_name;
-				$author = empty($obj->recipe_author) ? "Unknown" : $obj->recipe_author;
+		$row = $this->db->queryRow("SELECT * FROM recipes WHERE id = ?", $id);
 
-				$recipeText = "Author: <highlight>$author<end>\n\n";
-				$recipeText .= $that->formatRecipeText($obj->recipe_text);
-
-				$recipeText .= $that->getAORecipebookFooter();
-
-				$msg = $that->text->make_blob("Recipe for $recipe_name", $recipeText);
-			}
-			$sendto->reply($msg);
-		});
+		if ($row === null) {
+			$msg = "Could not find recipe with id <highlight>$id<end>.";
+		} else {
+			$msg = $this->createRecipeBlob($row);
+		}
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -82,36 +69,30 @@ class RecipeController {
 			$lowId = $matches[1];
 			$search = $matches[4];
 			
-			$url = "/byitem/id/$lowId/mode/default/format/json/bot/budabot";
+			$data = $this->db->query("SELECT * FROM recipes WHERE recipe LIKE ? OR recipe LIKE ? ORDER BY name ASC", $search, "%" . $lowId . "%");
 		} else {
 			$search = $args[1];
 			
-			$url = "/search/kw/" . rawurlencode($search) . "/mode/default/format/json/bot/budabot";
+			list($query, $queryParams) = $this->util->generateQueryFromParams(explode(" ", $search), "recipe");
+			$data = $this->db->query("SELECT * FROM recipes WHERE $query ORDER BY name ASC", $queryParams);
+		}
+		
+		$count = count($data);
+
+		if ($count == 0) {
+			$msg = "Could not find any recipes matching your search criteria.";
+		} else if ($count == 1) {
+			$msg = $this->createRecipeBlob($data[0]);
+		} else {
+			$blob = '';
+			forEach ($data as $row) {
+				$blob .= $this->text->make_chatcmd($row->name, "/tell <myname> recipe $row->id") . "\n";
+			}
+
+			$msg = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
 		}
 
-		$that = $this;
-		$this->http->get($this->baseUrl . $url)->withCallback(function($response) use ($that, $search, $sendto) {
-			$obj = json_decode($response->body);
-			if (!empty($obj->error)) {
-				$msg = "Error searching for recipe: " . $obj->error;
-			} else {
-				$blob = '';
-				$count = count($obj);
-				forEach ($obj as $recipe) {
-					$blob .= $that->text->make_chatcmd($recipe->recipe_name, "/tell <myname> recipe $recipe->recipe_id") . "\n";
-				}
-
-				$blob .= $that->getAORecipebookFooter();
-
-				$msg = $that->text->make_blob("Recipes matching '$search' ($count)", $blob);
-			}
-			$sendto->reply($msg);
-		});
-	}
-	
-	public function getAORecipebookFooter() {
-		return "\n\n<highlight>Powered by " . $this->text->make_chatcmd("AORecipebook.com", "/start http://aorecipebook.com") . "<end>\n" .
-			"For more information, " . $this->text->make_chatcmd("/tell recipebook about", "/tell recipebook about");
+		$sendto->reply($msg);
 	}
 	
 	public function formatRecipeText($input) {
@@ -129,6 +110,16 @@ class RecipeController {
 			str_replace("#C20","</font><font color=#009B00>",$input))))))));
 			
 		return $input;
+	}
+	
+	public function createRecipeBlob($row) {
+		$recipe_name = $row->name;
+		$author = empty($row->author) ? "Unknown" : $row->author;
+
+		$recipeText = "Author: <highlight>$author<end>\n\n";
+		$recipeText .= $this->formatRecipeText($row->recipe);
+
+		return $this->text->make_blob("Recipe for $recipe_name", $recipeText);
 	}
 
 	private function replaceItem($arr) {
