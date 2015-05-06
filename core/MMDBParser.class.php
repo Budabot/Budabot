@@ -69,27 +69,21 @@ class MMDBParser {
 			fclose($in);
 			return null;
 		}
+		
+		fseek($in, $category['offset']);
 
 		// find all instances
 		$instances = array();
-		fseek($in, $category['offset']);
-		do {
+		$instance = $this->read_entry($in);
+		while ($previousInstance == null || $instance['id'] > $previousInstance['id']) {
+			$instances[] = $instance;
 			$previousInstance = $instance;
 			$instance = $this->read_entry($in);
-			$instances[] = $instance;
-		} while ($previousInstance == null || $instance['id'] > $previousInstance['id']);
-
-		// for each instance found, get the message and add to array (instanceId => message)
-		$array = array();
-		forEach ($instances as $instance) {
-			fseek($in, $instance['offset']);
-			$message = $this->read_string($in);
-			$array[$instance['id']] = $message;
 		}
 		
 		fclose($in);
 
-		return $array;
+		return $instances;
 	}
 	
 	public function getCategories() {
@@ -102,16 +96,17 @@ class MMDBParser {
 		fseek($in, 8);
 
 		// find all categories
-		$instances = array();
-		do {
-			$previousInstance = $instance;
-			$instance = $this->read_entry($in);
-			$instances[] = $instance;
-		} while ($previousInstance == null || $instance['id'] > $previousInstance['id']);
+		$categories = array();
+		$category = $this->read_entry($in);
+		while ($previousCategory == null || $category['id'] > $previousCategory['id']) {
+			$categories[] = $category;
+			$previousCategory = $category;
+			$category = $this->read_entry($in);
+		}
 		
 		fclose($in);
 
-		return $instances;
+		return $categories;
 	}
 
 	private function open_file($filename = "data/text.mdb") {
