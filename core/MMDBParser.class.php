@@ -55,7 +55,7 @@ class MMDBParser {
 		return $message;
 	}
 
-	public function find_all_instances_in_category($categoryId, $filename = "data/text.mdb") {
+	public function find_all_instances_in_category($categoryId) {
 		$in = $this->open_file();
 		if ($in === null) {
 			return null;
@@ -86,8 +86,32 @@ class MMDBParser {
 			$message = $this->read_string($in);
 			$array[$instance['id']] = $message;
 		}
+		
+		fclose($in);
 
 		return $array;
+	}
+	
+	public function getCategories() {
+		$in = $this->open_file();
+		if ($in === null) {
+			return null;
+		}
+
+		// start at offset = 8 since that is where the categories start
+		fseek($in, 8);
+
+		// find all categories
+		$instances = array();
+		do {
+			$previousInstance = $instance;
+			$instance = $this->read_entry($in);
+			$instances[] = $instance;
+		} while ($previousInstance == null || $instance['id'] > $previousInstance['id']);
+		
+		fclose($in);
+
+		return $instances;
 	}
 
 	private function open_file($filename = "data/text.mdb") {
