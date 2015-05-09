@@ -684,7 +684,7 @@ class GuildController {
 				$this->logger->log('warn', "Org name '{$this->chatBot->vars["my_guild"]}' specified, but bot does not appear to belong to an org");
 			} else {
 				$gid = $this->getOrgChannelIdByOrgId($this->chatBot->vars["my_guild_id"]);
-				$orgChannel = $this->chatBot->grp[$gid];
+				$orgChannel = $this->chatBot->gid[$gid];
 				if ($orgChannel != "Clan (name unknown)" && $orgChannel != $this->chatBot->vars["my_guild"]) {
 					$this->logger->log('warn', "Org name '{$this->chatBot->vars["my_guild"]}' specified, but bot belongs to org '$orgChannel'");
 				}
