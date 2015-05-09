@@ -1,0 +1,8 @@
+To see MDB categories:
+<highlight><tab><symbol>mdb<end>
+
+To see MDB instances for a category:
+<highlight><tab><symbol>mdb 'categoryId'<end>
+
+To see MDB entry:
+<highlight><tab><symbol>mdb 'categoryId' 'instanceId'<end>
