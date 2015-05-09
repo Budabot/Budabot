@@ -673,5 +673,22 @@ class GuildController {
 	public function isGuildBot() {
 		return !empty($this->chatBot->vars["my_guild"]) && !empty($this->chatBot->vars["my_guild_id"]);
 	}
+	
+	/**
+	 * @Event("connect")
+	 * @Description("Verifies that org name is correct")
+	 */
+	public function verifyOrgNameEvent($eventObj) {
+		if (!empty($this->chatBot->vars["my_guild"])) {
+			if (empty($this->chatBot->vars["my_guild_id"])) {
+				$this->logger->log('warn', "Org name '{$this->chatBot->vars["my_guild"]}' specified, but bot does not appear to belong to an org");
+			} else {
+				$orgChannel = $this->chatBot->grp[$this->chatBot->vars["my_guild_id"]];
+				if ($orgChannel != "Unknown" && $orgChannel != $this->chatBot->vars["my_guild"]) {
+					$this->logger->log('warn', "Org name '{$this->chatBot->vars["my_guild"]}' specified, but bot belongs to org '$orgChannel'");
+				}
+			}
+		}
+	}
 }
 
