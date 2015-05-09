@@ -683,12 +683,23 @@ class GuildController {
 			if (empty($this->chatBot->vars["my_guild_id"])) {
 				$this->logger->log('warn', "Org name '{$this->chatBot->vars["my_guild"]}' specified, but bot does not appear to belong to an org");
 			} else {
-				$orgChannel = $this->chatBot->grp[$this->chatBot->vars["my_guild_id"]];
-				if ($orgChannel != "Unknown" && $orgChannel != $this->chatBot->vars["my_guild"]) {
+				$gid = $this->getOrgChannelIdByOrgId($this->chatBot->vars["my_guild_id"]);
+				$orgChannel = $this->chatBot->grp[$gid];
+				if ($orgChannel != "Clan (name unknown)" && $orgChannel != $this->chatBot->vars["my_guild"]) {
 					$this->logger->log('warn', "Org name '{$this->chatBot->vars["my_guild"]}' specified, but bot belongs to org '$orgChannel'");
 				}
 			}
 		}
+	}
+	
+	public function getOrgChannelIdByOrgId($orgId) {
+		forEach ($this->chatBot->grp as $gid => $status) {
+			$string = unpack("N", substr($gid, 1));
+			if (ord(substr($gid, 0, 1)) == 3 && $string[1] == $orgId) {
+				return $gid;
+			}
+		}
+		return null;
 	}
 }
 
