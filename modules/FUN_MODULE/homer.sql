@@ -342,7 +342,7 @@ INSERT INTO fun (type, content) VALUES ('homer', 'Marge : I want to get more inv
 INSERT INTO fun (type, content) VALUES ('homer', 'Default! The two sweetest words in the English language.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Back you robots! Nobody ruins my family vacation but me! And maybe the boy.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Burns : And this must be ... (reading card) little Brat.  Bart : Bart.  Homer : Don''t correct the man, Brat.');
-INSERT INTO fun (type, content) VALUES ('homer', 'Kent : Well what do you say to the accusation that your group has been causing more crimes than it''s been preventing?  Homer : Oh, Kent I''d be lying if I said my men weren''t committing crimes.  Kent : (pause) Mmm, touché.');
+INSERT INTO fun (type, content) VALUES ('homer', 'Kent : Well what do you say to the accusation that your group has been causing more crimes than it''s been preventing?  Homer : Oh, Kent I''d be lying if I said my men weren''t committing crimes.  Kent : (pause) Mmm, touche.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Homer no function beer well without.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Bart : We were just planning the father-son river rafting trip.  Homer : He he. You don''t have a son. ');
 INSERT INTO fun (type, content) VALUES ('homer', 'No offence Apu, but when they were handing out religions you must have been out taking a whizz.');
