@@ -379,7 +379,7 @@ INSERT INTO fun (type, content) VALUES ('homer', 'Now go on, boy, and pay attent
 INSERT INTO fun (type, content) VALUES ('homer', 'Oh look at me !!! I''m making people happy! I''m the magical man from happy land, with a gumdrop house on lollipop lane! Oh by the way ... I was being sarcastic.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Operator! Give me the number for 911!');
 INSERT INTO fun (type, content) VALUES ('homer', 'Oh, so they have internet on computers now!');
-INSERT INTO fun (type, content) VALUES ('homer', 'Bart, with $10,000, we''d be millionaires! We could buy all kinds of useful things like…love!');
+INSERT INTO fun (type, content) VALUES ('homer', 'Bart, with $10,000, we''d be millionaires! We could buy all kinds of useful things like...love!');
 INSERT INTO fun (type, content) VALUES ('homer', 'Just because I don''t care doesn''t mean I don''t understand.');
 INSERT INTO fun (type, content) VALUES ('homer', 'I''m normally not a praying man, but if you''re up there, please save me Superman.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Son, if you really want something in this life, you have to work for it. Now quiet! They''re about to announce the lottery numbers.');
@@ -416,7 +416,7 @@ INSERT INTO fun (type, content) VALUES ('homer', 'Kill my boss? Do I dare live o
 INSERT INTO fun (type, content) VALUES ('homer', 'If something goes wrong at the plant, blame the guy who can''t speak English.');
 INSERT INTO fun (type, content) VALUES ('homer', 'I''m never going to be disabled. I''m sick of being so healthy.');
 INSERT INTO fun (type, content) VALUES ('homer', 'I like my beer cold, my TV loud and my homosexuals flaming.');
-INSERT INTO fun (type, content) VALUES ('homer', '[Looking at a globe map…country being Uruguay] Hee hee! Look at this country! ''You-are-gay.''');
+INSERT INTO fun (type, content) VALUES ('homer', '[Looking at a globe map...country being Uruguay] Hee hee! Look at this country! ''You-are-gay.''');
 INSERT INTO fun (type, content) VALUES ('homer', 'All my life I''ve had one dream, to achieve my many goals.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Dad, you''ve done a lot of great things, but you''re a very old man, and old people are useless.');
 INSERT INTO fun (type, content) VALUES ('homer', 'But Marge, what if we chose the wrong religion? Each week we just make God madder and madder.');
@@ -425,5 +425,5 @@ INSERT INTO fun (type, content) VALUES ('homer', 'Dear Lord.. The gods have been
 INSERT INTO fun (type, content) VALUES ('homer', 'That''s it! You people have stood in my way long enough. I''m going to clown college!');
 INSERT INTO fun (type, content) VALUES ('homer', 'Beer: The cause of, and solution to, all of life''s problems.');
 INSERT INTO fun (type, content) VALUES ('homer', 'If something''s hard to do, then it''s not worth doing');
-INSERT INTO fun (type, content) VALUES ('homer', 'I''m in no condition to drive…wait! I shouldn''t listen to myself, I''m drunk!');
+INSERT INTO fun (type, content) VALUES ('homer', 'I''m in no condition to drive...wait! I shouldn''t listen to myself, I''m drunk!');
 INSERT INTO fun (type, content) VALUES ('homer', '''To Start Press Any Key''. Where''s the ANY key?');
