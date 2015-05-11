@@ -411,7 +411,7 @@ INSERT INTO fun (type, content) VALUES ('homer', 'Old people don''t need compani
 INSERT INTO fun (type, content) VALUES ('homer', 'How is education supposed to make me feel smarter? Besides, every time I learn something new, it pushes some old stuff out of my brain. Remember when I took that home winemaking course, and I forgot how to drive?');
 INSERT INTO fun (type, content) VALUES ('homer', 'Television! Teacher, mother, secret lover.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Homer no function beer well without.');
-INSERT INTO fun (type, content) VALUES ('homer', 'I''ve always wondered if there was a god. And now I know there is — and it''s me.');
+INSERT INTO fun (type, content) VALUES ('homer', 'I''ve always wondered if there was a god. And now I know there is--and it''s me.');
 INSERT INTO fun (type, content) VALUES ('homer', 'Kill my boss? Do I dare live out the American dream?');
 INSERT INTO fun (type, content) VALUES ('homer', 'If something goes wrong at the plant, blame the guy who can''t speak English.');
 INSERT INTO fun (type, content) VALUES ('homer', 'I''m never going to be disabled. I''m sick of being so healthy.');
