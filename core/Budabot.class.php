@@ -362,6 +362,9 @@ class Budabot extends AOChat {
 				case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
 					$this->process_buddy_update($packet->args);
 					break;
+				case AOCP_BUDDY_REMOVE: // 41, Incoming buddy removed
+					$this->process_buddy_removed($packet->args);
+					break;
 				case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 					$this->process_private_message($packet->args);
 					break;
@@ -481,6 +484,17 @@ class Budabot extends AOChat {
 
 			$this->eventManager->fireEvent($eventObj);
 		}
+	}
+
+	function process_buddy_removed($args) {
+		$sender	= $this->lookup_user($args[0]);
+
+		$eventObj = new stdClass;
+		$eventObj->sender = $sender;
+
+		$this->logger->log('DEBUG', "AOCP_BUDDY_REMOVE => sender: '$sender'");
+
+		$this->buddylistManager->updateRemoved($args);
 	}
 
 	function process_private_message($args) {
