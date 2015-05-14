@@ -54,7 +54,6 @@
 
 	<patternset id="linux_files">
 		<include name="chatbot.sh" />
-		<include name="botmanager.sh" />
 	</patternset>
 
 	<!-- ============================================  -->
@@ -75,11 +74,6 @@
 		<!-- init build dir for the archive -->
 		<delete dir="${build.contentsdir}" quiet="true" />
 		<delete file="${build.archivepath}" quiet="true" />
-
-		<!-- Include Bot Manager -->
-		<phing dir="botmanager" target="copy">
-			<property name="botmanager.copyto" value="${build.archivedir}/botmanager" />
-		</phing>
 
 		<copy todir="${build.archivedir}">
 			<fileset dir=".">
@@ -105,10 +99,6 @@
 		<!-- init build dir for the archive -->
 		<delete dir="${build.contentsdir}" quiet="true" />
 		<delete file="${build.archivepath}" quiet="true" />
-
-		<!-- Include Bot Manager -->
-		<phing dir="botmanager" target="build" />
-		<copy file="botmanager/dist/botmanager.exe" todir="${build.archivedir}" />
 
 		<!-- Include Budabot's files -->
 		<copy todir="${build.archivedir}">
