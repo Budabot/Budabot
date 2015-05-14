@@ -24,7 +24,6 @@
 		<!-- Run tests -->
 		<phing phingFile="build.xml" target="tests" haltonfailure="true" />
 		<phing phingFile="build.xml" target="behat" haltonfailure="true" />
-		<phing phingFile="build.xml" target="check_style" haltonfailure="true" />
 
 		<!-- Create release archives -->
 		<phing phingFile="build.xml" target="build" haltonfailure="true" />
@@ -57,7 +56,6 @@
 	<target name="run_tests">
 		<phing phingFile="build.xml" target="tests" haltonfailure="true" />
 		<phing phingFile="build.xml" target="behat" haltonfailure="true" />
-		<phing phingFile="build.xml" target="check_style" haltonfailure="true" />
 	</target>
 
 </project>

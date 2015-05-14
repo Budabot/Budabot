@@ -183,28 +183,4 @@
 		<delete dir="build" quiet="true" />
 	</target>
 
-	<!-- ============================================  -->
-	<!-- Target: check_style                           --> 
-	<!-- ============================================  -->
-	<target name="check_style">
-		<echo>Checks project's coding style using PHP-CodeSniffer</echo>
-
-		<!-- init build dir for checkstyle report -->
-		<delete file="build/checkstyle.xml" quiet="true" />
-		<mkdir dir="build" />
-
-		<!-- run the checker -->
-		<phpcodesniffer standard="conf/CodingStandard">
-			<fileset dir=".">
-				<include name="**/*.php" />
-				<exclude name="lib**" />
-				<exclude name="build**" />
-				<exclude name="cache**" />
-				<exclude name="conf/test_config.php" />
-			</fileset>
-			<formatter type="default" usefile="false" />
-			<formatter type="checkstyle" outfile="build/checkstyle.xml" />
-		</phpcodesniffer>
-	</target>
-
 </project>
