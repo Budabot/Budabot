@@ -113,33 +113,6 @@
 	</target>
 
 	<!-- ============================================  -->
-	<!-- Target: Wikidoc                               -->
-	<!-- ============================================  -->
-	<target name="wikidoc">
-		<echo>Generate Google Wiki documentation with ApiGen.</echo>
-		<!-- destination can be overridden at command line -->
-		<property name="wikidoc.destination" value="docs/wiki" />
-		<apigen config="docs/apigen_wiki.neon" destination="${wikidoc.destination}" />
-	</target>
-
-	<!-- ============================================  -->
-	<!-- Target: Apidoc                                -->
-	<!-- ============================================  -->
-	<target name="apidoc">
-		<echo>Generate API documentation with ApiGen.</echo>
-		<!-- destination can be overridden at command line -->
-		<property name="apidoc.destination" value="docs/api" />
-		<!-- Google Custom Search Engine ID for using google
-		     to search the API documentation -->
-		<property name="apidoc.googlecseid" value="" />
-		<!-- Base URL, required at least for Google Custom Search Engine -->
-		<property name="apidoc.baseurl" value="" />
-		<apigen source="core,modules" destination="${apidoc.destination}"
-			title="Budabot" executable="apigen.php.bat" debug="true"
-			baseurl="${apidoc.baseurl}" googlecseid="${apidoc.googlecseid}" />
-	</target>
-
-	<!-- ============================================  -->
 	<!-- Target: tests                                 --> 
 	<!-- ============================================  -->
 	<target name="tests">
