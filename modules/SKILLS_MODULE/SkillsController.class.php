@@ -389,9 +389,9 @@ class SkillsController {
 		}
 
 		$blob = "Attack: <highlight>". $AttTim ." <end>second(s)\n";
-		$blob .= "Fast Atk Skill: <highlight>". $fastSkill ."<end>\n";
-		$blob .= "Fast Atk Recharge: <highlight>". $fastrech ."<end>s\n";
-		$blob .= "You need <highlight>".$fastskillcap."<end> Fast Atk Skill to cap your fast attack at <highlight>".$fasthardcap."<end>s.";
+		$blob .= "Fast Attack Skill: <highlight>". $fastSkill ."<end>\n";
+		$blob .= "Fast Attack Recharge: <highlight>". $fastrech ."<end>s\n";
+		$blob .= "You need <highlight>".$fastskillcap."<end> Fast Attack Skill to cap your fast attack at <highlight>".$fasthardcap."<end>s.";
 
 		$msg = $this->text->make_blob("Fast Attack Results", $blob);
 		$sendto->reply($msg);
@@ -414,9 +414,9 @@ class SkillsController {
 		}
 
 		$blob = "Attack: <highlight>{$AttTim}<end> second(s)\n";
-		$blob .= "Fling Skill: <highlight>{$FlingSkill}<end>\n";
-		$blob .= "Fling Recharge: <highlight>{$flingrech}<end> second(s)\n";
-		$blob .= "You need <highlight>{$flingskillcap}<end> Fling Skill to cap your fling at <highlight>{$flinghardcap}<end> second(s).";
+		$blob .= "Fling Shot Skill: <highlight>{$FlingSkill}<end>\n";
+		$blob .= "Fling Shot Recharge: <highlight>{$flingrech}<end> second(s)\n";
+		$blob .= "You need <highlight>{$flingskillcap}<end> Fling Shot skill to cap your fling at <highlight>{$flinghardcap}<end> second(s).";
 
 		$msg = $this->text->make_blob("Fling Results", $blob);
 		$sendto->reply($msg);
@@ -631,7 +631,7 @@ class SkillsController {
 		}
 		if ($highAttributes->fling_shot == 1) {
 			list($hard_cap, $skill_cap) = $this->cap_fling_shot($attack_time);
-			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Skill skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
+			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Shot skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if ($highAttributes->fast_attack == 1) {

@@ -130,7 +130,7 @@ class TimerController {
 				
 				if ($timer->callback == 'repeating') {
 					$endTime = $timer->callback_param + $timer->timer;
-					$alerts = $this->generateAlerts($timer->owner, $timer->name, $endTime);
+					$alerts = $this->generateAlerts($timer->owner, $timer->name, $endTime, explode(' ', $this->setting->timer_alert_times));
 					$this->add($timer->name, $timer->owner, $mode, $endTime, $alerts, $timer->callback, $timer->callback_param);
 				}
 			}
@@ -150,7 +150,7 @@ class TimerController {
 
 		$timer = $this->get($timerName);
 		if ($timer != null) {
-			$msg = "A Timer with the name <highlight>$timerName<end> is already running.";
+			$msg = "A timer with the name <highlight>$timerName<end> is already running.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -172,7 +172,7 @@ class TimerController {
 
 		$endTime = time() + $initialRunTime;
 		
-		$alerts = $this->generateAlerts($sender, $timerName, $endTime);
+		$alerts = $this->generateAlerts($sender, $timerName, $endTime, explode(' ', $this->setting->timer_alert_times));
 
 		$this->add($timerName, $sender, $channel, $endTime, $alerts, "repeating", $runTime);
 
@@ -276,10 +276,9 @@ class TimerController {
 		$sendto->reply($msg);
 	}
 	
-	public function generateAlerts($sender, $name, $endTime) {
+	public function generateAlerts($sender, $name, $endTime, $alertTimes) {
 		$alerts = array();
 		
-		$alertTimes = explode(' ', $this->setting->timer_alert_times);
 		forEach ($alertTimes as $alertTime) {
 			$time = $this->util->parseTime($alertTime);
 			$timeString = $this->util->unixtimeToReadable($time);
@@ -321,7 +320,7 @@ class TimerController {
 		$endTime = time() + $runTime;
 		
 		if ($alerts === null) {
-			$alerts = $this->generateAlerts($sender, $name, $endTime);
+			$alerts = $this->generateAlerts($sender, $name, $endTime, explode(' ', $this->setting->timer_alert_times));
 		}
 
 		$this->add($name, $sender, $channel, $endTime, $alerts);
