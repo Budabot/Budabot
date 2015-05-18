@@ -2,6 +2,8 @@
 	Version 3.3_RC1:
 *****************************
 -other various fixes and changes
+-removed botmanager
+-bot now warns when org name is set incorrectly
 -various changes relating to 18.7 patch
 -support for CIDB has been added, and !items will default to using aoitems.com for item search results
 -updated to work with MySQL 5.5+
