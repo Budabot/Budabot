@@ -86,24 +86,6 @@ use Budabot\Core\LoggerWrapper;
 		return true;
 	}
 	
-	// if roll table has 'type' column, then drop it so it can be reloaded with new schema changes
-	// it shouldn't matter if the data in that table is lost -Tyrence
-	if (checkIfColumnExists($db, 'roll', 'type')) {
-		$db->exec("DROP TABLE roll");
-	}
-	
-	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, 'cmdcfg_<myname>') && getColumnType($db, 'cmdcfg_<myname>', 'cmd') != 'varchar(50)') {
-		$db->exec("ALTER TABLE cmdcfg_<myname> MODIFY cmd VARCHAR(50)");
-	}
-	
-	if (checkIfTableExists($db, 'cmd_alias_<myname>')) {
-		$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ?", "lastseen");
-	}
-	
-	if (checkIfTableExists($db, 'news') && !checkIfColumnExists($db, 'news', 'deleted')) {
-		$db->exec("ALTER TABLE news ADD COLUMN deleted TINYINT NOT NULL DEFAULT 0");
-	}
-	
 	if (checkIfTableExists($db, 'usage_<myname>') && !checkIfColumnExists($db, 'usage_<myname>', 'handler')) {
 		$db->exec("ALTER TABLE usage_<myname> ADD COLUMN handler VARCHAR(100) NOT NULL DEFAULT ''");
 	}
