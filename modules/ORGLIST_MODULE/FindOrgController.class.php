@@ -41,6 +41,9 @@ class FindOrgController {
 	/** @Inject */
 	public $http;
 	
+	/** @Logger */
+	public $logger;
+	
 	private $searches = array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', 'others');
 
 	/** @Setup */
@@ -94,34 +97,44 @@ class FindOrgController {
 	 * @Description("Parses all orgs from People of Rubi Ka")
 	 */
 	public function parseAllOrgsEvent($eventObj) {
-		$this->db->exec("DELETE FROM organizations");
-		forEach ($this->searches as $search) {
-			$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
-			$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
+		$url = "http://people.anarchy-online.com/people/lookup/orgs.html";
 		
-			$pattern = '@(<tr>|<tr class="lastRow">)
-               <td align="left">
-                 <a href="http://people.anarchy-online.com/org/stats/d/(\d+)/name/(\d+)">
-                   ([^<]+)</a></td>
-               <td align="right">(\d+)</td>
-               <td align="right">(\d+)</td>
-               <td align="left">([^<]+)</td>
-               <td align="left">([^<]+)</td>
-               <td align="left" class="dim">RK5</td>
-             </tr>@s';
-		
-			preg_match_all($pattern, $response->body, $arr, PREG_SET_ORDER);
-			forEach ($arr as $match) {
-				$obj = new stdClass;
-				$obj->server = $match[2];
-				$obj->name = trim($match[4]);
-				$obj->id = $match[3];
-				$obj->num_members = $match[5];
-				$obj->faction = $match[7];
+		$this->logger->log("DEBUG", "Downloading all orgs from '$url'");
+		try {
+			$this->db->begin_transaction();
+			$this->db->exec("DELETE FROM organizations");
+			forEach ($this->searches as $search) {
+				$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
 			
-				$this->db->exec("INSERT INTO organizations (id, name, faction, num_members) VALUES (?, ?, ?, ?)", $obj->id, $obj->name, $obj->faction, $obj->num_members);
+				$pattern = '@(<tr>|<tr class="lastRow">)
+				   <td align="left">
+					 <a href="http://people.anarchy-online.com/org/stats/d/(\d+)/name/(\d+)">
+					   ([^<]+)</a></td>
+				   <td align="right">(\d+)</td>
+				   <td align="right">(\d+)</td>
+				   <td align="left">([^<]+)</td>
+				   <td align="left">([^<]+)</td>
+				   <td align="left" class="dim">RK5</td>
+				 </tr>@s';
+			
+				preg_match_all($pattern, $response->body, $arr, PREG_SET_ORDER);
+				forEach ($arr as $match) {
+					$obj = new stdClass;
+					$obj->server = $match[2];
+					$obj->name = trim($match[4]);
+					$obj->id = $match[3];
+					$obj->num_members = $match[5];
+					$obj->faction = $match[7];
+				
+					$this->db->exec("INSERT INTO organizations (id, name, faction, num_members) VALUES (?, ?, ?, ?)", $obj->id, $obj->name, $obj->faction, $obj->num_members);
+				}
 			}
+			$this->db->commit();
+		} catch (Exception $e) {
+			$this->logger->log("ERROR", "Error downloading orgs");
+			$this->db->rollback();
 		}
+		$this->logger->log("DEBUG", "Finished downloading orgs");
 	}
 }
 
