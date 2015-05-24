@@ -106,25 +106,17 @@ class FindOrgController {
 			forEach ($this->searches as $search) {
 				$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
 			
-				$pattern = '@(<tr>|<tr class="lastRow">)
-				   <td align="left">
-					 <a href="http://people.anarchy-online.com/org/stats/d/(\d+)/name/(\d+)">
-					   ([^<]+)</a></td>
-				   <td align="right">(\d+)</td>
-				   <td align="right">(\d+)</td>
-				   <td align="left">([^<]+)</td>
-				   <td align="left">([^<]+)</td>
-				   <td align="left" class="dim">RK5</td>
-				 </tr>@s';
-			
+				$pattern = '@<tr>\s*<td align="left">\s*<a href="http://people.anarchy-online.com/org/stats/d/(\d+)/name/(\d+)">\s*([^<]+)</a></td>\s*<td align="right">(\d+)</td>\s*<td align="right">(\d+)</td>\s*<td align="left">([^<]+)</td>\s*<td align="left">([^<]+)</td>\s*<td align="left" class="dim">RK5</td>\s*</tr>@s';
+
 				preg_match_all($pattern, $response->body, $arr, PREG_SET_ORDER);
 				forEach ($arr as $match) {
 					$obj = new stdClass;
-					$obj->server = $match[2];
-					$obj->name = trim($match[4]);
-					$obj->id = $match[3];
-					$obj->num_members = $match[5];
-					$obj->faction = $match[7];
+					//$obj->server = $match[1]; unused
+					$obj->id = $match[2];
+					$obj->name = trim($match[3]);
+					$obj->num_members = $match[4];
+					$obj->faction = $match[6];
+					//$obj->governingForm = $match[7]; unused
 				
 					$this->db->exec("INSERT INTO organizations (id, name, faction, num_members) VALUES (?, ?, ?, ?)", $obj->id, $obj->name, $obj->faction, $obj->num_members);
 				}
