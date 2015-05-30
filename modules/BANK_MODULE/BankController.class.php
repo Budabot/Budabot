@@ -38,6 +38,9 @@ class BankController {
 	public $text;
 	
 	/** @Inject */
+	public $util;
+	
+	/** @Inject */
 	public $settingManager;
 
 	/**
@@ -141,18 +144,14 @@ class BankController {
 	 * @Matches("/^bank search (.+)$/i")
 	 */
 	public function bankSearchCommand($message, $channel, $sender, $sendto, $args) {
-		$search = explode(' ', $args[1]);
+		$search = htmlspecialchars_decode($args[1]);
+		$words = explode(' ', $search);
 		$limit = $this->settingManager->get('max_bank_items');
-
-		$where_sql = '';
-		$params = array();
-		forEach ($search as $word) {
-			$params []= '%' . $word . '%';
-			$where_sql .= " AND name LIKE ?";
-		}
+		
+		list($where_sql, $params) = $this->util->generateQueryFromParams($words, 'name');
 
 		$blob = '';
-		$data = $this->db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}", $params);
+		$data = $this->db->query("SELECT * FROM bank WHERE {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}", $params);
 
 		if (count($data) > 0) {
 			forEach ($data as $row) {
