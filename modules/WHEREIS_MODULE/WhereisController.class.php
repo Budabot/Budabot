@@ -49,8 +49,8 @@ class WhereisController {
 	public function whereisCommand($message, $channel, $sender, $sendto, $args) {
 		$search = $args[1];
 		$search = strtolower($search);
-		$sql = "SELECT * FROM whereis w LEFT JOIN playfields p ON w.playfield_id = p.id WHERE name LIKE ?";
-		$data = $this->db->query($sql, '%' . $search . '%');
+		$sql = "SELECT * FROM whereis w LEFT JOIN playfields p ON w.playfield_id = p.id WHERE name LIKE ? OR keywords LIKE ?";
+		$data = $this->db->query($sql, '%' . $search . '%', '%' . $search . '%');
 		$count = count($data);
 
 		if ($count > 0) {
