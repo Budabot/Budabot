@@ -281,20 +281,20 @@ class QuoteController {
 
 	public function getQuoteInfo($id = null) {
 		$count = $this->getMaxId();
-		
+
 		if ($count == 0) {
 			return null;
 		}
-		
+
 		if ($id == null) {
 			$id = rand(1, $count);
 		}
-		
+
 		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `id` = ?", $id);
 		if ($row === null) {
 			return null;
 		}
-		
+
 		$poster = $row->poster;
 		$quoteOfWHO = $row->OfWho;
 		$quoteMSG = $row->What;

@@ -108,7 +108,30 @@ use Budabot\Core\LoggerWrapper;
 		$db->exec("CREATE TABLE IF NOT EXISTS `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `OfWho` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
 		$quoteId = 1;
 		forEach ($data as $row) {
-			$db->exec("INSERT INTO `quote` (`id`, `poster`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $quoteId, $row->Who, $row->OfWho, $row->When, $row->What);
+			$quoteMSG = $row->What;
+			if (preg_match("/^(\(\d\d:\d\d\) )?To \[([a-z0-9-]+)\]:/i", $quoteMSG, $arr)) {
+				//To [Person]: message
+				$quoteOfWHO = $arr[2];
+			} else if (preg_match("/^(\(\d\d:\d\d\) )?\[([a-z0-9-]+)\]:/i", $quoteMSG, $arr)) {
+				//[Person]: message
+				$quoteOfWHO = $arr[2];
+			} else if (preg_match("/^(\(\d\d:\d\d\) )?\[[^\]]+\] ([a-z0-9-]+):/i", $quoteMSG, $arr)) {
+				//[Neu. OOC] Lucier: message
+				$quoteOfWHO = $arr[2];
+			} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+) shouts:/i", $quoteMSG, $arr)) {
+				//Lucier shouts: message
+				$quoteOfWHO = $arr[2];
+			} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+) whispers:/i", $quoteMSG, $arr)) {
+				//Lucier whispers: message
+				$quoteOfWHO = $arr[2];
+			} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+):/i", $quoteMSG, $arr)) {
+				//Lucier: message
+				$quoteOfWHO = $arr[2];
+			} else {
+				$quoteOfWHO = $row->Who;
+			}
+			
+			$db->exec("INSERT INTO `quote` (`id`, `poster`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $quoteId, $row->Who, $quoteOfWHO, $row->When, $row->What);
 			$quoteId++;
 		}
 	}
