@@ -67,38 +67,28 @@ class QuoteController {
 				// nextId = maxId + 1
 				$id = $this->getMaxId() + 1;
 				
-				// strip timestamp: (00:10) [Neu. OOC] Lucier: message. => [Neu. OOC] Lucier: message.
-				if (preg_match("/^\(\d\d:\d\d\) /", $quoteMSG)) {
-					$quoteMSG = substr($quoteMSG, 8);
-				}
-
-				//Trying to determine who is being quoted.
-				$findcolon = strpos($quoteMSG, ":");
-				$findbracket = strpos($quoteMSG, "] ") + 2;
-				if ($findcolon > 0) {
-					if (substr($quoteMSG, 0, 4) == "To [") {
-						//To [Person]: message
-						$quoteOfWHO = $sender;
-					} else if ((substr($quoteMSG, $findcolon - 1, 1) == "]") && (substr($quoteMSG, 0, 1) == "[")) {
-						//[Person]: message.
-						$quoteOfWHO = substr($quoteMSG, 1, $findcolon - 2);
-					} else if (($findbracket > 2) && ($findbracket < $findcolon)) {
-						//[Neu. OOC] Lucier: message.
-						$quoteOfWHO = substr($quoteMSG, $findbracket, $findcolon - $findbracket);
-					} else if (substr($quoteMSG,$findcolon - 7, 7) == " shouts") {
-						//Lucier shouts: message
-						$quoteOfWHO = substr($quoteMSG, 0, $findcolon - 7);
-					} else if (substr($quoteMSG, $findcolon - 9, 9) == " whispers") {
-						//Lucier whispers: message
-						$quoteOfWHO = substr($quoteMSG, 0, $findcolon - 9);
-					} else {
-						//Lucier: message
-						$quoteOfWHO = substr($quoteMSG, 0, $findcolon);
-					}
+				if (preg_match("/^(\(\d\d:\d\d\) )?To \[([a-z0-9-]+)\]:/i", $quoteMSG, $arr)) {
+					//To [Person]: message
+					$quoteOfWHO = $arr[2];
+				} else if (preg_match("/^(\(\d\d:\d\d\) )?\[([a-z0-9-]+)\]:/i", $quoteMSG, $arr)) {
+					//[Person]: message
+					$quoteOfWHO = $arr[2];
+				} else if (preg_match("/^(\(\d\d:\d\d\) )?\[[^\]]+\] ([a-z0-9-]+):/i", $quoteMSG, $arr)) {
+					//[Neu. OOC] Lucier: message
+					$quoteOfWHO = $arr[2];
+				} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+) shouts:/i", $quoteMSG, $arr)) {
+					//Lucier shouts: message
+					$quoteOfWHO = $arr[2];
+				} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+) whispers:/i", $quoteMSG, $arr)) {
+					//Lucier whispers: message
+					$quoteOfWHO = $arr[2];
+				} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+):/i", $quoteMSG, $arr)) {
+					//Lucier: message
+					$quoteOfWHO = $arr[2];
 				} else {
-					//without a colon.. quoting him/her/itself?
 					$quoteOfWHO = $sender;
 				}
+
 				$this->db->exec("INSERT INTO `quote` (`id`, `Who`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $id, $quoteWHO, $quoteOfWHO, time(), $quoteMSG);
 				$msg = "Quote <highlight>$id<end> has been added.";
 			}
