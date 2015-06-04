@@ -100,4 +100,21 @@ use Budabot\Core\LoggerWrapper;
 		$db->exec("ALTER TABLE events MODIFY COLUMN event_name VARCHAR(255) NOT NULL");
 		$db->exec("ALTER TABLE events MODIFY COLUMN event_date INT");
 	}
+
+	// re-number quotes, rename IDNumber column to id, strip out timestamp from quotes
+	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'IDNumber')) {
+		$data = $db->query("SELECT * FROM quote ORDER BY IDNumber ASC");
+		$db->exec("DROP TABLE quote");
+		$db->exec("CREATE TABLE IF NOT EXISTS `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `Who` VARCHAR(25) NOT NULL, `OfWho` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
+		$quoteId = 1;
+		forEach ($data as $row) {
+			// strip timestamp: (00:10) [Neu. OOC] Lucier: message. => [Neu. OOC] Lucier: message.
+			if (preg_match("/^\(\d\d:\d\d\) /", $row->What)) {
+				$row->What = substr($row->What, 8);
+			}
+
+			$db->exec("INSERT INTO `quote` (`id`, `Who`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $quoteId, $row->Who, $row->OfWho, $row->When, $row->What);
+			$quoteId++;
+		}
+	}
 ?>
