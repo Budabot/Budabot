@@ -247,43 +247,13 @@ class QuoteController {
 	 */
 	public function quoteShowCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
-	
-		//get total number of entries(by grabbing the Highest ID.)
-		$row = $this->db->queryRow("SELECT * FROM `quote` ORDER BY `id` DESC");
-		$count = $row->id;
-
-		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `id` = ?", $id);
-		if ($row !== null) {
-			$quoteWHO = $row->Who;
-			$quoteOfWHO = $row->OfWho;
-			$quoteDATE = $row->When;
-			$quoteMSG = $row->What;
-
-			$msg = "<tab>ID: (<highlight>$id<end> of $count)\n";
-			$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
-			$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
-			$msg .= "<tab>Date: <highlight>" . $this->util->date($quoteDATE) . "<end>\n\n";
-
-			$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
-			$data = $this->db->query("SELECT * FROM `quote` WHERE `Who` = ?", $quoteWHO);
-			$list = "";
-			forEach ($data as $row) {
-				$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
-			}
-			$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
-
-			$msg .="<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
-			$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` = ?", $quoteOfWHO);
-			$list = "";
-			forEach ($data as $row) {
-				$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
-			}
-			$msg .= substr($list, 0, strlen($list) - 2);
-
-			$msg = $this->text->make_blob("Quote", $msg).': "'.$quoteMSG.'"';
-
+		
+		$result = $this->getQuoteInfo($id);
+		
+		if ($result == null) {
+			$msg = "No quote found with ID <highlight>$id<end>.";
 		} else {
-			$msg = "No quote found with that ID.";
+			$msg = $result;
 		}
 		$sendto->reply($msg);
 	}
@@ -293,51 +263,13 @@ class QuoteController {
 	 * @Matches("/^quote$/i")
 	 */
 	public function quoteShowRandomCommand($message, $channel, $sender, $sendto, $args) {
-		//get total number of entries for rand (and see if we even have any quotes to show)
-
-		// find the highest id
-		$row = $this->db->queryRow("SELECT * FROM `quote` ORDER BY `id` DESC");
-		$count = $row->id;
-
-		if ($count != "") {
-			do {
-				// loop till we find a random entry that isnt deleted.
-				$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `id` = ?", rand(0, $count));
-				if ($row !== null) {
-					$id = $row->id;
-					$quoteWHO = $row->Who;
-					$quoteOfWHO = $row->OfWho;
-					$quoteDATE = $row->When;
-					$quoteMSG = $row->What;
-					break;
-				}
-			} while (true);
-
-			$msg = "<tab>ID: (<highlight>$id<end> of $count)\n";
-			$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
-			$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
-			$msg .= "<tab>Date: <highlight>" . $this->util->date($quoteDATE) . "<end>\n\n";
-
-			$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
-			$data = $this->db->query("SELECT * FROM `quote` WHERE `Who` = ?", $quoteWHO);
-			$list = "";
-			forEach ($data as $row) {
-				$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
-			}
-			$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
-
-			$msg .= "<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
-			$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` = ?", $quoteOfWHO);
-			$list = "";
-			forEach ($data as $row) {
-				$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
-			}
-			$msg .= substr($list, 0, strlen($list) - 2);
-
-			$msg = $this->text->make_blob("Quote", $msg).': "'.$quoteMSG.'"';
-
-		} else {
+		// choose a random quote to show
+		$result = $this->getQuoteInfo(null);
+		
+		if ($result == null) {
 			$msg = "There are no quotes to show.";
+		} else {
+			$msg = $result;
 		}
 		$sendto->reply($msg);
 	}
@@ -345,5 +277,50 @@ class QuoteController {
 	public function getMaxId() {
 		$row = $this->db->queryRow("SELECT COALESCE(MAX(id), 0) AS max_id FROM `quote`");
 		return $row->max_id;
+	}
+
+	public function getQuoteInfo($id = null) {
+		$count = $this->getMaxId();
+		
+		if ($count == 0) {
+			return null;
+		}
+		
+		if ($id == null) {
+			$id = rand(1, $count);
+		}
+		
+		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `id` = ?", $id);
+		if ($row === null) {
+			return null;
+		}
+		
+		$quoteWHO = $row->Who;
+		$quoteOfWHO = $row->OfWho;
+		$quoteDATE = $row->When;
+		$quoteMSG = $row->What;
+
+		$msg = "<tab>ID: (<highlight>$id<end> of $count)\n";
+		$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
+		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
+		$msg .= "<tab>Date: <highlight>" . $this->util->date($quoteDATE) . "<end>\n\n";
+
+		$msg .= "<tab>Quotes posted by <highlight>$quoteWHO<end>: ";
+		$data = $this->db->query("SELECT * FROM `quote` WHERE `Who` = ?", $quoteWHO);
+		$list = "";
+		forEach ($data as $row) {
+			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
+		}
+		$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
+
+		$msg .="<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
+		$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` = ?", $quoteOfWHO);
+		$list = "";
+		forEach ($data as $row) {
+			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
+		}
+		$msg .= substr($list, 0, strlen($list) - 2);
+
+		return $this->text->make_blob("Quote", $msg).': "'.$quoteMSG.'"';
 	}
 }
