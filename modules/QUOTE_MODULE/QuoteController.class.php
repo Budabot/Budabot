@@ -197,41 +197,32 @@ class QuoteController {
 		$top = $this->settingManager->get("quote_stat_count");
 
 		//$quoters = setup a list of who quoted the most
-		$data = $this->db->query("SELECT * FROM `quote` ORDER BY `poster`");
-		$count = count($data);
-		$quoters = array();
-		forEach ($data as $row) {
-			$quoters[$row->poster]++;
-		}
-		arsort($quoters);
+		$quoters = $this->db->query("SELECT poster, COUNT(1) AS count FROM `quote` GROUP BY `poster` ORDER BY count DESC");
+		$quotersCount = count($quoters);
 
 		//$victims = setup a list of who was quoted the most
-		$data = $this->db->query("SELECT * FROM `quote` ORDER BY `OfWho`");
-		$victims = array();
-		forEach ($data as $row) {
-			$victims[$row->OfWho]++;
-		}
-		arsort($victims);
+		$victims = $this->db->query("SELECT OfWho, COUNT(1) AS count FROM `quote` GROUP BY `OfWho` ORDER BY count DESC");
+		$victimsCount = count($victims);
 
-		$blob = "<highlight>Top $top Quoters:<end> (".count($quoters)." total)\n";
+		$blob = "<highlight>Top $top Quoters:<end> ($quotersCount total)\n";
 		$listnum = 0;
-		forEach ($quoters as $key => $val) {
+		forEach ($quoters as $row) {
 			$listnum++;
 			$blob .= "<tab>$listnum) ";
-			$blob .= $this->text->make_chatcmd($key, "/tell <myname> quote search $key");
-			$blob .= ": <highlight>$val<end> " . number_format((100 * ($val / $count)), 0) . "%\n";
+			$blob .= $this->text->make_chatcmd($row->poster, "/tell <myname> quote search $row->poster");
+			$blob .= ": <highlight>$row->count<end> " . number_format((100 * $row->count / $quotersCount), 0) . "%\n";
 			if ($listnum >= $top) {
 				break;
 			}
 		}
 
-		$blob .= "\n<highlight>Top $top Quoted:<end> (".count($victims)." total)\n";
+		$blob .= "\n<highlight>Top $top Quoted:<end> ($victimsCount total)\n";
 		$listnum = 0;
-		forEach ($victims as $key => $val) {
+		forEach ($victims as $row) {
 			$listnum++;
 			$blob .= "<tab>$listnum) ".
-				$this->text->make_chatcmd($key, "/tell <myname> quote search $key") .
-				": <highlight>$val<end> " . number_format((100 * ($val / $count)), 0) . "%\n";
+				$this->text->make_chatcmd($row->OfWho, "/tell <myname> quote search $row->OfWho") .
+				": <highlight>$row->count<end> " . number_format((100 * $row->count / $victimsCount), 0) . "%\n";
 			if ($listnum >= $top) {
 				break;
 			}
