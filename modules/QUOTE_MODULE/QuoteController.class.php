@@ -57,7 +57,7 @@ class QuoteController {
 		$quoteMSG = trim($args[1]);
 		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `What` LIKE ?", $quoteMSG);
 		if ($row !== null) {
-			$msg = "This quote has already been added as quote <highlight>$row->IDNumber<end>.";
+			$msg = "This quote has already been added as quote <highlight>$row->id<end>.";
 		} else {
 			if (strlen($quoteMSG) > 1000) {
 				$msg = "This quote is too big.";
@@ -65,7 +65,7 @@ class QuoteController {
 				$quoteWHO = $sender;
 
 				// nextId = maxId + 1
-				$quoteID = $this->getMaxId() + 1;
+				$id = $this->getMaxId() + 1;
 				
 				// strip timestamp: (00:10) [Neu. OOC] Lucier: message. => [Neu. OOC] Lucier: message.
 				if (preg_match("/^\(\d\d:\d\d\) /", $quoteMSG)) {
@@ -99,8 +99,8 @@ class QuoteController {
 					//without a colon.. quoting him/her/itself?
 					$quoteOfWHO = $sender;
 				}
-				$this->db->exec("INSERT INTO `quote` (`IDNumber`, `Who`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $quoteID, $quoteWHO, $quoteOfWHO, time(), $quoteMSG);
-				$msg = "Quote <highlight>$quoteID<end> has been added.";
+				$this->db->exec("INSERT INTO `quote` (`id`, `Who`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $id, $quoteWHO, $quoteOfWHO, time(), $quoteMSG);
+				$msg = "Quote <highlight>$id<end> has been added.";
 			}
 		}
 		$sendto->reply($msg);
@@ -111,8 +111,8 @@ class QuoteController {
 	 * @Matches("/^quote (rem|del|remove|delete) ([0-9]+)$/i")
 	 */
 	public function quoteRemoveCommand($message, $channel, $sender, $sendto, $args) {
-		$quoteID = $args[2];
-		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `IDNumber` = ?", $quoteID);
+		$id = $args[2];
+		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `id` = ?", $id);
 
 		if ($row !== null) {
 			$quoteWHO = $row->Who;
@@ -122,7 +122,7 @@ class QuoteController {
 
 			//only author or admin can delete.
 			if (($quoteWHO == $sender) || $this->accessManager->checkAccess($sender, 'moderator')) {
-				$this->db->exec("DELETE FROM `quote` WHERE `IDNumber` = ?", $quoteID);
+				$this->db->exec("DELETE FROM `quote` WHERE `id` = ?", $id);
 				$msg = "This quote has been deleted.";
 			} else {
 				$msg = "Only a moderator or $quoteWHO can delete this quote.";
@@ -132,10 +132,10 @@ class QuoteController {
 			// since sqlite doesn't support ORDER BY on UPDATEs, we have to manually update each row
 			// in order to prevent duplicate key errors
 			$maxId = $this->getMaxId();
-			$currentId = $quoteID + 1;
+			$currentId = $id + 1;
 			
 			while ($currentId <= $maxId ) {
-				$this->db->exec("UPDATE `quote` SET `IDNumber` = `IDNumber` - 1 WHERE `IDNumber` = ?", $currentId);
+				$this->db->exec("UPDATE `quote` SET `id` = `id` - 1 WHERE `id` = ?", $currentId);
 				$currentId++;
 			}
 		} else {
@@ -156,7 +156,7 @@ class QuoteController {
 		$list = "";
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `Who` LIKE ?", $searchParam);
 		forEach ($data as $row) {
-			$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
+			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
 		if ($list) {
 			$msg .= "<tab>Quotes posted by <highlight>$search<end>: ";
@@ -167,7 +167,7 @@ class QuoteController {
 		$list = "";
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` LIKE ?", $searchParam);
 		forEach ($data as $row) {
-			$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
+			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
 		if ($list) {
 			if ($msg) {
@@ -181,7 +181,7 @@ class QuoteController {
 		$list = "";
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` NOT LIKE ? AND `What` LIKE ?", $searchParam, $searchParam);
 		forEach ($data as $row) {
-			$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
+			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
 		if ($list) {
 			if ($msg) {
@@ -211,9 +211,7 @@ class QuoteController {
 		$count = count($data);
 		$quoters = array();
 		forEach ($data as $row) {
-			if ($row->Who != "") {
-				$quoters[$row->Who]++;
-			}
+			$quoters[$row->Who]++;
 		}
 		arsort($quoters);
 
@@ -221,9 +219,7 @@ class QuoteController {
 		$data = $this->db->query("SELECT * FROM `quote` ORDER BY `OfWho`");
 		$victims = array();
 		forEach ($data as $row) {
-			if ($row->Who != "") {
-				$victims[$row->OfWho]++;
-			}
+			$victims[$row->OfWho]++;
 		}
 		arsort($victims);
 
@@ -260,20 +256,20 @@ class QuoteController {
 	 * @Matches("/^quote ([0-9]+)$/i")
 	 */
 	public function quoteShowCommand($message, $channel, $sender, $sendto, $args) {
-		$quoteID = $args[1];
+		$id = $args[1];
 	
 		//get total number of entries(by grabbing the Highest ID.)
-		$row = $this->db->queryRow("SELECT * FROM `quote` ORDER BY `IDNumber` DESC");
-		$count = $row->IDNumber;
+		$row = $this->db->queryRow("SELECT * FROM `quote` ORDER BY `id` DESC");
+		$count = $row->id;
 
-		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `IDNumber` = ?", $quoteID);
+		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `id` = ?", $id);
 		if ($row !== null) {
 			$quoteWHO = $row->Who;
 			$quoteOfWHO = $row->OfWho;
 			$quoteDATE = $row->When;
 			$quoteMSG = $row->What;
 
-			$msg = "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
+			$msg = "<tab>ID: (<highlight>$id<end> of $count)\n";
 			$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
 			$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
 			$msg .= "<tab>Date: <highlight>" . $this->util->date($quoteDATE) . "<end>\n\n";
@@ -282,7 +278,7 @@ class QuoteController {
 			$data = $this->db->query("SELECT * FROM `quote` WHERE `Who` = ?", $quoteWHO);
 			$list = "";
 			forEach ($data as $row) {
-				$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
+				$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 			}
 			$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
 
@@ -290,7 +286,7 @@ class QuoteController {
 			$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` = ?", $quoteOfWHO);
 			$list = "";
 			forEach ($data as $row) {
-				$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
+				$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 			}
 			$msg .= substr($list, 0, strlen($list) - 2);
 
@@ -309,16 +305,16 @@ class QuoteController {
 	public function quoteShowRandomCommand($message, $channel, $sender, $sendto, $args) {
 		//get total number of entries for rand (and see if we even have any quotes to show)
 
-		// find the highest IDnumber
-		$row = $this->db->queryRow("SELECT * FROM `quote` ORDER BY `IDNumber` DESC");
-		$count = $row->IDNumber;
+		// find the highest id
+		$row = $this->db->queryRow("SELECT * FROM `quote` ORDER BY `id` DESC");
+		$count = $row->id;
 
 		if ($count != "") {
 			do {
 				// loop till we find a random entry that isnt deleted.
-				$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `IDNumber` = ?", rand(0, $count));
+				$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `id` = ?", rand(0, $count));
 				if ($row !== null) {
-					$quoteID = $row->IDNumber;
+					$id = $row->id;
 					$quoteWHO = $row->Who;
 					$quoteOfWHO = $row->OfWho;
 					$quoteDATE = $row->When;
@@ -327,7 +323,7 @@ class QuoteController {
 				}
 			} while (true);
 
-			$msg = "<tab>ID: (<highlight>$quoteID<end> of $count)\n";
+			$msg = "<tab>ID: (<highlight>$id<end> of $count)\n";
 			$msg .= "<tab>Poster: <highlight>$quoteWHO<end>\n";
 			$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
 			$msg .= "<tab>Date: <highlight>" . $this->util->date($quoteDATE) . "<end>\n\n";
@@ -336,7 +332,7 @@ class QuoteController {
 			$data = $this->db->query("SELECT * FROM `quote` WHERE `Who` = ?", $quoteWHO);
 			$list = "";
 			forEach ($data as $row) {
-				$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
+				$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 			}
 			$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
 
@@ -344,7 +340,7 @@ class QuoteController {
 			$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` = ?", $quoteOfWHO);
 			$list = "";
 			forEach ($data as $row) {
-				$list .= $this->text->make_chatcmd($row->IDNumber, "/tell <myname> quote $row->IDNumber") . ", ";
+				$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 			}
 			$msg .= substr($list, 0, strlen($list) - 2);
 
@@ -357,7 +353,7 @@ class QuoteController {
 	}
 	
 	public function getMaxId() {
-		$row = $this->db->queryRow("SELECT COALESCE(MAX(IDNumber), 0) AS max_id FROM `quote`");
+		$row = $this->db->queryRow("SELECT COALESCE(MAX(id), 0) AS max_id FROM `quote`");
 		return $row->max_id;
 	}
 }

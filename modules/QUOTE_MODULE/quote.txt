@@ -8,7 +8,7 @@ To search for specific author/victim/text:
 <highlight><tab><symbol>quote search 'person/text'<end>
 
 To view quote statistics (most quoters/quoted):
-<highlight><tab><symbol>quote stats  (page gets updated once a day)<end>
+<highlight><tab><symbol>quote stats<end>
 
 To remove a quote:
 <highlight><tab><symbol>quote rem 'quote id'<end>
