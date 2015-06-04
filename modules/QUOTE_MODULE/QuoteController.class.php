@@ -59,18 +59,13 @@ class QuoteController {
 		if ($row !== null) {
 			$msg = "This quote has already been added as quote <highlight>$row->IDNumber<end>.";
 		} else {
-			if (strlen($quoteMSG) <= 1000) {
-
+			if (strlen($quoteMSG) > 1000) {
+				$msg = "This quote is too big.";
+			} else {
 				$quoteWHO = $sender;
 
-				// Search for highest ID and +1 for new ID.
-				$row = $this->db->queryRow("SELECT * FROM `quote` ORDER BY `IDNumber` DESC");
-
-				if ($row->IDNumber == "") {
-					$quoteID = 0;
-				} else {
-					$quoteID = $row->IDNumber+1;
-				}
+				// nextId = maxId + 1
+				$quoteId = $this->getMaxId() + 1;
 
 				//Trying to determine who is being quoted.
 				$findcolon = strpos($quoteMSG, ":");
@@ -101,8 +96,6 @@ class QuoteController {
 				}
 				$this->db->exec("INSERT INTO `quote` (`IDNumber`, `Who`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $quoteID, $quoteWHO, $quoteOfWHO, time(), $quoteMSG);
 				$msg = "Quote <highlight>$quoteID<end> has been added.";
-			} else {
-				$msg = "This quote is too big.";
 			}
 		}
 		$sendto->reply($msg);
@@ -128,6 +121,17 @@ class QuoteController {
 				$msg = "This quote has been deleted.";
 			} else {
 				$msg = "Only a moderator or $quoteWHO can delete this quote.";
+			}
+			
+			// re-number remaining quotes so there is no holes in the quote numbering
+			// since sqlite doesn't support ORDER BY on UPDATEs, we have to manually update each row
+			// in order to prevent duplicate key errors
+			$maxId = $this->getMaxId();
+			$currentId = $quoteID + 1;
+			
+			while ($currentId <= $maxId ) {
+				$this->db->exec("UPDATE `quote` SET `IDNumber` = `IDNumber` - 1 WHERE `IDNumber` = ?", $currentId);
+				$currentId++;
 			}
 		} else {
 			$msg = "Could not find this quote.  Already deleted?";
@@ -345,5 +349,10 @@ class QuoteController {
 			$msg = "There are no quotes to show.";
 		}
 		$sendto->reply($msg);
+	}
+	
+	public function getMaxId() {
+		$row = $this->db->queryRow("SELECT COALESCE(MAX(IDNumber), 1) AS max_id FROM `quote`");
+		return $row->max_id;
 	}
 }
