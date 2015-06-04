@@ -195,6 +195,8 @@ class QuoteController {
 	 */
 	public function quoteStatsCommand($message, $channel, $sender, $sendto, $args) {
 		$top = $this->settingManager->get("quote_stat_count");
+		
+		$count = $this->getMaxId();
 
 		//$quoters = setup a list of who quoted the most
 		$quoters = $this->db->query("SELECT poster, COUNT(1) AS count FROM `quote` GROUP BY `poster` ORDER BY count DESC");
@@ -210,7 +212,7 @@ class QuoteController {
 			$listnum++;
 			$blob .= "<tab>$listnum) ";
 			$blob .= $this->text->make_chatcmd($row->poster, "/tell <myname> quote search $row->poster");
-			$blob .= ": <highlight>$row->count<end> " . number_format((100 * $row->count / $quotersCount), 0) . "%\n";
+			$blob .= ": <highlight>$row->count<end> " . number_format((100 * $row->count / $count), 0) . "%\n";
 			if ($listnum >= $top) {
 				break;
 			}
@@ -222,7 +224,7 @@ class QuoteController {
 			$listnum++;
 			$blob .= "<tab>$listnum) ".
 				$this->text->make_chatcmd($row->OfWho, "/tell <myname> quote search $row->OfWho") .
-				": <highlight>$row->count<end> " . number_format((100 * $row->count / $victimsCount), 0) . "%\n";
+				": <highlight>$row->count<end> " . number_format((100 * $row->count / $count), 0) . "%\n";
 			if ($listnum >= $top) {
 				break;
 			}
