@@ -297,15 +297,15 @@ class QuoteController {
 		
 		$poster = $row->poster;
 		$quoteOfWHO = $row->OfWho;
-		$quoteDATE = $row->When;
 		$quoteMSG = $row->What;
 
-		$msg = "<tab>ID: (<highlight>$id<end> of $count)\n";
-		$msg .= "<tab>Poster: <highlight>$poster<end>\n";
-		$msg .= "<tab>Quoting: <highlight>$quoteOfWHO<end>\n";
-		$msg .= "<tab>Date: <highlight>" . $this->util->date($quoteDATE) . "<end>\n\n";
+		$msg = "ID: <highlight>$id<end> of $count\n";
+		$msg .= "Poster: <highlight>$poster<end>\n";
+		$msg .= "Quoting: <highlight>$quoteOfWHO<end>\n";
+		$msg .= "Date: <highlight>" . $this->util->date($row->When) . "<end>\n";
+		$msg .= "Quote: <highlight>$quoteMSG<end>\n\n";
 
-		$msg .= "<tab>Quotes posted by <highlight>$poster<end>: ";
+		$msg .= "<header2>Quotes posted by <highlight>$poster<end>\n";
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `poster` = ?", $poster);
 		$list = "";
 		forEach ($data as $row) {
@@ -313,7 +313,7 @@ class QuoteController {
 		}
 		$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
 
-		$msg .="<tab>Quotes <highlight>$quoteOfWHO<end> said: ";
+		$msg .="<header2>Quotes of <highlight>$quoteOfWHO<end>\n";
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` = ?", $quoteOfWHO);
 		$list = "";
 		forEach ($data as $row) {
