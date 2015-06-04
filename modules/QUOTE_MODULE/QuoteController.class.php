@@ -65,7 +65,12 @@ class QuoteController {
 				$quoteWHO = $sender;
 
 				// nextId = maxId + 1
-				$quoteId = $this->getMaxId() + 1;
+				$quoteID = $this->getMaxId() + 1;
+				
+				// strip timestamp: (00:10) [Neu. OOC] Lucier: message. => [Neu. OOC] Lucier: message.
+				if (preg_match("/^\(\d\d:\d\d\) /", $quoteMSG)) {
+					$quoteMSG = substr($quoteMSG, 8);
+				}
 
 				//Trying to determine who is being quoted.
 				$findcolon = strpos($quoteMSG, ":");
