@@ -11,7 +11,7 @@ namespace Budabot\User\Modules;
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'reputation', 
- *		accessLevel = 'all', 
+ *		accessLevel = 'guild', 
  *		description = 'Allows people to add and see reputation of other players', 
  *		help        = 'reputation.txt'
  *	)
@@ -37,7 +37,6 @@ class ReputationController {
 	public $util;
 	
 	/**
-	 * This handler is called on bot startup.
 	 * @Setup
 	 */
 	public function setup() {
