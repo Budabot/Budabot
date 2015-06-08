@@ -37,15 +37,22 @@ class TrackerController {
 	public $chatBot;
 	
 	/** @Inject */
+	public $settingManager;
+	
+	/** @Inject */
+	public $setting;
+	
+	/** @Inject */
 	public $buddylistManager;
 	
 	/**
-	 * This handler is called on bot startup.
 	 * @Setup
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'tracked_users');
 		$this->db->loadSQLFile($this->moduleName, 'tracking');
+		
+		$this->settingManager->add($this->moduleName, 'show_tracker_events', 'Where to show tracker events', 'edit', 'text', 'none', 'org;priv;both;none', '', 'mod');
 	}
 	
 	/**
@@ -70,6 +77,15 @@ class TrackerController {
 			$data = $this->db->query("SELECT * FROM tracked_users_<myname> WHERE uid = ?", $uid);
 			if (count($data) > 0) {
 				$this->db->exec("INSERT INTO tracking_<myname> (uid, dt, event) VALUES (?, ?, ?)", $uid, time(), 'logon');
+				
+				$msg = "TRACK: $eventObj->sender logged <orange>on<end>.";
+				
+				if ($this->setting->show_tracker_events == "both" || $this->setting->show_tracker_events == "org") {
+					$this->chatBot->sendGuild($msg, true);
+				}
+				if ($this->setting->show_tracker_events == "both" || $this->setting->show_tracker_events == "priv") {
+					$this->chatBot->sendPrivate($msg, true);
+				}
 			}
 		}
 	}
@@ -84,6 +100,15 @@ class TrackerController {
 			$data = $this->db->query("SELECT * FROM tracked_users_<myname> WHERE uid = ?", $uid);
 			if (count($data) > 0) {
 				$this->db->exec("INSERT INTO tracking_<myname> (uid, dt, event) VALUES (?, ?, ?)", $uid, time(), 'logoff');
+				
+				$msg = "TRACK: $eventObj->sender logged <orange>off<end>.";
+				
+				if ($this->setting->show_tracker_events == "both" || $this->setting->show_tracker_events == "org") {
+					$this->chatBot->sendGuild($msg, true);
+				}
+				if ($this->setting->show_tracker_events == "both" || $this->setting->show_tracker_events == "priv") {
+					$this->chatBot->sendPrivate($msg, true);
+				}
 			}
 		}
 	}
