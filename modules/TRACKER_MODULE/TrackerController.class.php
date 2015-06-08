@@ -78,7 +78,7 @@ class TrackerController {
 			if (count($data) > 0) {
 				$this->db->exec("INSERT INTO tracking_<myname> (uid, dt, event) VALUES (?, ?, ?)", $uid, time(), 'logon');
 				
-				$msg = "TRACK: $eventObj->sender logged <orange>on<end>.";
+				$msg = "TRACK: $eventObj->sender logged <green>on<end>.";
 				
 				if ($this->setting->show_tracker_events == "both" || $this->setting->show_tracker_events == "org") {
 					$this->chatBot->sendGuild($msg, true);
