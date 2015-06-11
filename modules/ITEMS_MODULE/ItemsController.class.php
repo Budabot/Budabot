@@ -35,6 +35,12 @@ use DOMDocument;
  *		description = 'Searches for an item by id',
  *		help        = 'items.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'updateitems',
+ *		accessLevel = 'guild',
+ *		description = 'Downloads the latest version of the items db',
+ *		help        = 'updateitems.txt'
+ *	)
  */
 class ItemsController {
 	
@@ -140,6 +146,95 @@ class ItemsController {
 	public function findById($id) {
 		$sql = "SELECT * FROM aodb WHERE highid = ? UNION SELECT * FROM aodb WHERE lowid = ? LIMIT 1";
 		return $this->db->queryRow($sql, $id, $id);
+	}
+
+	/**
+	 * @HandlesCommand("updateitems")
+	 * @Matches("/^updateitems$/i")
+	 */
+	public function updateitemsCommand($message, $channel, $sender, $sendto) {
+		$msg = $this->download_newest_itemsdb();
+		$sendto->reply($msg);
+	}
+
+	/**
+	 * @Event("24hrs")
+	 * @Description("Check to make sure items db is the latest version available")
+	 */
+	public function checkForUpdate() {
+		$msg = $this->download_newest_itemsdb();
+		if (preg_match("/^The items database has been updated/", $msg)) {
+			$this->chatBot->sendGuild($msg);
+		}
+	}
+
+	public function download_newest_itemsdb() {
+		$this->logger->log('DEBUG', "Starting items db update");
+
+		// get list of files in ITEMS_MODULE
+		$data = $this->http
+			->get("https://api.github.com/repos/Budabot/Budabot/contents/modules/ITEMS_MODULE")
+			->withHeader('User-Agent', 'Budabot')
+			->waitAndReturnResponse()
+			->body;
+
+		try {
+			$json = json_decode($data);
+		
+			// find the latest items db version on the server
+			$latestVersion = null;
+			forEach ($json as $item) {
+				if (preg_match("/^aodb(.*)\\.sql$/i", $item->name, $arr)) {
+					if ($latestVersion === null) {
+						$latestVersion = $arr[1];
+					} else if ($this->util->compareVersionNumbers($arr[1], $currentVersion)) {
+						$latestVersion = $arr[1];
+					}
+				}
+			}
+		} catch (Exception $e) {
+			$msg = "Error updating items db: " . $e->getMessage();
+			$this->logger->log('ERROR', $msg);
+			return $msg;
+		}
+
+		if ($latestVersion !== null) {
+			$currentVersion = $this->settingManager->get("aodb_db_version");
+
+			// if server version is greater than current version, download and load server version
+			if ($currentVersion === false || $this->util->compareVersionNumbers($latestVersion, $currentVersion) > 0) {
+				// download server version and save to ITEMS_MODULE directory
+				$contents = $this->http
+					->get("https://raw.githubusercontent.com/Budabot/Budabot/master/modules/ITEMS_MODULE/aodb{$latestVersion}.sql")
+					->withHeader('User-Agent', 'Budabot')
+					->waitAndReturnResponse()
+					->body;
+
+				$fh = fopen("./modules/ITEMS_MODULE/aodb{$latestVersion}.sql", 'w');
+				fwrite($fh, $contents);
+				fclose($fh);
+
+				$this->db->begin_transaction();
+
+				// load the sql file into the db
+				$this->db->loadSQLFile("ITEMS_MODULE", "aodb");
+
+				$this->db->commit();
+
+				$this->logger->log('INFO', "Items db updated from '$currentVersion' to '$latestVersion'");
+				$msg = "The items database has been updated to the latest version.  Version: $latestVersion";
+			} else {
+				$this->logger->log('DEBUG', "Items db already up to date '$currentVersion'");
+				$msg = "The items database is already up to date.  Version: $currentVersion";
+			}
+		} else {
+			$this->logger->log('ERROR', "Could not find latest items db on server");
+			$msg = "There was a problem finding the latest version on the server";
+		}
+
+		$this->logger->log('DEBUG', "Finished items db update");
+
+		return $msg;
 	}
 
 	public function find_items($args, $db = null) {
