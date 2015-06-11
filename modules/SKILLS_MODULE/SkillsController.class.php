@@ -583,19 +583,24 @@ class SkillsController {
 			$highid = $args[1];
 			$ql = $args[2];
 		}
-		
-		$sql = "SELECT * FROM aodb WHERE highid = ? AND lowql <= ? AND highql >= ?";
-		$row = $this->db->queryRow($sql, $highid, $ql, $ql);
+
+		// this is a hack since Worn Soft Pepper Pistol has its high and low ids reversed in-game
+		// there may be others
+		$sql = "SELECT *, 1 AS order_col FROM aodb WHERE highid = ? AND lowql <= ? AND highql >= ? 
+				UNION
+				SELECT *, 2 AS order_col FROM aodb WHERE lowid = ? AND lowql <= ? AND highql >= ?
+				ORDER BY order_col ASC";
+		$row = $this->db->queryRow($sql, $highid, $ql, $ql, $highid, $ql, $ql);
 
 		if ($row === null) {
 			$msg = "Item does not exist in the items database.";
 			$sendto->reply($msg);
 			return;
 		}
-		
+
 		$lowAttributes = $this->db->queryRow("SELECT * FROM weapon_attributes WHERE id = ?", $row->lowid);
 		$highAttributes = $this->db->queryRow("SELECT * FROM weapon_attributes WHERE id = ?", $row->highid);
-		
+
 		if ($lowAttributes === null || $highAttributes === null) {
 			$msg = "Could not find any weapon info for this item.";
 			$sendto->reply($msg);
@@ -609,14 +614,14 @@ class SkillsController {
 		$attack_time /= 100;
 
 		$blob = '';
-		
+
 		$blob .= "Attack: <highlight>$attack_time<end>\n";
 		$blob .= "Recharge: <highlight>$recharge_time<end>\n\n";
-		
+
 		// inits
 		$blob .= $this->getInitDisplay($attack_time, $recharge_time);
 		$blob .= "\n\n";
-		
+
 		if ($highAttributes->full_auto !== null) {
 			$full_auto_recharge = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->full_auto, $highAttributes->full_auto, $ql);
 			list($hard_cap, $skill_cap) = $this->cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
