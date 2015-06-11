@@ -135,4 +135,8 @@ use Budabot\Core\LoggerWrapper;
 			$quoteId++;
 		}
 	}
+	
+	if (checkIfTableExists($db, 'settings_<myname>')) {
+		$db->exec("UPDATE settings_<myname> SET `value` = ? WHERE `name` = ?", "local", "central");
+	}
 ?>
