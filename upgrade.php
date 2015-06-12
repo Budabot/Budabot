@@ -137,6 +137,6 @@ use Budabot\Core\LoggerWrapper;
 	}
 	
 	if (checkIfTableExists($db, 'settings_<myname>')) {
-		$db->exec("UPDATE settings_<myname> SET `value` = ? WHERE `name` = ?", "local", "central");
+		$db->exec("UPDATE settings_<myname> SET `value` = ? WHERE `name` = ?", "local", "items_database");
 	}
 ?>
