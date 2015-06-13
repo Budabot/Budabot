@@ -344,25 +344,25 @@ class SkillsController {
 
 		$MA_dmg = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $MA_dmg_list[$i],  $MA_dmg_list[($i+1)],  $dim_skill);
 		$MA_dim_rech = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $MA_rech_list[$i], $MA_rech_list[($i+1)], $dim_skill);
-		$blob .= "Class: <highlight>Martial Artist<end>\n";
+		$blob .= "Profession: <highlight>Martial Artist<end>\n";
 		$blob .= "Damage: <highlight>".$MA_dmg."<end>-<highlight>".$MA_dmg."<end>(<highlight>1<end>)\n";
 		$blob .= "Recharge ".$this->util->unixtimeToReadable($MA_dim_rech)."\n\n";
 
 		$keep_heal	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $keep_heal_list[$i],$keep_heal_list[($i+1)], $dim_skill);
-		$blob .= "Class: <highlight>Keeper<end>\n";
+		$blob .= "Profession: <highlight>Keeper<end>\n";
 		$blob .= "Self heal: <font color=#ff9999>".$keep_heal."</font> HP\n";
 		$blob .= "Recharge: <highlight>5<end> minutes <font color=#ccccc>(constant)</font>\n\n";
 
 		$shad_dmg	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $shad_dmg_list[$i], $shad_dmg_list[($i+1)],  $dim_skill);
 		$shad_rec	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $shad_rec_list[$i], $shad_rec_list[($i+1)],  $dim_skill);
 		$shad_dim_rech	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $shad_rech_list[$i], $shad_rech_list[($i+1)], $dim_skill);
-		$blob .= "Class: <highlight>Shade<end>\n";
+		$blob .= "Profession: <highlight>Shade<end>\n";
 		$blob .= "Damage: <highlight>".$shad_dmg."<end>-<highlight>".$shad_dmg."<end>(<highlight>1<end>)\n";
 		$blob .= "HP drain: <font color=#ff9999>".$shad_rec."</font>%\n";
 		$blob .= "Recharge ".$this->util->unixtimeToReadable($shad_dim_rech)."\n\n";
 
 		$gen_dmg = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $gen_dmg_list[$i],  $gen_dmg_list[($i+1)], $dim_skill);
-		$blob .= "Class: <highlight>All classes besides MA, Shade and Keeper<end>\n";
+		$blob .= "Profession: <highlight>All professions besides MA, Shade and Keeper<end>\n";
 		$blob .= "Damage: <highlight>".$gen_dmg."<end>-<highlight>".$gen_dmg."<end>(<highlight>1<end>)\n";
 		$blob .= "Recharge: <highlight>30<end> minutes <font color=#ccccc>(constant)</font>\n\n";
 
@@ -512,23 +512,23 @@ class SkillsController {
 		$ma_spd = (($maskill - $skill_list[$i]) * ($MA_fist_speed[($i + 1)] - $MA_fist_speed[$i])) / ($skill_list[($i + 1)] - $skill_list[$i]) + $MA_fist_speed[$i];
 		$ma_speed = round($ma_spd, 2);
 		$dmg = "<highlight>".$min."<end>-<highlight>".$max."<end>(<highlight>".$crit."<end>)";
-		$blob .= "Class: <highlight>Martial Artist<end>\n";
+		$blob .= "Profession: <highlight>Martial Artist<end>\n";
 		$blob .= "Fist speed: <highlight>".$ma_speed."<end>s/<highlight>".$ma_speed."<end>s\n";
 		$blob .= "Fist damage: ".$dmg."\n\n\n";
 
-		$blob .= "Fist speed for other classes: <highlight>".$speed."<end>s/<highlight>".$speed."<end>s\n\n";
+		$blob .= "Fist speed for other professions: <highlight>".$speed."<end>s/<highlight>".$speed."<end>s\n\n";
 		$min = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_min_list[$i], $shade_min_list[($i + 1)], $MaSkill);
 		$max = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_max_list[$i], $shade_max_list[($i + 1)], $MaSkill);
 		$crit = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_crit_list[$i], $shade_crit_list[($i + 1)], $MaSkill);
 		$dmg = "<highlight>".$min."<end>-<highlight>".$max."<end>(<highlight>".$crit."<end>)";
-		$blob .= "Class: <highlight>Shade<end>\n";
+		$blob .= "Profession: <highlight>Shade<end>\n";
 		$blob .= "Fist damage: ".$dmg."\n\n";
 
 		$min = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $gen_min_list[$i], $gen_min_list[($i + 1)], $MaSkill);
 		$max = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $gen_max_list[$i], $gen_max_list[($i + 1)], $MaSkill);
 		$crit = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $gen_crit_list[$i], $gen_crit_list[($i + 1)], $MaSkill);
 		$dmg = "<highlight>".$min."<end>-<highlight>".$max."<end>(<highlight>".$crit."<end>)";
-		$blob .= "Class: <highlight>All classes besides MA and Shade<end>\n";
+		$blob .= "Profession: <highlight>All professions besides MA and Shade<end>\n";
 		$blob .= "Fist damage: ".$dmg."\n\n";
 
 		$msg = $this->text->make_blob("Martial Arts Results", $blob);
