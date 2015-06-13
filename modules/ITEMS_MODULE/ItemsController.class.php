@@ -315,7 +315,7 @@ class ItemsController {
 		} else if ($num > 3) {
 			$blob = "Version: <highlight>$version<end>\n";
 			if ($ql) {
-				$blob .= "Search: <highlight>QL $ql $search<end>\n\n";
+				$blob .= "Search: <highlight>QL $ql $search<end>\n";
 			} else {
 				$blob .= "Search: <highlight>$search<end>\n";
 			}
