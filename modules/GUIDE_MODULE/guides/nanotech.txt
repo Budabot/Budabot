@@ -8,7 +8,7 @@
 
 <pagebreak><header2>Chapter One. What's a Nano-Technician?<end>
 
-<font color = green>We are the direct damage specialists in Rubi-Ka. We take those little nanoparticles floating around in the air, and turn them into streams of acid, flying knives, blasts of fire... you get the picture? Our defense though is a bit 'lacking'. What else can we do, we can keep people vanpools refilling and we are one of the 3 'calming' classes in the game. Have a look at the nanolines father down and you'll get the picture. Also we spend time in labs, doing nanoprogramming making implants and such, basically, we're techies with ATTITUDE!</font>
+<font color = green>We are the direct damage specialists in Rubi-Ka. We take those little nanoparticles floating around in the air, and turn them into streams of acid, flying knives, blasts of fire... you get the picture? Our defense though is a bit 'lacking'. What else can we do, we can keep people vanpools refilling and we are one of the 3 'calming' professions in the game. Have a look at the nanolines further down and you'll get the picture. Also we spend time in labs, doing nano programming making implants and such, basically, we're techies with ATTITUDE!</font>
 
 
 <pagebreak><header2>Chapter Two. Breed.<end>

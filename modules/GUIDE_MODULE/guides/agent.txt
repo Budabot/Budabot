@@ -6,7 +6,7 @@
 * Main Nanoskills: BM/PM/SI for False Profession
 * Tradeskills: Poor
 * Overall Difficulty: Hard
-Agents are long-range assassins, with the ability to hide in the shadows and strike with a powerful Aimed Shot (often killing things in one hit).  They also have the False Profession ability, which allows them to cast a wide variety of nanos from other classes.  This makes them a versatile and powerful class selection.  However, this versatility comes at a cost, as Agents are one of the weakest classes in terms of Health and evading attacks.  They do not bloom until later levels.  Opifex is the race of choice for these agile combatants.
+Agents are long-range assassins, with the ability to hide in the shadows and strike with a powerful Aimed Shot (often killing things in one hit).  They also have the False Profession ability, which allows them to cast a wide variety of nanos from other professions.  This makes them a versatile and powerful class selection.  However, this versatility comes at a cost, as Agents are one of the weakest professions in terms of Health and evading attacks.  They do not bloom until later levels.  Opifex is the race of choice for these agile combatants.
 
 <header2>Race<end>
 <font color = red>Opifex is typically the race of choice, due to the bonuses to Agility and Sense.  Agents are a very Agility/Sense-heavy class.</font>
@@ -25,7 +25,7 @@ Agents are long-range assassins, with the ability to hide in the shadows and str
 <font color = red>Max out Rifle and Aimed Shot.</font>  That's about it. There are few weapon choices outside of this combo for a viable agent.
 
 <header2>Nano & Aiding Skills<end>
-<font color = red>* BM/PM/SI for your False Profession line.</font> You are going to be 'borrowing' nanos from other classes.  Of particular note is the False Profession: Metaphysicist, which allows you to use MP pets and Nanoskill buffs.
+<font color = red>* BM/PM/SI for your False Profession line.</font> You are going to be 'borrowing' nanos from other professions.  Of particular note is the False Profession: Metaphysicist, which allows you to use MP pets and Nanoskill buffs.
 * PM/SI is also useful for the Rifle and Aimed Shot buffs that are specific to your profession.
 
 <header2>Weapon Recommendations<end>

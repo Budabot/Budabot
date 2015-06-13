@@ -6,7 +6,7 @@
 * Main Nanoskills: PM/TS for Drains and Wrangles, SI for Calms, BM for Heals.
 * Tradeskills: Good
 * Overall Difficulty: Hard
-Traders are merchants who also happen to be quite good at shotguns, for some reason.  They have access to the special Trader shop, and have several key Trader-only items.  Their drains allow them to cast nanos and use weapons far above their normal ability, while their wrangles are one of the most sought after buffs in the game. They are one of the classes that excel at tradeskills, and even have several powerful tradeskill buffs. They even have decent heals and calms, to boot.
+Traders are merchants who also happen to be quite good at shotguns, for some reason.  They have access to the special Trader shop, and have several key Trader-only items.  Their drains allow them to cast nanos and use weapons far above their normal ability, while their wrangles are one of the most sought after buffs in the game. They are one of the professions that excel at tradeskills, and even have several powerful tradeskill buffs. They even have decent heals and calms, to boot.
 
 <pagebreak><header2>Race<end>
 <font color = red>Most races can do well as a Trader.</font>  Atrox traders will suffer in terms of nanoskills in later levels, due to less trickledown from abilities, but they have a great HP bonus which helps in early level PvP.  Nanomage traders are a bit squishy, but later on they will have higher nanoskills and can equip most of the Trader-only stuff earlier.  Solitus and Opifex both are pretty average choices for Traders, with no strong weaknesses or strengths.

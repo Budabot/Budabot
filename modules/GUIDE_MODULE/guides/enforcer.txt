@@ -104,7 +104,7 @@ The various shields and damage boosters are nice, adding a little extra HP, more
 --------------------------------------------------------------------------
 
 <pagebreak><header2>Choosing  A Weapon Path<end>
-Unlike most other professions, the enforcer has a *vast* ammount of weapons to choose from. Some are more efficient than others, but all in all, you can go all the way with one weapontype alone. Some people say 'Atrox go 2h, rest go 1h'. That's rather limiting IMO, because aside from very few weapons, all classes can wield all types with great efficiency.
+Unlike most other professions, the enforcer has a *vast* ammount of weapons to choose from. Some are more efficient than others, but all in all, you can go all the way with one weapontype alone. Some people say 'Atrox go 2h, rest go 1h'. That's rather limiting IMO, because aside from very few weapons, all professions can wield all types with great efficiency.
 Here's a short description of the various paths.
 
 1 Hand Blunt:

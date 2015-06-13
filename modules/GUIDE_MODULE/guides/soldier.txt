@@ -538,13 +538,13 @@ Omni-Pol Elite (also known as OPE) (STR/STAM)
 1000AC: Impact / Projectile - Energy - Melee
 875AC: Cold - Fire - Disease - Radiation
 250AC: Chemical
-Verdict: Low Chemical AC is a set back, but reliably informed that mobs at higher levels that use Chemical attacks are rare. Strength and Stamina based classes will swear by it.
+Verdict: Low Chemical AC is a set back, but reliably informed that mobs at higher levels that use Chemical attacks are rare. Strength- and Stamina-based professions will swear by it.
 
 Nano-Armour (INT/PSY)
 1000AC: Energy - Melee - Disease
 875AC: Imp / Projectile - Cold - Fire - Radiation
 250AC: Chemical
-Verdict: The armour for Intelligence-based classes. Shame about the Chemical rating but it's sturdy stuff.
+Verdict: The armour for Intelligence-based professions. Shame about the Chemical rating but it's sturdy stuff.
 
 Biomech (PSY/STAM)
 1000AC: Imp / Projectile - Melee - Chemical
