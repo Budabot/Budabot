@@ -351,7 +351,7 @@ class SkillsController {
 		$keep_heal	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $keep_heal_list[$i],$keep_heal_list[($i+1)], $dim_skill);
 		$blob .= "Class: <highlight>Keeper<end>\n";
 		$blob .= "Self heal: <font color=#ff9999>".$keep_heal."</font> HP\n";
-		$blob .= "Recharge: <highlight>1<end> hour <font color=#ccccc>(constant)</font>\n\n";
+		$blob .= "Recharge: <highlight>5<end> minutes <font color=#ccccc>(constant)</font>\n\n";
 
 		$shad_dmg	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $shad_dmg_list[$i], $shad_dmg_list[($i+1)],  $dim_skill);
 		$shad_rec	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $shad_rec_list[$i], $shad_rec_list[($i+1)],  $dim_skill);
