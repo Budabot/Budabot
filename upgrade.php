@@ -86,10 +86,6 @@ use Budabot\Core\LoggerWrapper;
 		return true;
 	}
 	
-	if (checkIfTableExists($db, 'usage_<myname>') && !checkIfColumnExists($db, 'usage_<myname>', 'handler')) {
-		$db->exec("ALTER TABLE usage_<myname> ADD COLUMN handler VARCHAR(100) NOT NULL DEFAULT ''");
-	}
-	
 	if ($db->get_type() == DB::MYSQL && checkIfTableExists($db, 'scout_info') && getColumnType($db, 'scout_info', 'scouted_on') != 'int(11)') {
 		$db->exec("ALTER TABLE scout_info MODIFY COLUMN scouted_on INT NOT NULL DEFAULT 0");
 	}
@@ -105,7 +101,7 @@ use Budabot\Core\LoggerWrapper;
 	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'IDNumber')) {
 		$data = $db->query("SELECT * FROM quote ORDER BY IDNumber ASC");
 		$db->exec("DROP TABLE quote");
-		$db->exec("CREATE TABLE IF NOT EXISTS `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `OfWho` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
+		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `OfWho` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
 		$quoteId = 1;
 		forEach ($data as $row) {
 			$quoteMSG = $row->What;
@@ -138,5 +134,12 @@ use Budabot\Core\LoggerWrapper;
 	
 	if (checkIfTableExists($db, 'settings_<myname>')) {
 		$db->exec("UPDATE settings_<myname> SET `value` = ? WHERE `name` = ?", "local", "items_database");
+	}
+	
+	if (checkIfTableExists($db, 'usage_<myname>') && checkIfColumnExists($db, 'usage_<myname>', 'handler')) {
+		$db->exec("ALTER TABLE usage_<myname> RENAME TO usage_<myname>_bak");
+		$db->exec("CREATE TABLE usage_<myname> (type VARCHAR(5) NOT NULL, command VARCHAR(20) NOT NULL, sender VARCHAR(20) NOT NULL, dt INT NOT NULL)");
+		$db->exec("INSERT INTO usage_<myname> SELECT type, command, sender, dt FROM usage_<myname>_bak ORDER BY dt ASC");
+		$db->exec("DROP TABLE usage_<myname>_bak");
 	}
 ?>
