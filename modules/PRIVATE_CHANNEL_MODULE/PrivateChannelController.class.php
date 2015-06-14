@@ -82,15 +82,13 @@ namespace Budabot\User\Modules;
  *		command     = 'join', 
  *		accessLevel = 'member', 
  *		description = "Join command for characters who want to join the private channel", 
- *		help        = 'private_channel.txt',
- *		channels    = 'guild msg'
+ *		help        = 'private_channel.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'leave', 
  *		accessLevel = 'all', 
  *		description = "Leave command for characters in private channel", 
- *		help        = 'private_channel.txt',
- *		channels    = 'priv msg'
+ *		help        = 'private_channel.txt'
  *	)
  */
 class PrivateChannelController {
