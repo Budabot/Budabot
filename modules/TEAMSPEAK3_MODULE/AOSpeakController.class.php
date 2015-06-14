@@ -102,11 +102,12 @@ class AOSpeakController {
 			forEach ($channels as $name => $users) {
 				$blob .= "\n<header2>$name<end>\n";
 				forEach ($users as $user) {
+					$country = empty($user->country) ? "Unknown" : $user->country;
 					if ($user->idleTime >= 300000) {
 						// if idle for at least 5 minutes
-						$blob .= "<tab><highlight>{$user->name}<end> (RK{$user->dim}, {$user->country}, idle for " . $this->util->unixtimeToReadable($user->idleTime / 1000, false) . ")\n";
+						$blob .= "<tab><highlight>{$user->name}<end> ($country, idle for " . $this->util->unixtimeToReadable($user->idleTime / 1000, false) . ")\n";
 					} else {
-						$blob .= "<tab><highlight>{$user->name}<end> (RK{$user->dim}, {$user->country})\n";
+						$blob .= "<tab><highlight>{$user->name}<end> ($country)\n";
 					}
 				}
 			}
