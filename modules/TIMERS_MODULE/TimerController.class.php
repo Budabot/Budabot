@@ -292,7 +292,11 @@ class TimerController {
 		
 		if ($endTime > time()) {
 			$alert = new stdClass;
-			$alert->message = "<highlight>$sender<end> your timer named <highlight>$name<end> has gone off.";
+			if ($name == $sender) {
+				$alert->message = "<highlight>$sender<end> your timer has gone off.";
+			} else {
+				$alert->message = "<highlight>$sender<end> your timer named <highlight>$name<end> has gone off.";
+			}
 			$alert->time = $endTime;
 			$alerts []= $alert;
 		}
