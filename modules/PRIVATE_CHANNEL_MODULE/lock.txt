@@ -1,8 +1,0 @@
-To lock the private channel:
-<highlight><tab><symbol>lock<end>
-
-To lock the private channel with a reason:
-<highlight><tab><symbol>lock 'reason'<end>
-
-To open the private channel:
-<highlight><tab><symbol>unlock<end>
