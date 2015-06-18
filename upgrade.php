@@ -118,7 +118,7 @@ use Budabot\Core\LoggerWrapper;
 			$data = $db->query("SELECT * FROM quote ORDER BY id ASC");
 		}
 		$db->exec("DROP TABLE quote");
-		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
+		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `OfWho` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
 		$quoteId = 1;
 		forEach ($data as $row) {
 			$db->exec("INSERT INTO `quote` (`id`, `poster`, `When`, `What`) VALUES (?, ?, ?, ?)", $quoteId, $row->Who, $row->When, $row->What);
