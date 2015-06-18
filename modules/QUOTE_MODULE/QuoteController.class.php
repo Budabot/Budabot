@@ -130,7 +130,7 @@ class QuoteController {
 
 		// Search inside quotes:
 		$list = "";
-		$data = $this->db->query("SELECT * FROM `quote` WHERE `What` LIKE ?", $searchParam, $searchParam);
+		$data = $this->db->query("SELECT * FROM `quote` WHERE `What` LIKE ?", $searchParam);
 		forEach ($data as $row) {
 			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
