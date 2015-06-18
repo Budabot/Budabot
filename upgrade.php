@@ -96,45 +96,38 @@ use Budabot\Core\LoggerWrapper;
 		$db->exec("ALTER TABLE events MODIFY COLUMN event_name VARCHAR(255) NOT NULL");
 		$db->exec("ALTER TABLE events MODIFY COLUMN event_date INT");
 	}
-
-	// re-number quotes, rename IDNumber column to id
-	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'IDNumber')) {
-		$data = $db->query("SELECT * FROM quote ORDER BY IDNumber ASC");
-
-		$db->exec("DROP TABLE quote");
-		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
-		$quoteId = 1;
-		forEach ($data as $row) {
-			$db->exec("INSERT INTO `quote` (`id`, `poster`, `When`, `What`) VALUES (?, ?, ?, ?)", $quoteId, $row->Who, $row->When, $row->What);
-			$quoteId++;
-		}
-	}
 	
-	// re-number quotes, rename IDNumber column to id, rename Who column to poster
-	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'OfWho')) {
+	// re-number quotes, remove OfWho column, rename columns
+	if (checkIfTableExists($db, 'quote') && (checkIfColumnExists($db, 'quote', 'Who') || checkIfColumnExists($db, 'quote', 'OfWho') || checkIfColumnExists($db, 'quote', 'When') || checkIfColumnExists($db, 'quote', 'What'))) {
 		if (checkIfColumnExists($db, 'quote', 'IDNumber')) {
 			$data = $db->query("SELECT * FROM quote ORDER BY IDNumber ASC");
 		} else {
 			$data = $db->query("SELECT * FROM quote ORDER BY id ASC");
 		}
-		$db->exec("DROP TABLE quote");
-		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `OfWho` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
+		
+		$db->exec("ALTER TABLE quote RENAME TO quote_backup");
+		$db->exec("CREATE TABLE IF NOT EXISTS `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `dt` INT NOT NULL, `msg` VARCHAR(1000) NOT NULL)");
 		$quoteId = 1;
 		forEach ($data as $row) {
-			$db->exec("INSERT INTO `quote` (`id`, `poster`, `When`, `What`) VALUES (?, ?, ?, ?)", $quoteId, $row->Who, $row->When, $row->What);
-			$quoteId++;
-		}
-	}
-	
-	// remove OfWho column, rename When column to dt, rename What column to msg
-	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'OfWho')) {
-		$data = $db->query("SELECT * FROM quote ORDER BY id ASC");
+			if (isset($row->Who)) {
+				$poster = $row->Who;
+			} else {
+				$poster = $row->poster;
+			}
 
-		$db->exec("DROP TABLE quote");
-		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `dt` INT NOT NULL, `msg` VARCHAR(1000) NOT NULL)");
-		$quoteId = 1;
-		forEach ($data as $row) {
-			$db->exec("INSERT INTO `quote` (`id`, `poster`, `dt`, `msg`) VALUES (?, ?, ?, ?)", $quoteId, $row->poster, $row->When, $row->What);
+			if (isset($row->When)) {
+				$dt = $row->When;
+			} else {
+				$dt = $row->dt;
+			}
+
+			if (isset($row->What)) {
+				$msg = $row->What;
+			} else {
+				$msg = $row->msg;
+			}
+
+			$db->exec("INSERT INTO `quote` (`id`, `poster`, `dt`, `msg`) VALUES (?, ?, ?, ?)", $quoteId, $poster, $dt, $msg);
 			$quoteId++;
 		}
 	}
