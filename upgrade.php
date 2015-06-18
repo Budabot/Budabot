@@ -98,10 +98,14 @@ use Budabot\Core\LoggerWrapper;
 	}
 
 	// re-number quotes, rename IDNumber column to id
-	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'IDNumber')) {
-		$data = $db->query("SELECT * FROM quote ORDER BY IDNumber ASC");
+	if (checkIfTableExists($db, 'quote') && (checkIfColumnExists($db, 'quote', 'IDNumber') || checkIfColumnExists($db, 'quote', 'OfWho'))) {
+		if (checkIfColumnExists($db, 'quote', 'IDNumber')) {
+			$data = $db->query("SELECT * FROM quote ORDER BY IDNumber ASC");
+		} else {
+			$data = $db->query("SELECT * FROM quote ORDER BY id ASC");
+		}
 		$db->exec("DROP TABLE quote");
-		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `OfWho` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
+		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
 		$quoteId = 1;
 		forEach ($data as $row) {
 			$quoteMSG = $row->What;
@@ -127,7 +131,7 @@ use Budabot\Core\LoggerWrapper;
 				$quoteOfWHO = $row->Who;
 			}
 			
-			$db->exec("INSERT INTO `quote` (`id`, `poster`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $quoteId, $row->Who, $quoteOfWHO, $row->When, $row->What);
+			$db->exec("INSERT INTO `quote` (`id`, `poster`, `When`, `What`) VALUES (?, ?, ?, ?)", $quoteId, $row->Who, $row->When, $row->What);
 			$quoteId++;
 		}
 	}

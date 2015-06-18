@@ -66,30 +66,8 @@ class QuoteController {
 
 				// nextId = maxId + 1
 				$id = $this->getMaxId() + 1;
-				
-				if (preg_match("/^(\(\d\d:\d\d\) )?To \[([a-z0-9-]+)\]:/i", $quoteMSG, $arr)) {
-					//To [Person]: message
-					$quoteOfWHO = $arr[2];
-				} else if (preg_match("/^(\(\d\d:\d\d\) )?\[([a-z0-9-]+)\]:/i", $quoteMSG, $arr)) {
-					//[Person]: message
-					$quoteOfWHO = $arr[2];
-				} else if (preg_match("/^(\(\d\d:\d\d\) )?\[[^\]]+\] ([a-z0-9-]+):/i", $quoteMSG, $arr)) {
-					//[Neu. OOC] Lucier: message
-					$quoteOfWHO = $arr[2];
-				} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+) shouts:/i", $quoteMSG, $arr)) {
-					//Lucier shouts: message
-					$quoteOfWHO = $arr[2];
-				} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+) whispers:/i", $quoteMSG, $arr)) {
-					//Lucier whispers: message
-					$quoteOfWHO = $arr[2];
-				} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+):/i", $quoteMSG, $arr)) {
-					//Lucier: message
-					$quoteOfWHO = $arr[2];
-				} else {
-					$quoteOfWHO = $sender;
-				}
 
-				$this->db->exec("INSERT INTO `quote` (`id`, `poster`, `OfWho`, `When`, `What`) VALUES (?, ?, ?, ?, ?)", $id, $poster, $quoteOfWHO, time(), $quoteMSG);
+				$this->db->exec("INSERT INTO `quote` (`id`, `poster`, `When`, `What`) VALUES (?, ?, ?, ?)", $id, $poster, time(), $quoteMSG);
 				$msg = "Quote <highlight>$id<end> has been added.";
 			}
 		}
@@ -106,9 +84,6 @@ class QuoteController {
 
 		if ($row !== null) {
 			$poster = $row->poster;
-			$quoteOfWHO = $row->OfWho;
-			$quoteDATE = $row->When;
-			$quoteMSG = $row->What;
 
 			//only author or admin can delete.
 			if (($poster == $sender) || $this->accessManager->checkAccess($sender, 'moderator')) {
@@ -153,23 +128,9 @@ class QuoteController {
 			$msg .= substr($list, 0, strlen($list) - 2);
 		}
 
-		// Search for victim:
-		$list = "";
-		$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` LIKE ?", $searchParam);
-		forEach ($data as $row) {
-			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
-		}
-		if ($list) {
-			if ($msg) {
-				$msg .="\n\n";
-			}
-			$msg .= "<tab>Quotes <highlight>$search<end> said: ";
-			$msg .= substr($list, 0, strlen($list) - 2);
-		}
-
 		// Search inside quotes:
 		$list = "";
-		$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` NOT LIKE ? AND `What` LIKE ?", $searchParam, $searchParam);
+		$data = $this->db->query("SELECT * FROM `quote` WHERE `What` LIKE ?", $searchParam, $searchParam);
 		forEach ($data as $row) {
 			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
@@ -186,51 +147,6 @@ class QuoteController {
 		} else {
 			$msg = "Could not find any matches for this search.";
 		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("quote")
-	 * @Matches("/^quote stats$/i")
-	 */
-	public function quoteStatsCommand($message, $channel, $sender, $sendto, $args) {
-		$top = $this->settingManager->get("quote_stat_count");
-		
-		$count = $this->getMaxId();
-
-		//$quoters = setup a list of who quoted the most
-		$quoters = $this->db->query("SELECT poster, COUNT(1) AS count FROM `quote` GROUP BY `poster` ORDER BY count DESC");
-		$quotersCount = count($quoters);
-
-		//$victims = setup a list of who was quoted the most
-		$victims = $this->db->query("SELECT OfWho, COUNT(1) AS count FROM `quote` GROUP BY `OfWho` ORDER BY count DESC");
-		$victimsCount = count($victims);
-
-		$blob = "<highlight>Top $top Quoters:<end> ($quotersCount total)\n";
-		$listnum = 0;
-		forEach ($quoters as $row) {
-			$listnum++;
-			$blob .= "<tab>$listnum) ";
-			$blob .= $this->text->make_chatcmd($row->poster, "/tell <myname> quote search $row->poster");
-			$blob .= ": <highlight>$row->count<end> " . number_format((100 * $row->count / $count), 0) . "%\n";
-			if ($listnum >= $top) {
-				break;
-			}
-		}
-
-		$blob .= "\n<highlight>Top $top Quoted:<end> ($victimsCount total)\n";
-		$listnum = 0;
-		forEach ($victims as $row) {
-			$listnum++;
-			$blob .= "<tab>$listnum) ".
-				$this->text->make_chatcmd($row->OfWho, "/tell <myname> quote search $row->OfWho") .
-				": <highlight>$row->count<end> " . number_format((100 * $row->count / $count), 0) . "%\n";
-			if ($listnum >= $top) {
-				break;
-			}
-		}
-
-		$msg = $this->text->make_blob("Quote stats", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -289,25 +205,15 @@ class QuoteController {
 		}
 
 		$poster = $row->poster;
-		$quoteOfWHO = $row->OfWho;
 		$quoteMSG = $row->What;
 
 		$msg = "ID: <highlight>$id<end> of $count\n";
 		$msg .= "Poster: <highlight>$poster<end>\n";
-		$msg .= "Quoting: <highlight>$quoteOfWHO<end>\n";
 		$msg .= "Date: <highlight>" . $this->util->date($row->When) . "<end>\n";
 		$msg .= "Quote: <highlight>$quoteMSG<end>\n\n";
 
 		$msg .= "<header2>Quotes posted by <highlight>$poster<end>\n";
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `poster` = ?", $poster);
-		$list = "";
-		forEach ($data as $row) {
-			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
-		}
-		$msg .= substr($list, 0, strlen($list) - 2) . "\n\n";
-
-		$msg .="<header2>Quotes of <highlight>$quoteOfWHO<end>\n";
-		$data = $this->db->query("SELECT * FROM `quote` WHERE `OfWho` = ?", $quoteOfWHO);
 		$list = "";
 		forEach ($data as $row) {
 			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
