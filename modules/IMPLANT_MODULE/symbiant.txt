@@ -1,11 +1,7 @@
 To show a list of symbiants and which pocketboss drops it:
-<highlight><tab><symbol>symbiant 'slotname' 'type'<end>
+<highlight><tab><symbol>symbiant 'slotname' 'type' 'line'<end>
 
-To show all symbiants of a certain type:
-<highlight><tab><symbol>symbiant 'type'<end>
-
-To show all symbiants which go in a certain slot:
-<highlight><tab><symbol>symbiant 'slot'<end>
+Note that only one of the three parameters is required and you can supply the requirements in any order.
 
 Allowed Slotnames
 <tab>- eye
@@ -28,3 +24,32 @@ Allowed Types
 <tab>- infantry
 <tab>- artillery
 <tab>- extermination
+
+Allowed Lines (must be exact)
+<tab>- Alert
+<tab>- Cognizant
+<tab>- Vital
+<tab>- Excited
+<tab>- Effective
+<tab>- Vigorous
+<tab>- Persisting
+<tab>- Living
+<tab>- Growing
+<tab>- Enduring
+<tab>- Awakened
+<tab>- Active
+<tab>- Working
+<tab>- Surviving
+<tab>- Running
+<tab>- Residing
+<tab>- Prevailing
+<tab>- Operative
+<tab>- Breathing
+<tab>- Vibrating
+<tab>- Moving
+<tab>- Animated
+<tab>- Lulled
+<tab>- Sluggish
+<tab>- Sleeping
+<tab>- Neglectful
+<tab>- Lethargic
