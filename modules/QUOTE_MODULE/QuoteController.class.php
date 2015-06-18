@@ -55,7 +55,7 @@ class QuoteController {
 	 */
 	public function quoteAddCommand($message, $channel, $sender, $sendto, $args) {
 		$quoteMSG = trim($args[1]);
-		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `What` LIKE ?", $quoteMSG);
+		$row = $this->db->queryRow("SELECT * FROM `quote` WHERE `msg` LIKE ?", $quoteMSG);
 		if ($row !== null) {
 			$msg = "This quote has already been added as quote <highlight>$row->id<end>.";
 		} else {
@@ -67,7 +67,7 @@ class QuoteController {
 				// nextId = maxId + 1
 				$id = $this->getMaxId() + 1;
 
-				$this->db->exec("INSERT INTO `quote` (`id`, `poster`, `When`, `What`) VALUES (?, ?, ?, ?)", $id, $poster, time(), $quoteMSG);
+				$this->db->exec("INSERT INTO `quote` (`id`, `poster`, `dt`, `msg`) VALUES (?, ?, ?, ?)", $id, $poster, time(), $quoteMSG);
 				$msg = "Quote <highlight>$id<end> has been added.";
 			}
 		}
@@ -130,7 +130,7 @@ class QuoteController {
 
 		// Search inside quotes:
 		$list = "";
-		$data = $this->db->query("SELECT * FROM `quote` WHERE `What` LIKE ?", $searchParam);
+		$data = $this->db->query("SELECT * FROM `quote` WHERE `msg` LIKE ?", $searchParam);
 		forEach ($data as $row) {
 			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
@@ -205,11 +205,11 @@ class QuoteController {
 		}
 
 		$poster = $row->poster;
-		$quoteMSG = $row->What;
+		$quoteMSG = $row->msg;
 
 		$msg = "ID: <highlight>$id<end> of $count\n";
 		$msg .= "Poster: <highlight>$poster<end>\n";
-		$msg .= "Date: <highlight>" . $this->util->date($row->When) . "<end>\n";
+		$msg .= "Date: <highlight>" . $this->util->date($row->dt) . "<end>\n";
 		$msg .= "Quote: <highlight>$quoteMSG<end>\n\n";
 
 		$msg .= "<header2>Quotes posted by <highlight>$poster<end>\n";

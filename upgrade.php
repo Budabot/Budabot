@@ -98,7 +98,20 @@ use Budabot\Core\LoggerWrapper;
 	}
 
 	// re-number quotes, rename IDNumber column to id
-	if (checkIfTableExists($db, 'quote') && (checkIfColumnExists($db, 'quote', 'IDNumber') || checkIfColumnExists($db, 'quote', 'OfWho'))) {
+	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'IDNumber')) {
+		$data = $db->query("SELECT * FROM quote ORDER BY IDNumber ASC");
+
+		$db->exec("DROP TABLE quote");
+		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
+		$quoteId = 1;
+		forEach ($data as $row) {
+			$db->exec("INSERT INTO `quote` (`id`, `poster`, `When`, `What`) VALUES (?, ?, ?, ?)", $quoteId, $row->Who, $row->When, $row->What);
+			$quoteId++;
+		}
+	}
+	
+	// re-number quotes, rename IDNumber column to id, rename Who column to poster
+	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'OfWho')) {
 		if (checkIfColumnExists($db, 'quote', 'IDNumber')) {
 			$data = $db->query("SELECT * FROM quote ORDER BY IDNumber ASC");
 		} else {
@@ -108,30 +121,20 @@ use Budabot\Core\LoggerWrapper;
 		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `When` INT NOT NULL, `What` VARCHAR(1000) NOT NULL)");
 		$quoteId = 1;
 		forEach ($data as $row) {
-			$quoteMSG = $row->What;
-			if (preg_match("/^(\(\d\d:\d\d\) )?To \[([a-z0-9-]+)\]:/i", $quoteMSG, $arr)) {
-				//To [Person]: message
-				$quoteOfWHO = $arr[2];
-			} else if (preg_match("/^(\(\d\d:\d\d\) )?\[([a-z0-9-]+)\]:/i", $quoteMSG, $arr)) {
-				//[Person]: message
-				$quoteOfWHO = $arr[2];
-			} else if (preg_match("/^(\(\d\d:\d\d\) )?\[[^\]]+\] ([a-z0-9-]+):/i", $quoteMSG, $arr)) {
-				//[Neu. OOC] Lucier: message
-				$quoteOfWHO = $arr[2];
-			} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+) shouts:/i", $quoteMSG, $arr)) {
-				//Lucier shouts: message
-				$quoteOfWHO = $arr[2];
-			} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+) whispers:/i", $quoteMSG, $arr)) {
-				//Lucier whispers: message
-				$quoteOfWHO = $arr[2];
-			} else if (preg_match("/^(\(\d\d:\d\d\) )?([a-z0-9-]+):/i", $quoteMSG, $arr)) {
-				//Lucier: message
-				$quoteOfWHO = $arr[2];
-			} else {
-				$quoteOfWHO = $row->Who;
-			}
-			
 			$db->exec("INSERT INTO `quote` (`id`, `poster`, `When`, `What`) VALUES (?, ?, ?, ?)", $quoteId, $row->Who, $row->When, $row->What);
+			$quoteId++;
+		}
+	}
+	
+	// remove OfWho column, rename When column to dt, rename What column to msg
+	if (checkIfTableExists($db, 'quote') && checkIfColumnExists($db, 'quote', 'OfWho')) {
+		$data = $db->query("SELECT * FROM quote ORDER BY id ASC");
+
+		$db->exec("DROP TABLE quote");
+		$db->exec("CREATE TABLE `quote` (`id` INTEGER NOT NULL PRIMARY KEY, `poster` VARCHAR(25) NOT NULL, `dt` INT NOT NULL, `msg` VARCHAR(1000) NOT NULL)");
+		$quoteId = 1;
+		forEach ($data as $row) {
+			$db->exec("INSERT INTO `quote` (`id`, `poster`, `dt`, `msg`) VALUES (?, ?, ?, ?)", $quoteId, $row->poster, $row->When, $row->What);
 			$quoteId++;
 		}
 	}
