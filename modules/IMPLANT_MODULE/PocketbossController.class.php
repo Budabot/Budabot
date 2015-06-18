@@ -75,7 +75,7 @@ class PocketbossController {
 	}
 	
 	public function singlePbBlob($name) {
-		$data = $this->db->query("SELECT * FROM pbdb WHERE pb = ? ORDER BY ql", $name);
+		$data = $this->db->query("SELECT * FROM pocketboss WHERE pb = ? ORDER BY ql", $name);
 		$symbs = '';
 		forEach ($data as $symb) {
 			$name = "$symb->line $symb->slot Symbiant, $symb->type Unit Aban";
@@ -91,7 +91,7 @@ class PocketbossController {
 	}
 	
 	public function pbSearchResults($search) {
-		$row = $this->db->queryRow("SELECT pb FROM pbdb WHERE pb LIKE ? GROUP BY `pb` ORDER BY `pb`", $search);
+		$row = $this->db->queryRow("SELECT pb FROM pocketboss WHERE pb LIKE ? GROUP BY `pb` ORDER BY `pb`", $search);
 		if ($row !== null) {
 			return array($row);
 		}
@@ -99,7 +99,7 @@ class PocketbossController {
 		$tmp = explode(" ", $search);
 		list($query, $params) = $this->util->generateQueryFromParams($tmp, '`pb`');
 
-		return $this->db->query("SELECT DISTINCT pb FROM pbdb WHERE $query GROUP BY `pb` ORDER BY `pb`", $params);
+		return $this->db->query("SELECT DISTINCT pb FROM pocketboss WHERE $query GROUP BY `pb` ORDER BY `pb`", $params);
 	}
 	
 	/**
@@ -186,7 +186,7 @@ class PocketbossController {
 			}
 		}
 
-		$data = $this->db->query("SELECT * FROM pbdb WHERE `slot` LIKE ? AND `type` LIKE ? ORDER BY `ql` DESC, `type` ASC", $slot, $symbtype);
+		$data = $this->db->query("SELECT * FROM pocketboss WHERE `slot` LIKE ? AND `type` LIKE ? ORDER BY `ql` DESC, `type` ASC", $slot, $symbtype);
 		$numrows = count($data);
 		if ($numrows != 0) {
 			$implantDesignerLink = $this->text->make_chatcmd("implant designer", "/tell <myname> implantdesigner");
