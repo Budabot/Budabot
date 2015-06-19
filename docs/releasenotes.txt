@@ -1,4 +1,22 @@
 *****************************
+	Version 3.3_RC2:
+*****************************
+!items now defaults (once again) to using the local database (support for aoitems.com was removed due to issues)
+!recipe now uses local database to address issues with Recipebook going down
+!history should now work again, for RK1, RK2, and RK5
+fixed issue causing bot to take a long time to start
+references to xyphos.com replaced with references to aoitems.com (thanks Zyamada)
+!quote rem will now re-number quotes when a quote is deleted so there are no "holes"
+removed !quote stats
+removed !lock
+removed !unlock
+removed !guide smileys
+removed !guide buffs
+added !kos
+!track can now optionally show tracker events in org and/or private channels
+added Arete to !playfields (thanks Eli)
+
+*****************************
 	Version 3.3_RC1:
 *****************************
 -other various fixes and changes
