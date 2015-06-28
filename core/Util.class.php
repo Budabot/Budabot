@@ -423,7 +423,7 @@ class Util {
 		$queryParams = array();
 		$first = true;
 		forEach ($params as $key => $value) {
-			if ($value[0] == "-") {
+			if ($value[0] == "-" && strlen($value) > 1) {
 				$value = substr($value, 1);
 				$op = "NOT LIKE";
 			} else {
