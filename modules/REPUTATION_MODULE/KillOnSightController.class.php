@@ -108,7 +108,7 @@ class KillOnSightController {
 			}
 			
 			$sql = "INSERT INTO kos (name, comment, submitter, dt) VALUES (?, ?, ?, ?)";
-			$this->db->query($sql, $name, $comment, $sender, time());
+			$this->db->exec($sql, $name, $comment, $sender, time());
 			$msg = "Character <highlight>$name<end> has been added to the Kill-On-Sight list.";
 		}
 		$sendto->reply($msg);
@@ -128,7 +128,7 @@ class KillOnSightController {
 			$msg = "Character <highlight>$name<end> is not on the Kill-On-Sight list.";
 		} else {
 			$sql = "DELETE FROM kos WHERE name = ?";
-			$this->db->query($sql, $name);
+			$this->db->exec($sql, $name);
 			$msg = "Character <highlight>$name<end> has been removed from the Kill-On-Sight list.";
 		}
 		$sendto->reply($msg);
