@@ -386,7 +386,7 @@ class ItemsController {
 				$list .= " (QL" . $row->lowql . ")\n";
 			}
 			if ($showImages) {
-				$list .= "\n";
+				$list .= "\n<pagebreak>";
 			}
 		}
 		return $list;
