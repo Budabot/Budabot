@@ -27,7 +27,7 @@ INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(25, 'Mutant Domain', 'Mutant Domain', 'Omni', 'md');
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(26, 'Perpetual Wasteland', 'Perpetual Wasteland', 'Neutral', 'pw');
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(27, 'Southern Fouls Hills', 'Southern Fouls Hills', 'Omni', 'sfh');
-INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(28, 'Central Artery Valley', 'Central Artery Valley', 'Clan', 'sav');
+INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(28, 'Central Artery Valley', 'Central Artery Valley', 'Clan', 'cav');
 
 DROP TABLE IF EXISTS `whompah_cities_rel`;
 CREATE TABLE `whompah_cities_rel` ( `city1_id` int(11) NOT NULL, `city2_id` int(11) NOT NULL);
