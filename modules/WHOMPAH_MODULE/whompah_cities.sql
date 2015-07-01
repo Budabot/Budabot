@@ -20,7 +20,7 @@ INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(18, '20K', 'Pleasant Meadows', 'Omni', '20k');
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(19, '4 Holes', '4 Holes', 'Clan', '4ho');
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(20, 'Broken Shores - South', 'Broken Shores', 'Omni', 'bss');
-INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(21, 'Outpost 10-3', 'Southern Artery Valley', 'Omni', '10-3');
+INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(21, 'Outpost 10-3', 'Southern Artery Valley', 'Omni', 'sav');
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(22, '2HO', 'Stret East Bank', 'Omni', '2ho');
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(23, 'Rome', 'Rome Red', 'Omni', 'rr');
 INSERT INTO `whompah_cities` (`id`, `city_name`, `zone`, `faction`, `short_name`) VALUES(24, 'The Longest Road', 'The Longest Road', 'Omni', 'tlr');
