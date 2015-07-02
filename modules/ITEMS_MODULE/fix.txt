@@ -1,8 +1,3 @@
-Armour Test%
-Monster Invulnerability Item
-UPPER(name) LIKE UPPER('test%')
-delete Item ID: 290140 "Keeper figurine"
-
 INSERT INTO aodb VALUES (122395, 122395, 81, 81, 'Chipped Esoteric Energy Buckler', 33149);
 
 INSERT INTO aodb VALUES (123393, 123393, 121, 121, 'Layered Meat-Cleaver', 85169);
