@@ -146,7 +146,7 @@ use Budabot\Core\LoggerWrapper;
 	if (checkIfTableExists($db, 'reputation') && (checkIfColumnExists($db, 'reputation', 'charid') || checkIfColumnExists($db, 'reputation', 'by_charid'))) {
 		$db->exec("ALTER TABLE reputation RENAME TO reputation_bak");
 		$db->exec("CREATE TABLE IF NOT EXISTS reputation (`id` INT NOT NULL PRIMARY KEY AUTO_INCREMENT, `name` TEXT NOT NULL, `reputation` TEXT NOT NULL, `comment` TEXT NOT NULL, `by` TEXT NOT NULL, `dt` INT NOT NULL)");
-		$db->exec("INSERT INTO reputation SELECT id, name, reputation, comment, by, dt FROM reputation_bak");
+		$db->exec("INSERT INTO reputation SELECT `id`, `name`, `reputation`, `comment`, `by`, `dt` FROM reputation_bak");
 		$db->exec("DROP table reputation_bak");
 	}
 ?>
