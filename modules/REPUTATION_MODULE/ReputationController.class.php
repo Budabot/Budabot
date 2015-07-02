@@ -85,29 +85,28 @@ class ReputationController {
 		$charid = $this->chatBot->get_uid($name);
 		$rep = $args[2];
 		$comment = $args[3];
-		$by_charid = $this->chatBot->get_uid($sender);
 
 		if ($charid == false) {
 			$sendto->reply("Character <highlight>$name<end> does not exist.");
 			return;
 		}
 
-		if ($charid == $by_charid) {
+		if ($sender == $name) {
 			$sendto->reply("You cannot give yourself reputation.");
 			return;
 		}
 
 		$time = time() - 86400;
 
-		$sql = "SELECT name FROM reputation WHERE `by_charid` = ? AND `charid` = ? AND `dt` > ?";
-		$data = $this->db->query($sql, $by_charid, $charid, $time);
+		$sql = "SELECT name FROM reputation WHERE `by` = ? AND `name` = ? AND `dt` > ?";
+		$data = $this->db->query($sql, $sender, $name, $time);
 		if (count($data) > 0) {
 			$sendto->reply("You may only submit reputation for a character once every 24 hours.");
 			return;
 		}
 
-		$sql = "SELECT name FROM reputation WHERE `by_charid` = ? AND `dt` > ?";
-		$data = $this->db->query($sql, $by_charid, $time);
+		$sql = "SELECT name FROM reputation WHERE `by` = ? AND `dt` > ?";
+		$data = $this->db->query($sql, $sender, $time);
 		if (count($data) > 3) {
 			$sendto->reply("You may submit reputation a maximum of 3 times in a 24 hour period.");
 			return;
@@ -116,15 +115,11 @@ class ReputationController {
 		$sql = "
 			INSERT INTO reputation (
 				`name`,
-				`charid`,
 				`reputation`,
 				`comment`,
 				`by`,
-				`by_charid`,
 				`dt`
 			) VALUES (
-				?,
-				?,
 				?,
 				?,
 				?,
@@ -132,7 +127,7 @@ class ReputationController {
 				?
 			)";
 
-		$this->db->exec($sql, $name, $charid, $rep, $comment, $sender, $by_charid, time());
+		$this->db->exec($sql, $name, $rep, $comment, $sender, time());
 		$sendto->reply("Reputation for $name added successfully.");
 	}
 	
@@ -143,20 +138,13 @@ class ReputationController {
 	 */
 	public function reputationViewCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
-		$charid = $this->chatBot->get_uid($name);
 		
 		$limit = 10;
 		if (count($args) == 3) {
 			$limit = 1000;
 		}
 
-		if ($charid == false) {
-			$where_sql = "WHERE `name` = '$name'";
-		} else {
-			$where_sql = "WHERE `charid` = '$charid'";
-		}
-
-		$data = $this->db->query("SELECT reputation, COUNT(*) count FROM reputation {$where_sql} GROUP BY `reputation`");
+		$data = $this->db->query("SELECT reputation, COUNT(*) count FROM reputation WHERE name = ? GROUP BY `reputation`", $name);
 		if (count($data) == 0) {
 			$msg = "<highlight>$name<end> has no reputation.";
 		} else {
@@ -178,8 +166,8 @@ class ReputationController {
 				$blob .= "All comments about this user:\n\n";
 			}
 
-			$sql = "SELECT * FROM reputation {$where_sql} ORDER BY `dt` DESC LIMIT " . $limit;
-			$data = $this->db->query($sql);
+			$sql = "SELECT * FROM reputation WHERE name = ? ORDER BY `dt` DESC LIMIT " . $limit;
+			$data = $this->db->query($sql, $name);
 			forEach ($data as $row) {
 				if ($row->reputation == '-1') {
 					$blob .= "<orange>";
