@@ -144,19 +144,21 @@ class ReputationController {
 			$limit = 1000;
 		}
 
-		$data = $this->db->query("SELECT reputation, COUNT(*) count FROM reputation WHERE name = ? GROUP BY `reputation`", $name);
-		if (count($data) == 0) {
+		$sql = "
+			SELECT
+				sum(CASE WHEN reputation = '+1' THEN 1 ELSE 0 END) AS positive_rep,
+				sum(CASE WHEN reputation = '-1' THEN 1 ELSE 0 END) AS negative_rep
+			FROM
+				reputation
+			WHERE
+				name = ?";
+
+		$row = $this->db->queryRow($sql, $name);
+		if ($row === null) {
 			$msg = "<highlight>$name<end> has no reputation.";
 		} else {
-			$num_positive = 0;
-			$num_negative = 0;
-			forEach ($data as $row) {
-				if ($row->reputation == '+1') {
-					$num_positive = $row->count;
-				} else if ($row->reputation == '-1') {
-					$num_negative = $row->count;
-				}
-			}
+			$num_positive = $row->positive_rep;
+			$num_negative = $row->negative_rep;
 
 			$blob = "Positive reputation: <green>{$num_positive}<end>\n";
 			$blob .= "Negative reputation: <orange>{$num_negative}<end>\n\n";
