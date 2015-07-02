@@ -96,19 +96,12 @@ class ReputationController {
 			return;
 		}
 
-		$time = time() - 86400;
+		$time = time() - 21600; // 6 hours
 
 		$sql = "SELECT name FROM reputation WHERE `by` = ? AND `name` = ? AND `dt` > ?";
 		$data = $this->db->query($sql, $sender, $name, $time);
 		if (count($data) > 0) {
-			$sendto->reply("You may only submit reputation for a character once every 24 hours.");
-			return;
-		}
-
-		$sql = "SELECT name FROM reputation WHERE `by` = ? AND `dt` > ?";
-		$data = $this->db->query($sql, $sender, $time);
-		if (count($data) > 3) {
-			$sendto->reply("You may submit reputation a maximum of 3 times in a 24 hour period.");
+			$sendto->reply("You may only submit reputation for a character once every 6 hours.");
 			return;
 		}
 
