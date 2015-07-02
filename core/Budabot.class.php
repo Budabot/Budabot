@@ -680,15 +680,15 @@ class Budabot extends AOChat {
 	}
 
 	public function registerInstance($name, &$obj) {
-		$this->logger->log('DEBUG', "Registering instance name '$name' for module '$MODULE_NAME'");
-		$MODULE_NAME = $obj->moduleName;
+		$this->logger->log('DEBUG', "Registering instance name '$name' for module '$moduleName'");
+		$moduleName = $obj->moduleName;
 
 		// register settings annotated on the class
 		$reflection = new ReflectionAnnotatedClass($obj);
 		forEach ($reflection->getProperties() as $property) {
 			if ($property->hasAnnotation('Setting')) {
 				$this->settingManager->add(
-					$MODULE_NAME,
+					$moduleName,
 					$property->getAnnotation('Setting')->value,
 					$property->getAnnotation('Description')->value,
 					$property->getAnnotation('Visibility')->value,
@@ -728,7 +728,7 @@ class Budabot extends AOChat {
 				}
 				// register command alias if defined
 				if ($annotation->alias) {
-					$this->commandAlias->register($MODULE_NAME, $command, $annotation->alias);
+					$this->commandAlias->register($moduleName, $command, $annotation->alias);
 				}
 			}
 		}
@@ -751,7 +751,7 @@ class Budabot extends AOChat {
 				}
 			} else if ($method->hasAnnotation('Event')) {
 				$this->eventManager->register(
-					$MODULE_NAME,
+					$moduleName,
 					$method->getAnnotation('Event')->value,
 					$name . '.' . $method->name,
 					@$method->getAnnotation('Description')->value,
@@ -763,11 +763,11 @@ class Budabot extends AOChat {
 
 		forEach ($commands as $command => $definition) {
 			if (count($definition['handlers']) == 0) {
-				$this->logger->log('ERROR', "No handlers defined for command $command in module '$MODULE_NAME'.");
+				$this->logger->log('ERROR', "No handlers defined for command $command in module '$moduleName'.");
 				continue;
 			}
 			$this->commandManager->register(
-				$MODULE_NAME,
+				$moduleName,
 				$definition['channels'],
 				implode(',', $definition['handlers']),
 				$command,
@@ -780,11 +780,11 @@ class Budabot extends AOChat {
 
 		forEach ($subcommands as $subcommand => $definition) {
 			if (count($definition['handlers']) == 0) {
-				$this->logger->log('ERROR', "No handlers defined for subcommand $subcommand in module '$MODULE_NAME'.");
+				$this->logger->log('ERROR', "No handlers defined for subcommand $subcommand in module '$moduleName'.");
 				continue;
 			}
 			$this->subcommandManager->register(
-				$MODULE_NAME,
+				$moduleName,
 				$definition['channels'],
 				implode(',', $definition['handlers']),
 				$subcommand,
