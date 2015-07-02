@@ -31,7 +31,8 @@ class BotRunner {
 	}
 
 	public function run() {
-		$this->setDefaultTimeZone();
+		// set default timezone
+		date_default_timezone_set("UTC");
 
 		echo $this->getInitialInfoMessage();
 		$this->loadPhpExtensions();
@@ -40,19 +41,21 @@ class BotRunner {
 		$this->loadPhpLibraries();
 		$this->loadEssentialCoreClasses();
 
+		// load $vars
 		global $vars;
 		$vars = $this->getConfigVars();
+		$logFolderName = $vars['name'] . '.' . $vars['dimension'];
 
-		$this->setErrorHandling();
+		$this->setErrorHandling($logFolderName);
 
 		$this->showSetupDialog();
 		$this->canonicalizeBotCharacterName();
 
-		$this->configureLogger();
+		$this->configureLogger($logFolderName);
 
 		$this->setWindowTitle();
 
-		$this->logStartupMessage();
+		LegacyLogger::log('INFO', 'StartUp', "Starting {$vars['name']} on RK{$vars['dimension']}...");
 
 		$classLoader = new ClassLoader($vars['module_load_paths']);
 		Registry::injectDependencies($classLoader);
@@ -63,14 +66,22 @@ class BotRunner {
 
 		$this->runUpgradeScripts();
 
-		list($server, $port) = $this->getServerAndPort();
-		$this->connectToAoChatServer($server, $port);
-		$this->clearAoLoginCredentials();
-		$this->startBot();
-	}
+		list($server, $port) = $this->getServerAndPort($vars);
+		
+		$chatBot = Registry::getInstance('chatBot');
+		
+		// startup core systems and load modules
+		$chatBot->init($vars);
+		
+		// connect to ao chat server
+		$chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
+		
+		//$this->clearAoLoginCredentials();
+		unset($vars['login']);
+		unset($vars['password']);
 
-	private function setDefaultTimeZone() {
-		date_default_timezone_set("UTC");
+		// pass control to Budabot class
+		$chatBot->run();
 	}
 
 	private function getInitialInfoMessage() {
@@ -117,16 +128,11 @@ Contacts:      Tyrence, Marebone
 		return $vars;
 	}
 
-	private function setErrorHandling() {
+	private function setErrorHandling($logFolderName) {
 		error_reporting(E_ALL & ~E_STRICT & ~E_WARNING & ~E_NOTICE);
 		ini_set("log_errors", 1);
 		ini_set('display_errors', 1);
-		ini_set("error_log", "./logs/" . $this->getLogFolderName() . "/php_errors.log");
-	}
-
-	private function getLogFolderName() {
-		global $vars;
-		return $vars['name'] . '.' . $vars['dimension'];
+		ini_set("error_log", "./logs/" . $logFolderName . "/php_errors.log");
 	}
 
 	private function loadPhpLibraries() {
@@ -163,11 +169,11 @@ Contacts:      Tyrence, Marebone
 	}
 
 	// Configure log files to be separate for each bot
-	private function configureLogger() {
+	private function configureLogger($logFolderName) {
 		$configurator = new LoggerConfiguratorDefault();
 		$config = $configurator->parse('conf/log4php.xml');
 		$file = $config['appenders']['defaultFileAppender']['params']['file'];
-		$file = str_replace("./logs/", "./logs/" . $this->getLogFolderName() . "/", $file);
+		$file = str_replace("./logs/", "./logs/" . $logFolderName . "/", $file);
 		$config['appenders']['defaultFileAppender']['params']['file'] = $file;
 		Logger::configure($config);
 	}
@@ -178,11 +184,6 @@ Contacts:      Tyrence, Marebone
 			global $vars;
 			system("title {$vars['name']} - Budabot");
 		}
-	}
-
-	private function logStartupMessage() {
-		global $vars;
-		LegacyLogger::log('INFO', 'StartUp', "Starting {$vars['name']} on RK{$vars['dimension']}...");
 	}
 
 	private function connectToDatabase() {
@@ -203,12 +204,10 @@ Contacts:      Tyrence, Marebone
 	private function runUpgradeScripts() {
 		if (file_exists('upgrade.php')) {
 			include 'upgrade.php';
-			//unlink('upgrade.php');
 		}
 	}
 
-	protected function getServerAndPort() {
-		global $vars;
+	protected function getServerAndPort($vars) {
 		// Choose server
 		if ($vars['use_proxy'] == 1) {
 			// For use with the AO chat proxy ONLY!
@@ -226,23 +225,5 @@ Contacts:      Tyrence, Marebone
 			die();
 		}
 		return array($server, $port);
-	}
-
-	private function connectToAoChatServer($server, $port) {
-		global $vars;
-		$chatBot = Registry::getInstance('chatBot');
-		$chatBot->init($vars);
-		$chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
-	}
-
-	private function clearAoLoginCredentials() {
-		global $vars;
-		unset($vars['login']);
-		unset($vars['password']);
-	}
-
-	protected function startBot() {
-		$chatBot = Registry::getInstance('chatBot');
-		$chatBot->run();
 	}
 }
