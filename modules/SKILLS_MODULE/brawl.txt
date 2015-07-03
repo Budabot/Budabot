@@ -2,5 +2,5 @@
 [<orange>B<end>] = Brawl Skill
 
 Example:
-You have 750 brawl Skill.
+You have 750 Brawl skill.
 <a href='chatcmd:///tell <myname> <symbol>brawl 750'>/tell <myname> <symbol>brawl 750</a>
