@@ -185,7 +185,7 @@ class HelpbotController {
 			"0%: <highlight>$oe25<end> or higher\n\n".
 			"WARNING: May be plus/minus 1 point!";
 
-		$msg = "<orange>{$lowoe100}<end> - <yellow>{$oe}<end> - <orange>{$oe100}<end> " . $this->text->make_blob('More info', $blob, 'Over-equipped Calculation');
+		$msg = "<highlight>{$lowoe100}<end> - {$oe} - <highlight>{$oe100}<end> " . $this->text->make_blob('More info', $blob, 'Over-equipped Calculation');
 
 		$sendto->reply($msg);
 	}
