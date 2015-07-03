@@ -36,10 +36,15 @@ class ReputationController {
 	/** @Inject */
 	public $util;
 	
+	/** @Inject */
+	public $settingManager;
+	
 	/**
 	 * @Setup
 	 */
 	public function setup() {
+		$this->settingManager->add($this->moduleName, "reputation_min_time", "How much time is required for leaving reputation for the same character", "edit", "time", "6h", "1h;6h;24h", '', "mod");
+		
 		$this->db->loadSQLFile($this->moduleName, 'reputation');
 	}
 
@@ -96,12 +101,14 @@ class ReputationController {
 			return;
 		}
 
-		$time = time() - 21600; // 6 hours
+		$minTime = $this->settingManager->get('reputation_min_time');
+		$time = time() - $minTime;
 
-		$sql = "SELECT name FROM reputation WHERE `by` = ? AND `name` = ? AND `dt` > ?";
-		$data = $this->db->query($sql, $sender, $name, $time);
-		if (count($data) > 0) {
-			$sendto->reply("You may only submit reputation for a character once every 6 hours.");
+		$sql = "SELECT dt FROM reputation WHERE `by` = ? AND `name` = ? AND `dt` > ? ORDER BY dt DESC LIMIT 1";
+		$row = $this->db->queryRow($sql, $sender, $name, $time);
+		if ($row !== null) {
+			$timeString = $this->util->unixtimeToReadable($row->dt - $time);
+			$sendto->reply("You must wait $timeString before submitting more reputation for $name.");
 			return;
 		}
 
@@ -178,7 +185,7 @@ class ReputationController {
 				$blob .= $this->text->make_chatcmd("Show all comments", "/tell <myname> reputation $name all");
 			}
 
-			$msg = $this->text->make_blob("Reputation for {$name}", $blob);
+			$msg = $this->text->make_blob("Reputation for {$name} (+$num_positive -$num_negative)", $blob);
 		}
 
 		$sendto->reply($msg);
