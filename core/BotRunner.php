@@ -19,7 +19,7 @@ function isWindows() {
 class BotRunner {
 
 	// budabot's current version
-	public $version = "3.3_RC2";
+	public $version = "3.3_GA";
 
 	private $argv = array();
 
