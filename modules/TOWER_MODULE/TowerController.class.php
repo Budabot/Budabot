@@ -99,7 +99,7 @@ class TowerController {
 	/** @Logger */
 	public $logger;
 
-	private $attackListeners = array();
+	protected $attackListeners = array();
 
 	/**
 	 * @Setting("tower_attack_spam")
@@ -959,7 +959,7 @@ class TowerController {
 		$this->record_victory($last_attack);
 	}
 
-	private function attacksCommandHandler($page_label, $search, $cmd, $sendto) {
+	protected function attacksCommandHandler($page_label, $search, $cmd, $sendto) {
 		if (is_numeric($page_label) == false) {
 			$page_label = 1;
 		} else if ($page_label < 1) {
@@ -1032,7 +1032,7 @@ class TowerController {
 		$sendto->reply($msg);
 	}
 
-	private function victoryCommandHandler($page_label, $search, $cmd, $sendto) {
+	protected function victoryCommandHandler($page_label, $search, $cmd, $sendto) {
 		if (is_numeric($page_label) == false) {
 			$page_label = 1;
 		} else if ($page_label < 1) {
@@ -1114,13 +1114,13 @@ class TowerController {
 		return $this->db->queryRow($sql, $playfield_id, $site_number);
 	}
 
-	private function find_sites_in_playfield($playfield_id) {
+	protected function find_sites_in_playfield($playfield_id) {
 		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = ?";
 
 		return $this->db->query($sql, $playfield_id);
 	}
 
-	private function get_closest_site($playfield_id, $x_coords, $y_coords) {
+	protected function get_closest_site($playfield_id, $x_coords, $y_coords) {
 		$sql = "
 			SELECT
 				*,
@@ -1147,7 +1147,7 @@ class TowerController {
 		return $this->db->queryRow($sql, $playfield_id);
 	}
 
-	private function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
+	protected function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
 		$time = time() - (7 * 3600);
 
 		$sql = "
@@ -1169,7 +1169,7 @@ class TowerController {
 		return $this->db->queryRow($sql, $att_guild_name, $att_faction, $def_guild_name, $def_faction, $playfield_id, $time);
 	}
 
-	private function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
+	protected function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
 		$sql = "
 			INSERT INTO tower_attack_<myname> (
 				`time`,
@@ -1205,7 +1205,7 @@ class TowerController {
 			$def_guild_name, $def_faction, $closest_site->playfield_id, $closest_site->site_number, $x_coords, $y_coords);
 	}
 
-	private function find_all_scouted_sites() {
+	protected function find_all_scouted_sites() {
 		$sql =
 			"SELECT
 				*
@@ -1221,7 +1221,7 @@ class TowerController {
 		return $this->db->query($sql);
 	}
 
-	private function get_last_victory($playfield_id, $site_number) {
+	protected function get_last_victory($playfield_id, $site_number) {
 		$sql = "
 			SELECT
 				*
@@ -1238,7 +1238,7 @@ class TowerController {
 		return $this->db->queryRow($sql, $playfield_id, $site_number);
 	}
 
-	private function record_victory($last_attack) {
+	protected function record_victory($last_attack) {
 		$sql = "
 			INSERT INTO tower_victory_<myname> (
 				`time`,
@@ -1259,7 +1259,7 @@ class TowerController {
 		return $this->db->exec($sql, time(), $last_attack->att_guild_name, $last_attack->att_faction, $last_attack->def_guild_name, $last_attack->def_faction, $last_attack->id);
 	}
 
-	private function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
+	protected function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
 		$this->db->exec("DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?", $playfield_id, $site_number);
 
 		$sql = "
@@ -1288,13 +1288,13 @@ class TowerController {
 		return $numrows;
 	}
 
-	private function rem_scout_site($playfield_id, $site_number) {
+	protected function rem_scout_site($playfield_id, $site_number) {
 		$sql = "DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?";
 
 		return $this->db->exec($sql, $playfield_id, $site_number);
 	}
 
-	private function check_guild_name($guild_name) {
+	protected function check_guild_name($guild_name) {
 		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE ? OR `def_guild_name` LIKE ? LIMIT 1";
 
 		$data = $this->db->query($sql, $guild_name, $guild_name);
@@ -1305,7 +1305,7 @@ class TowerController {
 		}
 	}
 
-	private function getSitesInPenalty($time) {
+	protected function getSitesInPenalty($time) {
 		$sql = "
 			SELECT att_guild_name, att_faction, MAX(IFNULL(t2.time, t1.time)) AS penalty_time
 			FROM tower_attack_<myname> t1
@@ -1319,7 +1319,7 @@ class TowerController {
 		return $this->db->query($sql, $time, $time);
 	}
 	
-	private function getGasLevel($close_time) {
+	protected function getGasLevel($close_time) {
 		$current_time = time() % 86400;
 
 		$site = new stdClass();
@@ -1353,7 +1353,7 @@ class TowerController {
 		return $site;
 	}
 	
-	private function formatSiteInfo($row) {
+	protected function formatSiteInfo($row) {
 		$waypointLink = $this->text->make_chatcmd($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}");
 		$attacksLink = $this->text->make_chatcmd("Recent attacks", "/tell <myname> attacks {$row->short_name} {$row->site_number}");
 		$victoryLink = $this->text->make_chatcmd("Recent victories", "/tell <myname> victory {$row->short_name} {$row->site_number}");
