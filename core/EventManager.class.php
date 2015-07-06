@@ -27,7 +27,7 @@ class EventManager {
 
 	public $events = array();
 
-	public static $EVENT_TYPES = array(
+	private $eventTypes = array(
 		'msg','priv','extpriv','guild','joinpriv','extjoinpriv','leavepriv','extleavepriv',
 		'orgmsg','extjoinprivrequest','extkickpriv','logon','logoff','towers','connect',
 		'sendguild','sendpriv','setup','allpackets'
@@ -46,7 +46,7 @@ class EventManager {
 		$this->logger->log('DEBUG', "Registering event Type:($type) File:($filename) Module:($module)");
 
 		$time = $this->util->parseTime($type);
-		if ($time <= 0 && !in_array($type, self::$EVENT_TYPES)) {
+		if ($time <= 0 && !in_array($type, $this->eventTypes)) {
 			$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
@@ -99,7 +99,7 @@ class EventManager {
 			$eventObj->type = 'setup';
 
 			$this->callEventHandler($eventObj, $filename);
-		} else if (in_array($type, self::$EVENT_TYPES)) {
+		} else if (in_array($type, $this->eventTypes)) {
 			if (!isset($this->events[$type]) || !in_array($filename, $this->events[$type])) {
 				$this->events[$type] []= $filename;
 			} else {
@@ -129,7 +129,7 @@ class EventManager {
 
 		$this->logger->log('debug', "Deactivating event Type:($type) File:($filename)");
 
-		if (in_array($type, self::$EVENT_TYPES)) {
+		if (in_array($type, $this->eventTypes)) {
 			if (in_array($filename, $this->events[$type])) {
 				$found = true;
 				$temp = array_flip($this->events[$type]);
@@ -305,6 +305,18 @@ class EventManager {
 			throw $e;
 		} catch (Exception $e) {
 			$this->logger->log('ERROR', "Error calling event handler '$handler': " . $e->getMessage(), $e);
+		}
+	}
+	
+	public function addEventType($eventType) {
+		$eventType = strtolower($eventType);
+		
+		if (in_array($eventType, $this->eventTypes)) {
+			$this->logger->log('WARN', "Event type already registered: '$eventType'");
+			return false;
+		} else {
+			$this->eventTypes []= $eventType;
+			return true;
 		}
 	}
 }
