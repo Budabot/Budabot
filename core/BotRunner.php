@@ -76,7 +76,7 @@ class BotRunner {
 		// connect to ao chat server
 		$chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 		
-		//$this->clearAoLoginCredentials();
+		// clear login credentials
 		unset($vars['login']);
 		unset($vars['password']);
 
