@@ -305,7 +305,7 @@ class ImplantController {
 	}
 
 	public function getFormattedLine($implant) {
-		return "<green>$implant->profession<end> $implant->slot <white>$implant->ability<end> <font color='#FFFF00'>$implant->shiny</font> <font color='#FFA020'>$implant->bright</font> <font color='#FF8040'>$implant->faded</font>\n";
+		return "<header2>$implant->profession<end> $implant->slot <highlight>$implant->ability<end> $implant->shiny, $implant->bright, $implant->faded\n";
 	}
 
 	// implant functions
