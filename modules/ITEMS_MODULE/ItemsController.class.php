@@ -72,7 +72,7 @@ class ItemsController {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
 		
 		$this->settingManager->add($this->moduleName, 'maxitems', 'Number of items shown on the list', 'edit', 'number', '40', '30;40;50;60');
-		$this->settingManager->add($this->moduleName, 'items_database', 'Use local items database or a central (remote) items database', 'edit', 'options', 'local', 'local;central');
+		$this->settingManager->add($this->moduleName, 'items_database', 'Use local items database or a central (remote) items database', 'edit', 'options', 'central', 'local;central');
 		$this->settingManager->add($this->moduleName, 'cidb_url', "The URL of the CIDB to use (if items_database is set to 'remote')", 'edit', 'text', 'http://cidb.botsharp.net/', 'http://cidb.botsharp.net/');
 	}
 
