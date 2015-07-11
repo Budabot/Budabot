@@ -442,6 +442,8 @@ class RaidController {
 	public function get_current_loot_list() {
 		if (!empty($this->loot)) {
 			$list = "Use <symbol>flatroll to roll.\n\n";
+			$players = 0;
+			$items = count($this->loot);
 			forEach ($this->loot as $key => $item) {
 				$add = $this->text->make_chatcmd("Add", "/tell <myname> add $key");
 				$rem = $this->text->make_chatcmd("Remove", "/tell <myname> rem");
@@ -463,6 +465,7 @@ class RaidController {
 				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
 				$list .= "Players added:";
 				if (count($item->users) > 0) {
+					$players += count($item->users);
 					forEach ($item->users as $key => $value) {
 						$list .= " [<yellow>$key<end>]";
 					}
@@ -472,7 +475,7 @@ class RaidController {
 
 				$list .= "\n\n";
 			}
-			$msg = $this->text->make_blob("Loot List", $list);
+			$msg = $this->text->make_blob("Loot List (Items: $items, Players: $players)", $list);
 		} else {
 			$msg = "No loot list exists yet.";
 		}
