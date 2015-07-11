@@ -12,6 +12,18 @@ use DOMDocument;
  *
  * Commands this controller contains:
  *	@DefineCommand(
+ *		command     = 'citems',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item using the central items db',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'litems',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item using the local items db',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = 'items',
  *		accessLevel = 'all',
  *		description = 'Searches for an item using the default items db',
@@ -65,14 +77,32 @@ class ItemsController {
 	}
 
 	/**
-	 * This command handler searches for an item using the default database.
-	 *
 	 * @HandlesCommand("items")
 	 * @Matches("/^items ([0-9]+) (.+)$/i")
 	 * @Matches("/^items (.+)$/i")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->find_items($args);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("citems")
+	 * @Matches("/^citems ([0-9]+) (.+)$/i")
+	 * @Matches("/^citems (.+)$/i")
+	 */
+	public function citemsCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->find_items($args, 'central');
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("litems")
+	 * @Matches("/^litems ([0-9]+) (.+)$/i")
+	 * @Matches("/^litems (.+)$/i")
+	 */
+	public function litemsCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->find_items($args, 'local');
 		$sendto->reply($msg);
 	}
 	
@@ -253,7 +283,6 @@ class ItemsController {
 		} else {
 			$obj = json_decode($response->body);
 			$obj->elapsed = $elapsed;
-			print_r($obj);
 			
 			// change attribute names to match expected format
 			forEach ($obj->results as $item) {
