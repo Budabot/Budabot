@@ -150,7 +150,9 @@ class DevController extends AutoInject {
 	 * @Matches("/^stacktrace$/i")
 	 */
 	public function stacktraceCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->text->make_blob("Current Stacktrace", $this->util->getStackTrace());
+		$stacktrace = $this->util->getStackTrace();
+		$count = substr_count($stacktrace, "\n");
+		$msg = $this->text->make_blob("Current Stacktrace ($count)", $stacktrace);
 		$sendto->reply($msg);
 	}
 	
