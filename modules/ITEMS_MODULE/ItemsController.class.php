@@ -55,27 +55,12 @@ class ItemsController {
 	/** @Logger */
 	public $logger;
 
-	/**
-	 * @Setting("maxitems")
-	 * @Description("Number of Items shown on the list")
-	 * @Visibility("edit")
-	 * @Type("number")
-	 * @Options("30;40;50;60")
-	 */
-	public $defaultMaxitems = "40";
-	
-	/**
-	 * @Setting("items_database")
-	 * @Description("Use local items database or a central database")
-	 * @Visibility("edit")
-	 * @Type("text")
-	 * @Options("local")
-	 */
-	public $defaultItemsDatabase = "local";
-	
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
+		
+		$this->settingManager->add($this->moduleName, 'maxitems', 'Number of items shown on the list', 'edit', 'number', '40', '30;40;50;60');
+		$this->settingManager->add($this->moduleName, 'items_database', 'Use local items database or a central database', 'edit', 'text', 'local', 'local');
 	}
 
 	/**

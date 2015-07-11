@@ -42,23 +42,6 @@ class BankController {
 	
 	/** @Inject */
 	public $settingManager;
-
-	/**
-	 * @Setting("bank_file_location")
-	 * @Description("Location of the AO Items Assistant csv dump file")
-	 * @Visibility("edit")
-	 * @Type("text")
-	 */
-	public $defaultBankFileLocation = "./modules/BANK_MODULE/import.csv";
-
-	/**
-	 * @Setting("max_bank_items")
-	 * @Description("Number of items shown in search results")
-	 * @Visibility("edit")
-	 * @Type("number")
-	 * @Options("30;40;50;60")
-	 */
-	public $defaultMaxBankItems = "200";
 	
 	/**
 	 * This handler is called on bot startup.
@@ -66,6 +49,9 @@ class BankController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'bank');
+		
+		$this->settingManager->add($this->moduleName, 'bank_file_location', 'Location of the AO Items Assistant csv dump file', 'edit', 'text', './modules/BANK_MODULE/import.csv');
+		$this->settingManager->add($this->moduleName, 'max_bank_items', 'Number of items shown in search results', 'edit', 'number', '50', '20;50;100');
 	}
 
 	/**
