@@ -4,24 +4,6 @@ namespace Budabot\Core;
 
 use stdClass;
 
-/*
-Table Description
-mode = if this setting is editable or not
-		edit = This setting is editable
-		hide = This setting is not shown on !settings list
-		noedit = Not changable
-options = Allowed Options for this setting
-		text = any text(up to 50 chars)
-		number = any number
-		color = any HMTL Color code
-		option1;option2 = List of Options seperated by a ;
-intoptions = Internal Version of options
-		ONLY usable for a list of options
-descriptions = Description of this setting, this is shown on !settings
-access_level = access level that is needed for this setting (admin or mod)
-help = Helpfile for this setting
-*/
-
 /**
  * @Instance
  */
@@ -53,7 +35,7 @@ class SettingManager {
 	 * @param: $module - the module name
 	 * @param: $name - the name of the setting
 	 * @param: $description - a description for the setting (will appear in the config)
-	 * @param: $mode - 'edit', 'noedit', or 'hide'
+	 * @param: $mode - 'edit', 'noedit'
 	 * @param: $type - 'color', 'number', 'text', 'options', or 'time'
 	 * @param: $options - a list of values that the setting can be, semi-colon delimited (optional)
 	 * @param: $intoptions - int values corresponding to $options; if empty, the values from $options will be what is stored in the database (optional)
