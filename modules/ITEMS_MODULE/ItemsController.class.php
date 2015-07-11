@@ -14,7 +14,7 @@ use DOMDocument;
  *	@DefineCommand(
  *		command     = 'items',
  *		accessLevel = 'all',
- *		description = 'Searches for an item',
+ *		description = 'Searches for an item using the default items db',
  *		help        = 'items.txt'
  *	)
  *	@DefineCommand(
@@ -60,7 +60,8 @@ class ItemsController {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
 		
 		$this->settingManager->add($this->moduleName, 'maxitems', 'Number of items shown on the list', 'edit', 'number', '40', '30;40;50;60');
-		$this->settingManager->add($this->moduleName, 'items_database', 'Use local items database or a central database', 'edit', 'text', 'local', 'local');
+		$this->settingManager->add($this->moduleName, 'items_database', 'Use local items database or a central (remote) items database', 'edit', 'options', 'local', 'local;central');
+		$this->settingManager->add($this->moduleName, 'cidb_url', "The URL of the CIDB to use (if items_database is set to 'remote')", 'edit', 'text', 'http://cidb.botsharp.net/', 'http://cidb.botsharp.net/');
 	}
 
 	/**
@@ -203,7 +204,7 @@ class ItemsController {
 		if ($db == null) {
 			$db = $this->settingManager->get('items_database');
 		}
-		switch($db) {
+		switch ($db) {
 			case 'local':
 				// local database
 				$data = $this->find_items_from_local($search, $ql);
@@ -215,12 +216,13 @@ class ItemsController {
 				break;
 			default:
 				// central items database
-				$obj = $this->find_items_from_remote($search, $ql, $db);
+				$url = $this->settingManager->get('cidb_url');
+				$obj = $this->find_items_from_remote($search, $ql, $url);
 
 				if ($obj == null) {
 					$msg = "Unable to query Central Items Database.";
 				} else {
-					$msg = $this->createItemsBlob($obj->results, $search, $ql, $obj->version, $db, '', $obj->elapsed);
+					$msg = $this->createItemsBlob($obj->results, $search, $ql, $obj->version, $url, '', $obj->elapsed);
 				}
 				break;
 		}
@@ -244,15 +246,16 @@ class ItemsController {
 		}
 
 		$startTime = microtime(true);
-		$data = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
+		$response = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
 		$elapsed = microtime(true) - $startTime;
-		if (empty($data) || empty($data->body)) {
+		if (empty($response) || empty($response->body)) {
 			return null;
 		} else {
-			$obj = json_decode($data->body);
+			$obj = json_decode($response->body);
 			$obj->elapsed = $elapsed;
+			print_r($obj);
 			
-			// change attribute names data to match expected format
+			// change attribute names to match expected format
 			forEach ($obj->results as $item) {
 				$item->lowid = $item->LowID;
 				$item->highid = $item->HighID;
