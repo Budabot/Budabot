@@ -98,7 +98,7 @@ class AsyncHttp {
 	 * @internal
 	 */
 	public function abortWithMessage($errorString) {
-		$this->setError($errorString);
+		$this->setError($errorString . " for uri: '$this->uri'");
 		$this->finish();
 	}
 
