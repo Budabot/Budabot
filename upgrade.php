@@ -85,4 +85,12 @@ use Budabot\Core\LoggerWrapper;
 		}
 		return true;
 	}
+	
+	// set default items db to central
+	if (checkIfTableExists($db, "settings_<myname>")) {
+		$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE name = ?", 'cidb_url');
+		if ($row === null) {
+			$db->exec("UPDATE settings_<myname> SET value = ? WHERE name = ?", 'central', 'items_database');
+		}
+	}
 ?>
