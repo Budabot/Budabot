@@ -150,13 +150,15 @@ class AltsController {
 	
 		$altInfo = $this->get_alt_info($sender);
 	
-		if (!array_key_exists($name, $altInfo->alts)) {
+		if ($altInfo->main == $name) {
+			$msg = "You cannot remove <highlight>{$name}<end> as your main.";
+		} else if (!array_key_exists($name, $altInfo->alts)) {
 			$msg = "<highlight>{$name}<end> is not registered as your alt.";
 		} else if (!$altInfo->is_validated($sender) && $altInfo->is_validated($name)) {
 			$msg = "You must be on a validated alt to remove another alt that is validated.";
 		} else {
 			$this->rem_alt($altInfo->main, $name);
-			$msg = "<highlight>{$name}<end> has been deleted from your alt list.";
+			$msg = "<highlight>{$name}<end> has been removed as your alt.";
 		}
 		$sendto->reply($msg);
 	}
@@ -165,22 +167,13 @@ class AltsController {
 	 * This command handler sets main character.
 	 *
 	 * @HandlesCommand("alts")
-	 * @Matches("/^alts setmain ([a-z0-9-]+)$/i")
+	 * @Matches("/^alts setmain$/i")
 	 */
 	public function setMainCommand($message, $channel, $sender, $sendto, $args) {
-		// check if new main exists
-		$new_main = ucfirst(strtolower($args[1]));
-		$uid = $this->chatBot->get_uid($new_main);
-		if (!$uid) {
-			$msg = "Character <highlight>{$new_main}<end> does not exist.";
-			$sendto->reply($msg);
-			return;
-		}
-	
 		$altInfo = $this->get_alt_info($sender);
 	
-		if (!array_key_exists($new_main, $altInfo->alts)) {
-			$msg = "<highlight>{$new_main}<end> must first be registered as your alt.";
+		if ($altInfo->main == $sender) {
+			$msg = "<highlight>{$sender}<end> is already registered as your main.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -191,24 +184,20 @@ class AltsController {
 			return;
 		}
 	
-		$this->db->begin_transaction();
-	
 		// remove all the old alt information
 		$this->db->exec("DELETE FROM `alts` WHERE `main` = '{$altInfo->main}'");
 	
 		// add current main to new main as an alt
-		$this->add_alt($new_main, $altInfo->main, 1);
+		$this->add_alt($sender, $altInfo->main, 1);
 	
 		// add current alts to new main
 		forEach ($altInfo->alts as $alt => $validated) {
-			if ($alt != $new_main) {
-				$this->add_alt($new_main, $alt, $validated);
+			if ($alt != $sender) {
+				$this->add_alt($sender, $alt, $validated);
 			}
 		}
 	
-		$this->db->commit();
-	
-		$msg = "Your new main is now <highlight>{$new_main}<end>.";
+		$msg = "Your main is now <highlight>{$sender}<end>.";
 		$sendto->reply($msg);
 	}
 
@@ -356,7 +345,7 @@ class AltsController {
 		$alt = ucfirst(strtolower($args[1]));
 	
 		if (!$altInfo->is_validated($sender)) {
-			$sendto->reply("<highlight>$alt<end> cannot be validated from your current character.");
+			$sendto->reply("<highlight>$alt<end> cannot be validated from an alt that is not validated.");
 			return;
 		}
 	
