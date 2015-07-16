@@ -32,9 +32,7 @@ class AliasController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-		$this->commandAlias->register($this->moduleName, "alias list", "aliaslist");
-		$this->commandAlias->register($this->moduleName, "alias add", "addalias");
-		$this->commandAlias->register($this->moduleName, "alias rem", "remalias");
+		
 	}
 
 	/**
