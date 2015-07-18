@@ -56,7 +56,7 @@ class DevController extends AutoInject {
 	 * @Setup
 	 */
 	public function setup() {
-
+		$this->commandAlias->register($this->moduleName, "querysql select", "select");
 	}
 	
 	/**
