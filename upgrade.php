@@ -77,4 +77,8 @@ if (checkIfTableExists($db, "settings_<myname>")) {
 	}
 }
 
+if (checkIfTableExists($db, "cmd_alias_<myname>")) {
+	$db->exec("DELETE FROM cmd_alias_<myname> WHERE cmd = ?", 'guides buffs');
+}
+
 ?>
