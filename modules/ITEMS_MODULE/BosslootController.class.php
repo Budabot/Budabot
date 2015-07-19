@@ -40,6 +40,9 @@ class BosslootController {
 
 	/** @Inject */
 	public $text;
+	
+	/** @Inject */
+	public $util;
 
 	/** @Setup */
 	public function setup() {
@@ -103,9 +106,11 @@ class BosslootController {
 
 		$blob = "Bosses that drop items matching '$search':\n\n";
 
+		list($query, $params) = $this->util->generateQueryFromParams(explode(' ', $search), 'b1.itemname');
+
 		$loot = $this->db->query("SELECT DISTINCT b2.bossid, b2.bossname, w.answer
 			FROM boss_lootdb b1 JOIN boss_namedb b2 ON b2.bossid = b1.bossid
-			LEFT JOIN whereis w ON w.name = b2.bossname WHERE b1.itemname LIKE ?", "%{$search}%");
+			LEFT JOIN whereis w ON w.name = b2.bossname WHERE $query", $params);
 		$count = count($loot);
 
 		if ($count != 0) {
