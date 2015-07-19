@@ -291,9 +291,15 @@ class ImplantController {
 	}
 
 	public function searchByModifier($modifier) {
-		$dbparam = '%' . str_replace(' ', '%', $modifier) . '%';
-		$sql = "SELECT * FROM premade_implant WHERE shiny LIKE ? OR bright LIKE ? OR faded LIKE ?";
-		return $this->db->query($sql, $dbparam, $dbparam, $dbparam);
+		list($shinyQuery, $shinyParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'shiny');
+		list($brightQuery, $brightParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'bright');
+		list($fadedQuery, $fadedParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'faded');
+		
+		$params = array_merge($shinyParams, $brightParams, $fadedParams);
+		
+		$sql = "SELECT * FROM premade_implant WHERE ($shinyQuery) OR ($brightQuery) OR ($fadedQuery)";
+
+		return $this->db->query($sql, $params);
 	}
 
 	public function formatResults($implants) {
