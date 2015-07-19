@@ -140,9 +140,11 @@ class ImplantController {
 	 */
 	public function clusterCommand($message, $channel, $sender, $sendto, $args) {
 		$search = trim($args[1]);
+		
+		list($query, $params) = $this->util->generateQueryFromParams(explode(' ', $search), 'LongName');
 
-		$sql = "SELECT ClusterID, LongName FROM Cluster WHERE LongName LIKE ?";
-		$data = $this->db->query($sql, '%' . str_replace(' ', '%', $search) . '%');
+		$sql = "SELECT ClusterID, LongName FROM Cluster WHERE $query";
+		$data = $this->db->query($sql, $params);
 		$count = count($data);
 
 		if ($count == 0) {
