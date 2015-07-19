@@ -58,13 +58,12 @@ class BosslootController {
 	 */
 	public function bossCommand($message, $channel, $sender, $sendto, $args) {
 		$search = strtolower($args[1]);
+		
+		list($query, $params) = $this->util->generateQueryFromParams(explode(' ', $search), 'bossname');
 
-		// Find boss by name or key
-		$bosses = $this->db->query("SELECT bossid, bossname,
-				w.answer
-			FROM boss_namedb b LEFT JOIN
-			whereis w ON b.bossname = w.name WHERE bossname LIKE ? OR keywords
-			LIKE ?", "%{$search}%", "%{$search}%");
+		$bosses = $this->db->query("SELECT bossid, bossname, w.answer
+			FROM boss_namedb b LEFT JOIN whereis w ON b.bossname = w.name
+			WHERE $query", $params);
 		$count = count($bosses);
 
 		if ($count > 1) {
