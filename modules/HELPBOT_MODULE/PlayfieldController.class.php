@@ -32,6 +32,9 @@ class PlayfieldController {
 	
 	/** @Inject */
 	public $db;
+	
+	/** @Inject */
+	public $commandAlias;
 
 	/** @Inject */
 	public $text;
@@ -45,6 +48,8 @@ class PlayfieldController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'playfields');
+		
+		$this->commandAlias->register($this->moduleName, "playfields", "playfield");
 	}
 
 	/**
