@@ -281,7 +281,7 @@ class SystemController {
 
 		$this->chatBot->disconnect();
 		$this->logger->log('INFO', "The Bot is restarting.");
-		exit();
+		exit(-1);
 	}
 
 	/**
@@ -296,7 +296,7 @@ class SystemController {
 
 		$this->chatBot->disconnect();
 		$this->logger->log('INFO', "The Bot is shutting down.");
-		die("The Bot is shutting down.");
+		exit(0);
 	}
 
 	/**
@@ -485,3 +485,5 @@ class SystemController {
 		$sendto->reply("Command <highlight>$cmd<end> has been sent to <highlight>$name<end>.");
 	}
 }
+
+?>
