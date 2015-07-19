@@ -36,6 +36,9 @@ class PlayfieldController {
 	/** @Inject */
 	public $text;
 	
+	/** @Inject */
+	public $util;
+	
 	/**
 	 * This handler is called on bot startup.
 	 * @Setup
@@ -67,20 +70,26 @@ class PlayfieldController {
 	 */
 	public function playfieldShowCommand($message, $channel, $sender, $sendto, $args) {
 		$search = strtolower(trim($args[1]));
-		$data = $this->db->query("SELECT * FROM playfields WHERE lower(long_name) LIKE ? OR lower(short_name) LIKE ?", '%' . $search . '%', '%' . $search . '%');
+		
+		list($longQuery, $longParams) = $this->util->generateQueryFromParams(explode(' ', $search), 'long_name');
+		list($shortQuery, $shortParams) = $this->util->generateQueryFromParams(explode(' ', $search), 'short_name');
+		
+		$params = array_merge($longParams, $shortParams);
+		
+		$data = $this->db->query("SELECT * FROM playfields WHERE ($longQuery) OR ($shortQuery)", $params);
 
 		$count = count($data);
 
 		if ($count > 1) {
 			$blob = "Result of Playfield Search for '$search'\n\n";
 			forEach ($data as $row) {
-				$blob .= "$row->long_name has ID <highlight>$row->id<end>\n\n";
+				$blob .= "[<highlight>$row->id<end>] $row->long_name\n\n";
 			}
 
 			$msg = $this->text->make_blob("Playfields ($count)", $blob);
 		} else if ($count == 1) {
 			$row = $data[0];
-			$msg = "$row->long_name has ID <highlight>$row->id<end>.";
+			$msg = "[<highlight>$row->id<end>] $row->long_name";
 		} else {
 			$msg = "There were no matches for your search.";
 		}
