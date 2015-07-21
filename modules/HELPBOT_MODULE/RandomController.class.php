@@ -22,15 +22,9 @@ namespace Budabot\User\Modules;
  *		help        = 'roll.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'flip', 
- *		accessLevel = 'all', 
- *		description = 'Flip a coin', 
- *		help        = 'roll.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'verify', 
  *		accessLevel = 'all', 
- *		description = 'Verifies a flip/roll', 
+ *		description = 'Verifies a roll', 
  *		help        = 'roll.txt'
  *	)
  */
@@ -54,6 +48,9 @@ class RandomController {
 	/** @Inject */
 	public $settingManager;
 	
+	/** @Inject */
+	public $commandAlias;
+	
 	/**
 	 * @Setting("time_between_rolls")
 	 * @Description("How much time is required between rolls from the same person")
@@ -69,6 +66,8 @@ class RandomController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'roll');
+		
+		$this->commandAlias->register($this->moduleName, "roll heads tails", "flip");
 	}
 	
 	/**
@@ -139,7 +138,7 @@ class RandomController {
 				list($ver_num, $result) = $this->roll($sender, $options);
 				$msg = "The roll is <highlight>$result<end> between $min and $max. To verify do /tell <myname> verify $ver_num";
 			} else {
-				$msg = "You can only flip or roll once every $timeBetweenRolls seconds.";
+				$msg = "You can only roll once every $timeBetweenRolls seconds.";
 			}
 		}
 
@@ -159,25 +158,7 @@ class RandomController {
 			list($ver_num, $result) = $this->roll($sender, $options);
 			$msg = "The roll is <highlight>$result<end> out of possible options: $names. To verify do /tell <myname> verify $ver_num";
 		} else {
-			$msg = "You can only flip or roll once every $timeBetweenRolls seconds.";
-		}
-
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("flip")
-	 * @Matches("/^flip$/i")
-	 */
-	public function flipCommand($message, $channel, $sender, $sendto, $args) {
-		$timeBetweenRolls = $this->settingManager->get('time_between_rolls');
-		$row = $this->db->queryRow("SELECT * FROM roll WHERE `name` = ? AND `time` >= ? LIMIT 1", $sender, time() - $timeBetweenRolls);
-		if ($row === null) {
-			$options = array('heads', 'tails');
-			list($ver_num, $result) = $this->roll($sender, $options);
-			$msg = "The coin landed <highlight>$result<end>. To verify do /tell <myname> verify $ver_num";
-		} else {
-			$msg = "You can only flip or roll once every $timeBetweenRolls seconds.";
+			$msg = "You can only roll once every $timeBetweenRolls seconds.";
 		}
 
 		$sendto->reply($msg);
