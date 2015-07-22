@@ -16,7 +16,7 @@ namespace Budabot\User\Modules;
  *		help        = 'stopwatch.txt'
  *	)
  */
-class Stopwatch {
+class StopwatchController {
 
 	/**
 	 * Name of the module.
