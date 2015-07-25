@@ -18,10 +18,10 @@ use DOMDocument;
  *		help        = 'aggdef.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'as',
+ *		command     = 'aimshot',
  *		accessLevel = 'all', 
- *		description = 'AS: Calculates Aimed Shot', 
- *		help        = 'as.txt'
+ *		description = 'Aim Shot: Calculates Aimed Shot', 
+ *		help        = 'aimshot.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'nanoinit',
@@ -113,6 +113,8 @@ class SkillsController {
 	
 		$this->commandAlias->register($this->moduleName, "weapon", "specials");
 		$this->commandAlias->register($this->moduleName, "weapon", "inits");
+		$this->commandAlias->register($this->moduleName, "aimshot", "as");
+		$this->commandAlias->register($this->moduleName, "aimedshot", "as");
 	}
 	
 	/**
@@ -222,10 +224,10 @@ class SkillsController {
 	}
 	
 	/**
-	 * @HandlesCommand("as")
-	 * @Matches("/^as ([0-9]*\.?[0-9]+) ([0-9]*\.?[0-9]+) ([0-9]+)$/i")
+	 * @HandlesCommand("aimshot")
+	 * @Matches("/^aimshot ([0-9]*\.?[0-9]+) ([0-9]*\.?[0-9]+) ([0-9]+)$/i")
 	 */
-	public function asCommand($message, $channel, $sender, $sendto, $args) {
+	public function aimshotCommand($message, $channel, $sender, $sendto, $args) {
 		$AttTim = $args[1];
 		$RechT = $args[2];
 		$InitS = $args[3];
@@ -240,13 +242,13 @@ class SkillsController {
 
 		$blob = "Attack: <highlight>". $AttTim ." <end>second(s)\n";
 		$blob .= "Recharge: <highlight>". $RechT ." <end>second(s)\n";
-		$blob .= "AS Skill: <highlight>". $InitS ."<end>\n\n";
-		$blob .= "AS Multiplier:<highlight> 1-". $MultiP ."x<end>\n";
-		$blob .= "AS Recharge: <highlight>". $ASRech ."<end> seconds\n";
-		$blob .= "With your weap, your AS recharge will cap at <highlight>".$cap."<end>s.\n";
-		$blob .= "You need <highlight>".$ASCap."<end> AS skill to cap your recharge.";
+		$blob .= "Aim Shot Skill: <highlight>". $InitS ."<end>\n\n";
+		$blob .= "Aim Shot Multiplier:<highlight> 1-". $MultiP ."x<end>\n";
+		$blob .= "Aim Shot Recharge: <highlight>". $ASRech ."<end> seconds\n";
+		$blob .= "With your weap, your Aim Shot recharge will cap at <highlight>".$cap."<end>s.\n";
+		$blob .= "You need <highlight>".$ASCap."<end> Aim Shot skill to cap your recharge.";
 
-		$msg = $this->text->make_blob("Aimed Shot Results", $blob);
+		$msg = $this->text->make_blob("Aim Shot Results", $blob);
 		$sendto->reply($msg);
 	}
 	

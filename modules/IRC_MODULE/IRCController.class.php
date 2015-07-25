@@ -30,12 +30,6 @@ use Net_SmartIRC;
  *		command     = 'setirc',
  *		accessLevel = 'mod',
  *		description = 'Manually set IRC settings',
- *		help        = 'irc_help.txt'
- *	)
- *	@DefineCommand(
- *		command     = 'onlineirc',
- *		accessLevel = 'all',
- *		description = 'Show users in IRC channel',
  *		help        = 'irc.txt'
  *	)
  */
@@ -196,24 +190,6 @@ class IRCController {
 			$blob = "\n\n<header2>IRC ($numirc)<end>\n" . $blob;
 		}
 		return array($numirc, $blob);
-	}
-
-	/**
-	 * @HandlesCommand("onlineirc")
-	 * @Matches("/^onlineirc$/i")
-	 */
-	public function onlineircCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->ircActive()) {
-			list($num, $blob) = $this->getOnlineList();
-			if ($num == 0) {
-				$msg = "There are no users in the IRC channel.";
-			} else {
-				$msg = $this->text->make_blob("IRC Online ($num)", $blob);
-			}
-		} else {
-			$msg = "There is no active IRC connection.";
-		}
-		$sendto->reply($msg);
 	}
 
 	/**

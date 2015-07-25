@@ -19,7 +19,7 @@ namespace Budabot\User\Modules;
  *		help        = 'news.txt'
  *	)
  */
-class News {
+class NewsController {
 	/** @Inject */
 	public $db;
 
