@@ -57,7 +57,6 @@ class VoteController {
 		$this->db->loadSQLFile($this->moduleName, 'vote');
 		
 		$this->settingManager->add($this->moduleName, "vote_channel_spam", "Showing Vote status messages in", "edit", "options", "2", "Private Channel;Guild;Private Channel and Guild;Neither", "0;1;2;3", "mod", "votesettings.txt");
-		$this->settingManager->add($this->moduleName, "vote_add_new_choices", "Users can add in there own choices", "edit", "options", "1", "true;false", "1;0", "mod", "votesettings.txt");
 		
 		$data = $this->db->query("SELECT * FROM vote_<myname> WHERE `status` < ? AND `duration` IS NOT NULL", 8);
 		forEach ($data as $row) {
@@ -295,10 +294,6 @@ class VoteController {
 			$msg = "Could not find any votes with this topic.";
 		} else if ($timeleft <= 0) {
 			$msg = "No longer accepting votes for this topic.";
-		} else if (($this->settingManager->get("vote_add_new_choices") == 0 || ($this->settingManager->get("vote_add_new_choices") == 1 && $status == 1)) &&
-				strpos($this->delimiter.$answer.$this->delimiter, $this->delimiter.$choice.$this->delimiter) === false) {
-
-			$msg = "Cannot accept this choice.  Please choose one from the menu.";
 		} else {
 			$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ? AND `duration` IS NULL AND `author` = ?", $question, $sender);
 			if (count($data) > 0) {
@@ -424,9 +419,7 @@ class VoteController {
 			$blob .= $this->text->make_chatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
 		}
 
-		if ($timeleft > 0 && $this->settingManager->get("vote_add_new_choices") == 1 && $status == 0) {
-			$blob .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
-		}
+		$blob .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
 
 		$blob .="\nIf you started this vote, you can:\n";
 		$blob .="<tab>" . $this->text->make_chatcmd('Kill the vote completely', "/tell <myname> vote kill $question") . "\n";
