@@ -323,16 +323,11 @@ class VoteController {
 		} else {
 			$answer = explode($this->delimiter, $answers);
 			if (count($answer) < 2) {
-				$msg = "You must have at least two options for this vote.";
+				$msg = "You must have at least two options for this vote topic.";
 			} else if (!$question) {
-				$msg = "You must specify a question to vote on.";
+				$msg = "You must specify a question for your new vote topic.";
 			} else {
-				if (substr($question, 0, 1) == "@") {
-					$question = substr($question, 1);
-					$status = 1;
-				} else {
-					$status = 0;
-				}
+				$status = 0;
 				$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ?", $question);
 				if (count($data) == 0) {
 					$this->db->exec("INSERT INTO $this->table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES (?, ?, ?, ?, ?, ?)", $question, $sender, time(), $newtime, $answers, $status);
@@ -346,7 +341,7 @@ class VoteController {
 					$this->votes[$question] = $obj;
 					$msg = "Vote has been added.";
 				} else {
-					$msg = "There is already a vote with this topic.";
+					$msg = "There is already a vote topic with this question.";
 				}
 			}
 		}
@@ -415,8 +410,7 @@ class VoteController {
 
 		//if ($didvote && $timeleft > 0) {
 		if ($timeleft > 0) { // Want this option avaiable for everyone if its run from org/priv chat.
-			$blob .= "\n<black>___%<end> ";
-			$blob .= $this->text->make_chatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
+			$blob .= "\n" . $this->text->make_chatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
 		}
 
 		$blob .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
