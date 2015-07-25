@@ -49,6 +49,14 @@ class VoteController {
 	private $delimiter = "|";
 	private $table = "vote_<myname>";
 	
+	// status indicates the last alert that happened (not the next alert that will happen)
+	const STATUS_CREATED = 0;
+	const STATUS_STARTED = 1;
+	const STATUS_60_MINUTES_LEFT = 2;
+	const STATUS_15_MINUTES_LEFT = 3;
+	const STATUS_60_SECONDS_LEFT = 4;
+	const STATUS_ENDED = 9;
+	
 	/**
 	 * This handler is called on bot startup.
 	 * @Setup
@@ -58,7 +66,7 @@ class VoteController {
 		
 		$this->settingManager->add($this->moduleName, "vote_channel_spam", "Showing Vote status messages in", "edit", "options", "2", "Private Channel;Guild;Private Channel and Guild;Neither", "0;1;2;3", "mod", "votesettings.txt");
 		
-		$data = $this->db->query("SELECT * FROM vote_<myname> WHERE `status` < ? AND `duration` IS NOT NULL", 8);
+		$data = $this->db->query("SELECT * FROM vote_<myname> WHERE `status` <> ? AND `duration` IS NOT NULL", self::STATUS_ENDED);
 		forEach ($data as $row) {
 			$this->votes[$row->question] = $row;
 		}
@@ -82,37 +90,35 @@ class VoteController {
 			$duration = $row->duration;
 			$answer = $row->answer;
 			$status = $row->status;
-			// status = 0, just started, 1 = > 60 minutes left, 2 = 60 minutes left, 3 = 15 minutes left, 4 = 60 seconds, 9 = vote over
 
-			$timeleft = $started + $duration;
-			$timeleft -= time();
+			$timeleft = $started + $duration - time();
 
 			if ($timeleft <= 0) {
 				$title = "Finished Vote: $question";
-				$this->db->exec("UPDATE $this->table SET `status` = '9' WHERE `duration` = ? AND `question` = ?", $duration, $question);
+				$this->db->exec("UPDATE $this->table SET `status` = ? WHERE `duration` = ? AND `question` = ?", self::STATUS_ENDED, $duration, $question);
 				unset($this->votes[$key]);
-			} else if ($status == 0) {
+			} else if ($status == self::STATUS_CREATED) {
 				$title = "Vote: $question";
 
 				if ($timeleft > 3600) {
-					$mstatus = 1;
+					$mstatus = self::STATUS_STARTED;
 				} else if ($timeleft > 900) {
-					$mstatus = 2;
+					$mstatus = self::STATUS_60_MINUTES_LEFT;
 				} else if ($timeleft > 60) {
-					$mstatus = 3;
+					$mstatus = self::STATUS_15_MINUTES_LEFT;
 				} else {
-					$mstatus = 4;
+					$mstatus = self::STATUS_60_SECONDS_LEFT;
 				}
 				$this->votes[$key]->status = $mstatus;
-			} else if ($timeleft <= 60 && $timeleft > 0 && $status != 4) {
+			} else if ($timeleft <= 60 && $timeleft > 0 && $status != self::STATUS_60_SECONDS_LEFT) {
 				$title = "60 seconds left: $question";
-				$this->votes[$key]->status = 4;
-			} else if ($timeleft <= 900 && $timeleft > 60 && $status != 3) {
+				$this->votes[$key]->status = self::STATUS_60_SECONDS_LEFT;
+			} else if ($timeleft <= 900 && $timeleft > 60 && $status != self::STATUS_15_MINUTES_LEFT) {
 				$title = "15 minutes left: $question";
-				$this->votes[$key]->status = 3;
-			} else if ($timeleft <= 3600 && $timeleft > 900 && $status != 2) {
+				$this->votes[$key]->status = self::STATUS_15_MINUTES_LEFT;
+			} else if ($timeleft <= 3600 && $timeleft > 900 && $status != self::STATUS_60_MINUTES_LEFT) {
 				$title = "60 minutes left: $question";
-				$this->votes[$key]->status = 2;
+				$this->votes[$key]->status = self::STATUS_60_MINUTES_LEFT;
 			} else {
 				$title = "";
 			}
@@ -327,7 +333,7 @@ class VoteController {
 			} else if (!$question) {
 				$msg = "You must specify a question for your new vote topic.";
 			} else {
-				$status = 0;
+				$status = self::STATUS_CREATED;
 				$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ?", $question);
 				if (count($data) == 0) {
 					$this->db->exec("INSERT INTO $this->table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES (?, ?, ?, ?, ?, ?)", $question, $sender, time(), $newtime, $answers, $status);
