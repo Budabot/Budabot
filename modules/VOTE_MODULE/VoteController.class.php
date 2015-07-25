@@ -58,7 +58,6 @@ class VoteController {
 		
 		$this->settingManager->add($this->moduleName, "vote_channel_spam", "Showing Vote status messages in", "edit", "options", "2", "Private Channel;Guild;Private Channel and Guild;Neither", "0;1;2;3", "mod", "votesettings.txt");
 		$this->settingManager->add($this->moduleName, "vote_add_new_choices", "Users can add in there own choices", "edit", "options", "1", "true;false", "1;0", "mod", "votesettings.txt");
-		$this->settingManager->add($this->moduleName, "vote_use_min", "Minimum org level needed to vote.", "edit", "options", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "votesettings.txt");
 		
 		$data = $this->db->query("SELECT * FROM vote_<myname> WHERE `status` < ? AND `duration` IS NOT NULL", 8);
 		forEach ($data as $row) {
@@ -283,18 +282,6 @@ class VoteController {
 	public function voteChooseCommand($message, $channel, $sender, $sendto, $args) {
 		list($question, $choice) = explode($this->delimiter, $args[1], 2);
 		
-		$requirement = $this->settingManager->get("vote_use_min");
-		if ($requirement >= 0) {
-			if (!$this->chatBot->guildmembers[$sender]) {
-				$sendto->reply("Only org members can vote.");
-				return;
-			} else if ($requirement < $this->chatBot->guildmembers[$sender]) {
-				$rankdiff = $this->chatBot->guildmembers[$sender] - $requirement;
-				$sendto->reply("You need $rankdiff promotion(s) in order to vote.");
-				return;
-			}
-		}
-
 		$row = $this->db->queryRow("SELECT * FROM $this->table WHERE `question` = ? AND `duration` IS NOT NULL", $question);
 		$question = $row->question;
 		$author = $row->author;
