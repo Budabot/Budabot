@@ -50,6 +50,12 @@ class GMIController {
 	public function gmiShowCommand($message, $channel, $sender, $sendto, $args) {
 		$clusterId = $args[1];
 		
+		$msg = $this->lookupGmiItem($clusterId);
+
+		$sendto->reply($msg);
+	}
+	
+	public function lookupGmiItem($clusterId) {
 		$params = "p[]=item&p[]=" . $clusterId;
 		
 		$response = $this->http->get(self::GMI_URL . '?' . $params)->waitAndReturnResponse();
@@ -100,8 +106,8 @@ class GMIController {
 			
 			$msg = $this->text->make_blob("GMI Search Results ($countSellOrders, $countBuyOrders)", $blob);
 		}
-
-		$sendto->reply($msg);
+		
+		return $msg;
 	}
 	
 	/**
@@ -123,6 +129,8 @@ class GMIController {
 			
 			if ($count == 0) {
 				$msg = "Could not find any items on GMI matching your search criteria.";
+			} else if ($count == 1) {
+				$msg = $this->lookupGmiItem($results[0]->cluster_id);
 			} else {
 				$blob = '';
 				forEach ($results as $item) {
