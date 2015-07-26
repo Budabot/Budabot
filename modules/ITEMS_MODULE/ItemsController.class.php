@@ -194,7 +194,7 @@ class ItemsController {
 				fwrite($fh, $contents);
 				fclose($fh);
 
-				$this->db->begin_transaction();
+				$this->db->beginTransaction();
 
 				// load the sql file into the db
 				$this->db->loadSQLFile("ITEMS_MODULE", "aodb");

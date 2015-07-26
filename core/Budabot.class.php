@@ -124,7 +124,7 @@ class Budabot extends AOChat {
 			$this->existing_cmd_aliases[$row->alias] = true;
 		}
 		
-		$this->db->begin_transaction();
+		$this->db->beginTransaction();
 		forEach (Registry::getAllInstances() as $name => $instance) {
 			if (isset($instance->moduleName)) {
 				$this->registerInstance($name, $instance);

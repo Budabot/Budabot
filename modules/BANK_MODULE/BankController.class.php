@@ -167,7 +167,7 @@ class BankController {
 		//remove the header line
 		array_shift($lines);
 
-		$this->db->begin_transaction();
+		$this->db->beginTransaction();
 		$this->db->exec("DELETE FROM bank");
 
 		forEach ($lines as $line) {

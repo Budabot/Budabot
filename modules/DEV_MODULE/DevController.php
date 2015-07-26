@@ -126,7 +126,7 @@ class DevController extends AutoInject {
 	 * @Matches("/^intransaction$/i")
 	 */
 	public function intransactionCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->db->in_transaction()) {
+		if ($this->db->inTransaction()) {
 			$msg = "There is an active transaction.";
 		} else {
 			$msg = "There is no active transaction.";

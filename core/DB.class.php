@@ -25,7 +25,7 @@ class DB {
 	private $dim;
 	private $guild;
 	private $lastQuery;
-	private $in_transaction = false;
+	private $inTransaction = false;
 	
 	private $logger;
 	
@@ -154,27 +154,27 @@ class DB {
 	}
 
 	//Start of an transaction
-	function begin_transaction() {
+	function beginTransaction() {
 		$this->logger->log('DEBUG', "Starting transaction");
-		$this->in_transaction = true;
+		$this->inTransaction = true;
 		$this->sql->beginTransaction();
 	}
 
 	//Commit an transaction
 	function commit() {
 		$this->logger->log('DEBUG', "Committing transaction");
-		$this->in_transaction = false;
+		$this->inTransaction = false;
 		$this->sql->Commit();
 	}
 
 	function rollback() {
 		$this->logger->log('DEBUG', "Rolling back transaction");
-		$this->in_transaction = false;
+		$this->inTransaction = false;
 		$this->sql->rollback();
 	}
 
-	function in_transaction() {
-		return $this->in_transaction;
+	function inTransaction() {
+		return $this->inTransaction;
 	}
 
 	//Return the last inserted ID

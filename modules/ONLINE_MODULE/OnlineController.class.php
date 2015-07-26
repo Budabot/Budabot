@@ -146,7 +146,7 @@ class OnlineController {
 	 */
 	public function onlineCheckEvent($eventObj) {
 		if ($this->chatBot->is_ready()) {
-			//$this->db->begin_transaction();
+			//$this->db->beginTransaction();
 			$data = $this->db->query("SELECT name, channel_type FROM `online`");
 
 			$guildArray = array();

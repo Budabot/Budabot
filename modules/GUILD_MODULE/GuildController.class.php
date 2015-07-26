@@ -461,7 +461,7 @@ class GuildController {
 
 			$this->chatBot->ready = false;
 
-			$this->db->begin_transaction();
+			$this->db->beginTransaction();
 
 			// Going through each member of the org and add or update his/her
 			forEach ($org->members as $member) {

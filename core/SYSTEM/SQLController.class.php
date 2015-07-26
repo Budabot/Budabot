@@ -100,7 +100,7 @@ class SQLController {
 		$module = strtoupper($args[1]);
 		$name = strtolower($args[2]);
 	
-		$this->db->begin_transaction();
+		$this->db->beginTransaction();
 	
 		$msg = $this->db->loadSQLFile($module, $name, true);
 	

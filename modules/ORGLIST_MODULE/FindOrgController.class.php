@@ -101,7 +101,7 @@ class FindOrgController {
 		
 		$this->logger->log("DEBUG", "Downloading all orgs from '$url'");
 		try {
-			$this->db->begin_transaction();
+			$this->db->beginTransaction();
 			$this->db->exec("DELETE FROM organizations");
 			forEach ($this->searches as $search) {
 				$response = $this->http->get($url)->withQueryParams(array('l' => $search))->waitAndReturnResponse();
