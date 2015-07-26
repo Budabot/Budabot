@@ -48,14 +48,16 @@ class DB {
 			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->exec("SET sql_mode = 'TRADITIONAL,NO_BACKSLASH_ESCAPES'");
 			$this->exec("SET time_zone = '+00:00'");
-                        
+
 			$mysqlVersion = $this->sql->getAttribute(PDO::ATTR_SERVER_VERSION);
 
-                        if (version_compare($mysqlVersion,  "5.5") >= 0) {
-                                $this->exec("SET default_storage_engine = MyISAM");
-                        } else if (version_compare($mysqlVersion,  "5.5") == -1) {
-                                $this->exec("SET storage_engine = MyISAM");
-                        }
+			// for MySQL 5.5 and later, use 'default_storage_engine'
+			// for previous versions use 'storage_engine'
+			if (version_compare($mysqlVersion,  "5.5") >= 0) {
+				$this->exec("SET default_storage_engine = MyISAM");
+			} else {
+				$this->exec("SET storage_engine = MyISAM");
+			}
 		} else if ($this->type == self::SQLITE) {
 			if ($host == null || $host == "" || $host == "localhost") {
 				$dbName = "./data/$dbName";
