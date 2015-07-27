@@ -151,6 +151,13 @@ class WhatBuffsController {
 	}
 	
 	public function searchForSkill($skill) {
+		// check for exact match first, in order to disambiguate
+		// between Bow and Bow special attack 
+		$results = $this->db->query("SELECT name FROM skills WHERE common = 1 AND name LIKE ?", $skill);
+		if (count($results) == 1) {
+			return $results;
+		}
+		
 		$tmp = explode(" ", $skill);
 		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'name');
 		
