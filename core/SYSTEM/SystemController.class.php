@@ -296,7 +296,7 @@ class SystemController {
 
 		$this->chatBot->disconnect();
 		$this->logger->log('INFO', "The Bot is shutting down.");
-		exit(0);
+		exit(10);
 	}
 
 	/**

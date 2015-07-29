@@ -17,7 +17,7 @@ $config_file = $argv[1];
 // Handle the shutdown command
 while (true) {
 	system("$php_exec -f $php_file -- $config_file", $returnVar);
-	if ($returnVar == 0) {
+	if ($returnVar == 10) {
 		break;
 	}
 }
