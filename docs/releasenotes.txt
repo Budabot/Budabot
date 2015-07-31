@@ -1,4 +1,17 @@
 *****************************
+	Version 3.4_RC1:
+*****************************
+-removed !quote stats
+-added !gmi
+-!items is now using aoitems.com for search results
+-added !litems to force items lookup using local items db
+-added !citems to force items lookup using remote items db (aoitems.com by default)
+-added enhanced search capabilities to several commands including !findplayer, !cluster, !premade, !bossloot, !boss, and !playfields
+-removed !onlineirc
+-removed some settings from VOTE_MODULE
+-fix for using Budabot with MySQL 5.1 or earlier (thanks d0ttd0tt)
+
+*****************************
 	Version 3.3_GA:
 *****************************
 -added !feedback
