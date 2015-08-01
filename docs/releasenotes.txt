@@ -4,7 +4,7 @@
 -updated items db to 18.08.02
 -removed !quote stats
 -added !gmi
--!items is now using aoitems.com for search results
+-!items now defaults to using aoitems.com for search results
 -added !litems to force items lookup using local items db
 -added !citems to force items lookup using remote items db (aoitems.com by default)
 -added enhanced search capabilities to several commands including !findplayer, !cluster, !premade, !bossloot, !boss, and !playfields
