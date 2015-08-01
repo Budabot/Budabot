@@ -1,6 +1,7 @@
 *****************************
 	Version 3.4_RC1:
 *****************************
+-updated items db to 18.08.02
 -removed !quote stats
 -added !gmi
 -!items is now using aoitems.com for search results
