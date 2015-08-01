@@ -9977,7 +9977,7 @@ INSERT INTO aodb VALUES (245986, 245987, 10, 200, 'Hacked Leather Body Armor', 2
 INSERT INTO aodb VALUES (204989, 204990, 100, 199, 'Hacked Light Omni-Tek Artillery Tank Armor', 22393);
 INSERT INTO aodb VALUES (204990, 204991, 200, 250, 'Hacked Light Omni-Tek Artillery Tank Armor', 22393);
 INSERT INTO aodb VALUES (204856, 204856, 10, 10, 'Hacked Massive Steel Body Armor', 22972);
-INSERT INTO aodb VALUES (274974, 274974, 300, 300, 'Hacked Medi-Blade', 218707);
+INSERT INTO aodb VALUES (274974, 274974, 300, 300, 'Hacked Medi-Blade', 131264);
 INSERT INTO aodb VALUES (206614, 206614, 10, 10, 'Hacked Nano Breed Survival Suit Body Armor', 13252);
 INSERT INTO aodb VALUES (206613, 206613, 10, 10, 'Hacked Nano Breed Survival Suit Boots', 155112);
 INSERT INTO aodb VALUES (206612, 206612, 10, 10, 'Hacked Nano Breed Survival Suit Pants', 13302);
@@ -11344,7 +11344,7 @@ INSERT INTO aodb VALUES (155858, 155859, 1, 199, 'Improved Club', 85172);
 INSERT INTO aodb VALUES (155844, 155845, 1, 199, 'Improved Cutlass', 13347);
 INSERT INTO aodb VALUES (144113, 144114, 121, 140, 'Improved Freedom Arms 4200', 113997);
 INSERT INTO aodb VALUES (155850, 155853, 1, 199, 'Improved Gofleprod', 33168);
-INSERT INTO aodb VALUES (274978, 274978, 300, 300, 'Improved Hacked Medi-Blade', 218709);
+INSERT INTO aodb VALUES (274978, 274978, 300, 300, 'Improved Hacked Medi-Blade', 131272);
 INSERT INTO aodb VALUES (155861, 155862, 1, 199, 'Improved Immortal Katana', 154506);
 INSERT INTO aodb VALUES (274542, 274542, 250, 250, 'Improved Infused Dust Brigade Bracer - Tier 1', 290461);
 INSERT INTO aodb VALUES (274543, 274543, 250, 250, 'Improved Infused Dust Brigade Bracer - Tier 2', 290462);
