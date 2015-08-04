@@ -102,7 +102,7 @@ class GMIController {
 					$blob .= number_format($item->price) . " cr. (QL$ql) " . $this->text->make_chatcmd($item->buyer, "/tell $item->buyer") . "\n\n";
 				}
 			}
-			$blob .= "\nPowered by " . $this->text->make_chatcmd("http://aogmi.azurewebsites.net/", "/start http://aogmi.azurewebsites.net/");
+			$blob .= "\nPowered by " . $this->text->make_chatcmd("aogmi.com", "/start http://aogmi.com/");
 			
 			$msg = $this->text->make_blob("GMI Search Results ($countSellOrders, $countBuyOrders)", $blob);
 		}
@@ -137,7 +137,7 @@ class GMIController {
 					$blob .= $this->text->make_image($item->icon) . "\n";
 					$blob .= $this->text->make_chatcmd($item->name, "/tell <myname> gmi $item->cluster_id") . "\n\n<pagebreak>";
 				}
-				$blob .= "\nPowered by " . $this->text->make_chatcmd("http://aogmi.azurewebsites.net/", "/start http://aogmi.azurewebsites.net/");
+				$blob .= "\nPowered by " . $this->text->make_chatcmd("aogmi.com", "/start http://aogmi.com/");
 
 				$msg = $this->text->make_blob("GMI Search Results ($count)", $blob);
 			}
