@@ -1,8 +1,0 @@
-To see what a player's logoff message is set to:
-<highlight><tab><symbol>logoffadmin 'player'<end>
-
-To set a player's logoff message:
-<highlight><tab><symbol>logoffadmin 'player' 'logoff message'<end>
-
-To clear a player's logoff message:
-<highlight><tab><symbol>logoffadmin 'player' clear<end>

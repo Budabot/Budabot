@@ -24,18 +24,6 @@ namespace Budabot\User\Modules;
  *		help        = "logoff_msg.txt"
  *	)
  *	@DefineCommand(
- *		command     = "logonadmin", 
- *		accessLevel = "mod", 
- *		description = "Admin command for editing another character's logon message", 
- *		help        = "logonadmin.txt"
- *	)
- *	@DefineCommand(
- *		command     = "logoffadmin", 
- *		accessLevel = "mod", 
- *		description = "Admin command for editing another character's logoff message", 
- *		help        = "logoffadmin.txt"
- *	)
- *	@DefineCommand(
  *		command     = "lastseen", 
  *		accessLevel = "guild", 
  *		description = "Shows the last logoff time of a character", 
@@ -184,78 +172,6 @@ class GuildController {
 			$msg = "Your logoff message has been set.";
 		} else {
 			$msg = "Your logoff message is too large. Your logoff message may contain a maximum of " . $this->settingManager->get('max_logoff_msg_size') . " characters.";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("logonadmin")
-	 * @Matches("/^logonadmin ([a-zA-Z0-9-]+)$/i")
-	 */
-	public function logonadminMessageShowCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$logon_msg = $this->preferences->get($name, 'logon_msg');
-
-		if ($logon_msg === false || $logon_msg == '') {
-			$msg = "The logon message for $name has not been set.";
-		} else {
-			$msg = "{$name} logon: {$logon_msg}";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("logonadmin")
-	 * @Matches("/^logonadmin ([a-zA-Z0-9-]+) (.+)$/i")
-	 */
-	public function logonadminMessageSetCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$logon_msg = $args[2];
-
-		if ($logon_msg == 'clear') {
-			$this->preferences->save($name, 'logon_msg', '');
-			$msg = "The logon message for $name has been cleared.";
-		} else if (strlen($logon_msg) <= $this->settingManager->get('max_logon_msg_size')) {
-			$this->preferences->save($name, 'logon_msg', $logon_msg);
-			$msg = "The logon message for $name has been set.";
-		} else {
-			$msg = "The logon message is too large. The logon message may contain a maximum of " . $this->settingManager->get('max_logon_msg_size') . " characters.";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("logoffadmin")
-	 * @Matches("/^logoffadmin ([a-zA-Z0-9-]+)$/i")
-	 */
-	public function logoffadminMessageShowCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$logoff_msg = $this->preferences->get($name, 'logoff_msg');
-
-		if ($logoff_msg === false || $logoff_msg == '') {
-			$msg = "The logoff message for $name has not been set.";
-		} else {
-			$msg = "{$name} logoff: {$logoff_msg}";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("logoffadmin")
-	 * @Matches("/^logoffadmin ([a-zA-Z0-9-]+) (.+)$/i")
-	 */
-	public function logoffadminMessageSetCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$logoff_msg = $args[2];
-
-		if ($logoff_msg == 'clear') {
-			$this->preferences->save($name, 'logoff_msg', '');
-			$msg = "The logoff message for $name has been cleared.";
-		} else if (strlen($logoff_msg) <= $this->settingManager->get('max_logoff_msg_size')) {
-			$this->preferences->save($name, 'logoff_msg', $logoff_msg);
-			$msg = "The logoff message for $name has been set.";
-		} else {
-			$msg = "The logoff message is too large. The logoff message may contain a maximum of " . $this->settingManager->get('max_logoff_msg_size') . " characters.";
 		}
 		$sendto->reply($msg);
 	}
