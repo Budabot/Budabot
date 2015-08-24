@@ -267,13 +267,29 @@ class ItemsController {
 			"bot" => "Budabot",
 			"output" => "json",
 			"max" => "250",
-			"version" => "1.2",
-			"search" => $search
+			"version" => "1.2"
 		);
 
 		if ($ql > 0) {
 			$parameters["ql"] = $ql;
 		}
+		
+		// special search commands for aoitems.com
+		$searchParams = explode(' ', $search);
+		$specialSearch = array('type', 'slot', 'ql');
+		forEach ($searchParams as $key => $searchParam) {
+			forEach ($specialSearch as $s) {
+				if ($this->util->startsWith($searchParam, $s . '=')) {
+					$value = substr($searchParam, strlen($s) + 1);
+					if (!empty($value)) {
+						unset($searchParams[$key]);
+						$parameters[$s] = $value;
+					}
+				}
+			}
+		}
+		$search = implode(' ', $searchParams);
+		$parameters['search'] = $search;
 
 		$startTime = microtime(true);
 		$response = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
