@@ -43,6 +43,12 @@ use Budabot\Core\Registry;
  *		description = "Show command handlers for a command",
  *		help        = 'cmdhandlers.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'createblob',
+ *		accessLevel = 'admin',
+ *		description = "Creates a blob of random characters",
+ *		help        = 'createblob.txt'
+ *	)
  */
 class DevController extends AutoInject {
 
@@ -183,5 +189,34 @@ class DevController extends AutoInject {
 		$msg = $this->text->make_blob("Command Handlers for '$cmd'", $blob);
 		
 		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("createblob")
+	 * @Matches("/^createblob (\d+)$/i")
+	 * @Matches("/^createblob (\d+) (\d+)$/i")
+	 */
+	public function createblobCommand($message, $channel, $sender, $sendto, $args) {
+		$length = $args[1];
+		if (isset($args[2])) {
+			$numBlobs = $args[2];
+		} else {
+			$numBlobs = 1;
+		}
+		
+		for ($i = 0; $i < $numBlobs; $i++) {
+			$blob = $this->randString($length);
+			$msg = $this->text->make_blob("Blob $i", $blob);
+			$sendto->reply($msg);
+		}
+	}
+	
+	public function randString($length, $charset='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 \n') {
+		$str = '';
+		$count = strlen($charset);
+		while ($length--) {
+			$str .= $charset[mt_rand(0, $count-1)];
+		}
+		return $str;
 	}
 }
