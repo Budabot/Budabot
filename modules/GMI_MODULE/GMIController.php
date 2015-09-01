@@ -120,7 +120,7 @@ class GMIController {
 			} else if ($count == 1) {
 				$msg = $this->lookupGmiItem($results[0]->cluster_id);
 			} else {
-				$blob = '';
+				$blob .= "Search: <highlight>$search<end>\n\n";
 				forEach ($results as $item) {
 					$blob .= $this->text->make_image($item->icon) . "\n";
 					$blob .= $this->text->make_chatcmd($item->name, "/tell <myname> gmi $item->cluster_id") . "\n\n<pagebreak>";
