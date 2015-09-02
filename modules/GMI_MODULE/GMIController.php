@@ -94,7 +94,7 @@ class GMIController {
 			}
 			$blob .= "\nPowered by " . $this->text->make_chatcmd("aogmi.com", "/start http://aogmi.com/");
 			
-			$msg = $this->text->make_blob("GMI: $itemName ($countSellOrders, $countBuyOrders)", $blob);
+			$msg = $this->text->make_blob("GMI Result: $itemName ($countSellOrders, $countBuyOrders)", $blob);
 		}
 		
 		return $msg;
@@ -120,14 +120,14 @@ class GMIController {
 			} else if ($count == 1) {
 				$msg = $this->lookupGmiItem($results[0]->cluster_id);
 			} else {
-				$blob .= "Search: <highlight>$search<end>\n\n";
+				$blob = "";
 				forEach ($results as $item) {
 					$blob .= $this->text->make_image($item->icon) . "\n";
 					$blob .= $this->text->make_chatcmd($item->name, "/tell <myname> gmi $item->cluster_id") . "\n\n<pagebreak>";
 				}
 				$blob .= "\nPowered by " . $this->text->make_chatcmd("aogmi.com", "/start http://aogmi.com/");
 
-				$msg = $this->text->make_blob("GMI Search Results ($count)", $blob);
+				$msg = $this->text->make_blob("GMI Search: $search ($count)", $blob);
 			}
 		}
 
