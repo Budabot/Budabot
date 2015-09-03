@@ -1,5 +1,6 @@
 <highlight>To search for items on GMI<end>
 <tab><symbol>gmi 'search'
+<tab><symbol>gmi 'item link'
 
 <highlight>To show buy and sell orders on GMI for a particular item:<end>
 <tab><symbol>gmi 'cluster id'

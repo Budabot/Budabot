@@ -102,7 +102,8 @@ class GMIController {
 	
 	/**
 	 * @HandlesCommand("gmi")
-	 * @Matches("/^gmi (.+)$/i")
+	 * @Matches('|^gmi <a href="itemref://\d+/\d+/\d+">([^<]+)</a>|i')
+	 * @Matches('|^gmi (.+)|i')
 	 */
 	public function gmiSearchCommand($message, $channel, $sender, $sendto, $args) {
 		$search = $args[1];
@@ -140,9 +141,9 @@ class GMIController {
 		$item = new stdClass;
 		
 		forEach ($lines as $line) {
-			if (preg_match('/<img src="http:\/\/aomarket\.funcom\.com\/staticLIVE\/images\/icons\/(\d+)\.png" alt="" \/>/i', $line, $arr)) {
+			if (preg_match('|<img src="http://aomarket\.funcom\.com/staticLIVE/images/icons/(\d+)\.png" alt="" />|i', $line, $arr)) {
 				$item->icon = $arr[1];
-			} else if (preg_match('/<a href="\/Item\/(\d+)">([^<]+)<\/a>/i', $line, $arr)) {
+			} else if (preg_match('|<a href="/Item/(\d+)">([^<]+)</a>|i', $line, $arr)) {
 				$item->cluster_id = $arr[1];
 				$item->name = $arr[2];
 				$results []= $item;
@@ -162,24 +163,24 @@ class GMIController {
 		$type = '';
 		
 		forEach ($lines as $line) {
-			if (preg_match('/<table id="sellOrders">/i', $line)) {
+			if (preg_match('|<table id="sellOrders">|i', $line)) {
 				$type = 'sell';
-			} else if (preg_match('/<table id="buyOrders">/i', $line)) {
+			} else if (preg_match('|<table id="buyOrders">|i', $line)) {
 				$type = 'buy';
-			} else if ($type == 'sell' && preg_match('/<td>(\d+)<td>([^<]+)<td>([^<]+)<td>(\d+)<td>([^<]+)<\/td>/i', $line, $arr)) {
+			} else if ($type == 'sell' && preg_match('|<td>(\d+)<td>([^<]+)<td>([^<]+)<td>(\d+)<td>([^<]+)</td>|i', $line, $arr)) {
 				$item = new stdClass;
 				$item->price = $arr[2];
 				$item->ql = $arr[1];
 				$item->seller = $arr[3];
 				$results->sell []= $item;
-			} else if ($type == 'buy' && preg_match('/<td>(\d+)-(\d+)<td>([^<]+)<td>([^<]+)<td>(\d+)<td>([^<]+)<\/td>/i', $line, $arr)) {
+			} else if ($type == 'buy' && preg_match('|<td>(\d+)-(\d+)<td>([^<]+)<td>([^<]+)<td>(\d+)<td>([^<]+)</td>|i', $line, $arr)) {
 				$item = new stdClass;
 				$item->price = $arr[3];
 				$item->minQl = $arr[1];
 				$item->maxQl = $arr[2];
 				$item->buyer = $arr[4];
 				$results->buy []= $item;
-			} else if (preg_match('/<span class="header">([^<]+)<\/span>/i', $line, $arr)) {
+			} else if (preg_match('|<span class="header">([^<]+)</span>|i', $line, $arr)) {
 				$results->info->name = $arr[1];
 			}
 		}
