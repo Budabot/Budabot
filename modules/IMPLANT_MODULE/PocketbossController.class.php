@@ -83,8 +83,7 @@ class PocketbossController {
 		}
 		
 		$blob = "Location: <highlight>$symb->pb_location, $symb->bp_location<end>\n";
-		$blob .= "Found on: <highlight>$symb->bp_mob, Level $symb->bp_lvl<end>\n";
-		$blob .= "_____________________________\n";
+		$blob .= "Found on: <highlight>$symb->bp_mob, Level $symb->bp_lvl<end>\n\n";
 		$blob .= $symbs;
 
 		return $blob;

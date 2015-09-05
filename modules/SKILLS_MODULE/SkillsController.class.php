@@ -574,7 +574,7 @@ class SkillsController {
 	
 	/**
 	 * @HandlesCommand("weapon")
-	 * @Matches('|^weapon <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
+	 * @Matches('|^weapon <a href="itemref://(\d+)/(\d+)/(\d+)">|i')
 	 * @Matches('|^weapon (\d+) (\d+)|i')
 	 */
 	public function weaponCommand($message, $channel, $sender, $sendto, $args) {

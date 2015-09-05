@@ -65,7 +65,7 @@ class RecipeController {
 	 * @Matches("/^recipe (.+)$/i")
 	 */
 	public function recipeSearchCommand($message, $channel, $sender, $sendto, $args) {
-		if (preg_match('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', $args[1], $matches)) {
+		if (preg_match('|<a href="itemref://(\d+)/(\d+)/(\d+)">([^<]+)</a>|', $args[1], $matches)) {
 			$lowId = $matches[1];
 			$search = $matches[4];
 			

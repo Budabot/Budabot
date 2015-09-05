@@ -131,7 +131,7 @@ class WhatBuffsController {
 		$newUrl = "http://auno.org" . $response->headers['location'] . "&pagesize=1000";
 		$contents = $this->http->post($newUrl)->waitAndReturnResponse()->body;
 		
-		preg_match_all("@<a href=\"/ao/db.php\?id=(\d+)\">([^>]+)</a>@", $contents, $matches, PREG_SET_ORDER);
+		preg_match_all("|<a href=\"/ao/db.php\?id=(\d+)\">([^>]+)</a>|", $contents, $matches, PREG_SET_ORDER);
 		
 		if ($category == 'Nano') {
 			$result = $this->formatNanos($matches);

@@ -190,12 +190,12 @@ class RaidController {
 	
 	public function addLootItem($input, $multiloot, $sender) {
 		//Check if the item is a link
-		if (preg_match("/^<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $input, $arr)) {
+		if (preg_match("|^<a href=\"itemref://(\\d+)/(\\d+)/(\\d+)\">(.+)</a>(.*)$|i", $input, $arr)) {
 			$item_ql = $arr[3];
 			$item_highid = $arr[1];
 			$item_lowid = $arr[2];
 			$item_name = $arr[4];
-		} else if (preg_match("/^(.+)<a href=\"itemref:\/\/([0-9]+)\/([0-9]+)\/([0-9]+)\">(.+)<\/a>(.*)$/i", $input, $arr)){
+		} else if (preg_match("|^(.+)<a href=\"itemref://(\\d+)/(\\d+)/(\\d+)\">(.+)</a>(.*)$|i", $input, $arr)){
 			$item_ql = $arr[4];
 			$item_highid = $arr[2];
 			$item_lowid = $arr[3];

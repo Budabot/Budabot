@@ -345,7 +345,7 @@ class IRCController {
 		}
 
 		// handle item links from other bots
-		$pattern = "/" . chr(3) . chr(3) . "(.+?)" . chr(3) . ' ' . chr(3) . "[(](.+?)\/([0-9]+)\/([0-9]+)\/#hid=([0-9]+)[)]" . chr(3) . chr(3) . "/";
+		$pattern = "|" . chr(3) . chr(3) . "(.+?)" . chr(3) . ' ' . chr(3) . "[(](.+?)/([0-9]+)/([0-9]+)/#hid=([0-9]+)[)]" . chr(3) . chr(3) . "|";
 		$replace = '<a href="itemref://\3/\4/\5">\1</a>';
 		$ircmessage = preg_replace($pattern, $replace, $ircmessage);
 
@@ -454,7 +454,7 @@ class IRCController {
 
 	public function relayMessageToIRC($sender, $message) {
 		if ($this->ircActive() && $message[0] != $this->setting->symbol) {
-			$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
+			$pattern = '|<a href="itemref://(\d+)/(\d+)/(\d+)">([^<]+)</a>|';
 			$replace = chr(3) . chr(3) . '\4' . chr(3) . ' ' . chr(3) . '(https://aoitems.com/item/\1/\3/#hid=\2)' . chr(3) . chr(3);
 
 			$msg = htmlspecialchars_decode(strip_tags(preg_replace($pattern, $replace, $message)));

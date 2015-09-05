@@ -518,21 +518,21 @@ class Budabot extends AOChat {
 		$this->logger->log_chat("Inc. Msg.", $sender, $message);
 
 		// AFK/bot check
-		if (preg_match("/$sender is AFK/si", $message)) {
+		if (preg_match("|$sender is AFK|si", $message)) {
 			return;
-		} else if (preg_match("/I am away from my keyboard right now/si", $message)) {
+		} else if (preg_match("|I am away from my keyboard right now|si", $message)) {
 			return;
-		} else if (preg_match("/Unknown command or access denied!/si", $message)) {
+		} else if (preg_match("|Unknown command or access denied!|si", $message)) {
 			return;
-		} else if (preg_match("/I am responding/si", $message)) {
+		} else if (preg_match("|I am responding|si", $message)) {
 			return;
-		} else if (preg_match("/I only listen/si", $message)) {
+		} else if (preg_match("|I only listen|si", $message)) {
 			return;
-		} else if (preg_match("/Error!/si", $message)) {
+		} else if (preg_match("|Error!|si", $message)) {
 			return;
-		} else if (preg_match("/Unknown command input/si", $message)) {
+		} else if (preg_match("|Unknown command input|si", $message)) {
 			return;
-		} else if (preg_match("/\\/tell $sender !help/i", $message)) {
+		} else if (preg_match("|/tell $sender !help|i", $message)) {
 			return;
 		}
 

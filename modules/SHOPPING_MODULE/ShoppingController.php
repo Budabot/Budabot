@@ -102,7 +102,7 @@ class ShoppingController {
 			forEach ($results as $result) {
 				$senderLink = $this->text->make_userlink($result->sender);
 				$timeString = $this->util->unixtimeToReadable(time() - $result->time, false);
-				$post = preg_replace('/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $result->message);
+				$post = preg_replace('|<a href="itemref://(\d+)/(\d+)/(\d+)">([^<]+)</a>|', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $result->message);
 				$blob .= "[$senderLink]: {$post} - <highlight>($timeString ago)<end>\n\n";
 			}
 			$msg = $this->text->make_blob("Shopping Results for '$search' ($count)", $blob);
@@ -231,8 +231,8 @@ class ShoppingController {
 	}
 	
 	public function processShoppingMessage($channel, $sender, $message) {
-		$message = preg_replace("/<font(.+)>/U", "", $message);
-		$message = preg_replace("/<\/font>/U", "", $message);
+		$message = preg_replace("|<font(.+)>|U", "", $message);
+		$message = preg_replace("|</font>|U", "", $message);
 		
 		// messageType: 1=WTS, 2=WTB, 3=WTT, 4=WTH, default to WTS
 		$messageType = 1;
@@ -245,7 +245,7 @@ class ShoppingController {
 		}
 		
 		$matches = array();
-		$pattern = '/<a href="itemref:\/\/(\d+)\/(\d+)\/(\d+)">([^<]+)<\/a>/';
+		$pattern = '|<a href="itemref://(\d+)/(\d+)/(\d+)">([^<]+)</a>|';
 		preg_match_all($pattern, $message, $matches, PREG_SET_ORDER);
 
 		$sql = "INSERT INTO shopping_messages (dimension, message_type, channel, bot, sender, dt, message) VALUES ('<dim>', ?, ?, '<myname>', ?, ?, ?)";
