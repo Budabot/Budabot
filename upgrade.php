@@ -69,6 +69,27 @@ function checkIfColumnExists($db, $table, $column) {
 	return true;
 }
 
+function normalizeVersion($version) {
+	// RC versions should come before GA versions when sorted in ASCENDING direction
+	return
+		str_replace("_RC", ".0.", 
+			str_replace("_GA", ".1", $version));
+}
+
+function minRequiredVersion($db, $minVersion) {
+	if (checkIfTableExists($db, "settings_<myname>")) {
+		$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE name = ?", 'version');
+		if ($row !== null) {
+			global $version;
+			if (version_compare(normalizeVersion($version), normalizeVersion($minVersion), '<')) {
+				throw new Exception("Current required version is too old; you must upgrade to version $minVersion first before upgrading to $version");
+			}
+		}
+	}
+}
+
+minRequiredVersion($db, "3.3_GA");
+
 // set default items db to central
 if (checkIfTableExists($db, "settings_<myname>")) {
 	$row = $db->queryRow("SELECT * FROM settings_<myname> WHERE name = ?", 'cidb_url');
