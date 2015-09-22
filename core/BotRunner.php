@@ -73,6 +73,12 @@ class BotRunner {
 		// startup core systems and load modules
 		$chatBot->init($vars);
 		
+		// when using AOChatProxy, wait 10s before connecting to give AOChatProxy time to reset
+		if ($vars['use_proxy'] == 1) {
+			LegacyLogger::log('INFO', 'StartUp', "Waiting 10 seconds for AOChatProxy to reset...");
+			sleep(10);
+		}
+		
 		// connect to ao chat server
 		$chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
 		
