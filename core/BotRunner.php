@@ -55,7 +55,7 @@ class BotRunner {
 
 		$this->setWindowTitle();
 
-		LegacyLogger::log('INFO', 'StartUp', "Starting {$vars['name']} on RK{$vars['dimension']}...");
+		LegacyLogger::log('INFO', 'StartUp', "Starting {$vars['name']} ($this->version) on RK{$vars['dimension']}...");
 
 		$classLoader = new ClassLoader($vars['module_load_paths']);
 		Registry::injectDependencies($classLoader);
@@ -95,11 +95,9 @@ class BotRunner {
 **************************************************
 Budabot {$this->version}
 
-Project site:  http://code.google.com/p/budabot2
-Support forum: http://www.budabot.com/forum
-Chat:          #budabot on irc.funcom.com, or
-			   /tell Budanet !join
-Contacts:      Tyrence, Marebone
+Project Site:     https://github.com/Budabot/Budabot
+Support Forum:    http://www.budabot.com/forum
+In-Game Contact:  Tyrence27
 **************************************************
 \n";
 	}
