@@ -19,19 +19,6 @@ namespace Budabot\User\Modules;
  *		description = 'Sets a new assist',
  *		help        = 'assist.txt'
  *	)
- *	@DefineCommand(
- *		command     = 'heal',
- *      alias       = 'healassist',
- *		accessLevel = 'all',
- *		description = 'Creates/shows an Doc Assist macro',
- *		help        = 'healassist.txt'
- *	)
- *	@DefineCommand(
- *		command     = 'heal .+',
- *		accessLevel = 'rl',
- *		description = 'Sets a new Doc assist',
- *		help        = 'healassist.txt'
- *	)
  */
 class ChatAssistController {
 
@@ -51,11 +38,6 @@ class ChatAssistController {
 	 * Contains the assist macro message.
 	 */
 	private $assistMessage;
-
-	/**
-	 * Contains the heal assist macro message.
-	 */
-	private $healMessage;
 
 	/**
 	 * @HandlesCommand("assist")
@@ -121,66 +103,5 @@ class ChatAssistController {
 		}
 
 		$sendto->reply($this->assistMessage);
-	}
-
-	/**
-	 * @HandlesCommand("heal")
-	 * @Matches("/^heal$/i")
-	 */
-	public function healCommand($message, $channel, $sender, $sendto, $args) {
-		if (!isset($this->healMessage)) {
-			$msg = "No heal assist set.";
-			$sendto->reply($msg);
-			return;
-		} else {
-			$sendto->reply($this->healMessage);
-		}
-	}
-	
-	/**
-	 * @HandlesCommand("heal .+")
-	 * @Matches("/^heal clear$/i")
-	 */
-	public function healClearCommand($message, $channel, $sender, $sendto, $args) {
-		$this->assistMessage = null;
-		$sendto->reply("Heal assist has been cleared.");
-	}
-
-	/**
-	 * @HandlesCommand("heal .+")
-	 * @Matches("/^heal (.+)$/i")
-	 */
-	public function healSetCommand($message, $channel, $sender, $sendto, $args) {
-		$nameArray = explode(' ', $args[1]);
-
-		if (count($nameArray) == 1) {
-			$name = ucfirst(strtolower($args[1]));
-			$uid = $this->chatBot->get_uid($name);
-
-			if (!$uid) {
-				$msg = "Character <highlight>$name<end> does not exist.";
-				$sendto->reply($msg);
-			}
-
-			$link = $this->text->make_chatcmd("Click here to make a heal assist macro", "/macro heal /assist $name");
-			$this->healMessage = $this->text->make_blob("Heal Assist Macro", $link);
-		} else {
-			forEach ($nameArray as $key => $name) {
-				$name = ucfirst(strtolower($name));
-				$uid = $this->chatBot->get_uid($name);
-
-				if (!$uid) {
-					$msg = "Character <highlight>$name<end> does not exist.";
-					$sendto->reply($msg);
-				}
-				$nameArray[$key] = "/assist $name";
-			}
-
-			// reverse array so that the first character will be the primary assist, and so on
-			$nameArray = array_reverse($nameArray);
-			$this->healMessage = '/macro heal ' . implode(" \\n ", $nameArray);
-		}
-
-		$sendto->reply($this->healMessage);
 	}
 }
