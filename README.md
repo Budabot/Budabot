@@ -5,7 +5,7 @@ Budabot is a next-generation chatbot for Anarchy Online.
 For all support questions and bug reports please use the [forums](http://budabot.com/forum/). We have also IRC channel available at **irc.funcom.com #budabot**.
 
 ## Installation ##
-There are three ways that you can obtain Budabot: Release Archives (recommended), Latest Development Archive, or Cloning the Repository.
+There are three ways that you can obtain Budabot: Release Archives (recommended), Latest Development, or Cloning the Repository.
 
 ### Release Archives ###
 You can download the latest stable version from link below. If you want the most stable version, choose the latest GA release.  If you want to test some of the newest features, choose an RC release.
