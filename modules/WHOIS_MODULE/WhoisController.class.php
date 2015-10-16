@@ -13,7 +13,7 @@ use Budabot\Core\DB;
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'whois',
- *		accessLevel = 'guild', 
+ *		accessLevel = 'member', 
  *		description = 'Show character info, online status, and name history', 
  *		help        = 'whois.txt',
  *		alias       = 'is'
