@@ -102,4 +102,11 @@ if (checkIfTableExists($db, "cmd_alias_<myname>")) {
 	$db->exec("DELETE FROM cmd_alias_<myname> WHERE cmd = ?", 'guides buffs');
 }
 
+if (checkIfTableExists($db, "timers_<myname>") && checkIfColumnExists($db, 'timers_<myname>', 'callback_param')) {
+	$db->exec("ALTER TABLE timers_<myname> RENAME TO timers_backup_<myname>");
+	$db->exec("CREATE TABLE IF NOT EXISTS `timers_<myname>` (`name` VARCHAR(255), `owner` VARCHAR(25), `mode` VARCHAR(50), `timer` int, `settime` int, `callback` VARCHAR(255), `data` VARCHAR(255), `alerts` TEXT)");
+	$db->exec("INSERT INTO timers_<myname> SELECT * FROM timers_backup_<myname>");
+	$db->exec("DROP TABLE timers_backup_<myname>");
+}
+
 ?>

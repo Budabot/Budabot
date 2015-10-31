@@ -4,6 +4,7 @@ namespace Budabot\User\Modules;
 
 use stdClass;
 use Exception;
+use Budabot\Core\Registry;
 
 /**
  * Authors: 
@@ -54,6 +55,9 @@ class TimerController {
 	
 	/** @Inject */
 	public $setting;
+	
+	/** @Logger */
+	public $logger;
 
 	private $timers = array();
 
@@ -128,13 +132,27 @@ class TimerController {
 			if ($tleft <= 0) {
 				$this->remove($timer->name);
 				
-				if ($timer->callback == 'repeating') {
-					$endTime = $timer->callback_param + $timer->timer;
-					$alerts = $this->generateAlerts($timer->owner, $timer->name, $endTime, explode(' ', $this->setting->timer_alert_times));
-					$this->add($timer->name, $timer->owner, $mode, $endTime, $alerts, $timer->callback, $timer->callback_param);
+				if ($timer->callback != null) {
+					list($name, $method) = explode(".", $timer->callback);
+					$instance = Registry::getInstance($name);
+					if ($instance === null) {
+						$this->logger->log('ERROR', "Error calling callback method '$timer->callback' for timer '$timer->name': Could not find instance '$name'.");
+					} else {
+						try {
+							$instance->$method($timer);
+						} catch (Exception $e) {
+							$this->logger->log("ERROR", "Error calling callback method '$timer->callback' for timer '$timer->name': " . $e->getMessage(), $e);
+						}
+					}
 				}
 			}
 		}
+	}
+	
+	public function repeatingTimerCallback($timer) {
+		$endTime = $timer->data + $timer->timer;
+		$alerts = $this->generateAlerts($timer->owner, $timer->name, $endTime, explode(' ', $this->setting->timer_alert_times));
+		$this->add($timer->name, $timer->owner, $mode, $endTime, $alerts, $timer->callback, $timer->data);
 	}
 
 	/**
@@ -174,7 +192,7 @@ class TimerController {
 		
 		$alerts = $this->generateAlerts($sender, $timerName, $endTime, explode(' ', $this->setting->timer_alert_times));
 
-		$this->add($timerName, $sender, $channel, $endTime, $alerts, "repeating", $runTime);
+		$this->add($timerName, $sender, $channel, $endTime, $alerts, "timercontroller.repeatingTimerCallback", $runTime);
 
 		$initialTimerSet = $this->util->unixtimeToReadable($initialRunTime);
 		$timerSet = $this->util->unixtimeToReadable($runTime);
@@ -262,8 +280,8 @@ class TimerController {
 				$remove_link = $this->text->make_chatcmd("Remove", "/tell <myname> timers rem $name");
 
 				$repeatingInfo = '';
-				if ($timer->callback == 'repeating') {
-					$repeatingTimeString = $this->util->unixtimeToReadable($timer->callback_param);
+				if ($timer->callback == 'timercontroller.repeatingTimerCallback') {
+					$repeatingTimeString = $this->util->unixtimeToReadable($timer->data);
 					$repeatingInfo = " (Repeats every $repeatingTimeString)";
 				}
 
@@ -333,7 +351,7 @@ class TimerController {
 		return "Timer <highlight>$name<end> has been set for $timerset.";
 	}
 
-	public function add($name, $owner, $mode, $time, $alerts, $callback = null, $callback_param = null) {
+	public function add($name, $owner, $mode, $time, $alerts, $callback = null, $data = null) {
 		$timer = new stdClass;
 		$timer->name = $name;
 		$timer->owner = $owner;
@@ -341,13 +359,13 @@ class TimerController {
 		$timer->timer = $time;
 		$timer->settime = time();
 		$timer->callback = $callback;
-		$timer->callback_param = $callback_param;
+		$timer->data = $data;
 		$timer->alerts = $alerts;
 		
 		$this->timers[strtolower($name)] = $timer;
 		
-		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `callback_param`, alerts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-		$this->db->exec($sql, $name, $owner, $mode, $time, time(), $callback, $callback_param, json_encode($alerts));
+		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `data`, alerts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		$this->db->exec($sql, $name, $owner, $mode, $time, time(), $callback, $data, json_encode($alerts));
 	}
 
 	public function remove($name) {
