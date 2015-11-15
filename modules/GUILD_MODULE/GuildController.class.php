@@ -100,11 +100,10 @@ class GuildController {
 		$this->settingManager->add($this->moduleName, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
 		
 		unset($this->chatBot->guildmembers);
-		$data = $this->db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE mode <> 'del'");
-		if (count($data) != 0) {
-			forEach ($data as $row) {
-				$this->chatBot->guildmembers[$row->name] = $row->guild_rank_id;
-			}
+		$sql = "SELECT p.name, p.guild_rank_id FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>' AND p.guild = '<myguild>') WHERE mode <> 'del'";
+		$data = $this->db->query($sql);
+		forEach ($data as $row) {
+			$this->chatBot->guildmembers[$row->name] = $row->guild_rank_id;
 		}
 	}
 
