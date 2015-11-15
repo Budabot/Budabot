@@ -60,14 +60,15 @@ class Budabot extends AOChat {
 
 	public $ready = false;
 
-	var $chatlist = array();
-	var $guildmembers = array();
+	public $chatlist = array();
+	public $guildmembers = array();
+	public $vars;
 
 	// array where modules can store stateful session data
-	var $data = array();
+	public $data = array();
 
 	//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
-	var $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
+	public $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
 		'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
 		'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
 	
