@@ -55,16 +55,16 @@ class Util {
 
 		$timeshift = '';
 		if ($days != 0) {
-			$timeshift .= $days . ' days ';
+			$timeshift .= $days . ($days == 1 ? ' day ' : ' days ');
 		}
 		if ($hours != 0) {
-			$timeshift .= $hours . ' hrs ';
+			$timeshift .= $hours . ($hours == 1 ? ' hr ' : ' hrs ');
 		}
 		if ($minutes != 0) {
-			$timeshift .= $minutes . ' mins ';
+			$timeshift .= $minutes . ($minutes == 1 ? ' min ' : ' mins ');
 		}
 		if ($seconds != 0 && ($show_seconds || $timeshift == '')) {
-			$timeshift .= $seconds . ' secs';
+			$timeshift .= $seconds . ($seconds == 1 ? ' sec ' : ' secs');
 		}
 		return trim($timeshift);
 	}
