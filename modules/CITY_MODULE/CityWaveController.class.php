@@ -152,9 +152,9 @@ class CityWaveController {
 
 			$alert = new stdClass;
 			if ($wave == 9) {
-				$alert->data = "General Incoming.";
+				$alert->message = "General Incoming.";
 			} else {
-				$alert->data = "Wave $wave incoming.";
+				$alert->message = "Wave $wave incoming.";
 			}
 			$alert->time = $lastTime;
 			$alert->wave = $wave;

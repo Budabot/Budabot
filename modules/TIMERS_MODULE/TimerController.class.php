@@ -151,7 +151,7 @@ class TimerController {
 	}
 	
 	public function sendAlertMessage($timer, $alert) {
-		$msg = $alert->data;
+		$msg = $alert->message;
 		$mode = $timer->mode;
 		if ('priv' == $mode) {
 			$this->chatBot->sendPrivate($msg);
@@ -309,7 +309,7 @@ class TimerController {
 			$timeString = $this->util->unixtimeToReadable($time);
 			if ($endTime - $time > time()) {
 				$alert = new stdClass;
-				$alert->data = "Reminder: Timer <highlight>$name<end> has <highlight>$timeString<end> left. [set by <highlight>$sender<end>]";
+				$alert->message = "Reminder: Timer <highlight>$name<end> has <highlight>$timeString<end> left. [set by <highlight>$sender<end>]";
 				$alert->time = $endTime - $time;
 				$alerts []= $alert;
 			}
@@ -318,9 +318,9 @@ class TimerController {
 		if ($endTime > time()) {
 			$alert = new stdClass;
 			if ($name == $sender) {
-				$alert->data = "<highlight>$sender<end> your timer has gone off.";
+				$alert->message = "<highlight>$sender<end> your timer has gone off.";
 			} else {
-				$alert->data = "<highlight>$sender<end> your timer named <highlight>$name<end> has gone off.";
+				$alert->message = "<highlight>$sender<end> your timer named <highlight>$name<end> has gone off.";
 			}
 			$alert->time = $endTime;
 			$alerts []= $alert;
