@@ -152,9 +152,9 @@ class CityWaveController {
 
 			$alert = new stdClass;
 			if ($wave == 9) {
-				$alert->message = "General Incoming.";
+				$alert->data = "General Incoming.";
 			} else {
-				$alert->message = "Wave $wave incoming.";
+				$alert->data = "Wave $wave incoming.";
 			}
 			$alert->time = $lastTime;
 			$alert->wave = $wave;
@@ -163,7 +163,7 @@ class CityWaveController {
 			$wave++;
 		}
 		$this->timerController->remove(self::TIMER_NAME);
-		$this->timerController->add(self::TIMER_NAME, $this->chatBot->vars['name'], "guild", $lastTime, $alerts);
+		$this->timerController->add(self::TIMER_NAME, $this->chatBot->vars['name'], "guild", $lastTime, $alerts, 'timercontroller.timerCallback');
 	}
 }
 
