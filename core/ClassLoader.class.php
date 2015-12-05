@@ -46,7 +46,7 @@ class ClassLoader {
 		$this->logger->log('INFO', "Loading USER modules...");
 		forEach ($this->moduleLoadPaths as $path) {
 			$this->logger->log('DEBUG', "Loading modules in path '$path'");
-			if ($d = dir($path)) {
+			if (file_exists($path) && $d = dir($path)) {
 				while (false !== ($MODULE_NAME = $d->read())) {
 					if ($this->isModuleDir($path, $MODULE_NAME)) {
 						$this->registerModule($path, $MODULE_NAME);

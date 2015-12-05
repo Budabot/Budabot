@@ -26,6 +26,7 @@ class EventManager {
 	public $logger;
 
 	public $events = array();
+	private $cronevents = array();
 
 	private $eventTypes = array(
 		'msg','priv','extpriv','guild','joinpriv','extjoinpriv','leavepriv','extleavepriv',

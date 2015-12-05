@@ -166,7 +166,7 @@ class SettingManager {
 	 *
 	 * In the event of an invalid setting value, throw an exception with a message indicating why the value is invalid.
 	 */
-	public function registerChangeListener($settingName, $callback, $data) {
+	public function registerChangeListener($settingName, $callback, $data = null) {
 		if (!is_callable($callback)) {
 			$this->logger->log('ERROR', 'Given callback is not valid.');
 			return;
