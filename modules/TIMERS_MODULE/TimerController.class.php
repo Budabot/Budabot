@@ -149,7 +149,7 @@ class TimerController {
 		$this->sendAlertMessage($timer, $alert);
 
 		if (count($timer->alerts) == 0) {
-			$endTime = $timer->data + $timer->timer;
+			$endTime = $timer->data + $alert->time;
 			$alerts = $this->generateAlerts($timer->owner, $timer->name, $endTime, explode(' ', $this->setting->timer_alert_times));
 			$this->add($timer->name, $timer->owner, $timer->mode, $endTime, $alerts, $timer->callback, $timer->data);
 		}
@@ -223,6 +223,7 @@ class TimerController {
 		if ($timer == null) {
 			$msg = "Could not find timer named <highlight>$name<end>.";
 		} else {
+			// TODO $timer->timer
 			$time_left = $this->util->unixtimeToReadable($timer->timer - time());
 			$name = $timer->name;
 
@@ -285,6 +286,7 @@ class TimerController {
 		} else {
 			$blob = '';
 			forEach ($timers as $timer) {
+				// TODO $timer->timer
 				$time_left = $this->util->unixtimeToReadable($timer->timer - time());
 				$name = $timer->name;
 				$owner = $timer->owner;
@@ -363,21 +365,24 @@ class TimerController {
 		return "Timer <highlight>$name<end> has been set for $timerset.";
 	}
 
+	// TODO $timer->timer
 	public function add($name, $owner, $mode, $time, $alerts, $callback, $data = null) {
 		$timer = new stdClass;
 		$timer->name = $name;
 		$timer->owner = $owner;
 		$timer->mode = $mode;
+		// TODO $timer->timer
 		$timer->timer = $time;
 		$timer->settime = time();
 		$timer->callback = $callback;
 		$timer->data = $data;
 		$timer->alerts = $alerts;
-		
+
 		$this->timers[strtolower($name)] = $timer;
-		
+
+		// TODO $timer->timer
 		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `data`, alerts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-		$this->db->exec($sql, $name, $owner, $mode, $time, time(), $callback, $data, json_encode($alerts));
+		$this->db->exec($sql, $name, $owner, $mode, $time, $timer->settime, $callback, $data, json_encode($alerts));
 	}
 
 	public function remove($name) {
