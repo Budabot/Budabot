@@ -73,7 +73,8 @@ class TimerController {
 			$row->alerts = json_decode($row->alerts);
 
 			// remove alerts that have already passed
-			while (count($row->alerts) > 0 && $row->alerts[0]->time <= time()) {
+			// leave 1 alert so that owner can be notified of timer finishing
+			while (count($row->alerts) > 1 && $row->alerts[0]->time <= time()) {
 				array_shift($row->alerts);
 			}
 
@@ -110,16 +111,20 @@ class TimerController {
 			return;
 		}
 
+		$time = time();
+
 		forEach ($this->timers as $timer) {
-			$msg = "";
+			if (count($timer->alerts) == 0) {
+				$this->remove($timer->name);
+				continue;
+			}
 
-			while (count($timer->alerts) > 0 && $timer->alerts[0]->time <= time()) {
-				$alert = array_shift($timer->alerts);
-
-				$tleft = $timer->timer - time();
-				if ($tleft <= 0) {
-					$this->remove($timer->name);
+			forEach($timer->alerts as $alert) {
+				if ($alert->time > $time) {
+					break;
 				}
+
+				array_shift($timer->alerts);
 
 				list($name, $method) = explode(".", $timer->callback);
 				$instance = Registry::getInstance($name);
@@ -135,11 +140,11 @@ class TimerController {
 			}
 		}
 	}
-	
+
 	public function timerCallback($timer, $alert) {
 		$this->sendAlertMessage($timer, $alert);
 	}
-	
+
 	public function repeatingTimerCallback($timer, $alert) {
 		$this->sendAlertMessage($timer, $alert);
 
@@ -149,7 +154,7 @@ class TimerController {
 			$this->add($timer->name, $timer->owner, $timer->mode, $endTime, $alerts, $timer->callback, $timer->data);
 		}
 	}
-	
+
 	public function sendAlertMessage($timer, $alert) {
 		$msg = $alert->message;
 		$mode = $timer->mode;
