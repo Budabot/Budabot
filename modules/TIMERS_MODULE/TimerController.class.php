@@ -151,7 +151,7 @@ class TimerController {
 		if (count($timer->alerts) == 0) {
 			$endTime = $timer->data + $alert->time;
 			$alerts = $this->generateAlerts($timer->owner, $timer->name, $endTime, explode(' ', $this->setting->timer_alert_times));
-			$this->add($timer->name, $timer->owner, $timer->mode, $endTime, $alerts, $timer->callback, $timer->data);
+			$this->add($timer->name, $timer->owner, $timer->mode, $alerts, $timer->callback, $timer->data);
 		}
 	}
 
@@ -204,7 +204,7 @@ class TimerController {
 		
 		$alerts = $this->generateAlerts($sender, $timerName, $endTime, explode(' ', $this->setting->timer_alert_times));
 
-		$this->add($timerName, $sender, $channel, $endTime, $alerts, "timercontroller.repeatingTimerCallback", $runTime);
+		$this->add($timerName, $sender, $channel, $alerts, "timercontroller.repeatingTimerCallback", $runTime);
 
 		$initialTimerSet = $this->util->unixtimeToReadable($initialRunTime);
 		$timerSet = $this->util->unixtimeToReadable($runTime);
@@ -223,8 +223,7 @@ class TimerController {
 		if ($timer == null) {
 			$msg = "Could not find timer named <highlight>$name<end>.";
 		} else {
-			// TODO $timer->timer
-			$time_left = $this->util->unixtimeToReadable($timer->timer - time());
+			$time_left = $this->util->unixtimeToReadable($timer->endtime - time());
 			$name = $timer->name;
 
 			$msg = "Timer <highlight>$name<end> has <highlight>$time_left<end> left.";
@@ -286,8 +285,7 @@ class TimerController {
 		} else {
 			$blob = '';
 			forEach ($timers as $timer) {
-				// TODO $timer->timer
-				$time_left = $this->util->unixtimeToReadable($timer->timer - time());
+				$time_left = $this->util->unixtimeToReadable($timer->endtime - time());
 				$name = $timer->name;
 				$owner = $timer->owner;
 
@@ -359,20 +357,18 @@ class TimerController {
 			$alerts = $this->generateAlerts($sender, $name, $endTime, explode(' ', $this->setting->timer_alert_times));
 		}
 
-		$this->add($name, $sender, $channel, $endTime, $alerts, 'timercontroller.timerCallback');
+		$this->add($name, $sender, $channel, $alerts, 'timercontroller.timerCallback');
 
 		$timerset = $this->util->unixtimeToReadable($runTime);
 		return "Timer <highlight>$name<end> has been set for $timerset.";
 	}
 
-	// TODO $timer->timer
-	public function add($name, $owner, $mode, $time, $alerts, $callback, $data = null) {
+	public function add($name, $owner, $mode, $alerts, $callback, $data = null) {
 		$timer = new stdClass;
 		$timer->name = $name;
 		$timer->owner = $owner;
 		$timer->mode = $mode;
-		// TODO $timer->timer
-		$timer->timer = $time;
+		$timer->endtime = end($alerts)->time;
 		$timer->settime = time();
 		$timer->callback = $callback;
 		$timer->data = $data;
@@ -380,9 +376,8 @@ class TimerController {
 
 		$this->timers[strtolower($name)] = $timer;
 
-		// TODO $timer->timer
 		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `data`, alerts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-		$this->db->exec($sql, $name, $owner, $mode, $time, $timer->settime, $callback, $data, json_encode($alerts));
+		$this->db->exec($sql, $name, $owner, $mode, $timer->endtime, $timer->settime, $callback, $data, json_encode($alerts));
 	}
 
 	public function remove($name) {
