@@ -364,6 +364,10 @@ class TimerController {
 	}
 
 	public function add($name, $owner, $mode, $alerts, $callback, $data = null) {
+		usort($alerts, function($a, $b) {
+			return $a->time - $b->time;
+		});
+
 		$timer = new stdClass;
 		$timer->name = $name;
 		$timer->owner = $owner;
