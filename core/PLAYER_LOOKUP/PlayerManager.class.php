@@ -15,6 +15,9 @@ class PlayerManager {
 	public $db;
 	
 	/** @Inject */
+	public $util;
+	
+	/** @Inject */
 	public $chatBot;
 	
 	/** @Inject */
@@ -196,12 +199,17 @@ class PlayerManager {
 	}
 	
 	public function searchForPlayers($search, $rkNum = null) {
+		$searchTerms = explode(' ', $search);
+		list($query, $params) = $this->util->generateQueryFromParams($searchTerms, 'name');
+
 		if ($rkNum == null) {
-			$sql = "SELECT * FROM players WHERE name LIKE ? ORDER BY name ASC";
-			return $this->db->query($sql, $search);
+			$sql = "SELECT * FROM players WHERE $query ORDER BY name ASC LIMIT 100";
+			return $this->db->query($sql, $params);
 		} else {
-			$sql = "SELECT * FROM players WHERE name LIKE ? AND dimension = ? ORDER BY name ASC";
-			return $this->db->query($sql, $search, $rkNum);
+			$sql = "SELECT * FROM players WHERE $query AND dimension = ? ORDER BY name ASC LIMIT 100";
+			$params []= $rkNum;
+
+			return $this->db->query($sql, $params);
 		}
 	}
 }

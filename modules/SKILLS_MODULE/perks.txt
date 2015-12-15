@@ -1,0 +1,9 @@
+To see what perks are available for specified level and profession:
+<highlight><tab><symbol>perks<end>
+<highlight><tab><symbol>perks 'level' 'profession'<end>
+<highlight><tab><symbol>perks 'profession' 'level'<end>
+
+To see search for perks that buff a specific skill:
+<highlight><tab><symbol>perks<end>
+<highlight><tab><symbol>perks 'level' 'profession' 'skill'<end>
+<highlight><tab><symbol>perks 'profession' 'level' 'skill'<end>

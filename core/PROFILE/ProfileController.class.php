@@ -206,7 +206,7 @@ class ProfileController {
 	public function loadProfile($filename, $sender) {
 		$info = file_get_contents($filename);
 		$lines = explode("\n", $info);
-		$this->db->begin_transaction();
+		$this->db->beginTransaction();
 		try {
 			$profileSendTo = new ProfileCommandReply();
 			forEach ($lines as $line) {

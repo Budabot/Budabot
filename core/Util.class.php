@@ -55,16 +55,16 @@ class Util {
 
 		$timeshift = '';
 		if ($days != 0) {
-			$timeshift .= $days . ' days ';
+			$timeshift .= $days . ($days == 1 ? ' day ' : ' days ');
 		}
 		if ($hours != 0) {
-			$timeshift .= $hours . ' hrs ';
+			$timeshift .= $hours . ($hours == 1 ? ' hr ' : ' hrs ');
 		}
 		if ($minutes != 0) {
-			$timeshift .= $minutes . ' mins ';
+			$timeshift .= $minutes . ($minutes == 1 ? ' min ' : ' mins ');
 		}
 		if ($seconds != 0 && ($show_seconds || $timeshift == '')) {
-			$timeshift .= $seconds . ' secs';
+			$timeshift .= $seconds . ($seconds == 1 ? ' sec ' : ' secs');
 		}
 		return trim($timeshift);
 	}
@@ -212,6 +212,7 @@ class Util {
 				$prof = "Soldier";
 				break;
 			case "trader":
+			case "tra":
 				$prof = "Trader";
 				break;
 			case "shade":
@@ -336,8 +337,7 @@ class Util {
 	}
 
 	// taken from: http://www.lost-in-code.com/programming/php-code/php-random-string-with-numbers-and-letters/
-	public function genRandomString($length = 10) {
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyz';
+	public function genRandomString($length = 10, $characters = '0123456789abcdefghijklmnopqrstuvwxyz') {
 		$string = '';
 		for ($p = 0; $p < $length; $p++) {
 			$string .= $characters[mt_rand(0, strlen($characters))];
@@ -422,7 +422,7 @@ class Util {
 		$queryParams = array();
 		$first = true;
 		forEach ($params as $key => $value) {
-			if ($value[0] == "-") {
+			if ($value[0] == "-" && strlen($value) > 1) {
 				$value = substr($value, 1);
 				$op = "NOT LIKE";
 			} else {

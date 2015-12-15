@@ -40,11 +40,7 @@ class FindPlayerController {
 	public function findplayerCommand($message, $channel, $sender, $sendto, $args) {
 		$search = $args[1];
 		
-		// wild cards
-		$searchTerm = str_replace("*", "%", $search);
-		$searchTerm = str_replace("?", "_", $searchTerm);
-		
-		$data = $this->playerManager->searchForPlayers('%' . $searchTerm . '%', $this->chatBot->vars['dimension']);
+		$data = $this->playerManager->searchForPlayers($search, $this->chatBot->vars['dimension']);
 		$count = count($data);
 
 		if ($count > 0) {

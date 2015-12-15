@@ -281,7 +281,7 @@ class SystemController {
 
 		$this->chatBot->disconnect();
 		$this->logger->log('INFO', "The Bot is restarting.");
-		exit();
+		exit(-1);
 	}
 
 	/**
@@ -296,7 +296,7 @@ class SystemController {
 
 		$this->chatBot->disconnect();
 		$this->logger->log('INFO', "The Bot is shutting down.");
-		die("The Bot is shutting down.");
+		exit(10);
 	}
 
 	/**
@@ -464,10 +464,13 @@ class SystemController {
 				$this->chatBot->sendTell("<myname> is <green>online<end>. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $name);
 			}
 		}
+		
+		global $version;
+		$msg = "Budabot <highlight>$version<end> now <green>online<end>.";
 
 		// send a message to guild channel
-		$this->chatBot->sendGuild("Logon Complete :: All systems ready to use.", true);
-		$this->chatBot->sendPrivate("Logon Complete :: All systems ready to use.", true);
+		$this->chatBot->sendGuild($msg, true);
+		$this->chatBot->sendPrivate($msg, true);
 	}
 	
 	/**
@@ -485,3 +488,5 @@ class SystemController {
 		$sendto->reply("Command <highlight>$cmd<end> has been sent to <highlight>$name<end>.");
 	}
 }
+
+?>

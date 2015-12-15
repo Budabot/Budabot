@@ -18,10 +18,10 @@ use DOMDocument;
  *		help        = 'aggdef.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'as',
+ *		command     = 'aimshot',
  *		accessLevel = 'all', 
- *		description = 'AS: Calculates Aimed Shot', 
- *		help        = 'as.txt'
+ *		description = 'Aim Shot: Calculates Aimed Shot', 
+ *		help        = 'aimshot.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'nanoinit',
@@ -113,6 +113,8 @@ class SkillsController {
 	
 		$this->commandAlias->register($this->moduleName, "weapon", "specials");
 		$this->commandAlias->register($this->moduleName, "weapon", "inits");
+		$this->commandAlias->register($this->moduleName, "aimshot", "as");
+		$this->commandAlias->register($this->moduleName, "aimedshot", "as");
 	}
 	
 	/**
@@ -124,6 +126,13 @@ class SkillsController {
 		$RechT = $args[2];
 		$InitS = $args[3];
 
+		$blob = $this->getAggDefOutput($AttTim, $RechT, $InitS);
+
+		$msg = $this->text->make_blob("Agg/Def Results", $blob);
+		$sendto->reply($msg);
+	}
+	
+	public function getAggDefOutput($AttTim, $RechT, $InitS) {
 		if ($InitS < 1200) {
 			$AttCalc	= round(((($AttTim - ($InitS / 600)) - 1)/0.02) + 87.5, 0);
 			$RechCalc	= round(((($RechT - ($InitS / 300)) - 1)/0.02) + 87.5, 0);
@@ -144,6 +153,26 @@ class SkillsController {
 			$InitResult = 100;
 		}
 
+		$initsFullAgg = $this->getInitsNeededFullAgg($AttTim, $RechT);
+		$initsNeutral = $this->getInitsNeededNeutral($AttTim, $RechT);
+		$initsFullDef = $this->getInitsNeededFullDef($AttTim, $RechT);
+
+		$blob = "Attack:<highlight> ". $AttTim ." <end>second(s)\n";
+		$blob .= "Recharge: <highlight>". $RechT ." <end>second(s)\n";
+		$blob .= "Init Skill: <highlight>". $InitS ."<end>\n";
+		$blob .= "Def/Agg: <highlight>". $InitResult ."%<end>\n";
+		$blob .= "You must set your AGG bar at <highlight>". $InitResult ."% (". round($InitResult*8/100,2) .") <end>to wield your weapon at 1/1.\n\n";
+		$blob .= "Init needed for max speed at Full Agg (100%): <highlight>". $initsFullAgg ." <end>inits\n";
+		$blob .= "Init needed for max speed at Neutral (88%): <highlight>". $initsNeutral ." <end>inits\n";
+		$blob .= "Init needed for max speed at Full Def (0%): <highlight>". $initsFullDef ." <end>inits\n\n";
+		$blob .= "Note that at the neutral position (88%), your attack and recharge time will match that of the weapon you are using.";
+		$blob .= "\n\nBased upon a RINGBOT module made by NoGoal(RK2)\n";
+		$blob .= "Modified for Budabot by Healnjoo(RK2)";
+		
+		return $blob;
+	}
+	
+	public function getInitsNeededFullAgg($AttTim, $RechT) {
 		$Initatta1 = round((((100 - 87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
 		$Initrech1 = round((((100 - 87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta1 > 1200) {
@@ -157,7 +186,10 @@ class SkillsController {
 		} else {
 			$Init1 = $Initatta1;
 		}
-
+		return $Init1;
+	}
+	
+	public function getInitsNeededNeutral($AttTim, $RechT) {
 		$Initatta2 = round((((87.5 - 87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
 		$Initrech2 = round((((87.5 - 87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta2 > 1200) {
@@ -171,7 +203,10 @@ class SkillsController {
 		} else {
 			$Init2 = $Initatta2;
 		}
-
+		return $Init2;
+	}
+	
+	public function getInitsNeededFullDef($AttTim, $RechT) {
 		$Initatta3 = round((((-87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
 		$Initrech3 = round((((-87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta3 > 1200) {
@@ -185,27 +220,14 @@ class SkillsController {
 		} else {
 			$Init3 = $Initatta3;
 		}
-
-		$blob = "Attack:<highlight> ". $AttTim ." <end>second(s)\n";
-		$blob .= "Recharge: <highlight>". $RechT ." <end>second(s)\n";
-		$blob .= "Init Skill: <highlight>". $InitS ."<end>\n";
-		$blob .= "Def/Agg: <highlight>". $InitResult ."%<end>\n";
-		$blob .= "You must set your AGG bar at <highlight>". $InitResult ."% (". round($InitResult*8/100,2) .") <end>to wield your weapon at 1/1.\n\n";
-		$blob .= "Init needed for max speed at Full Agg: <highlight>". $Init1 ." <end>inits\n";
-		$blob .= "Init needed for max speed at neutral (88%bar): <highlight>". $Init2 ." <end>inits\n";
-		$blob .= "Init needed for max speed at Full Def: <highlight>". $Init3 ." <end>inits";
-		$blob .= "\n\nBased upon a RINGBOT module made by NoGoal(RK2)\n";
-		$blob .= "Modified for Budabot by Healnjoo(RK2)";
-
-		$msg = $this->text->make_blob("Agg/Def Results", $blob);
-		$sendto->reply($msg);
+		return $Init3;
 	}
 	
 	/**
-	 * @HandlesCommand("as")
-	 * @Matches("/^as ([0-9]*\.?[0-9]+) ([0-9]*\.?[0-9]+) ([0-9]+)$/i")
+	 * @HandlesCommand("aimshot")
+	 * @Matches("/^aimshot ([0-9]*\.?[0-9]+) ([0-9]*\.?[0-9]+) ([0-9]+)$/i")
 	 */
-	public function asCommand($message, $channel, $sender, $sendto, $args) {
+	public function aimshotCommand($message, $channel, $sender, $sendto, $args) {
 		$AttTim = $args[1];
 		$RechT = $args[2];
 		$InitS = $args[3];
@@ -220,13 +242,13 @@ class SkillsController {
 
 		$blob = "Attack: <highlight>". $AttTim ." <end>second(s)\n";
 		$blob .= "Recharge: <highlight>". $RechT ." <end>second(s)\n";
-		$blob .= "AS Skill: <highlight>". $InitS ."<end>\n\n";
-		$blob .= "AS Multiplier:<highlight> 1-". $MultiP ."x<end>\n";
-		$blob .= "AS Recharge: <highlight>". $ASRech ."<end> seconds\n";
-		$blob .= "With your weap, your AS recharge will cap at <highlight>".$cap."<end>s.\n";
-		$blob .= "You need <highlight>".$ASCap."<end> AS skill to cap your recharge.";
+		$blob .= "Aim Shot Skill: <highlight>". $InitS ."<end>\n\n";
+		$blob .= "Aim Shot Multiplier:<highlight> 1-". $MultiP ."x<end>\n";
+		$blob .= "Aim Shot Recharge: <highlight>". $ASRech ."<end> seconds\n";
+		$blob .= "With your weap, your Aim Shot recharge will cap at <highlight>".$cap."<end>s.\n";
+		$blob .= "You need <highlight>".$ASCap."<end> Aim Shot skill to cap your recharge.";
 
-		$msg = $this->text->make_blob("Aimed Shot Results", $blob);
+		$msg = $this->text->make_blob("Aim Shot Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -324,25 +346,25 @@ class SkillsController {
 
 		$MA_dmg = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $MA_dmg_list[$i],  $MA_dmg_list[($i+1)],  $dim_skill);
 		$MA_dim_rech = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $MA_rech_list[$i], $MA_rech_list[($i+1)], $dim_skill);
-		$blob .= "Class: <highlight>Martial Artist<end>\n";
+		$blob .= "Profession: <highlight>Martial Artist<end>\n";
 		$blob .= "Damage: <highlight>".$MA_dmg."<end>-<highlight>".$MA_dmg."<end>(<highlight>1<end>)\n";
 		$blob .= "Recharge ".$this->util->unixtimeToReadable($MA_dim_rech)."\n\n";
 
 		$keep_heal	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $keep_heal_list[$i],$keep_heal_list[($i+1)], $dim_skill);
-		$blob .= "Class: <highlight>Keeper<end>\n";
+		$blob .= "Profession: <highlight>Keeper<end>\n";
 		$blob .= "Self heal: <font color=#ff9999>".$keep_heal."</font> HP\n";
-		$blob .= "Recharge: <highlight>1<end> hour <font color=#ccccc>(constant)</font>\n\n";
+		$blob .= "Recharge: <highlight>5<end> minutes <font color=#ccccc>(constant)</font>\n\n";
 
 		$shad_dmg	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $shad_dmg_list[$i], $shad_dmg_list[($i+1)],  $dim_skill);
 		$shad_rec	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $shad_rec_list[$i], $shad_rec_list[($i+1)],  $dim_skill);
 		$shad_dim_rech	= $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $shad_rech_list[$i], $shad_rech_list[($i+1)], $dim_skill);
-		$blob .= "Class: <highlight>Shade<end>\n";
+		$blob .= "Profession: <highlight>Shade<end>\n";
 		$blob .= "Damage: <highlight>".$shad_dmg."<end>-<highlight>".$shad_dmg."<end>(<highlight>1<end>)\n";
 		$blob .= "HP drain: <font color=#ff9999>".$shad_rec."</font>%\n";
 		$blob .= "Recharge ".$this->util->unixtimeToReadable($shad_dim_rech)."\n\n";
 
 		$gen_dmg = $this->util->interpolate($skill_list[$i], $skill_list[($i+1)], $gen_dmg_list[$i],  $gen_dmg_list[($i+1)], $dim_skill);
-		$blob .= "Class: <highlight>All classes besides MA, Shade and Keeper<end>\n";
+		$blob .= "Profession: <highlight>All professions besides MA, Shade and Keeper<end>\n";
 		$blob .= "Damage: <highlight>".$gen_dmg."<end>-<highlight>".$gen_dmg."<end>(<highlight>1<end>)\n";
 		$blob .= "Recharge: <highlight>30<end> minutes <font color=#ccccc>(constant)</font>\n\n";
 
@@ -369,9 +391,9 @@ class SkillsController {
 		}
 
 		$blob = "Attack: <highlight>". $AttTim ." <end>second(s)\n";
-		$blob .= "Fast Atk Skill: <highlight>". $fastSkill ."<end>\n";
-		$blob .= "Fast Atk Recharge: <highlight>". $fastrech ."<end>s\n";
-		$blob .= "You need <highlight>".$fastskillcap."<end> Fast Atk Skill to cap your fast attack at <highlight>".$fasthardcap."<end>s.";
+		$blob .= "Fast Attack Skill: <highlight>". $fastSkill ."<end>\n";
+		$blob .= "Fast Attack Recharge: <highlight>". $fastrech ."<end>s\n";
+		$blob .= "You need <highlight>".$fastskillcap."<end> Fast Attack Skill to cap your fast attack at <highlight>".$fasthardcap."<end>s.";
 
 		$msg = $this->text->make_blob("Fast Attack Results", $blob);
 		$sendto->reply($msg);
@@ -394,9 +416,9 @@ class SkillsController {
 		}
 
 		$blob = "Attack: <highlight>{$AttTim}<end> second(s)\n";
-		$blob .= "Fling Skill: <highlight>{$FlingSkill}<end>\n";
-		$blob .= "Fling Recharge: <highlight>{$flingrech}<end> second(s)\n";
-		$blob .= "You need <highlight>{$flingskillcap}<end> Fling Skill to cap your fling at <highlight>{$flinghardcap}<end> second(s).";
+		$blob .= "Fling Shot Skill: <highlight>{$FlingSkill}<end>\n";
+		$blob .= "Fling Shot Recharge: <highlight>{$flingrech}<end> second(s)\n";
+		$blob .= "You need <highlight>{$flingskillcap}<end> Fling Shot skill to cap your fling at <highlight>{$flinghardcap}<end> second(s).";
 
 		$msg = $this->text->make_blob("Fling Results", $blob);
 		$sendto->reply($msg);
@@ -448,9 +470,10 @@ class SkillsController {
 		// MA templates
 		$skill_list = array(1,200,1000,1001,2000,2001,3000);
 
-		$MA_min_list = array (3,25,90,91,203,204,425);
-		$MA_max_list = array (5,60,380,381,830,831,1280);
-		$MA_crit_list = array(3,50,500,501,560,561,770);
+		$MA_min_list = array (4,45,125,130,220,225,450);
+		$MA_max_list = array (8,75,400,405,830,831,1300);
+		$MA_crit_list = array(3,50,500,501,560,561,800);
+		$MA_fist_speed = array(1.15,1.25,1.25,1.30,1.35,1.45,1.50);
 
 		$shade_min_list = array (3,25,55,56,130,131,280);
 		$shade_max_list = array (5,60,258,259,682,683,890);
@@ -483,27 +506,31 @@ class SkillsController {
 		$speed = round($speed,2);
 
 		$blob = "MA Skill: <highlight>". $MaSkill ."<end>\n\n";
-		$blob .= "Fist speed: <highlight>".$speed."<end>s/<highlight>".$speed."<end>s\n\n";
-
+		
 		$min = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $MA_min_list[$i], $MA_min_list[($i + 1)], $MaSkill);
 		$max = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $MA_max_list[$i], $MA_max_list[($i + 1)], $MaSkill);
 		$crit = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $MA_crit_list[$i], $MA_crit_list[($i + 1)], $MaSkill);
+		//$ma_speed = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $MA_fist_speed[$i], $MA_fist_speed[($i + 1)], $MaSkill);
+		$ma_spd = (($maskill - $skill_list[$i]) * ($MA_fist_speed[($i + 1)] - $MA_fist_speed[$i])) / ($skill_list[($i + 1)] - $skill_list[$i]) + $MA_fist_speed[$i];
+		$ma_speed = round($ma_spd, 2);
 		$dmg = "<highlight>".$min."<end>-<highlight>".$max."<end>(<highlight>".$crit."<end>)";
-		$blob .= "Class: <highlight>Martial Artist<end>\n";
-		$blob .= "Fist damage: ".$dmg."\n\n";
+		$blob .= "Profession: <highlight>Martial Artist<end>\n";
+		$blob .= "Fist speed: <highlight>".$ma_speed."<end>s/<highlight>".$ma_speed."<end>s\n";
+		$blob .= "Fist damage: ".$dmg."\n\n\n";
 
+		$blob .= "Fist speed for other professions: <highlight>".$speed."<end>s/<highlight>".$speed."<end>s\n\n";
 		$min = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_min_list[$i], $shade_min_list[($i + 1)], $MaSkill);
 		$max = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_max_list[$i], $shade_max_list[($i + 1)], $MaSkill);
 		$crit = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_crit_list[$i], $shade_crit_list[($i + 1)], $MaSkill);
 		$dmg = "<highlight>".$min."<end>-<highlight>".$max."<end>(<highlight>".$crit."<end>)";
-		$blob .= "Class: <highlight>Shade<end>\n";
+		$blob .= "Profession: <highlight>Shade<end>\n";
 		$blob .= "Fist damage: ".$dmg."\n\n";
 
 		$min = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $gen_min_list[$i], $gen_min_list[($i + 1)], $MaSkill);
 		$max = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $gen_max_list[$i], $gen_max_list[($i + 1)], $MaSkill);
 		$crit = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $gen_crit_list[$i], $gen_crit_list[($i + 1)], $MaSkill);
 		$dmg = "<highlight>".$min."<end>-<highlight>".$max."<end>(<highlight>".$crit."<end>)";
-		$blob .= "Class: <highlight>All classes besides MA and Shade<end>\n";
+		$blob .= "Profession: <highlight>All professions besides MA and Shade<end>\n";
 		$blob .= "Fist damage: ".$dmg."\n\n";
 
 		$msg = $this->text->make_blob("Martial Arts Results", $blob);
@@ -547,7 +574,7 @@ class SkillsController {
 	
 	/**
 	 * @HandlesCommand("weapon")
-	 * @Matches('|^weapon <a href="itemref://([0-9]+)/([0-9]+)/([0-9]+)">|i')
+	 * @Matches('|^weapon <a href="itemref://(\d+)/(\d+)/(\d+)">|i')
 	 * @Matches('|^weapon (\d+) (\d+)|i')
 	 */
 	public function weaponCommand($message, $channel, $sender, $sendto, $args) {
@@ -558,19 +585,24 @@ class SkillsController {
 			$highid = $args[1];
 			$ql = $args[2];
 		}
-		
-		$sql = "SELECT * FROM aodb WHERE highid = ? AND lowql <= ? AND highql >= ?";
-		$row = $this->db->queryRow($sql, $highid, $ql, $ql);
+
+		// this is a hack since Worn Soft Pepper Pistol has its high and low ids reversed in-game
+		// there may be others
+		$sql = "SELECT *, 1 AS order_col FROM aodb WHERE highid = ? AND lowql <= ? AND highql >= ? 
+				UNION
+				SELECT *, 2 AS order_col FROM aodb WHERE lowid = ? AND lowql <= ? AND highql >= ?
+				ORDER BY order_col ASC";
+		$row = $this->db->queryRow($sql, $highid, $ql, $ql, $highid, $ql, $ql);
 
 		if ($row === null) {
 			$msg = "Item does not exist in the items database.";
 			$sendto->reply($msg);
 			return;
 		}
-		
+
 		$lowAttributes = $this->db->queryRow("SELECT * FROM weapon_attributes WHERE id = ?", $row->lowid);
 		$highAttributes = $this->db->queryRow("SELECT * FROM weapon_attributes WHERE id = ?", $row->highid);
-		
+
 		if ($lowAttributes === null || $highAttributes === null) {
 			$msg = "Could not find any weapon info for this item.";
 			$sendto->reply($msg);
@@ -584,14 +616,14 @@ class SkillsController {
 		$attack_time /= 100;
 
 		$blob = '';
-		
+
 		$blob .= "Attack: <highlight>$attack_time<end>\n";
 		$blob .= "Recharge: <highlight>$recharge_time<end>\n\n";
-		
+
 		// inits
 		$blob .= $this->getInitDisplay($attack_time, $recharge_time);
 		$blob .= "\n\n";
-		
+
 		if ($highAttributes->full_auto !== null) {
 			$full_auto_recharge = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->full_auto, $highAttributes->full_auto, $ql);
 			list($hard_cap, $skill_cap) = $this->cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
@@ -606,7 +638,7 @@ class SkillsController {
 		}
 		if ($highAttributes->fling_shot == 1) {
 			list($hard_cap, $skill_cap) = $this->cap_fling_shot($attack_time);
-			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Skill skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
+			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Shot skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if ($highAttributes->fast_attack == 1) {

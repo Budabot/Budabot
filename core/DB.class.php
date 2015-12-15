@@ -25,7 +25,7 @@ class DB {
 	private $dim;
 	private $guild;
 	private $lastQuery;
-	private $in_transaction = false;
+	private $inTransaction = false;
 	
 	private $logger;
 	
@@ -48,7 +48,16 @@ class DB {
 			$this->sql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->exec("SET sql_mode = 'TRADITIONAL,NO_BACKSLASH_ESCAPES'");
 			$this->exec("SET time_zone = '+00:00'");
-			$this->exec("SET storage_engine = MyISAM");
+
+			$mysqlVersion = $this->sql->getAttribute(PDO::ATTR_SERVER_VERSION);
+
+			// for MySQL 5.5 and later, use 'default_storage_engine'
+			// for previous versions use 'storage_engine'
+			if (version_compare($mysqlVersion,  "5.5") >= 0) {
+				$this->exec("SET default_storage_engine = MyISAM");
+			} else {
+				$this->exec("SET storage_engine = MyISAM");
+			}
 		} else if ($this->type == self::SQLITE) {
 			if ($host == null || $host == "" || $host == "localhost") {
 				$dbName = "./data/$dbName";
@@ -145,27 +154,27 @@ class DB {
 	}
 
 	//Start of an transaction
-	function begin_transaction() {
+	function beginTransaction() {
 		$this->logger->log('DEBUG', "Starting transaction");
-		$this->in_transaction = true;
+		$this->inTransaction = true;
 		$this->sql->beginTransaction();
 	}
 
 	//Commit an transaction
 	function commit() {
 		$this->logger->log('DEBUG', "Committing transaction");
-		$this->in_transaction = false;
+		$this->inTransaction = false;
 		$this->sql->Commit();
 	}
 
 	function rollback() {
 		$this->logger->log('DEBUG', "Rolling back transaction");
-		$this->in_transaction = false;
+		$this->inTransaction = false;
 		$this->sql->rollback();
 	}
 
-	function in_transaction() {
-		return $this->in_transaction;
+	function inTransaction() {
+		return $this->inTransaction;
 	}
 
 	//Return the last inserted ID

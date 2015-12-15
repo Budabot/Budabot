@@ -16,14 +16,6 @@ namespace Budabot\Core\Modules;
  *		help          = 'help.txt',
  *		defaultStatus = '1'
  *	)
- *	@DefineCommand(
- *		command       = 'about',
- *		accessLevel   = 'all',
- *		description   = 'Basic info about Budabot',
- *		help          = 'about.txt',
- *		alias         = 'version',
- *		defaultStatus = '1'
- *	)
  */
 class HelpController {
 
@@ -50,16 +42,9 @@ class HelpController {
 	 * This handler is called on bot startup.
 	 */
 	public function setup() {
-
-	}
-
-	/**
-	 * @HandlesCommand("about")
-	 * @Matches("/^about$/i")
-	 */
-	public function aboutCommand($message, $channel, $sender, $sendto) {
-		$msg = $this->getAbout();
-		$sendto->reply($msg);
+		$this->helpManager->register($this->moduleName, "about", "about.txt", "all", "Info about the development of Budabot");
+		
+		$this->commandAlias->register($this->moduleName, "help about", "about");
 	}
 	
 	public function getAbout() {
@@ -104,6 +89,12 @@ class HelpController {
 	 */
 	public function helpShowCommand($message, $channel, $sender, $sendto, $args) {
 		$helpcmd = strtolower($args[1]);
+		
+		if ($helpcmd == 'about') {
+			$msg = $this->getAbout();
+			$sendto->reply($msg);
+			return;
+		}
 	
 		// check for alias
 		$temp = $this->commandAlias->getCommandByAlias($helpcmd);

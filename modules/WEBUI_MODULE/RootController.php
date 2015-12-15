@@ -172,18 +172,18 @@ class RootController {
 	
 	private function convertAOMLToHTML($input) {
 		$input = $this->text->format_message($input);
-		$input = preg_replace("/<a href=\"text:\\/\\/(.+)\">(.+)<\\/a>/sU", "$1", $input);
-		$input = preg_replace_callback("/<a(\\s+)href='chatcmd:\\/\\/(.+)'>(.+)<\\/a>/sU", array($this, 'replaceChatCmd'), $input);
-		$input = preg_replace_callback("/<a(\\s+)href='itemref:\\/\\/(\\d+)\\/(\\d+)\\/(\\d+)'>(.+)<\\/a>/sU", array($this, 'replaceItem'), $input);
-		$input = preg_replace_callback("/<img(\\s+)src=(.+)>/sU", array($this, 'replaceImage'), $input);
+		$input = preg_replace("|<a href=\"text://(.+)\">(.+)</a>|sU", "$1", $input);
+		$input = preg_replace_callback("|<a(\\s+)href='chatcmd://(.+)'>(.+)</a>|sU", array($this, 'replaceChatCmd'), $input);
+		$input = preg_replace_callback("|<a(\\s+)href='itemref://(\\d+)/(\\d+)/(\\d+)'>(.+)</a>|sU", array($this, 'replaceItem'), $input);
+		$input = preg_replace_callback("|<img(\\s+)src=(.+)>|sU", array($this, 'replaceImage'), $input);
 		return $input;
 	}
 	
 	private function replaceChatCmd($arr) {
 		$botname = $this->chatBot->vars['name'];
-		if (preg_match("/\\/tell $botname (.+)/i", $arr[2], $matches)) {
+		if (preg_match("|/tell $botname (.+)|i", $arr[2], $matches)) {
 			return "<a href=\"#\" onclick=\"$('#commandInput').val('$matches[1]'); sendCommand();\" title=\"$matches[1]\">$arr[3]</a>";
-		} else if (preg_match("/\\/start (.+)/i", $arr[2], $matches)) {
+		} else if (preg_match("|/start (.+)|i", $arr[2], $matches)) {
 			return "<a href=\"javascript: window.open('{$matches[1]}')\">{$arr[3]}</a>";
 		} else {
 			return $arr[3];

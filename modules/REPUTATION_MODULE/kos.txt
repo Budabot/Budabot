@@ -1,0 +1,9 @@
+To see a list of characters on the kill-on-sight list:
+<highlight><tab><symbol>kos<end>
+
+To add a character to the kill-on-sight list:
+<highlight><tab><symbol>kos add 'character'<end>
+<highlight><tab><symbol>kos add 'character' 'comment'<end>
+
+To remove a character from the kill-on-sight list:
+<highlight><tab><symbol>kos rem 'character'<end>

@@ -21,9 +21,8 @@ class CacheManager {
 	private $cache;
 
 	/** @Setup */
-	public function __construct() {
-		global $vars;
-		$this->cache = $vars["cachefolder"];
+	public function init() {
+		$this->cache = $this->chatBot->vars["cachefolder"];
 
 		//Making sure that the cache folder exists
 		if (!dir($this->cache)) {

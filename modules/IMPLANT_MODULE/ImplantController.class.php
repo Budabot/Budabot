@@ -13,7 +13,7 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = 'implant',
  *		accessLevel = 'all',
- *		description = 'Shows info about implants given a ql or stats',
+ *		description = 'Shows info about implants given a QL or stats',
  *		help        = 'implant.txt'
  *	)
  *	@DefineCommand(
@@ -78,8 +78,10 @@ class ImplantController {
 		} else {
 			$obj = $this->getRequirements($ql);
 			$clusterInfo = $this->formatClusterBonuses($obj);
-			$link = $this->text->make_blob('More info', $clusterInfo, "Implant Info (ql $obj->ql)");
+			$link = $this->text->make_blob("QL$obj->ql", $clusterInfo, "Implant Info (QL $obj->ql)");
 			$msg = "QL $ql implants--Ability: {$obj->ability}, Treatment: {$obj->treatment} $link";
+
+			$msg = "$link: <highlight>$obj->ability<end> Ability, <highlight>$obj->treatment<end> Treatment";
 		}
 
 		$sendto->reply($msg);
@@ -98,9 +100,9 @@ class ImplantController {
 		} else {
 			$obj = $this->findMaxImplantQlByReqs($ability, $treatment);
 			$clusterInfo = $this->formatClusterBonuses($obj);
-			$link = $this->text->make_blob("ql $obj->ql", $clusterInfo, "Implant Info (ql $obj->ql)");
+			$link = $this->text->make_blob("QL$obj->ql", $clusterInfo, "Implant Info (QL $obj->ql)");
 
-			$msg = "The highest ql implant you can wear is $link which requires <highlight>$obj->treatment Treatment<end> and <highlight>$obj->ability Ability<end>.";
+			$msg = "$link: <highlight>$obj->ability<end> Ability, <highlight>$obj->treatment<end> Treatment";
 		}
 		$sendto->reply($msg);
 	}
@@ -140,9 +142,11 @@ class ImplantController {
 	 */
 	public function clusterCommand($message, $channel, $sender, $sendto, $args) {
 		$search = trim($args[1]);
+		
+		list($query, $params) = $this->util->generateQueryFromParams(explode(' ', $search), 'LongName');
 
-		$sql = "SELECT ClusterID, LongName FROM Cluster WHERE LongName LIKE ?";
-		$data = $this->db->query($sql, '%' . str_replace(' ', '%', $search) . '%');
+		$sql = "SELECT ClusterID, LongName FROM Cluster WHERE $query";
+		$data = $this->db->query($sql, $params);
 		$count = count($data);
 
 		if ($count == 0) {
@@ -289,9 +293,15 @@ class ImplantController {
 	}
 
 	public function searchByModifier($modifier) {
-		$dbparam = '%' . str_replace(' ', '%', $modifier) . '%';
-		$sql = "SELECT * FROM premade_implant WHERE shiny LIKE ? OR bright LIKE ? OR faded LIKE ?";
-		return $this->db->query($sql, $dbparam, $dbparam, $dbparam);
+		list($shinyQuery, $shinyParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'shiny');
+		list($brightQuery, $brightParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'bright');
+		list($fadedQuery, $fadedParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'faded');
+		
+		$params = array_merge($shinyParams, $brightParams, $fadedParams);
+		
+		$sql = "SELECT * FROM premade_implant WHERE ($shinyQuery) OR ($brightQuery) OR ($fadedQuery)";
+
+		return $this->db->query($sql, $params);
 	}
 
 	public function formatResults($implants) {
@@ -305,7 +315,7 @@ class ImplantController {
 	}
 
 	public function getFormattedLine($implant) {
-		return "<green>$implant->profession<end> $implant->slot <white>$implant->ability<end> <font color='#FFFF00'>$implant->shiny</font> <font color='#FFA020'>$implant->bright</font> <font color='#FF8040'>$implant->faded</font>\n";
+		return "<header2>$implant->profession<end> $implant->slot <highlight>$implant->ability<end> $implant->shiny, $implant->bright, $implant->faded\n";
 	}
 
 	// implant functions
@@ -330,8 +340,6 @@ class ImplantController {
 	}
 
 	public function formatClusterBonuses(&$obj) {
-		$msg = "For ql $obj->ql clusters,\n\n";
-
 		$msg .= "You will gain for most skills:\n" .
 			"<tab>Shiny    <highlight>$obj->skillShiny<end> ($obj->lowestSkillShiny - $obj->highestSkillShiny)\n" .
 			"<tab>Bright    <highlight>$obj->skillBright<end> ($obj->lowestSkillBright - $obj->highestSkillBright)\n" .
@@ -358,7 +366,7 @@ class ImplantController {
 			$msg .= "\n\nRequires Title Level 5";
 		}
 
-		$msg .= "\n\nMinimum ql for clusters:\n\n" .
+		$msg .= "\n\nMinimum QL for clusters:\n" .
 			"<tab>Shiny: $obj->minShinyClusterQl\n" .
 			"<tab>Bright: $obj->minBrightClusterQl\n" .
 			"<tab>Faded: $obj->minFadedClusterQl\n";
@@ -387,9 +395,8 @@ class ImplantController {
 		$obj->minBrightClusterQl = $this->getClusterMinQl($obj->ql, 'bright');
 		$obj->minFadedClusterQl = $this->getClusterMinQl($obj->ql, 'faded');
 
-		// if implant ql is 201+, then clusters must be refined and must be ql 201+ also
+		// if implant QL is 201+, then clusters must be refined and must be QL 201+ also
 		if ($obj->ql >= 201) {
-
 			if ($obj->minShinyClusterQl < 201) {
 				$obj->minShinyClusterQl = 201;
 			}

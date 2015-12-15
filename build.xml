@@ -54,7 +54,6 @@
 
 	<patternset id="linux_files">
 		<include name="chatbot.sh" />
-		<include name="botmanager.sh" />
 	</patternset>
 
 	<!-- ============================================  -->
@@ -75,11 +74,6 @@
 		<!-- init build dir for the archive -->
 		<delete dir="${build.contentsdir}" quiet="true" />
 		<delete file="${build.archivepath}" quiet="true" />
-
-		<!-- Include Bot Manager -->
-		<phing dir="botmanager" target="copy">
-			<property name="botmanager.copyto" value="${build.archivedir}/botmanager" />
-		</phing>
 
 		<copy todir="${build.archivedir}">
 			<fileset dir=".">
@@ -106,10 +100,6 @@
 		<delete dir="${build.contentsdir}" quiet="true" />
 		<delete file="${build.archivepath}" quiet="true" />
 
-		<!-- Include Bot Manager -->
-		<phing dir="botmanager" target="build" />
-		<copy file="botmanager/dist/botmanager.exe" todir="${build.archivedir}" />
-
 		<!-- Include Budabot's files -->
 		<copy todir="${build.archivedir}">
 			<fileset dir=".">
@@ -120,33 +110,6 @@
 
 		<!-- Compress the files into an archive -->
 		<zip basedir="${build.contentsdir}" destfile="${build.archivepath}" />
-	</target>
-
-	<!-- ============================================  -->
-	<!-- Target: Wikidoc                               -->
-	<!-- ============================================  -->
-	<target name="wikidoc">
-		<echo>Generate Google Wiki documentation with ApiGen.</echo>
-		<!-- destination can be overridden at command line -->
-		<property name="wikidoc.destination" value="docs/wiki" />
-		<apigen config="docs/apigen_wiki.neon" destination="${wikidoc.destination}" />
-	</target>
-
-	<!-- ============================================  -->
-	<!-- Target: Apidoc                                -->
-	<!-- ============================================  -->
-	<target name="apidoc">
-		<echo>Generate API documentation with ApiGen.</echo>
-		<!-- destination can be overridden at command line -->
-		<property name="apidoc.destination" value="docs/api" />
-		<!-- Google Custom Search Engine ID for using google
-		     to search the API documentation -->
-		<property name="apidoc.googlecseid" value="" />
-		<!-- Base URL, required at least for Google Custom Search Engine -->
-		<property name="apidoc.baseurl" value="" />
-		<apigen source="core,modules" destination="${apidoc.destination}"
-			title="Budabot" executable="apigen.php.bat" debug="true"
-			baseurl="${apidoc.baseurl}" googlecseid="${apidoc.googlecseid}" />
 	</target>
 
 	<!-- ============================================  -->
@@ -191,30 +154,6 @@
 	<target name="clean">
 		<echo>Remove temporary files.</echo>
 		<delete dir="build" quiet="true" />
-	</target>
-
-	<!-- ============================================  -->
-	<!-- Target: check_style                           --> 
-	<!-- ============================================  -->
-	<target name="check_style">
-		<echo>Checks project's coding style using PHP-CodeSniffer</echo>
-
-		<!-- init build dir for checkstyle report -->
-		<delete file="build/checkstyle.xml" quiet="true" />
-		<mkdir dir="build" />
-
-		<!-- run the checker -->
-		<phpcodesniffer standard="conf/CodingStandard">
-			<fileset dir=".">
-				<include name="**/*.php" />
-				<exclude name="lib**" />
-				<exclude name="build**" />
-				<exclude name="cache**" />
-				<exclude name="conf/test_config.php" />
-			</fileset>
-			<formatter type="default" usefile="false" />
-			<formatter type="checkstyle" outfile="build/checkstyle.xml" />
-		</phpcodesniffer>
 	</target>
 
 </project>

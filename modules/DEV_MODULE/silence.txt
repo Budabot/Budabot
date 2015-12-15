@@ -1,4 +1,4 @@
-To show a list of commands that have been silenced:
+To see a list of commands that have been silenced:
 <highlight><tab><symbol>silence<end>
 
 To silence a command:

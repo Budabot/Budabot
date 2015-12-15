@@ -75,7 +75,7 @@ class PocketbossController {
 	}
 	
 	public function singlePbBlob($name) {
-		$data = $this->db->query("SELECT * FROM pbdb WHERE pb = ? ORDER BY ql", $name);
+		$data = $this->db->query("SELECT * FROM pocketboss WHERE pb = ? ORDER BY ql", $name);
 		$symbs = '';
 		forEach ($data as $symb) {
 			$name = "$symb->line $symb->slot Symbiant, $symb->type Unit Aban";
@@ -83,15 +83,14 @@ class PocketbossController {
 		}
 		
 		$blob = "Location: <highlight>$symb->pb_location, $symb->bp_location<end>\n";
-		$blob .= "Found on: <highlight>$symb->bp_mob, Level $symb->bp_lvl<end>\n";
-		$blob .= "_____________________________\n";
+		$blob .= "Found on: <highlight>$symb->bp_mob, Level $symb->bp_lvl<end>\n\n";
 		$blob .= $symbs;
 
 		return $blob;
 	}
 	
 	public function pbSearchResults($search) {
-		$row = $this->db->queryRow("SELECT pb FROM pbdb WHERE pb LIKE ? GROUP BY `pb` ORDER BY `pb`", $search);
+		$row = $this->db->queryRow("SELECT pb FROM pocketboss WHERE pb LIKE ? GROUP BY `pb` ORDER BY `pb`", $search);
 		if ($row !== null) {
 			return array($row);
 		}
@@ -99,19 +98,23 @@ class PocketbossController {
 		$tmp = explode(" ", $search);
 		list($query, $params) = $this->util->generateQueryFromParams($tmp, '`pb`');
 
-		return $this->db->query("SELECT DISTINCT pb FROM pbdb WHERE $query GROUP BY `pb` ORDER BY `pb`", $params);
+		return $this->db->query("SELECT DISTINCT pb FROM pocketboss WHERE $query GROUP BY `pb` ORDER BY `pb`", $params);
 	}
 	
 	/**
 	 * @HandlesCommand("symbiant")
 	 * @Matches("/^symbiant ([a-z]+)$/i")
 	 * @Matches("/^symbiant ([a-z]+) ([a-z]+)$/i")
+	 * @Matches("/^symbiant ([a-z]+) ([a-z]+) ([a-z]+)$/i")
 	 */
 	public function symbiantCommand($message, $channel, $sender, $sendto, $args) {
 		$paramCount = count($args) - 1;
 
 		$slot = '%';
 		$symbtype = '%';
+		$line = '%';
+		
+		$lines = $this->db->query("SELECT DISTINCT line FROM pocketboss");
 
 		for ($i = 1; $i <= $paramCount; $i++) {
 			switch (strtolower($args[$i])) {
@@ -172,21 +175,32 @@ class PocketbossController {
 					$slot = "Feet";
 					break;
 				default:
-					if (preg_match("/^a/i", $args[$i])) {
+					// check if it's a line
+					forEach ($lines as $l) {
+						if (strtolower($l->line) == strtolower($args[$i])) {
+							$line = $l->line;
+							break 2;
+						}
+					}
+
+					// check if it's a type
+					if (preg_match("/^art/i", $args[$i])) {
 						$symbtype = "Artillery";
-					} else if (preg_match("/^s/i", $args[$i])) {
+					} else if (preg_match("/^sup/i", $args[$i])) {
 						$symbtype = "Support";
-					} else if (preg_match("/^i/i", $args[$i])) {
+					} else if (preg_match("/^inf/i", $args[$i])) {
 						$symbtype = "Infantry";
-					} else if (preg_match("/^e/i", $args[$i])) {
+					} else if (preg_match("/^ext/i", $args[$i])) {
 						$symbtype = "Extermination";
-					} else if (preg_match("/^c/i", $args[$i])) {
+					} else if (preg_match("/^control/i", $args[$i])) {
 						$symbtype = "Control";
+					} else {
+						return false;
 					}
 			}
 		}
 
-		$data = $this->db->query("SELECT * FROM pbdb WHERE `slot` LIKE ? AND `type` LIKE ? ORDER BY `ql` DESC, `type` ASC", $slot, $symbtype);
+		$data = $this->db->query("SELECT * FROM pocketboss WHERE `slot` LIKE ? AND `type` LIKE ? AND `line` LIKE ? ORDER BY `ql` DESC, `type` ASC", $slot, $symbtype, $line);
 		$numrows = count($data);
 		if ($numrows != 0) {
 			$implantDesignerLink = $this->text->make_chatcmd("implant designer", "/tell <myname> implantdesigner");

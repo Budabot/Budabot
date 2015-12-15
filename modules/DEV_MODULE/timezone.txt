@@ -1,0 +1,14 @@
+To see a list of timezone areas:
+<highlight><tab><symbol>timezone<end>
+
+To see a list of timezones for an area:
+<highlight><tab><symbol>timezone 'area'<end>
+
+To set the timezone for the bot
+<highlight><tab><symbol>timezone set 'timezone'<end>
+
+Note: setting the timezone is only temporary.  The bot will revert back to the UTC timezone when it restarts.
+
+To make the timezone change permanent, open <highlight>/core/BotRunner.php<end> and look for the line that says <highlight>date_default_timezone_set('UTC')<end>.  Replace 'UTC' with your preferred timezone.  For instance, to set to Pacific Time, you would do <highlight>date_default_timezone_set('America/Los_Angeles')<end>.
+
+Also note that this setting affects the ENTIRE bot.  ALL dates and times will be affected by the timezone change including the timestamps in the logs.

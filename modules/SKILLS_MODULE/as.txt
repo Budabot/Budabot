@@ -1,8 +1,0 @@
-/tell <myname> <symbol>as [<orange>A<end>] [<orange>R<end>] [<orange>AS<end>]
-[<orange>A<end>] = Weapon Attack Time
-[<orange>R<end>] = Weapon Recharge Time
-[<orange>AS<end>] = Your Aimed Shot skill
-
-Example:
-Your weapon has an attack time of <orange>1.2<end> seconds and a recharge time of <orange>1.5<end> seconds.  You have <orange>1200<end> Aimed Shot.
-<a href='chatcmd:///tell <myname> <symbol>as 1.2 1.5 1200'>/tell <myname> <symbol>as 1.2 1.5 1200</a>

@@ -1,4 +1,4 @@
-To start the IRC relay, a moderator or higher needs to do <highlight>/tell <myname> <symbol>startirc<end>, or you can set it to auto-connect on bot-startup in the <symbol>settings.
+To start the IRC relay, a moderator or higher needs to do <highlight>/tell <myname> <symbol>startirc<end>, or you can set it to auto-connect on bot startup in the <symbol>settings.
 
 ...but before you do, please read these important setup instructions:
 
@@ -25,12 +25,12 @@ Note: to disable the password set it to 'none'.
 Thanks and enjoy.
 
 **Features:**
-<tab>Ingame posted items are converted to Auno links in IRC.
+<tab>In-game posted items are converted to AOItems links in IRC.
 <tab>Org log ons/offs shown in IRC.
 <tab>Private chat joins/leaves shown in IRC.
 <tab>IRC join/leave/quits shown in-game.
-<tab><highlight><symbol>onlineirc<end> shows who's online in IRC.
-<tab><highlight><symbol>online<end> in IRC shows who's in-game.
-<tab>Can be used to relay accross dimensions.  Set both bots to connect to the same IRC channel.
+<tab><highlight><symbol>online<end> from in-game shows who is online in IRC.
+<tab><highlight><symbol>online<end> from IRC shows who is online in-game.
+<tab>Can be used to relay across dimensions.  Set both bots to connect to the same IRC channel.
 <tab>Can be used to relay more than 2 bots. See above ^
-<tab>Can autoconnect at bot start-up. Check <symbol>config IRC_MODULE.
+<tab>Can automatically connect at bot start-up. Check <symbol>config IRC_MODULE.

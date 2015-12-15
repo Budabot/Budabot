@@ -203,13 +203,9 @@ class UsageController {
 		if ($cmd == 'grc' || "CommandAlias.process" == $handler) {
 			return;
 		}
-		
-		if ($handler === null) {
-			$handler = '';
-		}
 
-		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt, handler) VALUES (?, ?, ?, ?, ?)";
-		$this->db->exec($sql, $type, $cmd, $sender, time(), $handler);
+		$sql = "INSERT INTO usage_<myname> (type, command, sender, dt) VALUES (?, ?, ?, ?)";
+		$this->db->exec($sql, $type, $cmd, $sender, time());
 	}
 
 	/**
@@ -225,7 +221,7 @@ class UsageController {
 
 		$postArray['stats'] = json_encode($this->getUsageInfo($lastSubmittedStats, $time, $debug));
 
-		$url = 'http://stats.budabot.jkbff.com/stats2/submitUsage.php';
+		$url = 'http://stats.budabot.jkbff.com/stats/submitUsage.php';
 		$this->http->post($url)->withQueryParams($postArray);
 
 		$this->settingManager->save($settingName, $time);
@@ -240,7 +236,7 @@ class UsageController {
 			$this->settingManager->save('botid', $botid);
 		}
 
-		$sql = "SELECT type, command, handler FROM usage_<myname> WHERE dt >= ? AND dt < ?";
+		$sql = "SELECT type, command FROM usage_<myname> WHERE dt >= ? AND dt < ?";
 		$data = $this->db->query($sql, $lastSubmittedStats, $now);
 
 		$settings = array();
@@ -269,6 +265,7 @@ class UsageController {
 		$settings['online_show_org_guild'] = $this->settingManager->get('online_show_org_guild');
 		$settings['online_show_org_priv'] = $this->settingManager->get('online_show_org_priv');
 		$settings['online_admin'] = $this->settingManager->get('online_admin');
+		$settings['items_database'] = $this->settingManager->get('items_database');
 		$settings['relaysymbolmethod'] = $this->settingManager->get('relaysymbolmethod');
 
 		$obj = new stdClass;

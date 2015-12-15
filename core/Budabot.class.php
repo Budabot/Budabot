@@ -60,14 +60,15 @@ class Budabot extends AOChat {
 
 	public $ready = false;
 
-	var $chatlist = array();
-	var $guildmembers = array();
+	public $chatlist = array();
+	public $guildmembers = array();
+	public $vars;
 
 	// array where modules can store stateful session data
-	var $data = array();
+	public $data = array();
 
 	//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
-	var $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
+	public $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
 		'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
 		'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
 	
@@ -124,7 +125,7 @@ class Budabot extends AOChat {
 			$this->existing_cmd_aliases[$row->alias] = true;
 		}
 		
-		$this->db->begin_transaction();
+		$this->db->beginTransaction();
 		forEach (Registry::getAllInstances() as $name => $instance) {
 			if (isset($instance->moduleName)) {
 				$this->registerInstance($name, $instance);
@@ -362,6 +363,9 @@ class Budabot extends AOChat {
 				case AOCP_BUDDY_ADD: // 40, Incoming buddy logon or off
 					$this->process_buddy_update($packet->args);
 					break;
+				case AOCP_BUDDY_REMOVE: // 41, Incoming buddy removed
+					$this->process_buddy_removed($packet->args);
+					break;
 				case AOCP_MSG_PRIVATE: // 30, Incoming Msg
 					$this->process_private_message($packet->args);
 					break;
@@ -483,6 +487,17 @@ class Budabot extends AOChat {
 		}
 	}
 
+	function process_buddy_removed($args) {
+		$sender	= $this->lookup_user($args[0]);
+
+		$eventObj = new stdClass;
+		$eventObj->sender = $sender;
+
+		$this->logger->log('DEBUG', "AOCP_BUDDY_REMOVE => sender: '$sender'");
+
+		$this->buddylistManager->updateRemoved($args);
+	}
+
 	function process_private_message($args) {
 		$type = "msg";
 		$sender	= $this->lookup_user($args[0]);
@@ -504,21 +519,21 @@ class Budabot extends AOChat {
 		$this->logger->log_chat("Inc. Msg.", $sender, $message);
 
 		// AFK/bot check
-		if (preg_match("/$sender is AFK/si", $message)) {
+		if (preg_match("|$sender is AFK|si", $message)) {
 			return;
-		} else if (preg_match("/I am away from my keyboard right now/si", $message)) {
+		} else if (preg_match("|I am away from my keyboard right now|si", $message)) {
 			return;
-		} else if (preg_match("/Unknown command or access denied!/si", $message)) {
+		} else if (preg_match("|Unknown command or access denied!|si", $message)) {
 			return;
-		} else if (preg_match("/I am responding/si", $message)) {
+		} else if (preg_match("|I am responding|si", $message)) {
 			return;
-		} else if (preg_match("/I only listen/si", $message)) {
+		} else if (preg_match("|I only listen|si", $message)) {
 			return;
-		} else if (preg_match("/Error!/si", $message)) {
+		} else if (preg_match("|Error!|si", $message)) {
 			return;
-		} else if (preg_match("/Unknown command input/si", $message)) {
+		} else if (preg_match("|Unknown command input|si", $message)) {
 			return;
-		} else if (preg_match("/\\/tell $sender !help/i", $message)) {
+		} else if (preg_match("|/tell $sender !help|i", $message)) {
 			return;
 		}
 
@@ -666,15 +681,15 @@ class Budabot extends AOChat {
 	}
 
 	public function registerInstance($name, &$obj) {
-		$this->logger->log('DEBUG', "Registering instance name '$name' for module '$MODULE_NAME'");
-		$MODULE_NAME = $obj->moduleName;
+		$this->logger->log('DEBUG', "Registering instance name '$name' for module '$moduleName'");
+		$moduleName = $obj->moduleName;
 
 		// register settings annotated on the class
 		$reflection = new ReflectionAnnotatedClass($obj);
 		forEach ($reflection->getProperties() as $property) {
 			if ($property->hasAnnotation('Setting')) {
 				$this->settingManager->add(
-					$MODULE_NAME,
+					$moduleName,
 					$property->getAnnotation('Setting')->value,
 					$property->getAnnotation('Description')->value,
 					$property->getAnnotation('Visibility')->value,
@@ -714,7 +729,7 @@ class Budabot extends AOChat {
 				}
 				// register command alias if defined
 				if ($annotation->alias) {
-					$this->commandAlias->register($MODULE_NAME, $command, $annotation->alias);
+					$this->commandAlias->register($moduleName, $command, $annotation->alias);
 				}
 			}
 		}
@@ -737,7 +752,7 @@ class Budabot extends AOChat {
 				}
 			} else if ($method->hasAnnotation('Event')) {
 				$this->eventManager->register(
-					$MODULE_NAME,
+					$moduleName,
 					$method->getAnnotation('Event')->value,
 					$name . '.' . $method->name,
 					@$method->getAnnotation('Description')->value,
@@ -749,11 +764,11 @@ class Budabot extends AOChat {
 
 		forEach ($commands as $command => $definition) {
 			if (count($definition['handlers']) == 0) {
-				$this->logger->log('ERROR', "No handlers defined for command $command in module '$MODULE_NAME'.");
+				$this->logger->log('ERROR', "No handlers defined for command $command in module '$moduleName'.");
 				continue;
 			}
 			$this->commandManager->register(
-				$MODULE_NAME,
+				$moduleName,
 				$definition['channels'],
 				implode(',', $definition['handlers']),
 				$command,
@@ -766,11 +781,11 @@ class Budabot extends AOChat {
 
 		forEach ($subcommands as $subcommand => $definition) {
 			if (count($definition['handlers']) == 0) {
-				$this->logger->log('ERROR', "No handlers defined for subcommand $subcommand in module '$MODULE_NAME'.");
+				$this->logger->log('ERROR', "No handlers defined for subcommand $subcommand in module '$moduleName'.");
 				continue;
 			}
 			$this->subcommandManager->register(
-				$MODULE_NAME,
+				$moduleName,
 				$definition['channels'],
 				implode(',', $definition['handlers']),
 				$subcommand,

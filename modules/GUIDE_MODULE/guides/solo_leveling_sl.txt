@@ -1,11 +1,11 @@
 <header> :::::: Solo Leveling Guide for the Shadowlands :::::: <end>
 
-Guide suited for: All Classes
+Guide suited for: All Professions
 Level Range: ?
  
 Found this somewhere long time ago felt it would help the folks who are clueless as to where to go to level up their new alts  
 
-Shadow Lands 1-200 Soloing Guide for All Classes 
+Shadow Lands 1-200 Soloing Guide for All Professions 
 <pagebreak><header2>Nasc<end> 
 <font color = yellow>Level 1-10</font> (Training Grounds) 
 <font color = yellow>Level 5-10</font> (Frontier Bridge-Chimeras, silvertails etc) 

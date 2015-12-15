@@ -24,18 +24,6 @@ namespace Budabot\User\Modules;
  *		help        = "logoff_msg.txt"
  *	)
  *	@DefineCommand(
- *		command     = "logonadmin", 
- *		accessLevel = "mod", 
- *		description = "Admin command for editing another character's logon message", 
- *		help        = "logonadmin.txt"
- *	)
- *	@DefineCommand(
- *		command     = "logoffadmin", 
- *		accessLevel = "mod", 
- *		description = "Admin command for editing another character's logoff message", 
- *		help        = "logoffadmin.txt"
- *	)
- *	@DefineCommand(
  *		command     = "lastseen", 
  *		accessLevel = "guild", 
  *		description = "Shows the last logoff time of a character", 
@@ -111,12 +99,11 @@ class GuildController {
 		$this->settingManager->add($this->moduleName, "max_logoff_msg_size", "Maximum characters a logoff message can have", "edit", "number", "200", "100;200;300;400", '', "mod");
 		$this->settingManager->add($this->moduleName, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
 		
-		unset($this->chatBot->guildmembers);
-		$data = $this->db->query("SELECT * FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE mode <> 'del'");
-		if (count($data) != 0) {
-			forEach ($data as $row) {
-				$this->chatBot->guildmembers[$row->name] = $row->guild_rank_id;
-			}
+		$this->chatBot->guildmembers = array();
+		$sql = "SELECT p.name, p.guild_rank_id FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>' AND p.guild = '<myguild>') WHERE mode <> 'del'";
+		$data = $this->db->query($sql);
+		forEach ($data as $row) {
+			$this->chatBot->guildmembers[$row->name] = $row->guild_rank_id;
 		}
 	}
 
@@ -184,78 +171,6 @@ class GuildController {
 			$msg = "Your logoff message has been set.";
 		} else {
 			$msg = "Your logoff message is too large. Your logoff message may contain a maximum of " . $this->settingManager->get('max_logoff_msg_size') . " characters.";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("logonadmin")
-	 * @Matches("/^logonadmin ([a-zA-Z0-9-]+)$/i")
-	 */
-	public function logonadminMessageShowCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$logon_msg = $this->preferences->get($name, 'logon_msg');
-
-		if ($logon_msg === false || $logon_msg == '') {
-			$msg = "The logon message for $name has not been set.";
-		} else {
-			$msg = "{$name} logon: {$logon_msg}";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("logonadmin")
-	 * @Matches("/^logonadmin ([a-zA-Z0-9-]+) (.+)$/i")
-	 */
-	public function logonadminMessageSetCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$logon_msg = $args[2];
-
-		if ($logon_msg == 'clear') {
-			$this->preferences->save($name, 'logon_msg', '');
-			$msg = "The logon message for $name has been cleared.";
-		} else if (strlen($logon_msg) <= $this->settingManager->get('max_logon_msg_size')) {
-			$this->preferences->save($name, 'logon_msg', $logon_msg);
-			$msg = "The logon message for $name has been set.";
-		} else {
-			$msg = "The logon message is too large. The logon message may contain a maximum of " . $this->settingManager->get('max_logon_msg_size') . " characters.";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("logoffadmin")
-	 * @Matches("/^logoffadmin ([a-zA-Z0-9-]+)$/i")
-	 */
-	public function logoffadminMessageShowCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$logoff_msg = $this->preferences->get($name, 'logoff_msg');
-
-		if ($logoff_msg === false || $logoff_msg == '') {
-			$msg = "The logoff message for $name has not been set.";
-		} else {
-			$msg = "{$name} logoff: {$logoff_msg}";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("logoffadmin")
-	 * @Matches("/^logoffadmin ([a-zA-Z0-9-]+) (.+)$/i")
-	 */
-	public function logoffadminMessageSetCommand($message, $channel, $sender, $sendto, $args) {
-		$name = ucfirst(strtolower($args[1]));
-		$logoff_msg = $args[2];
-
-		if ($logoff_msg == 'clear') {
-			$this->preferences->save($name, 'logoff_msg', '');
-			$msg = "The logoff message for $name has been cleared.";
-		} else if (strlen($logoff_msg) <= $this->settingManager->get('max_logoff_msg_size')) {
-			$this->preferences->save($name, 'logoff_msg', $logoff_msg);
-			$msg = "The logoff message for $name has been set.";
-		} else {
-			$msg = "The logoff message is too large. The logoff message may contain a maximum of " . $this->settingManager->get('max_logoff_msg_size') . " characters.";
 		}
 		$sendto->reply($msg);
 	}
@@ -461,7 +376,7 @@ class GuildController {
 
 			$this->chatBot->ready = false;
 
-			$this->db->begin_transaction();
+			$this->db->beginTransaction();
 
 			// Going through each member of the org and add or update his/her
 			forEach ($org->members as $member) {
@@ -672,6 +587,34 @@ class GuildController {
 	
 	public function isGuildBot() {
 		return !empty($this->chatBot->vars["my_guild"]) && !empty($this->chatBot->vars["my_guild_id"]);
+	}
+	
+	/**
+	 * @Event("connect")
+	 * @Description("Verifies that org name is correct")
+	 */
+	public function verifyOrgNameEvent($eventObj) {
+		if (!empty($this->chatBot->vars["my_guild"])) {
+			if (empty($this->chatBot->vars["my_guild_id"])) {
+				$this->logger->log('warn', "Org name '{$this->chatBot->vars["my_guild"]}' specified, but bot does not appear to belong to an org");
+			} else {
+				$gid = $this->getOrgChannelIdByOrgId($this->chatBot->vars["my_guild_id"]);
+				$orgChannel = $this->chatBot->gid[$gid];
+				if ($orgChannel != "Clan (name unknown)" && $orgChannel != $this->chatBot->vars["my_guild"]) {
+					$this->logger->log('warn', "Org name '{$this->chatBot->vars["my_guild"]}' specified, but bot belongs to org '$orgChannel'");
+				}
+			}
+		}
+	}
+	
+	public function getOrgChannelIdByOrgId($orgId) {
+		forEach ($this->chatBot->grp as $gid => $status) {
+			$string = unpack("N", substr($gid, 1));
+			if (ord(substr($gid, 0, 1)) == 3 && $string[1] == $orgId) {
+				return $gid;
+			}
+		}
+		return null;
 	}
 }
 

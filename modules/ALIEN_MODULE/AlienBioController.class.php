@@ -68,9 +68,9 @@ class AlienBioController {
 	 * @Matches("/^bio (.+)$/i")
 	 */
 	public function bioCommand($message, $channel, $sender, $sendto, $args) {
-		$bio_regex = "<a href=\"itemref:\/\/(\\d+)\/(\\d+)\/(\\d+)\">Solid Clump of Kyr\'Ozch Bio-Material<\/a>";
+		$bio_regex = "<a href=\"itemref://(\\d+)/(\\d+)/(\\d+)\">Solid Clump of Kyr\'Ozch Bio-Material</a>";
 
-		if (!preg_match("/^(( *${bio_regex})+)$/i", $args[1], $arr)) {
+		if (!preg_match("|^(( *${bio_regex})+)$|i", $args[1], $arr)) {
 			return false;
 		}
 

@@ -1,5 +1,0 @@
-To add an alt to a character:
-<highlight><tab><symbol>altsadmin add <i>main</i> <i>alt</i><end>
-
-To remove an alt from a character:
-<highlight><tab><symbol>altsadmin rem <i>main</i> <i>alt</i><end>

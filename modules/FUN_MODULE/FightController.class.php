@@ -58,14 +58,14 @@ class FightController {
 			return;
 		}
 
-		if ($this->util->startsWith($player1, "tyrence")) {
-			$hp1 = 500000;
-			$add_damage_P1 = rand(10000, 100000);
+		if ($this->util->startsWith(strtolower($player1), "tyrence")) {
+			$hp1 = 200000;
+			$add_damage_P1 = rand(25000, 30000);
 			$wep_P1 = "bot";
 		} else if (strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) {
 			// Checks if Player 1/2 is chuck or chuck norris, and if so, sets HP to 100k and adds 10k - 100k damage to ensure victory.
-			$hp1 = 100000;
-			$add_damage_P1 = rand(10000, 100000);
+			$hp1 = 200000;
+			$add_damage_P1 = rand(10000, 20000);
 			$wep_P1 = "round house kick";
 		} else {
 			$hp1 = 10000;
@@ -73,13 +73,13 @@ class FightController {
 			$wep_P1 = "nerfstick";
 		}
 		
-		if ($this->util->startsWith($player2, "tyrence")) {
-			$hp2 = 500000;
-			$add_damage_P2 = rand(10000, 100000);
+		if ($this->util->startsWith(strtolower($player2), "tyrence")) {
+			$hp2 = 200000;
+			$add_damage_P2 = rand(25000, 30000);
 			$wep_P2 = "bot";
 		} else if (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0) {
-			$hp2 = 100000;
-			$add_damage_P2 = rand(10000, 100000);
+			$hp2 = 200000;
+			$add_damage_P2 = rand(10000, 20000);
 			$wep_P2 = "round house kick";
 		} else {
 			$hp2 = 10000;

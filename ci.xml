@@ -4,13 +4,8 @@
 <project name="Budabot Continuous Integration" default="nothing" basedir=".">
 
 	<!-- Optional properties -->
-	<property name="wikidoc.destination"       value="${project.basedir}/../wiki" />
 	<property name="upload.hostname"           value="budabot.jkbff.com" />
-	<property name="apidoc.upload_destination" value="/home/budabot/www/api/" />
 	<property name="build.upload_destination"  value="/home/budabot/www/builds/" />
-	<property name="behat.profile"             value="ci" />
-	<property name="apidoc.baseurl"            value="http://budabot.jkbff.com/api" />
-	<property name="apidoc.googlecseid"        value="002156385980800159355:7hijxzc1sdg" />
 
 	<!-- Mandatory properties -->
 	<property name="upload.username"           value="user" />
@@ -24,7 +19,6 @@
 		<!-- Run tests -->
 		<phing phingFile="build.xml" target="tests" haltonfailure="true" />
 		<phing phingFile="build.xml" target="behat" haltonfailure="true" />
-		<phing phingFile="build.xml" target="check_style" haltonfailure="true" />
 
 		<!-- Create release archives -->
 		<phing phingFile="build.xml" target="build" haltonfailure="true" />
@@ -37,27 +31,9 @@
 		</scp>
 	</target>
 
-	<target name="update_documentations">
-		<!-- Generate documentations -->
-		<!-- <phing target="wikidoc" /> -->
-		<phing phingFile="build.xml" target="apidoc" />
-
-		<!-- Commit wiki documentation to google wiki -->
-		<!-- <svncommit username="${svn.username}" password="${svn.password}" nocache="true"
-			workingcopy="${wikidoc.destination}" ignoreexternals="true" message="CI: Updated wiki documentation." /> -->
-
-		<!-- Upload API documentation -->
-		<scp username="${upload.username}" password="${upload.password}" host="${upload.hostname}" todir="${apidoc.upload_destination}">
-			<fileset dir="docs/api">
-				<include name="**/**" />
-			</fileset>
-		</scp>
-	</target>
-
 	<target name="run_tests">
 		<phing phingFile="build.xml" target="tests" haltonfailure="true" />
 		<phing phingFile="build.xml" target="behat" haltonfailure="true" />
-		<phing phingFile="build.xml" target="check_style" haltonfailure="true" />
 	</target>
 
 </project>

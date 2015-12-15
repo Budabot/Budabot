@@ -3,5 +3,5 @@
 [<orange>I<end>] = Your nano init skill
 
 Example:
-Your nano has an attack time (cast) of <orange>1.2<end> and your Nano Init skill is <orange>1200<end>.
+Your nano has an attack time (cast) of <orange>1.2<end> and you have <orange>1200<end> Nano Init skill.
 <a href='chatcmd:///tell <myname> <symbol>nanoinit 1.2 1200'>/tell <myname> <symbol>nanoinit 1.2 1200</a>

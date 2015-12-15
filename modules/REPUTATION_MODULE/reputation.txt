@@ -1,14 +1,14 @@
-To see a list of players that have reputation:
-<highlight><tab><symbol>reputation 'player'<end>
+To see a list of characters that have reputation:
+<highlight><tab><symbol>reputation<end>
 
-To see reputation for a player:
-<highlight><tab><symbol>reputation 'player'<end>
+To see reputation for a character:
+<highlight><tab><symbol>reputation 'character'<end>
 
-To see all reputation for a player:
-<highlight><tab><symbol>reputation 'player' all<end>
+To see all reputation for a character:
+<highlight><tab><symbol>reputation 'character' all<end>
 
-To add positive reputation for a player:
-<highlight><tab><symbol>reputation 'player' +1 'reason'<end>
+To add positive reputation for a character:
+<highlight><tab><symbol>reputation 'character' +1 'reason'<end>
 
-To add negative reputation for a player:
-<highlight><tab><symbol>reputation 'player' -1 'reason'<end>
+To add negative reputation for a character:
+<highlight><tab><symbol>reputation 'character' -1 'reason'<end>

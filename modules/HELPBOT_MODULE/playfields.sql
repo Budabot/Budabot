@@ -51,7 +51,8 @@ INSERT INTO playfields (id, long_name, short_name) VALUES (586, 'Wartorn Valley'
 INSERT INTO playfields (id, long_name, short_name) VALUES (6550, 'Uturn Canyon', 'UC');
 INSERT INTO playfields (id, long_name, short_name) VALUES (6551, 'Uturn Forest', 'UF'); 
 INSERT INTO playfields (id, long_name, short_name) VALUES (6102, 'Three Craters East', '3CE');
-INSERT INTO playfields (id, long_name, short_name) VALUES (6101, 'Three Craters West', '3CW'); 
+INSERT INTO playfields (id, long_name, short_name) VALUES (6101, 'Three Craters West', '3CW');
+INSERT INTO playfields (id, long_name, short_name) VALUES (6553, 'Arete', 'ARETE');
 
 
 #--SL

@@ -1,8 +1,2 @@
-To check for all players in vicinity:
-<highlight><tab><symbol>check all<end>
-
-To check for proffessions in vicinity:
-<highlight><tab><symbol>check prof<end>
-
-To check for orgs in vicinity:
-<highlight><tab><symbol>check org<end>
+To check for players in private channel in vicinity:
+<highlight><tab><symbol>check<end>

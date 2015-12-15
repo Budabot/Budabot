@@ -94,19 +94,18 @@ class TrickleController {
 
 		
 		$that = $this;
-		$blob = $this->util->mapFilterCombine($abilities, ", ", function($ability, $value) use ($that) {
+		$abilitiesHeader = $this->util->mapFilterCombine($abilities, ", ", function($ability, $value) use ($that) {
 			if ($value == 0) {
 				return null;
 			} else {
 				return $that->util->getAbility($ability, true) . " <highlight>" . $value . "<end>";
 			}
 		}); 
-		$blob .= "\n";
 
 		$results = $this->getTrickleResults($abilities);
 		$blob .= $this->formatOutput($results, $amount, $abilities);
 		$blob .= "\nBy Tyrence (RK2), inspired by the Bebot command of the same name";
-		return $this->text->make_blob("Trickle Results", $blob);
+		return $this->text->make_blob("Trickle Results: $abilitiesHeader", $blob);
 	}
 	
 	function getTrickleResults($abilities) {
@@ -140,8 +139,7 @@ class TrickleController {
 			HAVING
 				amount > 0
 			ORDER BY
-				groupName,
-				name";
+				id";
 
 		return $this->db->query($sql);
 	}
@@ -153,7 +151,7 @@ class TrickleController {
 
 			if ($result->groupName != $groupName) {
 				$groupName = $result->groupName;
-				$msg .= "\n<tab><header2>$groupName<end>\n";
+				$msg .= "\n<header2>$groupName<end>\n";
 			}
 
 			$amount = $result->amount / 4;

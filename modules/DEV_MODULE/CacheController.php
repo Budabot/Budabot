@@ -40,7 +40,7 @@ class CacheController extends AutoInject {
 	public function cacheCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
 		forEach ($this->cacheManager->getGroups() as $group) {
-			$blob .= $groupLink = $this->text->make_chatcmd($group, "/tell <myname> cache browse $group") . "\n";
+			$blob .= $this->text->make_chatcmd($group, "/tell <myname> cache browse $group") . "\n";
 		}
 		$msg = $this->text->make_blob("Cache Groups", $blob);
 		$sendto->reply($msg);

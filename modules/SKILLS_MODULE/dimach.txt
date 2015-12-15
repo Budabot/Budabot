@@ -2,5 +2,5 @@
 [<orange>D<end>] = Dimach Skill
 
 Example:
-You have 750 dimach Skill.
+You have 750 Dimach skill.
 <a href='chatcmd:///tell <myname> <symbol>dimach 750'>/tell <myname> <symbol>dimach 750</a>

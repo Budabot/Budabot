@@ -13,7 +13,7 @@ use Budabot\Core\DB;
  * Commands this controller contains:
  *	@DefineCommand(
  *		command     = 'whois',
- *		accessLevel = 'all', 
+ *		accessLevel = 'member', 
  *		description = 'Show character info, online status, and name history', 
  *		help        = 'whois.txt',
  *		alias       = 'is'
@@ -68,8 +68,8 @@ class WhoisController {
 	 * @Description("Save cache of names and charIds to database")
 	 */
 	public function saveCharIds($eventObj) {
-		if (!empty($this->nameHistoryCache) && !$this->db->in_transaction()) {
-			$this->db->begin_transaction();
+		if (!empty($this->nameHistoryCache) && !$this->db->inTransaction()) {
+			$this->db->beginTransaction();
 			forEach ($this->nameHistoryCache as $entry) {
 				list($charid, $name) = $entry;
 				if ($this->db->get_type() == DB::SQLITE) {

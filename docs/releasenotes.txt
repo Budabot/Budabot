@@ -1,4 +1,52 @@
 *****************************
+	Version 3.4_RC1:
+*****************************
+-updated items db to 18.08.02
+-removed !quote stats
+-added !gmi
+-!items now defaults to using aoitems.com for search results
+-added !litems to force items lookup using local items db
+-added !citems to force items lookup using remote items db (aoitems.com by default)
+-added enhanced search capabilities to several commands including !findplayer, !cluster, !premade, !bossloot, !boss, and !playfields
+-removed !onlineirc
+-removed some settings from VOTE_MODULE
+-fix for using Budabot with MySQL 5.1 or earlier (thanks d0ttd0tt)
+
+*****************************
+	Version 3.3_GA:
+*****************************
+-added !feedback
+-some minor changes to !reputation
+-!orglist should now work when using ao chat proxy
+-!whompah routes have been updated for 18.7 changes
+-updated items db to 18.08.01
+-!recipe now uses local database to address issues with Recipebook going down
+-!history should now work again, for RK1, RK2, and RK5
+-fixed issue causing bot to take a long time to start
+-references to xyphos.com replaced with references to aoitems.com (thanks Zyamada)
+-!quote rem will now re-number quotes when a quote is deleted so there are no "holes"
+-removed !quote stats
+-removed !lock
+-removed !unlock
+-removed !guide smileys
+-removed !guide buffs
+-added !kos
+-!track can now optionally show tracker events in org and/or private channels
+-added Arete to !playfields (thanks Eli)
+-other various fixes and changes
+-removed botmanager
+-bot now warns when org name is set incorrectly
+-various changes relating to 18.7 patch
+-updated to work with MySQL 5.5+
+-added !perks
+-!findorg and !orglist should now work again
+-improved !impdesign, can now add symbs
+-!weapon should now work again
+-added ofab shoulder wear to !ofabarmor
+-added more changes to prevent bot from hanging when AO servers go down
+-added !guides adminhelp to help new Budabot admins
+
+*****************************
 	Version 3.2_GA:
 *****************************
 -fixed various typos and bugs

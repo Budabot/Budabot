@@ -30,7 +30,7 @@ class ClassLoader {
 	}
 	
 	private function loadCoreModules() {
-		// Load the Core Modules
+		// load the core modules, hard-code to ensure they are loaded in the correct order
 		$this->logger->log('INFO', "Loading CORE modules...");
 		$core_modules = array('CONFIG', 'SYSTEM', 'ADMIN', 'BAN', 'HELP', 'LIMITS', 'PLAYER_LOOKUP', 'FRIENDLIST', 'ALTS', 'USAGE', 'PREFERENCES', 'API_MODULE', 'HTTP_SERVER_MODULE', 'PROFILE', 'COLORS');
 		forEach ($core_modules as $MODULE_NAME) {
@@ -46,7 +46,7 @@ class ClassLoader {
 		$this->logger->log('INFO', "Loading USER modules...");
 		forEach ($this->moduleLoadPaths as $path) {
 			$this->logger->log('DEBUG', "Loading modules in path '$path'");
-			if ($d = dir($path)) {
+			if (file_exists($path) && $d = dir($path)) {
 				while (false !== ($MODULE_NAME = $d->read())) {
 					if ($this->isModuleDir($path, $MODULE_NAME)) {
 						$this->registerModule($path, $MODULE_NAME);

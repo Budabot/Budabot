@@ -102,7 +102,7 @@ class GuildManager {
 		// this is done separately from the loop above to prevent nested transaction errors from occuring
 		// when looking up charids for characters
 		if ($cacheResult->usedCache === false) {
-			$this->db->begin_transaction();
+			$this->db->beginTransaction();
 
 			$sql = "UPDATE players SET guild_id = 0, guild = '' WHERE guild_id = ? AND dimension = ?";
 			$this->db->exec($sql, $guild->guild_id, $rk_num);

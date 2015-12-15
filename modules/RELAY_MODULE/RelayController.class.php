@@ -12,8 +12,7 @@ namespace Budabot\User\Modules;
  *  @DefineCommand(
  *		command     = 'grc',
  *		accessLevel = 'all',
- *		description = 'Relays incoming messages to guildchat',
- *		channels    = 'msg'
+ *		description = 'Relays incoming messages to guildchat'
  *	)
  */
 class RelayController {

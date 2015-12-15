@@ -18,12 +18,6 @@ namespace Budabot\User\Modules;
  *		help        = 'dyna.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'inspect', 
- *		accessLevel = 'all', 
- *		description = 'Inspect Christmas/Eart Gifts and Peren. Containers', 
- *		help        = 'inspect.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'oe', 
  *		accessLevel = 'all', 
  *		description = 'Over-equipped calculation', 
@@ -113,50 +107,6 @@ class HelpbotController {
 	}
 	
 	/**
-	 * Can identify Christmas Gift, Expensive Gift from Earth, and Light Perennium Container
-	 *
-	 * @HandlesCommand("inspect")
-	 * @Matches("/^inspect (.+)$/i")
-	 */
-	public function inspectCommand($message, $channel, $sender, $sendto, $args) {
-		$search = $args[1];
-		if (preg_match("~<a href=\"itemref://(\\d{6})/(\\d{6})/(\\d{1,3})\">([^<]+)</a>~i", $search, $matches)) {
-			$highId = $matches[2];
-			$ql = $matches[3];
-
-			switch ($highId) {
-				case 205842:
-					$type = "Funny Arrow";
-					break;
-				case 205843:
-					$type = "Monster Sunglasses";
-					break;
-				case 205844:
-					$type = "Karlsson Propellor Cap";
-					break;
-				case 216286:
-					$type = "Funk Flamingo Sunglasses or Disco Duck Sunglasses or Electric Boogie Sunglasses or Gurgling River Sprite";
-					break;
-				case 245658:
-					$type = "Blackpack";
-					break;
-				case 245596:
-					$type = "Doctor's Pill Pack";
-					break;
-				case 245594:
-					$type = "Syndicate Shades";
-					break;
-				default:
-					$type = "Unidentified";
-			}
-			$msg = "QL $ql of $type";
-			$sendto->reply($msg);
-		} else {
-			return false;
-		}
-	}
-	
-	/**
 	 * @HandlesCommand("oe")
 	 * @Matches("/^oe ([0-9]+)$/i")
 	 */
@@ -185,7 +135,7 @@ class HelpbotController {
 			"0%: <highlight>$oe25<end> or higher\n\n".
 			"WARNING: May be plus/minus 1 point!";
 
-		$msg = "<orange>{$lowoe100}<end> - <yellow>{$oe}<end> - <orange>{$oe100}<end> " . $this->text->make_blob('More info', $blob, 'Over-equipped Calculation');
+		$msg = "<highlight>{$lowoe100}<end> - {$oe} - <highlight>{$oe100}<end> " . $this->text->make_blob('More info', $blob, 'Over-equipped Calculation');
 
 		$sendto->reply($msg);
 	}

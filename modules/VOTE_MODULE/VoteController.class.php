@@ -49,6 +49,14 @@ class VoteController {
 	private $delimiter = "|";
 	private $table = "vote_<myname>";
 	
+	// status indicates the last alert that happened (not the next alert that will happen)
+	const STATUS_CREATED = 0;
+	const STATUS_STARTED = 1;
+	const STATUS_60_MINUTES_LEFT = 2;
+	const STATUS_15_MINUTES_LEFT = 3;
+	const STATUS_60_SECONDS_LEFT = 4;
+	const STATUS_ENDED = 9;
+	
 	/**
 	 * This handler is called on bot startup.
 	 * @Setup
@@ -57,11 +65,8 @@ class VoteController {
 		$this->db->loadSQLFile($this->moduleName, 'vote');
 		
 		$this->settingManager->add($this->moduleName, "vote_channel_spam", "Showing Vote status messages in", "edit", "options", "2", "Private Channel;Guild;Private Channel and Guild;Neither", "0;1;2;3", "mod", "votesettings.txt");
-		$this->settingManager->add($this->moduleName, "vote_add_new_choices", "Users can add in there own choices", "edit", "options", "1", "true;false", "1;0", "mod", "votesettings.txt");
-		$this->settingManager->add($this->moduleName, "vote_create_min", "Minimum org level needed to create votes.", "edit", "options", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "votesettings.txt");
-		$this->settingManager->add($this->moduleName, "vote_use_min", "Minimum org level needed to vote.", "edit", "options", "-1", "None;0;1;2;3;4;5;6", "-1;0;1;2;3;4;5;6", "mod", "votesettings.txt");
 		
-		$data = $this->db->query("SELECT * FROM vote_<myname> WHERE `status` < ? AND `duration` IS NOT NULL", 8);
+		$data = $this->db->query("SELECT * FROM vote_<myname> WHERE `status` <> ? AND `duration` IS NOT NULL", self::STATUS_ENDED);
 		forEach ($data as $row) {
 			$this->votes[$row->question] = $row;
 		}
@@ -85,110 +90,44 @@ class VoteController {
 			$duration = $row->duration;
 			$answer = $row->answer;
 			$status = $row->status;
-			// status = 0, just started, 1 = > 60 minutes left, 2 = 60 minutes left, 3 = 15 minutes left, 4 = 60 seconds, 9 = vote over
 
-			$timeleft = $started + $duration;
-			$timeleft -= time();
+			$timeleft = $started + $duration - time();
 
 			if ($timeleft <= 0) {
 				$title = "Finished Vote: $question";
-				$this->db->exec("UPDATE $this->table SET `status` = '9' WHERE `duration` = ? AND `question` = ?", $duration, $question);
+				$this->db->exec("UPDATE $this->table SET `status` = ? WHERE `duration` = ? AND `question` = ?", self::STATUS_ENDED, $duration, $question);
 				unset($this->votes[$key]);
-			} else if ($status == 0) {
+			} else if ($status == self::STATUS_CREATED) {
 				$title = "Vote: $question";
 
 				if ($timeleft > 3600) {
-					$mstatus = 1;
+					$mstatus = self::STATUS_STARTED;
 				} else if ($timeleft > 900) {
-					$mstatus = 2;
+					$mstatus = self::STATUS_60_MINUTES_LEFT;
 				} else if ($timeleft > 60) {
-					$mstatus = 3;
+					$mstatus = self::STATUS_15_MINUTES_LEFT;
 				} else {
-					$mstatus = 4;
+					$mstatus = self::STATUS_60_SECONDS_LEFT;
 				}
 				$this->votes[$key]->status = $mstatus;
-			} else if ($timeleft <= 60 && $timeleft > 0 && $status != 4) {
+			} else if ($timeleft <= 60 && $timeleft > 0 && $status != self::STATUS_60_SECONDS_LEFT) {
 				$title = "60 seconds left: $question";
-				$this->votes[$key]->status = 4;
-			} else if ($timeleft <= 900 && $timeleft > 60 && $status != 3) {
+				$this->votes[$key]->status = self::STATUS_60_SECONDS_LEFT;
+			} else if ($timeleft <= 900 && $timeleft > 60 && $status != self::STATUS_15_MINUTES_LEFT) {
 				$title = "15 minutes left: $question";
-				$this->votes[$key]->status = 3;
-			} else if ($timeleft <= 3600 && $timeleft > 900 && $status != 2) {
+				$this->votes[$key]->status = self::STATUS_15_MINUTES_LEFT;
+			} else if ($timeleft <= 3600 && $timeleft > 900 && $status != self::STATUS_60_MINUTES_LEFT) {
 				$title = "60 minutes left: $question";
-				$this->votes[$key]->status = 2;
+				$this->votes[$key]->status = self::STATUS_60_MINUTES_LEFT;
 			} else {
 				$title = "";
 			}
 
 			if ($title != "") { // Send current results to guest + org chat.
 
-				$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ?", $question);
+				$blob = $this->getVoteBlob($question);
 
-				$results = array();
-				forEach ($data as $row2) {
-					if ($row2->duration) {
-						$question = $row2->question;
-						$author = $row2->author;
-						$started = $row2->started;
-						$duration = $row2->duration;
-						$status = $row2->status;
-						$timeleft = $started + $duration - time();
-					}
-					$answer = $row2->answer;
-
-					if (strpos($answer, $this->delimiter) === false) { // A Vote: $answer = "yes";
-						$results[$answer]++;
-						$totalresults++;
-					} else {				     // Main topic: $answer = "yes|no";
-						$ans = explode($this->delimiter, $answer);
-						forEach ($ans as $value) {
-							if (!isset($results[$value])) {
-								$results[$value] = 0;
-							}
-						}
-					}
-				}
-
-				$msg = "$author's Vote: <highlight>".$question."<end>\n";
-				if ($timeleft > 0) {
-					$msg .= $this->util->unixtimeToReadable($timeleft)." until this vote closes!\n\n";
-				} else {
-					$msg .= "<red>This vote has ended.<end>\n\n";
-				}
-
-				forEach ($results as $key2 => $value) {
-					$val = number_format(100 * ($value / $totalresults), 0);
-					if ($val < 10) {
-						$msg .= "<black>__<end>$val% ";
-					} else if ($val < 100) {
-						$msg .= "<black>_<end>$val% ";
-					} else {
-						$msg .= "$val% ";
-					}
-
-					if ($timeleft > 0) {
-						$msg .= $this->text->make_chatcmd($key2, "/tell <myname> vote show ".$question.$this->delimiter.$key2);
-						$msg .= " (Votes: $value)\n";
-					} else {
-						$msg .= "<highlight>$key2<end> (Votes: $value)\n";
-					}
-				}
-
-				if ($timeleft > 0) {
-					$removeLink = $this->text->make_chatcmd("Remove yourself from this vote", "/tell <myname> vote remove $question");
-					$msg .= "\n<black>___%<end> $removeLink.\n";
-				}
-				if ($timeleft > 0 && $this->settingManager->get("vote_add_new_choices") == 1 && $status == 0) {
-					$msg .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
-				}
-
-				$msg .="\nIf you started this vote, you can:\n";
-				$msg .= "<tab>" . $this->text->make_chatcmd("Kill", "/tell <myname> vote kill $question") . " the vote completely.\n";
-				if ($timeleft > 0) {
-					$msg .= "<tab>" . $this->text->make_chatcmd("End", "/tell <myname> vote end $question") . " the vote early.";
-				}
-
-				$msg = $this->text->make_blob($title, $msg);
+				$msg = $this->text->make_blob($title, $blob);
 
 				if ($this->settingManager->get("vote_channel_spam") == 0 || $this->settingManager->get("vote_channel_spam") == 2) {
 					$this->chatBot->sendGuild($msg, true);
@@ -323,92 +262,21 @@ class VoteController {
 	 */
 	public function voteShowCommand($message, $channel, $sender, $sendto, $args) {
 		$question = $args[1];
+		
+		$blob = $this->getVoteBlob($question);
 	
-		$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ?", $question);
-		if (count($data) == 0) {
-			$msg = "Could not find any votes with this topic.";
-		} else {
-			$results = array();
-			forEach ($data as $row) {
-				if ($row->duration) {
-					$question = $row->question;
-					$author = $row->author;
-					$started = $row->started;
-					$duration = $row->duration;
-					$status = $row->status;
-					$timeleft = $started + $duration - time();
-				}
-				if ($sender == $author) {
-					$didvote = 1;
-				}
-				$answer = $row->answer;
-
-				if (strpos($answer, $this->delimiter) === false) { // A Vote: $answer = "yes";
-					$results[$answer]++;
-					$totalresults++;
-				} else {
-					// Main topic: $answer = "yes;no";
-					$ans = explode($this->delimiter, $answer);
-					forEach ($ans as $value) {
-						if (!isset($results[$value])) {
-							$results[$value] = 0;
-						}
-					}
-				}
-			}
-
-			$blob = "$author's Vote: <highlight>".$question."<end>\n";
-			if ($timeleft > 0) {
-				$blob .= $this->util->unixtimeToReadable($timeleft)." till this vote closes!\n\n";
-			} else {
-				$blob .= "<red>This vote has ended " . $this->util->unixtimeToReadable(time() - ($started + $duration), 1) . " ago.<end>\n\n";
-			}
-
-			forEach ($results as $key => $value) {
-				$val = number_format(100 * ($value / $totalresults), 0);
-				if ($val < 10) {
-					$blob .= "<black>__<end>$val% ";
-				} else if ($val < 100) {
-					$blob .= "<black>_<end>$val% ";
-				} else {
-					$blob .= "$val% ";
-				}
-
-				if ($timeleft > 0) {
-					$blob .= $this->text->make_chatcmd($key, "/tell <myname> vote choose $question{$this->delimiter}$key") . "(Votes: $value)\n";
-				} else {
-					$blob .= "<highlight>$key<end> (Votes: $value)\n";
-				}
-			}
-
-			//if ($didvote && $timeleft > 0) {
-			if ($timeleft > 0) { // Want this option avaiable for everyone if its run from org/priv chat.
-				$blob .= "\n<black>___%<end> ";
-				$blob .= $this->text->make_chatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
-			}
-
-			if ($timeleft > 0 && $this->settingManager->get("vote_add_new_choices") == 1 && $status == 0) {
-				$blob .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
-			}
-
-			$blob .="\nIf you started this vote, you can:\n";
-			$blob .="<tab>" . $this->text->make_chatcmd('Kill the vote completely', "/tell <myname> vote kill $question") . "\n";
-			if ($timeleft > 0) {
-				$blob .="<tab>" . $this->text->make_chatcmd('End the vote early', "/tell <myname> vote end $question");
-			}
-
-			$row = $this->db->queryRow("SELECT * FROM $this->table WHERE `author` = ? AND `question` = ? AND `duration` IS NULL", $sender, $question);
-			if ($row->answer && $timeleft > 0) {
-				$privmsg = "On this vote, you already selected: <highlight>(".$row->answer.")<end>.";
-			} else if ($timeleft > 0) {
-				$privmsg = "You haven't voted on this one yet.";
-			}
-
-			$msg = $this->text->make_blob("Vote: $question", $blob);
-			if ($privmsg) {
-				$sendto->reply($privmsg);
-			}
+		$row = $this->db->queryRow("SELECT * FROM $this->table WHERE `author` = ? AND `question` = ? AND `duration` IS NULL", $sender, $question);
+		if ($row->answer && $timeleft > 0) {
+			$privmsg = "You voted: <highlight>(".$row->answer.")<end>.";
+		} else if ($timeleft > 0) {
+			$privmsg = "You have not voted on this.";
 		}
+
+		$msg = $this->text->make_blob("Vote: $question", $blob);
+		if ($privmsg) {
+			$sendto->reply($privmsg);
+		}
+		
 		$sendto->reply($msg);
 	}
 	
@@ -419,18 +287,6 @@ class VoteController {
 	public function voteChooseCommand($message, $channel, $sender, $sendto, $args) {
 		list($question, $choice) = explode($this->delimiter, $args[1], 2);
 		
-		$requirement = $this->settingManager->get("vote_use_min");
-		if ($requirement >= 0) {
-			if (!$this->chatBot->guildmembers[$sender]) {
-				$sendto->reply("Only org members can vote.");
-				return;
-			} else if ($requirement < $this->chatBot->guildmembers[$sender]) {
-				$rankdiff = $this->chatBot->guildmembers[$sender] - $requirement;
-				$sendto->reply("You need $rankdiff promotion(s) in order to vote.");
-				return;
-			}
-		}
-
 		$row = $this->db->queryRow("SELECT * FROM $this->table WHERE `question` = ? AND `duration` IS NOT NULL", $question);
 		$question = $row->question;
 		$author = $row->author;
@@ -441,13 +297,9 @@ class VoteController {
 		$timeleft = $started + $duration - time();
 
 		if (!$duration) {
-			$msg = "Couldn't find any votes with this topic.";
+			$msg = "Could not find any votes with this topic.";
 		} else if ($timeleft <= 0) {
 			$msg = "No longer accepting votes for this topic.";
-		} else if (($this->settingManager->get("vote_add_new_choices") == 0 || ($this->settingManager->get("vote_add_new_choices") == 1 && $status == 1)) &&
-				strpos($this->delimiter.$answer.$this->delimiter, $this->delimiter.$choice.$this->delimiter) === false) {
-
-			$msg = "Cannot accept this choice.  Please choose one from the menu.";
 		} else {
 			$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ? AND `duration` IS NULL AND `author` = ?", $question, $sender);
 			if (count($data) > 0) {
@@ -470,18 +322,6 @@ class VoteController {
 
 		// !vote 16m|Does this module work?|yes|no
 
-		$requirement = $this->settingManager->get("vote_create_min");
-		if ($requirement >= 0) {
-			if (!$this->chatBot->guildmembers[$sender]) {
-				$sendto->reply("Only org members can start a new vote.");
-				return;
-			} else if ($requirement < $this->chatBot->guildmembers[$sender]) {
-				$rankdiff = $this->chatBot->guildmembers[$sender]-$requirement;
-				$sendto->reply("You need $rankdiff promotion(s) in order to start a new vote.");
-				return;
-			}
-		}
-
 		$newtime = $this->util->parseTime($settime);
 
 		if ($newtime == 0) {
@@ -489,16 +329,11 @@ class VoteController {
 		} else {
 			$answer = explode($this->delimiter, $answers);
 			if (count($answer) < 2) {
-				$msg = "You must have at least two options for this vote.";
+				$msg = "You must have at least two options for this vote topic.";
 			} else if (!$question) {
-				$msg = "You must specify a question to vote on.";
+				$msg = "You must specify a question for your new vote topic.";
 			} else {
-				if (substr($question, 0, 1) == "@") {
-					$question = substr($question, 1);
-					$status = 1;
-				} else {
-					$status = 0;
-				}
+				$status = self::STATUS_CREATED;
 				$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ?", $question);
 				if (count($data) == 0) {
 					$this->db->exec("INSERT INTO $this->table (`question`, `author`, `started`, `duration`, `answer`, `status`) VALUES (?, ?, ?, ?, ?, ?)", $question, $sender, time(), $newtime, $answers, $status);
@@ -512,11 +347,86 @@ class VoteController {
 					$this->votes[$question] = $obj;
 					$msg = "Vote has been added.";
 				} else {
-					$msg = "There is already a vote with this topic.";
+					$msg = "There is already a vote topic with this question.";
 				}
 			}
 		}
 
 		$sendto->reply($msg);
+	}
+	
+	public function getVoteBlob($question) {
+		$data = $this->db->query("SELECT * FROM $this->table WHERE `question` = ?", $question);
+		if (count($data) == 0) {
+			return "Could not find any votes with this topic.";
+		}
+		
+		$results = array();
+		forEach ($data as $row) {
+			if ($row->duration) {
+				$question = $row->question;
+				$author = $row->author;
+				$started = $row->started;
+				$duration = $row->duration;
+				$status = $row->status;
+				$timeleft = $started + $duration - time();
+			}
+			if ($sender == $author) {
+				$didvote = 1;
+			}
+			$answer = $row->answer;
+
+			if (strpos($answer, $this->delimiter) === false) { // A Vote: $answer = "yes";
+				$results[$answer]++;
+				$totalresults++;
+			} else {
+				// Main topic: $answer = "yes;no";
+				$ans = explode($this->delimiter, $answer);
+				forEach ($ans as $value) {
+					if (!isset($results[$value])) {
+						$results[$value] = 0;
+					}
+				}
+			}
+		}
+
+		$blob = "$author's Vote: <highlight>".$question."<end>\n";
+		if ($timeleft > 0) {
+			$blob .= $this->util->unixtimeToReadable($timeleft)." till this vote closes!\n\n";
+		} else {
+			$blob .= "<red>This vote has ended " . $this->util->unixtimeToReadable(time() - ($started + $duration), 1) . " ago.<end>\n\n";
+		}
+
+		forEach ($results as $key => $value) {
+			$val = number_format(100 * ($value / $totalresults), 0);
+			if ($val < 10) {
+				$blob .= "<black>__<end>$val% ";
+			} else if ($val < 100) {
+				$blob .= "<black>_<end>$val% ";
+			} else {
+				$blob .= "$val% ";
+			}
+
+			if ($timeleft > 0) {
+				$blob .= $this->text->make_chatcmd($key, "/tell <myname> vote choose $question{$this->delimiter}$key") . " (Votes: $value)\n";
+			} else {
+				$blob .= "<highlight>$key<end> (Votes: $value)\n";
+			}
+		}
+
+		//if ($didvote && $timeleft > 0) {
+		if ($timeleft > 0) { // Want this option avaiable for everyone if its run from org/priv chat.
+			$blob .= "\n" . $this->text->make_chatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
+		}
+
+		$blob .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
+
+		$blob .="\nIf you started this vote, you can:\n";
+		$blob .="<tab>" . $this->text->make_chatcmd('Kill the vote completely', "/tell <myname> vote kill $question") . "\n";
+		if ($timeleft > 0) {
+			$blob .="<tab>" . $this->text->make_chatcmd('End the vote early', "/tell <myname> vote end $question");
+		}
+
+		return $blob;
 	}
 }

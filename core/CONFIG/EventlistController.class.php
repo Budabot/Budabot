@@ -33,7 +33,7 @@ class EventlistController {
 	public function eventlistCommand($message, $channel, $sender, $sendto, $args) {
 		$params = array();
 		if (isset($args[1])) {
-			$params []= '%' . $args[1] . '%';
+			$params []= $args[1];
 			$cmdSearchSql = "WHERE type LIKE ?";
 		}
 	

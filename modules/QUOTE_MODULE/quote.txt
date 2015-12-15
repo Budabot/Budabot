@@ -7,19 +7,8 @@ To view a specific quote:
 To search for specific author/victim/text:
 <highlight><tab><symbol>quote search 'person/text'<end>
 
-To view quote statistics (most quoters/quoted):
-<highlight><tab><symbol>quote stats  (page gets updated once a day)<end>
-
 To remove a quote:
 <highlight><tab><symbol>quote rem 'quote id'<end>
 
 To add a quote:
 <highlight><tab><symbol>quote add 'quote'<end>
-
-** <highlight>When adding a quote, try to grab the quote to something like these examples, in order for module to determine who wrote it:<end>
-<tab>To [Person]: message
-<tab>[Person]: message
-<tab>[Any OOC] Person: message
-<tab>Person shouts: message
-<tab>Person whispers: message
-<tab>Person: message

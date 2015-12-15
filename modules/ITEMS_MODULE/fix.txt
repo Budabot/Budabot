@@ -1,4 +1,10 @@
-Armour Test%
-Monster Invulnerability Item
-UPPER(name) LIKE UPPER('test%')
-delete Item ID: 290140 "Keeper figurine"
+INSERT INTO aodb VALUES (122395, 122395, 81, 81, 'Chipped Esoteric Energy Buckler', 33149);
+
+INSERT INTO aodb VALUES (123393, 123393, 121, 121, 'Layered Meat-Cleaver', 85169);
+
+INSERT INTO aodb VALUES (201115, 201115, 200, 200, 'Quality Omni-Pol Trooper Armor Boots', 13270);
+INSERT INTO aodb VALUES (201118, 201118, 200, 200, 'Quality Omni-Pol Trooper Armor Gloves', 13283);
+INSERT INTO aodb VALUES (201122, 201122, 200, 200, 'Quality Omni-Pol Trooper Armor Helmet', 10840);
+INSERT INTO aodb VALUES (201125, 201125, 200, 200, 'Quality Omni-Pol Trooper Armor Pants', 13300);
+INSERT INTO aodb VALUES (201112, 201112, 200, 200, 'Quality Omni-Pol Trooper Armor Sleeves', 13232);
+INSERT INTO aodb VALUES (201128, 201128, 200, 200, 'Quality Omni-Pol Trooper Body Armor', 13253);

@@ -21,12 +21,6 @@ namespace Budabot\Core\Modules;
  *		description   = 'Add yourself as an alt to a main'
  *	)
  *	@DefineCommand(
- *		command       = 'altsadmin',
- *		accessLevel   = 'mod',
- *		description   = 'Alt character handling (admin)',
- *		help          = 'altsadmin.txt'
- *	)
- *	@DefineCommand(
  *		command       = 'altvalidate',
  *		accessLevel   = 'member',
  *		description   = 'Validate alts for admin privileges',
@@ -150,13 +144,15 @@ class AltsController {
 	
 		$altInfo = $this->get_alt_info($sender);
 	
-		if (!array_key_exists($name, $altInfo->alts)) {
+		if ($altInfo->main == $name) {
+			$msg = "You cannot remove <highlight>{$name}<end> as your main.";
+		} else if (!array_key_exists($name, $altInfo->alts)) {
 			$msg = "<highlight>{$name}<end> is not registered as your alt.";
 		} else if (!$altInfo->is_validated($sender) && $altInfo->is_validated($name)) {
 			$msg = "You must be on a validated alt to remove another alt that is validated.";
 		} else {
 			$this->rem_alt($altInfo->main, $name);
-			$msg = "<highlight>{$name}<end> has been deleted from your alt list.";
+			$msg = "<highlight>{$name}<end> has been removed as your alt.";
 		}
 		$sendto->reply($msg);
 	}
@@ -165,22 +161,13 @@ class AltsController {
 	 * This command handler sets main character.
 	 *
 	 * @HandlesCommand("alts")
-	 * @Matches("/^alts setmain ([a-z0-9-]+)$/i")
+	 * @Matches("/^alts setmain$/i")
 	 */
 	public function setMainCommand($message, $channel, $sender, $sendto, $args) {
-		// check if new main exists
-		$new_main = ucfirst(strtolower($args[1]));
-		$uid = $this->chatBot->get_uid($new_main);
-		if (!$uid) {
-			$msg = "Character <highlight>{$new_main}<end> does not exist.";
-			$sendto->reply($msg);
-			return;
-		}
-	
 		$altInfo = $this->get_alt_info($sender);
 	
-		if (!array_key_exists($new_main, $altInfo->alts)) {
-			$msg = "<highlight>{$new_main}<end> must first be registered as your alt.";
+		if ($altInfo->main == $sender) {
+			$msg = "<highlight>{$sender}<end> is already registered as your main.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -191,24 +178,20 @@ class AltsController {
 			return;
 		}
 	
-		$this->db->begin_transaction();
-	
 		// remove all the old alt information
 		$this->db->exec("DELETE FROM `alts` WHERE `main` = '{$altInfo->main}'");
 	
 		// add current main to new main as an alt
-		$this->add_alt($new_main, $altInfo->main, 1);
+		$this->add_alt($sender, $altInfo->main, 1);
 	
 		// add current alts to new main
 		forEach ($altInfo->alts as $alt => $validated) {
-			if ($alt != $new_main) {
-				$this->add_alt($new_main, $alt, $validated);
+			if ($alt != $sender) {
+				$this->add_alt($sender, $alt, $validated);
 			}
 		}
 	
-		$this->db->commit();
-	
-		$msg = "Your new main is now <highlight>{$new_main}<end>.";
+		$msg = "Your main is now <highlight>{$sender}<end>.";
 		$sendto->reply($msg);
 	}
 
@@ -281,71 +264,6 @@ class AltsController {
 	}
 
 	/**
-	 * This command handler adds a character as alt of an main, requires moderator rights.
-	 *
-	 * @HandlesCommand("altsadmin")
-	 * @Matches("/^altsadmin add ([a-z0-9-]+) ([a-z0-9-]+)$/i")
-	 */
-	public function altsadminAddCommand($message, $channel, $sender, $sendto, $args) {
-		$name_main = ucfirst(strtolower($args[1]));
-		$name_alt = ucfirst(strtolower($args[2]));
-		$uid_main = $this->chatBot->get_uid($name_main);
-		$uid_alt = $this->chatBot->get_uid($name_alt);
-	
-		if (!$uid_alt) {
-			$msg = "Character <highlight>$name_alt<end> does not exist.";
-			$sendto->reply($msg);
-			return;
-		}
-		if (!$uid_main) {
-			$msg = "Character <highlight>$name_main<end> does not exist.";
-			$sendto->reply($msg);
-			return;
-		}
-	
-		$mainInfo = $this->get_alt_info($name_main);
-		$altinfo = $this->get_alt_info($name_alt);
-		if ($altinfo->main == $mainInfo->main) {
-			$msg = "Character <highlight>$name_alt<end> is already registered as an alt of <highlight>{$altinfo->main}<end>.";
-			$sendto->reply($msg);
-			return;
-		}
-	
-		if (count($altInfo->alts) > 0) {
-			// already registered to someone else
-			if ($altInfo->main == $name) {
-				$msg = "<highlight>$name<end> is already registered as a main with alts.";
-			} else {
-				$msg = "<highlight>$name<end> is already registered as an of alt of {$altInfo->main}.";
-			}
-			$sendto->reply($msg);
-			return;
-		}
-	
-		$this->add_alt($mainInfo->main, $name_alt, 0);
-		$msg = "<highlight>$name_alt<end> has been registered as an alt of {$mainInfo->main}.";
-		$sendto->reply($msg);
-	}
-
-	/**
-	 * This command handler removes alt from a main player, requires moderator rights.
-	 *
-	 * @HandlesCommand("altsadmin")
-	 * @Matches("/^altsadmin rem ([a-z0-9-]+) ([a-z0-9-]+)$/i")
-	 */
-	public function altsadminRemoveCommand($message, $channel, $sender, $sendto, $args) {
-		$name_main = ucfirst(strtolower($args[1]));
-		$name_alt = ucfirst(strtolower($args[2]));
-	
-		if ($this->rem_alt($name_main, $name_alt) == 0) {
-			$msg = "Character <highlight>$name_alt<end> is not listed as an alt of <highlight>$name_main<end>.";
-		} else {
-			$msg = "<highlight>$name_alt<end> has been removed from the alt list of <highlight>$name_main<end>.";
-		}
-		$sendto->reply($msg);
-	}
-
-	/**
 	 * This command handler validate alts for admin privileges.
 	 *
 	 * @HandlesCommand("altvalidate")
@@ -356,7 +274,7 @@ class AltsController {
 		$alt = ucfirst(strtolower($args[1]));
 	
 		if (!$altInfo->is_validated($sender)) {
-			$sendto->reply("<highlight>$alt<end> cannot be validated from your current character.");
+			$sendto->reply("<highlight>$alt<end> cannot be validated from an alt that is not validated.");
 			return;
 		}
 	

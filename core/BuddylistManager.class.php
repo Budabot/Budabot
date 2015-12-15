@@ -88,6 +88,11 @@ class BuddylistManager {
 		$this->buddyList[$bid]['online'] = ($bonline ? 1 : 0);
 		$this->buddyList[$bid]['known'] = (ord($btype) ? 1 : 0);
 	}
+
+	public function updateRemoved($args) {
+		$bid = $args[0];
+		unset($this->buddyList[$bid]);
+	}
 }
 
 ?>

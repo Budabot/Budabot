@@ -2,7 +2,6 @@
 
 namespace Budabot\User\Modules;
 
-use SimpleXmlElement;
 use Exception;
 use stdClass;
 use DOMDocument;
@@ -12,9 +11,21 @@ use DOMDocument;
  *
  * Commands this controller contains:
  *	@DefineCommand(
+ *		command     = 'citems',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item using the central items db',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'litems',
+ *		accessLevel = 'all',
+ *		description = 'Searches for an item using the local items db',
+ *		help        = 'items.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = 'items',
  *		accessLevel = 'all',
- *		description = 'Searches for an item',
+ *		description = 'Searches for an item using the default items db',
  *		help        = 'items.txt'
  *	)
  *	@DefineCommand(
@@ -55,29 +66,42 @@ class ItemsController {
 	/** @Logger */
 	public $logger;
 
-	/**
-	 * @Setting("maxitems")
-	 * @Description("Number of Items shown on the list")
-	 * @Visibility("edit")
-	 * @Type("number")
-	 * @Options("30;40;50;60")
-	 */
-	public $defaultMaxitems = "40";
-	
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
+		
+		$this->settingManager->add($this->moduleName, 'maxitems', 'Number of items shown on the list', 'edit', 'number', '40', '30;40;50;60');
+		$this->settingManager->add($this->moduleName, 'items_database', 'Use local items database or a central (remote) items database', 'edit', 'options', 'central', 'local;central');
+		$this->settingManager->add($this->moduleName, 'cidb_url', "The URL of the CIDB to use (if items_database is set to 'remote')", 'edit', 'text', 'http://cidb.botsharp.net/', 'http://cidb.botsharp.net/');
 	}
 
 	/**
-	 * This command handler searches for an item using the default database.
-	 *
 	 * @HandlesCommand("items")
 	 * @Matches("/^items ([0-9]+) (.+)$/i")
 	 * @Matches("/^items (.+)$/i")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->find_items($args, $ql);
+		$msg = $this->find_items($args);
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("citems")
+	 * @Matches("/^citems ([0-9]+) (.+)$/i")
+	 * @Matches("/^citems (.+)$/i")
+	 */
+	public function citemsCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->find_items($args, 'central');
+		$sendto->reply($msg);
+	}
+	
+	/**
+	 * @HandlesCommand("litems")
+	 * @Matches("/^litems ([0-9]+) (.+)$/i")
+	 * @Matches("/^litems (.+)$/i")
+	 */
+	public function litemsCommand($message, $channel, $sender, $sendto, $args) {
+		$msg = $this->find_items($args, 'local');
 		$sendto->reply($msg);
 	}
 	
@@ -169,7 +193,7 @@ class ItemsController {
 				fwrite($fh, $contents);
 				fclose($fh);
 
-				$this->db->begin_transaction();
+				$this->db->beginTransaction();
 
 				// load the sql file into the db
 				$this->db->loadSQLFile("ITEMS_MODULE", "aodb");
@@ -205,15 +229,92 @@ class ItemsController {
 		}
 
 		$search = htmlspecialchars_decode($search);
+	
+		if ($db == null) {
+			$db = $this->settingManager->get('items_database');
+		}
+		switch ($db) {
+			case 'local':
+				// local database
+				$data = $this->find_items_from_local($search, $ql);
 
-		$data = $this->find_items_from_local($search, $ql);
+				$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
+				$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
 
-		$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
-		$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
+				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
+				break;
+			default:
+				// central items database
+				$url = $this->settingManager->get('cidb_url');
+				$obj = $this->find_items_from_remote($search, $ql, $url);
 
-		$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
-
+				if ($obj == null) {
+					$msg = "Unable to query Central Items Database.";
+				} else {
+					$msg = $this->createItemsBlob($obj->results, $search, $ql, $obj->version, $url, '', $obj->elapsed);
+				}
+				break;
+		}
 		return $msg;
+	}
+	
+	/*
+	 * Method to query the Central Items Database - Demoder
+	 */
+	public function find_items_from_remote($search, $ql, $server) {
+		$parameters = array(
+			"bot" => "Budabot",
+			"output" => "json",
+			"max" => "250",
+			"version" => "1.2"
+		);
+
+		if ($ql > 0) {
+			$parameters["ql"] = $ql;
+		}
+		
+		// special search commands for aoitems.com
+		$searchParams = explode(' ', $search);
+		$specialSearch = array('type', 'slot', 'ql');
+		forEach ($searchParams as $key => $searchParam) {
+			forEach ($specialSearch as $s) {
+				if ($this->util->startsWith($searchParam, $s . '=')) {
+					$value = substr($searchParam, strlen($s) + 1);
+					if (!empty($value)) {
+						unset($searchParams[$key]);
+						$parameters[$s] = $value;
+					}
+				}
+			}
+		}
+		$search = implode(' ', $searchParams);
+		$parameters['search'] = $search;
+
+		$startTime = microtime(true);
+		$response = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
+		$elapsed = microtime(true) - $startTime;
+		if (empty($response) || empty($response->body)) {
+			return null;
+		} else {
+			$obj = json_decode($response->body);
+			$obj->elapsed = $elapsed;
+			
+			// change attribute names to match expected format
+			forEach ($obj->results as $item) {
+				$item->lowid = $item->LowID;
+				$item->highid = $item->HighID;
+				$item->lowql = $item->LowQL;
+				$item->highql = $item->HighQL;
+				$item->name = $item->Name;
+				$item->icon = $item->Icon;
+			}
+			
+			// sort results to match Budabot local results order, and restrict to first 40 results
+			$data = $this->orderSearchResults($obj->results, $search);
+			$obj->results = array_slice($data, 0, $this->settingManager->get("maxitems"));
+			
+			return $obj;
+		}
 	}
 	
 	public function find_items_from_local($search, $ql) {
@@ -234,7 +335,7 @@ class ItemsController {
 		return $data;
 	}
 	
-	public function createItemsBlob($data, $search, $ql, $version, $server, $footer) {
+	public function createItemsBlob($data, $search, $ql, $version, $server, $footer, $elapsed) {
 		$num = count($data);
 		if ($num == 0) 
 		{
@@ -253,11 +354,15 @@ class ItemsController {
 		{
 			$blob = "Version: <highlight>$version<end>\n";
 			if ($ql) {
-				$blob .= "Search: <highlight>QL $ql $search<end>\n\n";
+				$blob .= "Search: <highlight>QL $ql $search<end>\n";
 			} else {
 				$blob .= "Search: <highlight>$search<end>\n";
 			}
-			$blob .= "Server: <highlight>" . $server . "<end>\n\n";
+			$blob .= "Server: <highlight>" . $server . "<end>\n";
+			if (isset($elapsed)) {
+				$blob .= "Time: <highlight>" . round($elapsed, 2) . "s<end>\n";
+			}
+			$blob .= "\n";
 			$blob .= $this->formatSearchResults($data, $ql, true);
 			if ($num == $this->settingManager->get('maxitems')) {
 				$blob .= "\n\n<highlight>*Results have been limited to the first " . $this->settingManager->get("maxitems") . " results.<end>";
@@ -272,7 +377,6 @@ class ItemsController {
 	// sort by exact word matches higher than partial word matches
 	public function orderSearchResults($data, $search) {
 		$searchTerms = explode(" ", $search);
-		$newData = array();
 		forEach ($data as $row) {
 			if (strcasecmp($search, $row->name) == 0) {
 				$numExactMatches = 100;
@@ -319,13 +423,16 @@ class ItemsController {
 				$list .= " (QL" . $row->lowql . ")\n";
 			}
 			if ($showImages) {
-				$list .= "\n";
+				$list .= "\n<pagebreak>";
 			}
 		}
 		return $list;
 	}
 	
-	public function doXyphosLookup($id, $ql = null) {
+	public function getDetailedItemInfo($id, $ql = null) {
+		// leaving this function here in case something replaces this functionality in the future
+		return null;
+		
 		$params = array('id' => $id);
 		if ($ql !== null) {
 			$params['ql'] = $ql;

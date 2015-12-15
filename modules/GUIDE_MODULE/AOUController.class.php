@@ -68,11 +68,10 @@ class AOUController {
 		$title = $content->getElementsByTagName('name')->item(0)->nodeValue;
 
 		$blob = '';
-		$blob .= $this->text->make_chatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n";
-		$blob .= $this->text->make_chatcmd("Guide on AO-Universe.com Mobile", "/start http://www.ao-universe.com/mobile/index.php?id=14&pid={$guideid}") . "\n\n";
+		$blob .= $this->text->make_chatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n\n";
 
 		$blob .= "Update: <highlight>" . $content->getElementsByTagName('update')->item(0)->nodeValue . "<end>\n";
-		$blob .= "Class: <highlight>" . $content->getElementsByTagName('class')->item(0)->nodeValue . "<end>\n";
+		$blob .= "Profession: <highlight>" . $content->getElementsByTagName('class')->item(0)->nodeValue . "<end>\n";
 		$blob .= "Faction: <highlight>" . $content->getElementsByTagName('faction')->item(0)->nodeValue . "<end>\n";
 		$blob .= "Level: <highlight>" . $content->getElementsByTagName('level')->item(0)->nodeValue . "<end>\n";
 		$blob .= "Author: <highlight>" . $this->processInput($content->getElementsByTagName('author')->item(0)->nodeValue) . "<end>\n\n";
@@ -204,11 +203,11 @@ class AOUController {
 		if ($row !== null) {
 			$output = $this->generateItemMarkup($type, $row);
 		} else {
-			$obj = $this->itemsController->doXyphosLookup($id);
+			$obj = $this->itemsController->getDetailedItemInfo($id);
 			if (null == $obj) {
 				$output = $id;
 			} else if ($obj->icon == 0) {  // for perks and items that aren't displayable in game
-				$output = $this->text->make_chatcmd($obj->name, "/start http://www.xyphos.com/ao/aodb.php?id={$obj->lowid}");
+				$output = $this->text->make_chatcmd($obj->name, "/start https://aoitems.com/item/{$obj->lowid}");
 			} else {
 				$output = $this->generateItemMarkup($type, $obj);
 			}

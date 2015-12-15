@@ -57,7 +57,7 @@ class SettingsController {
 	public function settingsCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
 		$blob .= "Changing any of these settings will take effect immediately. Please note that some of these settings are read-only and cannot be changed.\n\n";
-		$data = $this->db->query("SELECT * FROM settings_<myname> WHERE `mode` != 'hide' ORDER BY `module`");
+		$data = $this->db->query("SELECT * FROM settings_<myname> ORDER BY `module`");
 		$cur = '';
 		forEach ($data as $row) {
 			if ($row->module != $cur) {

@@ -67,30 +67,16 @@ namespace Budabot\User\Modules;
  *		help        = 'kickall.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'lock', 
- *		accessLevel = 'rl', 
- *		description = "Locks the private channel", 
- *		help        = 'lock.txt'
- *	)
- *	@DefineCommand(
- *		command     = 'unlock', 
- *		accessLevel = 'rl', 
- *		description = "Unlocks the private channel", 
- *		help        = 'lock.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'join', 
  *		accessLevel = 'member', 
  *		description = "Join command for characters who want to join the private channel", 
- *		help        = 'private_channel.txt',
- *		channels    = 'guild msg'
+ *		help        = 'private_channel.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'leave', 
  *		accessLevel = 'all', 
  *		description = "Leave command for characters in private channel", 
- *		help        = 'private_channel.txt',
- *		channels    = 'priv msg'
+ *		help        = 'private_channel.txt'
  *	)
  */
 class PrivateChannelController {
@@ -148,8 +134,6 @@ class PrivateChannelController {
 		$this->settingManager->add($this->moduleName, "guest_color_guest", "Private Channel relay color in private channel", "edit", "color", "<font color=#C3C3C3>");
 		$this->settingManager->add($this->moduleName, "guest_relay", "Relay the Private Channel with the Guild Channel", "edit", "options", "1", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, "guest_relay_commands", "Relay commands and results from/to Private Channel", "edit", "options", "1", "true;false", "1;0");
-		$this->settingManager->add($this->moduleName, "priv_status", "Private channel status", "edit", "options", "1", "open;closed", "1;0");
-		$this->settingManager->add($this->moduleName, "priv_status_reason", "Reason for private channel status", "edit", "text", "none");
 		$this->settingManager->add($this->moduleName, "add_member_on_join", "Automatically add player as member when they join", "edit", "options", "0", "true;false", "1;0");
 	}
 
@@ -457,81 +441,21 @@ class PrivateChannelController {
 	}
 	
 	/**
-	 * @HandlesCommand("lock")
-	 * @Matches("/^lock$/i")
-	 * @Matches("/^lock (.+)$/i")
-	 */
-	public function lockCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->settingManager->get("priv_status") == "0") {
-			$msg = "Private channel is already locked.";
-			$sendto->reply($msg);
-			return;
-		}
-
-		if (count($args) == 2) {
-			$reason = $args[1];
-			$msg = "The private channel has been locked by <highlight>$sender<end> - Reason: <highlight>$reason<end>.";
-			$this->settingManager->save("priv_status_reason", $reason);
-		} else {
-			$msg = "The private channel has been locked by <highlight>$sender<end>.";
-		}
-		$this->chatBot->sendPrivate($msg);
-		
-		if ($channel != "priv") {
-			$msg = "You have locked the private channel.";
-			$sendto->reply($msg);
-		}
-
-		$this->settingManager->save("priv_status", "0");
-	}
-	
-	/**
-	 * @HandlesCommand("unlock")
-	 * @Matches("/^unlock$/i")
-	 */
-	public function unlockCommand($message, $channel, $sender, $sendto, $args) {
-		if ($this->settingManager->get("priv_status") == "1") {
-			$msg = "Private channel is already open.";
-			$sendto->reply($msg);
-			return;
-		}
-
-		$msg = "The private channel has been unlocked by <highlight>$sender<end>.";
-		$this->chatBot->sendPrivate($msg);
-		if ($channel != "priv") {
-			$msg = "You have unlocked the private channel.";
-			$this->chatBot->sendTell($msg, $sender);
-		}
-
-		$this->settingManager->save("priv_status", "1");
-		$this->settingManager->save("priv_status_reason", "none");
-	}
-	
-	/**
 	 * @HandlesCommand("join")
 	 * @Matches("/^join$/i")
 	 */
 	public function joinCommand($message, $channel, $sender, $sendto, $args) {
-		// if the channel is locked, only raidleaders or higher can join manually
-		if ($this->settingManager->get("priv_status") == "0" && !$this->accessManager->checkAccess($sender, 'raidleader')) {
-			if ($this->settingManager->get("priv_status_reason") != "none") {
-				$msg = "The private channel is locked. Reason: " . $this->settingManager->get("priv_status_reason");
-			} else {
-				$msg = "The private channel is locked.";
-			}
+		if (isset($this->chatBot->chatlist[$sender])) {
+			$msg = "You are already in the private channel.";
 		} else {
-			if (isset($this->chatBot->chatlist[$sender])) {
-				$msg = "You are already in the private channel.";
-			} else {
-				if ($this->settingManager->get('add_member_on_join') == 1) {
-					$row = $this->db->queryRow("SELECT * FROM members_<myname> WHERE `name` = ?", $sender);
-					if ($row === null) {
-						$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $sender, '1');
-						$msg = "You have been added as a member of this bot.  Use <highlight><symbol>autoinvite<end> to control your auto invite preference.";
-					}
+			if ($this->settingManager->get('add_member_on_join') == 1) {
+				$row = $this->db->queryRow("SELECT * FROM members_<myname> WHERE `name` = ?", $sender);
+				if ($row === null) {
+					$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $sender, '1');
+					$msg = "You have been added as a member of this bot.  Use <highlight><symbol>autoinvite<end> to control your auto invite preference.";
 				}
-				$this->chatBot->privategroup_invite($sender);
 			}
+			$this->chatBot->privategroup_invite($sender);
 		}
 		
 		if (isset($msg)) {
@@ -727,7 +651,9 @@ class PrivateChannelController {
 	public function addUser($name) {
 		$name = ucfirst(strtolower($name));
 		$uid = $this->chatBot->get_uid($name);
-		if (!$uid) {
+		if ($this->chatBot->vars["name"] == $name) {
+			$msg = "You cannot add the bot as a member of itself.";
+		} else if (!$uid) {
 			$msg = "Character <highlight>$name<end> does not exist.";
 		} else {
 			$data = $this->db->query("SELECT * FROM members_<myname> WHERE `name` = ?", $name);

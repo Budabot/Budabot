@@ -1,10 +1,3 @@
-<header2>Flip Command<end>
-
-To flip a coin:
-<highlight><tab><symbol>flip<end>
-
-<header2>Roll Command<end>
-
 To roll a number between 1 and a number:
 <highlight><tab><symbol>roll 'number'<end>
 
@@ -14,8 +7,6 @@ To roll a number between a startvalue and a endvalue:
 To roll a random value:
 <highlight><tab><symbol>roll 'value1' 'value2' 'value3' ...<end>
 Note that values must not contain spaces.
-
-<header2>Verify Command<end>
 
 To verify a roll:
 <highlight><tab><symbol>verify 'verify number'<end>

@@ -538,3 +538,4 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Neutral Trader Shop', '20K Outpost, Pleasant Meadows (Whompah)', '', 630, 1190, 2350);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Clan Trader Shop', 'Tir (NW - Computers Inc)', '', 640, 395, 545);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Clan Trader Shop', 'Old Athens (SW of Grid - Finest Edition)', '', 540, 370, 500);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Windcaller Karrec', 'ICC (S in a shipping container)', 'TOTW Temple Of The Three Winds', 655, 3212, 789);

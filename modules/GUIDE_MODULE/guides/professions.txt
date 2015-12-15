@@ -1,6 +1,6 @@
 <header> ::::: Guide to The AO Professions  ::::: <end>
 
-Note: Not all classes have a guide at this time
+Note: Not all professions have a guide at this time
 
 <a href='chatcmd:///tell <myname> guides adventurer>Guide to Adventurers</a>
 <a href='chatcmd:///tell <myname> guides agent>Guide to Agents</a>

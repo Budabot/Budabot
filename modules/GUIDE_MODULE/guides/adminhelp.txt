@@ -12,7 +12,7 @@ Settings have one of 5 types: 'color', 'number', 'text', 'options', and 'time'. 
 
 <tab>-Number means that the setting must contain a positive integer value (no decimal or fractional numbers).
 
-<tab>-Text means that set setting can contain any text value.
+<tab>-Text means that the setting can contain any text value.
 
 <tab>-Options means that the setting has a list of values, and you can only choose one of the values.
 

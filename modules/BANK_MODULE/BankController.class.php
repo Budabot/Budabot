@@ -38,24 +38,10 @@ class BankController {
 	public $text;
 	
 	/** @Inject */
+	public $util;
+	
+	/** @Inject */
 	public $settingManager;
-
-	/**
-	 * @Setting("bank_file_location")
-	 * @Description("Location of the AO Items Assistant csv dump file")
-	 * @Visibility("edit")
-	 * @Type("text")
-	 */
-	public $defaultBankFileLocation = "./modules/BANK_MODULE/import.csv";
-
-	/**
-	 * @Setting("max_bank_items")
-	 * @Description("Number of items shown in search results")
-	 * @Visibility("edit")
-	 * @Type("number")
-	 * @Options("30;40;50;60")
-	 */
-	public $defaultMaxBankItems = "200";
 	
 	/**
 	 * This handler is called on bot startup.
@@ -63,6 +49,9 @@ class BankController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'bank');
+		
+		$this->settingManager->add($this->moduleName, 'bank_file_location', 'Location of the AO Items Assistant csv dump file', 'edit', 'text', './modules/BANK_MODULE/import.csv');
+		$this->settingManager->add($this->moduleName, 'max_bank_items', 'Number of items shown in search results', 'edit', 'number', '50', '20;50;100');
 	}
 
 	/**
@@ -141,18 +130,14 @@ class BankController {
 	 * @Matches("/^bank search (.+)$/i")
 	 */
 	public function bankSearchCommand($message, $channel, $sender, $sendto, $args) {
-		$search = explode(' ', $args[1]);
+		$search = htmlspecialchars_decode($args[1]);
+		$words = explode(' ', $search);
 		$limit = $this->settingManager->get('max_bank_items');
-
-		$where_sql = '';
-		$params = array();
-		forEach ($search as $word) {
-			$params []= '%' . $word . '%';
-			$where_sql .= " AND name LIKE ?";
-		}
+		
+		list($where_sql, $params) = $this->util->generateQueryFromParams($words, 'name');
 
 		$blob = '';
-		$data = $this->db->query("SELECT * FROM bank WHERE 1 = 1 {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}", $params);
+		$data = $this->db->query("SELECT * FROM bank WHERE {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}", $params);
 
 		if (count($data) > 0) {
 			forEach ($data as $row) {
@@ -182,7 +167,7 @@ class BankController {
 		//remove the header line
 		array_shift($lines);
 
-		$this->db->begin_transaction();
+		$this->db->beginTransaction();
 		$this->db->exec("DELETE FROM bank");
 
 		forEach ($lines as $line) {

@@ -1,0 +1,4 @@
+To send feedback to the Budabot team:
+<highlight><tab><symbol>feedback 'message'<end>
+
+The Budabot team accepts any type of feedback including bug reports, feature requests, praise, and criticism.

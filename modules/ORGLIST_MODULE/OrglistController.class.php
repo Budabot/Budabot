@@ -102,7 +102,7 @@ class OrglistController {
 	}
 	
 	public function getMatches($search) {
-		$orgs = $this->findOrgController->lookupOrg('%' . $search . '%');
+		$orgs = $this->findOrgController->lookupOrg($search);
 
 		// check if search is a character and add character's org to org list if it's not already in the list		
 		$name = ucfirst(strtolower($search));
@@ -121,7 +121,7 @@ class OrglistController {
 				$obj->name = $whois->guild;
 				$obj->id = $whois->guild_id;
 				$obj->faction = $whois->faction;
-				$obj->numMembers = 'unknown';
+				$obj->num_members = 'unknown';
 				$orgs []= $obj;
 			}
 		}
@@ -209,7 +209,7 @@ class OrglistController {
 	
 	public function checkOnline($members, $callback) {
 		// round to nearest thousand and then subtract 5
-		$this->orglist["maxsize"] = ceil(count($this->buddylistManager->buddyList) / 1000) * 1000 - count($this->buddylistManager->buddyList) - 5;
+		$this->orglist["maxsize"] = ceil(count($this->buddylistManager->buddyList) / 1000) * 1000 - 5;
 	
 		forEach ($members as $member) {
 			$buddy_online_status = $this->buddylistManager->is_online($member->name);
