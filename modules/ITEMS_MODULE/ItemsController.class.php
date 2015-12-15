@@ -337,14 +337,21 @@ class ItemsController {
 	
 	public function createItemsBlob($data, $search, $ql, $version, $server, $footer, $elapsed) {
 		$num = count($data);
-		if ($num == 0) {
+		if ($num == 0) 
+		{
 			if ($ql) {
 				$msg = "No QL <highlight>$ql<end> items found matching <highlight>$search<end>.";
 			} else {
 				$msg = "No items found matching <highlight>$search<end>.";
 			}
 			return $msg;
-		} else if ($num > 3) {
+		} 
+		else if ($num < 4) 
+		{
+			return trim($this->formatSearchResults($data, $ql, false));		
+		} 
+		else 
+		{
 			$blob = "Version: <highlight>$version<end>\n";
 			if ($ql) {
 				$blob .= "Search: <highlight>QL $ql $search<end>\n";
@@ -364,8 +371,6 @@ class ItemsController {
 			$link = $this->text->make_blob("Item Search Results ($num)", $blob);
 
 			return $link;
-		} else {
-			return trim($this->formatSearchResults($data, $ql, false));
 		}
 	}
 	

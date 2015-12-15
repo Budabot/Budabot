@@ -100,12 +100,28 @@ class PlayfieldController {
 		}
 		$sendto->reply($msg);
 	}
+
+	/**
+	 * @HandlesCommand("waypoint")
+	 * @Matches("/^waypoint Pos: ([0-9\\.]+), ([0-9\\.]+), ([0-9\\.]+), Area: ([a-zA-Z ]+)/i")
+	 */
+	public function waypoint1Command($message, $channel, $sender, $sendto, $args)
+	{
+		//Pos: ([0-9\\.]+), ([0-9\\.]+), ([0-9\\.]+), Area: (.+)
+		$x_coords = $args[1];
+		$y_coords = $args[2];
+		
+		$pf_name = $args[4];
+		
+		$playfield = $this->get_playfield_by_name($pf_name);
+		$sendto->reply($this->processWaypointCommand($x_coords, $y_coords, $playfield->long_name, $playfield->id));
+	}
 	
 	/**
 	 * @HandlesCommand("waypoint")
 	 * @Matches("/^waypoint \(?([0-9.]+) ([0-9.]+) y ([0-9.]+) ([0-9]+)\)?$/i")
 	 */
-	public function waypoint1Command($message, $channel, $sender, $sendto, $args) {
+	public function waypoint2Command($message, $channel, $sender, $sendto, $args) {
 		$x_coords = $args[1];
 		$y_coords = $args[2];
 		$playfield_id = $args[4];
@@ -124,7 +140,7 @@ class PlayfieldController {
 	 * @HandlesCommand("waypoint")
 	 * @Matches("/^waypoint ([0-9.]+)([x,. ]+)([0-9.]+)([x,. ]+)([0-9]+)$/i")
 	 */
-	public function waypoint2Command($message, $channel, $sender, $sendto, $args) {
+	public function waypoint3Command($message, $channel, $sender, $sendto, $args) {
 		$x_coords = $args[1];
 		$y_coords = $args[3];
 		$playfield_id = $args[5];
@@ -143,7 +159,7 @@ class PlayfieldController {
 	 * @HandlesCommand("waypoint")
 	 * @Matches("/^waypoint ([0-9\\.]+)([x,. ]+)([0-9\\.]+)([x,. ]+)(.+)$/i")
 	 */
-	public function waypoint3Command($message, $channel, $sender, $sendto, $args) {
+	public function waypoint4Command($message, $channel, $sender, $sendto, $args) {
 		$x_coords = $args[1];
 		$y_coords = $args[3];
 		$playfield_name = $args[5];
