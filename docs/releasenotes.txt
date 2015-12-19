@@ -1,4 +1,20 @@
 *****************************
+	Version 3.4_RC2:
+*****************************
+-items db updated to 18.08.10
+-!waypoint can now optionally take coordinates pasted from F9 (thanks Javier Cornejo)
+-removed !inspect
+-overhauled TIMERS_MODULE to allow custom callbacks (thanks equi for the request)
+-updated !about, logon banner, and Budabot "system ready" message
+-removed !heal, !check prof, and !check org due to /assist changes
+-fix for AOChatProxy not restarting when Budabot restarts
+-improved checks when upgrading Budabot versions to prevent database mangling
+-added support for type=, slot=, and ql= parameters to !items when using aoitems.com
+-added !runas and removed !altsadmin, !logonadmin, and !logoffadmin
+-!gmi can now accept item links
+-fixed !gmi
+
+*****************************
 	Version 3.4_RC1:
 *****************************
 -updated items db to 18.08.02
