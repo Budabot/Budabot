@@ -5,6 +5,7 @@ To search for a specific playfield, append its short or long name:
 <highlight><tab><symbol>playfields 'name'<end>
 
 To create a waypoint link in chat:
+<highlight><tab><symbol>waypoint 'x' 'y' 'playfield'<end>
 <highlight><tab><symbol>waypoint Pos: 'x', 'y', 'z', Area: 'playfield'<end>
 
 Note: 'playfield' can be the playfield id, or any of the short or long names defined in <symbol>playfields

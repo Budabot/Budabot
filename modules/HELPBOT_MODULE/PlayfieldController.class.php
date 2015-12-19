@@ -114,7 +114,7 @@ class PlayfieldController {
 		$pf_name = $args[4];
 		
 		$playfield = $this->get_playfield_by_name($pf_name);
-		$sendto->reply($this->processWaypointCommand($x_coords, $y_coords, $playfield->long_name, $playfield->id));
+		$sendto->reply($this->processWaypointCommand($x_coords, $y_coords, $playfield->short_name, $playfield->id));
 	}
 	
 	/**
