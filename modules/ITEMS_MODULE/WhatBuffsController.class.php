@@ -144,7 +144,7 @@ class WhatBuffsController {
 		} else {
 			list($count, $blob) = $result;
 			$blob = $this->text->make_chatcmd("See results on Auno.org", "/start $newUrl") . "\n\n" . $blob;
-			$blob .= "\nSearch results provied by Auno.org";
+			$blob .= "\nSearch results provided by Auno.org";
 			$msg = $this->text->make_blob("WhatBuffs - $category $skill ($count)", $blob);
 		}
 		return $msg;
