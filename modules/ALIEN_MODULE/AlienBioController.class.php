@@ -77,7 +77,7 @@ class AlienBioController {
 		$bios = explode("*", preg_replace("/> *</", ">*<", $arr[1]));
 		$blob = '';
 		forEach ($bios as $bio) {
-			preg_match("/^${bio_regex}$/i", trim($bio), $arr2);
+			preg_match("|^${bio_regex}$|i", trim($bio), $arr2);
 			$highid = $arr2[2];
 			$ql = $arr2[3];
 			switch ($highid) {
