@@ -44,6 +44,9 @@ class BuddylistManager {
 		} else {
 			if (!isset($this->buddyList[$uid])) {
 				$this->logger->log('debug', "$name buddy added");
+				if ($this->chatBot->vars['use_proxy'] != 1 && count($this->buddyList) > 999) {
+					$this->logger->log('error', "Error adding '$name' to buddy list--buddy list is full");
+				}
 				$this->chatBot->buddy_add($uid);
 			}
 
