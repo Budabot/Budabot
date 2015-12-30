@@ -380,7 +380,7 @@ class TimerController {
 
 		$this->timers[strtolower($name)] = $timer;
 
-		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `timer`, `settime`, `callback`, `data`, alerts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		$sql = "INSERT INTO timers_<myname> (`name`, `owner`, `mode`, `endtime`, `settime`, `callback`, `data`, alerts) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		$this->db->exec($sql, $name, $owner, $mode, $timer->endtime, $timer->settime, $callback, $data, json_encode($alerts));
 	}
 
