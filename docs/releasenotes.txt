@@ -1,6 +1,7 @@
 *****************************
-	Version 3.4_RC2:
+	Version 3.4_GA:
 *****************************
+-fixed !bio (thanks Daniel Grim)
 -items db updated to 18.08.10
 -!waypoint can now optionally take coordinates pasted from F9 (thanks Javier Cornejo)
 -removed !inspect
@@ -11,15 +12,8 @@
 -improved checks when upgrading Budabot versions to prevent database mangling
 -added support for type=, slot=, and ql= parameters to !items when using aoitems.com
 -added !runas and removed !altsadmin, !logonadmin, and !logoffadmin
--!gmi can now accept item links
--fixed !gmi
-
-*****************************
-	Version 3.4_RC1:
-*****************************
--updated items db to 18.08.02
--removed !quote stats
 -added !gmi
+-removed !quote stats
 -!items now defaults to using aoitems.com for search results
 -added !litems to force items lookup using local items db
 -added !citems to force items lookup using remote items db (aoitems.com by default)
