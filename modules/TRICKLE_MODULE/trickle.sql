@@ -1,4 +1,4 @@
-DROP TABLE trickle;
+DROP TABLE IF EXISTS trickle;
 CREATE TABLE trickle ( id INT NOT NULL PRIMARY KEY, groupName VARCHAR(20) NOT NULL, name VARCHAR(30) NOT NULL, amountAgi DECIMAL(3,1) NOT NULL, amountInt DECIMAL(3,1) NOT NULL, amountPsy DECIMAL(3,1) NOT NULL, amountSta DECIMAL(3,1) NOT NULL, amountStr DECIMAL(3,1) NOT NULL, amountSen DECIMAL(3,1) NOT NULL );
 
 INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES (1, 'Body & Defense', 'Body Dev.', 0, 0, 0, 1, 0, 0);
