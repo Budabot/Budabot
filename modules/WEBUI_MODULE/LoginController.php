@@ -3,7 +3,16 @@
 namespace Budabot\User\Modules\WebUi;
 
 /**
+ *
  * @Instance
+ *
+ * Commands this class contains:
+ *	@DefineCommand(
+ *		command     = 'apipassword',
+ *		accessLevel = 'all',
+ *		description = 'Set your api password',
+ *		help        = 'apipassword.txt'
+ *	)
  */
 class LoginController {
 
@@ -90,5 +99,21 @@ class LoginController {
 	private function checkCredentials($username, $password) {
 		$validPassword = $this->preferences->get($username, 'apipassword');
 		return $validPassword === $password;
+	}
+
+	/**
+	 * This command handler either sets or clears character's API password.
+	 *
+	 * @HandlesCommand("apipassword")
+	 * @Matches("/^apipassword (.*)$/i")
+	*/
+	public function apipasswordCommand($message, $channel, $sender, $sendto, $arr) {
+		if ($arr[1] == 'clear') {
+			$this->preferences->save($sender, 'apipassword', '');
+			$sendto->reply("Your API password has been cleared successfully.");
+		} else {
+			$this->preferences->save($sender, 'apipassword', $arr[1]);
+			$sendto->reply("Your API password has been updated successfully.");
+		}
 	}
 }
