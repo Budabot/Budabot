@@ -54,9 +54,6 @@
 	$vars['proxy_server'] = "127.0.0.1";
 	$vars['proxy_port'] = 9993;
 
-	// API module configuration
-	$vars['API Port'] = 5250;
-
 	// Define additional paths from where Budabot should load modules at startup
 	$vars['module_load_paths'] = array(
 		'./modules', './extras'
