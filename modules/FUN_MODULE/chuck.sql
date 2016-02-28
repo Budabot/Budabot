@@ -107,7 +107,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'In fine print on the last page
 INSERT INTO fun (type, content) VALUES ('chuck', 'The Great Wall of China was originally created to keep Chuck Norris out. It failed misserably.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Crop circles are Chuck Norris'' way of telling the world that sometimes corn needs to lie the fuck down.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once ate an entire ream of rice paper and shat out origami swans and Mister Miyagi from Karate Kid.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is ten feet tall, weighs two-tons, breathes fire, and could eat a hammer and take a shotgun blast standing. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is ten feet tall, weighs two-tons, breathes fire, and could eat a hammer and take a shotgun blast standing.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'The Four Horsemen of the Apocalypse actually live in Chuck Norris''s nutsack.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris put humpty dumpty back together again, only to roundhouse kick him in the face. Later Chuck dined on scrambled eggs with all the king''s horses and all the king''s men. The king himself could not attend for unspecified reasons. Coincidentally, the autopsoy revealed the cause of death to be a roundhouse kick to the face. There is only one King.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'When Chuck Norris played golf for money, chuck marked down a hole in 0 every time, a pro at the golf club, said to Chuck: excuse me sir, but you cant score zero on a hole. Chuck Norris turned towards the man and said, im Chuck Norris, the man then proceeded to pour gas over his body and set himself on fire because that would be less painful than getting roundhouse kicked by Chuck Norris, Chuck Norris roundhouse kicked him in the face anyways.');
@@ -131,10 +131,10 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris ordered a Big Mac
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris frequently donates blood to the Red Cross. Just never his own.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'There is no such thing as tornados. Chuck Norris just hates trailer parks');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris doesn''t worry about changing his clock twice a year for daylight savings time. The sun rises and sets when Chuck tells it to.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris was the fourth Wiseman. He brought baby Jesus the gift of \"beard\". Jesus wore it proudly to his dying day. The other Wisemen, jealous of Jesus'' obvious gift favoritism, used their combined influence to have Chuck omitted from the Bible. Shortly after all three died of roundhouse kick related deaths. ');
-INSERT INTO fun (type, content) VALUES ('chuck', 'If paper beats rock, rock beats scissors, and scissors beats paper, what beats all 3 at the same time? Answer: Chuck Norris. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris was the fourth Wiseman. He brought baby Jesus the gift of \"beard\". Jesus wore it proudly to his dying day. The other Wisemen, jealous of Jesus'' obvious gift favoritism, used their combined influence to have Chuck omitted from the Bible. Shortly after all three died of roundhouse kick related deaths.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'If paper beats rock, rock beats scissors, and scissors beats paper, what beats all 3 at the same time? Answer: Chuck Norris.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Although it is not common knowledge, there are actually three sides to the Force: the light side, the dark side, and Chuck Norris.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Scientists used to believe that diamond was the world''s hardest substance. But then they met Chuck Norris, who gave them a roundhouse kick to the face so hard, and with so much heat and pressure, that the scientists turned into artificial Chuck Norris. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Scientists used to believe that diamond was the world''s hardest substance. But then they met Chuck Norris, who gave them a roundhouse kick to the face so hard, and with so much heat and pressure, that the scientists turned into artificial Chuck Norris.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'When Chuck Norris was denied a Bacon McMuffin at McDonalds because it was 10:35, he roundhouse kicked the store so hard it became a KFC.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris drinks napalm to quell his heartburn.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'A duck''s quack does not echo. Chuck Norris is solely responsible for this phenomenon. When asked why he will simply stare at you, grimly.');
@@ -146,11 +146,11 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris eats transformer 
 INSERT INTO fun (type, content) VALUES ('chuck', 'Ironically, Chuck Norris'' hidden talent is invisibility.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris invented water.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris went looking for a bar but couldn''t find one. He walked to a vacant lot and sat there. Sure enough within an hour and a half someone constructed a bar around him. He then ordered a shot, drank it, and then burned the place to the ground. Chuck Norris yelled over the roar of the flames, always leave things the way you found em.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'One time while sparring with Wolverine, Chuck Norris accidentally lost his left testicle. You might be familiar with it to this very day by its technical term: Jupiter. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'One time while sparring with Wolverine, Chuck Norris accidentally lost his left testicle. You might be familiar with it to this very day by its technical term: Jupiter.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is Luke Skywalker''s real father.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once visited the Virgin Islands. They are now The Islands.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once roundhouse kicked someone so hard that his foot broke the speed of light, went back in time, and killed Amelia Earhart while she was flying over the Pacific Ocean. ');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Crop circles are Chuck Norris'' way of telling the world that sometimes corn needs to lie down. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once roundhouse kicked someone so hard that his foot broke the speed of light, went back in time, and killed Amelia Earhart while she was flying over the Pacific Ocean.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Crop circles are Chuck Norris'' way of telling the world that sometimes corn needs to lie down.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is ten feet tall, weighs two-tons, breathes fire, and could eat a hammer and take a shotgun blast standing.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'The Great Wall of China was originally created to keep Chuck Norris out. It failed miserably.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Contrary to popular belief, Chuck Norris, not the box jellyfish of northern Australia, is the most venomous creature on earth. Within 3 minutes of being bitten, a human being experiences the following symptoms: fever, blurred vision, beard rash, tightness of the jeans, and the feeling of being repeatedly kicked through a car windshield.');
@@ -174,7 +174,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris will attain state
 INSERT INTO fun (type, content) VALUES ('chuck', 'Someone once videotaped Chuck Norris getting pissed off. It was called Walker: Texas Chain Saw Masacre.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'If you spell Chuck Norris in Scrabble, you win. Forever.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris originally appeared in the "Street Fighter II" video game, but was removed by Beta Testers because every button caused him to do a roundhouse kick. When asked about this "glitch," Norris replied, "That''s no glitch."');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Fool me once, shame on you. Fool Chuck Norris once and he will roundhouse you in the face. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Fool me once, shame on you. Fool Chuck Norris once and he will roundhouse you in the face.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'The opening scene of the movie "Saving Private Ryan" is loosely based on games of dodgeball Chuck Norris played in second grade.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once shot down a German fighter plane by pointing at it with his finger and yelling, "Bang!"');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once bet NASA he could survive re-entry without a spacesuit. On July 19th, 1999, a naked Chuck Norris re-entered the earth''s atmosphere, streaking over 14 states and reaching a temperature of 3000 degrees. An embarrassed NASA publically claimed it was a meteor, and still owes him a beer.');
@@ -185,7 +185,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is not hung like 
 INSERT INTO fun (type, content) VALUES ('chuck', 'Faster than a speeding bullet ... more powerful than a locomotive ... able to leap tall buildings in a single bound... yes, these are some of Chuck Norris''s warm-up exercises.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is the only human being to display the Heisenberg uncertainty principle -- you can never know both exactly where and how quickly he will roundhouse-kick you in the face.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'In the Bible, Jesus turned water into wine. But then Chuck Norris turned that wine into beer.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris can hit you so hard that he can actually alter your DNA. Decades from now your descendants will occasionally clutch their heads and yell "What The Hell was That?" ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris can hit you so hard that he can actually alter your DNA. Decades from now your descendants will occasionally clutch their heads and yell "What The Hell was That?"');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Time waits for no man. Unless that man is Chuck Norris.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris discovered a new theory of relativity involving multiple universes in which Chuck Norris is even more badass than in this one. When it was discovered by Albert Einstein and made public, Chuck Norris roundhouse-kicked him in the face. We know Albert Einstein today as Stephen Hawking.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris doesn''t shower, he only takes blood baths.');
@@ -212,7 +212,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris'' house has no do
 INSERT INTO fun (type, content) VALUES ('chuck', 'When Chuck Norris has sex with a man, it won''t be because he is gay. It will be because he has run out of women.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'How much wood would a woodchuck chuck if a woodchuck could Chuck Norris? ...All of it.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris doesn''t actually write books, the words assemble themselves out of fear.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'In honor of Chuck Norris, all McDonald''s in Texas have an even larger size than the super-size. When ordering, just ask to be Chucksized. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'In honor of Chuck Norris, all McDonald''s in Texas have an even larger size than the super-size. When ordering, just ask to be Chucksized.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris CAN believe it''s not butter.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'If tapped, a Chuck Norris roundhouse kick could power the country of Australia for 44 minutes.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris can divide by zero.');
@@ -265,9 +265,9 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once worked as a 
 INSERT INTO fun (type, content) VALUES ('chuck', 'Simply by pulling on both ends, Chuck Norris can stretch diamonds back into coal.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'When Chuck Norris does a pushup, he isn''t lifting himself up, he''s pushing the Earth down.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris invented the bolt-action rifle, liquor, sexual intercourse, and football-- in that order.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'A high tide means Chuck Norris is flying over your coast. The tide is caused by God pissing his pants. ');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris keeps his friends close and his enemies closer. Close enough to drop them with one round house kick to the face. ');
-INSERT INTO fun (type, content) VALUES ('chuck', 'There is in fact an "I" in Norris, but there is no "team"… not even close. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'A high tide means Chuck Norris is flying over your coast. The tide is caused by God pissing his pants.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris keeps his friends close and his enemies closer. Close enough to drop them with one round house kick to the face.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'There is in fact an "I" in Norris, but there is no "team"... not even close.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Scotty in Star Trek often says "Ye cannae change the laws of physics." This is untrue. Chuck Norris can change the laws of physics. With his fists.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'An anagram for Walker Texas Ranger is KARATE WRANGLER SEX. I don''t know what that is, but it sounds AWESOME.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris doesn''t stub his toes. He accidentally destroys chairs, bedframes, and sidewalks.');
@@ -336,7 +336,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris wears a live ratt
 INSERT INTO fun (type, content) VALUES ('chuck', 'The Bible was originally titled "Chuck Norris and Friends"');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris began selling the Total Gym as an ill-fated attempt to make his day-to-day opponents less laughably pathetic.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Do you know why Baskin Robbins only has 31 flavors? Because Chuck Norris doesn''t like Fudge Ripple.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'When Chuck Norris says "More cowbell", he MEANS it. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'When Chuck Norris says "More cowbell", he MEANS it.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'On the set of Walker Texas Ranger Chuck Norris brought a dying lamb back to life by nuzzling it with his beard. As the onlookers gathered, the lamb sprang to life. Chuck Norris then roundhouse kicked it, killing it instantly. This was just to prove that the good Chuck giveth, and the good Chuck, he taketh away.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris was what Willis was talkin'' about.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Google won''t search for Chuck Norris because it knows you don''t find Chuck Norris, he finds you.');
@@ -380,7 +380,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once went skydivi
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris''s version of a "chocolate milkshake" is a raw porterhouse wrapped around ten Hershey bars, and doused in diesel fuel.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'If Chuck Norris round-house kicks you, you will die. If Chuck Norris'' misses you with the round-house kick, the wind behind the kick will tear out your pancreas.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'In a fight between Batman and Darth Vader, the winner would be Chuck Norris.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris puts his pants on one leg at a time, just like the rest of us. The only difference is, then he kills people. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris puts his pants on one leg at a time, just like the rest of us. The only difference is, then he kills people.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Everybody loves Raymond. Except Chuck Norris.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Contrary to popular belief, the Titanic didn''t hit an iceberg. The ship was off course and accidentally ran into Chuck Norris while he was doing the backstroke across the Atlantic.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris got his drivers license at the age of 16. Seconds.');
@@ -536,7 +536,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once lost the rem
 INSERT INTO fun (type, content) VALUES ('chuck', 'For Spring Break ''05, Chuck Norris drove to Madagascar, riding a chariot pulled by two electric eels.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'The Manhattan Project was not intended to create nuclear weapons, it was meant to recreate the destructive power in a Chuck Norris Roundhouse Kick. They didn''t even come close.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris has banned rainbows from the state of North Dakota.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Divide Chuck Norris by zero and you will in fact get one........one bad-ass that is. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Divide Chuck Norris by zero and you will in fact get one........one bad-ass that is.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'TNT was originally developed by Chuck Norris to cure indigestion.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'After returning from World War 2 unscathed, Bob Dole was congratulated by Chuck Norris with a handshake. The rest is history.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris runs on batteries. Specifically, Die Hards.');
@@ -569,7 +569,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris doesn''t believe 
 INSERT INTO fun (type, content) VALUES ('chuck', 'Count from one to ten. That''s how long it would take Chuck Norris to kill you...Fourty seven times.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'The 1972 Miami Dolphins lost one game, it was an exhibition game vs. Chuck Norris and three seven year old girls. Chuck Norris won with a roundhouse-kick to the face in overtime.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is not Politically Correct. He is just Correct. Always.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Mr. T pities the fool. Chuck Norris rips the fool''s head off. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Mr. T pities the fool. Chuck Norris rips the fool''s head off.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris had to stop washing his clothes in the ocean. The tsunamis were killing people.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris has volunteered to remain on earth after the Rapture; he will spend his time fighting the Anti-Christ.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'They were going to release a Chuck Norris edition of Clue, but the answer always turns out to be "Chuck Norris. In The Library. With a Roundhouse Kick."');
@@ -619,7 +619,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Remember The Ultimate Warrior?
 INSERT INTO fun (type, content) VALUES ('chuck', 'If a tree falls in the forest, does anybody hear? Yes. Chuck Norris hears it. Chuck Norris can hear everything. Chuck Norris can hear the shrieking terror in your soul.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris actually owns IBM. It was an extremely hostile takeover.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'He, who laughs last, laughs best. He who laughs at Chuck Norris … dies.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is like a dog, not only because he can smell fear, but because he can piss on whatever he wants. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is like a dog, not only because he can smell fear, but because he can piss on whatever he wants.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris can jump-start a car using jumper cables attached to his nipples.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris neither melts in your mouth nor in your hand. He shreds your trachea before ravaging your soul with a combination of chocolate, whickey, roundhouse kicks and death. Oh, and pain. Lots of pain.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris doesn''t have blood. He is filled with magma.');
@@ -636,7 +636,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris has to use a stun
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris successfully seperated twins conjoined at the head by roundkicking them in the face.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Dinosaurs went extinct because of the Chuck Norrisaurus.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'People have often asked the United States, What is your secret weapon against terrorists? We simply reply...Chuck Norris');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris wears Orion''s Belt around his pinky toe and he eats with the Big Dipper. ');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris wears Orion''s Belt around his pinky toe and he eats with the Big Dipper.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris eats lightning and farts thunder.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Lightning never strikes twice in one place because Chuck Norris is looking for it.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris was once a knight in King Arthur''s court. He was known as Sir Beatdown.');
