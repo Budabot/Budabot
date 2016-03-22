@@ -201,7 +201,6 @@ class GuildController {
 				$namesSql .= "'$alt'";
 			}
 			$data = $this->db->query("SELECT * FROM org_members_<myname> WHERE `name` IN ($namesSql) AND `mode` != 'del' ORDER BY logged_off DESC");
-			print_r($data);
 
 			forEach ($data as $row) {
 				if (in_array($row->name, $onlineAlts)) {
