@@ -166,7 +166,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'There is no theory of evolutio
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris once ate three 72 oz. steaks in one hour. He spent the first 45 minutes having sex with his waitress.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'What was going through the minds of all of Chuck Norris'' victims before they died? His shoe.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is the only man to ever defeat a brick wall in a game of tennis.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Police label anyone attacking Chuck Norris as a Code 45-11.... a suicide.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Police label anyone attacking Chuck Norris as a Code 45-11... a suicide.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris doesn''t churn butter. He roundhouse kicks the cows and the butter comes straight out.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris doesn''t wash his clothes, he disembowels them.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'A Handicapped parking sign does not signify that this spot is for handicapped people. It is actually in fact a warning, that the spot belongs to Chuck Norris and that you will be handicapped if you park there.');

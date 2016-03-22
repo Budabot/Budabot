@@ -187,27 +187,37 @@ class GuildController {
 		} else {
 			$altInfo = $this->altsController->get_alt_info($name);
 			$onlineAlts = $altInfo->get_online_alts();
-			if (count($onlineAlts) > 0) {
-				$msg = "This character is currently <green>online<end> as " . implode(', ', $onlineAlts) . ".";
-			} else {
-				$namesSql = '';
-				forEach ($altInfo->get_all_alts() as $alt) {
-					if ($namesSql) {
-						$namesSql .= ", ";
-					}
-					$namesSql .= "'$alt'";
-				}
-				$row = $this->db->queryRow("SELECT * FROM org_members_<myname> WHERE `name` IN ($namesSql) AND `mode` != 'del' ORDER BY logged_off DESC");
 
-				if ($row !== null) {
-					if ($row->logged_off == 0) {
-						$msg = "<highlight>$name<end> has never logged on.";
-					} else {
-						$msg = "Last seen at " . $this->util->date($row->logged_off) . " on <highlight>" . $row->name . "<end>.";
-					}
-				} else {
-					$msg = "This character is not a member of the org.";
+			$blob = "";
+			forEach ($onlineAlts as $onlineAlt) {
+				$blob .= "<highlight>$onlineAlt<end> is currently online.\n";
+			}
+
+			$namesSql = '';
+			forEach ($altInfo->get_all_alts() as $alt) {
+				if ($namesSql) {
+					$namesSql .= ", ";
 				}
+				$namesSql .= "'$alt'";
+			}
+			$data = $this->db->query("SELECT * FROM org_members_<myname> WHERE `name` IN ($namesSql) AND `mode` != 'del' ORDER BY logged_off DESC");
+			print_r($data);
+
+			forEach ($data as $row) {
+				if (in_array($row->name, $onlineAlts)) {
+					// skip
+					continue;
+				} else if ($row->logged_off == 0) {
+					$blob .= "<highlight>$row->name<end> has never logged on.\n";
+				} else {
+					$blob .= "<highlight>$row->name<end> last seen at " . $this->util->date($row->logged_off) . ".\n";
+				}
+			}
+
+			if (count($data) == 0) {
+				$msg .= "Character <highlight>$name<end> is not a member of the org.";
+			} else {
+				$msg = $this->text->make_blob("Last Seen Info for $altInfo->main", $blob);
 			}
 		}
 
