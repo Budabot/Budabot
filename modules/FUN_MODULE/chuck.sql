@@ -355,7 +355,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'As President Roosevelt said: "
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris just says "no" to drugs. If he said "yes", it would collapse Colombia''s infrastructure.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Since 1940, the year Chuck Norris was born, roundhouse-kick related deaths have increased 13,000 percent.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Crime does not pay - unless you are an undertaker following Walker, Texas Ranger, on a routine patrol.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris invented the internet… just so he had a place to store his porn.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris invented the internet...just so he had a place to store his porn.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris does not own a house. He walks into random houses and people move.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'It is better to give than to receive. This is especially true of a Chuck Norris roundhouse kick.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is the only person to ever win a staring contest against Ray Charles and Stevie Wonder at the same time.');
@@ -425,7 +425,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris was once on Jeopa
 INSERT INTO fun (type, content) VALUES ('chuck', 'When Chuck Norris works out on the Total Gym, the Total Gym feels like it''s been raped.');
 INSERT INTO fun (type, content) VALUES ('chuck', '4 out of 5 doctors fail to recommend Chuck Norris as a solution to most problems. Also, 80% of doctors die unexplained, needlessly brutal deaths.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris can skeletize a cow in two minutes.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'The only sure things are Death and Taxes…and when Chuck Norris goes to work for the IRS, they''ll be the same thing.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'The only sure things are Death and Taxes...and when Chuck Norris goes to work for the IRS, they''ll be the same thing.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris'' first job was as a paperboy. There were no survivors.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'With the rising cost of gasoline, Chuck Norris is beginning to worry about his drinking habit.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'The square root of Chuck Norris is pain. Do not try to square Chuck Norris, the result is death.');
@@ -618,7 +618,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris invented all 32 l
 INSERT INTO fun (type, content) VALUES ('chuck', 'Remember The Ultimate Warrior? He quit wrestling because Chuck Norris wanted his nickname back.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'If a tree falls in the forest, does anybody hear? Yes. Chuck Norris hears it. Chuck Norris can hear everything. Chuck Norris can hear the shrieking terror in your soul.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris actually owns IBM. It was an extremely hostile takeover.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'He, who laughs last, laughs best. He who laughs at Chuck Norris … dies.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'He, who laughs last, laughs best. He who laughs at Chuck Norris...dies.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris is like a dog, not only because he can smell fear, but because he can piss on whatever he wants.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris can jump-start a car using jumper cables attached to his nipples.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris neither melts in your mouth nor in your hand. He shreds your trachea before ravaging your soul with a combination of chocolate, whickey, roundhouse kicks and death. Oh, and pain. Lots of pain.');
@@ -685,7 +685,7 @@ INSERT INTO fun (type, content) VALUES ('chuck', 'When somebody yells "Last one 
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris invented the question mark.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris trick-or-treated as himself as a child.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris has 3 knees on each leg.');
-INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris likes long walks on the beach, Barry White music, Harlequin romance novels, songbirds, rainbows, and quiet time with his lady…just before he roundhouse kicks her in the face.');
+INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris likes long walks on the beach, Barry White music, Harlequin romance novels, songbirds, rainbows, and quiet time with his lady...just before he roundhouse kicks her in the face.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris can cook minute rice in 30 seconds.');
 INSERT INTO fun (type, content) VALUES ('chuck', 'If you gave Chuck Norris a typewriter and 0.000000000000000000001th of a second he can write the Complete Works of Shakespeare');
 INSERT INTO fun (type, content) VALUES ('chuck', 'Chuck Norris puts the laughter in manslaughter.');
