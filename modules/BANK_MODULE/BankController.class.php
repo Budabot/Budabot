@@ -13,14 +13,15 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = 'bank', 
  *		accessLevel = 'guild', 
- *		description = 'Browse and search the bank toons', 
+ *		description = 'Browse and search the bank characters', 
  *		help        = 'bank.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'bank update',
  *		accessLevel = 'admin', 
  *		description = 'Reloads the bank database from the AO Items Assistant file', 
- *		help        = 'bank.txt'
+ *		help        = 'bank.txt',
+ *		alias		= 'updatebank'
  *	)
  */
 class BankController {
