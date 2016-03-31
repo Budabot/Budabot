@@ -13,14 +13,14 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = 'bank', 
  *		accessLevel = 'guild', 
- *		description = 'Browse and search the Org Bank', 
+ *		description = 'Browse and search the bank toons', 
  *		help        = 'bank.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'updatebank',
+ *		command     = 'bank update',
  *		accessLevel = 'admin', 
  *		description = 'Reloads the bank database from the AO Items Assistant file', 
- *		help        = 'updatebank.txt'
+ *		help        = 'bank.txt'
  *	)
  */
 class BankController {
@@ -44,7 +44,6 @@ class BankController {
 	public $settingManager;
 	
 	/**
-	 * This handler is called on bot startup.
 	 * @Setup
 	 */
 	public function setup() {
@@ -55,8 +54,6 @@ class BankController {
 	}
 
 	/**
-	 * Lists all known org banks.
-	 *
 	 * @HandlesCommand("bank")
 	 * @Matches("/^bank browse$/i")
 	 */
@@ -73,8 +70,6 @@ class BankController {
 	}
 
 	/**
-	 * Lists player's all containers from his org bank.
-	 *
 	 * @HandlesCommand("bank")
 	 * @Matches("/^bank browse ([a-z0-9-]+)$/i")
 	 */
@@ -82,33 +77,31 @@ class BankController {
 		$name = ucfirst(strtolower($args[1]));
 
 		$blob = '';
-		$data = $this->db->query("SELECT DISTINCT container, player FROM bank WHERE player = ? ORDER BY container ASC", $name);
+		$data = $this->db->query("SELECT DISTINCT container_id, container, player FROM bank WHERE player = ? ORDER BY container ASC", $name);
 		if (count($data) > 0) {
 			forEach ($data as $row) {
-				$container_link = $this->text->make_chatcmd($row->container, "/tell <myname> bank browse {$row->player} {$row->container}");
+				$container_link = $this->text->make_chatcmd($row->container, "/tell <myname> bank browse {$row->player} {$row->container_id}");
 				$blob .= "{$container_link}\n";
 			}
 
-			$msg = $this->text->make_blob("Backpacks for $name", $blob);
+			$msg = $this->text->make_blob("Containers for $name", $blob);
 		} else {
-			$msg = "Could not find a bank character named $name";
+			$msg = "Could not find bank character <highlight>$name<end>.";
 		}
 		$sendto->reply($msg);
 	}
 
 	/**
-	 * Lists contents of a container from player's org bank.
-	 *
 	 * @HandlesCommand("bank")
-	 * @Matches("/^bank browse ([a-z0-9-]+) (.+)$/i")
+	 * @Matches("/^bank browse ([a-z0-9-]+) (\d+)$/i")
 	 */
 	public function bankBrowseContainerCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
-		$pack = htmlspecialchars_decode($args[2]);
+		$containerId = $args[2];
 		$limit = $this->settingManager->get('max_bank_items');
 
 		$blob = '';
-		$data = $this->db->query("SELECT * FROM bank WHERE player = ? AND container = ? ORDER BY name ASC, ql ASC LIMIT {$limit}", $name, $pack);
+		$data = $this->db->query("SELECT * FROM bank WHERE player = ? AND container_id = ? ORDER BY name ASC, ql ASC LIMIT {$limit}", $name, $containerId);
 
 		if (count($data) > 0) {
 			forEach ($data as $row) {
@@ -116,16 +109,14 @@ class BankController {
 				$blob .= "{$item_link} ({$row->ql})\n";
 			}
 
-			$msg = $this->text->make_blob("Contents of $pack", $blob);
+			$msg = $this->text->make_blob("Contents of $row->container", $blob);
 		} else {
-			$msg = "Could not find a pack named '{$pack}' on a bank character named '{$name}'";
+			$msg = "Could not find container with id <highlight>{$containerId}</highlight> on bank character <highlight>{$name}<end>.";
 		}
 		$sendto->reply($msg);
 	}
 
 	/**
-	 * Searches given words from org banks.
-	 *
 	 * @HandlesCommand("bank")
 	 * @Matches("/^bank search (.+)$/i")
 	 */
@@ -147,15 +138,16 @@ class BankController {
 
 			$msg = $this->text->make_blob("Bank Search Results for {$args[1]}", $blob);
 		} else {
-			$msg = "Could not find any bank items when searching for '{$args[1]}'";
+			$msg = "Could not find any search results for <highlight>{$args[1]}<end>.";
 		}
 		$sendto->reply($msg);
 	}
 
 	/**
-	 * @HandlesCommand("updatebank")
+	 * @HandlesCommand("bank update")
+	 * @Matches("/^bank update$/i")
 	 */
-	public function updatebankCommand($message, $channel, $sender, $sendto, $args) {
+	public function bankUpdateCommand($message, $channel, $sender, $sendto, $args) {
 		$lines = file($this->settingManager->get('bank_file_location'));
 
 		if ($lines === false) {

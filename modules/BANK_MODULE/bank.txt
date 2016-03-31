@@ -1,11 +1,16 @@
 To list the bank characters in the database:
 <highlight><tab><symbol>bank browse<end>
 
-To list the backpacks of a particular bank character:
+To list the containers of a particular bank character:
 <highlight><tab><symbol>bank browse 'character'<end>
 
-To see the contents of a backpack on a bank character:
-<highlight><tab><symbol>bank browse 'character' 'backpackname'<end>
+To see the contents of a container on a bank character:
+<highlight><tab><symbol>bank browse 'character' 'container id'<end>
 
 To search for an item on a bank character:
 <highlight><tab><symbol>bank search 'items to search for'<end>
+
+To list the bank characters in the database:
+<highlight><tab><symbol>bank update<end>
+
+Note: This will reload the bank database from the file specified with the <a href='chatcmd:///tell <myname> settings change bank_file_location'>bank_file_location</a> setting.  This setting should point to a csv file exported from AO Items Assistant and can point to a local file or to a url.
