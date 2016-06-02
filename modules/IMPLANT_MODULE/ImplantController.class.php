@@ -286,10 +286,12 @@ class ImplantController {
 		$sql = "SELECT
 				p.*,
 				i.Name AS slot,
-				p2.Name AS profession
+				p2.Name AS profession,
+				a.Name AS ability
 			FROM premade_implant p
 			JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID
 			JOIN Profession p2 ON p.ProfessionID = p2.ID
+			JOIN Ability a ON p.AbilityID = a.AbilityID
 			WHERE p2.Name = ? ORDER BY slot";
 		return $this->db->query($sql, $profession);
 	}
@@ -298,10 +300,12 @@ class ImplantController {
 		$sql = "SELECT
 				p.*,
 				i.Name AS slot,
-				p2.Name AS profession
+				p2.Name AS profession,
+				a.Name AS ability
 			FROM premade_implant p
 			JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID
 			JOIN Profession p2 ON p.ProfessionID = p2.ID
+			JOIN Ability a ON p.AbilityID = a.AbilityID
 			WHERE i.ShortName = ? ORDER BY shiny, bright, faded";
 		return $this->db->query($sql, $slot);
 	}
@@ -316,10 +320,12 @@ class ImplantController {
 		$sql = "SELECT
 				p.*,
 				i.Name AS slot,
-				p2.Name AS profession
+				p2.Name AS profession,
+				a.Name AS ability
 			FROM premade_implant p
 			JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID
 			JOIN Profession p2 ON p.ProfessionID = p2.ID
+			JOIN Ability a ON p.AbilityID = a.AbilityID
 			WHERE ($shinyQuery) OR ($brightQuery) OR ($fadedQuery)";
 
 		return $this->db->query($sql, $params);
