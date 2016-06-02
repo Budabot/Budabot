@@ -283,12 +283,12 @@ class ImplantController {
 	
 	// premade implant functions
 	public function searchByProfession($profession) {
-		$sql = "SELECT * FROM premade_implant WHERE profession = ? ORDER BY slot";
+		$sql = "SELECT p.*, i.Name AS slot FROM premade_implant p JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID WHERE profession = ? ORDER BY slot";
 		return $this->db->query($sql, $profession);
 	}
 
 	public function searchBySlot($slot) {
-		$sql = "SELECT * FROM premade_implant WHERE slot = ? ORDER BY shiny, bright, faded";
+		$sql = "SELECT p.*, i.Name AS slot FROM premade_implant p JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID WHERE i.ShortName = ? ORDER BY shiny, bright, faded";
 		return $this->db->query($sql, $slot);
 	}
 
@@ -299,7 +299,7 @@ class ImplantController {
 		
 		$params = array_merge($shinyParams, $brightParams, $fadedParams);
 		
-		$sql = "SELECT * FROM premade_implant WHERE ($shinyQuery) OR ($brightQuery) OR ($fadedQuery)";
+		$sql = "SELECT p.*, i.Name AS slot FROM premade_implant p JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID WHERE ($shinyQuery) OR ($brightQuery) OR ($fadedQuery)";
 
 		return $this->db->query($sql, $params);
 	}
