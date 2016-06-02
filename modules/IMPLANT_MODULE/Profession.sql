@@ -10,7 +10,7 @@ INSERT INTO Profession (ID, Name) VALUES (7,'Fixer');
 INSERT INTO Profession (ID, Name) VALUES (8,'Keeper');
 INSERT INTO Profession (ID, Name) VALUES (9,'Martial Artist');
 INSERT INTO Profession (ID, Name) VALUES (10,'Meta-Physicist');
-INSERT INTO Profession (ID, Name) VALUES (11,'Nano Technician');
+INSERT INTO Profession (ID, Name) VALUES (11,'Nano-Technician');
 INSERT INTO Profession (ID, Name) VALUES (12,'Shade');
 INSERT INTO Profession (ID, Name) VALUES (13,'Soldier');
 INSERT INTO Profession (ID, Name) VALUES (14,'Trader');
