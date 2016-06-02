@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS EffectValue;
-CREATE TABLE EffectValue (EffectID INT NOT NULL, Name VARCHAR(50) NOT NULL, Q200Value INT NOT NULL);
+CREATE TABLE EffectValue (EffectID INT NOT NULL PRIMARY KEY, Name VARCHAR(50) NOT NULL, Q200Value INT NOT NULL);
 INSERT INTO EffectValue (EffectID, Name, Q200Value) VALUES (1,'AC Faded',162);
 INSERT INTO EffectValue (EffectID, Name, Q200Value) VALUES (2,'AC Bright',243);
 INSERT INTO EffectValue (EffectID, Name, Q200Value) VALUES (3,'AC Shining',405);

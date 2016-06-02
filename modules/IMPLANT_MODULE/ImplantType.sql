@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS ImplantType;
-CREATE TABLE ImplantType (ImplantTypeID INT NOT NULL, Name VARCHAR(20) NOT NULL, ShortName VARCHAR(10) NOT NULL);
+CREATE TABLE ImplantType (ImplantTypeID INT NOT NULL PRIMARY KEY, Name VARCHAR(20) NOT NULL, ShortName VARCHAR(10) NOT NULL);
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (1,'Eye','eye');
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (2,'Head','head');
 INSERT INTO ImplantType (ImplantTypeID, Name, ShortName) VALUES (3,'Ear','ear');

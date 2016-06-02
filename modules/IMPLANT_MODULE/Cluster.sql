@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS Cluster;
-CREATE TABLE Cluster (ClusterID INT NOT NULL, EffectTypeID INT NOT NULL, LongName VARCHAR(50) NOT NULL, NPReq INT NOT NULL, AltName VARCHAR(50) NOT NULL);
+CREATE TABLE Cluster (ClusterID INT NOT NULL PRIMARY KEY, EffectTypeID INT NOT NULL, LongName VARCHAR(50) NOT NULL, NPReq INT NOT NULL, AltName VARCHAR(50) NOT NULL);
 INSERT INTO Cluster (ClusterID, EffectTypeID, LongName, NPReq, AltName) VALUES (0,1,'',0,'');
 INSERT INTO Cluster (ClusterID, EffectTypeID, LongName, NPReq, AltName) VALUES (2,1,'1 Handed Blunt Weapons',720,'1h Blunt');
 INSERT INTO Cluster (ClusterID, EffectTypeID, LongName, NPReq, AltName) VALUES (3,1,'1 Handed Edged Weapon',760,'1h Edged');

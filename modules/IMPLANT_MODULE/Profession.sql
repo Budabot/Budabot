@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS Profession;
-CREATE TABLE Profession (ID INT NOT NULL, Name VARCHAR(20) NOT NULL);
+CREATE TABLE Profession (ID INT NOT NULL PRIMARY KEY, Name VARCHAR(20) NOT NULL);
 INSERT INTO Profession (ID, Name) VALUES (1,'Adventurer');
 INSERT INTO Profession (ID, Name) VALUES (2,'Agent');
 INSERT INTO Profession (ID, Name) VALUES (3,'Bureaucrat');
