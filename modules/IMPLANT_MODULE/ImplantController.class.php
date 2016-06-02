@@ -284,48 +284,65 @@ class ImplantController {
 	// premade implant functions
 	public function searchByProfession($profession) {
 		$sql = "SELECT
-				p.*,
 				i.Name AS slot,
 				p2.Name AS profession,
-				a.Name AS ability
+				a.Name AS ability,
+				CASE WHEN c1.ClusterID = 0 THEN 'N/A' ELSE c1.LongName END AS shiny,
+				CASE WHEN c2.ClusterID = 0 THEN 'N/A' ELSE c2.LongName END AS bright,
+				CASE WHEN c3.ClusterID = 0 THEN 'N/A' ELSE c3.LongName END AS faded
 			FROM premade_implant p
 			JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID
 			JOIN Profession p2 ON p.ProfessionID = p2.ID
 			JOIN Ability a ON p.AbilityID = a.AbilityID
-			WHERE p2.Name = ? ORDER BY slot";
+			JOIN Cluster c1 ON p.ShinyClusterID = c1.ClusterID
+			JOIN Cluster c2 ON p.BrightClusterID = c2.ClusterID
+			JOIN Cluster c3 ON p.FadedClusterID = c3.ClusterID
+			WHERE p2.Name = ?
+			ORDER BY slot";
 		return $this->db->query($sql, $profession);
 	}
 
 	public function searchBySlot($slot) {
 		$sql = "SELECT
-				p.*,
 				i.Name AS slot,
 				p2.Name AS profession,
-				a.Name AS ability
+				a.Name AS ability,
+				CASE WHEN c1.ClusterID = 0 THEN 'N/A' ELSE c1.LongName END AS shiny,
+				CASE WHEN c2.ClusterID = 0 THEN 'N/A' ELSE c2.LongName END AS bright,
+				CASE WHEN c3.ClusterID = 0 THEN 'N/A' ELSE c3.LongName END AS faded
 			FROM premade_implant p
 			JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID
 			JOIN Profession p2 ON p.ProfessionID = p2.ID
 			JOIN Ability a ON p.AbilityID = a.AbilityID
-			WHERE i.ShortName = ? ORDER BY shiny, bright, faded";
+			JOIN Cluster c1 ON p.ShinyClusterID = c1.ClusterID
+			JOIN Cluster c2 ON p.BrightClusterID = c2.ClusterID
+			JOIN Cluster c3 ON p.FadedClusterID = c3.ClusterID
+			WHERE i.ShortName = ?
+			ORDER BY shiny, bright, faded";
 		return $this->db->query($sql, $slot);
 	}
 
 	public function searchByModifier($modifier) {
-		list($shinyQuery, $shinyParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'shiny');
-		list($brightQuery, $brightParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'bright');
-		list($fadedQuery, $fadedParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'faded');
+		list($shinyQuery, $shinyParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'c1.LongName');
+		list($brightQuery, $brightParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'c2.LongName');
+		list($fadedQuery, $fadedParams) = $this->util->generateQueryFromParams(explode(' ', $modifier), 'c3.LongName');
 		
 		$params = array_merge($shinyParams, $brightParams, $fadedParams);
 		
 		$sql = "SELECT
-				p.*,
 				i.Name AS slot,
 				p2.Name AS profession,
-				a.Name AS ability
+				a.Name AS ability,
+				CASE WHEN c1.ClusterID = 0 THEN 'N/A' ELSE c1.LongName END AS shiny,
+				CASE WHEN c2.ClusterID = 0 THEN 'N/A' ELSE c2.LongName END AS bright,
+				CASE WHEN c3.ClusterID = 0 THEN 'N/A' ELSE c3.LongName END AS faded
 			FROM premade_implant p
 			JOIN ImplantType i ON p.ImplantTypeID = i.ImplantTypeID
 			JOIN Profession p2 ON p.ProfessionID = p2.ID
 			JOIN Ability a ON p.AbilityID = a.AbilityID
+			JOIN Cluster c1 ON p.ShinyClusterID = c1.ClusterID
+			JOIN Cluster c2 ON p.BrightClusterID = c2.ClusterID
+			JOIN Cluster c3 ON p.FadedClusterID = c3.ClusterID
 			WHERE ($shinyQuery) OR ($brightQuery) OR ($fadedQuery)";
 
 		return $this->db->query($sql, $params);
