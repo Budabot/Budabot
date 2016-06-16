@@ -105,16 +105,9 @@ class ImplantDesignerController extends AutoInject {
 				if (empty($slotObj->$grade)) {
 					$msg .= "<tab><highlight>-Empty-<end>\n";
 				} else {
-					$newSlotObj = clone $slotObj;
-					unset($newSlotObj->$grade);
-					$newImplant = $this->getImplantInfo($ql, $newSlotObj->shiny, $newSlotObj->bright, $newSlotObj->faded);
-					if ($newImplant !== null && $newImplant->AbilityName != $implant->AbilityName) {
-						$changeAbility = " (remove for $newImplant->AbilityName)";
-					}
-
 					$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
 					$effectId = $implant->$effectTypeIdName;
-					$msg .= "<tab><highlight>{$slotObj->$grade}<end> (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")$changeAbility\n";
+					$msg .= "<tab><highlight>{$slotObj->$grade}<end> (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")\n";
 				}
 			}
 		}
@@ -184,6 +177,8 @@ class ImplantDesignerController extends AutoInject {
 		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
 		$blob .= "<tab>";
 		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+		$blob .= "<tab>";
+		$blob .= $this->text->make_chatcmd("Require Ability", "/tell <myname> implantdesigner $slot require");
 		$blob .= "\n-------------------------\n";
 		$blob .= "<header2>Implants<end>  ";
 		forEach (array(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300) as $ql) {
@@ -378,6 +373,123 @@ class ImplantDesignerController extends AutoInject {
 		// send results
 		$blob = $this->getImplantDesignerBuild($sender);
 		$msg = $this->text->make_blob("Implant Designer", $blob);
+		$sendto->reply($msg);
+	}
+
+	/**
+	 * @HandlesCommand("implantdesigner")
+	 * @Matches("/^implantdesigner (head|eye|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|lhand|feet) require$/i")
+	 */
+	public function implantdesignerSlotRequireCommand($message, $channel, $sender, $sendto, $args) {
+		$slot = strtolower($args[1]);
+
+		$design = $this->getDesign($sender, '@');
+		$slotObj = &$design->$slot;
+
+		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+		$blob .= "<tab>";
+		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+		$blob .= "\n-------------------------\n\n";
+		$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
+		$blob .= $this->getImplantSummary($slotObj) . "\n";
+		$blob .= "Which ability do you want to require for $slot?\n\n";
+		$data = $this->db->query("SELECT Name FROM Ability");
+		forEach ($data as $row) {
+			$blob .= $this->text->make_chatcmd($row->Name, "/tell <myname> implantdesigner $slot require $row->Name") . "\n";
+		}
+		$msg = $this->text->make_blob("Implant Designer Require Ability ($slot)", $blob);
+
+		$sendto->reply($msg);
+	}
+
+	/**
+	 * @HandlesCommand("implantdesigner")
+	 * @Matches("/^implantdesigner (head|eye|ear|rarm|chest|larm|rwrist|waist|lwrist|rhand|legs|lhand|feet) require (agility|intelligence|psychic|sense|strength|stamina)$/i")
+	 */
+	public function implantdesignerSlotRequireAbilityCommand($message, $channel, $sender, $sendto, $args) {
+		$slot = strtolower($args[1]);
+		$ability = ucfirst(strtolower($args[2]));
+
+		$design = $this->getDesign($sender, '@');
+		$slotObj = &$design->$slot;
+		print_r($slotObj);
+		if (empty($slotObj)) {
+			$msg = "You must have at least one cluster filled to require an ability.";
+		} else if (!empty($slotObj->symb)) {
+			$msg = "You cannot require an ability for a symbiant.";
+		} else if (empty($slotObj->shiny) && empty($slotObj->bright) && empty($slotObj->faded)) {
+			$msg = "You must have at least one cluster filled to require an ability.";
+		} else if (!empty($slotObj->shiny) && !empty($slotObj->bright) && !empty($slotObj->faded)) {
+			$msg = "You must have at least one empty cluster to require an ability.";
+		} else {
+			$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+			$blob .= "<tab>";
+			$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+			$blob .= "\n-------------------------\n\n";
+			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
+			$blob .= $this->getImplantSummary($slotObj) . "\n";
+			$blob .= "Combinations for <highlight>$slot<end> that require $ability:\n\n";
+			$params = [$ability];
+			$sql = 
+				"SELECT
+					i.AbilityQL1,
+					i.AbilityQL200,
+					i.AbilityQL201,
+					i.AbilityQL300,
+					i.TreatQL1,
+					i.TreatQL200,
+					i.TreatQL201,
+					i.TreatQL300,
+					c1.LongName as ShinyEffect,
+					c2.LongName as BrightEffect,
+					c3.LongName as FadedEffect
+				FROM
+					ImplantMatrix i
+					JOIN Cluster c1
+						ON i.ShiningID = c1.ClusterID
+					JOIN Cluster c2
+						ON i.BrightID = c2.ClusterID
+					JOIN Cluster c3
+						ON i.FadedID = c3.ClusterID
+					JOIN Ability a
+						ON i.AbilityID = a.AbilityID
+				WHERE
+					a.Name = ?";
+
+			if (!empty($slotObj->shiny)) {
+				$sql .= " AND c1.LongName = ?";
+				$params []= $slotObj->shiny;
+			}
+			if (!empty($slotObj->bright)) {
+				$sql .= " AND c2.LongName = ?";
+				$params []= $slotObj->bright;
+			}
+			if (!empty($slotObj->faded)) {
+				$sql .= " AND c3.LongName = ?";
+				$params []= $slotObj->faded;
+			}
+			$sql .= " ORDER BY c1.LongName, c2.LongName, c3.LongName";
+
+			$data = $this->db->query($sql, $params);
+			forEach ($data as $row) {
+				$results = [];
+				if (empty($slotObj->shiny)) {
+					$results []= ['shiny', $row->ShinyEffect];
+				}
+				if (empty($slotObj->bright)) {
+					$results []= ['bright', $row->BrightEffect];
+				}
+				if (empty($slotObj->faded)) {
+					$results []= ['faded', $row->FadedEffect];
+				}
+				$results = array_map(function($item) use($slot) {
+					return (empty($item[1]) ? '-Empty-' : $this->text->make_chatcmd($item[1], "/tell <myname> implantdesigner $slot {$item[0]} {$item[1]}"));
+				}, $results);
+				$blob .= implode(", ", $results) . "\n";
+			}
+			$msg = $this->text->make_blob("Implant Designer Require $ability ($slot)", $blob);
+		}
+
 		$sendto->reply($msg);
 	}
 	
