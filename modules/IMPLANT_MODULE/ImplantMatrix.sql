@@ -11007,3 +11007,4 @@ INSERT INTO ImplantMatrix (ID, ShiningID, BrightID, FadedID, AbilityID, TreatQL1
 INSERT INTO ImplantMatrix (ID, ShiningID, BrightID, FadedID, AbilityID, TreatQL1, AbilityQL1, TreatQL200, AbilityQL200, TreatQL201, AbilityQL201, TreatQL300, AbilityQL300) VALUES (11005,21,130,90,1,11,16,1005,414,1001,426,2051,1095);
 INSERT INTO ImplantMatrix (ID, ShiningID, BrightID, FadedID, AbilityID, TreatQL1, AbilityQL1, TreatQL200, AbilityQL200, TreatQL201, AbilityQL201, TreatQL300, AbilityQL300) VALUES (11006,21,130,89,1,11,16,1005,414,1001,426,2051,1095);
 INSERT INTO ImplantMatrix (ID, ShiningID, BrightID, FadedID, AbilityID, TreatQL1, AbilityQL1, TreatQL200, AbilityQL200, TreatQL201, AbilityQL201, TreatQL300, AbilityQL300) VALUES (11007,21,130,87,1,11,16,1005,414,1001,426,2051,1095);
+CREATE INDEX shining_idx ON ImplantMatrix(ShiningID);

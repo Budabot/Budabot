@@ -105,9 +105,16 @@ class ImplantDesignerController extends AutoInject {
 				if (empty($slotObj->$grade)) {
 					$msg .= "<tab><highlight>-Empty-<end>\n";
 				} else {
+					$newSlotObj = clone $slotObj;
+					unset($newSlotObj->$grade);
+					$newImplant = $this->getImplantInfo($ql, $newSlotObj->shiny, $newSlotObj->bright, $newSlotObj->faded);
+					if ($newImplant !== null && $newImplant->AbilityName != $implant->AbilityName) {
+						$changeAbility = " (remove for $newImplant->AbilityName)";
+					}
+
 					$effectTypeIdName = ucfirst(strtolower($grade)) . 'EffectTypeID';
 					$effectId = $implant->$effectTypeIdName;
-					$msg .= "<tab><highlight>{$slotObj->$grade}<end> (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")\n";
+					$msg .= "<tab><highlight>{$slotObj->$grade}<end> (" . $this->getClusterModAmount($ql, $grade, $effectId) . ")$changeAbility\n";
 				}
 			}
 		}
