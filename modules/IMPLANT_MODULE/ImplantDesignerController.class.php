@@ -385,19 +385,28 @@ class ImplantDesignerController extends AutoInject {
 
 		$design = $this->getDesign($sender, '@');
 		$slotObj = &$design->$slot;
-
-		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
-		$blob .= "<tab>";
-		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
-		$blob .= "\n-------------------------\n\n";
-		$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
-		$blob .= $this->getImplantSummary($slotObj) . "\n";
-		$blob .= "Which ability do you want to require for $slot?\n\n";
-		$data = $this->db->query("SELECT Name FROM Ability");
-		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd($row->Name, "/tell <myname> implantdesigner $slot require $row->Name") . "\n";
+		if (empty($slotObj)) {
+			$msg = "You must have at least one cluster filled to require an ability.";
+		} else if (!empty($slotObj->symb)) {
+			$msg = "You cannot require an ability for a symbiant.";
+		} else if (empty($slotObj->shiny) && empty($slotObj->bright) && empty($slotObj->faded)) {
+			$msg = "You must have at least one cluster filled to require an ability.";
+		} else if (!empty($slotObj->shiny) && !empty($slotObj->bright) && !empty($slotObj->faded)) {
+			$msg = "You must have at least one empty cluster to require an ability.";
+		} else {
+			$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+			$blob .= "<tab>";
+			$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+			$blob .= "\n-------------------------\n\n";
+			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
+			$blob .= $this->getImplantSummary($slotObj) . "\n";
+			$blob .= "Which ability do you want to require for $slot?\n\n";
+			$data = $this->db->query("SELECT Name FROM Ability");
+			forEach ($data as $row) {
+				$blob .= $this->text->make_chatcmd($row->Name, "/tell <myname> implantdesigner $slot require $row->Name") . "\n";
+			}
+			$msg = $this->text->make_blob("Implant Designer Require Ability ($slot)", $blob);
 		}
-		$msg = $this->text->make_blob("Implant Designer Require Ability ($slot)", $blob);
 
 		$sendto->reply($msg);
 	}
@@ -412,7 +421,6 @@ class ImplantDesignerController extends AutoInject {
 
 		$design = $this->getDesign($sender, '@');
 		$slotObj = &$design->$slot;
-		print_r($slotObj);
 		if (empty($slotObj)) {
 			$msg = "You must have at least one cluster filled to require an ability.";
 		} else if (!empty($slotObj->symb)) {
