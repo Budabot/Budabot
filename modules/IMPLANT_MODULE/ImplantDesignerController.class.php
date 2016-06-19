@@ -436,7 +436,7 @@ class ImplantDesignerController extends AutoInject {
 			$blob .= "\n-------------------------\n\n";
 			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
 			$blob .= $this->getImplantSummary($slotObj) . "\n";
-			$blob .= "Combinations for <highlight>$slot<end> that require $ability:\n\n";
+			$blob .= "Combinations for <highlight>$slot<end> that require $ability:\n";
 			$params = [$ability];
 			$sql = 
 				"SELECT
@@ -479,6 +479,7 @@ class ImplantDesignerController extends AutoInject {
 			$sql .= " ORDER BY c1.LongName, c2.LongName, c3.LongName";
 
 			$data = $this->db->query($sql, $params);
+			$primary = null;
 			forEach ($data as $row) {
 				$results = [];
 				if (empty($slotObj->shiny)) {
@@ -493,7 +494,13 @@ class ImplantDesignerController extends AutoInject {
 				$results = array_map(function($item) use($slot) {
 					return (empty($item[1]) ? '-Empty-' : $this->text->make_chatcmd($item[1], "/tell <myname> implantdesigner $slot {$item[0]} {$item[1]}"));
 				}, $results);
-				$blob .= implode(", ", $results) . "\n";
+				if ($results[0] != $primary) {
+					$blob .= "\n" . $results[0] . "\n";
+					$primary = $results[0];
+				}
+				if (isset($results[1])) {
+					$blob .= "<tab>" . $results[1] . "\n";
+				}
 			}
 			$msg = $this->text->make_blob("Implant Designer Require $ability ($slot)", $blob);
 		}
