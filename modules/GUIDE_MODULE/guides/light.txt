@@ -4,6 +4,8 @@
 
 <a href='chatcmd:///fxscript Tweak_Shadowlands_SunLight #'>SLBasicLight</a>
 
+<a href='chatcmd:///fxscript Tweak_Shadowlands_SunLight_Caustics #'>CausticsLight</a>
+
 <a href='chatcmd:///fxscript Tweak_Shadowlands_SunLight_Penumbra #'>PenumbraLight</a>
 
 <a href='chatcmd:///fxscript Tweak_Shadowlands_SunLight_Lavaland #'>InfernoLight</a>
