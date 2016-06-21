@@ -502,7 +502,8 @@ class ImplantDesignerController extends AutoInject {
 					$blob .= "<tab>" . $results[1] . "\n";
 				}
 			}
-			$msg = $this->text->make_blob("Implant Designer Require $ability ($slot)", $blob);
+			$count = count($data);
+			$msg = $this->text->make_blob("Implant Designer Require $ability ($slot) ($count)", $blob);
 		}
 
 		$sendto->reply($msg);
