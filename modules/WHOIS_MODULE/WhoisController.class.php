@@ -192,9 +192,11 @@ class WhoisController {
 
 			$msg = $this->text->make_blob("Basic Info for $name", $blob);
 		} else {
+			$orglistLink = $this->text->make_chatcmd("Orglist", "/tell <myname> orglist $whois->guild_id");
+
 			$blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
 			if ($whois->guild) {
-				$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end>\n";
+				$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end> $orglistLink\n";
 				$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
 			}
 			$blob .= "Breed: <highlight>{$whois->breed}<end>\n";
