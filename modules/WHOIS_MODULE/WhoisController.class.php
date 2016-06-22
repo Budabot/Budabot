@@ -201,7 +201,7 @@ class WhoisController {
 			}
 			$blob .= "Breed: <highlight>{$whois->breed}<end>\n";
 			$blob .= "Gender: <highlight>{$whois->gender}<end>\n";
-			$blob .= "Profession: <highlight>{$whois->profession} ({$whois->prof_title})<end>\n";
+			$blob .= "Profession: <highlight>{$whois->profession} (" . trim($whois->prof_title) . ")<end>\n";
 			$blob .= "Level: <highlight>{$whois->level}<end>\n";
 			$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
 			$blob .= "Faction: <highlight>{$whois->faction}<end>\n";
