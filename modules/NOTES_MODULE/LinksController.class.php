@@ -32,6 +32,9 @@ class LinksController {
 
 	/** @Inject */
 	public $text;
+
+	/** @Inject */
+	public $accessManager;
 	
 	/**
 	 * @Setup
@@ -89,11 +92,14 @@ class LinksController {
 	public function linksRemoveCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
 
-		$numRows = $this->db->exec("DELETE FROM links WHERE id = ? AND name LIKE ?", $id, $sender);
-		if ($numRows) {
-			$msg = "Link deleted successfully.";
+		$obj = $this->db->queryRow("SELECT * FROM links WHERE id = ?", $id);
+		if (empty($obj)) {
+			$msg = "Link with ID <highlight>$id<end> could not be found.";
+		} else if ($obj->name == $sender || $this->accessManager->compareCharacterAccessLevels($sender, $obj->name) > 0) {
+			$this->db->exec("DELETE FROM links WHERE id = ?", $id);
+			$msg = "Link with ID <highlight>$id<end> deleted successfully.";
 		} else {
-			$msg = "Link could not be found or was not submitted by you.";
+			$msg = "You do not have permission to delete link with ID <highlight>$id<end>";
 		}
 		$sendto->reply($msg);
 	}
