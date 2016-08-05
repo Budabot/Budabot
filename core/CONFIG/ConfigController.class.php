@@ -375,9 +375,9 @@ class ConfigController {
 		$found_priv = 0;
 		$found_guild = 0;
 	
-		$alias_cmd = $this->commandAlias->get_command_by_alias($cmd);
-		if ($alias_cmd != null) {
-			$cmd = $alias_cmd;
+		$aliasCmd = $this->commandAlias->get_command_by_alias($cmd);
+		if ($aliasCmd != null) {
+			$cmd = $aliasCmd;
 		}
 	
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmd` = ?", $cmd);
@@ -385,7 +385,7 @@ class ConfigController {
 			$msg = "Could not find command <highlight>$cmd<end>.";
 		} else {
 			$blob = '';
-			$aliases = $this->commandAlias->find_aliases_by_command($cmd);
+			$aliases = $this->commandAlias->findAliasesByCommand($cmd);
 			$count = 0;
 			forEach ($aliases as $row) {
 				if ($row->status == 1) {
