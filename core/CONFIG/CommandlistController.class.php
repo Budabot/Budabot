@@ -78,9 +78,9 @@ class CommandlistController {
 				}
 		
 				if ($this->accessManager->checkAccess($sender, 'moderator')) {
-					$on = $this->text->make_chatcmd('ON', "/tell <myname> config cmd $cmd enable all");
-					$off = $this->text->make_chatcmd('OFF', "/tell <myname> config cmd $cmd disable all");
-					$adv = $this->text->make_chatcmd('Permissions', "/tell <myname> config cmd $cmd");
+					$on = $this->text->makeChatcmd('ON', "/tell <myname> config cmd $cmd enable all");
+					$off = $this->text->makeChatcmd('OFF', "/tell <myname> config cmd $cmd disable all");
+					$adv = $this->text->makeChatcmd('Permissions', "/tell <myname> config cmd $cmd");
 					$adv_link = " ($adv) $on  $off";
 				}
 		

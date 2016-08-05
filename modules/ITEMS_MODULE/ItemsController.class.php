@@ -238,7 +238,7 @@ class ItemsController {
 				// local database
 				$data = $this->find_items_from_local($search, $ql);
 
-				$budabotItemsExtractorLink = $this->text->make_chatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
+				$budabotItemsExtractorLink = $this->text->makeChatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
 				$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
 
 				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);

@@ -19,7 +19,7 @@ class Text {
 	public function makeHeaderLinks($links) {
 		$output = '';
 		forEach ($links as $title => $command){
-			$output .= " ::: " . $this->make_chatcmd($title, $command, 'style="text-decoration:none;"') . " ::: ";
+			$output .= " ::: " . $this->makeChatcmd($title, $command, 'style="text-decoration:none;"') . " ::: ";
 		}
 		return $output;
 	}
@@ -142,13 +142,13 @@ class Text {
 	}
 
 	/**
-	 * @name: make_chatcmd
+	 * @name: makeChatcmd
 	 * @description: creates a chatcmd link
 	 * @param: $name - the name the link will show
 	 * @param: $content - the chatcmd to execute
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
-	public function make_chatcmd($name, $content, $style = null) {
+	public function makeChatcmd($name, $content, $style = null) {
 		$content = str_replace("'", '&#39;', $content);
 		return "<a $style href='chatcmd://$content'>$name</a>";
 	}

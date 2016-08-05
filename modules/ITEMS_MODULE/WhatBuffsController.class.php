@@ -49,7 +49,7 @@ class WhatBuffsController {
 	public function whatbuffsCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
 		forEach ($this->types as $type => $typeId) {
-			$blob .= $this->text->make_chatcmd(ucfirst($type), "/tell <myname> whatbuffs $type") . "\n";
+			$blob .= $this->text->makeChatcmd(ucfirst($type), "/tell <myname> whatbuffs $type") . "\n";
 		}
 		$msg = $this->text->makeBlob("WhatBuffs - Choose Type", $blob);
 		$sendto->reply($msg);
@@ -64,7 +64,7 @@ class WhatBuffsController {
 		$data = $this->db->query("SELECT name FROM skills WHERE common = 1");
 		$blob = '';
 		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $type $row->name") . "\n";
+			$blob .= $this->text->makeChatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $type $row->name") . "\n";
 		}
 		$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		$sendto->reply($msg);
@@ -110,13 +110,13 @@ class WhatBuffsController {
 			$row = $data[0];
 			$blob = '';
 			forEach ($this->types as $type => $typeId) {
-				$blob .= $this->text->make_chatcmd(ucfirst($type), "/tell <myname> whatbuffs $type $row->name") . "\n";
+				$blob .= $this->text->makeChatcmd(ucfirst($type), "/tell <myname> whatbuffs $type $row->name") . "\n";
 			}
 			$msg = $this->text->makeBlob("WhatBuffs - Choose Type for $row->name", $blob);
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $row->name") . "\n";
+				$blob .= $this->text->makeChatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $row->name") . "\n";
 			}
 			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		}
@@ -143,7 +143,7 @@ class WhatBuffsController {
 			$msg = "No {$category}s found that buff $skill.";
 		} else {
 			list($count, $blob) = $result;
-			$blob = $this->text->make_chatcmd("See results on Auno.org", "/start $newUrl") . "\n\n" . $blob;
+			$blob = $this->text->makeChatcmd("See results on Auno.org", "/start $newUrl") . "\n\n" . $blob;
 			$blob .= "\nSearch results provided by Auno.org";
 			$msg = $this->text->makeBlob("WhatBuffs - $category $skill ($count)", $blob);
 		}
@@ -195,7 +195,7 @@ class WhatBuffsController {
 	public function formatNanos($matches) {
 		$blob = '';
 		forEach ($matches as $match) {
-			$blob .= $this->text->make_chatcmd($match[2], "/tell <myname> nano $match[2]") . "\n";
+			$blob .= $this->text->makeChatcmd($match[2], "/tell <myname> nano $match[2]") . "\n";
 		}
 
 		$count = count($matches);		
@@ -220,7 +220,7 @@ class WhatBuffsController {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $category $row->name") . "\n";
+				$blob .= $this->text->makeChatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $category $row->name") . "\n";
 			}
 			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		}

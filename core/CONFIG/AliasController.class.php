@@ -94,7 +94,7 @@ class AliasController {
 			} else {
 				$color = "highlight";
 			}
-			$removeLink = $this->text->make_chatcmd('Remove', "/tell <myname> alias rem {$alias->alias}");
+			$removeLink = $this->text->makeChatcmd('Remove', "/tell <myname> alias rem {$alias->alias}");
 			$a = $this->padRow($alias->alias, $paddingSize);
 			$blob .= "<{$color}>{$a}{$alias->cmd}<end> $removeLink\n";
 		}

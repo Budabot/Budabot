@@ -702,30 +702,30 @@ class LootListsController {
 	 */
 	public function pandeCommand($message, $channel, $sender, $sendto, $args) {
 		$list .= "<header2>The Beast<end>\n";
-		$list .= "<tab>".$this->text->make_chatcmd("Beast Armor\n", "/tell <myname> beastarmor");
-		$list .= "<tab>".$this->text->make_chatcmd("Beast Weapons\n", "/tell <myname> beastweaps");
-		$list .= "<tab>".$this->text->make_chatcmd("Beast Stars\n", "/tell <myname> beaststars");
+		$list .= "<tab>".$this->text->makeChatcmd("Beast Armor\n", "/tell <myname> beastarmor");
+		$list .= "<tab>".$this->text->makeChatcmd("Beast Weapons\n", "/tell <myname> beastweaps");
+		$list .= "<tab>".$this->text->makeChatcmd("Beast Stars\n", "/tell <myname> beaststars");
 		$list .= "\n<header2>The Night Heart<end>\n";
-		$list .= "<tab>".$this->text->make_chatcmd("TNH\n", "/tell <myname> tnh");
+		$list .= "<tab>".$this->text->makeChatcmd("TNH\n", "/tell <myname> tnh");
 		$list .= "\n<header2>West Zodiacs<end>\n";
-		$list .= "<tab>".$this->text->make_chatcmd("Aries\n", "/tell <myname> aries");
-		$list .= "<tab>".$this->text->make_chatcmd("Leo\n", "/tell <myname> leo");
-		$list .= "<tab>".$this->text->make_chatcmd("Virgo\n", "/tell <myname> virgo");
+		$list .= "<tab>".$this->text->makeChatcmd("Aries\n", "/tell <myname> aries");
+		$list .= "<tab>".$this->text->makeChatcmd("Leo\n", "/tell <myname> leo");
+		$list .= "<tab>".$this->text->makeChatcmd("Virgo\n", "/tell <myname> virgo");
 		$list .= "\n<header2>East Zodiacs<end>\n";
-		$list .= "<tab>".$this->text->make_chatcmd("Aquarius\n", "/tell <myname> aquarius");
-		$list .= "<tab>".$this->text->make_chatcmd("Cancer\n", "/tell <myname> cancer");
-		$list .= "<tab>".$this->text->make_chatcmd("Gemini\n", "/tell <myname> gemini");
+		$list .= "<tab>".$this->text->makeChatcmd("Aquarius\n", "/tell <myname> aquarius");
+		$list .= "<tab>".$this->text->makeChatcmd("Cancer\n", "/tell <myname> cancer");
+		$list .= "<tab>".$this->text->makeChatcmd("Gemini\n", "/tell <myname> gemini");
 		$list .= "\n<header2>Middle Zodiacs<end>\n";
-		$list .= "<tab>".$this->text->make_chatcmd("Libra\n", "/tell <myname> libra");
-		$list .= "<tab>".$this->text->make_chatcmd("Pisces\n", "/tell <myname> pisces");
-		$list .= "<tab>".$this->text->make_chatcmd("Taurus\n", "/tell <myname> taurus");
+		$list .= "<tab>".$this->text->makeChatcmd("Libra\n", "/tell <myname> libra");
+		$list .= "<tab>".$this->text->makeChatcmd("Pisces\n", "/tell <myname> pisces");
+		$list .= "<tab>".$this->text->makeChatcmd("Taurus\n", "/tell <myname> taurus");
 		$list .= "\n<header2>North Zodiacs<end>\n";
-		$list .= "<tab>".$this->text->make_chatcmd("Capricorn\n", "/tell <myname> capricorn");
-		$list .= "<tab>".$this->text->make_chatcmd("Sagittarius\n", "/tell <myname> sagittarius");
-		$list .= "<tab>".$this->text->make_chatcmd("Scorpio\n", "/tell <myname> scorpio");
+		$list .= "<tab>".$this->text->makeChatcmd("Capricorn\n", "/tell <myname> capricorn");
+		$list .= "<tab>".$this->text->makeChatcmd("Sagittarius\n", "/tell <myname> sagittarius");
+		$list .= "<tab>".$this->text->makeChatcmd("Scorpio\n", "/tell <myname> scorpio");
 		$list .= "\n<header2>Other<end>\n";
-		$list .= "<tab>".$this->text->make_chatcmd("Shadowbreeds\n", "/tell <myname> sb");
-		$list .= "<tab>".$this->text->make_chatcmd("Bastion\n", "/tell <myname> bastion");
+		$list .= "<tab>".$this->text->makeChatcmd("Shadowbreeds\n", "/tell <myname> sb");
+		$list .= "<tab>".$this->text->makeChatcmd("Bastion\n", "/tell <myname> bastion");
 
 		$list .= "\n\nPandemonium Loot By Marinerecon (RK2)";
 
@@ -783,17 +783,17 @@ class LootListsController {
 	 * @Matches("/^xan$/i")
 	 */
 	public function xanCommand($message, $channel, $sender, $sendto, $args) {
-		$list = $this->text->make_chatcmd("Vortexx", "/tell <myname> vortexx") . "\n";
+		$list = $this->text->makeChatcmd("Vortexx", "/tell <myname> vortexx") . "\n";
 		$list .= "<tab>General\n";
 		$list .= "<tab>Symbiants (Beta)\n";
 		$list .= "<tab>Spirits (Beta)\n\n";
 
-		$list .= $this->text->make_chatcmd("Mitaar Hero", "/tell <myname> mitaar") . "\n";
+		$list .= $this->text->makeChatcmd("Mitaar Hero", "/tell <myname> mitaar") . "\n";
 		$list .= "<tab>General\n";
 		$list .= "<tab>Symbiants (Beta)\n";
 		$list .= "<tab>Spirits (Beta)\n\n";
 
-		$list .= $this->text->make_chatcmd("12 Man", "/tell <myname> 12m") . "\n";
+		$list .= $this->text->makeChatcmd("12 Man", "/tell <myname> 12m") . "\n";
 		$list .= "<tab>General\n";
 		$list .= "<tab>Symbiants (Beta)\n";
 		$list .= "<tab>Spirits (Beta)\n";
@@ -822,7 +822,7 @@ class LootListsController {
 				$blob .= " ($row->comment)";
 			}
 			$blob .= "\n";
-			$blob .= $this->text->make_chatcmd("Add to Loot List", "/tell <myname> loot $row->id");
+			$blob .= $this->text->makeChatcmd("Add to Loot List", "/tell <myname> loot $row->id");
 			$blob .= "\n\n";
 		}
 

@@ -68,7 +68,7 @@ class AOUController {
 		$title = $content->getElementsByTagName('name')->item(0)->nodeValue;
 
 		$blob = '';
-		$blob .= $this->text->make_chatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n\n";
+		$blob .= $this->text->makeChatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n\n";
 
 		$blob .= "Update: <highlight>" . $content->getElementsByTagName('update')->item(0)->nodeValue . "<end>\n";
 		$blob .= "Profession: <highlight>" . $content->getElementsByTagName('class')->item(0)->nodeValue . "<end>\n";
@@ -78,7 +78,7 @@ class AOUController {
 
 		$blob .= $this->processInput($content->getElementsByTagName('text')->item(0)->nodeValue);
 
-		$blob .= "\n\n<highlight>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
+		$blob .= "\n\n<highlight>Powered by<end> " . $this->text->makeChatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 
 		$msg = $this->text->makeBlob($title, $blob);
 		$sendto->reply($msg);
@@ -137,7 +137,7 @@ class AOUController {
 				// to only include guides that contain the keywords in the category, name, or description
 				if ($searchGuideText || $this->striposarray($category . ' ' . $guideObj->name . ' ' . $guideObj->description, $searchTerms)) {
 					$count++;
-					$tempBlob .= '  ' . $this->text->make_chatcmd("$guideObj->name", "/tell <myname> aou $guideObj->id") . " - " . $guideObj->description . "\n";
+					$tempBlob .= '  ' . $this->text->makeChatcmd("$guideObj->name", "/tell <myname> aou $guideObj->id") . " - " . $guideObj->description . "\n";
 					$found = true;
 				}
 			}
@@ -149,7 +149,7 @@ class AOUController {
 			}
 		}
 
-		$blob .= "\n<highlight>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
+		$blob .= "\n<highlight>Powered by<end> " . $this->text->makeChatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 
 		if ($count > 0) {
 			if ($searchGuideText) {
@@ -207,7 +207,7 @@ class AOUController {
 			if (null == $obj) {
 				$output = $id;
 			} else if ($obj->icon == 0) {  // for perks and items that aren't displayable in game
-				$output = $this->text->make_chatcmd($obj->name, "/start https://aoitems.com/item/{$obj->lowid}");
+				$output = $this->text->makeChatcmd($obj->name, "/start https://aoitems.com/item/{$obj->lowid}");
 			} else {
 				$output = $this->generateItemMarkup($type, $obj);
 			}
@@ -223,7 +223,7 @@ class AOUController {
 			$$name = $value;
 		}
 		
-		return $this->text->make_chatcmd($label . " ({$x}x{$y})", "/waypoint $x $y $pf");
+		return $this->text->makeChatcmd($label . " ({$x}x{$y})", "/waypoint $x $y $pf");
 	}
 	
 	private function replaceGuideLinks($arr) {
@@ -231,9 +231,9 @@ class AOUController {
 		$label = $arr[3];
 		
 		if (preg_match("/pid=(\\d+)/", $url, $idArray)) {
-			return $this->text->make_chatcmd($label, "/tell <myname> aou " . $idArray[1]);
+			return $this->text->makeChatcmd($label, "/tell <myname> aou " . $idArray[1]);
 		} else {
-			return $this->text->make_chatcmd($label, "/start $url");
+			return $this->text->makeChatcmd($label, "/start $url");
 		}
 	}
 	

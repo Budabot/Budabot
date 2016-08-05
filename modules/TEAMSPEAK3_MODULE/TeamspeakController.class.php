@@ -80,7 +80,7 @@ class TeamspeakController {
 		try {
 			$server = $this->settingManager->get('ts_server');
 			$clientPort = $this->settingManager->get('ts_clientport');
-			$serverLink = $this->text->make_chatcmd($server, "/start http://ts3server:://$server:$clientPort");
+			$serverLink = $this->text->makeChatcmd($server, "/start http://ts3server:://$server:$clientPort");
 
 			$users = $ts->exec('clientlist');
 			$tmp = $ts->exec('channellist');

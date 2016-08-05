@@ -86,7 +86,7 @@ class RecipeController {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$blob .= $this->text->make_chatcmd($row->name, "/tell <myname> recipe $row->id") . "\n";
+				$blob .= $this->text->makeChatcmd($row->name, "/tell <myname> recipe $row->id") . "\n";
 			}
 
 			$msg = $this->text->makeBlob("Recipes matching '$search' ($count)", $blob);
@@ -137,7 +137,7 @@ class RecipeController {
 			if (null == $obj) {
 				$output = "#L \"{$arr[1]}\" \"/tell <myname> itemid {$arr[2]}\"";
 			} else if ($obj->icon == 0) {  // for perks and items that aren't displayable in game
-				$output = $this->text->make_chatcmd($obj->name, "/start https://aoitems.com/item/{$obj->lowid}");
+				$output = $this->text->makeChatcmd($obj->name, "/start https://aoitems.com/item/{$obj->lowid}");
 			} else {
 				$output = $this->text->make_item($obj->lowid, $obj->highid, $obj->highql, $obj->name);
 			}

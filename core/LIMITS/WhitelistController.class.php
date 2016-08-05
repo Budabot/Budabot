@@ -51,7 +51,7 @@ class WhitelistController {
 		} else {
 			$blob = '';
 			forEach ($list as $entry) {
-				$remove = $this->text->make_chatcmd('Remove', "/tell <myname> whitelist remove $entry->name");
+				$remove = $this->text->makeChatcmd('Remove', "/tell <myname> whitelist remove $entry->name");
 				$date = $this->util->date($entry->added_dt);
 				$blob .= "<highlight>{$entry->name}<end> [added by {$entry->added_by}] {$date} {$remove}\n";
 			}

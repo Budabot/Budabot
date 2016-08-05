@@ -180,7 +180,7 @@ class UsageController {
 
 		$blob .= "<header2>$limit Most Used Commands<end>\n";
 		forEach ($data as $row) {
-			$commandLink = $this->text->make_chatcmd($row->command, "/tell <myname> usage cmd $row->command");
+			$commandLink = $this->text->makeChatcmd($row->command, "/tell <myname> usage cmd $row->command");
 			$blob .= "{$commandLink} ({$row->count})\n";
 		}
 
@@ -190,7 +190,7 @@ class UsageController {
 
 		$blob .= "\n<header2>$limit Most Active Users<end>\n";
 		forEach ($data as $row) {
-			$senderLink = $this->text->make_chatcmd($row->sender, "/tell <myname> usage player $row->sender");
+			$senderLink = $this->text->makeChatcmd($row->sender, "/tell <myname> usage player $row->sender");
 			$blob .= "{$senderLink} ({$row->count})\n";
 		}
 

@@ -34,7 +34,7 @@ class ChatCheckController {
 			$content .= " \\n /assist $row->name";
 		}
 
-		$list = $this->text->make_chatcmd("Check Players", "/text AssistAll: $content");
+		$list = $this->text->makeChatcmd("Check Players", "/text AssistAll: $content");
 		$msg = $this->text->makeBlob("Check Players In Vicinity", $list);
 		$sendto->reply($msg);
 	}

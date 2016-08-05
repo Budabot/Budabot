@@ -62,7 +62,7 @@ class BankController {
 		$blob = '';
 		$data = $this->db->query("SELECT DISTINCT player FROM bank ORDER BY player ASC");
 		forEach ($data as $row) {
-			$character_link = $this->text->make_chatcmd($row->player, "/tell <myname> bank browse {$row->player}");
+			$character_link = $this->text->makeChatcmd($row->player, "/tell <myname> bank browse {$row->player}");
 			$blob .= $character_link . "\n";
 		}
 
@@ -81,7 +81,7 @@ class BankController {
 		$data = $this->db->query("SELECT DISTINCT container_id, container, player FROM bank WHERE player = ? ORDER BY container ASC", $name);
 		if (count($data) > 0) {
 			forEach ($data as $row) {
-				$container_link = $this->text->make_chatcmd($row->container, "/tell <myname> bank browse {$row->player} {$row->container_id}");
+				$container_link = $this->text->makeChatcmd($row->container, "/tell <myname> bank browse {$row->player} {$row->container_id}");
 				$blob .= "{$container_link}\n";
 			}
 

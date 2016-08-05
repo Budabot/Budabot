@@ -97,8 +97,8 @@ class RaffleController {
 			"sendto" => $sendto
 		);
 		
-		$joinLink = $this->text->make_chatcmd("here", "/tell <myname> raffle join");
-		$leaveLink = $this->text->make_chatcmd("here", "/tell <myname> raffle leave");
+		$joinLink = $this->text->makeChatcmd("here", "/tell <myname> raffle join");
+		$leaveLink = $this->text->makeChatcmd("here", "/tell <myname> raffle leave");
 
 		$jnRflMsg = "<white>A raffle for $item (count: $count) has been started by $sender!<end>
 
@@ -348,8 +348,8 @@ class RaffleController {
 			$blob .= "No entrants yet.";
 		}
 		
-		$joinLink = $this->text->make_chatcmd("here", "/tell <myname> raffle join");
-		$leaveLink = $this->text->make_chatcmd("here", "/tell <myname> raffle leave");
+		$joinLink = $this->text->makeChatcmd("here", "/tell <myname> raffle join");
+		$leaveLink = $this->text->makeChatcmd("here", "/tell <myname> raffle leave");
 
 		$blob .= "\n\nClick $joinLink to join the raffle!";
 		$blob .= "\nClick $leaveLink if you wish to leave the raffle.";

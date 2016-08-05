@@ -53,7 +53,7 @@ class SilenceController extends AutoInject {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$unsilenceLink = $this->text->make_chatcmd("Unsilence", "/tell <myname> unsilence $row->cmd $row->channel");
+				$unsilenceLink = $this->text->makeChatcmd("Unsilence", "/tell <myname> unsilence $row->cmd $row->channel");
 				$blob .= "<highlight>$row->cmd<end> ($row->channel) - $unsilenceLink\n";
 			}
 			$msg = $this->text->makeBlob("Silenced Commands", $blob);

@@ -175,7 +175,7 @@ class PlayfieldController {
 	}
 	
 	private function processWaypointCommand($x_coords, $y_coords, $playfield_name, $playfield_id) {
-		$link = $this->text->make_chatcmd("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
+		$link = $this->text->makeChatcmd("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
 		$blob = "Click here to use waypoint: $link";
 		return $this->text->makeBlob("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", $blob);
 	}

@@ -93,7 +93,7 @@ class BuddylistController {
 			} else {
 				$blob .= "\n\nUnknown: ($orphanCount) ";
 				if ($orphanCount > 0) {
-					$blob .= $this->text->make_chatcmd('Remove Orphans', '/tell <myname> <symbol>friendlist clean');
+					$blob .= $this->text->makeChatcmd('Remove Orphans', '/tell <myname> <symbol>friendlist clean');
 				}
 			}
 

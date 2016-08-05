@@ -55,8 +55,8 @@ class EventlistController {
 		if ($count > 0) {
 			$blob = '';
 			forEach ($data as $row) {
-				$on = $this->text->make_chatcmd('ON', "/tell <myname> config event $row->type $row->file enable all");
-				$off = $this->text->make_chatcmd('OFF', "/tell <myname> config event $row->type $row->file disable all");
+				$on = $this->text->makeChatcmd('ON', "/tell <myname> config event $row->type $row->file enable all");
+				$off = $this->text->makeChatcmd('OFF', "/tell <myname> config event $row->type $row->file disable all");
 	
 				if ($row->status == 1) {
 					$status = "<green>Enabled<end>";

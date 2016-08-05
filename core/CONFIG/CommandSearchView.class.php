@@ -14,10 +14,10 @@ class CommandSearchView {
 		$blob = '';
 		forEach ($results as $row) {
 			if ($row->help != '') {
-				$helpLink = ' (' . $this->text->make_chatcmd("Help", "/tell <myname> help $row->cmd") . ')';
+				$helpLink = ' (' . $this->text->makeChatcmd("Help", "/tell <myname> help $row->cmd") . ')';
 			}
 			if ($hasAccess) {
-				$module = $this->text->make_chatcmd($row->module, "/tell <myname> config {$row->module}");
+				$module = $this->text->makeChatcmd($row->module, "/tell <myname> config {$row->module}");
 			} else {
 				$module = "{$row->module}";
 			}

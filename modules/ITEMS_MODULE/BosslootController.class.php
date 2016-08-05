@@ -128,7 +128,7 @@ class BosslootController {
 			aodb a ON (b.itemname = a.name)
 			WHERE b.bossid = ?", $row->bossid);
 			
-		$blob = '<pagebreak>' . $this->text->make_chatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
+		$blob = '<pagebreak>' . $this->text->makeChatcmd($row->bossname, "/tell <myname> boss $row->bossname") . "\n";
 		$blob .= "Location: <highlight>{$row->answer}<end>\n";
 		$blob .= "Loot: ";
 		forEach ($data as $row2) {

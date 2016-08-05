@@ -167,7 +167,7 @@ class AlienBioController {
 					continue;
 			}
 
-			$biotype_link = $this->text->make_chatcmd($name, "/tell <myname> bioinfo $bioinfo $ql");
+			$biotype_link = $this->text->makeChatcmd($name, "/tell <myname> bioinfo $bioinfo $ql");
 			$blob .= $biotype_link . "\n\n";
 		}
 
@@ -204,7 +204,7 @@ class AlienBioController {
 	public function getTypeBlob($types) {
 		$blob = '';
 		forEach ($types as $type) {
-			$blob .= $this->text->make_chatcmd($type, "/tell <myname> bioinfo $type") . "\n";
+			$blob .= $this->text->makeChatcmd($type, "/tell <myname> bioinfo $type") . "\n";
 		}
 		return $blob;
 	}
@@ -272,7 +272,7 @@ class AlienBioController {
 		$blob = $item . "\n\n";
 		$blob .= "<highlight>Upgrades Ofab armor for:<end>\n";
 		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd($row->profession, "/tell <myname> ofabarmor {$row->profession}") . "\n";
+			$blob .= $this->text->makeChatcmd($row->profession, "/tell <myname> ofabarmor {$row->profession}") . "\n";
 		}
 
 		return $this->text->makeBlob("$name (QL $ql)", $blob);
@@ -291,7 +291,7 @@ class AlienBioController {
 		$blob = $item . "\n\n";
 		$blob .= "<highlight>Upgrades Ofab weapons:<end>\n";
 		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd("Ofab {$row->name} Mk 1", "/tell <myname> ofabweapons {$row->name}") . "\n";
+			$blob .= $this->text->makeChatcmd("Ofab {$row->name} Mk 1", "/tell <myname> ofabweapons {$row->name}") . "\n";
 		}
 
 		return $this->text->makeBlob("$name (QL $ql)", $blob);

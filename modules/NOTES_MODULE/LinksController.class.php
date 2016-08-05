@@ -54,11 +54,11 @@ class LinksController {
 		$sql = "SELECT * FROM links ORDER BY name ASC";
 		$data = $this->db->query($sql);
 		forEach ($data as $row) {
-			$remove = $this->text->make_chatcmd('Remove', "/tell <myname> <symbol>links rem $row->id");
+			$remove = $this->text->makeChatcmd('Remove', "/tell <myname> <symbol>links rem $row->id");
 			if ($this->settingManager->get('showfullurls') == 1) {
-				$website = $this->text->make_chatcmd($row->website, "/start $row->website");
+				$website = $this->text->makeChatcmd($row->website, "/start $row->website");
 			} else {
-				$website = $this->text->make_chatcmd('[Link]', "/start $row->website");
+				$website = $this->text->makeChatcmd('[Link]', "/start $row->website");
 			}
 			$blob .= "$website <highlight>$row->comments<end> [$row->name] $remove\n";
 		}

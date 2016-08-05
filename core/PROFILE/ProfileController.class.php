@@ -82,8 +82,8 @@ class ProfileController {
 			$linkContents = '';
 			forEach ($profileList as $profile) {
 				$name = ucfirst(strtolower($profile));
-				$viewLink = $this->text->make_chatcmd("View", "/tell <myname> profile view $profile");
-				$loadLink = $this->text->make_chatcmd("Load", "/tell <myname> profile load $profile");
+				$viewLink = $this->text->makeChatcmd("View", "/tell <myname> profile view $profile");
+				$loadLink = $this->text->makeChatcmd("Load", "/tell <myname> profile load $profile");
 				$linkContents .= "$profile [$viewLink] [$loadLink]\n";
 			}
 

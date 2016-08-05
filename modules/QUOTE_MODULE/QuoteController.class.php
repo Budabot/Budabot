@@ -121,7 +121,7 @@ class QuoteController {
 		$list = "";
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `poster` LIKE ?", $searchParam);
 		forEach ($data as $row) {
-			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
+			$list .= $this->text->makeChatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
 		if ($list) {
 			$msg .= "<tab>Quotes posted by <highlight>$search<end>: ";
@@ -132,7 +132,7 @@ class QuoteController {
 		$list = "";
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `msg` LIKE ?", $searchParam);
 		forEach ($data as $row) {
-			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
+			$list .= $this->text->makeChatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
 		if ($list) {
 			if ($msg) {
@@ -216,7 +216,7 @@ class QuoteController {
 		$data = $this->db->query("SELECT * FROM `quote` WHERE `poster` = ?", $poster);
 		$list = "";
 		forEach ($data as $row) {
-			$list .= $this->text->make_chatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
+			$list .= $this->text->makeChatcmd($row->id, "/tell <myname> quote $row->id") . ", ";
 		}
 		$msg .= substr($list, 0, strlen($list) - 2);
 

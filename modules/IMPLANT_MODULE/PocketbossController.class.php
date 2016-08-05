@@ -66,7 +66,7 @@ class PocketbossController {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$pbLink = $this->text->make_chatcmd($row->pb, "/tell <myname> pocketboss $row->pb");
+				$pbLink = $this->text->makeChatcmd($row->pb, "/tell <myname> pocketboss $row->pb");
 				$blob .= $pbLink . "\n";
 			}
 			$msg = $this->text->makeBlob("Search results for $search ($numrows)", $blob);
@@ -203,13 +203,13 @@ class PocketbossController {
 		$data = $this->db->query("SELECT * FROM pocketboss WHERE `slot` LIKE ? AND `type` LIKE ? AND `line` LIKE ? ORDER BY `ql` DESC, `type` ASC", $slot, $symbtype, $line);
 		$numrows = count($data);
 		if ($numrows != 0) {
-			$implantDesignerLink = $this->text->make_chatcmd("implant designer", "/tell <myname> implantdesigner");
+			$implantDesignerLink = $this->text->makeChatcmd("implant designer", "/tell <myname> implantdesigner");
 			$blob = "Click 'Add' to add symbiant to $implantDesignerLink.\n\n";
 			forEach ($data as $row) {
 				$name = "$row->line $row->slot Symbiant, $row->type Unit Aban";
-				$impDesignerAddLink = $this->text->make_chatcmd("Add", "/tell <myname> implantdesigner $impDesignSlot symb $name");
+				$impDesignerAddLink = $this->text->makeChatcmd("Add", "/tell <myname> implantdesigner $impDesignSlot symb $name");
 				$blob .= "<pagebreak>" . $this->text->make_item($row->itemid, $row->itemid, $row->ql, $name)." ($row->ql) $impDesignerAddLink\n";
-				$blob .= "Found on " . $this->text->make_chatcmd($row->pb, "/tell <myname> pb $row->pb");
+				$blob .= "Found on " . $this->text->makeChatcmd($row->pb, "/tell <myname> pb $row->pb");
 				$blob .= "\n\n";
 			}
 			$msg = $this->text->makeBlob("Symbiant Search Results ($numrows)", $blob);

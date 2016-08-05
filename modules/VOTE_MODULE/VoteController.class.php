@@ -152,7 +152,7 @@ class VoteController {
 				$question = $row->question;
 				$started = $row->started;
 				$duration = $row->duration;
-				$line = "<tab>" . $this->text->make_chatcmd($question, "/tell <myname> vote show $question");
+				$line = "<tab>" . $this->text->makeChatcmd($question, "/tell <myname> vote show $question");
 
 				$timeleft = $started + $duration - time();
 				if ($timeleft>0) {
@@ -408,7 +408,7 @@ class VoteController {
 			}
 
 			if ($timeleft > 0) {
-				$blob .= $this->text->make_chatcmd($key, "/tell <myname> vote choose $question{$this->delimiter}$key") . " (Votes: $value)\n";
+				$blob .= $this->text->makeChatcmd($key, "/tell <myname> vote choose $question{$this->delimiter}$key") . " (Votes: $value)\n";
 			} else {
 				$blob .= "<highlight>$key<end> (Votes: $value)\n";
 			}
@@ -416,15 +416,15 @@ class VoteController {
 
 		//if ($didvote && $timeleft > 0) {
 		if ($timeleft > 0) { // Want this option avaiable for everyone if its run from org/priv chat.
-			$blob .= "\n" . $this->text->make_chatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
+			$blob .= "\n" . $this->text->makeChatcmd('Remove yourself from this vote', "/tell <myname> vote remove $question") . "\n";
 		}
 
 		$blob .="\nDon't like these choices?  Add your own:\n<tab>/tell <myname> vote $question{$this->delimiter}<highlight>your choice<end>\n";
 
 		$blob .="\nIf you started this vote, you can:\n";
-		$blob .="<tab>" . $this->text->make_chatcmd('Kill the vote completely', "/tell <myname> vote kill $question") . "\n";
+		$blob .="<tab>" . $this->text->makeChatcmd('Kill the vote completely', "/tell <myname> vote kill $question") . "\n";
 		if ($timeleft > 0) {
-			$blob .="<tab>" . $this->text->make_chatcmd('End the vote early', "/tell <myname> vote end $question");
+			$blob .="<tab>" . $this->text->makeChatcmd('End the vote early', "/tell <myname> vote end $question");
 		}
 
 		return $blob;

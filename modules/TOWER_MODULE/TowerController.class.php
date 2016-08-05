@@ -249,7 +249,7 @@ class TowerController {
 
 		$blob = '';
 		forEach ($data as $row) {
-			$baseLink = $this->text->make_chatcmd($row->long_name, "/tell <myname> lc $row->short_name");
+			$baseLink = $this->text->makeChatcmd($row->long_name, "/tell <myname> lc $row->short_name");
 			$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
 		}
 		$msg = $this->text->makeBlob('Land Control Index', $blob);
@@ -402,7 +402,7 @@ class TowerController {
 				$gas_level = $this->getGasLevel($row->close_time);
 				$gas_change_string = "$gas_level->color $gas_level->gas_level - $gas_level->next_state in " . gmdate('H:i:s', $gas_level->gas_change) . "<end>";
 	
-				$site_link = $this->text->make_chatcmd("$row->short_name $row->site_number", "/tell <myname> lc $row->short_name $row->site_number");
+				$site_link = $this->text->makeChatcmd("$row->short_name $row->site_number", "/tell <myname> lc $row->short_name $row->site_number");
 				$open_time = $row->close_time - (3600 * 6);
 				if ($open_time < 0) {
 					$open_time += 86400;
@@ -608,7 +608,7 @@ class TowerController {
 	
 		if ($check_blob) {
 			$forceCmd = "forcescout $playfield->short_name $site_number $closing_time $ct_ql $faction $guild_name";
-			$forcescoutLink = $this->text->make_chatcmd("<symbol>$forceCmd", "/tell <myname> $forceCmd");
+			$forcescoutLink = $this->text->makeChatcmd("<symbol>$forceCmd", "/tell <myname> $forceCmd");
 			$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks.\n\n";
 			$check_blob .= $forcescoutLink;
 
@@ -860,8 +860,8 @@ class TowerController {
 			$link .= "Defender: <highlight>$def_guild<end>\n";
 			$link .= "Alignment: <highlight>$def_side<end>\n\n";
 		
-			$base_link = $this->text->make_chatcmd("{$playfield->short_name} {$closest_site->site_number}", "/tell <myname> lc {$playfield->short_name} {$closest_site->site_number}");
-			$attack_waypoint = $this->text->make_chatcmd("{$x_coords}x{$y_coords}", "/waypoint {$x_coords} {$y_coords} {$playfield->id}");
+			$base_link = $this->text->makeChatcmd("{$playfield->short_name} {$closest_site->site_number}", "/tell <myname> lc {$playfield->short_name} {$closest_site->site_number}");
+			$attack_waypoint = $this->text->makeChatcmd("{$x_coords}x{$y_coords}", "/waypoint {$x_coords} {$y_coords} {$playfield->id}");
 			$link .= "Playfield: <highlight>{$base_link} ({$closest_site->min_ql}-{$closest_site->max_ql})<end>\n";
 			$link .= "Location: <highlight>{$closest_site->site_name} ({$attack_waypoint})<end>\n";
 		
@@ -1020,7 +1020,7 @@ class TowerController {
 					$blob .= "Attacker: {$row->att_player} ({$row->att_level}/<green>{$row->att_ai_level}<end> {$row->att_profession}) <{$att_faction}>{$row->att_guild_name}<end> ({$row->att_faction})\n";
 				}
 
-				$base = $this->text->make_chatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
+				$base = $this->text->makeChatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
 				$base .= " ({$row->min_ql}-{$row->max_ql})";
 
 				$blob .= "Defender: <{$def_faction}>{$row->def_guild_name}<end> ({$row->def_faction})\n";
@@ -1084,7 +1084,7 @@ class TowerController {
 				}
 
 				if ($row->playfield_id != '' && $row->site_number != '') {
-					$base = $this->text->make_chatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
+					$base = $this->text->makeChatcmd("{$row->short_name} {$row->site_number}", "/tell <myname> lc {$row->short_name} {$row->site_number}");
 					$base .= " ({$row->min_ql}-{$row->max_ql})";
 				} else {
 					$base = "Unknown";
@@ -1354,9 +1354,9 @@ class TowerController {
 	}
 	
 	protected function formatSiteInfo($row) {
-		$waypointLink = $this->text->make_chatcmd($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}");
-		$attacksLink = $this->text->make_chatcmd("Recent attacks", "/tell <myname> attacks {$row->short_name} {$row->site_number}");
-		$victoryLink = $this->text->make_chatcmd("Recent victories", "/tell <myname> victory {$row->short_name} {$row->site_number}");
+		$waypointLink = $this->text->makeChatcmd($row->x_coord . "x" . $row->y_coord, "/waypoint {$row->x_coord} {$row->y_coord} {$row->playfield_id}");
+		$attacksLink = $this->text->makeChatcmd("Recent attacks", "/tell <myname> attacks {$row->short_name} {$row->site_number}");
+		$victoryLink = $this->text->makeChatcmd("Recent victories", "/tell <myname> victory {$row->short_name} {$row->site_number}");
 
 		$blob = "Short name: <highlight>{$row->short_name} {$row->site_number}<end>\n";
 		$blob .= "Long name: <highlight>{$row->site_name}, {$row->long_name}<end>\n";

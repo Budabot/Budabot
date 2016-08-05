@@ -146,8 +146,8 @@ class EventsController {
 		$id = $args[1];
 		$row = $this->db->queryRow("SELECT event_attendees FROM events WHERE `id` = ?", $id);
 		if ($row !== null) {
-			$link = $this->text->make_chatcmd("Join this event", "/tell <myname> events join $id")."\n";
-			$link .= $this->text->make_chatcmd("Leave this event", "/tell <myname> events leave $id")."\n\n";
+			$link = $this->text->makeChatcmd("Join this event", "/tell <myname> events join $id")."\n";
+			$link .= $this->text->makeChatcmd("Leave this event", "/tell <myname> events leave $id")."\n\n";
 
 			if (empty($row->event_attendees)) {
 				$link .= "No one has signed up to attend this event!";
@@ -165,9 +165,9 @@ class EventsController {
 					$alt = '';
 					if (count($altInfo->alts) > 0) {
 						if ($altInfo->main == $name) {
-							$alt = " <highlight>::<end> " . $this->text->make_chatcmd("Alts", "/tell <myname> alts $name");
+							$alt = " <highlight>::<end> " . $this->text->makeChatcmd("Alts", "/tell <myname> alts $name");
 						} else {
-							$alt = " <highlight>::<end> " . $this->text->make_chatcmd("Alts of {$altInfo->main}", "/tell <myname> alts $name");
+							$alt = " <highlight>::<end> " . $this->text->makeChatcmd("Alts of {$altInfo->main}", "/tell <myname> alts $name");
 						}
 					}
 
@@ -265,9 +265,9 @@ class EventsController {
 					$upcoming = "Event Date: <highlight>" . $this->util->date($row->event_date) . "<end>\n";
 					$upcoming .= "Event Name: <highlight>$row->event_name<end>     [Event ID $row->id]\n";
 					$upcoming .= "Author: <highlight>$row->submitter_name<end>\n";
-					$upcoming .= "Attendance: <highlight>" . $this->text->make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id") . "<end>" .
-						" [" . $this->text->make_chatcmd("Join", "/tell <myname> events join $row->id") . "/" . 
-						$this->text->make_chatcmd("Leave", "/tell <myname> events leave $row->id") . "]\n";
+					$upcoming .= "Attendance: <highlight>" . $this->text->makeChatcmd("$attendance signed up", "/tell <myname> events list $row->id") . "<end>" .
+						" [" . $this->text->makeChatcmd("Join", "/tell <myname> events join $row->id") . "/" . 
+						$this->text->makeChatcmd("Leave", "/tell <myname> events leave $row->id") . "]\n";
 					$upcoming .= "Description: <highlight>" . $row->event_desc . "<end>\n";
 					$upcoming .= "Date Submitted: <highlight>" . $this->util->date($row->time_submitted) . "<end>\n\n";
 					$upcoming_events = $upcoming.$upcoming_events;
@@ -275,7 +275,7 @@ class EventsController {
 					$past = "Event Date: <highlight>" . $this->util->date($row->event_date) . "<end>\n";
 					$past .= "Event Name: <highlight>$row->event_name<end>     [Event ID $row->id]\n";
 					$past .= "Author: <highlight>$row->submitter_name<end>\n";
-					$past .= "Attendance: <highlight>" . $this->text->make_chatcmd("$attendance signed up", "/tell <myname> events list $row->id") . "<end>\n";
+					$past .= "Attendance: <highlight>" . $this->text->makeChatcmd("$attendance signed up", "/tell <myname> events list $row->id") . "<end>\n";
 					$past .= "Description: <highlight>" . $row->event_desc . "<end>\n";
 					$past .= "Date Submitted: <highlight>" . $this->util->date($row->time_submitted) . "<end>\n\n";
 					$past_events .= $past;

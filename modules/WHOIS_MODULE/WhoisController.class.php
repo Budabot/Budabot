@@ -107,7 +107,7 @@ class WhoisController {
 		$blob = '';
 		if ($count > 0) {
 			forEach ($data as $row) {
-				$link = $this->text->make_chatcmd($row->name, "/tell <myname> lookup $row->name");
+				$link = $this->text->makeChatcmd($row->name, "/tell <myname> lookup $row->name");
 				$blob .= "$link " . $this->util->date($row->dt) . "\n";
 			}
 			$msg = $this->text->makeBlob("Name History for $charid ($count)", $blob);
@@ -131,7 +131,7 @@ class WhoisController {
 		$blob = '';
 		if ($count > 0) {
 			forEach ($data as $row) {
-				$link = $this->text->make_chatcmd($row->charid, "/tell <myname> lookup $row->charid");
+				$link = $this->text->makeChatcmd($row->charid, "/tell <myname> lookup $row->charid");
 				$blob .= "$link " . $this->util->date($row->dt) . "\n";
 			}
 			$msg = $this->text->makeBlob("Character Ids for $name ($count)", $blob);
@@ -181,8 +181,8 @@ class WhoisController {
 	
 	public function getOutput($name, $online) {
 		$charId = $this->chatBot->get_uid($name);
-		$lookupNameLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $name");
-		$lookupCharIdLink = $this->text->make_chatcmd("Lookup", "/tell <myname> lookup $charId");
+		$lookupNameLink = $this->text->makeChatcmd("Lookup", "/tell <myname> lookup $name");
+		$lookupCharIdLink = $this->text->makeChatcmd("Lookup", "/tell <myname> lookup $charId");
 		$whois = $this->playerManager->get_by_name($name);
 		if ($whois === null) {
 			$blob = "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
@@ -192,7 +192,7 @@ class WhoisController {
 
 			$msg = $this->text->makeBlob("Basic Info for $name", $blob);
 		} else {
-			$orglistLink = $this->text->make_chatcmd("Orglist", "/tell <myname> orglist $whois->guild_id");
+			$orglistLink = $this->text->makeChatcmd("Orglist", "/tell <myname> orglist $whois->guild_id");
 
 			$blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
 			if ($whois->guild) {

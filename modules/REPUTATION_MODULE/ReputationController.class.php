@@ -74,7 +74,7 @@ class ReputationController {
 
 		$blob = '';
 		forEach ($data as $row) {
-			$details_link = $this->text->make_chatcmd('Details', "/tell <myname> reputation $row->name");
+			$details_link = $this->text->makeChatcmd('Details', "/tell <myname> reputation $row->name");
 			$blob .= "$row->name  <green>+{$row->pos_rep}<end> <orange>-{$row->neg_rep}<end>   {$details_link}\n";
 		}
 		$msg = $this->text->makeBlob("Reputation List ($count)", $blob);
@@ -182,7 +182,7 @@ class ReputationController {
 			}
 			
 			if ($limit != 1000) {
-				$blob .= $this->text->make_chatcmd("Show all comments", "/tell <myname> reputation $name all");
+				$blob .= $this->text->makeChatcmd("Show all comments", "/tell <myname> reputation $name all");
 			}
 
 			$msg = $this->text->makeBlob("Reputation for {$name} (+$num_positive -$num_negative)", $blob);

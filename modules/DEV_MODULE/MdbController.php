@@ -49,7 +49,7 @@ class MdbController {
 		
 		$blob = '';
 		forEach ($categories as $category) {
-			$blob .= $this->text->make_chatcmd($category['id'], "/tell <myname> mdb " . $category['id']) . "\n";
+			$blob .= $this->text->makeChatcmd($category['id'], "/tell <myname> mdb " . $category['id']) . "\n";
 		}
 		
 		$msg = $this->text->makeBlob("MDB Categories", $blob);
@@ -68,7 +68,7 @@ class MdbController {
 
 		$blob = '';
 		forEach ($instances as $instance) {
-			$blob .= $this->text->make_chatcmd($instance['id'], "/tell <myname> mdb $categoryId " . $instance['id']) . "\n";
+			$blob .= $this->text->makeChatcmd($instance['id'], "/tell <myname> mdb $categoryId " . $instance['id']) . "\n";
 		}
 		
 		$msg = $this->text->makeBlob("MDB Instances for Category $categoryId", $blob);

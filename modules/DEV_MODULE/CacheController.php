@@ -40,7 +40,7 @@ class CacheController extends AutoInject {
 	public function cacheCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
 		forEach ($this->cacheManager->getGroups() as $group) {
-			$blob .= $this->text->make_chatcmd($group, "/tell <myname> cache browse $group") . "\n";
+			$blob .= $this->text->makeChatcmd($group, "/tell <myname> cache browse $group") . "\n";
 		}
 		$msg = $this->text->makeBlob("Cache Groups", $blob);
 		$sendto->reply($msg);
@@ -59,8 +59,8 @@ class CacheController extends AutoInject {
 		forEach ($this->cacheManager->getFilesInGroup($group) as $file) {
 			$fileInfo = stat($path . "/" . $file);
 			$blob .= "<highlight>$file<end>  " . $this->util->bytesConvert($fileInfo['size']) . " - Last modified " . $this->util->date($fileInfo['mtime']);
-			$blob .= "  [" . $this->text->make_chatcmd("View", "/tell <myname> cache view $group $file") . "]";
-			$blob .= "  [" . $this->text->make_chatcmd("Delete", "/tell <myname> cache rem $group $file") . "]\n";
+			$blob .= "  [" . $this->text->makeChatcmd("View", "/tell <myname> cache view $group $file") . "]";
+			$blob .= "  [" . $this->text->makeChatcmd("Delete", "/tell <myname> cache rem $group $file") . "]\n";
 		}
 		$msg = $this->text->makeBlob("Cache Group: $group", $blob);
 		$sendto->reply($msg);

@@ -55,7 +55,7 @@ class WeatherController {
 		if (count($locations) > 1){
 			$blob .= "Multiple hits for $location.\n\n";
 			foreach ($locations as $spot) {
-				$blob .= $this->text->make_chatcmd($spot, "/tell <myname> weather $spot")."\n";
+				$blob .= $this->text->makeChatcmd($spot, "/tell <myname> weather $spot")."\n";
 			}
 
 			$msg = $this->text->makeBlob('Weather Locations', $blob);
@@ -109,9 +109,9 @@ class WeatherController {
 		} else {
 			$latlonstr .= "W ";
 		}
-		$latlonstr .= $this->text->make_chatcmd("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon")." ";
-		$latlonstr .= $this->text->make_chatcmd("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10")."\n\n";
-		$blob .= "Credit: <highlight>".$this->text->make_chatcmd($credit, "/start $crediturl")."<end>\n";
+		$latlonstr .= $this->text->makeChatcmd("Google Map", "/start http://maps.google.com/maps?q=$lat,$lon")." ";
+		$latlonstr .= $this->text->makeChatcmd("Wunder Map", "/start http://www.wunderground.com/wundermap/?lat=$lat&lon=$lon&zoom=10")."\n\n";
+		$blob .= "Credit: <highlight>".$this->text->makeChatcmd($credit, "/start $crediturl")."<end>\n";
 		$blob .= "Last Updated: <highlight>$updated<end>\n\n";
 		$blob .= "Location: <highlight>$fullLoc, $country<end>\n";
 		$blob .= "Lat/Lon: <highlight>$latlonstr<end>";

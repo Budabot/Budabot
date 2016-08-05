@@ -260,11 +260,11 @@ class AlienArmorController {
 
 		$list .= "<header2>Source Armor<end>\n";
 		$list .= $this->itemsController->getItemAndIcon($name_armor_src, $src_ql) . " QL$src_ql";
-		$list .= " (" . $this->text->make_chatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $nameSrc $src_ql") . ")\n\n";
+		$list .= " (" . $this->text->makeChatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $nameSrc $src_ql") . ")\n\n";
 
 		$list .= "<header2>Target Armor<end>\n";
 		$list .= $this->itemsController->getItemAndIcon($name_armor_trg, $trg_ql) . " QL$trg_ql";
-		$list .= " (" . $this->text->make_chatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $nameTarget $trg_ql") . ")";
+		$list .= " (" . $this->text->makeChatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $nameTarget $trg_ql") . ")";
 		$msg = $this->text->makeBlob("Building process for $ql $name_armor_result", $list);
 		$sendto->reply($msg);
 	}

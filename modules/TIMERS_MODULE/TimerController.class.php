@@ -289,7 +289,7 @@ class TimerController {
 				$name = $timer->name;
 				$owner = $timer->owner;
 
-				$remove_link = $this->text->make_chatcmd("Remove", "/tell <myname> timers rem $name");
+				$remove_link = $this->text->makeChatcmd("Remove", "/tell <myname> timers rem $name");
 
 				$repeatingInfo = '';
 				if ($timer->callback == 'timercontroller.repeatingTimerCallback') {

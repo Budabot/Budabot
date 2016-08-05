@@ -83,7 +83,7 @@ class AlienMiscController {
 
 		$blob = '';
 		forEach ($data as $row) {
-			$professionLink = $this->text->make_chatcmd($row->profession, "/tell <myname> leprocs $row->profession");
+			$professionLink = $this->text->makeChatcmd($row->profession, "/tell <myname> leprocs $row->profession");
 			$blob .= $professionLink . "\n";
 		}
 		$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2), DrUrban";
@@ -143,7 +143,7 @@ class AlienMiscController {
 		forEach ($data as $row) {
 			$blob .= "<pagebreak>{$row->profession} - Type {$row->type}\n";
 			forEach ($qls as $row2) {
-				$ql_link = $this->text->make_chatcmd($row2->ql, "/tell <myname> ofabarmor {$row->profession} {$row2->ql}");
+				$ql_link = $this->text->makeChatcmd($row2->ql, "/tell <myname> ofabarmor {$row->profession} {$row2->ql}");
 				$blob .= "[{$ql_link}] ";
 			}
 			$blob .= "\n\n";
@@ -180,7 +180,7 @@ class AlienMiscController {
 		}
 
 		$blob = '';
-		$typeLink = $this->text->make_chatcmd("Kyr'Ozch Bio-Material - Type {$type}", "/tell <myname> bioinfo {$type}");
+		$typeLink = $this->text->makeChatcmd("Kyr'Ozch Bio-Material - Type {$type}", "/tell <myname> bioinfo {$type}");
 		$typeQl = round(.8 * $ql);
 		$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";
 
@@ -189,7 +189,7 @@ class AlienMiscController {
 			if ($row2->ql == $ql) {
 				$blob .= "[{$row2->ql}] ";
 			} else {
-				$ql_link = $this->text->make_chatcmd($row2->ql, "/tell <myname> ofabarmor {$profession} {$row2->ql}");
+				$ql_link = $this->text->makeChatcmd($row2->ql, "/tell <myname> ofabarmor {$profession} {$row2->ql}");
 				$blob .= "[{$ql_link}] ";
 			}
 		}
@@ -229,7 +229,7 @@ class AlienMiscController {
 		forEach ($data as $row) {
 			$blob .= "<pagebreak>{$row->name} - Type {$row->type}\n";
 			forEach ($qls as $row2) {
-				$ql_link = $this->text->make_chatcmd($row2->ql, "/tell <myname> ofabweapons {$row->name} {$row2->ql}");
+				$ql_link = $this->text->makeChatcmd($row2->ql, "/tell <myname> ofabweapons {$row->name} {$row2->ql}");
 				$blob .= "[{$ql_link}] ";
 			}
 			$blob .= "\n\n";
@@ -257,7 +257,7 @@ class AlienMiscController {
 
 		$blob = '';
 		$typeQl = round(.8 * $ql);
-		$typeLink = $this->text->make_chatcmd("Kyr'Ozch Bio-Material - Type {$row->type}", "/tell <myname> bioinfo {$row->type} {$typeQl}");
+		$typeLink = $this->text->makeChatcmd("Kyr'Ozch Bio-Material - Type {$row->type}", "/tell <myname> bioinfo {$row->type} {$typeQl}");
 		$blob .= "Upgrade with $typeLink (minimum QL {$typeQl})\n\n";
 
 		$qls = $this->db->query("SELECT DISTINCT ql FROM ofabweaponscost ORDER BY ql ASC");
@@ -265,7 +265,7 @@ class AlienMiscController {
 			if ($row2->ql == $ql) {
 				$blob .= "[{$row2->ql}] ";
 			} else {
-				$ql_link = $this->text->make_chatcmd($row2->ql, "/tell <myname> ofabweapons {$weapon} {$row2->ql}");
+				$ql_link = $this->text->makeChatcmd($row2->ql, "/tell <myname> ofabweapons {$weapon} {$row2->ql}");
 				$blob .= "[{$ql_link}] ";
 			}
 		}

@@ -65,7 +65,7 @@ class AOSpeakController {
 					$blob .= "<highlight>{$user->name}<end> ({$user->country})\n";
 				}
 			}
-			$blob .= "\n\nProvided by " . $this->text->make_chatcmd("AOSpeak.com", "/start http://www.aospeak.com");
+			$blob .= "\n\nProvided by " . $this->text->makeChatcmd("AOSpeak.com", "/start http://www.aospeak.com");
 			$msg = $this->text->makeBlob("AOSpeak Org ($count)", $blob);
 		}
 
@@ -111,7 +111,7 @@ class AOSpeakController {
 					}
 				}
 			}
-			$blob .= "\n\nProvided by " . $this->text->make_chatcmd("AOSpeak.com", "/start http://www.aospeak.com");
+			$blob .= "\n\nProvided by " . $this->text->makeChatcmd("AOSpeak.com", "/start http://www.aospeak.com");
 			$msg = $this->text->makeBlob("$title ($count)", $blob);
 		}
 

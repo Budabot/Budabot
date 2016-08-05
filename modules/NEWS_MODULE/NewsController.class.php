@@ -58,11 +58,11 @@ class NewsController {
 
 				$blob .= "<highlight>{$row->news}<end>\n";
 				$blob .= "By {$row->name} " . $this->util->date($row->time) . " ";
-				$blob .= $this->text->make_chatcmd("Remove", "/tell <myname> news rem $row->id") . " ";
+				$blob .= $this->text->makeChatcmd("Remove", "/tell <myname> news rem $row->id") . " ";
 				if ($row->sticky == 1) {
-					$blob .= $this->text->make_chatcmd("Unsticky", "/tell <myname> news unsticky $row->id")."\n";
+					$blob .= $this->text->makeChatcmd("Unsticky", "/tell <myname> news unsticky $row->id")."\n";
 				} else if ($row->sticky == 0) {
-					$blob .= $this->text->make_chatcmd("Sticky", "/tell <myname> news sticky $row->id")."\n";
+					$blob .= $this->text->makeChatcmd("Sticky", "/tell <myname> news sticky $row->id")."\n";
 				}
 				$sticky = $row->sticky;
 			}

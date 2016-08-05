@@ -86,7 +86,7 @@ class InactiveMemberController {
 			}
 
 			$numinactive++;
-			$alts = $this->text->make_chatcmd("Alts", "/tell <myname> alts {$row->name}");
+			$alts = $this->text->makeChatcmd("Alts", "/tell <myname> alts {$row->name}");
 			$logged = $row->logged_off;
 			$lasttoon = $row->name;
 			$lastseen = ($row->logged_off == 0) ? "never" : $this->util->date($logged);

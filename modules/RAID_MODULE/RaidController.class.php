@@ -445,8 +445,8 @@ class RaidController {
 			$players = 0;
 			$items = count($this->loot);
 			forEach ($this->loot as $key => $item) {
-				$add = $this->text->make_chatcmd("Add", "/tell <myname> add $key");
-				$rem = $this->text->make_chatcmd("Remove", "/tell <myname> rem");
+				$add = $this->text->makeChatcmd("Add", "/tell <myname> add $key");
+				$rem = $this->text->makeChatcmd("Remove", "/tell <myname> rem");
 				$added_players = count($item->users);
 
 				$list .= "<header2>Slot #$key<end>\n";

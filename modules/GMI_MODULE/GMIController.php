@@ -73,7 +73,7 @@ class GMIController {
 				$blob .= "<i>No sell orders found<i>\n\n";
 			} else {
 				forEach ($results->sell as $item) {
-					$blob .= $item->price . " (QL$item->ql) " . $this->text->make_chatcmd($item->seller, "/tell $item->seller") . "\n\n";
+					$blob .= $item->price . " (QL$item->ql) " . $this->text->makeChatcmd($item->seller, "/tell $item->seller") . "\n\n";
 				}
 			}
 
@@ -89,10 +89,10 @@ class GMIController {
 						$ql = $item->minQl . '-' . $item->maxQl;
 					}
 					
-					$blob .= $item->price . " (QL$ql) " . $this->text->make_chatcmd($item->buyer, "/tell $item->buyer") . "\n\n";
+					$blob .= $item->price . " (QL$ql) " . $this->text->makeChatcmd($item->buyer, "/tell $item->buyer") . "\n\n";
 				}
 			}
-			$blob .= "\nPowered by " . $this->text->make_chatcmd("aogmi.com", "/start http://aogmi.com/");
+			$blob .= "\nPowered by " . $this->text->makeChatcmd("aogmi.com", "/start http://aogmi.com/");
 			
 			$msg = $this->text->makeBlob("GMI Result: $itemName ($countSellOrders, $countBuyOrders)", $blob);
 		}
@@ -124,9 +124,9 @@ class GMIController {
 				$blob = "";
 				forEach ($results as $item) {
 					$blob .= $this->text->make_image($item->icon) . "\n";
-					$blob .= $this->text->make_chatcmd($item->name, "/tell <myname> gmi $item->cluster_id") . "\n\n<pagebreak>";
+					$blob .= $this->text->makeChatcmd($item->name, "/tell <myname> gmi $item->cluster_id") . "\n\n<pagebreak>";
 				}
-				$blob .= "\nPowered by " . $this->text->make_chatcmd("aogmi.com", "/start http://aogmi.com/");
+				$blob .= "\nPowered by " . $this->text->makeChatcmd("aogmi.com", "/start http://aogmi.com/");
 
 				$msg = $this->text->makeBlob("GMI Search: $search ($count)", $blob);
 			}

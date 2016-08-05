@@ -67,7 +67,7 @@ class SettingsController {
 			$blob .= "  *" . $row->description;
 
 			if ($row->mode == "edit") {
-				$editLink = $this->text->make_chatcmd('Modify', "/tell <myname> settings change {$row->name}");
+				$editLink = $this->text->makeChatcmd('Modify', "/tell <myname> settings change {$row->name}");
 				$blob .= " ($editLink)";
 			}
 

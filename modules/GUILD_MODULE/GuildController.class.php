@@ -260,7 +260,7 @@ class GuildController {
 			if ($row->main != $prevtoon) {
 				$prevtoon = $row->main;
 				$numrecentcount++;
-				$alts = $this->text->make_chatcmd("Alts", "/tell <myname> alts {$row->main}");
+				$alts = $this->text->makeChatcmd("Alts", "/tell <myname> alts {$row->main}");
 				$logged = $row->logged_off;
 				$lasttoon = $row->name;
 

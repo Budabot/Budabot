@@ -62,7 +62,7 @@ class NotesController {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$remove = $this->text->make_chatcmd('Remove', "/tell <myname> notes rem $row->id");
+				$remove = $this->text->makeChatcmd('Remove', "/tell <myname> notes rem $row->id");
 				$blob .= "$remove $row->note\n\n";
 			}
 			$msg = $this->text->makeBlob("Notes for $sender", $blob);

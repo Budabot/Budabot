@@ -80,7 +80,7 @@ class ChatAssistController {
 				$sendto->reply($msg);
 			}
 
-			$link = $this->text->make_chatcmd("Click here to make an assist $name macro", "/macro $name /assist $name");
+			$link = $this->text->makeChatcmd("Click here to make an assist $name macro", "/macro $name /assist $name");
 			$this->assistMessage = $this->text->makeBlob("Assist $name Macro", $link);
 		} else {
 			forEach ($nameArray as $key => $name) {

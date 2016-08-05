@@ -56,7 +56,7 @@ class AltInfo {
 			$blob .= $this->formatOnlineStatus($online);
 
 			if ($showValidateLinks && $settingManager->get('alts_inherit_admin') == 1 && $row->validated == 0) {
-				$blob .= " [Unvalidated] " . $text->make_chatcmd('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}");
+				$blob .= " [Unvalidated] " . $text->makeChatcmd('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}");
 			}
 
 			$blob .= "\n";
@@ -120,7 +120,7 @@ class AltInfo {
 	public function formatCharName($name, $online) {
 		if ($online == 1) {
 			$text = Registry::getInstance('text');
-			return $text->make_chatcmd($name, "/tell $name");
+			return $text->makeChatcmd($name, "/tell $name");
 		} else {
 			return $name;
 		}

@@ -137,9 +137,9 @@ class TrackerController {
 					$status = "<grey>None<end>";
 				}
 
-				$remove = $this->text->make_chatcmd('Remove', "/tell <myname> track rem $row->name");
+				$remove = $this->text->makeChatcmd('Remove', "/tell <myname> track rem $row->name");
 
-				$history = $this->text->make_chatcmd('History', "/tell <myname> track $row->name");
+				$history = $this->text->makeChatcmd('History', "/tell <myname> track $row->name");
 
 				$blob .= "<tab>-[{$history}] {$row->name} ({$status}{$last_action}) - {$remove}\n";
 			}

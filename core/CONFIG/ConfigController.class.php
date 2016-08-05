@@ -79,17 +79,17 @@ class ConfigController {
 	public function configCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = 
 			"Org Commands - " .
-				$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable guild') . " " .
-				$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable guild') . "\n" .
+				$this->text->makeChatcmd('Enable All', '/tell <myname> config cmd enable guild') . " " .
+				$this->text->makeChatcmd('Disable All', '/tell <myname> config cmd disable guild') . "\n" .
 			"Private Channel Commands - " .
-				$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable priv') . " " .
-				$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable priv') . "\n" .
+				$this->text->makeChatcmd('Enable All', '/tell <myname> config cmd enable priv') . " " .
+				$this->text->makeChatcmd('Disable All', '/tell <myname> config cmd disable priv') . "\n" .
 			"Private Message Commands - " .
-				$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable msg') . " " .
-				$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable msg') . "\n" .
+				$this->text->makeChatcmd('Enable All', '/tell <myname> config cmd enable msg') . " " .
+				$this->text->makeChatcmd('Disable All', '/tell <myname> config cmd disable msg') . "\n" .
 			"ALL Commands - " .
-				$this->text->make_chatcmd('Enable All', '/tell <myname> config cmd enable all') . " " .
-				$this->text->make_chatcmd('Disable All', '/tell <myname> config cmd disable all') . "\n\n\n";
+				$this->text->makeChatcmd('Enable All', '/tell <myname> config cmd enable all') . " " .
+				$this->text->makeChatcmd('Disable All', '/tell <myname> config cmd disable all') . "\n\n\n";
 	
 		$sql = "
 			SELECT
@@ -505,7 +505,7 @@ class ConfigController {
 			if ($row->cmdevent == 'cmd') {
 				$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
 				$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
-				$cmdNameLink = $this->text->make_chatcmd($row->cmd, "/tell <myname> config cmd $row->cmd");
+				$cmdNameLink = $this->text->makeChatcmd($row->cmd, "/tell <myname> config cmd $row->cmd");
 			} else if ($row->cmdevent == 'subcmd') {
 				$on = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd enable all'>ON</a>";
 				$off = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd disable all'>OFF</a>";

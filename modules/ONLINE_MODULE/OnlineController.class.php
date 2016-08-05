@@ -408,7 +408,7 @@ class OnlineController {
 				$current_profession = $row->profession;
 			}
 
-			$name = $this->text->make_chatcmd($row->name, "/tell $row->name");
+			$name = $this->text->makeChatcmd($row->name, "/tell $row->name");
 			$afk  = $this->get_afk_info($row->afk, $fancyColon);
 			$alt  = ($show_alts == true) ? $this->get_alt_char_info($row->name, $fancyColon) : "";
 
@@ -465,7 +465,7 @@ class OnlineController {
 		$altinfo = $this->altsController->get_alt_info($name);
 
 		if (count($altinfo->alts) > 0) {
-			$altsLink = $this->text->make_chatcmd(($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}"), "/tell <myname> alts {$name}");
+			$altsLink = $this->text->makeChatcmd(($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}"), "/tell <myname> alts {$name}");
 			$alt = " $fancyColon $altsLink";
 		}
 		return $alt;

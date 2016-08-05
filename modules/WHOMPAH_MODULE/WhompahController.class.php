@@ -57,7 +57,7 @@ class WhompahController {
 
 		$blob = '';
 		forEach ($data as $row) {
-			$cityLink = $this->text->make_chatcmd($row->short_name, "/tell <myname> whompah {$row->short_name}");
+			$cityLink = $this->text->makeChatcmd($row->short_name, "/tell <myname> whompah {$row->short_name}");
 			$blob .= "{$row->city_name} ({$cityLink})\n";
 		}
 		$blob .= "\nWritten By Tyrence (RK2)\nDatabase from a Bebot module written by POD13";

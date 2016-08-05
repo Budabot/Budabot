@@ -95,10 +95,10 @@ class TestController extends AutoInject {
 		$files = $this->util->getFilesInDirectory($this->path);
 		$count = count($files);
 		sort($files);
-		$blob = $this->text->make_chatcmd("All Tests", "/tell <myname> test all") . "\n";
+		$blob = $this->text->makeChatcmd("All Tests", "/tell <myname> test all") . "\n";
 		forEach ($files as $file) {
 			$name = str_replace(".txt", "", $file);
-			$blob .= $this->text->make_chatcmd($name, "/tell <myname> test $name") . "\n";
+			$blob .= $this->text->makeChatcmd($name, "/tell <myname> test $name") . "\n";
 		}
 		$msg = $this->text->makeBlob("Tests Available ($count)", $blob);
 		$sendto->reply($msg);

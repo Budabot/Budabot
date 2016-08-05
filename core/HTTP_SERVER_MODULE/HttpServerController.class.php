@@ -268,7 +268,7 @@ class HttpServerController {
 	 */
 	public function httpserverCommand($message, $channel, $sender, $sendto, $args) {
 		$uri  = $this->getUri('/');
-		$link = $this->text->make_chatcmd( $uri, "/start $uri" );
+		$link = $this->text->makeChatcmd( $uri, "/start $uri" );
 		$msg  = $this->text->makeBlob('HTTP Server', "Open $link to web browser.");
 		$sendto->reply($msg);
 	}

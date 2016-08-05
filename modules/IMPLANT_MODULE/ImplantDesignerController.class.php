@@ -71,13 +71,13 @@ class ImplantDesignerController extends AutoInject {
 	private function getImplantDesignerBuild($sender) {
 		$design = $this->getDesign($sender, '@');
 	
-		$blob = $this->text->make_chatcmd("Results", "/tell <myname> implantdesigner results");
+		$blob = $this->text->makeChatcmd("Results", "/tell <myname> implantdesigner results");
 		$blob .= "<tab>";
-		$blob .= $this->text->make_chatcmd("Clear All", "/tell <myname> implantdesigner clear");
+		$blob .= $this->text->makeChatcmd("Clear All", "/tell <myname> implantdesigner clear");
 		$blob .= "\n-----------------\n\n";
 
 		forEach ($this->slots as $slot) {
-			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
+			$blob .= $this->text->makeChatcmd($slot, "/tell <myname> implantdesigner $slot");
 			if (!empty($design->$slot)) {
 				$blob .= $this->getImplantSummary($design->$slot);
 			} else {
@@ -174,15 +174,15 @@ class ImplantDesignerController extends AutoInject {
 	public function implantdesignerSlotCommand($message, $channel, $sender, $sendto, $args) {
 		$slot = strtolower($args[1]);
 
-		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+		$blob .= $this->text->makeChatcmd("See Build", "/tell <myname> implantdesigner");
 		$blob .= "<tab>";
-		$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+		$blob .= $this->text->makeChatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
 		$blob .= "<tab>";
-		$blob .= $this->text->make_chatcmd("Require Ability", "/tell <myname> implantdesigner $slot require");
+		$blob .= $this->text->makeChatcmd("Require Ability", "/tell <myname> implantdesigner $slot require");
 		$blob .= "\n-------------------------\n";
 		$blob .= "<header2>Implants<end>  ";
 		forEach (array(25, 50, 75, 100, 125, 150, 175, 200, 225, 250, 275, 300) as $ql) {
-			$blob .= $this->text->make_chatcmd($ql, "/tell <myname> implantdesigner $slot $ql") . " ";
+			$blob .= $this->text->makeChatcmd($ql, "/tell <myname> implantdesigner $slot $ql") . " ";
 		}
 		$blob .= "\n\n" . $this->getSymbiantsLinks($slot);
 		$blob .= "\n-------------------------\n\n";
@@ -229,11 +229,11 @@ class ImplantDesignerController extends AutoInject {
 	}
 	
 	private function getSymbiantsLinks($slot) {
-		$artilleryLink = $this->text->make_chatcmd("Artillery", "/tell <myname> symb $slot artillery");
-		$controlLink = $this->text->make_chatcmd("Control", "/tell <myname> symb $slot control");
-		$exterminationLink = $this->text->make_chatcmd("Extermination", "/tell <myname> symb $slot extermination");
-		$infantryLink = $this->text->make_chatcmd("Infantry", "/tell <myname> symb $slot infantry");
-		$supportLink = $this->text->make_chatcmd("Support", "/tell <myname> symb $slot support");
+		$artilleryLink = $this->text->makeChatcmd("Artillery", "/tell <myname> symb $slot artillery");
+		$controlLink = $this->text->makeChatcmd("Control", "/tell <myname> symb $slot control");
+		$exterminationLink = $this->text->makeChatcmd("Extermination", "/tell <myname> symb $slot extermination");
+		$infantryLink = $this->text->makeChatcmd("Infantry", "/tell <myname> symb $slot infantry");
+		$supportLink = $this->text->makeChatcmd("Support", "/tell <myname> symb $slot support");
 		return "<header2>Symbiants<end>  $artilleryLink  $controlLink  $exterminationLink  $infantryLink  $supportLink";
 	}
 	
@@ -243,10 +243,10 @@ class ImplantDesignerController extends AutoInject {
 			$msg .= " - {$design->$slot->$grade}";
 		}
 		$msg .= "\n";
-		$msg .= $this->text->make_chatcmd("-Empty-", "/tell <myname> implantdesigner $slot $grade clear") . "\n";
+		$msg .= $this->text->makeChatcmd("-Empty-", "/tell <myname> implantdesigner $slot $grade clear") . "\n";
 		$data = $this->getClustersForSlot($slot, $grade);
 		forEach ($data as $row) {
-			$msg .= $this->text->make_chatcmd($row->skill, "/tell <myname> implantdesigner $slot $grade $row->skill") . "\n";
+			$msg .= $this->text->makeChatcmd($row->skill, "/tell <myname> implantdesigner $slot $grade $row->skill") . "\n";
 		}
 		$msg .= "\n\n";
 		return $msg;
@@ -394,16 +394,16 @@ class ImplantDesignerController extends AutoInject {
 		} else if (!empty($slotObj->shiny) && !empty($slotObj->bright) && !empty($slotObj->faded)) {
 			$msg = "You must have at least one empty cluster to require an ability.";
 		} else {
-			$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+			$blob .= $this->text->makeChatcmd("See Build", "/tell <myname> implantdesigner");
 			$blob .= "<tab>";
-			$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+			$blob .= $this->text->makeChatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
 			$blob .= "\n-------------------------\n\n";
-			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
+			$blob .= $this->text->makeChatcmd($slot, "/tell <myname> implantdesigner $slot");
 			$blob .= $this->getImplantSummary($slotObj) . "\n";
 			$blob .= "Which ability do you want to require for $slot?\n\n";
 			$data = $this->db->query("SELECT Name FROM Ability");
 			forEach ($data as $row) {
-				$blob .= $this->text->make_chatcmd($row->Name, "/tell <myname> implantdesigner $slot require $row->Name") . "\n";
+				$blob .= $this->text->makeChatcmd($row->Name, "/tell <myname> implantdesigner $slot require $row->Name") . "\n";
 			}
 			$msg = $this->text->makeBlob("Implant Designer Require Ability ($slot)", $blob);
 		}
@@ -430,11 +430,11 @@ class ImplantDesignerController extends AutoInject {
 		} else if (!empty($slotObj->shiny) && !empty($slotObj->bright) && !empty($slotObj->faded)) {
 			$msg = "You must have at least one empty cluster to require an ability.";
 		} else {
-			$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+			$blob .= $this->text->makeChatcmd("See Build", "/tell <myname> implantdesigner");
 			$blob .= "<tab>";
-			$blob .= $this->text->make_chatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
+			$blob .= $this->text->makeChatcmd("Clear this slot", "/tell <myname> implantdesigner $slot clear");
 			$blob .= "\n-------------------------\n\n";
-			$blob .= $this->text->make_chatcmd($slot, "/tell <myname> implantdesigner $slot");
+			$blob .= $this->text->makeChatcmd($slot, "/tell <myname> implantdesigner $slot");
 			$blob .= $this->getImplantSummary($slotObj) . "\n";
 			$blob .= "Combinations for <highlight>$slot<end> that require $ability:\n";
 			$params = [$ability];
@@ -492,7 +492,7 @@ class ImplantDesignerController extends AutoInject {
 					$results []= ['faded', $row->FadedEffect];
 				}
 				$results = array_map(function($item) use($slot) {
-					return (empty($item[1]) ? '-Empty-' : $this->text->make_chatcmd($item[1], "/tell <myname> implantdesigner $slot {$item[0]} {$item[1]}"));
+					return (empty($item[1]) ? '-Empty-' : $this->text->makeChatcmd($item[1], "/tell <myname> implantdesigner $slot {$item[0]} {$item[1]}"));
 				}, $results);
 				if ($results[0] != $primary) {
 					$blob .= "\n" . $results[0] . "\n";
@@ -614,7 +614,7 @@ class ImplantDesignerController extends AutoInject {
 			}
 		});
 		
-		$blob .= $this->text->make_chatcmd("See Build", "/tell <myname> implantdesigner");
+		$blob .= $this->text->makeChatcmd("See Build", "/tell <myname> implantdesigner");
 		$blob .= "\n---------\n\n";
 		
 		$blob .= "<header2>Requirements to Equip<end>\n";
