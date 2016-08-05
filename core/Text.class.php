@@ -16,7 +16,7 @@ class Text {
 	/** @Logger */
 	public $logger;
 
-	public function make_header_links($links) {
+	public function makeHeaderLinks($links) {
 		$output = '';
 		forEach ($links as $title => $command){
 			$output .= " ::: " . $this->make_chatcmd($title, $command, 'style="text-decoration:none;"') . " ::: ";

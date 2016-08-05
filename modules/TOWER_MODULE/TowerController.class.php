@@ -995,7 +995,7 @@ class TowerController {
 			$links['Next Page'] = "/tell <myname> attacks {$cmd}" . ($page_label + 1);
 
 			$blob = "The last $page_size Tower Attacks (page $page_label)\n\n";
-			$blob .= $this->text->make_header_links($links) . "\n\n";
+			$blob .= $this->text->makeHeaderLinks($links) . "\n\n";
 
 			forEach ($data as $row) {
 				$timeString = $this->util->unixtimeToReadable(time() - $row->time);
@@ -1071,7 +1071,7 @@ class TowerController {
 			$links['Next Page'] = "/tell <myname> victory {$cmd}" . ($page_label + 1);
 
 			$blob = "The last $page_size Tower Results (page $page_label)\n\n";
-			$blob .= $this->text->make_header_links($links) . "\n\n";
+			$blob .= $this->text->makeHeaderLinks($links) . "\n\n";
 			forEach ($data as $row) {
 				$timeString = $this->util->unixtimeToReadable(time() - $row->victory_time);
 				$blob .= "Time: " . $this->util->date($row->victory_time) . " (<highlight>$timeString<end> ago)\n";
