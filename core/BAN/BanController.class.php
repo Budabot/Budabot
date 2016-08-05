@@ -88,7 +88,7 @@ class BanController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "banlist");
-		$this->banManager->upload_banlist();
+		$this->banManager->uploadBanlist();
 	}
 
 	/**
@@ -305,7 +305,7 @@ class BanController {
 		}
 
 		if ($update) {
-			$this->banManager->upload_banlist();
+			$this->banManager->uploadBanlist();
 		}
 	}
 
