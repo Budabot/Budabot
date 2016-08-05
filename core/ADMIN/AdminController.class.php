@@ -167,7 +167,7 @@ class AdminController {
 		}
 		$blob .= $this->getGuildAdmins('mod', $showOfflineAlts);
 
-		$link = $this->text->make_blob('Bot administrators', $blob);
+		$link = $this->text->makeBlob('Bot administrators', $blob);
 		$sendto->reply($link);
 	}
 	

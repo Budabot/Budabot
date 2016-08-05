@@ -43,7 +43,7 @@ class GitController extends AutoInject {
 		$command = "$gitpath log master ...origin/master 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("git incoming", $blob);
+		$msg = $this->text->makeBlob("git incoming", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -59,7 +59,7 @@ class GitController extends AutoInject {
 		$command = "$gitpath diff --stat HEAD ...origin/master 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("git diff", $blob);
+		$msg = $this->text->makeBlob("git diff", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -72,7 +72,7 @@ class GitController extends AutoInject {
 		$command = "$gitpath pull origin master 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("git pull", $blob);
+		$msg = $this->text->makeBlob("git pull", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -85,7 +85,7 @@ class GitController extends AutoInject {
 		$command = "$gitpath log -n 20 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("git log", $blob);
+		$msg = $this->text->makeBlob("git log", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -98,7 +98,7 @@ class GitController extends AutoInject {
 		$command = "$gitpath status 2>&1";
 		
 		$blob = $this->executeCommand($command);
-		$msg = $this->text->make_blob("git status", $blob);
+		$msg = $this->text->makeBlob("git status", $blob);
 		$sendto->reply($msg);
 	}
 	

@@ -117,7 +117,7 @@ class VentriloController {
 				$this->displayChannel($channel, $stat->m_clientlist, "", $page);
 			}
 
-			$msg = $this->text->make_blob("Ventrilo Info ({$stat->m_clientcount})", $page);
+			$msg = $this->text->makeBlob("Ventrilo Info ({$stat->m_clientcount})", $page);
 		}
 		return $msg;
 	}

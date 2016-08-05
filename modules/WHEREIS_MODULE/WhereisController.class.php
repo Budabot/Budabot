@@ -68,7 +68,7 @@ class WhereisController {
 				$blob .= "\n\n";
 			}
 
-			$msg = $this->text->make_blob("Whereis ($count)", $blob);
+			$msg = $this->text->makeBlob("Whereis ($count)", $blob);
 		} else {
 			$msg = "There were no matches for your search.";
 		}

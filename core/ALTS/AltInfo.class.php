@@ -62,7 +62,7 @@ class AltInfo {
 			$blob .= "\n";
 		}
 
-		$msg = $text->make_blob("Alts of {$this->main} ($count)", $blob);
+		$msg = $text->makeBlob("Alts of {$this->main} ($count)", $blob);
 
 		if ($firstPageOnly && is_array($msg)) {
 			return $msg[0];

@@ -110,7 +110,7 @@ class WhoisController {
 				$link = $this->text->make_chatcmd($row->name, "/tell <myname> lookup $row->name");
 				$blob .= "$link " . $this->util->date($row->dt) . "\n";
 			}
-			$msg = $this->text->make_blob("Name History for $charid ($count)", $blob);
+			$msg = $this->text->makeBlob("Name History for $charid ($count)", $blob);
 		} else {
 			$msg = "No history available for character id <highlight>$charid<end>.";
 		}
@@ -134,7 +134,7 @@ class WhoisController {
 				$link = $this->text->make_chatcmd($row->charid, "/tell <myname> lookup $row->charid");
 				$blob .= "$link " . $this->util->date($row->dt) . "\n";
 			}
-			$msg = $this->text->make_blob("Character Ids for $name ($count)", $blob);
+			$msg = $this->text->makeBlob("Character Ids for $name ($count)", $blob);
 		} else {
 			$msg = "No history available for character <highlight>$name<end>.";
 		}
@@ -190,7 +190,7 @@ class WhoisController {
 			$blob .= "Character ID: <highlight>{$charId}<end> {$lookupCharIdLink}\n\n";
 			$blob .= $this->getNameHistory($charId, $this->chatBot->vars['dimension']);
 
-			$msg = $this->text->make_blob("Basic Info for $name", $blob);
+			$msg = $this->text->makeBlob("Basic Info for $name", $blob);
 		} else {
 			$orglistLink = $this->text->make_chatcmd("Orglist", "/tell <myname> orglist $whois->guild_id");
 
@@ -223,7 +223,7 @@ class WhoisController {
 			} else {
 				$msg .= " :: <red>Offline<end>";
 			}
-			$msg .= " :: " . $this->text->make_blob("More Info", $blob, "Detailed Info for {$name}");
+			$msg .= " :: " . $this->text->makeBlob("More Info", $blob, "Detailed Info for {$name}");
 
 			$altInfo = $this->altsController->get_alt_info($name);
 			if (count($altInfo->alts) > 0) {

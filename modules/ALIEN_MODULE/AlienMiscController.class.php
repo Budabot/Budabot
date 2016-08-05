@@ -88,7 +88,7 @@ class AlienMiscController {
 		}
 		$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2), DrUrban";
 
-		$msg = $this->text->make_blob("LE Procs", $blob);
+		$msg = $this->text->makeBlob("LE Procs", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -124,7 +124,7 @@ class AlienMiscController {
 			$blob .= "\n\nNote: Offensive procs have a 5% chance of firing every time you attack; Defensive procs have a 10% chance of firing every time something attacks you.";
 			$blob .= "\n\nProc info provided by Wolfbiter (RK1), Gatester (RK2)";
 
-			$msg = $this->text->make_blob("$profession LE Procs", $blob);
+			$msg = $this->text->makeBlob("$profession LE Procs", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -149,7 +149,7 @@ class AlienMiscController {
 			$blob .= "\n\n";
 		}
 
-		$msg = $this->text->make_blob("Ofab Armor Bio-Material Types", $blob);
+		$msg = $this->text->makeBlob("Ofab Armor Bio-Material Types", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -211,7 +211,7 @@ class AlienMiscController {
 		}
 		$blob .= "\nVP Cost for full set: <highlight>$total_vp<end>";
 
-		$msg = $this->text->make_blob("$profession Ofab Armor (QL $ql)", $blob);
+		$msg = $this->text->makeBlob("$profession Ofab Armor (QL $ql)", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -235,7 +235,7 @@ class AlienMiscController {
 			$blob .= "\n\n";
 		}
 
-		$msg = $this->text->make_blob("Ofab Weapons", $blob);
+		$msg = $this->text->makeBlob("Ofab Weapons", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -279,7 +279,7 @@ class AlienMiscController {
 			$blob .= "\n";
 		}
 
-		$msg = $this->text->make_blob("Ofab $weapon (QL $ql)", $blob);
+		$msg = $this->text->makeBlob("Ofab $weapon (QL $ql)", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -339,7 +339,7 @@ class AlienMiscController {
 				break;
 		}
 
-		$msg = $this->text->make_blob("General $gen", $blob);
+		$msg = $this->text->makeBlob("General $gen", $blob);
 		$sendto->reply($msg);
 	}
 }

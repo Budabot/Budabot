@@ -71,7 +71,7 @@ class EventlistController {
 				}
 			}
 	
-			$msg = $this->text->make_blob("Event List ($count)", $blob);
+			$msg = $this->text->makeBlob("Event List ($count)", $blob);
 		} else {
 			$msg = "No events were found.";
 		}

@@ -128,7 +128,7 @@ class SkillsController {
 
 		$blob = $this->getAggDefOutput($AttTim, $RechT, $InitS);
 
-		$msg = $this->text->make_blob("Agg/Def Results", $blob);
+		$msg = $this->text->makeBlob("Agg/Def Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -248,7 +248,7 @@ class SkillsController {
 		$blob .= "With your weap, your Aim Shot recharge will cap at <highlight>".$cap."<end>s.\n";
 		$blob .= "You need <highlight>".$ASCap."<end> Aim Shot skill to cap your recharge.";
 
-		$msg = $this->text->make_blob("Aim Shot Results", $blob);
+		$msg = $this->text->makeBlob("Aim Shot Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -285,7 +285,7 @@ class SkillsController {
 		$blob .= "Stun duration: ".$stunD."\n";
 		$blob .= "\n\nby Imoutochan, RK1";
 
-		$msg = $this->text->make_blob("Brawl Results", $blob);
+		$msg = $this->text->makeBlob("Brawl Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -314,7 +314,7 @@ class SkillsController {
 		$blob .= "With your weap, your burst recharge will cap at <highlight>".$cap."<end>s.\n";
 		$blob .= "You need <highlight>".$burstskillcap."<end> Burst Skill to cap your recharge.";
 
-		$msg = $this->text->make_blob("Burst Results", $blob);
+		$msg = $this->text->makeBlob("Burst Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -370,7 +370,7 @@ class SkillsController {
 
 		$blob .= "by Imoutochan, RK1";
 
-		$msg = $this->text->make_blob("Dimach Results", $blob);
+		$msg = $this->text->makeBlob("Dimach Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -395,7 +395,7 @@ class SkillsController {
 		$blob .= "Fast Attack Recharge: <highlight>". $fastrech ."<end>s\n";
 		$blob .= "You need <highlight>".$fastskillcap."<end> Fast Attack Skill to cap your fast attack at <highlight>".$fasthardcap."<end>s.";
 
-		$msg = $this->text->make_blob("Fast Attack Results", $blob);
+		$msg = $this->text->makeBlob("Fast Attack Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -420,7 +420,7 @@ class SkillsController {
 		$blob .= "Fling Shot Recharge: <highlight>{$flingrech}<end> second(s)\n";
 		$blob .= "You need <highlight>{$flingskillcap}<end> Fling Shot skill to cap your fling at <highlight>{$flinghardcap}<end> second(s).";
 
-		$msg = $this->text->make_blob("Fling Results", $blob);
+		$msg = $this->text->makeBlob("Fling Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -456,7 +456,7 @@ class SkillsController {
 		$blob .= "From <highlight>11K to 15K<end> damage, each bullet damage is halved again.\n";
 		$blob .= "<highlight>15K<end> is the damage cap.";
 
-		$msg = $this->text->make_blob("Full Auto Results", $blob);
+		$msg = $this->text->makeBlob("Full Auto Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -533,7 +533,7 @@ class SkillsController {
 		$blob .= "Profession: <highlight>All professions besides MA and Shade<end>\n";
 		$blob .= "Fist damage: ".$dmg."\n\n";
 
-		$msg = $this->text->make_blob("Martial Arts Results", $blob);
+		$msg = $this->text->makeBlob("Martial Arts Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -568,7 +568,7 @@ class SkillsController {
 		$blob .= "NanoC. Init needed to instacast at Neutral (88%):<highlight> ". $Init2 ." <end>inits\n";
 		$blob .= "NanoC. Init needed to instacast at Full Def (0%):<highlight> ". $Init3 ." <end>inits";
 
-		$msg = $this->text->make_blob("Nano Init Results", $blob);
+		$msg = $this->text->makeBlob("Nano Init Results", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -660,7 +660,7 @@ class SkillsController {
 		}
 
 		$blob .= "Written by Tyrence (RK2)\n";
-		$msg = $this->text->make_blob("Weapon Info for $name", $blob);
+		$msg = $this->text->makeBlob("Weapon Info for $name", $blob);
 
 		$sendto->reply($msg);
 	}

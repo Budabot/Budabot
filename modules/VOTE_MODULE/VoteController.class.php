@@ -127,7 +127,7 @@ class VoteController {
 
 				$blob = $this->getVoteBlob($question);
 
-				$msg = $this->text->make_blob($title, $blob);
+				$msg = $this->text->makeBlob($title, $blob);
 
 				if ($this->settingManager->get("vote_channel_spam") == 0 || $this->settingManager->get("vote_channel_spam") == 2) {
 					$this->chatBot->sendGuild($msg, true);
@@ -171,7 +171,7 @@ class VoteController {
 				$blob .= " <red>Finshed:<end>\n" . $over;
 			}
 
-			$msg = $this->text->make_blob("Vote Listing", $blob);
+			$msg = $this->text->makeBlob("Vote Listing", $blob);
 		} else {
 			$msg = "There are currently no votes to view.";
 		}
@@ -272,7 +272,7 @@ class VoteController {
 			$privmsg = "You have not voted on this.";
 		}
 
-		$msg = $this->text->make_blob("Vote: $question", $blob);
+		$msg = $this->text->makeBlob("Vote: $question", $blob);
 		if ($privmsg) {
 			$sendto->reply($privmsg);
 		}

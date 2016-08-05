@@ -161,7 +161,7 @@ class PrivateChannelController {
 				$list .= "$row->name {$status}\n";
 			}
 
-			$msg = $this->text->make_blob("Members ($count)", $list);
+			$msg = $this->text->makeBlob("Members ($count)", $list);
 			$sendto->reply($msg);
 		} else {
 			$sendto->reply("There are no members of this bot.");
@@ -195,7 +195,7 @@ class PrivateChannelController {
 			}
 		}
 
-		return $this->text->make_blob("Chatlist ($numguest)", $blob);
+		return $this->text->makeBlob("Chatlist ($numguest)", $blob);
 	}
 	
 	/**
@@ -400,7 +400,7 @@ class PrivateChannelController {
 				$blob .= "{$percent}% {$guild} - {$row->cnt} member(s), average level {$avg_level}\n";
 			}
 
-			$msg = $this->text->make_blob("Organizations ($numorgs)", $blob);
+			$msg = $this->text->makeBlob("Organizations ($numorgs)", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -629,7 +629,7 @@ class PrivateChannelController {
 		$msg = "";
 		list($numonline, $msg, $blob) = $this->onlineController->get_online_list();
 		if ($numonline != 0) {
-			$msg = $this->text->make_blob($msg, $blob);
+			$msg = $this->text->makeBlob($msg, $blob);
 			$this->chatBot->sendTell($msg, $sender);
 		} else {
 			$this->chatBot->sendTell($msg, $sender);

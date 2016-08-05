@@ -369,7 +369,7 @@ class SystemController {
 			$blob .= "<tab><highlight>'{$this->chatBot->gid[$gid]}'<end> (" . ord(substr($gid, 0, 1)) . " " . $string[1] . ")\n";
 		}
 
-		$msg = $this->text->make_blob('System Info', $blob);
+		$msg = $this->text->makeBlob('System Info', $blob);
 		$sendto->reply($msg);
 	}
 

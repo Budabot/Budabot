@@ -175,7 +175,7 @@ class AlienBioController {
 			// if there is only one bio, show detailed info by calling !bioinfo command handler directly
 			$this->bioinfoCommand("", $channel, $sender, $sendto, array("bioinfo $bioinfo $ql", $bioinfo, $ql));
 		} else {
-			$msg = $this->text->make_blob("Identified Bio-Materials", $blob);
+			$msg = $this->text->makeBlob("Identified Bio-Materials", $blob);
 			$sendto->reply($msg);
 		}
 	}
@@ -197,7 +197,7 @@ class AlienBioController {
 		$blob .= "\n<header2>AI Weapon Types<end>\n";
 		$blob .= $this->getTypeBlob($this->aiWeaponTypes);
 		
-		$msg = $this->text->make_blob("Bio-Material Types", $blob);
+		$msg = $this->text->makeBlob("Bio-Material Types", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -275,7 +275,7 @@ class AlienBioController {
 			$blob .= $this->text->make_chatcmd($row->profession, "/tell <myname> ofabarmor {$row->profession}") . "\n";
 		}
 
-		return $this->text->make_blob("$name (QL $ql)", $blob);
+		return $this->text->makeBlob("$name (QL $ql)", $blob);
 	}
 
 	/**
@@ -294,7 +294,7 @@ class AlienBioController {
 			$blob .= $this->text->make_chatcmd("Ofab {$row->name} Mk 1", "/tell <myname> ofabweapons {$row->name}") . "\n";
 		}
 
-		return $this->text->make_blob("$name (QL $ql)", $blob);
+		return $this->text->makeBlob("$name (QL $ql)", $blob);
 	}
 
 	/**
@@ -330,7 +330,7 @@ class AlienBioController {
 		$blob .= $this->getWeaponInfo($maxaitype);
 		$blob .= "\n\n<yellow>Tradeskilling info added by Mdkdoc420 (RK2)<end>";
 
-		return $this->text->make_blob("$name (QL $ql)", $blob);
+		return $this->text->makeBlob("$name (QL $ql)", $blob);
 	}
 
 	/**
@@ -393,7 +393,7 @@ class AlienBioController {
 
 		$blob .= "\n\n<yellow>Tradeskilling info added by Mdkdoc420 (RK2)<end>";
 
-		return $this->text->make_blob("$name (QL $ql)", $blob);
+		return $this->text->makeBlob("$name (QL $ql)", $blob);
 	}
 
 	/**
@@ -439,6 +439,6 @@ class AlienBioController {
 
 		$blob .= "\n\n<yellow>Tradeskilling info added by Mdkdoc420 (RK2)<end>";
 
-		return $this->text->make_blob("$name (QL $ql)", $blob);
+		return $this->text->makeBlob("$name (QL $ql)", $blob);
 	}
 }

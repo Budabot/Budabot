@@ -301,7 +301,7 @@ class TimerController {
 				$blob .= "Time left: <highlight>$time_left<end> $repeatingInfo\n";
 				$blob .= "Set by: <highlight>$owner<end>\n\n";
 			}
-			$msg = $this->text->make_blob("Timers ($count)", $blob);
+			$msg = $this->text->makeBlob("Timers ($count)", $blob);
 		}
 		$sendto->reply($msg);
 	}

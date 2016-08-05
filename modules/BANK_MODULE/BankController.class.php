@@ -66,7 +66,7 @@ class BankController {
 			$blob .= $character_link . "\n";
 		}
 
-		$msg = $this->text->make_blob('Bank Characters', $blob);
+		$msg = $this->text->makeBlob('Bank Characters', $blob);
 		$sendto->reply($msg);
 	}
 
@@ -85,7 +85,7 @@ class BankController {
 				$blob .= "{$container_link}\n";
 			}
 
-			$msg = $this->text->make_blob("Containers for $name", $blob);
+			$msg = $this->text->makeBlob("Containers for $name", $blob);
 		} else {
 			$msg = "Could not find bank character <highlight>$name<end>.";
 		}
@@ -110,7 +110,7 @@ class BankController {
 				$blob .= "{$item_link} ({$row->ql})\n";
 			}
 
-			$msg = $this->text->make_blob("Contents of $row->container", $blob);
+			$msg = $this->text->makeBlob("Contents of $row->container", $blob);
 		} else {
 			$msg = "Could not find container with id <highlight>{$containerId}</highlight> on bank character <highlight>{$name}<end>.";
 		}
@@ -137,7 +137,7 @@ class BankController {
 				$blob .= "{$item_link} ({$row->ql}) (<highlight>{$row->player}<end>, {$row->container})\n";
 			}
 
-			$msg = $this->text->make_blob("Bank Search Results for {$args[1]}", $blob);
+			$msg = $this->text->makeBlob("Bank Search Results for {$args[1]}", $blob);
 		} else {
 			$msg = "Could not find any search results for <highlight>{$args[1]}<end>.";
 		}

@@ -100,7 +100,7 @@ class InactiveMemberController {
 				$highlight = 1;
 			}
 		}
-		$msg = $this->text->make_blob("$numinactive Inactive Org Members", $blob);
+		$msg = $this->text->makeBlob("$numinactive Inactive Org Members", $blob);
 		$sendto->reply($msg);
 	}
 }

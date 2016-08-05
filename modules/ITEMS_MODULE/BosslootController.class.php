@@ -72,7 +72,7 @@ class BosslootController {
 			forEach ($bosses as $row) {
 				$blob .= $this->getBossLootOutput($row);
 			}
-			$output = $this->text->make_blob("Boss Search Results ($count)", $blob);
+			$output = $this->text->makeBlob("Boss Search Results ($count)", $blob);
 		} else if ($count == 1) {
 			//If single match found, output full loot table
 			$row = $bosses[0];
@@ -87,7 +87,7 @@ class BosslootController {
 				$blob .= $this->text->make_image($row2->icon) . "\n";
 				$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
 			}
-			$output = $this->text->make_blob($row->bossname, $blob);
+			$output = $this->text->makeBlob($row->bossname, $blob);
 		} else {
 			$output = "There were no matches for your search.";
 		}
@@ -116,7 +116,7 @@ class BosslootController {
 			forEach ($loot as $row) {
 				$blob .= $this->getBossLootOutput($row);
 			}
-			$output = $this->text->make_blob("Bossloot Search Results ($count)", $blob);
+			$output = $this->text->makeBlob("Bossloot Search Results ($count)", $blob);
 		} else {
 			$output .= "There were no matches for your search.";
 		}

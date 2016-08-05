@@ -73,7 +73,7 @@ class OrgMembersController {
 			$blob .= ", {$row->gender} {$row->breed} {$row->profession})<end>\n";
 		}
 
-		$msg = $this->text->make_blob("Org members for '$org->orgname' ($numrows)", $blob);
+		$msg = $this->text->makeBlob("Org members for '$org->orgname' ($numrows)", $blob);
 		$sendto->reply($msg);
 	}
 }

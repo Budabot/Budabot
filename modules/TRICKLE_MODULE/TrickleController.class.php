@@ -105,7 +105,7 @@ class TrickleController {
 		$results = $this->getTrickleResults($abilities);
 		$blob .= $this->formatOutput($results, $amount, $abilities);
 		$blob .= "\nBy Tyrence (RK2), inspired by the Bebot command of the same name";
-		return $this->text->make_blob("Trickle Results: $abilitiesHeader", $blob);
+		return $this->text->makeBlob("Trickle Results: $abilitiesHeader", $blob);
 	}
 	
 	function getTrickleResults($abilities) {

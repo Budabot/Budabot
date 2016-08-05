@@ -51,7 +51,7 @@ class HelpController {
 		global $version;
 		$data = file_get_contents("./core/HELP/about.txt");
 		$data = str_replace('<version>', $version, $data);
-		return $this->text->make_blob("About Budabot $version", $data);
+		return $this->text->makeBlob("About Budabot $version", $data);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ class HelpController {
 				$blob .= "  {$helpLink}: {$row->description}\n";
 			}
 
-			$msg = $this->text->make_blob("Help (main)", $blob);
+			$msg = $this->text->makeBlob("Help (main)", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -106,7 +106,7 @@ class HelpController {
 		$blob = $this->helpManager->find($helpcmd, $sender);
 		if ($blob !== false) {
 			$helpcmd = ucfirst($helpcmd);
-			$msg = $this->text->make_blob("Help ($helpcmd)", $blob);
+			$msg = $this->text->makeBlob("Help ($helpcmd)", $blob);
 			$sendto->reply($msg);
 		} else {
 			$sendto->reply("No help found on this topic.");

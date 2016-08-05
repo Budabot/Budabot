@@ -58,7 +58,7 @@ class WeatherController {
 				$blob .= $this->text->make_chatcmd($spot, "/tell <myname> weather $spot")."\n";
 			}
 
-			$msg = $this->text->make_blob('Weather Locations', $blob);
+			$msg = $this->text->makeBlob('Weather Locations', $blob);
 			$sendto->reply($msg);
 			return;
 		}
@@ -191,7 +191,7 @@ class WeatherController {
 			}
 		}
 
-		$msg = $this->text->make_blob('Weather: '.$location, $blob);
+		$msg = $this->text->makeBlob('Weather: '.$location, $blob);
 
 		$sendto->reply($msg);
 	}

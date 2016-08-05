@@ -67,7 +67,7 @@ class SQLController {
 			$num_rows = $this->db->exec($sql);
 			$msg = "$num_rows rows affected.";
 		} catch (SQLException $e) {
-			$msg = $this->text->make_blob("SQL Error", $e->getMessage());
+			$msg = $this->text->makeBlob("SQL Error", $e->getMessage());
 		}
 		$sendto->reply($msg);
 	}
@@ -83,9 +83,9 @@ class SQLController {
 			$data = $this->db->query($sql);
 			$count = count($data);
 
-			$msg = $this->text->make_blob("Results ($count)", print_r($data, true));
+			$msg = $this->text->makeBlob("Results ($count)", print_r($data, true));
 		} catch (SQLException $e) {
-			$msg = $this->text->make_blob("SQL Error", $e->getMessage());
+			$msg = $this->text->makeBlob("SQL Error", $e->getMessage());
 		}
 		$sendto->reply($msg);
 	}

@@ -175,7 +175,7 @@ class AlienArmorController {
 		$list .= "<highlight>Required Skills:<end>\n";
 		$list .= "- ".floor($ql * 6)." Psychology\n\n";
 
-		$msg = $this->text->make_blob("Building process for $ql $armortype", $list);
+		$msg = $this->text->makeBlob("Building process for $ql $armortype", $list);
 		$sendto->reply($msg);
 	}
 
@@ -265,7 +265,7 @@ class AlienArmorController {
 		$list .= "<header2>Target Armor<end>\n";
 		$list .= $this->itemsController->getItemAndIcon($name_armor_trg, $trg_ql) . " QL$trg_ql";
 		$list .= " (" . $this->text->make_chatcmd("Tradeskill process for this item", "/tell <myname> aiarmor $nameTarget $trg_ql") . ")";
-		$msg = $this->text->make_blob("Building process for $ql $name_armor_result", $list);
+		$msg = $this->text->makeBlob("Building process for $ql $name_armor_result", $list);
 		$sendto->reply($msg);
 	}
 	

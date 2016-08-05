@@ -100,7 +100,7 @@ class BuddylistController {
 			if ($cleanup) {
 				$sendto->reply("Removed $orphanCount friends from the friendlist.");
 			}
-			$msg = $this->text->make_blob("Friendlist ($count)", $blob);
+			$msg = $this->text->makeBlob("Friendlist ($count)", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -126,7 +126,7 @@ class BuddylistController {
 			}
 
 			if ($count > 0) {
-				$msg = $this->text->make_blob("Friendlist Search ($count)", $blob);
+				$msg = $this->text->makeBlob("Friendlist Search ($count)", $blob);
 			} else {
 				$msg = "No friends on the friendlist found containing '$search'";
 			}

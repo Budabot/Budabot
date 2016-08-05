@@ -31,9 +31,9 @@ class CommandSearchView {
 			$msg = "No results found.";
 		} else {
 			if ($exactMatch) {
-				$msg = $this->text->make_blob("Command Search Results ($count)", $blob);
+				$msg = $this->text->makeBlob("Command Search Results ($count)", $blob);
 			} else {
-				$msg = $this->text->make_blob("Possible Matches ($count)", $blob);
+				$msg = $this->text->makeBlob("Possible Matches ($count)", $blob);
 			}
 		}
 		return $msg;

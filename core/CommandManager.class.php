@@ -337,7 +337,7 @@ class CommandManager {
 			$blob = $this->helpManager->find($cmd, $sender);
 		}
 		if (!empty($blob)) {
-			$msg = $this->text->make_blob("Help ($cmd)", $blob);
+			$msg = $this->text->makeBlob("Help ($cmd)", $blob);
 		} else {
 			$msg = "Error! Invalid syntax.";
 		}

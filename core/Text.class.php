@@ -25,10 +25,10 @@ class Text {
 	}
 
 	/**
-	 * @name: make_blob
+	 * @name: makeBlob
 	 * @description: creates an info window
 	 */
-	public function make_blob($name, $content, $header = null) {
+	public function makeBlob($name, $content, $header = null) {
 		if ($header === null) {
 			$header = $name;
 		}

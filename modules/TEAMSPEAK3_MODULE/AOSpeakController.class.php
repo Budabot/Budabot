@@ -66,7 +66,7 @@ class AOSpeakController {
 				}
 			}
 			$blob .= "\n\nProvided by " . $this->text->make_chatcmd("AOSpeak.com", "/start http://www.aospeak.com");
-			$msg = $this->text->make_blob("AOSpeak Org ($count)", $blob);
+			$msg = $this->text->makeBlob("AOSpeak Org ($count)", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -112,7 +112,7 @@ class AOSpeakController {
 				}
 			}
 			$blob .= "\n\nProvided by " . $this->text->make_chatcmd("AOSpeak.com", "/start http://www.aospeak.com");
-			$msg = $this->text->make_blob("$title ($count)", $blob);
+			$msg = $this->text->makeBlob("$title ($count)", $blob);
 		}
 
 		$sendto->reply($msg);

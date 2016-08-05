@@ -252,7 +252,7 @@ class TowerController {
 			$baseLink = $this->text->make_chatcmd($row->long_name, "/tell <myname> lc $row->short_name");
 			$blob .= "$baseLink <highlight>($row->short_name)<end>\n";
 		}
-		$msg = $this->text->make_blob('Land Control Index', $blob);
+		$msg = $this->text->makeBlob('Land Control Index', $blob);
 		$sendto->reply($msg);
 	}
 
@@ -282,7 +282,7 @@ class TowerController {
 				$blob .= "<pagebreak>" . $this->formatSiteInfo($row) . "\n\n";
 			}
 
-			$msg = $this->text->make_blob("All Bases in $playfield->long_name", $blob);
+			$msg = $this->text->makeBlob("All Bases in $playfield->long_name", $blob);
 		} else {
 			$msg = "Playfield <highlight>$playfield->long_name<end> does not have any tower sites.";
 		}
@@ -346,7 +346,7 @@ class TowerController {
 				}
 			}
 
-			$msg = $this->text->make_blob("$playfield->short_name $site_number", $blob);
+			$msg = $this->text->makeBlob("$playfield->short_name $site_number", $blob);
 		} else {
 			$msg = "Invalid site number.";
 		}
@@ -411,7 +411,7 @@ class TowerController {
 				$blob .= "$site_link - {$row->min_ql}-{$row->max_ql}, $row->ct_ql CT, $gas_change_string [by $row->scouted_by]\n";
 			}
 	
-			$msg = $this->text->make_blob("Scouted Bases", $blob);
+			$msg = $this->text->makeBlob("Scouted Bases", $blob);
 		} else {
 			$msg = "No sites currently scouted.";
 		}
@@ -454,7 +454,7 @@ class TowerController {
 				$timeString = $this->util->unixtimeToReadable(time() - $row->penalty_time, false);
 				$blob .= "<{$row->att_faction}>{$row->att_guild_name}<end> - $timeString ago\n";
 			}
-			$msg = $this->text->make_blob("Orgs in penalty ($penaltyTimeString)", $blob);
+			$msg = $this->text->makeBlob("Orgs in penalty ($penaltyTimeString)", $blob);
 		} else {
 			$msg = "There are no orgs who have attacked or won battles in the past $penaltyTimeString.";
 		}
@@ -612,7 +612,7 @@ class TowerController {
 			$check_blob .= "Please correct these errors, or, if you are sure the values you entered are correct, use !forcescout to bypass these checks.\n\n";
 			$check_blob .= $forcescoutLink;
 
-			return $this->text->make_blob("Scouting problems for $playfield->short_name $site_number", $check_blob);
+			return $this->text->makeBlob("Scouting problems for $playfield->short_name $site_number", $check_blob);
 		} else {
 			$this->add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
 			return "Scout info for <highlight>$playfield->short_name $site_number<end> has been updated.";
@@ -682,7 +682,7 @@ class TowerController {
 		if ($blob == '') {
 			$msg = "No tower attacks or victories have been recorded.";
 		} else {
-			$msg = $this->text->make_blob("Tower Stats for the Last $timeString", $blob);
+			$msg = $this->text->makeBlob("Tower Stats for the Last $timeString", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -865,7 +865,7 @@ class TowerController {
 			$link .= "Playfield: <highlight>{$base_link} ({$closest_site->min_ql}-{$closest_site->max_ql})<end>\n";
 			$link .= "Location: <highlight>{$closest_site->site_name} ({$attack_waypoint})<end>\n";
 		
-			$more = $this->text->make_blob("{$playfield->short_name} {$closest_site->site_number}", $link, 'Advanced Tower Info');
+			$more = $this->text->makeBlob("{$playfield->short_name} {$closest_site->site_number}", $link, 'Advanced Tower Info');
 		}
 		
 		$targetorg = "<".strtolower($def_side).">".$def_guild."<end>";
@@ -1026,7 +1026,7 @@ class TowerController {
 				$blob .= "Defender: <{$def_faction}>{$row->def_guild_name}<end> ({$row->def_faction})\n";
 				$blob .= "Site: $base\n\n";
 			}
-			$msg = $this->text->make_blob("Tower Attacks", $blob);
+			$msg = $this->text->makeBlob("Tower Attacks", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -1094,7 +1094,7 @@ class TowerController {
 				$blob .= "Loser: <{$lose_side}>{$row->lose_guild_name}<end> (".ucfirst($lose_side).")\n";
 				$blob .= "Site: $base\n\n";
 			}
-			$msg = $this->text->make_blob("Tower Victories", $blob);
+			$msg = $this->text->makeBlob("Tower Victories", $blob);
 		}
 
 		$sendto->reply($msg);

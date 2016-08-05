@@ -81,7 +81,7 @@ class PlayerHistoryController {
 				}
 			}
 			$blob .= "\nHistory provided by Budabot.com and Auno.org";
-			$msg = $this->text->make_blob("History of $name for RK{$rk_num}", $blob);
+			$msg = $this->text->makeBlob("History of $name for RK{$rk_num}", $blob);
 		}
 
 		$sendto->reply($msg);

@@ -65,7 +65,7 @@ class PlayfieldController {
 			$blob .= "[<highlight>{$row->id}<end>] {$row->long_name} ({$row->short_name})\n";
 		}
 
-		$msg = $this->text->make_blob("Playfields", $blob);
+		$msg = $this->text->makeBlob("Playfields", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -91,7 +91,7 @@ class PlayfieldController {
 				$blob .= "[<highlight>$row->id<end>] $row->long_name\n\n";
 			}
 
-			$msg = $this->text->make_blob("Playfields ($count)", $blob);
+			$msg = $this->text->makeBlob("Playfields ($count)", $blob);
 		} else if ($count == 1) {
 			$row = $data[0];
 			$msg = "[<highlight>$row->id<end>] $row->long_name";
@@ -177,7 +177,7 @@ class PlayfieldController {
 	private function processWaypointCommand($x_coords, $y_coords, $playfield_name, $playfield_id) {
 		$link = $this->text->make_chatcmd("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
 		$blob = "Click here to use waypoint: $link";
-		return $this->text->make_blob("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", $blob);
+		return $this->text->makeBlob("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", $blob);
 	}
 	
 	public function get_playfield_by_name($playfield_name) {

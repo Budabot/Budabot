@@ -216,7 +216,7 @@ class BanController {
 				}
 				$blob .= "\n";
 			}
-			$msg = $this->text->make_blob("Banlist ($count)", $blob);
+			$msg = $this->text->makeBlob("Banlist ($count)", $blob);
 		}
 		$sendto->reply($msg);
 	}

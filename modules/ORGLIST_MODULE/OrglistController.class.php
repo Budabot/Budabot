@@ -95,7 +95,7 @@ class OrglistController {
 				$this->checkOrglist($orgs[0]->id, $sendto);
 			} else {
 				$blob = $this->findOrgController->formatResults($orgs);
-				$msg = $this->text->make_blob("Org Search Results for '{$search}' ($count)", $blob);
+				$msg = $this->text->makeBlob("Org Search Results for '{$search}' ($count)", $blob);
 				$sendto->reply($msg);
 			}
 		}
@@ -302,7 +302,7 @@ class OrglistController {
 		$totaltime = time() - $timestart;
 		$blob .= "\nLookup took $totaltime seconds.";
 		
-		return $this->text->make_blob("Orglist for '".$this->orglist["org"]."' ($totalonline / $totalcount)", $blob);
+		return $this->text->makeBlob("Orglist for '".$this->orglist["org"]."' ($totalonline / $totalcount)", $blob);
 	}
 	
 	/**

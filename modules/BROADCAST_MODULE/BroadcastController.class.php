@@ -89,7 +89,7 @@ class BroadcastController {
 		if (count($data) == 0) {
 			$msg = "No bots are on the broadcast list.";
 		} else {
-			$msg = $this->text->make_blob('Broadcast Bots', $blob);
+			$msg = $this->text->makeBlob('Broadcast Bots', $blob);
 		}
 
 		$sendto->reply($msg);

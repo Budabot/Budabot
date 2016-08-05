@@ -63,7 +63,7 @@ class OrgHistoryController {
 				$blob .= $this->formatOrgAction($row);
 			}
 
-			$msg = $this->text->make_blob('Org History', $blob);
+			$msg = $this->text->makeBlob('Org History', $blob);
 		} else {
 			$msg = "No org history has been recorded.";
 		}
@@ -96,7 +96,7 @@ class OrgHistoryController {
 			$blob .= $this->formatOrgAction($row);
 		}
 
-		$msg = $this->text->make_blob("Org History for $player", $blob);
+		$msg = $this->text->makeBlob("Org History for $player", $blob);
 
 		$sendto->reply($msg);
 	}

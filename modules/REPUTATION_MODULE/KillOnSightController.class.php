@@ -77,7 +77,7 @@ class KillOnSightController {
 				
 				$blob .= "<highlight>$row->name<end>$comment (added by $row->submitter <highlight>" . $this->util->unixtimeToReadable(time() - $row->dt) . "<end> ago)\n";
 			}
-			$msg = $this->text->make_blob("Kill-On-Sight List ($count)", $blob);
+			$msg = $this->text->makeBlob("Kill-On-Sight List ($count)", $blob);
 		}
 		$sendto->reply($msg);
 	}

@@ -215,7 +215,7 @@ class Budabot extends AOChat {
 	}
 
 	public function sendPrivate($message, $disable_relay = false, $group = null) {
-		// for when $text->make_blob generates several pages
+		// for when $text->makeBlob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->sendPrivate($page, $disable_relay, $group);
@@ -248,7 +248,7 @@ class Budabot extends AOChat {
 	}
 
 	public function sendGuild($message, $disable_relay = false, $priority = null) {
-		// for when $text->make_blob generates several pages
+		// for when $text->makeBlob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->sendGuild($page, $disable_relay, $priority);
@@ -280,7 +280,7 @@ class Budabot extends AOChat {
 	}
 
 	public function sendTell($message, $character, $priority = null, $formatMessage = true) {
-		// for when $text->make_blob generates several pages
+		// for when $text->makeBlob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->sendTell($page, $character, $priority);
@@ -302,7 +302,7 @@ class Budabot extends AOChat {
 	}
 
 	public function sendPublic($message, $channel, $priority = null) {
-		// for when $text->make_blob generates several pages
+		// for when $text->makeBlob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
 				$this->sendPublic($page, $channel, $priority);

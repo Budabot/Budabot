@@ -62,7 +62,7 @@ class WhompahController {
 		}
 		$blob .= "\nWritten By Tyrence (RK2)\nDatabase from a Bebot module written by POD13";
 
-		$msg = $this->text->make_blob('Whompah Cities', $blob);
+		$msg = $this->text->makeBlob('Whompah Cities', $blob);
 
 		$sendto->reply($msg);
 	}

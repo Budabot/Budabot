@@ -143,7 +143,7 @@ class QuoteController {
 		}
 
 		if ($msg) {
-			$msg = $this->text->make_blob("Results for: '$search'", $msg);
+			$msg = $this->text->makeBlob("Results for: '$search'", $msg);
 		} else {
 			$msg = "Could not find any matches for this search.";
 		}
@@ -220,6 +220,6 @@ class QuoteController {
 		}
 		$msg .= substr($list, 0, strlen($list) - 2);
 
-		return $this->text->make_blob("Quote", $msg).': "'.$quoteMSG.'"';
+		return $this->text->makeBlob("Quote", $msg).': "'.$quoteMSG.'"';
 	}
 }

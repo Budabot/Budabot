@@ -116,13 +116,13 @@ class FightController {
 
 		if ($hp1 > $hp2) {
 			$list .= "\nAnd the winner is ..... <highlight>$player1!<end>";
-			$msg = $this->text->make_blob("$player1 vs $player2....$player1 wins!", $list);
+			$msg = $this->text->makeBlob("$player1 vs $player2....$player1 wins!", $list);
 		} else if ($hp2 > $hp1) {
 			$list .= "\nAnd the winner is ..... <highlight>$player2!<end>";
-			$msg = $this->text->make_blob("$player1 vs $player2....$player2 wins!", $list);
+			$msg = $this->text->makeBlob("$player1 vs $player2....$player2 wins!", $list);
 		} else {
 			$list .= "\nIt's a tie!!";
-			$msg = $this->text->make_blob("$player1 vs $player2....It's a tie!", $list);
+			$msg = $this->text->makeBlob("$player1 vs $player2....It's a tie!", $list);
 		}
 
 		$sendto->reply($msg);

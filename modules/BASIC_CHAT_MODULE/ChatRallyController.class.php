@@ -132,7 +132,7 @@ class ChatRallyController {
 	public function set($name, $playfield_id, $x_coords, $y_coords) {
 		$link = $this->text->make_chatcmd("Rally: {$x_coords}x{$y_coords} {$name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
 		$blob = "Click here to use rally: $link";
-		$rally = $this->text->make_blob("Rally: {$x_coords}x{$y_coords} {$name}", $blob);
+		$rally = $this->text->makeBlob("Rally: {$x_coords}x{$y_coords} {$name}", $blob);
 
 		$this->settingManager->save("rally", $rally);
 

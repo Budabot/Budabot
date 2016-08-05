@@ -144,7 +144,7 @@ class TrackerController {
 				$blob .= "<tab>-[{$history}] {$row->name} ({$status}{$last_action}) - {$remove}\n";
 			}
 
-			$msg = $this->text->make_blob("Tracklist ({$numrows})", $blob);
+			$msg = $this->text->makeBlob("Tracklist ({$numrows})", $blob);
 		} else {
 			$msg = "No characters are on the track list.";
 		}
@@ -224,7 +224,7 @@ class TrackerController {
 					$blob .= "$status " . $this->util->date($row->dt) ."\n";
 				}
 
-				$msg = $this->text->make_blob("Track History for $name", $blob);
+				$msg = $this->text->makeBlob("Track History for $name", $blob);
 			} else {
 				$msg = "Character <highlight>$name<end> has never logged on or is not being tracked.";
 			}

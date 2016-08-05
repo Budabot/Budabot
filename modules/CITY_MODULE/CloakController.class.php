@@ -85,7 +85,7 @@ class CloakController {
 				$list .= "Action: <highlight>Cloaking device turned " . $row->action . "<end>\n";
 				$list .= "Character: <highlight>" . $row->player . "<end>\n\n";
 			}
-			$msg .= " " . $this->text->make_blob("Cloak History", $list);
+			$msg .= " " . $this->text->makeBlob("Cloak History", $list);
 		}
 		$sendto->reply($msg);
 	}

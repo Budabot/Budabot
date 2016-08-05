@@ -125,7 +125,7 @@ class ConfigController {
 			$blob .= strtoupper($row->module)." $a ($on/$off) $c\n";
 		}
 	
-		$msg = $this->text->make_blob("Module Config ($count)", $blob);
+		$msg = $this->text->makeBlob("Module Config ($count)", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -439,7 +439,7 @@ class ConfigController {
 				$blob .= "<header>Help ($cmd)<end>\n\n" . $help;
 			}
 	
-			$msg = $this->text->make_blob(ucfirst($cmd)." Config", $blob);
+			$msg = $this->text->makeBlob(ucfirst($cmd)." Config", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -566,7 +566,7 @@ class ConfigController {
 		}
 	
 		if ($found) {
-			$msg = $this->text->make_blob("$module Configuration", $blob);
+			$msg = $this->text->makeBlob("$module Configuration", $blob);
 		} else {
 			$msg = "Could not find module <highlight>$module<end>.";
 		}

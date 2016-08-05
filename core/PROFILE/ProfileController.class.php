@@ -89,7 +89,7 @@ class ProfileController {
 
 			if ($linkContents) {
 				$linkContents .= "\n\n<orange>Warning: Running a profile script will change your configuration.  Proceed only if you understand the consequences.<end>";
-				$msg = $this->text->make_blob('Profiles (' . count($profileList) . ')', $linkContents);
+				$msg = $this->text->makeBlob('Profiles (' . count($profileList) . ')', $linkContents);
 			} else {
 				$msg = "No profiles available.";
 			}
@@ -110,7 +110,7 @@ class ProfileController {
 			$msg = "Profile <highlight>$profileName<end> does not exist.";
 		} else {
 			$blob = htmlspecialchars(file_get_contents($filename));
-			$msg = $this->text->make_blob("Profile $profileName", $blob);
+			$msg = $this->text->makeBlob("Profile $profileName", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -193,7 +193,7 @@ class ProfileController {
 			if ($ouptput === false) {
 				$msg = "There was an error loading the profile <highlight>$profileName<end>.";
 			} else {
-				$msg = $this->text->make_blob("Profile Results: $profileName", $output);
+				$msg = $this->text->makeBlob("Profile Results: $profileName", $output);
 			}
 		}
 		$sendto->reply($msg);

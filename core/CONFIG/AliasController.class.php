@@ -99,7 +99,7 @@ class AliasController {
 			$blob .= "<{$color}>{$a}{$alias->cmd}<end> $removeLink\n";
 		}
 	
-		$msg = $this->text->make_blob('Alias List', $blob);
+		$msg = $this->text->makeBlob('Alias List', $blob);
 		$sendto->reply($msg);
 	}
 

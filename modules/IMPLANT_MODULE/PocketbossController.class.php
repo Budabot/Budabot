@@ -62,14 +62,14 @@ class PocketbossController {
 		} else if ($numrows == 1) {
 			$name = $data[0]->pb;
 			$blob .= $this->singlePbBlob($name);
-			$msg = $this->text->make_blob("Remains of $name", $blob);
+			$msg = $this->text->makeBlob("Remains of $name", $blob);
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
 				$pbLink = $this->text->make_chatcmd($row->pb, "/tell <myname> pocketboss $row->pb");
 				$blob .= $pbLink . "\n";
 			}
-			$msg = $this->text->make_blob("Search results for $search ($numrows)", $blob);
+			$msg = $this->text->makeBlob("Search results for $search ($numrows)", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -212,7 +212,7 @@ class PocketbossController {
 				$blob .= "Found on " . $this->text->make_chatcmd($row->pb, "/tell <myname> pb $row->pb");
 				$blob .= "\n\n";
 			}
-			$msg = $this->text->make_blob("Symbiant Search Results ($numrows)", $blob);
+			$msg = $this->text->makeBlob("Symbiant Search Results ($numrows)", $blob);
 		} else {
 			$msg = "Could not find any symbiants that matched your search criteria.";
 		}

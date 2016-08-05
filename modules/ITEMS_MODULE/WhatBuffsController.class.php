@@ -51,7 +51,7 @@ class WhatBuffsController {
 		forEach ($this->types as $type => $typeId) {
 			$blob .= $this->text->make_chatcmd(ucfirst($type), "/tell <myname> whatbuffs $type") . "\n";
 		}
-		$msg = $this->text->make_blob("WhatBuffs - Choose Type", $blob);
+		$msg = $this->text->makeBlob("WhatBuffs - Choose Type", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -66,7 +66,7 @@ class WhatBuffsController {
 		forEach ($data as $row) {
 			$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $type $row->name") . "\n";
 		}
-		$msg = $this->text->make_blob("WhatBuffs - Choose Skill", $blob);
+		$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -112,13 +112,13 @@ class WhatBuffsController {
 			forEach ($this->types as $type => $typeId) {
 				$blob .= $this->text->make_chatcmd(ucfirst($type), "/tell <myname> whatbuffs $type $row->name") . "\n";
 			}
-			$msg = $this->text->make_blob("WhatBuffs - Choose Type for $row->name", $blob);
+			$msg = $this->text->makeBlob("WhatBuffs - Choose Type for $row->name", $blob);
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
 				$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $row->name") . "\n";
 			}
-			$msg = $this->text->make_blob("WhatBuffs - Choose Skill", $blob);
+			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -145,7 +145,7 @@ class WhatBuffsController {
 			list($count, $blob) = $result;
 			$blob = $this->text->make_chatcmd("See results on Auno.org", "/start $newUrl") . "\n\n" . $blob;
 			$blob .= "\nSearch results provided by Auno.org";
-			$msg = $this->text->make_blob("WhatBuffs - $category $skill ($count)", $blob);
+			$msg = $this->text->makeBlob("WhatBuffs - $category $skill ($count)", $blob);
 		}
 		return $msg;
 	}
@@ -222,7 +222,7 @@ class WhatBuffsController {
 			forEach ($data as $row) {
 				$blob .= $this->text->make_chatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $category $row->name") . "\n";
 			}
-			$msg = $this->text->make_blob("WhatBuffs - Choose Skill", $blob);
+			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		}
 		
 		return $msg;

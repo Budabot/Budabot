@@ -78,7 +78,7 @@ class ImplantController {
 		} else {
 			$obj = $this->getRequirements($ql);
 			$clusterInfo = $this->formatClusterBonuses($obj);
-			$link = $this->text->make_blob("QL$obj->ql", $clusterInfo, "Implant Info (QL $obj->ql)");
+			$link = $this->text->makeBlob("QL$obj->ql", $clusterInfo, "Implant Info (QL $obj->ql)");
 			$msg = "QL $ql implants--Ability: {$obj->ability}, Treatment: {$obj->treatment} $link";
 
 			$msg = "$link: <highlight>$obj->ability<end> Ability, <highlight>$obj->treatment<end> Treatment";
@@ -100,7 +100,7 @@ class ImplantController {
 		} else {
 			$obj = $this->findMaxImplantQlByReqs($ability, $treatment);
 			$clusterInfo = $this->formatClusterBonuses($obj);
-			$link = $this->text->make_blob("QL$obj->ql", $clusterInfo, "Implant Info (QL $obj->ql)");
+			$link = $this->text->makeBlob("QL$obj->ql", $clusterInfo, "Implant Info (QL $obj->ql)");
 
 			$msg = "$link: <highlight>$obj->ability<end> Ability, <highlight>$obj->treatment<end> Treatment";
 		}
@@ -128,7 +128,7 @@ class ImplantController {
 		if ($results != null) {
 			$blob = $this->formatResults($results);
 			$blob .= "\n\nWritten by Tyrence (RK2)";
-			$msg = $this->text->make_blob("Implant Search Results for '$searchTerms'", $blob);
+			$msg = $this->text->makeBlob("Implant Search Results for '$searchTerms'", $blob);
 		} else {
 			$msg = "No results found.";
 		}
@@ -167,7 +167,7 @@ class ImplantController {
 				}
 				$blob .= "\n\n";
 			}
-			$msg = $this->text->make_blob("Cluster search results ($count)", $blob);
+			$msg = $this->text->makeBlob("Cluster search results ($count)", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -276,7 +276,7 @@ class ImplantController {
 		
 		$blob .= "-------------------\n\nEnding $type: $value";
 		$blob .= "\n\n<highlight>Inspired by a command written by Lucier of the same name<end>";
-		$msg = $this->text->make_blob("Laddering from $startingValue to $value " . ucfirst(strtolower($type)), $blob);
+		$msg = $this->text->makeBlob("Laddering from $startingValue to $value " . ucfirst(strtolower($type)), $blob);
 		
 		$sendto->reply($msg);
 	}

@@ -82,7 +82,7 @@ class GuideController {
 			}
 
 			if ($linkContents) {
-				$msg = $this->text->make_blob('Topics (' . count($topicList) . ')', $linkContents);
+				$msg = $this->text->makeBlob('Topics (' . count($topicList) . ')', $linkContents);
 			} else {
 				$msg = "No topics available.";
 			}

@@ -42,7 +42,7 @@ class CacheController extends AutoInject {
 		forEach ($this->cacheManager->getGroups() as $group) {
 			$blob .= $this->text->make_chatcmd($group, "/tell <myname> cache browse $group") . "\n";
 		}
-		$msg = $this->text->make_blob("Cache Groups", $blob);
+		$msg = $this->text->makeBlob("Cache Groups", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -62,7 +62,7 @@ class CacheController extends AutoInject {
 			$blob .= "  [" . $this->text->make_chatcmd("View", "/tell <myname> cache view $group $file") . "]";
 			$blob .= "  [" . $this->text->make_chatcmd("Delete", "/tell <myname> cache rem $group $file") . "]\n";
 		}
-		$msg = $this->text->make_blob("Cache Group: $group", $blob);
+		$msg = $this->text->makeBlob("Cache Group: $group", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -93,7 +93,7 @@ class CacheController extends AutoInject {
 		
 		if ($this->cacheManager->cacheExists($group, $file)) {
 			$contents = $this->cacheManager->retrieve($group, $file);
-			$msg = $this->text->make_blob("Cache File: $group $file", htmlspecialchars ($contents));
+			$msg = $this->text->makeBlob("Cache File: $group $file", htmlspecialchars ($contents));
 		} else {
 			$msg = "Could not find file <highlight>$file<end> in cache group <highlight>$group<end>.";
 		}

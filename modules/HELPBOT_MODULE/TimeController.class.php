@@ -92,7 +92,7 @@ class TimeController {
 		$link .= "<tab><tab>" . time() . "\n";
 
 		$msg = "<highlight>".$this->util->date(time())."<end>";
-		$msg .= " " . $this->text->make_blob("All Timezones", $link);
+		$msg .= " " . $this->text->makeBlob("All Timezones", $link);
 		$sendto->reply($msg);
 	}
 	

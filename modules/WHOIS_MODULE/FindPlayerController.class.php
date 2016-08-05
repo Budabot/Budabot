@@ -48,7 +48,7 @@ class FindPlayerController {
 			forEach ($data as $row) {
 				$blob .= $this->playerManager->get_info($row, false) . "\n\n";
 			}
-			$msg = $this->text->make_blob("Search results for '$search' ($count)", $blob);
+			$msg = $this->text->makeBlob("Search results for '$search' ($count)", $blob);
 		} else {
 			$msg = "Could not find any players matching <highlight>$search<end>.";
 		}

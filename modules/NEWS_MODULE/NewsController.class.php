@@ -66,7 +66,7 @@ class NewsController {
 				}
 				$sticky = $row->sticky;
 			}
-			$msg = $this->text->make_blob("News [Last updated at " . $this->util->date($data[0]->time) . "]", $blob);
+			$msg = $this->text->makeBlob("News [Last updated at " . $this->util->date($data[0]->time) . "]", $blob);
 		}
 		return $msg;
 	}

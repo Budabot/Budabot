@@ -105,7 +105,7 @@ class ShoppingController {
 				$post = preg_replace('|<a href="itemref://(\d+)/(\d+)/(\d+)">([^<]+)</a>|', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $result->message);
 				$blob .= "[$senderLink]: {$post} - <highlight>($timeString ago)<end>\n\n";
 			}
-			$msg = $this->text->make_blob("Shopping Results for '$search' ($count)", $blob);
+			$msg = $this->text->makeBlob("Shopping Results for '$search' ($count)", $blob);
 		}
 		
 		$sendto->reply($msg);

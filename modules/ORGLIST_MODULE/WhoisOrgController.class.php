@@ -195,7 +195,7 @@ class WhoisOrgController {
 		$link .= "Shades: <highlight>$num_shade<end> (".round(($num_shade*100)/$num_members, 1)."%)\n";
 		$link .= "Soldiers: <highlight>$num_sol<end> (".round(($num_sol*100)/$num_members, 1)."%)\n";
 		$link .= "Traders: <highlight>$num_trad<end> (".round(($num_trad*100)/$num_members, 1)."%)\n";
-		$msg = $this->text->make_blob("Org Info for $org->orgname", $link);
+		$msg = $this->text->makeBlob("Org Info for $org->orgname", $link);
 
 		$sendto->reply($msg);
 	}

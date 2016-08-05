@@ -65,7 +65,7 @@ class NotesController {
 				$remove = $this->text->make_chatcmd('Remove', "/tell <myname> notes rem $row->id");
 				$blob .= "$remove $row->note\n\n";
 			}
-			$msg = $this->text->make_blob("Notes for $sender", $blob);
+			$msg = $this->text->makeBlob("Notes for $sender", $blob);
 		}
 
 		$sendto->reply($msg);

@@ -89,7 +89,7 @@ class UsageController {
 				$blob .= "<highlight>{$row->command}<end> ({$row->count})\n";
 			}
 
-			$msg = $this->text->make_blob("Usage for $player - $timeString ($count)", $blob);
+			$msg = $this->text->makeBlob("Usage for $player - $timeString ($count)", $blob);
 		} else {
 			$msg = "No usage statistics found for <highlight>$player<end>.";
 		}
@@ -129,7 +129,7 @@ class UsageController {
 				$blob .= "<highlight>{$row->sender}<end> ({$row->count})\n";
 			}
 
-			$msg = $this->text->make_blob("Usage for $cmd - $timeString ($count)", $blob);
+			$msg = $this->text->makeBlob("Usage for $cmd - $timeString ($count)", $blob);
 		} else {
 			$msg = "No usage statistics found for <highlight>$cmd<end>.";
 		}
@@ -194,7 +194,7 @@ class UsageController {
 			$blob .= "{$senderLink} ({$row->count})\n";
 		}
 
-		$msg = $this->text->make_blob("Usage Statistics - $timeString", $blob);
+		$msg = $this->text->makeBlob("Usage Statistics - $timeString", $blob);
 		$sendto->reply($msg);
 	}
 

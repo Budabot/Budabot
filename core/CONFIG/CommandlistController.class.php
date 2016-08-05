@@ -111,7 +111,7 @@ class CommandlistController {
 				$blob .= "$row->cmd ({$tell}|{$guild}|{$priv}) {$adv_link} - ($row->description)\n";
 			}
 		
-			$msg = $this->text->make_blob("Command List ($count)", $blob);
+			$msg = $this->text->makeBlob("Command List ($count)", $blob);
 		} else {
 			$msg = "No commands were found.";
 		}

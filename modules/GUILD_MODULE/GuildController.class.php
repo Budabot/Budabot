@@ -216,7 +216,7 @@ class GuildController {
 			if (count($data) == 0) {
 				$msg .= "Character <highlight>$name<end> is not a member of the org.";
 			} else {
-				$msg = $this->text->make_blob("Last Seen Info for $altInfo->main", $blob);
+				$msg = $this->text->makeBlob("Last Seen Info for $altInfo->main", $blob);
 			}
 		}
 
@@ -274,7 +274,7 @@ class GuildController {
 				}
 			} 
 		}
-		$msg = $this->text->make_blob("$numrecentcount recently seen org members", $blob);
+		$msg = $this->text->makeBlob("$numrecentcount recently seen org members", $blob);
 		$sendto->reply($msg);
 	}
 	

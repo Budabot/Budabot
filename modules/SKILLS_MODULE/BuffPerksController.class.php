@@ -153,7 +153,7 @@ class BuffPerksController {
 				$buffs[$row->skill] += $row->buff_amount;
 			}
 			
-			$msg = $this->text->make_blob("Buff Perks for $minLevel $profession", $blob);
+			$msg = $this->text->makeBlob("Buff Perks for $minLevel $profession", $blob);
 		}
 		$sendto->reply($msg);
 	}

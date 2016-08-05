@@ -89,7 +89,7 @@ class RecipeController {
 				$blob .= $this->text->make_chatcmd($row->name, "/tell <myname> recipe $row->id") . "\n";
 			}
 
-			$msg = $this->text->make_blob("Recipes matching '$search' ($count)", $blob);
+			$msg = $this->text->makeBlob("Recipes matching '$search' ($count)", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -124,7 +124,7 @@ class RecipeController {
 		$recipeText = "Author: <highlight>$author<end>\n\n";
 		$recipeText .= $this->formatRecipeText($row->recipe);
 
-		return $this->text->make_blob("Recipe for $recipe_name", $recipeText);
+		return $this->text->makeBlob("Recipe for $recipe_name", $recipeText);
 	}
 
 	private function replaceItem($arr) {

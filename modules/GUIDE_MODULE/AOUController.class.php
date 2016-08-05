@@ -80,7 +80,7 @@ class AOUController {
 
 		$blob .= "\n\n<highlight>Powered by<end> " . $this->text->make_chatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 
-		$msg = $this->text->make_blob($title, $blob);
+		$msg = $this->text->makeBlob($title, $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -157,7 +157,7 @@ class AOUController {
 			} else {
 				$title = "AO-U Guides containing '$search' ($count)";
 			}
-			$msg = $this->text->make_blob($title, $blob);
+			$msg = $this->text->makeBlob($title, $blob);
 		} else {
 			$msg = "Could not find any guides containing: '$search'.";
 			if (!$searchGuideText) {

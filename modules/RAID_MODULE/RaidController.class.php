@@ -370,7 +370,7 @@ class RaidController {
 		$this->loot = array();
 
 		//Show winner list
-		$msg = $this->text->make_blob("Winner List", $list);
+		$msg = $this->text->makeBlob("Winner List", $list);
 		if (!empty($this->residual)) {
 			$msg .= " (There are item(s) left to be rolled. To re-add, type <symbol>reroll)";
 		}
@@ -475,7 +475,7 @@ class RaidController {
 
 				$list .= "\n\n";
 			}
-			$msg = $this->text->make_blob("Loot List (Items: $items, Players: $players)", $list);
+			$msg = $this->text->makeBlob("Loot List (Items: $items, Players: $players)", $list);
 		} else {
 			$msg = "No loot list exists yet.";
 		}

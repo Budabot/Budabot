@@ -63,7 +63,7 @@ class FindOrgController {
 
 		if ($count > 0) {
 			$blob = $this->formatResults($orgs);
-			$msg = $this->text->make_blob("Org Search Results for '{$search}' ($count)", $blob);
+			$msg = $this->text->makeBlob("Org Search Results for '{$search}' ($count)", $blob);
 		} else {
 			$msg = "No matches found.";
 		}

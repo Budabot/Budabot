@@ -100,7 +100,7 @@ class TestController extends AutoInject {
 			$name = str_replace(".txt", "", $file);
 			$blob .= $this->text->make_chatcmd($name, "/tell <myname> test $name") . "\n";
 		}
-		$msg = $this->text->make_blob("Tests Available ($count)", $blob);
+		$msg = $this->text->makeBlob("Tests Available ($count)", $blob);
 		$sendto->reply($msg);
 	}
 

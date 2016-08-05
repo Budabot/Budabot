@@ -139,7 +139,7 @@ class SpiritsController {
 			}
 		}
 		if ($spirits) {
-			$spirits = $this->text->make_blob("Spirits", $spirits, $title);
+			$spirits = $this->text->makeBlob("Spirits", $spirits, $title);
 			$sendto->reply($spirits);
 		} else {
 			return false;

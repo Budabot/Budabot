@@ -248,7 +248,7 @@ class LootListsController {
 	public function getAlbatraumLoot($raid, $category) {
 		$blob = $this->find_raid_loot($raid, $category);
 		$blob .= "\n\nAlbtraum Loot By Dare2005 (RK2)";
-		return $this->text->make_blob("$raid $category Loot", $blob);
+		return $this->text->makeBlob("$raid $category Loot", $blob);
 	}
 	
 	/**
@@ -276,7 +276,7 @@ class LootListsController {
 	public function getDustBrigadeLoot($raid, $category) {
 		$blob = $this->find_raid_loot($raid, $category);
 		$blob .= "\n\nDust Brigrade Loot By Chachy (RK2)";
-		return $this->text->make_blob("$raid $category Loot", $blob);
+		return $this->text->makeBlob("$raid $category Loot", $blob);
 	}
 	
 	/**
@@ -287,7 +287,7 @@ class LootListsController {
 		$raid = "APF";
 		$category = "Sector 7";
 		$blob = $this->find_raid_loot($raid, $category);
-		$msg = $this->text->make_blob("$raid $category Loot", $blob);
+		$msg = $this->text->makeBlob("$raid $category Loot", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -503,7 +503,7 @@ class LootListsController {
 				break;
 		}
 
-		$msg = $this->text->make_blob("Loot table for sector $sector", $list);
+		$msg = $this->text->makeBlob("Loot table for sector $sector", $list);
 
 		$sendto->reply($msg);
 	}
@@ -691,7 +691,7 @@ class LootListsController {
 	public function getPandemoniumLoot($raid, $category) {
 		$blob = $this->find_raid_loot($raid, $category);
 		$blob .= "\n\nPande Loot By Marinerecon (RK2)";
-		return $this->text->make_blob("$raid $category Loot", $blob);
+		return $this->text->makeBlob("$raid $category Loot", $blob);
 	}
 	
 	/**
@@ -729,7 +729,7 @@ class LootListsController {
 
 		$list .= "\n\nPandemonium Loot By Marinerecon (RK2)";
 
-		$msg = $this->text->make_blob("Pandemonium Loot", $list);
+		$msg = $this->text->makeBlob("Pandemonium Loot", $list);
 		$sendto->reply($msg);
 	}
 	
@@ -773,7 +773,7 @@ class LootListsController {
 	public function getXanLoot($raid, $category) {
 		$blob = $this->find_raid_loot($raid, $category);
 		$blob .= "\n\nXan Loot By Morgo (RK2)";
-		return $this->text->make_blob("$raid $category Loot", $blob);
+		return $this->text->makeBlob("$raid $category Loot", $blob);
 	}
 	
 	/**
@@ -801,7 +801,7 @@ class LootListsController {
 
 		$list .= "\n\nXan Loot By Morgo (RK2)";
 
-		$msg = $this->text->make_blob("Legacy of the Xan Loot", $list);
+		$msg = $this->text->makeBlob("Legacy of the Xan Loot", $list);
 		$sendto->reply($msg);
 	}
 	

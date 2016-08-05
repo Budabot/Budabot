@@ -48,7 +48,7 @@ class ReloadInstanceController extends AutoInject {
 			Registry::importChanges($instance);
 			Registry::injectDependencies($instance);
 		}
-		$msg = $this->text->make_blob("All instances have been reloaded ($count)", $blob);
+		$msg = $this->text->makeBlob("All instances have been reloaded ($count)", $blob);
 		$sendto->reply($msg);
 	}
 	

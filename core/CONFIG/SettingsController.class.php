@@ -75,7 +75,7 @@ class SettingsController {
 			$blob .= ": " . $settingHandler->displayValue() . "\n";
 		}
 
-		$msg = $this->text->make_blob("Bot Settings", $blob);
+		$msg = $this->text->makeBlob("Bot Settings", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -103,7 +103,7 @@ class SettingsController {
 				$blob .= "\n\n<header2>Help ($settingName)<end>\n\n" . $help;
 			}
 
-			$msg = $this->text->make_blob("Settings Info for {$settingName}", $blob);
+			$msg = $this->text->makeBlob("Settings Info for {$settingName}", $blob);
 		}
 
 		$sendto->reply($msg);

@@ -72,7 +72,7 @@ class HelpbotController {
 		
 		$blob .= "Dyna camp information taken from CSP help files. (http://creativestudent.com/ao/files-helpfiles.html)";
 
-		$msg = $this->text->make_blob("Dynacamps ($count)", $blob);
+		$msg = $this->text->makeBlob("Dynacamps ($count)", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -91,7 +91,7 @@ class HelpbotController {
 		
 		$blob .= "Dyna camp information taken from CSP help files. (http://creativestudent.com/ao/files-helpfiles.html)";
 
-		$msg = $this->text->make_blob("Dynacamps ($count)", $blob);
+		$msg = $this->text->makeBlob("Dynacamps ($count)", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -135,7 +135,7 @@ class HelpbotController {
 			"0%: <highlight>$oe25<end> or higher\n\n".
 			"WARNING: May be plus/minus 1 point!";
 
-		$msg = "<highlight>{$lowoe100}<end> - {$oe} - <highlight>{$oe100}<end> " . $this->text->make_blob('More info', $blob, 'Over-equipped Calculation');
+		$msg = "<highlight>{$lowoe100}<end> - {$oe} - <highlight>{$oe100}<end> " . $this->text->makeBlob('More info', $blob, 'Over-equipped Calculation');
 
 		$sendto->reply($msg);
 	}

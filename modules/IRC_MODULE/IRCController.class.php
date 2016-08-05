@@ -389,7 +389,7 @@ class IRCController {
 	}
 
 	public function kickMessage(&$irc, &$obj) {
-		$extendedinfo = $this->text->make_blob("Extended information", $obj->message);
+		$extendedinfo = $this->text->makeBlob("Extended information", $obj->message);
 		if ($obj->nick == $this->setting->irc_nickname) {
 			$msg = "<yellow>[IRC]<end> Bot was kicked from the server:".$extendedinfo;
 			if ($this->chatBot->vars['my_guild'] != "") {
@@ -413,7 +413,7 @@ class IRCController {
 		if (false != stripos($obj->message, "exiting")) {
 			// the irc server shut down (i guess)
 			// send notification to channel
-			$extendedinfo = $this->text->make_blob("Extended information", $obj->message);
+			$extendedinfo = $this->text->makeBlob("Extended information", $obj->message);
 			$msg = "<yellow>[IRC]<end> Lost connection with server:".$extendedinfo;
 			if ($this->chatBot->vars['my_guild'] != "") {
 				$this->chatBot->sendGuild($msg, true);

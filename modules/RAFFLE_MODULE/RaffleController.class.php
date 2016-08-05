@@ -104,7 +104,7 @@ class RaffleController {
 
 	Click $joinLink to join the raffle!
 	Click $leaveLink if you wish to leave the raffle.";
-		$link = $this->text->make_blob("here", $jnRflMsg, 'Raffle');
+		$link = $this->text->makeBlob("here", $jnRflMsg, 'Raffle');
 		$msg = "
 	-----------------------------------------------------------------------
 	A raffle for $item (count: $count) has been started by $sender!
@@ -294,7 +294,7 @@ class RaffleController {
 				$blob .= "\n-------------------------\n Unlucky:";
 			}
 		}
-		$results = $this->text->make_blob("Detailed results", $blob);
+		$results = $this->text->makeBlob("Detailed results", $blob);
 
 		if (1 == $count) {
 			$msg = "The raffle for $item is over. Winner: ";
@@ -355,7 +355,7 @@ class RaffleController {
 		$blob .= "\nClick $leaveLink if you wish to leave the raffle.";
 		$blob .= "\n\n Time left: $time_string.";
 
-		$link = $this->text->make_blob("Raffle Info", $blob);
+		$link = $this->text->makeBlob("Raffle Info", $blob);
 		if (1 < $count) {
 			$msg = "Reminder: Raffle for $item (count: $count) has $time_string left. $link";
 		} else {

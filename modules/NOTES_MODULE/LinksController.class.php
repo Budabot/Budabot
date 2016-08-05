@@ -66,7 +66,7 @@ class LinksController {
 		if (count($data) == 0) {
 			$msg = "No links found.";
 		} else {
-			$msg = $this->text->make_blob('Links', $blob);
+			$msg = $this->text->makeBlob('Links', $blob);
 		}
 
 		$sendto->reply($msg);

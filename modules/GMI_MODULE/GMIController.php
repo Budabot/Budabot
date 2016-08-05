@@ -94,7 +94,7 @@ class GMIController {
 			}
 			$blob .= "\nPowered by " . $this->text->make_chatcmd("aogmi.com", "/start http://aogmi.com/");
 			
-			$msg = $this->text->make_blob("GMI Result: $itemName ($countSellOrders, $countBuyOrders)", $blob);
+			$msg = $this->text->makeBlob("GMI Result: $itemName ($countSellOrders, $countBuyOrders)", $blob);
 		}
 		
 		return $msg;
@@ -128,7 +128,7 @@ class GMIController {
 				}
 				$blob .= "\nPowered by " . $this->text->make_chatcmd("aogmi.com", "/start http://aogmi.com/");
 
-				$msg = $this->text->make_blob("GMI Search: $search ($count)", $blob);
+				$msg = $this->text->makeBlob("GMI Search: $search ($count)", $blob);
 			}
 		}
 

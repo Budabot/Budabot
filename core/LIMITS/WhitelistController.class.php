@@ -55,7 +55,7 @@ class WhitelistController {
 				$date = $this->util->date($entry->added_dt);
 				$blob .= "<highlight>{$entry->name}<end> [added by {$entry->added_by}] {$date} {$remove}\n";
 			}
-			$msg = $this->text->make_blob("Whitelist", $blob);
+			$msg = $this->text->makeBlob("Whitelist", $blob);
 			$sendto->reply($msg);
 		}
 	}

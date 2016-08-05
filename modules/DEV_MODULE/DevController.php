@@ -105,7 +105,7 @@ class DevController extends AutoInject {
 			forEach ($regexes as $regex) {
 				$blob .= $regex . "\n";
 			}
-			$msg = $this->text->make_blob("Regexes for $cmd ($count)", $blob);
+			$msg = $this->text->makeBlob("Regexes for $cmd ($count)", $blob);
 		} else {
 			$msg = "No regexes found for command <highlight>$cmd<end>.";
 		}
@@ -158,7 +158,7 @@ class DevController extends AutoInject {
 	public function stacktraceCommand($message, $channel, $sender, $sendto, $args) {
 		$stacktrace = $this->util->getStackTrace();
 		$count = substr_count($stacktrace, "\n");
-		$msg = $this->text->make_blob("Current Stacktrace ($count)", $stacktrace);
+		$msg = $this->text->makeBlob("Current Stacktrace ($count)", $stacktrace);
 		$sendto->reply($msg);
 	}
 	
@@ -186,7 +186,7 @@ class DevController extends AutoInject {
 			$blob .= $row->file . "\n\n";
 		}
 
-		$msg = $this->text->make_blob("Command Handlers for '$cmd'", $blob);
+		$msg = $this->text->makeBlob("Command Handlers for '$cmd'", $blob);
 		
 		$sendto->reply($msg);
 	}
@@ -206,7 +206,7 @@ class DevController extends AutoInject {
 		
 		for ($i = 0; $i < $numBlobs; $i++) {
 			$blob = $this->randString($length);
-			$msg = $this->text->make_blob("Blob $i", $blob);
+			$msg = $this->text->makeBlob("Blob $i", $blob);
 			$sendto->reply($msg);
 		}
 	}

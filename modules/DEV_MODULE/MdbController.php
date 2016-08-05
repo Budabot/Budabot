@@ -52,7 +52,7 @@ class MdbController {
 			$blob .= $this->text->make_chatcmd($category['id'], "/tell <myname> mdb " . $category['id']) . "\n";
 		}
 		
-		$msg = $this->text->make_blob("MDB Categories", $blob);
+		$msg = $this->text->makeBlob("MDB Categories", $blob);
 		
 		$sendto->reply($msg);
 	}
@@ -71,7 +71,7 @@ class MdbController {
 			$blob .= $this->text->make_chatcmd($instance['id'], "/tell <myname> mdb $categoryId " . $instance['id']) . "\n";
 		}
 		
-		$msg = $this->text->make_blob("MDB Instances for Category $categoryId", $blob);
+		$msg = $this->text->makeBlob("MDB Instances for Category $categoryId", $blob);
 		
 		$sendto->reply($msg);
 	}

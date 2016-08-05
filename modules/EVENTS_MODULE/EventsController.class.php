@@ -174,7 +174,7 @@ class EventsController {
 					$link .= $name . "$info $alt\n";
 				}
 			}
-			$msg = $this->text->make_blob("Players Attending Event $id", $link);
+			$msg = $this->text->makeBlob("Players Attending Event $id", $link);
 		} else {
 			$msg = "Could not find event with id $id.";
 		}

@@ -94,7 +94,7 @@ class OnlineController {
 
 		list($numonline, $msg, $blob) = $this->get_online_list($prof);
 		if ($numonline != 0) {
-			$msg = $this->text->make_blob($msg, $blob);
+			$msg = $this->text->makeBlob($msg, $blob);
 			$sendto->reply($msg);
 		} else {
 			$sendto->reply($msg);
@@ -132,7 +132,7 @@ class OnlineController {
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
 			list($numonline, $msg, $blob) = $this->get_online_list();
 			if ($numonline != 0) {
-				$msg = $this->text->make_blob($msg, $blob);
+				$msg = $this->text->makeBlob($msg, $blob);
 				$this->chatBot->sendTell($msg, $sender);
 			} else {
 				$this->chatBot->sendTell($msg, $sender);

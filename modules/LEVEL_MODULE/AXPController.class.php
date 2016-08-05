@@ -101,7 +101,7 @@ class AXPController {
 		$blob .= "29 - 5.475.604 - Vanquisher - 195\n";
 		$blob .= "30 - 5.968.409 - Vindicator - 200\n";
 
-		$msg = $this->text->make_blob("Alien Experience", $blob);
+		$msg = $this->text->makeBlob("Alien Experience", $blob);
 
 		$sendto->reply($msg);
 	}

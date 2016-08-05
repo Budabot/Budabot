@@ -81,7 +81,7 @@ class ChatAssistController {
 			}
 
 			$link = $this->text->make_chatcmd("Click here to make an assist $name macro", "/macro $name /assist $name");
-			$this->assistMessage = $this->text->make_blob("Assist $name Macro", $link);
+			$this->assistMessage = $this->text->makeBlob("Assist $name Macro", $link);
 		} else {
 			forEach ($nameArray as $key => $name) {
 				$name = ucfirst(strtolower($name));

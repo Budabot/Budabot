@@ -64,7 +64,7 @@ class LogsController {
 			$blob .= "$file_link [$errorLink] [$chatLink] \n";
 		}
 
-		$msg = $this->text->make_blob('Log Files', $blob);
+		$msg = $this->text->makeBlob('Log Files', $blob);
 		$sendto->reply($msg);
 	}
 
@@ -100,7 +100,7 @@ class LogsController {
 				if (isset($args[2])) {
 					$contents = "Search: $args[2]\n\n" . $contents;
 				}
-				$msg = $this->text->make_blob($args[1], $contents);
+				$msg = $this->text->makeBlob($args[1], $contents);
 			}
 		} catch (Exception $e) {
 			$msg = "Error: " . $e->getMessage();

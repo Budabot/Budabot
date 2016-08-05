@@ -64,7 +64,7 @@ class ImplantDesignerController extends AutoInject {
 	 */
 	public function implantdesignerCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = $this->getImplantDesignerBuild($sender);
-		$msg = $this->text->make_blob("Implant Designer", $blob);
+		$msg = $this->text->makeBlob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -163,7 +163,7 @@ class ImplantDesignerController extends AutoInject {
 		
 		// send results
 		$blob = $this->getImplantDesignerBuild($sender);
-		$msg = $this->text->make_blob("Implant Designer", $blob);
+		$msg = $this->text->makeBlob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -223,7 +223,7 @@ class ImplantDesignerController extends AutoInject {
 			$blob .= $this->showClusterChoices($design, $slot, 'faded');
 		}
 		
-		$msg = $this->text->make_blob("Implant Designer ($slot)", $blob);
+		$msg = $this->text->makeBlob("Implant Designer ($slot)", $blob);
 
 		$sendto->reply($msg);
 	}
@@ -327,7 +327,7 @@ class ImplantDesignerController extends AutoInject {
 	
 		// send results
 		$blob = $this->getImplantDesignerBuild($sender);
-		$msg = $this->text->make_blob("Implant Designer", $blob);
+		$msg = $this->text->makeBlob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -351,7 +351,7 @@ class ImplantDesignerController extends AutoInject {
 		
 		// send results
 		$blob = $this->getImplantDesignerBuild($sender);
-		$msg = $this->text->make_blob("Implant Designer", $blob);
+		$msg = $this->text->makeBlob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -372,7 +372,7 @@ class ImplantDesignerController extends AutoInject {
 		
 		// send results
 		$blob = $this->getImplantDesignerBuild($sender);
-		$msg = $this->text->make_blob("Implant Designer", $blob);
+		$msg = $this->text->makeBlob("Implant Designer", $blob);
 		$sendto->reply($msg);
 	}
 
@@ -405,7 +405,7 @@ class ImplantDesignerController extends AutoInject {
 			forEach ($data as $row) {
 				$blob .= $this->text->make_chatcmd($row->Name, "/tell <myname> implantdesigner $slot require $row->Name") . "\n";
 			}
-			$msg = $this->text->make_blob("Implant Designer Require Ability ($slot)", $blob);
+			$msg = $this->text->makeBlob("Implant Designer Require Ability ($slot)", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -503,7 +503,7 @@ class ImplantDesignerController extends AutoInject {
 				}
 			}
 			$count = count($data);
-			$msg = $this->text->make_blob("Implant Designer Require $ability ($slot) ($count)", $blob);
+			$msg = $this->text->makeBlob("Implant Designer Require $ability ($slot) ($count)", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -516,7 +516,7 @@ class ImplantDesignerController extends AutoInject {
 	public function implantdesignerResultCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = $this->getImplantDesignerResults($sender);
 		
-		$msg = $this->text->make_blob("Implant Designer Results", $blob);
+		$msg = $this->text->makeBlob("Implant Designer Results", $blob);
 
 		$sendto->reply($msg);
 	}

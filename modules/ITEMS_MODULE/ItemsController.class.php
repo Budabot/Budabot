@@ -363,7 +363,7 @@ class ItemsController {
 				$blob .= "\n\n<highlight>*Results have been limited to the first " . $this->settingManager->get("maxitems") . " results.<end>";
 			}
 			$blob .= "\n\n" . $footer;
-			$link = $this->text->make_blob("Item Search Results ($num)", $blob);
+			$link = $this->text->makeBlob("Item Search Results ($num)", $blob);
 
 			return $link;
 		}
