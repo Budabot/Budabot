@@ -451,7 +451,7 @@ class RaidController {
 
 				$list .= "<header2>Slot #$key<end>\n";
 				if ($item->icon != "") {
-					$list .= $this->text->make_image($item->icon) . "\n";
+					$list .= $this->text->makeImage($item->icon) . "\n";
 				}
 
 				if ($item->multiloot > 1) {

@@ -370,35 +370,35 @@ class OnlineController {
 					$blob .= "<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
 
 					if ($row->profession == "Adventurer") {
-						$blob .= $this->text->make_image(84203);
+						$blob .= $this->text->makeImage(84203);
 					} else if ($row->profession == "Agent") {
-						$blob .= $this->text->make_image(16186);
+						$blob .= $this->text->makeImage(16186);
 					} else if ($row->profession == "Bureaucrat") {
-						$blob .= $this->text->make_image(296548);
+						$blob .= $this->text->makeImage(296548);
 					} else if ($row->profession == "Doctor") {
-						$blob .= $this->text->make_image(44235);
+						$blob .= $this->text->makeImage(44235);
 					} else if ($row->profession == "Enforcer") {
-						$blob .= $this->text->make_image(117926);
+						$blob .= $this->text->makeImage(117926);
 					} else if ($row->profession == "Engineer") {
-						$blob .= $this->text->make_image(287091);
+						$blob .= $this->text->makeImage(287091);
 					} else if ($row->profession == "Fixer") {
-						$blob .= $this->text->make_image(16300);
+						$blob .= $this->text->makeImage(16300);
 					} else if ($row->profession == "Keeper") {
-						$blob .= $this->text->make_image(38911);
+						$blob .= $this->text->makeImage(38911);
 					} else if ($row->profession == "Martial Artist") {
-						$blob .= $this->text->make_image(16289);
+						$blob .= $this->text->makeImage(16289);
 					} else if ($row->profession == "Meta-Physicist") {
-						$blob .= $this->text->make_image(16308);
+						$blob .= $this->text->makeImage(16308);
 					} else if ($row->profession == "Nano-Technician") {
-						$blob .= $this->text->make_image(45190);
+						$blob .= $this->text->makeImage(45190);
 					} else if ($row->profession == "Soldier") {
-						$blob .= $this->text->make_image(16195);
+						$blob .= $this->text->makeImage(16195);
 					} else if ($row->profession == "Shade") {
-						$blob .= $this->text->make_image(39290);
+						$blob .= $this->text->makeImage(39290);
 					} else if ($row->profession == "Trader") {
-						$blob .= $this->text->make_image(118049);
+						$blob .= $this->text->makeImage(118049);
 					} else {
-						$blob .= $this->text->make_image(46268);
+						$blob .= $this->text->makeImage(46268);
 					}
 
 					$blob .= " <highlight>$row->profession<end>\n";

@@ -123,7 +123,7 @@ class GMIController {
 			} else {
 				$blob = "";
 				forEach ($results as $item) {
-					$blob .= $this->text->make_image($item->icon) . "\n";
+					$blob .= $this->text->makeImage($item->icon) . "\n";
 					$blob .= $this->text->makeChatcmd($item->name, "/tell <myname> gmi $item->cluster_id") . "\n\n<pagebreak>";
 				}
 				$blob .= "\nPowered by " . $this->text->makeChatcmd("aogmi.com", "/start http://aogmi.com/");

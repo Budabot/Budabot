@@ -285,7 +285,7 @@ class AOUController {
 	private function generateItemMarkup($type, $obj) {
 		$output = '';
 		if ($type == "item" || $type == "itemicon") {
-			$output .= $this->text->make_image($obj->icon);
+			$output .= $this->text->makeImage($obj->icon);
 		}
 		
 		if ($type == "item" || $type == "itemname") {

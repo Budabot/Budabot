@@ -405,7 +405,7 @@ class ItemsController {
 		$list = '';
 		forEach ($data as $row) {
 			if ($showImages) {
-				$list .= $this->text->make_image($row->icon) . "\n";
+				$list .= $this->text->makeImage($row->icon) . "\n";
 			}
 			if ($ql) {
 				$list .= "QL $ql " . $this->text->makeItem($row->lowid, $row->highid, $ql, $row->name);
@@ -502,7 +502,7 @@ class ItemsController {
 		if ($row === null) {
 			$this->logger->log("WARN", "Could not find item '$name' at QL '$ql'");
 		} else {
-			return $this->text->make_image($row->icon) . "\n" .
+			return $this->text->makeImage($row->icon) . "\n" .
 				$this->text->makeItem($row->lowid, $row->highid, $ql, $row->name);
 		}
 	}
