@@ -23,12 +23,12 @@ class BuddylistManager {
 		if (strtolower($this->chatBot->vars['name']) == strtolower($name)) {
 			return 1;
 		} else {
-			$buddy = $this->get_buddy($name);
+			$buddy = $this->getBuddy($name);
 			return ($buddy === null ? null : $buddy['online']);
 		}
 	}
 
-	public function get_buddy($name) {
+	public function getBuddy($name) {
 		$uid = $this->chatBot->get_uid($name);
 		if ($uid === false || !isset($this->buddyList[$uid])) {
 			return null;
