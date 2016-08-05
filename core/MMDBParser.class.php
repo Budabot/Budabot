@@ -31,7 +31,7 @@ class MMDBParser {
 
 		// start at offset = 8 since that is where the categories start
 		// find the category
-		$category = $this->find_entry($in, $categoryId, 8);
+		$category = $this->findEntry($in, $categoryId, 8);
 		if ($category === null) {
 			$this->logger->log('error', "Could not find categoryID: '{$categoryId}'");
 			fclose($in);
@@ -39,7 +39,7 @@ class MMDBParser {
 		}
 
 		// find the instance
-		$instance = $this->find_entry($in, $instanceId, $category['offset']);
+		$instance = $this->findEntry($in, $instanceId, $category['offset']);
 		if ($instance === null) {
 			$this->logger->log('error', "Could not find instance id: '{$instanceId}' for categoryId: '{$categoryId}'");
 			fclose($in);
@@ -63,7 +63,7 @@ class MMDBParser {
 
 		// start at offset = 8 since that is where the categories start
 		// find the category
-		$category = $this->find_entry($in, $categoryId, 8);
+		$category = $this->findEntry($in, $categoryId, 8);
 		if ($category === null) {
 			$this->logger->log('error', "Could not find categoryID: '{$categoryId}'");
 			fclose($in);
@@ -128,7 +128,7 @@ class MMDBParser {
 		return $in;
 	}
 
-	private function find_entry(&$in, $id, $offset) {
+	private function findEntry(&$in, $id, $offset) {
 		fseek($in, $offset);
 
 		do {
