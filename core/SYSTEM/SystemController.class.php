@@ -327,7 +327,7 @@ class SystemController {
 		$blob .= "Budabot: <highlight>$version<end>\n";
 		$blob .= "PHP: <highlight>" . phpversion() . "<end>\n";
 		$blob .= "OS: <highlight>" . php_uname('s') . ' ' . php_uname('r') . ' ' . php_uname('m') . "<end>\n";
-		$blob .= "Database: <highlight>" . $this->db->get_type() . "<end>\n\n";
+		$blob .= "Database: <highlight>" . $this->db->getType() . "<end>\n\n";
 
 		$blob .= "Current Memory Usage: <highlight>" . $this->util->bytesConvert(memory_get_usage()) . "<end>\n";
 		$blob .= "Current Memory Usage (Real): <highlight>" . $this->util->bytesConvert(memory_get_usage(1)) . "<end>\n";

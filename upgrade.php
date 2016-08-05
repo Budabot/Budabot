@@ -13,7 +13,7 @@ $db = Registry::getInstance('db');
 function describeTable($db, $table) {
 	$results = array();
 
-	switch ($db->get_type()) {
+	switch ($db->getType()) {
 		case DB::MYSQL:
 			$rows = $db->query("DESCRIBE $table");
 			// normalize the output somewhat to make it more compatible with sqlite
@@ -31,7 +31,7 @@ function describeTable($db, $table) {
 			break;
 
 		default:
-			throw new Exception("Unknown database type '". $db->get_type() ."'");
+			throw new Exception("Unknown database type '". $db->getType() ."'");
 	}
 
 	return $results;

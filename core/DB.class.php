@@ -72,7 +72,7 @@ class DB {
 		}
 	}
 
-	function get_type() {
+	function getType() {
 		return $this->type;
 	}
 

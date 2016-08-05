@@ -244,7 +244,7 @@ class UsageController {
 		$settings['is_guild_bot'] = ($this->chatBot->vars['my_guild'] == '' ? '0' : '1');
 		$settings['guildsize'] = $this->getGuildSizeClass(count($this->chatBot->guildmembers));
 		$settings['using_chat_proxy'] = $this->chatBot->vars['use_proxy'];
-		$settings['db_type'] = $this->db->get_type();
+		$settings['db_type'] = $this->db->getType();
 		$settings['bot_version'] = $version;
 		$settings['using_git'] = (file_exists("./modules/GIT_MODULE/GitController.class.php") === true ? '1' : '0');
 		$settings['os'] = (\budabot\core\isWindows() === true ? 'Windows' : 'Other');
