@@ -64,7 +64,7 @@ class MdbController {
 	public function mdbCategoryCommand($message, $channel, $sender, $sendto, $args) {
 		$categoryId = $args[1];
 		
-		$instances = $this->chatBot->mmdbParser->find_all_instances_in_category($categoryId);
+		$instances = $this->chatBot->mmdbParser->findAllInstancesInCategory($categoryId);
 
 		$blob = '';
 		forEach ($instances as $instance) {

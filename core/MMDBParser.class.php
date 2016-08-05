@@ -55,7 +55,7 @@ class MMDBParser {
 		return $message;
 	}
 
-	public function find_all_instances_in_category($categoryId) {
+	public function findAllInstancesInCategory($categoryId) {
 		$in = $this->open_file();
 		if ($in === null) {
 			return null;
