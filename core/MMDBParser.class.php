@@ -74,11 +74,11 @@ class MMDBParser {
 
 		// find all instances
 		$instances = array();
-		$instance = $this->read_entry($in);
+		$instance = $this->readEntry($in);
 		while ($previousInstance == null || $instance['id'] > $previousInstance['id']) {
 			$instances[] = $instance;
 			$previousInstance = $instance;
-			$instance = $this->read_entry($in);
+			$instance = $this->readEntry($in);
 		}
 		
 		fclose($in);
@@ -97,11 +97,11 @@ class MMDBParser {
 
 		// find all categories
 		$categories = array();
-		$category = $this->read_entry($in);
+		$category = $this->readEntry($in);
 		while ($previousCategory == null || $category['id'] > $previousCategory['id']) {
 			$categories[] = $category;
 			$previousCategory = $category;
-			$category = $this->read_entry($in);
+			$category = $this->readEntry($in);
 		}
 		
 		fclose($in);
@@ -118,7 +118,7 @@ class MMDBParser {
 		}
 
 		// make sure first 4 chars are 'MMDB'
-		$entry = $this->read_entry($in);
+		$entry = $this->readEntry($in);
 		if ($entry['id'] != 1111772493) {
 			$this->logger->log('error', "Not an mmdb file: '{$filename}'");
 			fclose($in);
@@ -133,7 +133,7 @@ class MMDBParser {
 
 		do {
 			$previousEntry = $entry;
-			$entry = $this->read_entry($in);
+			$entry = $this->readEntry($in);
 
 			if ($previousEntry != null && $entry['id'] < $previousEntry['id']) {
 				return null;
@@ -146,7 +146,7 @@ class MMDBParser {
 	/**
 	 * @returns array($id, $offset)
 	 */
-	private function read_entry(&$in) {
+	private function readEntry(&$in) {
 		return array('id' => $this->read_long($in), 'offset' => $this->read_long($in));
 	}
 
