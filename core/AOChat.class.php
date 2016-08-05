@@ -262,7 +262,7 @@ class AOChat {
 
 			case AOCP_CHAT_NOTICE:
 				$category_id = 20000;
-				$packet->args[4] = $this->mmdbParser->get_message_string($category_id, $packet->args[2]);
+				$packet->args[4] = $this->mmdbParser->getMessageString($category_id, $packet->args[2]);
 				if ($packet->args[4] !== null) {
 					$packet->args[5] = $this->parse_ext_params($packet->args[3]);
 					if ($packet->args[5] !== null) {
@@ -831,7 +831,7 @@ class AOChat {
 				case "R":
 					$cat = $this->b85g($msg);
 					$ins = $this->b85g($msg);
-					$str = $this->mmdbParser->get_message_string($cat, $ins);
+					$str = $this->mmdbParser->getMessageString($cat, $ins);
 					if ($str === null) {
 						$str = "Unknown ($cat, $ins)";
 					}
@@ -843,7 +843,7 @@ class AOChat {
 					$msg = substr($msg, 4);
 					$cat = 20000;
 					$ins = $array[1];
-					$str = $this->mmdbParser->get_message_string($cat, $ins);
+					$str = $this->mmdbParser->getMessageString($cat, $ins);
 					if ($str === null) {
 						$str = "Unknown ($cat, $ins)";
 					}
@@ -912,7 +912,7 @@ class AOChat {
 			if ($obj->args === null) {
 				$this->logger->log('warn', "Error parsing parameters for category: '$obj->category' instance: '$obj->instance' string: '$msg'");
 			} else {
-				$obj->message_string = $this->mmdbParser->get_message_string($obj->category, $obj->instance);
+				$obj->message_string = $this->mmdbParser->getMessageString($obj->category, $obj->instance);
 				if ($obj->message_string !== null) {
 					$message .= trim(vsprintf($obj->message_string, $obj->args));
 				}

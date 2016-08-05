@@ -84,7 +84,7 @@ class MdbController {
 		$categoryId = $args[1];
 		$instanceId = $args[2];
 		
-		$messageString = $this->chatBot->mmdbParser->get_message_string($categoryId, $instanceId);
+		$messageString = $this->chatBot->mmdbParser->getMessageString($categoryId, $instanceId);
 
 		$msg = "[$categoryId : $instanceId] $messageString";
 		$sendto->reply($msg);

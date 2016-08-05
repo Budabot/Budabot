@@ -18,7 +18,7 @@ class MMDBParser {
 		$this->logger = new LoggerWrapper('MMDBParser');
 	}
 
-	public function get_message_string($categoryId, $instanceId) {
+	public function getMessageString($categoryId, $instanceId) {
 		// check for entry in cache
 		if (isset($this->mmdb[$categoryId][$instanceId])) {
 			return $this->mmdb[$categoryId][$instanceId];
