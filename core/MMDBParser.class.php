@@ -147,10 +147,10 @@ class MMDBParser {
 	 * @returns array($id, $offset)
 	 */
 	private function readEntry(&$in) {
-		return array('id' => $this->read_long($in), 'offset' => $this->read_long($in));
+		return array('id' => $this->readLong($in), 'offset' => $this->readLong($in));
 	}
 
-	private function read_long(&$in) {
+	private function readLong(&$in) {
 		return array_pop(unpack("L", fread($in, 4)));
 	}
 
