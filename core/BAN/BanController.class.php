@@ -233,7 +233,7 @@ class BanController {
 	public function unbanCommand($message, $channel, $sender, $sendto, $args) {
 		$who = ucfirst(strtolower($args[1]));
 	
-		if (!$this->banManager->is_banned($who)) {
+		if (!$this->banManager->isBanned($who)) {
 			$sendto->reply("<highlight>$who<end> is not banned on this bot.");
 			return;
 		}
@@ -258,7 +258,7 @@ class BanController {
 	public function banorgCommand($message, $channel, $sender, $sendto, $args) {
 		$who = $args[1];
 	
-		if ($this->banManager->is_banned($who)) {
+		if ($this->banManager->isBanned($who)) {
 			$sendto->reply("The organization <highlight>$who<end> is already banned.");
 			return;
 		}
@@ -280,7 +280,7 @@ class BanController {
 	public function unbanorgCommand($message, $channel, $sender, $sendto, $args) {
 		$who = $args[1];
 	
-		if (!$this->banManager->is_banned($who)) {
+		if (!$this->banManager->isBanned($who)) {
 			$sendto->reply("The org <highlight>$who<end> is not banned on this bot.");
 			return;
 		}
@@ -318,7 +318,7 @@ class BanController {
 			return;
 		}
 
-		if ($this->banManager->is_banned($who)) {
+		if ($this->banManager->isBanned($who)) {
 			$sendto->reply("Character <highlight>$who<end> is already banned.");
 			return;
 		}

@@ -49,7 +49,7 @@ class BanManager {
 		}
 	}
 
-	public function is_banned($name) {
+	public function isBanned($name) {
 		if (isset($this->banlist[$name])) {
 			return true;
 		} else {

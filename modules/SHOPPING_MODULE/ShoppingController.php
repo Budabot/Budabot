@@ -182,7 +182,7 @@ class ShoppingController {
 		$sender	= $this->chatBot->lookup_user($packet->args[1]);
 		$message = $packet->args[2];
 		
-		if ($this->banManager->is_banned($sender)) {
+		if ($this->banManager->isBanned($sender)) {
 			return;
 		}
 		
@@ -199,7 +199,7 @@ class ShoppingController {
 	public function captureSpambotMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
 
-		if ($this->banManager->is_banned($sender)) {
+		if ($this->banManager->isBanned($sender)) {
 			return;
 		}
 
@@ -278,7 +278,7 @@ class ShoppingController {
 			$text = $entry[2];
 			$sender = $entry[3];
 
-			if ($this->banManager->is_banned($sender)) {
+			if ($this->banManager->isBanned($sender)) {
 				continue;
 			}
 			
