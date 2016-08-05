@@ -164,10 +164,10 @@ class Text {
 	}
 
 	/**
-	 * @name: make_item
+	 * @name: makeItem
 	 * @description: creates an item link
 	 */
-	public function make_item($lowId, $highId,  $ql, $name) {
+	public function makeItem($lowId, $highId,  $ql, $name) {
 		return "<a href='itemref://{$lowId}/{$highId}/{$ql}'>{$name}</a>";
 	}
 
