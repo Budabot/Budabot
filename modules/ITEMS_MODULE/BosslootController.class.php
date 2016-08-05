@@ -85,7 +85,7 @@ class BosslootController {
 				WHERE b.bossid = ?", $row->bossid);
 			forEach ($data as $row2) {
 				$blob .= $this->text->make_image($row2->icon) . "\n";
-				$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
+				$blob .= $this->text->makeItem($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . "\n\n";
 			}
 			$output = $this->text->makeBlob($row->bossname, $blob);
 		} else {
@@ -132,7 +132,7 @@ class BosslootController {
 		$blob .= "Location: <highlight>{$row->answer}<end>\n";
 		$blob .= "Loot: ";
 		forEach ($data as $row2) {
-			$blob .= $this->text->make_item($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
+			$blob .= $this->text->makeItem($row2->lowid, $row2->highid, $row2->highql, $row2->itemname) . ', ';
 		}
 		$blob .= "\n\n";
 		return $blob;

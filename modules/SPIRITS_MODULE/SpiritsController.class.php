@@ -166,7 +166,7 @@ class SpiritsController {
 				$ql = $row->highql;
 			}
 			$msg .= $this->text->make_image($icon) . ' ';
-			$msg .= $this->text->make_item($lowid, $highid, $ql, $name) . "\n";
+			$msg .= $this->text->makeItem($lowid, $highid, $ql, $name) . "\n";
 			$msg .= "Minimum Level=$lvl   Slot=$slot   Agility/Sense Needed=$agi\n\n";
 		}
 		return $msg;

@@ -131,7 +131,7 @@ class RecipeController {
 		$id = $arr[2];
 		$row = $this->itemsController->findById($id);
 		if ($row !== null) {
-			$output = $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+			$output = $this->text->makeItem($row->lowid, $row->highid, $row->highql, $row->name);
 		} else {
 			$obj = $this->itemsController->getDetailedItemInfo($id);
 			if (null == $obj) {
@@ -139,7 +139,7 @@ class RecipeController {
 			} else if ($obj->icon == 0) {  // for perks and items that aren't displayable in game
 				$output = $this->text->makeChatcmd($obj->name, "/start https://aoitems.com/item/{$obj->lowid}");
 			} else {
-				$output = $this->text->make_item($obj->lowid, $obj->highid, $obj->highql, $obj->name);
+				$output = $this->text->makeItem($obj->lowid, $obj->highid, $obj->highql, $obj->name);
 			}
 		}
 		return $output;

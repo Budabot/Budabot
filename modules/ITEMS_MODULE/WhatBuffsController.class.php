@@ -181,7 +181,7 @@ class WhatBuffsController {
 				$ql = $item->lowql . " - " . $item->highql;
 			}
 			
-			$blob .= $this->text->make_item($item->lowid, $item->highid, $item->highql, $item->name) . " ($ql)\n";
+			$blob .= $this->text->makeItem($item->lowid, $item->highid, $item->highql, $item->name) . " ($ql)\n";
 		}
 
 		$count = count($items);		

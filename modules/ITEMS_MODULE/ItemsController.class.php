@@ -408,9 +408,9 @@ class ItemsController {
 				$list .= $this->text->make_image($row->icon) . "\n";
 			}
 			if ($ql) {
-				$list .= "QL $ql " . $this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
+				$list .= "QL $ql " . $this->text->makeItem($row->lowid, $row->highid, $ql, $row->name);
 			} else {
-				$list .= $this->text->make_item($row->lowid, $row->highid, $row->highql, $row->name);
+				$list .= $this->text->makeItem($row->lowid, $row->highid, $row->highql, $row->name);
 			}
 			if ($row->lowql != $row->highql) {
 				$list .= " (QL" . $row->lowql . " - " . $row->highql . ")\n";
@@ -492,7 +492,7 @@ class ItemsController {
 		if ($row === null) {
 			$this->logger->log("WARN", "Could not find item '$name' at QL '$ql'");
 		} else {
-			return $this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
+			return $this->text->makeItem($row->lowid, $row->highid, $ql, $row->name);
 		}
 	}
 	
@@ -503,7 +503,7 @@ class ItemsController {
 			$this->logger->log("WARN", "Could not find item '$name' at QL '$ql'");
 		} else {
 			return $this->text->make_image($row->icon) . "\n" .
-				$this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
+				$this->text->makeItem($row->lowid, $row->highid, $ql, $row->name);
 		}
 	}
 }

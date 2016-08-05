@@ -157,7 +157,7 @@ class RaidController {
 			$item->name = $row->name;
 			$item->icon = $row->icon;
 			$item->added_by = $sender;
-			$item->display = $this->text->make_item($row->lowid, $row->highid, $row->ql, $row->name);
+			$item->display = $this->text->makeItem($row->lowid, $row->highid, $row->ql, $row->name);
 			$item->multiloot = $row->multiloot;
 			$item->users = array();
 			
@@ -242,7 +242,7 @@ class RaidController {
 			$item->users = array();
 
 			if (isset($item_highid)) {
-				$item->display = $this->text->make_item($item_lowid, $item_highid, $item_ql, $item_name);
+				$item->display = $this->text->makeItem($item_lowid, $item_highid, $item_ql, $item_name);
 			} else {
 				$item->display = $item_name;
 			}
@@ -496,7 +496,7 @@ class RaidController {
 		}
 
 		forEach ($data as $row) {
-			$item = $this->text->make_item($row->lowid, $row->highid, $row->ql, $row->name);
+			$item = $this->text->makeItem($row->lowid, $row->highid, $row->ql, $row->name);
 			if (empty($row->comment)) {
 				$row->display = $item;
 			} else {

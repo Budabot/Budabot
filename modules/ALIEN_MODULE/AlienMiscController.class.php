@@ -201,7 +201,7 @@ class AlienMiscController {
 				$current_upgrade = $row->upgrade;
 				$blob .= "\n";
 			}
-			$blob .=  $this->text->make_item($row->lowid, $row->highid, $ql, $row->name);
+			$blob .=  $this->text->makeItem($row->lowid, $row->highid, $ql, $row->name);
 
 			if ($row->upgrade == 0 || $row->upgrade == 3) {
 				$blob .= "  (<highlight>$row->vp<end> VP)";

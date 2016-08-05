@@ -289,7 +289,7 @@ class AOUController {
 		}
 		
 		if ($type == "item" || $type == "itemname") {
-			$output .= $this->text->make_item($obj->lowid, $obj->highid, $obj->highql, $obj->name);
+			$output .= $this->text->makeItem($obj->lowid, $obj->highid, $obj->highql, $obj->name);
 		}
 
 		return $output;

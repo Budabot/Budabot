@@ -79,7 +79,7 @@ class PocketbossController {
 		$symbs = '';
 		forEach ($data as $symb) {
 			$name = "$symb->line $symb->slot Symbiant, $symb->type Unit Aban";
-			$symbs .= $this->text->make_item($symb->itemid, $symb->itemid, $symb->ql, $name) . " ($symb->ql)\n";
+			$symbs .= $this->text->makeItem($symb->itemid, $symb->itemid, $symb->ql, $name) . " ($symb->ql)\n";
 		}
 		
 		$blob = "Location: <highlight>$symb->pb_location, $symb->bp_location<end>\n";
@@ -208,7 +208,7 @@ class PocketbossController {
 			forEach ($data as $row) {
 				$name = "$row->line $row->slot Symbiant, $row->type Unit Aban";
 				$impDesignerAddLink = $this->text->makeChatcmd("Add", "/tell <myname> implantdesigner $impDesignSlot symb $name");
-				$blob .= "<pagebreak>" . $this->text->make_item($row->itemid, $row->itemid, $row->ql, $name)." ($row->ql) $impDesignerAddLink\n";
+				$blob .= "<pagebreak>" . $this->text->makeItem($row->itemid, $row->itemid, $row->ql, $name)." ($row->ql) $impDesignerAddLink\n";
 				$blob .= "Found on " . $this->text->makeChatcmd($row->pb, "/tell <myname> pb $row->pb");
 				$blob .= "\n\n";
 			}
