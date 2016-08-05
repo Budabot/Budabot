@@ -104,7 +104,7 @@ class GuideController {
 		if (!$info) {
 			$msg = "No guide named <highlight>$fileName<end> was found.";
 		} else {
-			$msg = $this->text->make_legacy_blob(ucfirst($fileName), $info);
+			$msg = $this->text->makeLegacyBlob(ucfirst($fileName), $info);
 		}
 		$sendto->reply($msg);
 	}

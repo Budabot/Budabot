@@ -290,7 +290,7 @@ class EventsController {
 				$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 			}
 
-			return $this->text->make_legacy_blob("Latest Events", $link) . " [Last updated " . $this->util->date($updated)."]";
+			return $this->text->makeLegacyBlob("Latest Events", $link) . " [Last updated " . $this->util->date($updated)."]";
 		} else {
 			return "";
 		}

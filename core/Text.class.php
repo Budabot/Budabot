@@ -67,7 +67,7 @@ class Text {
 		}
 	}
 
-	public function make_legacy_blob($name, $content) {
+	public function makeLegacyBlob($name, $content) {
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 
