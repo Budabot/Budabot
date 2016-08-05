@@ -228,7 +228,7 @@ class Budabot extends AOChat {
 		}
 
 		$message = $this->text->format_message($message);
-		$senderLink = $this->text->make_userlink($this->vars['name']);
+		$senderLink = $this->text->makeUserlink($this->vars['name']);
 		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 		$guestColorChannel = $this->settingManager->get('guest_color_channel');
 		$privColor = $this->settingManager->get('default_priv_color');
@@ -261,7 +261,7 @@ class Budabot extends AOChat {
 		}
 
 		$message = $this->text->format_message($message);
-		$senderLink = $this->text->make_userlink($this->vars['name']);
+		$senderLink = $this->text->makeUserlink($this->vars['name']);
 		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 		$guestColorChannel = $this->settingManager->get('guest_color_channel');
 		$guildColor = $this->settingManager->get("default_guild_color");

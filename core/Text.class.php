@@ -154,12 +154,12 @@ class Text {
 	}
 
 	/**
-	 * @name: make_userlink
+	 * @name: makeUserlink
 	 * @description: creates a user link which adds support for right clicking usernames in chat, providing you with a menu of options (ignore etc.) (see 18.1 AO patchnotes)
 	 * @param: $name - the name the user to create a link for
 	 * @param: $style (optional) - any styling you want applied to the link
 	 */
-	public function make_userlink($user, $style = null) {
+	public function makeUserlink($user, $style = null) {
 		return "<a $style href='user://$user'>$user</a>";
 	}
 

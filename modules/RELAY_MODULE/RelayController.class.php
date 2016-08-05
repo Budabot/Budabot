@@ -133,7 +133,7 @@ class RelayController {
 			if (!$this->util->isValidSender($sender)) {
 				$sender_link = '';
 			} else {
-				$sender_link = ' ' . $this->text->make_userlink($sender) . ':';
+				$sender_link = ' ' . $this->text->makeUserlink($sender) . ':';
 			}
 
 			if ($type == "guild") {

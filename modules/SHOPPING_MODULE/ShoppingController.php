@@ -100,7 +100,7 @@ class ShoppingController {
 		} else {
 			$blob = '';
 			forEach ($results as $result) {
-				$senderLink = $this->text->make_userlink($result->sender);
+				$senderLink = $this->text->makeUserlink($result->sender);
 				$timeString = $this->util->unixtimeToReadable(time() - $result->time, false);
 				$post = preg_replace('|<a href="itemref://(\d+)/(\d+)/(\d+)">([^<]+)</a>|', "<a href='itemref://\\1/\\2/\\3'>\\4</a>", $result->message);
 				$blob .= "[$senderLink]: {$post} - <highlight>($timeString ago)<end>\n\n";

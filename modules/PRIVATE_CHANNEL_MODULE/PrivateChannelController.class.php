@@ -512,7 +512,7 @@ class PrivateChannelController {
 				// for relaying city alien raid messages where $sender == -1
 				$msg = "<end>{$guest_color_channel}[$guildNameForRelay]<end> {$guest_color_guest}{$message}<end>";
 			} else {
-				$msg = "<end>{$guest_color_channel}[$guildNameForRelay]<end> ".$this->text->make_userlink($sender).": {$guest_color_guest}{$message}<end>";
+				$msg = "<end>{$guest_color_channel}[$guildNameForRelay]<end> ".$this->text->makeUserlink($sender).": {$guest_color_guest}{$message}<end>";
 			}
 			$this->chatBot->sendPrivate($msg, true);
 		}
@@ -541,7 +541,7 @@ class PrivateChannelController {
 		$guest_color_guild = $this->settingManager->get("guest_color_guild");
 
 		//Relay the message to the guild channel
-		$msg = "<end>{$guest_color_channel}[Guest]<end> ".$this->text->make_userlink($sender).": {$guest_color_guild}{$message}<end>";
+		$msg = "<end>{$guest_color_channel}[Guest]<end> ".$this->text->makeUserlink($sender).": {$guest_color_guild}{$message}<end>";
 		$this->chatBot->sendGuild($msg, true);
 	}
 	
