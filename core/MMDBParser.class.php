@@ -24,7 +24,7 @@ class MMDBParser {
 			return $this->mmdb[$categoryId][$instanceId];
 		}
 
-		$in = $this->open_file();
+		$in = $this->openFile();
 		if ($in === null) {
 			return null;
 		}
@@ -56,7 +56,7 @@ class MMDBParser {
 	}
 
 	public function findAllInstancesInCategory($categoryId) {
-		$in = $this->open_file();
+		$in = $this->openFile();
 		if ($in === null) {
 			return null;
 		}
@@ -87,7 +87,7 @@ class MMDBParser {
 	}
 	
 	public function getCategories() {
-		$in = $this->open_file();
+		$in = $this->openFile();
 		if ($in === null) {
 			return null;
 		}
@@ -109,7 +109,7 @@ class MMDBParser {
 		return $categories;
 	}
 
-	private function open_file($filename = "data/text.mdb") {
+	private function openFile($filename = "data/text.mdb") {
 		$in = fopen($filename, 'rb');
 		if (!$in) {
 			$this->logger->log('error', "Could not open file: '{$filename}'");
