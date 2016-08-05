@@ -297,7 +297,7 @@ class Budabot extends AOChat {
 			$tellColor = $this->settingManager->get("default_tell_color");
 		}
 
-		$this->logger->log_chat("Out. Msg.", $character, $message);
+		$this->logger->logChat("Out. Msg.", $character, $message);
 		$this->send_tell($character, $tellColor.$message, "\0", $priority);
 	}
 
@@ -412,7 +412,7 @@ class Budabot extends AOChat {
 		if ($this->isDefaultPrivateChannel($channel)) {
 			$eventObj->type = "joinpriv";
 
-			$this->logger->log_chat("Priv Group", -1, "$sender joined the channel.");
+			$this->logger->logChat("Priv Group", -1, "$sender joined the channel.");
 
 			// Remove sender if they are banned or if spam filter is blocking them
 			if ($this->banManager->is_banned($sender) || $this->spam[$sender] > 100){
@@ -442,7 +442,7 @@ class Budabot extends AOChat {
 		if ($this->isDefaultPrivateChannel($channel)) {
 			$eventObj->type = "leavepriv";
 
-			$this->logger->log_chat("Priv Group", -1, "$sender left the channel.");
+			$this->logger->logChat("Priv Group", -1, "$sender left the channel.");
 
 			// Remove from Chatlist array
 			unset($this->chatlist[$sender]);
@@ -516,7 +516,7 @@ class Budabot extends AOChat {
 		$eventObj->type = $type;
 		$eventObj->message = $message;
 
-		$this->logger->log_chat("Inc. Msg.", $sender, $message);
+		$this->logger->logChat("Inc. Msg.", $sender, $message);
 
 		// AFK/bot check
 		if (preg_match("|$sender is AFK|si", $message)) {
@@ -571,7 +571,7 @@ class Budabot extends AOChat {
 		$eventObj->message = $message;
 
 		$this->logger->log('DEBUG', "AOCP_PRIVGRP_MESSAGE => sender: '$sender' channel: '$channel' message: '$message'");
-		$this->logger->log_chat($channel, $sender, $message);
+		$this->logger->logChat($channel, $sender, $message);
 
 		if ($sender == $this->vars["name"] || $this->banManager->is_banned($sender)) {
 			return;
@@ -623,7 +623,7 @@ class Budabot extends AOChat {
 
 		// don't log tower messages with rest of chat messages
 		if ($channel != "All Towers" && $channel != "Tower Battle Outcome") {
-			$this->logger->log_chat($channel, $sender, $message);
+			$this->logger->logChat($channel, $sender, $message);
 		} else {
 			$this->logger->log('DEBUG', "[" . $channel . "]: " . $message);
 		}
@@ -675,7 +675,7 @@ class Budabot extends AOChat {
 
 		$this->logger->log('DEBUG', "AOCP_PRIVGRP_INVITE => sender: '$sender'");
 
-		$this->logger->log_chat("Priv Channel Invitation", -1, "$sender channel invited.");
+		$this->logger->logChat("Priv Channel Invitation", -1, "$sender channel invited.");
 
 		$this->eventManager->fireEvent($eventObj);
 	}

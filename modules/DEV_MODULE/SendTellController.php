@@ -41,7 +41,7 @@ class SendTellController extends AutoInject {
 		$name = ucfirst(strtolower($args[1]));
 		$message = $args[2];
 		
-		$this->logger->log_chat("Out. Msg.", $name, $message);
+		$this->logger->logChat("Out. Msg.", $name, $message);
 		$this->chatBot->send_tell($name, $message, "\0", AOC_PRIORITY_MED);
 		$sendto->reply("Message has been sent to <highlight>$name<end>.");
 	}

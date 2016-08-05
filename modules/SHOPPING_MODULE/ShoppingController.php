@@ -186,7 +186,7 @@ class ShoppingController {
 			return;
 		}
 		
-		$this->logger->log_chat($channel, $sender, $message);
+		$this->logger->logChat($channel, $sender, $message);
 
 		$this->processShoppingMessage($channel, $sender, $message);
 	}

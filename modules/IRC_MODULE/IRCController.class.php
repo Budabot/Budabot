@@ -286,7 +286,7 @@ class IRCController {
 	}
 
 	public function channelMessage(&$irc, &$obj) {
-		$this->logger->log_chat("Inc. IRC Msg.", $obj->nick, $obj->message);
+		$this->logger->logChat("Inc. IRC Msg.", $obj->nick, $obj->message);
 
 		$ircIgnore = explode(",", strtolower($this->setting->irc_ignore));
 		if (in_array(strtolower($obj->nick), $ircIgnore)) {
@@ -326,7 +326,7 @@ class IRCController {
 		}
 
 		$msg = "Guild ($numguild), Private Channel($numguest): " . $list;
-		$this->logger->log_chat("Out. IRC Msg.", -1, $msg);
+		$this->logger->logChat("Out. IRC Msg.", -1, $msg);
 		$this->irc->message($obj->type, $obj->channel, $msg);
 	}
 
@@ -585,7 +585,7 @@ class IRCController {
 
 	public function sendMessageToIRC($message) {
 		if ($this->ircActive()) {
-			$this->logger->log_chat("Out. IRC Msg.", -1, $message);
+			$this->logger->logChat("Out. IRC Msg.", -1, $message);
 			$guild = $this->relayController->getGuildAbbreviation();
 			if (empty($guild)) {
 				$ircmsg = $message;

@@ -18,7 +18,7 @@ class LoggerWrapper {
 		$this->logger->log($level, $message, $throwable);
 	}
 
-	public function log_chat($channel, $sender, $message) {
+	public function logChat($channel, $sender, $message) {
 		global $vars;
 		if ($vars['show_aoml_markup'] == 0) {
 			$message = preg_replace("|<font(.+)>|U", "", $message);

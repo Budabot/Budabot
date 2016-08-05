@@ -267,7 +267,7 @@ class RelayController {
 			$this->chatBot->send_tell($relayBot, $message);
 
 			// manual logging is only needed for tell relay
-			$this->logger->log_chat("Out. Msg.", $relayBot, $message);
+			$this->logger->logChat("Out. Msg.", $relayBot, $message);
 		}
 	}
 
