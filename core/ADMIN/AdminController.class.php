@@ -184,9 +184,9 @@ class AdminController {
 	}
 	
 	private function getOnlineStatus($who) {
-		if ($this->buddylistManager->is_online($who) == 1 && isset($this->chatBot->chatlist[$who])) {
+		if ($this->buddylistManager->isOnline($who) == 1 && isset($this->chatBot->chatlist[$who])) {
 			return " (<green>Online and in chat<end>)";
-		} else if ($this->buddylistManager->is_online($who) == 1) {
+		} else if ($this->buddylistManager->isOnline($who) == 1) {
 			return " (<green>Online<end>)";
 		} else {
 			return " (<red>Offline<end>)";
@@ -199,7 +199,7 @@ class AdminController {
 			$altInfo = $this->altsController->get_alt_info($who);
 			if ($altInfo->main == $who) {
 				forEach ($altInfo->alts as $alt => $validated) {
-					if ($validated == 1 && ($showOfflineAlts || $this->buddylistManager->is_online($alt))) {
+					if ($validated == 1 && ($showOfflineAlts || $this->buddylistManager->isOnline($alt))) {
 						$blob .= "<tab><tab>$alt" . $this->getOnlineStatus($alt) . "\n";
 					}
 				}

@@ -166,7 +166,7 @@ class WhoisController {
 		$name = ucfirst(strtolower($args[1]));
 		$uid = $this->chatBot->get_uid($name);
 		if ($uid) {
-			$online = $this->buddylistManager->is_online($name);
+			$online = $this->buddylistManager->isOnline($name);
 			if ($online === null) {
 				$this->replyInfo['charname'] = $name;
 				$this->replyInfo['sendto'] = $sendto;

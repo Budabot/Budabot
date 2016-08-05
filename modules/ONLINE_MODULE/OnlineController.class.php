@@ -172,7 +172,7 @@ class OnlineController {
 			$time = time();
 
 			forEach ($this->chatBot->guildmembers as $name => $rank) {
-				if ($this->buddylistManager->is_online($name)) {
+				if ($this->buddylistManager->isOnline($name)) {
 					if (in_array($name, $guildArray)) {
 						$sql = "UPDATE `online` SET `dt` = ? WHERE `name` = ? AND added_by = '<myname>' AND channel_type = 'guild'";
 						$this->db->exec($sql, $time, $name);

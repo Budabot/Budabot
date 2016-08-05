@@ -460,7 +460,7 @@ class SystemController {
 	public function onConnectEvent($eventObj) {
 		// send Admin(s) a tell that the bot is online
 		forEach ($this->adminManager->admins as $name => $info) {
-			if ($info["level"] == 4 && $this->buddylistManager->is_online($name) == 1) {
+			if ($info["level"] == 4 && $this->buddylistManager->isOnline($name) == 1) {
 				$this->chatBot->sendTell("<myname> is <green>online<end>. For updates or help use the Budabot Forums <highlight>http://budabot.com<end>", $name);
 			}
 		}

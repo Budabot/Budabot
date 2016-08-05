@@ -212,7 +212,7 @@ class OrglistController {
 		$this->orglist["maxsize"] = ceil(count($this->buddylistManager->buddyList) / 1000) * 1000 - 5;
 	
 		forEach ($members as $member) {
-			$buddy_online_status = $this->buddylistManager->is_online($member->name);
+			$buddy_online_status = $this->buddylistManager->isOnline($member->name);
 			if ($buddy_online_status !== null) {
 				$this->orglist["result"][$member->name]["online"] = $buddy_online_status;
 			} else if ($this->chatBot->vars["name"] == $member->name) {

@@ -16,10 +16,10 @@ class BuddylistManager {
 	public $buddyList = array();
 
 	/**
-	 * @name: is_online
+	 * @name: isOnline
 	 * @description: Returns null when online status is unknown, 1 when buddy is online, 0 when buddy is offline
 	 */
-	public function is_online($name) {
+	public function isOnline($name) {
 		if (strtolower($this->chatBot->vars['name']) == strtolower($name)) {
 			return 1;
 		} else {

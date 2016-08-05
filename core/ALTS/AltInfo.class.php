@@ -34,7 +34,7 @@ class AltInfo {
 			return "No registered alts.";
 		}
 		
-		$online = $buddylistManager->is_online($this->main);
+		$online = $buddylistManager->isOnline($this->main);
 		$blob .= $this->formatCharName($this->main, $online);
 
 		$character = $playerManager->get_by_name($this->main);
@@ -48,7 +48,7 @@ class AltInfo {
 		$data = $db->query($sql, $this->main);
 		$count = count($data) + 1;
 		forEach ($data as $row) {
-			$online = $buddylistManager->is_online($row->alt);
+			$online = $buddylistManager->isOnline($row->alt);
 			$blob .= $this->formatCharName($row->alt, $online);
 			if ($row->profession !== null) {
 				$blob .= " ({$row->level}/<green>{$row->ai_level}<end> {$row->profession})";
@@ -75,12 +75,12 @@ class AltInfo {
 		$online_list = array();
 		$buddylistManager = Registry::getInstance('buddylistManager');
 
-		if ($buddylistManager->is_online($this->main)) {
+		if ($buddylistManager->isOnline($this->main)) {
 			$online_list []= $this->main;
 		}
 
 		forEach ($this->alts as $name => $validated) {
-			if ($buddylistManager->is_online($name)) {
+			if ($buddylistManager->isOnline($name)) {
 				$online_list []= $name;
 			}
 		}
