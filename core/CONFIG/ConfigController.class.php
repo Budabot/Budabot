@@ -327,7 +327,7 @@ class ConfigController {
 			} else if (!$this->accessManager->checkAccess($sender, $accessLevel)) {
 				$msg = "You may not set the access level for a command above your own access level.";
 			} else {
-				$this->commandManager->update_status($channel, $command, null, 1, $accessLevel);
+				$this->commandManager->updateStatus($channel, $command, null, 1, $accessLevel);
 		
 				if ($channel == "all") {
 					$msg = "Updated access of command <highlight>$command<end> to <highlight>$accessLevel<end>.";

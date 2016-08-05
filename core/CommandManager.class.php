@@ -146,7 +146,7 @@ class CommandManager {
 		unset($this->commands[$channel][$command]);
 	}
 
-	public function update_status($channel, $cmd, $module, $status, $admin) {
+	public function updateStatus($channel, $cmd, $module, $status, $admin) {
 		if ($channel == 'all' || $channel == '' || $channel == null) {
 			$type_sql = '';
 		} else {
