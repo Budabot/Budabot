@@ -102,18 +102,18 @@ class NanoController {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$blob .= $this->text->make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
+				$blob .= $this->text->makeItem($row->lowid, $row->lowid, $row->lowql, $row->name);
 				$blob .= " [$row->lowql] $row->location";
 				if ($row->profession) {
 					$blob .= " - <highlight>$row->profession<end> ";
 				}
 				if ($row->nanoline_name) {
-					$blob .= $this->text->make_chatcmd($row->nanoline_name . " Nanoline", "/tell <myname> nanolines $row->nanoline_id");
+					$blob .= $this->text->makeChatcmd($row->nanoline_name . " Nanoline", "/tell <myname> nanolines $row->nanoline_id");
 				}
 				$blob .= "\n";
 			}
 
-			$msg = $this->text->make_blob("Nano Search Results ($count)", $blob);
+			$msg = $this->text->makeBlob("Nano Search Results ($count)", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -129,13 +129,13 @@ class NanoController {
 
 		$blob = '';
 		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd($row->profession, "/tell <myname> nanolines $row->profession");
+			$blob .= $this->text->makeChatcmd($row->profession, "/tell <myname> nanolines $row->profession");
 			$blob .= "\n";
 		}
 		$blob .= "\n\nAO Nanos by Voriuste";
 		$blob .= "\nModule created by Tyrence (RK2)";
 
-		$msg = $this->text->make_blob('Nanolines', $blob);
+		$msg = $this->text->makeBlob('Nanolines', $blob);
 
 		$sendto->reply($msg);
 	}
@@ -177,14 +177,14 @@ class NanoController {
 			$data = $this->db->query($sql, $nanolineId);
 
 			forEach ($data as $nano) {
-				$blob .= $this->text->make_item($nano->lowid, $nano->lowid, $nano->lowql, $nano->name);
+				$blob .= $this->text->makeItem($nano->lowid, $nano->lowid, $nano->lowql, $nano->name);
 				$blob .= " [$nano->lowql] $nano->location\n";
 			}
 
 			$blob .= "\n\nAO Nanos by Voriuste";
 			$blob .= "\nModule created by Tyrence (RK2)";
 
-			$msg = $this->text->make_blob("$nanoline->profession $nanoline->name Nanos", $blob);
+			$msg = $this->text->makeBlob("$nanoline->profession $nanoline->name Nanos", $blob);
 		} else {
 			$msg = "No nanoline found.";
 		}
@@ -206,14 +206,14 @@ class NanoController {
 		$blob = '';
 		forEach ($data as $row) {
 			if ($this->settingManager->get("shownanolineicons") == "1") {
-				$blob .= $this->text->make_image($row->image_id) . "\n";
+				$blob .= $this->text->makeImage($row->image_id) . "\n";
 			}
-			$blob .= $this->text->make_chatcmd("$row->name", "/tell <myname> nanolines $row->id");
+			$blob .= $this->text->makeChatcmd("$row->name", "/tell <myname> nanolines $row->id");
 			$blob .= "\n";
 		}
 		$blob .= "\n\nAO Nanos by Voriuste";
 		$blob .= "\nModule created by Tyrence (RK2)";
-		$msg = $this->text->make_blob("$profession Nanolines", $blob);
+		$msg = $this->text->makeBlob("$profession Nanolines", $blob);
 
 		$sendto->reply($msg);
 	}
@@ -227,10 +227,10 @@ class NanoController {
 
 		$blob = '';
 		forEach ($data as $row) {
-			$blob .= $this->text->make_chatcmd($row->location, "/tell <myname> nanoloc $row->location") . " ($row->count) \n";
+			$blob .= $this->text->makeChatcmd($row->location, "/tell <myname> nanoloc $row->location") . " ($row->count) \n";
 		}
 
-		$msg = $this->text->make_blob("Nano Locations", $blob);
+		$msg = $this->text->makeBlob("Nano Locations", $blob);
 		$sendto->reply($msg);
 	}
 	
@@ -266,7 +266,7 @@ class NanoController {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$blob .= $this->text->make_item($row->lowid, $row->lowid, $row->lowql, $row->name);
+				$blob .= $this->text->makeItem($row->lowid, $row->lowid, $row->lowql, $row->name);
 				$blob .= " [$row->lowql] $row->location";
 				if ($row->profession) {
 					$blob .= " - <highlight>$row->profession<end>";
@@ -274,7 +274,7 @@ class NanoController {
 				$blob .= "\n";
 			}
 
-			$msg = $this->text->make_blob("Nanos for Location '$location' ($count)", $blob);
+			$msg = $this->text->makeBlob("Nanos for Location '$location' ($count)", $blob);
 		}
 
 		$sendto->reply($msg);
