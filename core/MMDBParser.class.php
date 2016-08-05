@@ -47,7 +47,7 @@ class MMDBParser {
 		}
 
 		fseek($in, $instance['offset']);
-		$message = $this->read_string($in);
+		$message = $this->readString($in);
 		$this->mmdb[$categoryId][$instanceId] = $message;
 
 		fclose($in);
@@ -154,7 +154,7 @@ class MMDBParser {
 		return array_pop(unpack("L", fread($in, 4)));
 	}
 
-	private function read_string(&$in) {
+	private function readString(&$in) {
 		$message = '';
 		$char = '';
 
