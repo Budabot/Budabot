@@ -227,7 +227,7 @@ class Budabot extends AOChat {
 			$group = $this->setting->default_private_channel;
 		}
 
-		$message = $this->text->format_message($message);
+		$message = $this->text->formatMessage($message);
 		$senderLink = $this->text->makeUserlink($this->vars['name']);
 		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 		$guestColorChannel = $this->settingManager->get('guest_color_channel');
@@ -260,7 +260,7 @@ class Budabot extends AOChat {
 			$priority = AOC_PRIORITY_MED;
 		}
 
-		$message = $this->text->format_message($message);
+		$message = $this->text->formatMessage($message);
 		$senderLink = $this->text->makeUserlink($this->vars['name']);
 		$guildNameForRelay = $this->relayController->getGuildAbbreviation();
 		$guestColorChannel = $this->settingManager->get('guest_color_channel');
@@ -293,7 +293,7 @@ class Budabot extends AOChat {
 		}
 
 		if ($formatMessage) {
-			$message = $this->text->format_message($message);
+			$message = $this->text->formatMessage($message);
 			$tellColor = $this->settingManager->get("default_tell_color");
 		}
 
@@ -314,7 +314,7 @@ class Budabot extends AOChat {
 			$priority = AOC_PRIORITY_MED;
 		}
 
-		$message = $this->text->format_message($message);
+		$message = $this->text->formatMessage($message);
 		$guildColor = $this->settingManager->get("default_guild_color");
 
 		$this->send_group($channel, $guildColor.$message, "\0", $priority);

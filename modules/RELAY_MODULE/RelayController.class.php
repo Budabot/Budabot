@@ -257,8 +257,8 @@ class RelayController {
 		$relayBot = $this->settingManager->get('relaybot');
 		$message = str_ireplace("<myguild>", $this->getGuildAbbreviation(), $message);
 
-		// since we are using the aochat methods, we have to call format_message manually to handle colors and bot name replacement
-		$message = $this->text->format_message($message);
+		// since we are using the aochat methods, we have to call formatMessage manually to handle colors and bot name replacement
+		$message = $this->text->formatMessage($message);
 
 		// we use the aochat methods so the bot doesn't prepend default colors
 		if ($this->settingManager->get('relaytype') == 2) {

@@ -40,7 +40,7 @@ class Text {
 		$content = str_replace('"', '&quot;', $content);
 		$header = str_replace('"', '&quot;', $header);
 
-		$content = $this->format_message($content);
+		$content = $this->formatMessage($content);
 		
 		// if the content is blank, add a space so the blob will at least appear
 		if ($content == '') {
@@ -71,7 +71,7 @@ class Text {
 		// escape double quotes
 		$content = str_replace('"', '&quot;', $content);
 
-		$content = $this->format_message($content);
+		$content = $this->formatMessage($content);
 
 		$pages = $this->paginate($content, $this->settingManager->get("max_blob_size"), array("<pagebreak>", "\n", " "));
 		$num = count($pages);
@@ -182,10 +182,10 @@ class Text {
 	}
 
 	/**
-	 * @name: format_message
+	 * @name: formatMessage
 	 * @description: formats a message with colors, bot name, symbol, etc
 	 */
-	public function format_message($message) {
+	public function formatMessage($message) {
 		$array = array(
 			"<header>" => $this->settingManager->get('default_header_color'),
 			"<header2>" => $this->settingManager->get('default_header2_color'),

@@ -171,7 +171,7 @@ class RootController {
 	}
 	
 	private function convertAOMLToHTML($input) {
-		$input = $this->text->format_message($input);
+		$input = $this->text->formatMessage($input);
 		$input = preg_replace("|<a href=\"text://(.+)\">(.+)</a>|sU", "$1", $input);
 		$input = preg_replace_callback("|<a(\\s+)href='chatcmd://(.+)'>(.+)</a>|sU", array($this, 'replaceChatCmd'), $input);
 		$input = preg_replace_callback("|<a(\\s+)href='itemref://(\\d+)/(\\d+)/(\\d+)'>(.+)</a>|sU", array($this, 'replaceItem'), $input);
