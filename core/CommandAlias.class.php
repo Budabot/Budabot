@@ -161,7 +161,7 @@ class CommandAlias {
 		return $this->db->queryRow($sql, $alias);
 	}
 
-	public function get_command_by_alias($alias) {
+	public function getBaseCommandForAlias($alias) {
 		$row = $this->get($alias);
 
 		// if alias doesn't exist or is disabled

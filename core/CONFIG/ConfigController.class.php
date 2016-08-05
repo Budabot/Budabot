@@ -375,7 +375,7 @@ class ConfigController {
 		$found_priv = 0;
 		$found_guild = 0;
 	
-		$aliasCmd = $this->commandAlias->get_command_by_alias($cmd);
+		$aliasCmd = $this->commandAlias->getBaseCommandForAlias($cmd);
 		if ($aliasCmd != null) {
 			$cmd = $aliasCmd;
 		}
