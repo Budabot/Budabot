@@ -25,13 +25,13 @@ class DingController {
 	 * Set automatically by module loader.
 	 */
 	public $moduleName;
-	
+
 	/** @Inject */
 	public $text;
-	
+
 	/** @Inject */
 	public $util;
-	
+
 	/**
 	 * @HandlesCommand("ding")
 	 * @Matches("/^ding$/i")
@@ -45,7 +45,7 @@ class DingController {
 
 		$sendto->reply($this->util->randomArrayValue($dingText));
 	}
-	
+
 	/**
 	 * @HandlesCommand("ding")
 	 * @Matches("/^ding dong$/i")
@@ -54,7 +54,7 @@ class DingController {
 		$msg =	"Ditch, Bitch!";
 		$sendto->reply($msg);
 	}
-	
+
 	/**
 	 * @HandlesCommand("ding")
 	 * @Matches("/^ding ([\-+]?[0-9]+)$/i")
@@ -65,7 +65,7 @@ class DingController {
 		if ($level <= 0) {
 			$lvl = (int)round(220 - $level);
 			$dingText = array(
-				"Reclaim sure is doing a number on you if your going backwards...",
+				"Reclaim sure is doing a number on you if you're going backwards...",
 				"That sounds like a problem... so how are your skills looking?",
 				"Wtb negative exp kite teams!",
 				"That leaves you with... $lvl more levels until 220, I don't see the problem?",
@@ -79,7 +79,7 @@ class DingController {
 			$dingText = array(
 				"Congratz! <red>Level 100<end> - ".$sender." you rock!\n",
 				"Congratulations! Time to twink up for T.I.M!",
-				"Gratz, your half way to 200. More missions, MORE!",
+				"Gratz, you're half way to 200. More missions, MORE!",
 				"Woot! Congrats, don't forget to put on your 1k token board.");
 		} else if ($level == 150) {
 			$dingText = array(
@@ -94,8 +94,8 @@ class DingController {
 				"Yay, only 10 more levels until TL 6! Way to go!");
 		} else if ($level == 190) {
 			$dingText = array(
-				"Wow holy shiznits! Your TL 6 already? Congrats!",
-				"Just a few more steps and your there buddy, keep it up!",
+				"Wow holy shiznits! You're TL 6 already? Congrats!",
+				"Just a few more steps and you're there buddy, keep it up!",
 				"Almost party time! just a bit more to go ".$sender.". We'll be sure to bring you a cookie!");
 		} else if ($level == 200) {
 			$dingText = array(
@@ -127,7 +127,7 @@ class DingController {
 			$dingText = array(
 				"Ding ding ding... now ding some more!",
 				"Keep em coming!",
-				"Don't stop now, your getting there!",
+				"Don't stop now, you're getting there!",
 				"Come on, COME ON! Only $lvl more levels to go until 220!");
 		}
 
