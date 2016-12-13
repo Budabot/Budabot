@@ -1124,3 +1124,6 @@ INSERT INTO `boss_lootdb` VALUES (260,'Spirit''s Gem');
 INSERT INTO `boss_lootdb` VALUES (260,'Techno Wizard''s Gem');
 INSERT INTO `boss_lootdb` VALUES (260,'Warrior''s Gem');
 INSERT INTO `boss_lootdb` VALUES (260,'Worshipper''s Gem');
+INSERT INTO `boss_lootdb` VALUES (261,'Death''s Door');
+INSERT INTO `boss_lootdb` VALUES (261,'Vision of Destruction');
+INSERT INTO `boss_lootdb` VALUES (261,'Vision of Hope');

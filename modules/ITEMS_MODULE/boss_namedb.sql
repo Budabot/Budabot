@@ -258,3 +258,4 @@ INSERT INTO `boss_namedb` VALUES (257, 'Waywaqa');
 INSERT INTO `boss_namedb` VALUES (258, 'Ground Chief Vortexx');
 INSERT INTO `boss_namedb` VALUES (259, 'Mitaar Hero');
 INSERT INTO `boss_namedb` VALUES (260, '12-man');
+INSERT INTO `boss_namedb` VALUES (261, 'Abandoned Hope');
