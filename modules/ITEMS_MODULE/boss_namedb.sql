@@ -61,7 +61,7 @@ INSERT INTO `boss_namedb` VALUES (58,'Forefather');
 INSERT INTO `boss_namedb` VALUES (59,'Gemini');
 INSERT INTO `boss_namedb` VALUES (60,'General Kaehler Jr');
 INSERT INTO `boss_namedb` VALUES (61,'General Kronillis');
-INSERT INTO `boss_namedb` VALUES (62,'General Nitrox');
+INSERT INTO `boss_namedb` VALUES (62,'General Nirtox');
 INSERT INTO `boss_namedb` VALUES (63,'General Vivyan');
 INSERT INTO `boss_namedb` VALUES (64,'George');
 INSERT INTO `boss_namedb` VALUES (65,'Hawqana');
