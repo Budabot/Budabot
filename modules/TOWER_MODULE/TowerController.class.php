@@ -1309,7 +1309,7 @@ class TowerController {
 		$sql = "
 			SELECT att_guild_name, att_faction, MAX(IFNULL(t2.time, t1.time)) AS penalty_time
 			FROM tower_attack_<myname> t1
-				LEFT JOIN tower_victory_<myname> t2 ON t1.id = t2.id
+				LEFT JOIN tower_victory_<myname> t2 ON t1.id = t2.attack_id
 			WHERE
 				att_guild_name <> ''
 				AND (t2.time IS NULL AND t1.time > ?)
