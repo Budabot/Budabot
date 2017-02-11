@@ -6,3 +6,6 @@ To configure a specific module:
 
 To configure a specific command:
 <highlight><tab><symbol>config cmd <i>command</i><end>
+
+To enable or disable all commands for a certain channel:
+<highlight><tab>config cmd enable|disable all|guild|priv|msg
