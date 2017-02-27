@@ -57,7 +57,7 @@ class NanoController {
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'nanos');
 		$this->db->loadSQLFile($this->moduleName, 'nanolines');
-		$this->db->loadSQLFile($this->moduleName, 'nanolines_ref');
+		$this->db->loadSQLFile($this->moduleName, 'nanos_nanolines_ref');
 		
 		$this->settingManager->add($this->moduleName, 'maxnano', 'Number of Nanos shown on the list', 'edit', "number", '40', '30;40;50;60', "", "mod");
 		$this->settingManager->add($this->moduleName, "shownanolineicons", "Show icons for the nanolines", "edit", "options", "0", "true;false", "1;0");
@@ -80,13 +80,13 @@ class NanoController {
 				n1.lowql,
 				n1.name,
 				n1.location,
+				n1.profession,
 				n3.id AS nanoline_id,
-				n3.name AS nanoline_name,
-				n3.profession
+				n3.name AS nanoline_name
 			FROM
 				nanos n1
-				LEFT JOIN nano_nanolines_ref n2 ON n1.lowid = n2.lowid
-				LEFT JOIN nanolines n3 ON n2.nanolineid = n3.id
+				LEFT JOIN nanos_nanolines_ref n2 ON n1.lowid = n2.lowid
+				LEFT JOIN nanolines n3 ON n2.nanolines_id = n3.id
 			WHERE
 				$query
 			ORDER BY
@@ -112,7 +112,7 @@ class NanoController {
 				}
 				$blob .= "\n";
 			}
-
+			$blob .= $this->getFooter();
 			$msg = $this->text->makeBlob("Nano Search Results ($count)", $blob);
 		}
 
@@ -132,9 +132,7 @@ class NanoController {
 			$blob .= $this->text->makeChatcmd($row->profession, "/tell <myname> nanolines $row->profession");
 			$blob .= "\n";
 		}
-		$blob .= "\n\nAO Nanos by Voriuste";
-		$blob .= "\nModule created by Tyrence (RK2)";
-
+		$blob .= $this->getFooter();
 		$msg = $this->text->makeBlob('Nanolines', $blob);
 
 		$sendto->reply($msg);
@@ -168,10 +166,10 @@ class NanoController {
 					location
 				FROM
 					nanos n1
-					JOIN nano_nanolines_ref n2
+					JOIN nanos_nanolines_ref n2
 						ON (n1.lowid = n2.lowid)
 				WHERE
-					n2.nanolineid = ?
+					n2.nanolines_id = ?
 				ORDER BY
 					lowql DESC, name ASC";
 			$data = $this->db->query($sql, $nanolineId);
@@ -180,10 +178,7 @@ class NanoController {
 				$blob .= $this->text->makeItem($nano->lowid, $nano->lowid, $nano->lowql, $nano->name);
 				$blob .= " [$nano->lowql] $nano->location\n";
 			}
-
-			$blob .= "\n\nAO Nanos by Voriuste";
-			$blob .= "\nModule created by Tyrence (RK2)";
-
+			$blob .= $this->getFooter();
 			$msg = $this->text->makeBlob("$nanoline->profession $nanoline->name Nanos", $blob);
 		} else {
 			$msg = "No nanoline found.";
@@ -211,8 +206,7 @@ class NanoController {
 			$blob .= $this->text->makeChatcmd("$row->name", "/tell <myname> nanolines $row->id");
 			$blob .= "\n";
 		}
-		$blob .= "\n\nAO Nanos by Voriuste";
-		$blob .= "\nModule created by Tyrence (RK2)";
+		$blob .= $this->getFooter();
 		$msg = $this->text->makeBlob("$profession Nanolines", $blob);
 
 		$sendto->reply($msg);
@@ -229,7 +223,7 @@ class NanoController {
 		forEach ($data as $row) {
 			$blob .= $this->text->makeChatcmd($row->location, "/tell <myname> nanoloc $row->location") . " ($row->count) \n";
 		}
-
+		$blob .= $this->getFooter();
 		$msg = $this->text->makeBlob("Nano Locations", $blob);
 		$sendto->reply($msg);
 	}
@@ -250,8 +244,8 @@ class NanoController {
 				n3.profession
 			FROM
 				nanos n1
-				LEFT JOIN nano_nanolines_ref n2 ON n1.lowid = n2.lowid
-				LEFT JOIN nanolines n3 ON n2.nanolineid = n3.id
+				LEFT JOIN nanos_nanolines_ref n2 ON n1.lowid = n2.lowid
+				LEFT JOIN nanolines n3 ON n2.nanolines_id = n3.id
 			WHERE
 				n1.location LIKE ?
 			ORDER BY
@@ -278,5 +272,9 @@ class NanoController {
 		}
 
 		$sendto->reply($msg);
+	}
+
+	private function getFooter() {
+		return "\n\nNanos DB provided by Saavick & Lucier";
 	}
 }
