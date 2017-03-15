@@ -37,6 +37,9 @@ class UsageController {
 	public $settingManager;
 
 	/** @Inject */
+	public $eventManager;
+
+	/** @Inject */
 	public $util;
 	
 	/** @Inject */
@@ -267,6 +270,7 @@ class UsageController {
 		$settings['online_admin'] = $this->settingManager->get('online_admin');
 		$settings['items_database'] = $this->settingManager->get('items_database');
 		$settings['relaysymbolmethod'] = $this->settingManager->get('relaysymbolmethod');
+		$settings['http_server_enable'] = ($this->eventManager->getKeyForCronEvent("60", "httpservercontroller.startHTTPServer") != null ? "1" : "0");
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $this->chatBot->vars['name'] . $this->chatBot->vars['dimension']);
