@@ -457,11 +457,11 @@ class ImplantController {
 	
 	public function getClusterMinQl($ql, $grade) {
 		if ($grade == 'shiny') {
-			return round($ql * 0.86);
+			return floor($ql * 0.86);
 		} else if ($grade == 'bright') {
-			return round($ql * 0.84);
+			return floor($ql * 0.84);
 		} else if ($grade == 'faded') {
-			return round($ql * 0.82);
+			return floor($ql * 0.82);
 		} else {
 			throw new Exception("Invalid grade: '$grade'.  Must be one of: 'shiny', 'bright', 'faded'");
 		}
