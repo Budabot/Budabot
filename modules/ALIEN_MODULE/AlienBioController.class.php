@@ -167,8 +167,8 @@ class AlienBioController {
 					continue;
 			}
 
-			$biotype_link = $this->text->makeChatcmd($name, "/tell <myname> bioinfo $bioinfo $ql");
-			$blob .= $biotype_link . "\n\n";
+			$biotypeLink = $this->text->makeChatcmd($name, "/tell <myname> bioinfo $bioinfo $ql");
+			$blob .= $biotypeLink . "\n\n";
 		}
 
 		if (count($bios) == 1) {

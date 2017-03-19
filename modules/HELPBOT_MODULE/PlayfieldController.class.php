@@ -113,7 +113,7 @@ class PlayfieldController {
 		
 		$pf_name = $args[4];
 		
-		$playfield = $this->get_playfield_by_name($pf_name);
+		$playfield = $this->getPlayfieldByName($pf_name);
 		$sendto->reply($this->processWaypointCommand($x_coords, $y_coords, $playfield->short_name, $playfield->id));
 	}
 	
@@ -126,7 +126,7 @@ class PlayfieldController {
 		$y_coords = $args[2];
 		$playfield_id = $args[4];
 
-		$playfield = $this->get_playfield_by_id($playfield_id);
+		$playfield = $this->getPlayfieldById($playfield_id);
 		if ($playfield === null) {
 			$playfield_name = $playfield_id;
 		} else {
@@ -145,7 +145,7 @@ class PlayfieldController {
 		$y_coords = $args[3];
 		$playfield_id = $args[5];
 
-		$playfield = $this->get_playfield_by_id($playfield_id);
+		$playfield = $this->getPlayfieldById($playfield_id);
 		if ($playfield === null) {
 			$playfield_name = $playfield_id;
 		} else {
@@ -164,7 +164,7 @@ class PlayfieldController {
 		$y_coords = $args[3];
 		$playfield_name = $args[5];
 
-		$playfield = $this->get_playfield_by_name($playfield_name);
+		$playfield = $this->getPlayfieldByName($playfield_name);
 		if ($playfield === null) {
 			$sendto->reply("Could not find playfield '$playfield_name'.");
 		} else {
@@ -180,13 +180,13 @@ class PlayfieldController {
 		return $this->text->makeBlob("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", $blob);
 	}
 	
-	public function get_playfield_by_name($playfield_name) {
+	public function getPlayfieldByName($playfield_name) {
 		$sql = "SELECT * FROM playfields WHERE `long_name` LIKE ? OR `short_name` LIKE ? LIMIT 1";
 
 		return $this->db->queryRow($sql, $playfield_name, $playfield_name);
 	}
 
-	public function get_playfield_by_id($playfield_id) {
+	public function getPlayfieldById($playfield_id) {
 		$sql = "SELECT * FROM playfields WHERE `id` = ?";
 
 		return $this->db->queryRow($sql, $playfield_id);

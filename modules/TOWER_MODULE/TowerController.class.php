@@ -188,7 +188,7 @@ class TowerController {
 	 * @Matches("/^attacks (?!org|player)([a-z0-9]+) (\d+)$/i")
 	 */
 	public function attacks2Command($message, $channel, $sender, $sendto, $args) {
-		$playfield = $this->playfieldController->get_playfield_by_name($args[1]);
+		$playfield = $this->playfieldController->getPlayfieldByName($args[1]);
 		if ($playfield === null) {
 			$msg = "Please enter a valid playfield.";
 			$sendto->reply($msg);
@@ -264,7 +264,7 @@ class TowerController {
 	 */
 	public function lc2Command($message, $channel, $sender, $sendto, $args) {
 		$playfield_name = strtoupper($args[1]);
-		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->getPlayfieldByName($playfield_name);
 		if ($playfield === null) {
 			$msg = "Playfield '$playfield_name' could not be found.";
 			$sendto->reply($msg);
@@ -298,7 +298,7 @@ class TowerController {
 	 */
 	public function lc3Command($message, $channel, $sender, $sendto, $args) {
 		$playfield_name = strtoupper($args[1]);
-		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->getPlayfieldByName($playfield_name);
 		if ($playfield === null) {
 			$msg = "Playfield '$playfield_name' could not be found.";
 			$sendto->reply($msg);
@@ -471,7 +471,7 @@ class TowerController {
 		$playfield_name = $args[1];
 		$site_number = $args[2];
 	
-		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->getPlayfieldByName($playfield_name);
 		if ($playfield === null) {
 			$msg = "Invalid playfield.";
 			$sendto->reply($msg);
@@ -568,7 +568,7 @@ class TowerController {
 			return "Valid values for faction are: 'Omni', 'Neutral', and 'Clan'.";
 		}
 	
-		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->getPlayfieldByName($playfield_name);
 		if ($playfield === null) {
 			return "Invalid playfield.";
 		}
@@ -706,7 +706,7 @@ class TowerController {
 	 * @Matches("/^victory (?!org|player)([a-z0-9]+) (\d+)$/i")
 	 */
 	public function victory2Command($message, $channel, $sender, $sendto, $args) {
-		$playfield = $this->playfieldController->get_playfield_by_name($args[1]);
+		$playfield = $this->playfieldController->getPlayfieldByName($args[1]);
 		if ($playfield === null) {
 			$msg = "Invalid playfield.";
 			$sendto->reply($msg);
@@ -798,7 +798,7 @@ class TowerController {
 			$whois->guild = $att_guild;
 		}
 		
-		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->getPlayfieldByName($playfield_name);
 		$closest_site = $this->get_closest_site($playfield->id, $x_coords, $y_coords);
 
 		$defender = new stdClass();
@@ -937,7 +937,7 @@ class TowerController {
 			return;
 		}
 		
-		$playfield = $this->playfieldController->get_playfield_by_name($playfield_name);
+		$playfield = $this->playfieldController->getPlayfieldByName($playfield_name);
 		if ($playfield === null) {
 			$this->logger->log('error', "Could not find playfield for name '$playfield_name'");
 			return;
