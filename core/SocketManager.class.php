@@ -82,7 +82,7 @@ class SocketManager {
 	private function removeOne(&$array, $value) {
 		$key = array_search($value, $array, true);
 		if ($key !== false) {
-			unset ($array[$key]);
+			unset($array[$key]);
 		}
 	}
 }

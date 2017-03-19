@@ -136,7 +136,7 @@ class CommandAlias {
 	 * @name: add
 	 * @description: Adds a command alias to the db
 	 */
-	public function add(&$row) {
+	public function add($row) {
 		$this->logger->log('DEBUG', "Adding alias: '{$alias}' for command: '$command'");
 
 		$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES (?, ?, ?, ?)";
@@ -147,7 +147,7 @@ class CommandAlias {
 	 * @name: update
 	 * @description: Updates a command alias in the db
 	 */
-	public function update(&$row) {
+	public function update($row) {
 		$this->logger->log('DEBUG', "Updating alias :($row->alias)");
 
 		$sql = "UPDATE cmd_alias_<myname> SET `module` = ?, `cmd` = ?, `status` = ? WHERE `alias` = ?";

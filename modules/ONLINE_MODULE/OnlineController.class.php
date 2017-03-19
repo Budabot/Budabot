@@ -353,7 +353,7 @@ class OnlineController {
 		return array($numonline, $msg, $blob);
 	}
 
-	public function createList(&$data, $show_alts, $show_org_info) {
+	public function createList($data, $show_alts, $show_org_info) {
 		$fancyColon = "::";
 
 		$current_profession = "";

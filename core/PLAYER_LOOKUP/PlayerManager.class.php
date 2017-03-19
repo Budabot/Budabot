@@ -112,7 +112,7 @@ class PlayerManager {
 		return $xml;
 	}
 
-	public function update(&$char) {
+	public function update($char) {
 		$sql = "DELETE FROM players WHERE `name` = ? AND `dimension` = ?";
 		$this->db->exec($sql, $char->name, $char->dimension);
 		
@@ -172,7 +172,7 @@ class PlayerManager {
 			$char->dimension, $char->source, time());
 	}
 
-	public function get_info(&$whois, $showFirstAndLastName = true) {
+	public function get_info($whois, $showFirstAndLastName = true) {
 		$msg = '';
 
 		if ($showFirstAndLastName && $whois->firstname) {

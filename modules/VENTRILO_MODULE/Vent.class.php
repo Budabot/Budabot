@@ -133,7 +133,7 @@ class Vent {
 	/**
 	 * getCRC: find the CRC for a data argument.
 	 */
-	static function getCRC(&$data) {
+	static function getCRC($data) {
 		$crc = 0;
 		$dtoks = unpack("c*", $data);		// Note: unpack starts output array index at 1, NOT 0.
 		$table = getCRCref();			// my CRC table reference

@@ -103,7 +103,7 @@ class HttpServerController {
 			$httpRequest->body     = '';
 			$httpRequest->session  = $session;
 
-			$request->on('data', function ($bodyBuffer) use ($that, &$httpRequest) {
+			$request->on('data', function ($bodyBuffer) use ($that, $httpRequest) {
 				$httpRequest->body .= $bodyBuffer;
 				if (!$that->isRequestBodyFullyReceived($httpRequest)) {
 					return;

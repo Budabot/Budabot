@@ -188,10 +188,10 @@ class ImplantDesignerController extends AutoInject {
 		$blob .= "\n-------------------------\n\n";
 		
 		$design = $this->getDesign($sender, '@');
-		$slotObj = &$design->$slot;
+		$slotObj = $design->$slot;
 		
 		if ($slotObj->symb !== null) {
-			$symb = &$slotObj->symb;
+			$symb = $slotObj->symb;
 			$blob .= $symb->name ."\n\n";
 			$blob .= "<header2>Requirements<end>\n";
 			$blob .= "Treatment: {$symb->Treatment}\n";
@@ -262,7 +262,7 @@ class ImplantDesignerController extends AutoInject {
 		$item = $args[3];
 		
 		$design = $this->getDesign($sender, '@');
-		$slotObj = &$design->$slot;
+		$slotObj = $design->$slot;
 		
 		if ($type == 'symb') {
 			$sql = 
@@ -340,7 +340,7 @@ class ImplantDesignerController extends AutoInject {
 		$ql = $args[2];
 		
 		$design = $this->getDesign($sender, '@');
-		$slotObj = &$design->$slot;
+		$slotObj = $design->$slot;
 		unset($slotObj->symb);
 		$slotObj->ql = $ql;
 		$this->saveDesign($sender, '@', $design);
@@ -384,7 +384,7 @@ class ImplantDesignerController extends AutoInject {
 		$slot = strtolower($args[1]);
 
 		$design = $this->getDesign($sender, '@');
-		$slotObj = &$design->$slot;
+		$slotObj = $design->$slot;
 		if (empty($slotObj)) {
 			$msg = "You must have at least one cluster filled to require an ability.";
 		} else if (!empty($slotObj->symb)) {
@@ -420,7 +420,7 @@ class ImplantDesignerController extends AutoInject {
 		$ability = ucfirst(strtolower($args[2]));
 
 		$design = $this->getDesign($sender, '@');
-		$slotObj = &$design->$slot;
+		$slotObj = $design->$slot;
 		if (empty($slotObj)) {
 			$msg = "You must have at least one cluster filled to require an ability.";
 		} else if (!empty($slotObj->symb)) {
@@ -530,7 +530,7 @@ class ImplantDesignerController extends AutoInject {
 		$clusters = array();
 		
 		forEach ($this->slots as $slot) {
-			$slotObj = &$design->$slot;
+			$slotObj = $design->$slot;
 			
 			// skip empty slots
 			if (empty($slotObj)) {
@@ -538,7 +538,7 @@ class ImplantDesignerController extends AutoInject {
 			}
 			
 			if (!empty($slotObj->symb)) {
-				$symb = &$slotObj->symb;
+				$symb = $slotObj->symb;
 				
 				// add reqs
 				if ($symb->Treatment > $reqs['Treatment']) {

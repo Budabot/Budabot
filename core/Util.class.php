@@ -463,8 +463,7 @@ class Util {
 		while ($ptr1 < count($array1) && $ptr2 < count($array2)) {
 			if ($cmp_function($array1[$ptr1], $array2[$ptr2]) < 1) {
 				$array[] = $array1[$ptr1++];
-			}
-			else {
+			} else {
 				$array[] = $array2[$ptr2++];
 			}
 		}

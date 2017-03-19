@@ -32,7 +32,7 @@ function StrSplit($src, $sep, &$d1, &$d2) {
 	$d2 = substr($src, $pos + 1);
 }
 
-function StrDecode(&$src) {
+function StrDecode($src) {
 	$res = "";
 
 	for ($i = 0; $i < strlen($src);) {

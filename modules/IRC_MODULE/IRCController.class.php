@@ -285,7 +285,7 @@ class IRCController {
 		}
 	}
 
-	public function channelMessage(&$irc, &$obj) {
+	public function channelMessage($irc, $obj) {
 		$this->logger->logChat("Inc. IRC Msg.", $obj->nick, $obj->message);
 
 		$ircIgnore = explode(",", strtolower($this->setting->irc_ignore));
@@ -357,11 +357,11 @@ class IRCController {
 		}
 	}
 
-	public function queryMessage(&$irc, &$obj) {
+	public function queryMessage($irc, $obj) {
 
 	}
 
-	public function joinMessage(&$irc, &$obj) {
+	public function joinMessage($irc, $obj) {
 		$msgColor = $this->setting->irc_message_color;
 		if ($obj->nick == $this->setting->irc_nickname) {
 			$msg = "<yellow>[IRC]<end> {$msgColor}Connected to IRC {$this->setting->irc_server}: $obj->channel.<end>";
@@ -376,7 +376,7 @@ class IRCController {
 		}
 	}
 
-	public function leaveMessage(&$irc, &$obj) {
+	public function leaveMessage($irc, $obj) {
 		$msgColor = $this->setting->irc_message_color;
 		$msg = "<yellow>[IRC]<end> {$msgColor}$obj->nick left the channel.<end>";
 
@@ -388,7 +388,7 @@ class IRCController {
 		}
 	}
 
-	public function kickMessage(&$irc, &$obj) {
+	public function kickMessage($irc, $obj) {
 		$extendedinfo = $this->text->makeBlob("Extended information", $obj->message);
 		if ($obj->nick == $this->setting->irc_nickname) {
 			$msg = "<yellow>[IRC]<end> Bot was kicked from the server:".$extendedinfo;
@@ -409,7 +409,7 @@ class IRCController {
 		}
 	}
 
-	public function noticeMessage(&$irc, &$obj) {
+	public function noticeMessage($irc, $obj) {
 		if (false != stripos($obj->message, "exiting")) {
 			// the irc server shut down (i guess)
 			// send notification to channel

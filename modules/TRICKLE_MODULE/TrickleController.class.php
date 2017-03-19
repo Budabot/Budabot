@@ -144,7 +144,7 @@ class TrickleController {
 		return $this->db->query($sql);
 	}
 	
-	function formatOutput($results, $amount, &$abilities) {
+	function formatOutput($results, $amount, $abilities) {
 		$msg = "";
 		$groupName = "";
 		forEach($results as $result) {

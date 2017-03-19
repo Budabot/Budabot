@@ -128,7 +128,7 @@ class MMDBParser {
 		return $in;
 	}
 
-	private function findEntry(&$in, $id, $offset) {
+	private function findEntry($in, $id, $offset) {
 		fseek($in, $offset);
 
 		do {
@@ -146,15 +146,15 @@ class MMDBParser {
 	/**
 	 * @returns array($id, $offset)
 	 */
-	private function readEntry(&$in) {
+	private function readEntry($in) {
 		return array('id' => $this->readLong($in), 'offset' => $this->readLong($in));
 	}
 
-	private function readLong(&$in) {
+	private function readLong($in) {
 		return array_pop(unpack("L", fread($in, 4)));
 	}
 
-	private function readString(&$in) {
+	private function readString($in) {
 		$message = '';
 		$char = '';
 

@@ -9,7 +9,7 @@ class IRCCommandReply implements CommandReply {
 	private $channel;
 	private $type;
 
-	public function __construct(&$irc, $channel, $type) {
+	public function __construct($irc, $channel, $type) {
 		$this->irc = $irc;
 		$this->channel = $channel;
 		$this->type = $type;

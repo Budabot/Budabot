@@ -66,7 +66,7 @@ class WhompahController {
 
 		$sendto->reply($msg);
 	}
-	
+
 	/**
 	 * @HandlesCommand("whompah")
 	 * @Matches("/^whompah (.+) (.+)$/i")
@@ -100,7 +100,7 @@ class WhompahController {
 		} else {
 			while ($obj->previous !== null) {
 				$msg .= "$obj->city_name -> ";
-				$obj = &$obj->previous;
+				$obj = $obj->previous;
 			}
 			$msg .= "$obj->city_name";
 		}
@@ -130,7 +130,7 @@ class WhompahController {
 		$sendto->reply($msg);
 	}
 
-	public function find_whompah_path($queue, $whompahs, &$endCity) {
+	public function find_whompah_path($queue, $whompahs, $endCity) {
 		$current_whompah = array_shift($queue);
 
 		if ($current_whompah == false) {
@@ -147,7 +147,7 @@ class WhompahController {
 				$next_whompah = new stdClass;
 				$next_whompah->id = $city2_id;
 				$next_whompah->city_name = $whompahs[$city2_id]->city_name;
-				$next_whompah->previous = &$current_whompah;
+				$next_whompah->previous = $current_whompah;
 				$queue []= $next_whompah;
 			}
 		}

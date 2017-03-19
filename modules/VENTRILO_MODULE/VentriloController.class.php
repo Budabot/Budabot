@@ -114,7 +114,7 @@ class VentriloController {
 			$page .= "\nChannels:\n";
 
 			forEach ($stat->m_channellist as $channel) {
-				$this->displayChannel($channel, $stat->m_clientlist, "", $page);
+				$page .= $this->displayChannel($channel, $stat->m_clientlist, "");
 			}
 
 			$msg = $this->text->makeBlob("Ventrilo Info ({$stat->m_clientcount})", $page);
@@ -122,9 +122,9 @@ class VentriloController {
 		return $msg;
 	}
 	
-	public function displayChannel(&$channel, &$clientlist, $prefix, &$output) {
+	public function displayChannel($channel, $clientlist, $prefix) {
 		$prefix .= "    ";
-		$output .= "<grey>--+<end> ";
+		$output = "<grey>--+<end> ";
 
 		if ($channel->m_prot == 1) {
 			$output .= "<orange>{$channel->m_name}<end>\n";
@@ -136,5 +136,6 @@ class VentriloController {
 				$output .= "     <grey>|---<end> <highlight>{$user->m_name}<end> \n";
 			}
 		}
+		return $output;
 	}
 }

@@ -2,6 +2,8 @@
 
 namespace Budabot\User\Modules;
 
+use Exception;
+
 /**
  * Authors: 
  *  - Tyrence (RK2)
@@ -368,7 +370,7 @@ class ImplantController {
 
 		$row = $this->db->queryRow($sql, $ql);
 
-		$this->add_info($row);
+		$this->addClusterInfo($row);
 
 		return $row;
 	}
@@ -378,12 +380,12 @@ class ImplantController {
 
 		$row = $this->db->queryRow($sql, $ability, $treatment);
 
-		$this->add_info($row);
+		$this->addClusterInfo($row);
 
 		return $row;
 	}
 
-	public function formatClusterBonuses(&$obj) {
+	public function formatClusterBonuses($obj) {
 		$msg .= "You will gain for most skills:\n" .
 			"<tab>Shiny    <highlight>$obj->skillShiny<end> ($obj->lowestSkillShiny - $obj->highestSkillShiny)\n" .
 			"<tab>Bright    <highlight>$obj->skillBright<end> ($obj->lowestSkillBright - $obj->highestSkillBright)\n" .
@@ -420,17 +422,17 @@ class ImplantController {
 		return $msg;
 	}
 
-	public function add_info(&$obj) {
+	public function addClusterInfo($obj) {
 		if ($obj === null) {
 			return;
 		}
 
-		$this->_setHighestAndLowestQls($obj, 'abilityShiny');
-		$this->_setHighestAndLowestQls($obj, 'abilityBright');
-		$this->_setHighestAndLowestQls($obj, 'abilityFaded');
-		$this->_setHighestAndLowestQls($obj, 'skillShiny');
-		$this->_setHighestAndLowestQls($obj, 'skillBright');
-		$this->_setHighestAndLowestQls($obj, 'skillFaded');
+		$this->setHighestAndLowestQls($obj, 'abilityShiny');
+		$this->setHighestAndLowestQls($obj, 'abilityBright');
+		$this->setHighestAndLowestQls($obj, 'abilityFaded');
+		$this->setHighestAndLowestQls($obj, 'skillShiny');
+		$this->setHighestAndLowestQls($obj, 'skillBright');
+		$this->setHighestAndLowestQls($obj, 'skillFaded');
 
 		$obj->abilityTotal = $obj->abilityShiny + $obj->abilityBright + $obj->abilityFaded;
 		$obj->skillTotal = $obj->skillShiny + $obj->skillBright + $obj->skillFaded;
@@ -461,11 +463,11 @@ class ImplantController {
 		} else if ($grade == 'faded') {
 			return round($ql * 0.82);
 		} else {
-			throw new \Exception("Invalid grade: '$grade'.  Must be one of: 'shiny', 'bright', 'faded'");
+			throw new Exception("Invalid grade: '$grade'.  Must be one of: 'shiny', 'bright', 'faded'");
 		}
 	}
 
-	public function _setHighestAndLowestQls(&$obj, $var) {
+	public function setHighestAndLowestQls($obj, $var) {
 		$varValue = $obj->$var;
 
 		$sql = "SELECT MAX(ql) as max, MIN(ql) as min FROM implant_requirements WHERE $var = ?";
