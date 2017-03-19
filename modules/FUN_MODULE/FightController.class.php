@@ -2,6 +2,8 @@
 
 namespace Budabot\User\Modules;
 
+use stdClass;
+
 /**
  * Author:
  *  - Tyrence (RK2)
@@ -41,7 +43,7 @@ class FightController {
 		$player2 = $args[2];
 
 		// Checks if user is trying to get Chuck Norris to fight another Chuck Norris
-		if ((strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) && (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0)) {
+		if ($this->isChuckNorris($player1) && $this->isChuckNorris($player2)) {
 			$msg = "Theres only enough room in this world for one Chuck Norris!";
 			$sendto->reply($msg);
 			return;
@@ -58,66 +60,20 @@ class FightController {
 			return;
 		}
 
-		if ($this->util->startsWith(strtolower($player1), "tyrence")) {
-			$hp1 = 200000;
-			$add_damage_P1 = rand(25000, 30000);
-			$wep_P1 = "bot";
-		} else if (strcasecmp($player1, "chuck") == 0 || strcasecmp($player1, "chuck norris") == 0) {
-			// Checks if Player 1/2 is chuck or chuck norris, and if so, sets HP to 100k and adds 10k - 100k damage to ensure victory.
-			$hp1 = 200000;
-			$add_damage_P1 = rand(10000, 20000);
-			$wep_P1 = "round house kick";
-		} else {
-			$hp1 = 10000;
-			$add_damage_P1 = 0;
-			$wep_P1 = "nerfstick";
-		}
-		
-		if ($this->util->startsWith(strtolower($player2), "tyrence")) {
-			$hp2 = 200000;
-			$add_damage_P2 = rand(25000, 30000);
-			$wep_P2 = "bot";
-		} else if (strcasecmp($player2, "chuck") == 0 || strcasecmp($player2, "chuck norris") == 0) {
-			$hp2 = 200000;
-			$add_damage_P2 = rand(10000, 20000);
-			$wep_P2 = "round house kick";
-		} else {
-			$hp2 = 10000;
-			$add_damage_P2 = 0;
-			$wep_P2 = "nerfstick";
-		}
+		$fighter1 = $this->getFighter($player1);
+		$fighter2 = $this->getFighter($player2);
 
 		$list = "Fight <highlight>$player1<end> VS <highlight>$player2<end> \n\n";
-		while ($hp1 > 0 && $hp2 > 0) {
-			// player1 dmg to player2
-			$dmg = rand(50, 4000) + $add_damage_P1;
-			if ($dmg - $add_damage_P1 > 3000) {
-				$crit = " <red>Critical Hit!<end>";
-			} else {
-				$crit = "";
-			}
-
-			$list .= "<highlight>$player1<end> hit <highlight>$player2<end> for $dmg of $wep_P1 dmg.$crit\n";
-			$hp2 -= $dmg;
-
-			// player2 dmg to player1
-			$dmg = rand(50, 4000) + $add_damage_P2;
-			if ($dmg - $add_damage_P2 > 3000) {
-				$crit = " <red>Critical Hit!<end>";
-			} else {
-				$crit = "";
-			}
-
-			$list .= "<highlight>$player2<end> hit <highlight>$player1<end> for $dmg of $wep_P2 dmg.$crit\n";
-			$hp1 -= $dmg;
-
+		while ($fighter1->hp > 0 && $fighter2->hp > 0) {
+			$list .= $this->doAttack($fighter1, $fighter2);
+			$list .= $this->doAttack($fighter2, $fighter1);
 			$list .= "\n";
 		}
 
-		if ($hp1 > $hp2) {
+		if ($fighter1->hp > $fighter2->hp) {
 			$list .= "\nAnd the winner is ..... <highlight>$player1!<end>";
 			$msg = $this->text->makeBlob("$player1 vs $player2....$player1 wins!", $list);
-		} else if ($hp2 > $hp1) {
+		} else if ($fighter2->hp > $fighter1->hp) {
 			$list .= "\nAnd the winner is ..... <highlight>$player2!<end>";
 			$msg = $this->text->makeBlob("$player1 vs $player2....$player2 wins!", $list);
 		} else {
@@ -126,5 +82,48 @@ class FightController {
 		}
 
 		$sendto->reply($msg);
+	}
+
+	public function getFighter($name) {
+		$fighter = new stdClass;
+		$fighter->name = $name;
+		if ($this->util->startsWith(strtolower($name), "tyrence")) {
+			$fighter->weapon = "bot";
+			$fighter->minDamage = 6001;
+			$fighter->maxDamage = 7000;
+			$fighter->hp = 20000;
+		} else if ($this->isChuckNorris($name)) {
+			$fighter->weapon = "round house kick";
+			$fighter->minDamage = 4001;
+			$fighter->maxDamage = 6000;
+			$fighter->hp = 20000;
+		} else {
+			$fighter->weapon = "nerfstick";
+			$fighter->minDamage = 1000;
+			$fighter->maxDamage = 4000;
+			$fighter->hp = 20000;
+		}
+		return $fighter;
+	}
+
+	public function doAttack($attacker, $defender) {
+		$dmg = rand($attacker->minDamage, $attacker->maxDamage);
+		if ($this->isCriticalHit($attacker, $dmg)) {
+			$crit = " <red>Critical Hit!<end>";
+		} else {
+			$crit = "";
+		}
+
+		$defender->hp -= $dmg;
+		return "<highlight>{$attacker->name}<end> hit <highlight>{$defender->name}<end> for $dmg of {$attacker->weapon} dmg.$crit\n";
+	}
+
+	public function isCriticalHit($fighter, $dmg) {
+		return ($dmg / $fighter->maxDamage) > 0.9;
+	}
+
+	public function isChuckNorris($name) {
+		$name = strtolower($name);
+		return $name == "chuck" || $name == "chuck norris" || $name == "chucknorris";
 	}
 }
