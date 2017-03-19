@@ -72,8 +72,8 @@ class WhompahController {
 	 * @Matches("/^whompah (.+) (.+)$/i")
 	 */
 	public function whompahTravelCommand($message, $channel, $sender, $sendto, $args) {
-		$startCity = $this->find_city($args[1]);
-		$endCity = $this->find_city($args[2]);
+		$startCity = $this->findCity($args[1]);
+		$endCity = $this->findCity($args[2]);
 
 		if ($startCity === null) {
 			$msg = "Error! Could not find city '$args[1]'!";
@@ -86,14 +86,14 @@ class WhompahController {
 			return;
 		}
 
-		$whompahs = $this->build_whompah_network();
+		$whompahs = $this->buildWhompahNetwork();
 
 		$whompah = new stdClass;
 		$whompah->id = $endCity->id;
 		$whompah->city_name = $whompahs[$endCity->id]->city_name;
 		$whompah->previous = null;
 		$whompah->visited = true;
-		$obj = $this->find_whompah_path($q = array($whompah), $whompahs, $startCity->id);
+		$obj = $this->findWhompahPath($q = array($whompah), $whompahs, $startCity->id);
 
 		if ($obj === false) {
 			$msg = "There was an error while trying to find the whompah path.";
@@ -113,7 +113,7 @@ class WhompahController {
 	 * @Matches("/^whompah (.+)$/i")
 	 */
 	public function whompahDestinationsCommand($message, $channel, $sender, $sendto, $args) {
-		$city = $this->find_city($args[1]);
+		$city = $this->findCity($args[1]);
 
 		if ($city === null) {
 			$msg = "Error! Could not find city '$args[1]'!";
@@ -130,37 +130,37 @@ class WhompahController {
 		$sendto->reply($msg);
 	}
 
-	public function find_whompah_path($queue, $whompahs, $endCity) {
-		$current_whompah = array_shift($queue);
+	public function findWhompahPath($queue, $whompahs, $endCity) {
+		$currentWhompah = array_shift($queue);
 
-		if ($current_whompah == false) {
+		if ($currentWhompah == false) {
 			return false;
 		}
 
-		if ($current_whompah->id == $endCity) {
-			return $current_whompah;
+		if ($currentWhompah->id == $endCity) {
+			return $currentWhompah;
 		}
 
-		forEach ($whompahs[$current_whompah->id]->connections as $city2_id) {
-			if ($whompahs[$city2_id]->visited !== true) {
-				$whompahs[$city2_id]->visited = true;
-				$next_whompah = new stdClass;
-				$next_whompah->id = $city2_id;
-				$next_whompah->city_name = $whompahs[$city2_id]->city_name;
-				$next_whompah->previous = $current_whompah;
-				$queue []= $next_whompah;
+		forEach ($whompahs[$currentWhompah->id]->connections as $city2Id) {
+			if ($whompahs[$city2Id]->visited !== true) {
+				$whompahs[$city2Id]->visited = true;
+				$nextWhompah = new stdClass;
+				$nextWhompah->id = $city2Id;
+				$nextWhompah->city_name = $whompahs[$city2Id]->city_name;
+				$nextWhompah->previous = $currentWhompah;
+				$queue []= $nextWhompah;
 			}
 		}
 
-		return $this->find_whompah_path($queue, $whompahs, $endCity);
+		return $this->findWhompahPath($queue, $whompahs, $endCity);
 	}
 
-	public function find_city($search) {
+	public function findCity($search) {
 		$sql = "SELECT * FROM whompah_cities WHERE city_name LIKE ? OR short_name LIKE ?";
 		return $this->db->queryRow($sql, $search, $search);
 	}
 
-	public function build_whompah_network() {
+	public function buildWhompahNetwork() {
 		$whompahs = array();
 
 		$sql = "SELECT * FROM `whompah_cities`";
