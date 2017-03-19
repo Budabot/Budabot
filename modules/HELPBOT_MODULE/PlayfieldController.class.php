@@ -105,16 +105,15 @@ class PlayfieldController {
 	 * @HandlesCommand("waypoint")
 	 * @Matches("/^waypoint Pos: ([0-9\\.]+), ([0-9\\.]+), ([0-9\\.]+), Area: ([a-zA-Z ]+)/i")
 	 */
-	public function waypoint1Command($message, $channel, $sender, $sendto, $args)
-	{
+	public function waypoint1Command($message, $channel, $sender, $sendto, $args) {
 		//Pos: ([0-9\\.]+), ([0-9\\.]+), ([0-9\\.]+), Area: (.+)
-		$x_coords = $args[1];
-		$y_coords = $args[2];
+		$xCoords = $args[1];
+		$yCoords = $args[2];
 		
-		$pf_name = $args[4];
+		$playfieldName = $args[4];
 		
-		$playfield = $this->getPlayfieldByName($pf_name);
-		$sendto->reply($this->processWaypointCommand($x_coords, $y_coords, $playfield->short_name, $playfield->id));
+		$playfield = $this->getPlayfieldByName($playfieldName);
+		$sendto->reply($this->processWaypointCommand($xCoords, $yCoords, $playfield->short_name, $playfield->id));
 	}
 	
 	/**
@@ -122,18 +121,18 @@ class PlayfieldController {
 	 * @Matches("/^waypoint \(?([0-9.]+) ([0-9.]+) y ([0-9.]+) ([0-9]+)\)?$/i")
 	 */
 	public function waypoint2Command($message, $channel, $sender, $sendto, $args) {
-		$x_coords = $args[1];
-		$y_coords = $args[2];
-		$playfield_id = $args[4];
+		$xCoords = $args[1];
+		$yCoords = $args[2];
+		$playfieldId = $args[4];
 
-		$playfield = $this->getPlayfieldById($playfield_id);
+		$playfield = $this->getPlayfieldById($playfieldId);
 		if ($playfield === null) {
-			$playfield_name = $playfield_id;
+			$playfieldName = $playfieldId;
 		} else {
-			$playfield_name = $playfield->short_name;
+			$playfieldName = $playfield->short_name;
 		}
 		
-		$sendto->reply($this->processWaypointCommand($x_coords, $y_coords, $playfield_name, $playfield_id));
+		$sendto->reply($this->processWaypointCommand($xCoords, $yCoords, $playfieldName, $playfieldId));
 	}
 	
 	/**
@@ -141,18 +140,18 @@ class PlayfieldController {
 	 * @Matches("/^waypoint ([0-9.]+)([x,. ]+)([0-9.]+)([x,. ]+)([0-9]+)$/i")
 	 */
 	public function waypoint3Command($message, $channel, $sender, $sendto, $args) {
-		$x_coords = $args[1];
-		$y_coords = $args[3];
-		$playfield_id = $args[5];
+		$xCoords = $args[1];
+		$yCoords = $args[3];
+		$playfieldId = $args[5];
 
-		$playfield = $this->getPlayfieldById($playfield_id);
+		$playfield = $this->getPlayfieldById($playfieldId);
 		if ($playfield === null) {
-			$playfield_name = $playfield_id;
+			$playfieldName = $playfieldId;
 		} else {
-			$playfield_name = $playfield->short_name;
+			$playfieldName = $playfield->short_name;
 		}
 		
-		$sendto->reply($this->processWaypointCommand($x_coords, $y_coords, $playfield_name, $playfield_id));
+		$sendto->reply($this->processWaypointCommand($xCoords, $yCoords, $playfieldName, $playfieldId));
 	}
 	
 	/**
@@ -160,35 +159,35 @@ class PlayfieldController {
 	 * @Matches("/^waypoint ([0-9\\.]+)([x,. ]+)([0-9\\.]+)([x,. ]+)(.+)$/i")
 	 */
 	public function waypoint4Command($message, $channel, $sender, $sendto, $args) {
-		$x_coords = $args[1];
-		$y_coords = $args[3];
-		$playfield_name = $args[5];
+		$xCoords = $args[1];
+		$yCoords = $args[3];
+		$playfieldName = $args[5];
 
-		$playfield = $this->getPlayfieldByName($playfield_name);
+		$playfield = $this->getPlayfieldByName($playfieldName);
 		if ($playfield === null) {
-			$sendto->reply("Could not find playfield '$playfield_name'.");
+			$sendto->reply("Could not find playfield '$playfieldName'.");
 		} else {
-			$playfield_id = $playfield->id;
-			$playfield_name = $playfield->short_name;
-			$sendto->reply($this->processWaypointCommand($x_coords, $y_coords, $playfield_name, $playfield_id));
+			$playfieldId = $playfield->id;
+			$playfieldName = $playfield->short_name;
+			$sendto->reply($this->processWaypointCommand($xCoords, $yCoords, $playfieldName, $playfieldId));
 		}
 	}
 	
-	private function processWaypointCommand($x_coords, $y_coords, $playfield_name, $playfield_id) {
-		$link = $this->text->makeChatcmd("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
+	private function processWaypointCommand($xCoords, $yCoords, $playfieldName, $playfieldId) {
+		$link = $this->text->makeChatcmd("waypoint: {$xCoords}x{$yCoords} {$playfieldName}", "/waypoint {$xCoords} {$yCoords} {$playfieldId}");
 		$blob = "Click here to use waypoint: $link";
-		return $this->text->makeBlob("waypoint: {$x_coords}x{$y_coords} {$playfield_name}", $blob);
+		return $this->text->makeBlob("waypoint: {$xCoords}x{$yCoords} {$playfieldName}", $blob);
 	}
 	
-	public function getPlayfieldByName($playfield_name) {
+	public function getPlayfieldByName($playfieldName) {
 		$sql = "SELECT * FROM playfields WHERE `long_name` LIKE ? OR `short_name` LIKE ? LIMIT 1";
 
-		return $this->db->queryRow($sql, $playfield_name, $playfield_name);
+		return $this->db->queryRow($sql, $playfieldName, $playfieldName);
 	}
 
-	public function getPlayfieldById($playfield_id) {
+	public function getPlayfieldById($playfieldId) {
 		$sql = "SELECT * FROM playfields WHERE `id` = ?";
 
-		return $this->db->queryRow($sql, $playfield_id);
+		return $this->db->queryRow($sql, $playfieldId);
 	}
 }

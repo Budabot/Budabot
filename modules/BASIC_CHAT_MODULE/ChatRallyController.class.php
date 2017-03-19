@@ -65,27 +65,27 @@ class ChatRallyController {
 	 * @Matches("/^rally ([0-9\.]+)([x,. ]+)([0-9\.]+)([x,. ]+)([^ ]+)$/i")
 	 */
 	public function rallySet2Command($message, $channel, $sender, $sendto, $args) {
-		$x_coords = $args[1];
-		$y_coords = $args[3];
+		$xCoords = $args[1];
+		$yCoords = $args[3];
 
 		if (is_numeric($args[5])) {
-			$playfield_id = $args[5];
-			$playfield_name = $playfield_id;
+			$playfieldId = $args[5];
+			$playfieldName = $playfieldId;
 
-			$playfield = $this->playfieldController->getPlayfieldById($playfield_id);
+			$playfield = $this->playfieldController->getPlayfieldById($playfieldId);
 			if ($playfield !== null) {
-				$playfield_name = $playfield->short_name;
+				$playfieldName = $playfield->short_name;
 			}
 		} else {
-			$playfield_name = $args[5];
-			$playfield = $this->playfieldController->getPlayfieldByName($playfield_name);
+			$playfieldName = $args[5];
+			$playfield = $this->playfieldController->getPlayfieldByName($playfieldName);
 			if ($playfield === null) {
-				$sendto->reply("Could not find playfield '$playfield_name'");
+				$sendto->reply("Could not find playfield '$playfieldName'");
 				return;
 			}
-			$playfield_id = $playfield->id;
+			$playfieldId = $playfield->id;
 		}
-		$this->set($playfield_name, $playfield_id, $x_coords, $y_coords);
+		$this->set($playfieldName, $playfieldId, $xCoords, $yCoords);
 
 		$this->replyCurrentRally($channel, $sendto);
 	}
@@ -99,19 +99,19 @@ class ChatRallyController {
 	 */
 	public function rallySet1Command($message, $channel, $sender, $sendto, $args) {
 		if (preg_match("/(\d+\.\d) (\d+\.\d) y \d+\.\d (\d+)/", $args[1], $matches)) {
-			$x_coords = $matches[1];
-			$y_coords = $matches[2];
-			$playfield_id = $matches[3];
+			$xCoords = $matches[1];
+			$yCoords = $matches[2];
+			$playfieldId = $matches[3];
 		} else {
 			return false;
 		}
 
-		$name = $playfield_id;
-		$playfield = $this->playfieldController->getPlayfieldById($playfield_id);
+		$name = $playfieldId;
+		$playfield = $this->playfieldController->getPlayfieldById($playfieldId);
 		if ($playfield !== null) {
 			$name = $playfield->short_name;
 		}
-		$this->set($name, $playfield_id, $x_coords, $y_coords);
+		$this->set($name, $playfieldId, $xCoords, $yCoords);
 
 		$this->replyCurrentRally($channel, $sendto);
 	}
@@ -129,10 +129,10 @@ class ChatRallyController {
 		}
 	}
 
-	public function set($name, $playfield_id, $x_coords, $y_coords) {
-		$link = $this->text->makeChatcmd("Rally: {$x_coords}x{$y_coords} {$name}", "/waypoint {$x_coords} {$y_coords} {$playfield_id}");
+	public function set($name, $playfieldId, $xCoords, $yCoords) {
+		$link = $this->text->makeChatcmd("Rally: {$xCoords}x{$yCoords} {$name}", "/waypoint {$xCoords} {$yCoords} {$playfieldId}");
 		$blob = "Click here to use rally: $link";
-		$rally = $this->text->makeBlob("Rally: {$x_coords}x{$y_coords} {$name}", $blob);
+		$rally = $this->text->makeBlob("Rally: {$xCoords}x{$yCoords} {$name}", $blob);
 
 		$this->settingManager->save("rally", $rally);
 
