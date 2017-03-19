@@ -29,6 +29,28 @@ class AlienArmorController {
 	public $itemsController;
 
 	/**
+	 * @HandlesCommand("aiarmor")
+	 * @Matches("/^aiarmor$/i")
+	 */
+	public function aiarmorListCommand($message, $channel, $sender, $sendto, $args) {
+		$list = "Please choose from the following which armor to view information on:\n\n";
+		$list .= "<highlight>Normal Armor:<end>\n" . $this->text->makeChatcmd("Strong Armor", "/tell <myname> aiarmor Strong");
+		$list .= "\n" . $this->text->makeChatcmd("Supple Armor", "/tell <myname> aiarmor Supple");
+		$list .= "\n" . $this->text->makeChatcmd("Enduring Armor", "/tell <myname> aiarmor Enduring");
+		$list .= "\n" . $this->text->makeChatcmd("Observant Armor", "/tell <myname> aiarmor Observant");
+		$list .= "\n" . $this->text->makeChatcmd("Arithmetic Armor", "/tell <myname> aiarmor Arithmetic");
+		$list .= "\n" . $this->text->makeChatcmd("Spiritual Armor", "/tell <myname> aiarmor Spiritual");
+		$list .= "\n\n<highlight>Combined Armor:<end>\n" . $this->text->makeChatcmd("Combined Commando's Armor", "/tell <myname> aiarmor cc");
+		$list .= "\n" . $this->text->makeChatcmd("Combined Mercenary's Armor", "/tell <myname> aiarmor cm");
+		$list .= "\n" . $this->text->makeChatcmd("Combined Officer's", "/tell <myname> aiarmor co");
+		$list .= "\n" . $this->text->makeChatcmd("Combined Paramedic's Armor", "/tell <myname> aiarmor cp");
+		$list .= "\n" . $this->text->makeChatcmd("Combined Scout's Armor", "/tell <myname> aiarmor cs");
+		$list .= "\n" . $this->text->makeChatcmd("Combined Sharpshooter's Armor", "/tell <myname> aiarmor css");
+		$msg = $this->text->makeBlob("Alien Armor List", $list);
+		$sendto->reply($msg);
+	}
+	
+	/**
 	 * This command handler shows tradeskill process for normal Alien Armor.
 	 *
 	 * @HandlesCommand("aiarmor")
