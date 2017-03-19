@@ -7,7 +7,6 @@ use Exception;
 /**
  * Authors: 
  *  - Tyrence (RK2)
- *	- Imoutochan (RK1)
  *
  * @Instance
  *
