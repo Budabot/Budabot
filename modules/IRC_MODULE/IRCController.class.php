@@ -87,8 +87,8 @@ class IRCController {
 		$channels = "#budabot;#" . $this->chatBot->vars['name'];
 		if ($this->chatBot->vars['my_guild'] != "") {
 			$sandbox = explode(" ", $this->chatBot->vars['my_guild']);
-			for ($i = 0; $i < count($sandbox); $i++) {
-				$channel .= ucfirst(strtolower($sandbox[$i]));
+			forEach ($sandbox as $word) {
+				$channel .= ucfirst(strtolower($word));
 			}
 			$channels .= ";#" . $channel;
 		}
