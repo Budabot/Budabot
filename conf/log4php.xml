@@ -7,6 +7,7 @@
 	<appender name="defaultConsoleAppenderStdOut" class="LoggerAppenderConsole">
 		<param name="target" value="STDOUT" />
 		<layout class="LoggerLayoutPattern">
+			<param name="ConversionPattern" value="%date{Y-m-d H:i:s} %-5level %message%newline" />
 		</layout>
 		<filter class="LoggerFilterLevelRange">
 			<param name="levelMin" value="trace" />
@@ -18,6 +19,7 @@
 	<appender name="defaultConsoleAppenderStdErr" class="LoggerAppenderConsole">
 		<param name="target" value="STDERR" />
 		<layout class="LoggerLayoutPattern">
+			<param name="ConversionPattern" value="%date{Y-m-d H:i:s} %-5level %message%newline" />
 		</layout>
 		<filter class="LoggerFilterLevelRange">
 			<param name="levelMin" value="warn" />
@@ -27,6 +29,7 @@
 	
 	<appender name="defaultFileAppender" class="LoggerAppenderDailyFile">
 		<layout class="LoggerLayoutPattern">
+			<param name="ConversionPattern" value="%date{Y-m-d H:i:s} %-5level %message%newline" />
 		</layout>
 		<param name="file" value="./logs/budabot_%s.log" />
 		<param name="datePattern" value="Y-m" />
@@ -36,6 +39,7 @@
 	<appender name="appenderBuffer" class="LoggerAppenderBuffer">
 		<param name="logLimit" value="2000" />
 		<layout class="LoggerLayoutPattern">
+			<param name="ConversionPattern" value="%date{Y-m-d H:i:s} %-5level %message%newline" />
 		</layout>
 	</appender>
 
