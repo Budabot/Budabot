@@ -1,0 +1,2151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Net_SmartIRC</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/prism.css" rel="stylesheet" media="all"/>
+    <link href="css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="js/html5.js"></script>
+    <![endif]-->
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <script src="js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.smooth-scroll.js"></script>
+    <script src="js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="index.html">Net_SmartIRC</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">144</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">102</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1731017383"></a>
+                                <a href="namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1731017383" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class"><a href="classes/Net_SmartIRC.html">Net_SmartIRC</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_channel.html">Net_SmartIRC_channel</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_channeluser.html">Net_SmartIRC_channeluser</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_data.html">Net_SmartIRC_data</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_Error.html">Net_SmartIRC_Error</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_irccommands.html">Net_SmartIRC_irccommands</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_ircuser.html">Net_SmartIRC_ircuser</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_listenfor.html">Net_SmartIRC_listenfor</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_messagehandler.html">Net_SmartIRC_messagehandler</a></li>
+                                                    <li class="class"><a href="classes/Net_SmartIRC_user.html">Net_SmartIRC_user</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                
+                                            </nav>
+                    <h1><small></small>\</h1>
+
+                    
+                    
+                    
+                                        <h2>Classes</h2>
+                    <table class="table table-hover">
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC.html">Net_SmartIRC</a></td>
+                            <td><em>main SmartIRC class</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_channel.html">Net_SmartIRC_channel</a></td>
+                            <td><em>Struct for individual channel data</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_channeluser.html">Net_SmartIRC_channeluser</a></td>
+                            <td><em>Struct for extra data that applies to each user in each channel they&#039;re in</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_data.html">Net_SmartIRC_data</a></td>
+                            <td><em>Struct for parsed incoming messages</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_Error.html">Net_SmartIRC_Error</a></td>
+                            <td><em></em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_irccommands.html">Net_SmartIRC_irccommands</a></td>
+                            <td><em>$Id$
+$Revision$
+$Author$
+$Date$</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_ircuser.html">Net_SmartIRC_ircuser</a></td>
+                            <td><em>Struct for data that applies to each user server-wide</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_listenfor.html">Net_SmartIRC_listenfor</a></td>
+                            <td><em>Built-in bot used by Net_SmartIRC::listenFor()</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_messagehandler.html">Net_SmartIRC_messagehandler</a></td>
+                            <td><em>$Id$
+$Revision$
+$Author$
+$Date$</em></td>
+                        </tr>
+                                            <tr>
+                            <td><a href="classes/Net_SmartIRC_user.html">Net_SmartIRC_user</a></td>
+                            <td><em>Struct for individual user data</em></td>
+                        </tr>
+                                        </table>
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                <div class="namespace-wrapper">\</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
+
+                        <div class="row-fluid">
+                <section class="span8 content namespace">
+                    <h2>Constants</h2>
+                </section>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_ . $value" name="constant_SMARTIRC_ . $value" class="anchor"></a>
+            <article id="constant_SMARTIRC_ . $value" class="constant">
+                <h3 class="">SMARTIRC_ . $value</h3>
+                <pre class="signature">SMARTIRC_ . $value</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_BROWSEROUT" name="constant_SMARTIRC_BROWSEROUT" class="anchor"></a>
+            <article id="constant_SMARTIRC_BROWSEROUT" class="constant">
+                <h3 class="">SMARTIRC_BROWSEROUT</h3>
+                <pre class="signature">SMARTIRC_BROWSEROUT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_CRITICAL" name="constant_SMARTIRC_CRITICAL" class="anchor"></a>
+            <article id="constant_SMARTIRC_CRITICAL" class="constant">
+                <h3 class="">SMARTIRC_CRITICAL</h3>
+                <pre class="signature">SMARTIRC_CRITICAL</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_CRLF" name="constant_SMARTIRC_CRLF" class="anchor"></a>
+            <article id="constant_SMARTIRC_CRLF" class="constant">
+                <h3 class="">SMARTIRC_CRLF</h3>
+                <pre class="signature">SMARTIRC_CRLF</pre>
+                <p><em>$Id$
+$Revision$
+$Author$
+$Date$</em></p>
+                <p>Copyright (c) 2002-2004 Mirco Bauer <a href="mailto:meebey@meebey.net">meebey@meebey.net</a> <a href="http://www.meebey.net">http://www.meebey.net</a></p>
+<p>Full LGPL License: <a href="http://www.gnu.org/licenses/lgpl.txt">http://www.gnu.org/licenses/lgpl.txt</a></p>
+<p>This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.</p>
+<p>This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+Lesser General Public License for more details.</p>
+<p>You should have received a copy of the GNU Lesser General Public
+License along with this library; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_ACTIONHANDLER" name="constant_SMARTIRC_DEBUG_ACTIONHANDLER" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_ACTIONHANDLER" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_ACTIONHANDLER</h3>
+                <pre class="signature">SMARTIRC_DEBUG_ACTIONHANDLER</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_ALL" name="constant_SMARTIRC_DEBUG_ALL" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_ALL" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_ALL</h3>
+                <pre class="signature">SMARTIRC_DEBUG_ALL</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_CHANNELSYNCING" name="constant_SMARTIRC_DEBUG_CHANNELSYNCING" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_CHANNELSYNCING" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_CHANNELSYNCING</h3>
+                <pre class="signature">SMARTIRC_DEBUG_CHANNELSYNCING</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_CONNECTION" name="constant_SMARTIRC_DEBUG_CONNECTION" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_CONNECTION" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_CONNECTION</h3>
+                <pre class="signature">SMARTIRC_DEBUG_CONNECTION</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_DCC" name="constant_SMARTIRC_DEBUG_DCC" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_DCC" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_DCC</h3>
+                <pre class="signature">SMARTIRC_DEBUG_DCC</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_IRCMESSAGES" name="constant_SMARTIRC_DEBUG_IRCMESSAGES" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_IRCMESSAGES" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_IRCMESSAGES</h3>
+                <pre class="signature">SMARTIRC_DEBUG_IRCMESSAGES</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_MESSAGEHANDLER" name="constant_SMARTIRC_DEBUG_MESSAGEHANDLER" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_MESSAGEHANDLER" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_MESSAGEHANDLER</h3>
+                <pre class="signature">SMARTIRC_DEBUG_MESSAGEHANDLER</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_MESSAGEPARSER" name="constant_SMARTIRC_DEBUG_MESSAGEPARSER" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_MESSAGEPARSER" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_MESSAGEPARSER</h3>
+                <pre class="signature">SMARTIRC_DEBUG_MESSAGEPARSER</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_MESSAGETYPES" name="constant_SMARTIRC_DEBUG_MESSAGETYPES" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_MESSAGETYPES" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_MESSAGETYPES</h3>
+                <pre class="signature">SMARTIRC_DEBUG_MESSAGETYPES</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_MODULES" name="constant_SMARTIRC_DEBUG_MODULES" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_MODULES" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_MODULES</h3>
+                <pre class="signature">SMARTIRC_DEBUG_MODULES</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_NONE" name="constant_SMARTIRC_DEBUG_NONE" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_NONE" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_NONE</h3>
+                <pre class="signature">SMARTIRC_DEBUG_NONE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_NOTICE" name="constant_SMARTIRC_DEBUG_NOTICE" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_NOTICE" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_NOTICE</h3>
+                <pre class="signature">SMARTIRC_DEBUG_NOTICE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_SOCKET" name="constant_SMARTIRC_DEBUG_SOCKET" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_SOCKET" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_SOCKET</h3>
+                <pre class="signature">SMARTIRC_DEBUG_SOCKET</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_TIMEHANDLER" name="constant_SMARTIRC_DEBUG_TIMEHANDLER" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_TIMEHANDLER" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_TIMEHANDLER</h3>
+                <pre class="signature">SMARTIRC_DEBUG_TIMEHANDLER</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_DEBUG_USERSYNCING" name="constant_SMARTIRC_DEBUG_USERSYNCING" class="anchor"></a>
+            <article id="constant_SMARTIRC_DEBUG_USERSYNCING" class="constant">
+                <h3 class="">SMARTIRC_DEBUG_USERSYNCING</h3>
+                <pre class="signature">SMARTIRC_DEBUG_USERSYNCING</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_FILE" name="constant_SMARTIRC_FILE" class="anchor"></a>
+            <article id="constant_SMARTIRC_FILE" class="constant">
+                <h3 class="">SMARTIRC_FILE</h3>
+                <pre class="signature">SMARTIRC_FILE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_HIGH" name="constant_SMARTIRC_HIGH" class="anchor"></a>
+            <article id="constant_SMARTIRC_HIGH" class="constant">
+                <h3 class="">SMARTIRC_HIGH</h3>
+                <pre class="signature">SMARTIRC_HIGH</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_LOW" name="constant_SMARTIRC_LOW" class="anchor"></a>
+            <article id="constant_SMARTIRC_LOW" class="constant">
+                <h3 class="">SMARTIRC_LOW</h3>
+                <pre class="signature">SMARTIRC_LOW</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_MEDIUM" name="constant_SMARTIRC_MEDIUM" class="anchor"></a>
+            <article id="constant_SMARTIRC_MEDIUM" class="constant">
+                <h3 class="">SMARTIRC_MEDIUM</h3>
+                <pre class="signature">SMARTIRC_MEDIUM</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_NONE" name="constant_SMARTIRC_NONE" class="anchor"></a>
+            <article id="constant_SMARTIRC_NONE" class="constant">
+                <h3 class="">SMARTIRC_NONE</h3>
+                <pre class="signature">SMARTIRC_NONE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_STATE_CONNECTED" name="constant_SMARTIRC_STATE_CONNECTED" class="anchor"></a>
+            <article id="constant_SMARTIRC_STATE_CONNECTED" class="constant">
+                <h3 class="">SMARTIRC_STATE_CONNECTED</h3>
+                <pre class="signature">SMARTIRC_STATE_CONNECTED</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_STATE_CONNECTING" name="constant_SMARTIRC_STATE_CONNECTING" class="anchor"></a>
+            <article id="constant_SMARTIRC_STATE_CONNECTING" class="constant">
+                <h3 class="">SMARTIRC_STATE_CONNECTING</h3>
+                <pre class="signature">SMARTIRC_STATE_CONNECTING</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_STATE_DISCONNECTED" name="constant_SMARTIRC_STATE_DISCONNECTED" class="anchor"></a>
+            <article id="constant_SMARTIRC_STATE_DISCONNECTED" class="constant">
+                <h3 class="">SMARTIRC_STATE_DISCONNECTED</h3>
+                <pre class="signature">SMARTIRC_STATE_DISCONNECTED</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_STDOUT" name="constant_SMARTIRC_STDOUT" class="anchor"></a>
+            <article id="constant_SMARTIRC_STDOUT" class="constant">
+                <h3 class="">SMARTIRC_STDOUT</h3>
+                <pre class="signature">SMARTIRC_STDOUT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_SYSLOG" name="constant_SMARTIRC_SYSLOG" class="anchor"></a>
+            <article id="constant_SMARTIRC_SYSLOG" class="constant">
+                <h3 class="">SMARTIRC_SYSLOG</h3>
+                <pre class="signature">SMARTIRC_SYSLOG</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_ACTION" name="constant_SMARTIRC_TYPE_ACTION" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_ACTION" class="constant">
+                <h3 class="">SMARTIRC_TYPE_ACTION</h3>
+                <pre class="signature">SMARTIRC_TYPE_ACTION</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_ALL" name="constant_SMARTIRC_TYPE_ALL" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_ALL" class="constant">
+                <h3 class="">SMARTIRC_TYPE_ALL</h3>
+                <pre class="signature">SMARTIRC_TYPE_ALL</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_BANLIST" name="constant_SMARTIRC_TYPE_BANLIST" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_BANLIST" class="constant">
+                <h3 class="">SMARTIRC_TYPE_BANLIST</h3>
+                <pre class="signature">SMARTIRC_TYPE_BANLIST</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_CHANNEL" name="constant_SMARTIRC_TYPE_CHANNEL" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_CHANNEL" class="constant">
+                <h3 class="">SMARTIRC_TYPE_CHANNEL</h3>
+                <pre class="signature">SMARTIRC_TYPE_CHANNEL</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_CHANNELMODE" name="constant_SMARTIRC_TYPE_CHANNELMODE" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_CHANNELMODE" class="constant">
+                <h3 class="">SMARTIRC_TYPE_CHANNELMODE</h3>
+                <pre class="signature">SMARTIRC_TYPE_CHANNELMODE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_CTCP" name="constant_SMARTIRC_TYPE_CTCP" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_CTCP" class="constant">
+                <h3 class="">SMARTIRC_TYPE_CTCP</h3>
+                <pre class="signature">SMARTIRC_TYPE_CTCP</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_CTCP_REPLY" name="constant_SMARTIRC_TYPE_CTCP_REPLY" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_CTCP_REPLY" class="constant">
+                <h3 class="">SMARTIRC_TYPE_CTCP_REPLY</h3>
+                <pre class="signature">SMARTIRC_TYPE_CTCP_REPLY</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_CTCP_REQUEST" name="constant_SMARTIRC_TYPE_CTCP_REQUEST" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_CTCP_REQUEST" class="constant">
+                <h3 class="">SMARTIRC_TYPE_CTCP_REQUEST</h3>
+                <pre class="signature">SMARTIRC_TYPE_CTCP_REQUEST</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_ERROR" name="constant_SMARTIRC_TYPE_ERROR" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_ERROR" class="constant">
+                <h3 class="">SMARTIRC_TYPE_ERROR</h3>
+                <pre class="signature">SMARTIRC_TYPE_ERROR</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_INFO" name="constant_SMARTIRC_TYPE_INFO" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_INFO" class="constant">
+                <h3 class="">SMARTIRC_TYPE_INFO</h3>
+                <pre class="signature">SMARTIRC_TYPE_INFO</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_INVITE" name="constant_SMARTIRC_TYPE_INVITE" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_INVITE" class="constant">
+                <h3 class="">SMARTIRC_TYPE_INVITE</h3>
+                <pre class="signature">SMARTIRC_TYPE_INVITE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_JOIN" name="constant_SMARTIRC_TYPE_JOIN" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_JOIN" class="constant">
+                <h3 class="">SMARTIRC_TYPE_JOIN</h3>
+                <pre class="signature">SMARTIRC_TYPE_JOIN</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_KICK" name="constant_SMARTIRC_TYPE_KICK" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_KICK" class="constant">
+                <h3 class="">SMARTIRC_TYPE_KICK</h3>
+                <pre class="signature">SMARTIRC_TYPE_KICK</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_LIST" name="constant_SMARTIRC_TYPE_LIST" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_LIST" class="constant">
+                <h3 class="">SMARTIRC_TYPE_LIST</h3>
+                <pre class="signature">SMARTIRC_TYPE_LIST</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_LOGIN" name="constant_SMARTIRC_TYPE_LOGIN" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_LOGIN" class="constant">
+                <h3 class="">SMARTIRC_TYPE_LOGIN</h3>
+                <pre class="signature">SMARTIRC_TYPE_LOGIN</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_MODECHANGE" name="constant_SMARTIRC_TYPE_MODECHANGE" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_MODECHANGE" class="constant">
+                <h3 class="">SMARTIRC_TYPE_MODECHANGE</h3>
+                <pre class="signature">SMARTIRC_TYPE_MODECHANGE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_MOTD" name="constant_SMARTIRC_TYPE_MOTD" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_MOTD" class="constant">
+                <h3 class="">SMARTIRC_TYPE_MOTD</h3>
+                <pre class="signature">SMARTIRC_TYPE_MOTD</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_NAME" name="constant_SMARTIRC_TYPE_NAME" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_NAME" class="constant">
+                <h3 class="">SMARTIRC_TYPE_NAME</h3>
+                <pre class="signature">SMARTIRC_TYPE_NAME</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_NICKCHANGE" name="constant_SMARTIRC_TYPE_NICKCHANGE" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_NICKCHANGE" class="constant">
+                <h3 class="">SMARTIRC_TYPE_NICKCHANGE</h3>
+                <pre class="signature">SMARTIRC_TYPE_NICKCHANGE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_NONRELEVANT" name="constant_SMARTIRC_TYPE_NONRELEVANT" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_NONRELEVANT" class="constant">
+                <h3 class="">SMARTIRC_TYPE_NONRELEVANT</h3>
+                <pre class="signature">SMARTIRC_TYPE_NONRELEVANT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_NOTICE" name="constant_SMARTIRC_TYPE_NOTICE" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_NOTICE" class="constant">
+                <h3 class="">SMARTIRC_TYPE_NOTICE</h3>
+                <pre class="signature">SMARTIRC_TYPE_NOTICE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_PART" name="constant_SMARTIRC_TYPE_PART" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_PART" class="constant">
+                <h3 class="">SMARTIRC_TYPE_PART</h3>
+                <pre class="signature">SMARTIRC_TYPE_PART</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_QUERY" name="constant_SMARTIRC_TYPE_QUERY" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_QUERY" class="constant">
+                <h3 class="">SMARTIRC_TYPE_QUERY</h3>
+                <pre class="signature">SMARTIRC_TYPE_QUERY</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_QUIT" name="constant_SMARTIRC_TYPE_QUIT" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_QUIT" class="constant">
+                <h3 class="">SMARTIRC_TYPE_QUIT</h3>
+                <pre class="signature">SMARTIRC_TYPE_QUIT</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_TOPIC" name="constant_SMARTIRC_TYPE_TOPIC" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_TOPIC" class="constant">
+                <h3 class="">SMARTIRC_TYPE_TOPIC</h3>
+                <pre class="signature">SMARTIRC_TYPE_TOPIC</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_TOPICCHANGE" name="constant_SMARTIRC_TYPE_TOPICCHANGE" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_TOPICCHANGE" class="constant">
+                <h3 class="">SMARTIRC_TYPE_TOPICCHANGE</h3>
+                <pre class="signature">SMARTIRC_TYPE_TOPICCHANGE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_UNKNOWN" name="constant_SMARTIRC_TYPE_UNKNOWN" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_UNKNOWN" class="constant">
+                <h3 class="">SMARTIRC_TYPE_UNKNOWN</h3>
+                <pre class="signature">SMARTIRC_TYPE_UNKNOWN</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_USERMODE" name="constant_SMARTIRC_TYPE_USERMODE" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_USERMODE" class="constant">
+                <h3 class="">SMARTIRC_TYPE_USERMODE</h3>
+                <pre class="signature">SMARTIRC_TYPE_USERMODE</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_WHO" name="constant_SMARTIRC_TYPE_WHO" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_WHO" class="constant">
+                <h3 class="">SMARTIRC_TYPE_WHO</h3>
+                <pre class="signature">SMARTIRC_TYPE_WHO</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_WHOIS" name="constant_SMARTIRC_TYPE_WHOIS" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_WHOIS" class="constant">
+                <h3 class="">SMARTIRC_TYPE_WHOIS</h3>
+                <pre class="signature">SMARTIRC_TYPE_WHOIS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_TYPE_WHOWAS" name="constant_SMARTIRC_TYPE_WHOWAS" class="anchor"></a>
+            <article id="constant_SMARTIRC_TYPE_WHOWAS" class="constant">
+                <h3 class="">SMARTIRC_TYPE_WHOWAS</h3>
+                <pre class="signature">SMARTIRC_TYPE_WHOWAS</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_UNUSED" name="constant_SMARTIRC_UNUSED" class="anchor"></a>
+            <article id="constant_SMARTIRC_UNUSED" class="constant">
+                <h3 class="">SMARTIRC_UNUSED</h3>
+                <pre class="signature">SMARTIRC_UNUSED</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_VERSION" name="constant_SMARTIRC_VERSION" class="anchor"></a>
+            <article id="constant_SMARTIRC_VERSION" class="constant">
+                <h3 class="">SMARTIRC_VERSION</h3>
+                <pre class="signature">SMARTIRC_VERSION</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                                        <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="constant_SMARTIRC_VERSIONSTRING" name="constant_SMARTIRC_VERSIONSTRING" class="anchor"></a>
+            <article id="constant_SMARTIRC_VERSIONSTRING" class="constant">
+                <h3 class="">SMARTIRC_VERSIONSTRING</h3>
+                <pre class="signature">SMARTIRC_VERSIONSTRING</pre>
+                <p><em></em></p>
+                
+            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                <dt>File</dt>
+                <dd><a href=""><div class="path-wrapper"></div></a></dd>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr>
+                        <th>
+                            package
+                        </th>
+                        <td>
+                                                            <p>Default</p>
+                                                    </td>
+                    </tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+            
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="reports/errors.html">Errors</a></li>
+                                    <li><a href="reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on December 13th, 2016 at 03:10.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

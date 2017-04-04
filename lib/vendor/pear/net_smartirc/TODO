@@ -1,0 +1,4 @@
+todo:
+
+Usersyncing not fully implemented! *_ircuser class is never used. Neither is $_users.
+https://pear.php.net/manual/en/guide.developers.package2.tags.php

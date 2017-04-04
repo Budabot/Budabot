@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+  <title>Net_SmartIRC</title>
+  <parser>
+    <target>docs/HTML</target>
+  </parser>
+  <transformer>
+    <target>docs/HTML</target>
+  </transformer>
+  <files>
+    <file>Net/SmartIRC.php</file>
+    <directory>Net/SmartIRC</directory>
+  </files>
+</phpdoc>

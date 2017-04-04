@@ -6,9 +6,7 @@
 	<!-- Direct log levels from TRACE to INFO to STDOUT -->
 	<appender name="defaultConsoleAppenderStdOut" class="LoggerAppenderConsole">
 		<param name="target" value="STDOUT" />
-		<layout class="LoggerLayoutTTCC">
-			<param name="threadPrinting" value="false" />
-			<param name="microSecondsPrinting" value="false" />
+		<layout class="LoggerLayoutPattern">
 		</layout>
 		<filter class="LoggerFilterLevelRange">
 			<param name="levelMin" value="trace" />
@@ -19,9 +17,7 @@
 	<!-- Direct log levels from WARN to ERROR to STDERR -->
 	<appender name="defaultConsoleAppenderStdErr" class="LoggerAppenderConsole">
 		<param name="target" value="STDERR" />
-		<layout class="LoggerLayoutTTCC">
-			<param name="threadPrinting" value="false" />
-			<param name="microSecondsPrinting" value="false" />
+		<layout class="LoggerLayoutPattern">
 		</layout>
 		<filter class="LoggerFilterLevelRange">
 			<param name="levelMin" value="warn" />
@@ -30,9 +26,7 @@
 	</appender>
 	
 	<appender name="defaultFileAppender" class="LoggerAppenderDailyFile">
-		<layout class="LoggerLayoutTTCC">
-			<param name="threadPrinting" value="false" />
-			<param name="microSecondsPrinting" value="false" />
+		<layout class="LoggerLayoutPattern">
 		</layout>
 		<param name="file" value="./logs/budabot_%s.log" />
 		<param name="datePattern" value="Y-m" />
@@ -41,9 +35,7 @@
 	<!-- Direct log to memory buffer -->
 	<appender name="appenderBuffer" class="LoggerAppenderBuffer">
 		<param name="logLimit" value="2000" />
-		<layout class="LoggerLayoutTTCC">
-			<param name="threadPrinting" value="false" />
-			<param name="microSecondsPrinting" value="false" />
+		<layout class="LoggerLayoutPattern">
 		</layout>
 	</appender>
 

@@ -1,0 +1,17 @@
+{
+	"repositories": [
+	],
+
+	"require": { 
+		"react/http": "0.2.6",
+		"cboden/Ratchet": "0.2.3",
+		"twig/twig": "1.12.1",
+		"apache/log4php": "2.3.0",
+		"pear/net_smartirc": "1.1.10"
+	},
+
+	"config": {
+		"bin-dir": "..",
+		"vendor-dir": "lib/vendor"
+	}
+}
