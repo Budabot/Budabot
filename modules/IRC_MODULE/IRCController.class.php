@@ -84,21 +84,20 @@ class IRCController {
 
 	/** @Setup */
 	public function setup() {
-		if ($this->chatBot->vars['my_guild'] == "") {
-			$channel = "#".$this->chatBot->vars['name'];
-		} else {
+		$channels = "#budabot;#" . $this->chatBot->vars['name'];
+		if ($this->chatBot->vars['my_guild'] != "") {
 			$sandbox = explode(" ", $this->chatBot->vars['my_guild']);
 			for ($i = 0; $i < count($sandbox); $i++) {
 				$channel .= ucfirst(strtolower($sandbox[$i]));
 			}
-			$channel = "#".$channel;
+			$channels .= ";#" . $channel;
 		}
 
 		$this->settingManager->add($this->moduleName, "irc_status", "Status of IRC uplink", "noedit", "options", "0", "Offline;Online", "0;1");
 		$this->settingManager->add($this->moduleName, "irc_server", "IRC server to connect to", "noedit", "text", "irc.funcom.com", "irc.funcom.com");
 		$this->settingManager->add($this->moduleName, "irc_port", "IRC server port to use", "noedit", "number", "6667", "6667");
 		$this->settingManager->add($this->moduleName, "irc_nickname", "Nickname to use while in IRC", "noedit", "text", $this->chatBot->vars['name'], $this->chatBot->vars['name']);
-		$this->settingManager->add($this->moduleName, "irc_channel", "Channel to join", "noedit", "text", $channel, $channel);
+		$this->settingManager->add($this->moduleName, "irc_channel", "Channel to join", "noedit", "text", "#budabot", $channels);
 		$this->settingManager->add($this->moduleName, "irc_password", "IRC password to join channel", "edit", "text", "none", "none");
 		$this->settingManager->add($this->moduleName, 'irc_guild_message_color', "Color of messages from other bots in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
 		$this->settingManager->add($this->moduleName, 'irc_guild_name_color', "Color of guild names from other bots in the IRC channel", 'edit', "color", "<font color='#FFFFFF'>");
