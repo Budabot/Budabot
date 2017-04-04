@@ -685,5 +685,47 @@
             }
         ],
         "description": "More info available on: http://pear.php.net/package/Net_SmartIRC"
+    },
+    {
+        "name": "apache/log4php",
+        "version": "2.3.0",
+        "version_normalized": "2.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/apache/logging-log4php.git",
+            "reference": "cac428b6f67d2035af39784da1d1a299ef42fcf2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/apache/logging-log4php/zipball/cac428b6f67d2035af39784da1d1a299ef42fcf2",
+            "reference": "cac428b6f67d2035af39784da1d1a299ef42fcf2",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.7"
+        },
+        "time": "2012-10-26T09:13:25+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src/main/php/"
+            ]
+        },
+        "license": [
+            "Apache-2.0"
+        ],
+        "description": "A versatile logging framework for PHP",
+        "homepage": "http://logging.apache.org/log4php/",
+        "keywords": [
+            "log",
+            "logging",
+            "php"
+        ],
+        "support": {
+            "issues": "https://issues.apache.org/jira/browse/LOG4PHP",
+            "source": "https://svn.apache.org/repos/asf/logging/log4php",
+            "email": "log4php-user@logging.apache.org"
+        }
     }
 ]
