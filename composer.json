@@ -1,5 +1,9 @@
 {
 	"repositories": [
+		{
+            "type": "vcs",
+            "url": "https://github.com/apache/logging-log4php"
+        }
 	],
 
 	"require": { 

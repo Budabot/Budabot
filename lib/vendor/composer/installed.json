@@ -635,38 +635,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "apache/log4php",
-        "version": "2.3.0",
-        "version_normalized": "2.3.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git-wip-us.apache.org/repos/asf/logging-log4php.git",
-            "reference": "cac428b6f67d2035af39784da1d1a299ef42fcf2"
-        },
-        "require": {
-            "php": ">=5.2.7"
-        },
-        "time": "2012-10-26T09:13:25+00:00",
-        "type": "library",
-        "installation-source": "source",
-        "autoload": {
-            "classmap": [
-                "src/main/php/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "Apache-2.0"
-        ],
-        "description": "A versatile logging framework for PHP",
-        "homepage": "http://logging.apache.org/log4php/",
-        "keywords": [
-            "log",
-            "logging",
-            "php"
-        ]
-    },
-    {
         "name": "pear/net_smartirc",
         "version": "v1.1.10",
         "version_normalized": "1.1.10.0",
