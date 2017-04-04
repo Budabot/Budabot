@@ -1,0 +1,1020 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+ <title>PEAR API Documentation :: Net_SmartIRC</title>
+ <link rel="stylesheet" href="media/style.css" />
+  <script language="javascript" type="text/javascript">
+    var subdir = "";
+  </script>
+  <script src="media/lib/classTree.js"></script>
+  <link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="media/lib/tab.webfx.css" />
+  <script type="text/javascript" src="media/lib/tabpane.js"></script>
+  <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  <script language="javascript" type="text/javascript" src="media/TreeMenu.js"></script>
+  <script language="javascript" type="text/javascript" src="media/lib/ua.js"></script>
+  <script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "media/images/plus.gif";
+	imgMinus.src = "media/images/minus.gif";
+
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+</head>
+
+<body   topmargin="0" leftmargin="0"
+	    marginheight="0" marginwidth="0"
+        bgcolor="#ffffff"
+        text="#000000"
+        link="#006600"
+        alink="#cccc00"
+        vlink="#003300"
+>
+<a name="TOP" /></a>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr bgcolor="#339900">
+    <td align="left" width="120">
+      <a href="http://pear.php.net">
+	    <img src="media/images/pearlogo.gif" width="104" height="50" vspace="2" hspace="5" alt="PEAR" border="0">
+ 	  </a>
+    </td>
+    <td align="left" valign="middle" width="20">
+      &nbsp;
+    </td>
+    <td align="left" valign="middle">
+      <span class="Headline">PEAR API Documentation :: Net_SmartIRC</span>
+    </td>
+    <td align="right" valign="bottom" class="upperright">
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Package Homepage</a>&nbsp;|&nbsp;
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Download ApiDoc</a>
+	  &nbsp;<br>
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+
+  <tr bgcolor="#006600">
+    <td align="right" valign="top" colspan="4" class="menu">
+  		  [ <a href="classtrees_Net_SmartIRC.html" class="menu">class tree: Net_SmartIRC</a> ]
+		  [ <a href="elementindex_Net_SmartIRC.html" class="menu">index: Net_SmartIRC</a> ]
+		  [ <a href="elementindex.html" class="menu">all elements</a> ]
+        &nbsp;<br />
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%">
+ <tr valign="top">
+  <td bgcolor="#f0f0f0" width="100">
+   <table width="280" border="0" cellpadding="4" cellspacing="0">
+    <tr valign="top">
+     <td style="font-size: 90%" align="left" width="280">
+	<div id="ric">
+					<a href="ric_CHANGELOG.html">CHANGELOG</a><br />
+					<a href="ric_README.html">README</a><br />
+			</div>
+	<br>
+      <span class="green"><b>Packages:</b></span><br />
+	  <ul>
+              <li><a href="li_Net_SmartIRC.html">Net_SmartIRC</a></li>
+      	  </ul>
+      <br /><br />
+
+<div class="menu">
+<script language="Javascript">
+if (document.getElementById) {
+  var tree = new WebFXTree('Package : Net_SmartIRC', 'li_Net_SmartIRC.html');
+  tree.setBehavior('classic');
+  tree.openIcon = 'media/images/Disk.gif';
+  tree.icon = 'media/images/Disk.gif';
+    var elements = new WebFXTreeItem('Index of elements', 'elementindex_Net_SmartIRC.html');
+    elements.openIcon = 'media/images/file.png';
+    elements.icon = 'media/images/file.png';
+	tree.add(elements);
+
+    var tree_function = new WebFXTreeItem('Function(s)', '');
+    tree_function.openIcon = 'media/images/Functions.gif';
+    tree_function.icon = 'media/images/Functions.gif';
+    	tree.add(tree_function);
+	
+	var iconClassFolder = 'media/images/classFolder.gif';
+	var iconClass = 'media/images/Class.gif';
+	var iconFunctionFolder = 'media/images/Functions.gif';
+	var iconFunction = 'media/images/PublicMethod.gif';
+	var iconFileFolderOpen = 'media/images/FolderOpened.gif';
+	var iconFileFolderClosed = 'media/images/foldericon.png';
+	var iconFile = 'media/images/file.png';
+
+	var subpackagetree_classe = new WebFXTreeItem('Class(es)', 'classtrees_Net_SmartIRC.html');
+	subpackagetree_classe.openIcon = iconClassFolder;;
+	subpackagetree_classe.icon = iconClassFolder;
+					  var classe = new WebFXTreeItem('mybot', 'Net_SmartIRC/mybot.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC', 'Net_SmartIRC/Net_SmartIRC.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_actionhandler', 'Net_SmartIRC/Net_SmartIRC_actionhandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_base', 'Net_SmartIRC/Net_SmartIRC_base.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channel', 'Net_SmartIRC/Net_SmartIRC_channel.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_channeluser', 'Net_SmartIRC/Net_SmartIRC_channeluser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_data', 'Net_SmartIRC/Net_SmartIRC_data.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_Error', 'Net_SmartIRC/Net_SmartIRC_Error.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_irccommands', 'Net_SmartIRC/Net_SmartIRC_irccommands.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_ircuser', 'Net_SmartIRC/Net_SmartIRC_ircuser.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_listenfor', 'Net_SmartIRC/Net_SmartIRC_listenfor.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_messagehandler', 'Net_SmartIRC/Net_SmartIRC_messagehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_timehandler', 'Net_SmartIRC/Net_SmartIRC_timehandler.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('Net_SmartIRC_user', 'Net_SmartIRC/Net_SmartIRC_user.html');
+	      classe.openIcon = iconClass;
+	      classe.icon = iconClass;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+	var subpackagetree_classe = new WebFXTreeItem('File(s)', '');
+	subpackagetree_classe.openIcon = iconFileFolderOpen;
+	subpackagetree_classe.icon = iconFileFolderClosed;
+					  var classe = new WebFXTreeItem('defines.php', 'Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example2.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example3.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example4.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example5.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example6.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('example7.php', 'Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('irccommands.php', 'Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('messagehandler.php', 'Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				  var classe = new WebFXTreeItem('SmartIRC.php', 'Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html');
+	      classe.openIcon = iconFile;
+	      classe.icon = iconFile;
+	      subpackagetree_classe.add(classe);
+				tree.add(subpackagetree_classe);
+
+  document.write(tree);
+  
+  
+  
+}
+</script>
+</div>
+<noscript>
+<img src="media/images/Disk.gif" border="0" align="top">&nbsp;<a href="li_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Package: Net_SmartIRC</span></a><br>
+<img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="elementindex_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Index of elements</span></a><br>
+<img src="media/images/T.png" border="0" align="top"><img src="media/images/Functions.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Function(s)</span><br>
+<img src="media/images/Tminus.png" border="0" align="top"><img src="media/images/classFolder.gif" border="0" align="top">&nbsp;<a href="classtrees_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Class(es)</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/mybot.html" class="green" ><span valign="middle" class="green">mybot</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Net_SmartIRC</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_actionhandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_base.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_base</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_channel.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channel</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_channeluser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channeluser</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_data.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_data</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_Error.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_Error</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_irccommands.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_irccommands</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_ircuser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_ircuser</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_listenfor.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_listenfor</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_messagehandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_timehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_timehandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/L.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="Net_SmartIRC/Net_SmartIRC_user.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_user</span></a><br>
+<img src="media/images/Lminus.png" border="0" align="top"><img src="media/images/FolderOpened.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">File(s)</span><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html" class="green" ><span valign="middle" class="green">defines.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html" class="green" ><span valign="middle" class="green">example.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html" class="green" ><span valign="middle" class="green">example2.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html" class="green" ><span valign="middle" class="green">example3.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html" class="green" ><span valign="middle" class="green">example4.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html" class="green" ><span valign="middle" class="green">example5.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html" class="green" ><span valign="middle" class="green">example6.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html" class="green" ><span valign="middle" class="green">example7.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html" class="green" ><span valign="middle" class="green">irccommands.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html" class="green" ><span valign="middle" class="green">messagehandler.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/L.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html" class="green" ><span valign="middle" class="green">SmartIRC.php</span></a><br>
+
+</noscript>
+     </td>
+    </tr>
+   </table>
+  </td>
+  <td bgcolor="#cccccc" width="2" background="media/images/checkerboard.gif"><img src="media/images/spacer.gif" width="2" height="1" border="0" alt=""  /><br /></td>
+  <td>
+   <table width="100%" cellpadding="10" cellspacing="0">
+    <tr>
+     <td valign="top">
+
+
+<a name="top"></a>
+<h1>Element index for package Net_SmartIRC</h1>
+	[ <a href="elementindex_Net_SmartIRC.html#'">'</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#a">a</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#b">b</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#c">c</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#d">d</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#e">e</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#f">f</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#g">g</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#h">h</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#i">i</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#j">j</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#k">k</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#l">l</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#m">m</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#n">n</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#o">o</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#p">p</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#q">q</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#r">r</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#s">s</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#t">t</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#u">u</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#v">v</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#w">w</a> ]
+	[ <a href="elementindex_Net_SmartIRC.html#_">_</a> ]
+
+  <hr />
+	<a name="'"></a>
+	<div>
+		<h2>'</h2>
+		<dl>
+							<dt><b>'SMARTIRC_'.$key</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#%27SMARTIRC_%27.%24key">'SMARTIRC_'.$key</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="_"></a>
+	<div>
+		<h2>_</h2>
+		<dl>
+							<dt><b>_event_error</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_error">Net_SmartIRC_messagehandler::_event_error()</a></dd>
+							<dt><b>_event_err_nicknameinuse</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_err_nicknameinuse">Net_SmartIRC_messagehandler::_event_err_nicknameinuse()</a></dd>
+							<dt><b>_event_join</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_join">Net_SmartIRC_messagehandler::_event_join()</a></dd>
+							<dt><b>_event_kick</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_kick">Net_SmartIRC_messagehandler::_event_kick()</a></dd>
+							<dt><b>_event_mode</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_mode">Net_SmartIRC_messagehandler::_event_mode()</a></dd>
+							<dt><b>_event_nick</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_nick">Net_SmartIRC_messagehandler::_event_nick()</a></dd>
+							<dt><b>_event_part</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_part">Net_SmartIRC_messagehandler::_event_part()</a></dd>
+							<dt><b>_event_ping</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_ping">Net_SmartIRC_messagehandler::_event_ping()</a></dd>
+							<dt><b>_event_privmsg</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_privmsg">Net_SmartIRC_messagehandler::_event_privmsg()</a></dd>
+							<dt><b>_event_quit</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_quit">Net_SmartIRC_messagehandler::_event_quit()</a></dd>
+							<dt><b>_event_rpl_banlist</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_banlist">Net_SmartIRC_messagehandler::_event_rpl_banlist()</a></dd>
+							<dt><b>_event_rpl_channelmodeis</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_channelmodeis">Net_SmartIRC_messagehandler::_event_rpl_channelmodeis()</a></dd>
+							<dt><b>_event_rpl_endofmotd</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_endofmotd">Net_SmartIRC_messagehandler::_event_rpl_endofmotd()</a></dd>
+							<dt><b>_event_rpl_motd</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_motd">Net_SmartIRC_messagehandler::_event_rpl_motd()</a></dd>
+							<dt><b>_event_rpl_motdstart</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_motdstart">Net_SmartIRC_messagehandler::_event_rpl_motdstart()</a></dd>
+							<dt><b>_event_rpl_namreply</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_namreply">Net_SmartIRC_messagehandler::_event_rpl_namreply()</a></dd>
+							<dt><b>_event_rpl_topic</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_topic">Net_SmartIRC_messagehandler::_event_rpl_topic()</a></dd>
+							<dt><b>_event_rpl_umodeis</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_umodeis">Net_SmartIRC_messagehandler::_event_rpl_umodeis()</a></dd>
+							<dt><b>_event_rpl_welcome</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_welcome">Net_SmartIRC_messagehandler::_event_rpl_welcome()</a></dd>
+							<dt><b>_event_rpl_whoreply</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_rpl_whoreply">Net_SmartIRC_messagehandler::_event_rpl_whoreply()</a></dd>
+							<dt><b>_event_topic</b></dt>
+				<dd>in file messagehandler.php, method <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html#_event_topic">Net_SmartIRC_messagehandler::_event_topic()</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="a"></a>
+	<div>
+		<h2>a</h2>
+		<dl>
+							<dt><b>$away</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_user.html#$away">Net_SmartIRC_user::$away</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="b"></a>
+	<div>
+		<h2>b</h2>
+		<dl>
+							<dt><b>$bans</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channel.html#$bans">Net_SmartIRC_channel::$bans</a></dd>
+							<dt><b>ban</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#ban">Net_SmartIRC_irccommands::ban()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;bans a hostmask for the given channel or requests the current banlist</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="c"></a>
+	<div>
+		<h2>c</h2>
+		<dl>
+							<dt><b>$channel</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_base.html#$channel">Net_SmartIRC_base::$channel</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Stores all channels in this array where we are joined, works only if channelsyncing is activated.</dd>
+							<dt><b>$channel</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$channel">Net_SmartIRC_data::$channel</a></dd>
+							<dt><b>changeNick</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#changeNick">Net_SmartIRC_irccommands::changeNick()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;changes the own nickname</dd>
+							<dt><b>channel</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#channel">Net_SmartIRC_irccommands::channel()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;returns an object reference to the specified channel</dd>
+							<dt><b>channel_test</b></dt>
+				<dd>in file example.php, method <a href="Net_SmartIRC/mybot.html#channel_test">mybot::channel_test()</a></dd>
+							<dt><b>connect</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#connect">Net_SmartIRC_base::connect()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Creates the sockets and connects to the IRC server on the given port.</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="d"></a>
+	<div>
+		<h2>d</h2>
+		<dl>
+							<dt><b>deop</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#deop">Net_SmartIRC_irccommands::deop()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;deops an user in the given channel</dd>
+							<dt><b>devoice</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#devoice">Net_SmartIRC_irccommands::devoice()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;devoice a user in the given channel</dd>
+							<dt><b>disconnect</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#disconnect">Net_SmartIRC_base::disconnect()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Disconnects from the IRC server nicely with a QUIT or just destroys the socket.</dd>
+							<dt><b>defines.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html">defines.php</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="e"></a>
+	<div>
+		<h2>e</h2>
+		<dl>
+							<dt><b>$error_msg</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_Error.html#$error_msg">Net_SmartIRC_Error::$error_msg</a></dd>
+							<dt><b>example2.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html">example2.php</a></dd>
+							<dt><b>example3.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html">example3.php</a></dd>
+							<dt><b>example4.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html">example4.php</a></dd>
+							<dt><b>example5.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html">example5.php</a></dd>
+							<dt><b>example6.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html">example6.php</a></dd>
+							<dt><b>example7.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html">example7.php</a></dd>
+							<dt><b>example.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html">example.php</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="f"></a>
+	<div>
+		<h2>f</h2>
+		<dl>
+							<dt><b>$from</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$from">Net_SmartIRC_data::$from</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="g"></a>
+	<div>
+		<h2>g</h2>
+		<dl>
+							<dt><b>getList</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#getList">Net_SmartIRC_irccommands::getList()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;gets a list of one ore more channels</dd>
+							<dt><b>getMessage</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_Error.html#getMessage">Net_SmartIRC_Error::getMessage()</a></dd>
+							<dt><b>getMotd</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#getMotd">Net_SmartIRC_base::getMotd()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the full motd.</dd>
+							<dt><b>getTopic</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#getTopic">Net_SmartIRC_irccommands::getTopic()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;gets the topic of a channel</dd>
+							<dt><b>getUsermode</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#getUsermode">Net_SmartIRC_base::getUsermode()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Returns the usermode.</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="h"></a>
+	<div>
+		<h2>h</h2>
+		<dl>
+							<dt><b>$hopcount</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_user.html#$hopcount">Net_SmartIRC_user::$hopcount</a></dd>
+							<dt><b>$host</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$host">Net_SmartIRC_data::$host</a></dd>
+							<dt><b>$host</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_user.html#$host">Net_SmartIRC_user::$host</a></dd>
+							<dt><b>handler</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_listenfor.html#handler">Net_SmartIRC_listenfor::handler()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;stores the received answer into the result array</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="i"></a>
+	<div>
+		<h2>i</h2>
+		<dl>
+							<dt><b>$id</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html#$id">Net_SmartIRC_actionhandler::$id</a></dd>
+							<dt><b>$id</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_timehandler.html#$id">Net_SmartIRC_timehandler::$id</a></dd>
+							<dt><b>$ident</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_user.html#$ident">Net_SmartIRC_user::$ident</a></dd>
+							<dt><b>$ident</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$ident">Net_SmartIRC_data::$ident</a></dd>
+							<dt><b>$interval</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_timehandler.html#$interval">Net_SmartIRC_timehandler::$interval</a></dd>
+							<dt><b>$ircop</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_user.html#$ircop">Net_SmartIRC_user::$ircop</a></dd>
+							<dt><b>invite</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#invite">Net_SmartIRC_irccommands::invite()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;invites a user to the specified channel</dd>
+							<dt><b>isBanned</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#isBanned">Net_SmartIRC_base::isBanned()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Checks if the hostmask is on the specified channel banned and returns the result.</dd>
+							<dt><b>isError</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#isError">Net_SmartIRC_base::isError()</a></dd>
+							<dt><b>isJoined</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#isJoined">Net_SmartIRC_base::isJoined()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;checks if we or the given user is joined to the specified channel and returns the result  ChannelSyncing is required for this.</dd>
+							<dt><b>isOpped</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#isOpped">Net_SmartIRC_base::isOpped()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Checks if we or the given user is opped on the specified channel and returns the result.</dd>
+							<dt><b>isVoiced</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#isVoiced">Net_SmartIRC_base::isVoiced()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Checks if we or the given user is voiced on the specified channel and returns the result.</dd>
+							<dt><b>irccommands.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html">irccommands.php</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="j"></a>
+	<div>
+		<h2>j</h2>
+		<dl>
+							<dt><b>$joinedchannels</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_ircuser.html#$joinedchannels">Net_SmartIRC_ircuser::$joinedchannels</a></dd>
+							<dt><b>join</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#join">Net_SmartIRC_irccommands::join()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Joins one or more IRC channels with an optional key.</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="k"></a>
+	<div>
+		<h2>k</h2>
+		<dl>
+							<dt><b>$key</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channel.html#$key">Net_SmartIRC_channel::$key</a></dd>
+							<dt><b>kick</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#kick">Net_SmartIRC_irccommands::kick()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Kicks one or more user from an IRC channel with an optional reason.</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="l"></a>
+	<div>
+		<h2>l</h2>
+		<dl>
+							<dt><b>$lastmicrotimestamp</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_timehandler.html#$lastmicrotimestamp">Net_SmartIRC_timehandler::$lastmicrotimestamp</a></dd>
+							<dt><b>listen</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#listen">Net_SmartIRC_base::listen()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;goes into receive mode</dd>
+							<dt><b>listenFor</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#listenFor">Net_SmartIRC_base::listenFor()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;waits for a special message type and puts the answer in $result</dd>
+							<dt><b>log</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#log">Net_SmartIRC_base::log()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Adds an entry to the log.</dd>
+							<dt><b>login</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#login">Net_SmartIRC_base::login()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;login and register nickname on the IRC network</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="m"></a>
+	<div>
+		<h2>m</h2>
+		<dl>
+							<dt><b>$message</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$message">Net_SmartIRC_data::$message</a></dd>
+							<dt><b>$message</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html#$message">Net_SmartIRC_actionhandler::$message</a></dd>
+							<dt><b>$messageex</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$messageex">Net_SmartIRC_data::$messageex</a></dd>
+							<dt><b>$method</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_timehandler.html#$method">Net_SmartIRC_timehandler::$method</a></dd>
+							<dt><b>$method</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html#$method">Net_SmartIRC_actionhandler::$method</a></dd>
+							<dt><b>$mode</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channel.html#$mode">Net_SmartIRC_channel::$mode</a></dd>
+							<dt><b>message</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#message">Net_SmartIRC_irccommands::message()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;sends a new message</dd>
+							<dt><b>mode</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#mode">Net_SmartIRC_irccommands::mode()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;sets or gets the mode of an user or channel</dd>
+							<dt><b>mybot</b></dt>
+				<dd>in file example.php, class <a href="Net_SmartIRC/mybot.html">mybot</a></dd>
+							<dt><b>messagehandler.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html">messagehandler.php</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="n"></a>
+	<div>
+		<h2>n</h2>
+		<dl>
+							<dt><b>$name</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channel.html#$name">Net_SmartIRC_channel::$name</a></dd>
+							<dt><b>$nick</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$nick">Net_SmartIRC_data::$nick</a></dd>
+							<dt><b>$nick</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_user.html#$nick">Net_SmartIRC_user::$nick</a></dd>
+							<dt><b>$nreplycodes</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_base.html#$nreplycodes">Net_SmartIRC_base::$nreplycodes</a><br>&nbsp;&nbsp;&nbsp;&nbsp;All numeric IRC replycodes, the index is the numeric replycode.</dd>
+							<dt><b>names</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#names">Net_SmartIRC_irccommands::names()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;requests all nicknames of one or more channels</dd>
+							<dt><b>Net_SmartIRC</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC.html">Net_SmartIRC</a><br>&nbsp;&nbsp;&nbsp;&nbsp;$Id: elementindex_Net_SmartIRC.html 135710 2003-07-23 18:08:55Z meebey $</dd>
+							<dt><b>Net_SmartIRC</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#Net_SmartIRC">Net_SmartIRC_base::Net_SmartIRC()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Constructor. Initiales the messagebuffer and "links" the replycodes from  global into properties. Also some PHP runtime settings are configured.</dd>
+							<dt><b>Net_SmartIRC_actionhandler</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html">Net_SmartIRC_actionhandler</a></dd>
+							<dt><b>Net_SmartIRC_base</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_base.html">Net_SmartIRC_base</a><br>&nbsp;&nbsp;&nbsp;&nbsp;main SmartIRC class</dd>
+							<dt><b>Net_SmartIRC_channel</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_channel.html">Net_SmartIRC_channel</a></dd>
+							<dt><b>Net_SmartIRC_channeluser</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_channeluser.html">Net_SmartIRC_channeluser</a></dd>
+							<dt><b>Net_SmartIRC_data</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_data.html">Net_SmartIRC_data</a></dd>
+							<dt><b>Net_SmartIRC_Error</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_Error.html">Net_SmartIRC_Error</a></dd>
+							<dt><b>Net_SmartIRC_Error</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_Error.html#Net_SmartIRC_Error">Net_SmartIRC_Error::Net_SmartIRC_Error()</a></dd>
+							<dt><b>Net_SmartIRC_irccommands</b></dt>
+				<dd>in file irccommands.php, class <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html">Net_SmartIRC_irccommands</a><br>&nbsp;&nbsp;&nbsp;&nbsp;$Id: elementindex_Net_SmartIRC.html 135710 2003-07-23 18:08:55Z meebey $</dd>
+							<dt><b>Net_SmartIRC_ircuser</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_ircuser.html">Net_SmartIRC_ircuser</a></dd>
+							<dt><b>Net_SmartIRC_listenfor</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_listenfor.html">Net_SmartIRC_listenfor</a></dd>
+							<dt><b>Net_SmartIRC_messagehandler</b></dt>
+				<dd>in file messagehandler.php, class <a href="Net_SmartIRC/Net_SmartIRC_messagehandler.html">Net_SmartIRC_messagehandler</a><br>&nbsp;&nbsp;&nbsp;&nbsp;$Id: elementindex_Net_SmartIRC.html 135710 2003-07-23 18:08:55Z meebey $</dd>
+							<dt><b>Net_SmartIRC_timehandler</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_timehandler.html">Net_SmartIRC_timehandler</a></dd>
+							<dt><b>Net_SmartIRC_user</b></dt>
+				<dd>in file SmartIRC.php, class <a href="Net_SmartIRC/Net_SmartIRC_user.html">Net_SmartIRC_user</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="o"></a>
+	<div>
+		<h2>o</h2>
+		<dl>
+							<dt><b>$object</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_timehandler.html#$object">Net_SmartIRC_timehandler::$object</a></dd>
+							<dt><b>$object</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html#$object">Net_SmartIRC_actionhandler::$object</a></dd>
+							<dt><b>$op</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channeluser.html#$op">Net_SmartIRC_channeluser::$op</a></dd>
+							<dt><b>$ops</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channel.html#$ops">Net_SmartIRC_channel::$ops</a></dd>
+							<dt><b>op</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#op">Net_SmartIRC_irccommands::op()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;ops an user in the given channel</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="p"></a>
+	<div>
+		<h2>p</h2>
+		<dl>
+							<dt><b>part</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#part">Net_SmartIRC_irccommands::part()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;parts from one or more IRC channels with an optional reason</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="q"></a>
+	<div>
+		<h2>q</h2>
+		<dl>
+							<dt><b>query_test</b></dt>
+				<dd>in file example.php, method <a href="Net_SmartIRC/mybot.html#query_test">mybot::query_test()</a></dd>
+							<dt><b>quit</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#quit">Net_SmartIRC_irccommands::quit()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;sends QUIT to IRC server and disconnects</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="r"></a>
+	<div>
+		<h2>r</h2>
+		<dl>
+							<dt><b>$rawmessage</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$rawmessage">Net_SmartIRC_data::$rawmessage</a></dd>
+							<dt><b>$rawmessageex</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$rawmessageex">Net_SmartIRC_data::$rawmessageex</a></dd>
+							<dt><b>$realname</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_user.html#$realname">Net_SmartIRC_user::$realname</a></dd>
+							<dt><b>$replycodes</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_base.html#$replycodes">Net_SmartIRC_base::$replycodes</a><br>&nbsp;&nbsp;&nbsp;&nbsp;All IRC replycodes, the index is the replycode name.</dd>
+							<dt><b>$result</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_listenfor.html#$result">Net_SmartIRC_listenfor::$result</a></dd>
+							<dt><b>reconnect</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#reconnect">Net_SmartIRC_base::reconnect()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Reconnects to the IRC server with the same login info,  it also rejoins the channels</dd>
+							<dt><b>registerActionhandler</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#registerActionhandler">Net_SmartIRC_base::registerActionhandler()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;registers a new actionhandler and returns the assigned id</dd>
+							<dt><b>registerTimehandler</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#registerTimehandler">Net_SmartIRC_base::registerTimehandler()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;registers a timehandler and returns the assigned id</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="s"></a>
+	<div>
+		<h2>s</h2>
+		<dl>
+							<dt><b>$server</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_user.html#$server">Net_SmartIRC_user::$server</a></dd>
+							<dt><b>setAutoReconnect</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setAutoReconnect">Net_SmartIRC_base::setAutoReconnect()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Enables/disables autoreconnecting.</dd>
+							<dt><b>setAutoRetry</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setAutoRetry">Net_SmartIRC_base::setAutoRetry()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Enables/disables autoretry for connecting to a server.</dd>
+							<dt><b>setBenchmark</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setBenchmark">Net_SmartIRC_base::setBenchmark()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Enables/disables the benchmark engine.</dd>
+							<dt><b>setChannelSynching</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setChannelSynching">Net_SmartIRC_base::setChannelSynching()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Deprecated, use setChannelSyncing() instead!</dd>
+							<dt><b>setChannelSyncing</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setChannelSyncing">Net_SmartIRC_base::setChannelSyncing()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Enables/disables channel syncing.</dd>
+							<dt><b>setCtcpVersion</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setCtcpVersion">Net_SmartIRC_base::setCtcpVersion()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the CTCP version reply string.</dd>
+							<dt><b>setDebug</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setDebug">Net_SmartIRC_base::setDebug()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the level of debug messages.</dd>
+							<dt><b>setDisconnecttime</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setDisconnecttime">Net_SmartIRC_base::setDisconnecttime()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the delaytime before closing the socket when disconnect.</dd>
+							<dt><b>setLogdestination</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setLogdestination">Net_SmartIRC_base::setLogdestination()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the destination of all log messages.</dd>
+							<dt><b>setLogfile</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setLogfile">Net_SmartIRC_base::setLogfile()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the file for the log if the destination is set to file.</dd>
+							<dt><b>setReceivedelay</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setReceivedelay">Net_SmartIRC_base::setReceivedelay()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the delay for receiving data from the IRC server.</dd>
+							<dt><b>setReceiveTimeout</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setReceiveTimeout">Net_SmartIRC_base::setReceiveTimeout()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the receive timeout.</dd>
+							<dt><b>setSenddelay</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setSenddelay">Net_SmartIRC_base::setSenddelay()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the delay for sending data to the IRC server.</dd>
+							<dt><b>setTopic</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#setTopic">Net_SmartIRC_irccommands::setTopic()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;sets a new topic of a channel</dd>
+							<dt><b>setTransmitTimeout</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setTransmitTimeout">Net_SmartIRC_base::setTransmitTimeout()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Sets the transmit timeout.</dd>
+							<dt><b>setUseSockets</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#setUseSockets">Net_SmartIRC_base::setUseSockets()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Enables/disables the usage of real sockets.</dd>
+							<dt><b>showBenchmark</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#showBenchmark">Net_SmartIRC_base::showBenchmark()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Shows the benchmark result.</dd>
+							<dt><b>SmartIRC.php</b></dt>
+				<dd>procedural page <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html">SmartIRC.php</a></dd>
+							<dt><b>SMARTIRC_BROWSEROUT</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_BROWSEROUT">SMARTIRC_BROWSEROUT</a></dd>
+							<dt><b>SMARTIRC_CRITICAL</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_CRITICAL">SMARTIRC_CRITICAL</a></dd>
+							<dt><b>SMARTIRC_CRLF</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_CRLF">SMARTIRC_CRLF</a><br>&nbsp;&nbsp;&nbsp;&nbsp;$Id: elementindex_Net_SmartIRC.html 135710 2003-07-23 18:08:55Z meebey $</dd>
+							<dt><b>SMARTIRC_DEBUG_ACTIONHANDLER</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_ACTIONHANDLER">SMARTIRC_DEBUG_ACTIONHANDLER</a></dd>
+							<dt><b>SMARTIRC_DEBUG_ALL</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_ALL">SMARTIRC_DEBUG_ALL</a></dd>
+							<dt><b>SMARTIRC_DEBUG_CHANNELSYNCING</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_CHANNELSYNCING">SMARTIRC_DEBUG_CHANNELSYNCING</a></dd>
+							<dt><b>SMARTIRC_DEBUG_CONNECTION</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_CONNECTION">SMARTIRC_DEBUG_CONNECTION</a></dd>
+							<dt><b>SMARTIRC_DEBUG_IRCMESSAGES</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_IRCMESSAGES">SMARTIRC_DEBUG_IRCMESSAGES</a></dd>
+							<dt><b>SMARTIRC_DEBUG_MESSAGEHANDLER</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_MESSAGEHANDLER">SMARTIRC_DEBUG_MESSAGEHANDLER</a></dd>
+							<dt><b>SMARTIRC_DEBUG_MESSAGEPARSER</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_MESSAGEPARSER">SMARTIRC_DEBUG_MESSAGEPARSER</a></dd>
+							<dt><b>SMARTIRC_DEBUG_MESSAGETYPES</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_MESSAGETYPES">SMARTIRC_DEBUG_MESSAGETYPES</a></dd>
+							<dt><b>SMARTIRC_DEBUG_MODULES</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_MODULES">SMARTIRC_DEBUG_MODULES</a></dd>
+							<dt><b>SMARTIRC_DEBUG_NONE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_NONE">SMARTIRC_DEBUG_NONE</a></dd>
+							<dt><b>SMARTIRC_DEBUG_NOTICE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_NOTICE">SMARTIRC_DEBUG_NOTICE</a></dd>
+							<dt><b>SMARTIRC_DEBUG_SOCKET</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_SOCKET">SMARTIRC_DEBUG_SOCKET</a></dd>
+							<dt><b>SMARTIRC_DEBUG_TIMEHANDLER</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_TIMEHANDLER">SMARTIRC_DEBUG_TIMEHANDLER</a></dd>
+							<dt><b>SMARTIRC_DEBUG_USERSYNCING</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_DEBUG_USERSYNCING">SMARTIRC_DEBUG_USERSYNCING</a></dd>
+							<dt><b>SMARTIRC_FILE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_FILE">SMARTIRC_FILE</a></dd>
+							<dt><b>SMARTIRC_HIGH</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_HIGH">SMARTIRC_HIGH</a></dd>
+							<dt><b>SMARTIRC_LOW</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_LOW">SMARTIRC_LOW</a></dd>
+							<dt><b>SMARTIRC_MEDIUM</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_MEDIUM">SMARTIRC_MEDIUM</a></dd>
+							<dt><b>SMARTIRC_NONE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_NONE">SMARTIRC_NONE</a></dd>
+							<dt><b>SMARTIRC_STATE_CONNECTED</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_STATE_CONNECTED">SMARTIRC_STATE_CONNECTED</a></dd>
+							<dt><b>SMARTIRC_STATE_CONNECTING</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_STATE_CONNECTING">SMARTIRC_STATE_CONNECTING</a></dd>
+							<dt><b>SMARTIRC_STATE_DISCONNECTED</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_STATE_DISCONNECTED">SMARTIRC_STATE_DISCONNECTED</a></dd>
+							<dt><b>SMARTIRC_STDOUT</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_STDOUT">SMARTIRC_STDOUT</a></dd>
+							<dt><b>SMARTIRC_SYSLOG</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_SYSLOG">SMARTIRC_SYSLOG</a></dd>
+							<dt><b>SMARTIRC_TYPE_ACTION</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_ACTION">SMARTIRC_TYPE_ACTION</a></dd>
+							<dt><b>SMARTIRC_TYPE_ALL</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_ALL">SMARTIRC_TYPE_ALL</a></dd>
+							<dt><b>SMARTIRC_TYPE_BANLIST</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_BANLIST">SMARTIRC_TYPE_BANLIST</a></dd>
+							<dt><b>SMARTIRC_TYPE_CHANNEL</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_CHANNEL">SMARTIRC_TYPE_CHANNEL</a></dd>
+							<dt><b>SMARTIRC_TYPE_CHANNELMODE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_CHANNELMODE">SMARTIRC_TYPE_CHANNELMODE</a></dd>
+							<dt><b>SMARTIRC_TYPE_CTCP</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_CTCP">SMARTIRC_TYPE_CTCP</a></dd>
+							<dt><b>SMARTIRC_TYPE_CTCP_REPLY</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_CTCP_REPLY">SMARTIRC_TYPE_CTCP_REPLY</a></dd>
+							<dt><b>SMARTIRC_TYPE_CTCP_REQUEST</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_CTCP_REQUEST">SMARTIRC_TYPE_CTCP_REQUEST</a></dd>
+							<dt><b>SMARTIRC_TYPE_ERROR</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_ERROR">SMARTIRC_TYPE_ERROR</a></dd>
+							<dt><b>SMARTIRC_TYPE_INFO</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_INFO">SMARTIRC_TYPE_INFO</a></dd>
+							<dt><b>SMARTIRC_TYPE_INVITE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_INVITE">SMARTIRC_TYPE_INVITE</a></dd>
+							<dt><b>SMARTIRC_TYPE_JOIN</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_JOIN">SMARTIRC_TYPE_JOIN</a></dd>
+							<dt><b>SMARTIRC_TYPE_KICK</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_KICK">SMARTIRC_TYPE_KICK</a></dd>
+							<dt><b>SMARTIRC_TYPE_LIST</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_LIST">SMARTIRC_TYPE_LIST</a></dd>
+							<dt><b>SMARTIRC_TYPE_LOGIN</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_LOGIN">SMARTIRC_TYPE_LOGIN</a></dd>
+							<dt><b>SMARTIRC_TYPE_MODECHANGE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_MODECHANGE">SMARTIRC_TYPE_MODECHANGE</a></dd>
+							<dt><b>SMARTIRC_TYPE_MOTD</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_MOTD">SMARTIRC_TYPE_MOTD</a></dd>
+							<dt><b>SMARTIRC_TYPE_NAME</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_NAME">SMARTIRC_TYPE_NAME</a></dd>
+							<dt><b>SMARTIRC_TYPE_NICKCHANGE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_NICKCHANGE">SMARTIRC_TYPE_NICKCHANGE</a></dd>
+							<dt><b>SMARTIRC_TYPE_NONRELEVANT</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_NONRELEVANT">SMARTIRC_TYPE_NONRELEVANT</a></dd>
+							<dt><b>SMARTIRC_TYPE_NOTICE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_NOTICE">SMARTIRC_TYPE_NOTICE</a></dd>
+							<dt><b>SMARTIRC_TYPE_PART</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_PART">SMARTIRC_TYPE_PART</a></dd>
+							<dt><b>SMARTIRC_TYPE_QUERY</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_QUERY">SMARTIRC_TYPE_QUERY</a></dd>
+							<dt><b>SMARTIRC_TYPE_QUIT</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_QUIT">SMARTIRC_TYPE_QUIT</a></dd>
+							<dt><b>SMARTIRC_TYPE_TOPIC</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_TOPIC">SMARTIRC_TYPE_TOPIC</a></dd>
+							<dt><b>SMARTIRC_TYPE_TOPICCHANGE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_TOPICCHANGE">SMARTIRC_TYPE_TOPICCHANGE</a></dd>
+							<dt><b>SMARTIRC_TYPE_UNKNOWN</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_UNKNOWN">SMARTIRC_TYPE_UNKNOWN</a></dd>
+							<dt><b>SMARTIRC_TYPE_USERMODE</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_USERMODE">SMARTIRC_TYPE_USERMODE</a></dd>
+							<dt><b>SMARTIRC_TYPE_WHO</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_WHO">SMARTIRC_TYPE_WHO</a></dd>
+							<dt><b>SMARTIRC_TYPE_WHOIS</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_WHOIS">SMARTIRC_TYPE_WHOIS</a></dd>
+							<dt><b>SMARTIRC_TYPE_WHOWAS</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_TYPE_WHOWAS">SMARTIRC_TYPE_WHOWAS</a></dd>
+							<dt><b>SMARTIRC_UNUSED</b></dt>
+				<dd>in file defines.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html#SMARTIRC_UNUSED">SMARTIRC_UNUSED</a></dd>
+							<dt><b>SMARTIRC_VERSION</b></dt>
+				<dd>in file SmartIRC.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html#SMARTIRC_VERSION">SMARTIRC_VERSION</a></dd>
+							<dt><b>SMARTIRC_VERSIONSTRING</b></dt>
+				<dd>in file SmartIRC.php, constant <a href="Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html#SMARTIRC_VERSIONSTRING">SMARTIRC_VERSIONSTRING</a></dd>
+							<dt><b>startBenchmark</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#startBenchmark">Net_SmartIRC_base::startBenchmark()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Starts the benchmark (sets the counters).</dd>
+							<dt><b>stopBenchmark</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#stopBenchmark">Net_SmartIRC_base::stopBenchmark()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;Stops the benchmark and displays the result.</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="t"></a>
+	<div>
+		<h2>t</h2>
+		<dl>
+							<dt><b>$topic</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channel.html#$topic">Net_SmartIRC_channel::$topic</a></dd>
+							<dt><b>$type</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_actionhandler.html#$type">Net_SmartIRC_actionhandler::$type</a></dd>
+							<dt><b>$type</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_data.html#$type">Net_SmartIRC_data::$type</a></dd>
+							<dt><b>throwError</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#throwError">Net_SmartIRC_base::throwError()</a></dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="u"></a>
+	<div>
+		<h2>u</h2>
+		<dl>
+							<dt><b>$users</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channel.html#$users">Net_SmartIRC_channel::$users</a></dd>
+							<dt><b>unban</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#unban">Net_SmartIRC_irccommands::unban()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;unbans a hostmask on the given channel</dd>
+							<dt><b>unregisterActionhandler</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#unregisterActionhandler">Net_SmartIRC_base::unregisterActionhandler()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;unregisters an existing actionhandler</dd>
+							<dt><b>unregisterActionid</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#unregisterActionid">Net_SmartIRC_base::unregisterActionid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;unregisters an existing actionhandler via the id</dd>
+							<dt><b>unregisterTimeid</b></dt>
+				<dd>in file SmartIRC.php, method <a href="Net_SmartIRC/Net_SmartIRC_base.html#unregisterTimeid">Net_SmartIRC_base::unregisterTimeid()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;unregisters an existing timehandler via the id</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="v"></a>
+	<div>
+		<h2>v</h2>
+		<dl>
+							<dt><b>$voice</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channeluser.html#$voice">Net_SmartIRC_channeluser::$voice</a></dd>
+							<dt><b>$voices</b></dt>
+				<dd>in file SmartIRC.php, variable <a href="Net_SmartIRC/Net_SmartIRC_channel.html#$voices">Net_SmartIRC_channel::$voices</a></dd>
+							<dt><b>voice</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#voice">Net_SmartIRC_irccommands::voice()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;voice a user in the given channel</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+  <hr />
+	<a name="w"></a>
+	<div>
+		<h2>w</h2>
+		<dl>
+							<dt><b>who</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#who">Net_SmartIRC_irccommands::who()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;requests a 'WHO' from the specified target</dd>
+							<dt><b>whois</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#whois">Net_SmartIRC_irccommands::whois()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;requests a 'WHOIS' from the specified target</dd>
+							<dt><b>whowas</b></dt>
+				<dd>in file irccommands.php, method <a href="Net_SmartIRC/Net_SmartIRC_irccommands.html#whowas">Net_SmartIRC_irccommands::whowas()</a><br>&nbsp;&nbsp;&nbsp;&nbsp;requests a 'WHOWAS' from the specified target  (if he left the IRC network)</dd>
+					</dl>
+	</div>
+	<a href="elementindex_Net_SmartIRC.html#top">top</a><br>
+        <div class="credit">
+		    <hr />
+		    Documentation generated on Wed, 23 Jul 2003 19:59:07 +0200 by <a href="http://www.phpdoc.org" class="green">phpDocumentor 1.2.0beta1c</a><br>
+			HTML layout done by <a href="http://pear.php.net/wishlist.php/dickmann" class="green">Christian Dickmann</a> and originally
+		    <i>inspired by </i><a href="http://www.phpedit.com" class="green">PHPEdit</a><br>
+			
+			
+			
+	      </div>
+</td>
+    </tr>
+   </table>
+  </td>
+
+ </tr>
+</table>
+</body>
+</html>

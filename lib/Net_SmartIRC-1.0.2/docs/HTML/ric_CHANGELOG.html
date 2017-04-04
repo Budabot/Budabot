@@ -1,0 +1,552 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+ <title>PEAR API Documentation :: Net_SmartIRC</title>
+ <link rel="stylesheet" href="media/style.css" />
+  <script language="javascript" type="text/javascript">
+    var subdir = "";
+  </script>
+  <script src="media/lib/classTree.js"></script>
+  <link id="webfx-tab-style-sheet" type="text/css" rel="stylesheet" href="media/lib/tab.webfx.css" />
+  <script type="text/javascript" src="media/lib/tabpane.js"></script>
+  <meta http-equiv='Content-Type' content='text/html; charset=iso-8859-1'/>
+  <script language="javascript" type="text/javascript" src="media/TreeMenu.js"></script>
+  <script language="javascript" type="text/javascript" src="media/lib/ua.js"></script>
+  <script language="javascript" type="text/javascript">
+	var imgPlus = new Image();
+	var imgMinus = new Image();
+	imgPlus.src = "media/images/plus.gif";
+	imgMinus.src = "media/images/minus.gif";
+
+	
+	function showNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgMinus.src;
+		oTable.style.display = "block";
+	}
+	
+	function hideNode(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+				var oImg = document.layers["img" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+				var oImg = document.all["img" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+				var oImg = document.getElementById("img" + Node);
+        		break;
+        }
+		oImg.src = imgPlus.src;
+		oTable.style.display = "none";
+	}
+	
+	function nodeIsVisible(Node){
+        switch(navigator.family){
+        	case 'nn4':
+        		// Nav 4.x code fork...
+				var oTable = document.layers["span" + Node];
+        		break;
+        	case 'ie4':
+        		// IE 4/5 code fork...
+				var oTable = document.all["span" + Node];
+        		break;
+        	case 'gecko':
+        		// Standards Compliant code fork...
+				var oTable = document.getElementById("span" + Node);
+        		break;
+        }
+		return (oTable && oTable.style.display == "block");
+	}
+	
+	function toggleNodeVisibility(Node){
+		if (nodeIsVisible(Node)){
+			hideNode(Node);
+		}else{
+			showNode(Node);
+		}
+	}
+</script>
+</head>
+
+<body   topmargin="0" leftmargin="0"
+	    marginheight="0" marginwidth="0"
+        bgcolor="#ffffff"
+        text="#000000"
+        link="#006600"
+        alink="#cccc00"
+        vlink="#003300"
+>
+<a name="TOP" /></a>
+<table border="0" cellspacing="0" cellpadding="0" height="48" width="100%">
+  <tr bgcolor="#339900">
+    <td align="left" width="120">
+      <a href="http://pear.php.net">
+	    <img src="media/images/pearlogo.gif" width="104" height="50" vspace="2" hspace="5" alt="PEAR" border="0">
+ 	  </a>
+    </td>
+    <td align="left" valign="middle" width="20">
+      &nbsp;
+    </td>
+    <td align="left" valign="middle">
+      <span class="Headline">PEAR API Documentation :: Net_SmartIRC</span>
+    </td>
+    <td align="right" valign="bottom" class="upperright">
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Package Homepage</a>&nbsp;|&nbsp;
+      <a href="http://pear.php.net/package-info.php?package=Net_SmartIRC" class="upperright">Download ApiDoc</a>
+	  &nbsp;<br>
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+
+  <tr bgcolor="#006600">
+    <td align="right" valign="top" colspan="4" class="menu">
+  		  [ <a href="classtrees_Net_SmartIRC.html" class="menu">class tree: Net_SmartIRC</a> ]
+		  [ <a href="elementindex_Net_SmartIRC.html" class="menu">index: Net_SmartIRC</a> ]
+		  [ <a href="elementindex.html" class="menu">all elements</a> ]
+        &nbsp;<br />
+    </td>
+  </tr>
+
+  <tr bgcolor="#003300"><td colspan="4"></td></tr>
+</table>
+<table cellpadding="0" cellspacing="0" width="100%">
+ <tr valign="top">
+  <td bgcolor="#f0f0f0" width="100">
+   <table width="280" border="0" cellpadding="4" cellspacing="0">
+    <tr valign="top">
+     <td style="font-size: 90%" align="left" width="280">
+	<div id="ric">
+					<a href="ric_CHANGELOG.html">CHANGELOG</a><br />
+					<a href="ric_README.html">README</a><br />
+			</div>
+	<br>
+      <span class="green"><b>Packages:</b></span><br />
+	  <ul>
+              <li><a href="li_Net_SmartIRC.html">Net_SmartIRC</a></li>
+      	  </ul>
+      <br /><br />
+
+<div class="menu">
+<script language="Javascript">
+if (document.getElementById) {
+  var tree = new WebFXTree('Package : Net_SmartIRC', 'li_Net_SmartIRC.html');
+  tree.setBehavior('classic');
+  tree.openIcon = 'media/images/Disk.gif';
+  tree.icon = 'media/images/Disk.gif';
+    var elements = new WebFXTreeItem('Index of elements', 'elementindex_Net_SmartIRC.html');
+    elements.openIcon = 'media/images/file.png';
+    elements.icon = 'media/images/file.png';
+	tree.add(elements);
+
+    var tree_function = new WebFXTreeItem('Function(s)', '');
+    tree_function.openIcon = 'media/images/Functions.gif';
+    tree_function.icon = 'media/images/Functions.gif';
+    	tree.add(tree_function);
+	
+	var iconClassFolder = 'media/images/classFolder.gif';
+	var iconClass = 'media/images/Class.gif';
+	var iconFunctionFolder = 'media/images/Functions.gif';
+	var iconFunction = 'media/images/PublicMethod.gif';
+	var iconFileFolderOpen = 'media/images/FolderOpened.gif';
+	var iconFileFolderClosed = 'media/images/foldericon.png';
+	var iconFile = 'media/images/file.png';
+
+	var subpackagetree_classe = new WebFXTreeItem('Class(es)', 'classtrees_Net_SmartIRC.html');
+	subpackagetree_classe.openIcon = iconClassFolder;;
+	subpackagetree_classe.icon = iconClassFolder;
+		tree.add(subpackagetree_classe);
+
+	var subpackagetree_classe = new WebFXTreeItem('File(s)', '');
+	subpackagetree_classe.openIcon = iconFileFolderOpen;
+	subpackagetree_classe.icon = iconFileFolderClosed;
+		tree.add(subpackagetree_classe);
+
+  document.write(tree);
+  
+  
+  
+}
+</script>
+</div>
+<noscript>
+<img src="media/images/Disk.gif" border="0" align="top">&nbsp;<a href="li_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Package: Net_SmartIRC</span></a><br>
+<img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="elementindex_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Index of elements</span></a><br>
+<img src="media/images/T.png" border="0" align="top"><img src="media/images/Functions.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">Function(s)</span><br>
+<img src="media/images/Tminus.png" border="0" align="top"><img src="media/images/classFolder.gif" border="0" align="top">&nbsp;<a href="classtrees_Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Class(es)</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/mybot.html" class="green" ><span valign="middle" class="green">mybot</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC.html" class="green" ><span valign="middle" class="green">Net_SmartIRC</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_actionhandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_actionhandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_base.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_base</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_channel.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channel</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_channeluser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_channeluser</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_data.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_data</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_Error.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_Error</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_irccommands.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_irccommands</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_ircuser.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_ircuser</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_listenfor.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_listenfor</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_messagehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_messagehandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_timehandler.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_timehandler</span></a><br>
+<img src="media/images/I.png" border="0" align="top"><img src="media/images/L.png" border="0" align="top"><img src="media/images/Class.gif" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/Net_SmartIRC_user.html" class="green" ><span valign="middle" class="green">Net_SmartIRC_user</span></a><br>
+<img src="media/images/Lminus.png" border="0" align="top"><img src="media/images/FolderOpened.gif" border="0" align="top">&nbsp;<span valign="middle" class="green">File(s)</span><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_defines_php.html" class="green" ><span valign="middle" class="green">defines.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_examples_example_php.html" class="green" ><span valign="middle" class="green">example.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_examples_example2_php.html" class="green" ><span valign="middle" class="green">example2.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_examples_example3_php.html" class="green" ><span valign="middle" class="green">example3.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_examples_example4_php.html" class="green" ><span valign="middle" class="green">example4.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_examples_example5_php.html" class="green" ><span valign="middle" class="green">example5.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_examples_example6_php.html" class="green" ><span valign="middle" class="green">example6.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_examples_example7_php.html" class="green" ><span valign="middle" class="green">example7.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_irccommands_php.html" class="green" ><span valign="middle" class="green">irccommands.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/T.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_messagehandler_php.html" class="green" ><span valign="middle" class="green">messagehandler.php</span></a><br>
+<img src="media/images/spacer2.gif" border="0" align="top"><img src="media/images/L.png" border="0" align="top"><img src="media/images/file.png" border="0" align="top">&nbsp;<a href="{$subdir}Net_SmartIRC/_SmartIRC-0.5.5_SmartIRC_php.html" class="green" ><span valign="middle" class="green">SmartIRC.php</span></a><br>
+
+</noscript>
+     </td>
+    </tr>
+   </table>
+  </td>
+  <td bgcolor="#cccccc" width="2" background="media/images/checkerboard.gif"><img src="media/images/spacer.gif" width="2" height="1" border="0" alt=""  /><br /></td>
+  <td>
+   <table width="100%" cellpadding="10" cellspacing="0">
+    <tr>
+     <td valign="top">
+
+
+<h1 align="center">CHANGELOG</h1>
+<pre>
+/**
+ * $Id: ric_CHANGELOG.html 135710 2003-07-23 18:08:55Z meebey $
+ * $Revision: 135710 $
+ * $Author: meebey $
+ * $Date: 2003-07-24 03:38:55 +0930 (Thu, 24 Jul 2003) $
+ */
+
+v0.5.5:
+-------
+fixes:
+ - fixed a bug in _rawreceive()
+   messages were parsed wrong which caused problems with kick reasons.
+   (thx to sniper for reporting this).
+ - fixed bug in message()
+   CTCP ACTION messages had missing \001 at the end.
+ - fixed a bug in quit(), which caused quit messages not to be sent to the server.
+ - fixed reconnect() bug, it sent the channel join requests right after connect(),
+   and tried to join a channel without a name.
+ - fixes in ChannelSync code
+   When a user joins a channel after SmartIRC, no WHO info is updated in the user object.
+   Fixed wrong update of channel mode when rpl_channelmodeis received.
+   Fixed bug in _mode() method, which caused wrong handling of mode changes.
+   Topic updates are now tracked (thanks to sniper).
+   Fixed bug which caused fatal errors with ChannelSync enabled
+   (closes sf.net bug  #705269).
+   Fixed bug in _event_mode(), unhandled modes were stored wrong.
+   Fixed bug in _event_rpl_namreply(), which caused that the first char of the first nick
+   of a namreply got cut (closes sf.net bug #747832).
+ - fixed bug in _checktimer()
+   Which caused problems when a timehandler is unregistered.
+ - fixed _gettye()
+   It wasn't recognizing SMARTIRC_TYPE_ACTION.
+ - removed if(!$obj) check for newly created objects (closes PHP bug #24622),
+   required for PHP 4.1.2 compatibility.
+
+changes:
+ - removed all irc commands from SmartIRC.php
+   they have now their own file (SmartIRC/irccommands.php).
+ - Net_SmartIRC_messagehandler class now extends Net_SmartIRC_irccommands.
+ - removed the 1. parameter (&amp;$irc) of all message handlers, not needed anymore.
+ - renamed class Net_SmartIRC_user to Net_SmartIRC_channeluser,
+   added class Net_SmartIRC_ircuser.
+ - added prefix _event to all message handlers (needed because of class restructuring).
+ - tweaked filling of the ircdata objects.
+ - log() now checks the passed debug level bitwise.
+ - $data-&gt;message will be null instead of random garbage,
+   if the IRC message has no colon (the message part),
+ - All methods that depend on ChannelSync mode, checks if it's enabled.
+ - Optimized the usage of time() for $this-&gt;_lastrx.
+ - updated the URL of a SmartIRC based bot (atbs).
+ - _loggedin is now set to false when the socket is dead,
+   required for proper working  reconnect().
+ - on a reconnect(), the logfile won't be overwritten anymore.
+ - updated phpdoc tags.
+ - all access to the channel array now uses strtolower() for the key.
+ - fixed typo in function name setChannelSynching(),
+   now it's called setChannelSyncing() with a BC wrapper.
+ - removed all SMARTIRC_ prefixes for debug output.
+ - changed isJoined($channel) to isJoined($channel, $nickname)
+   for checking if the specified user is joined.
+ - removed &quot;destructors&quot;, because they don't free the memory.
+
+new:
+ - added isOpped() isVoiced() isBanned().
+ - added debug output and debug level for the messageparser.
+ - reconnect() uses now the channel key if one exists.
+ - added channel key syncing in _mode().
+ - when an actionhandler message regex has a leading '/' then the regex is used as it is,
+   this allows complex perl regex's.
+ - added message type SMARTIRC_TYPE_CTCP_REQUEST and SMARTIRC_CTCTP_REPLY for more advanced CTCP.
+ - added new log destinations SMARTIRC_NONE and SMARTIRC_BROWSEROUT
+   (for firendly browserouput). When the script is called from a browser,
+   the BROWSEROUT will automatic be used (closed sf.net bug #708155).
+ - added error handling for socket_select() in _rawreceive().
+ - added getMessage() to Net_SmartIRC_Error class.
+ - added debug level for ChannelSync code (SMARTIRC_DEBUG_CHANNELSYNCING).
+ - added filename and linenumber to debug output.
+ - added key property to channel class.
+ - added to all IRC commands optional $priority parameter with default value SMARTIRC_MEDIUM.
+ - added isError() for more advanced errorhandling, needed for encapsulation.
+ - added _isValidType() method, which checks for valid SMARTIRC_TYPE_* types.
+
+v0.5.1
+------
+fixes:
+ - major bugs in ChannelSynching fixed.
+ - fsocks support fixed.
+ - setUseSocket() method fixed.
+   If false was passed as parameter, it tried to load the socket extension.
+   Also warnings are now suppressed with @ in front of dl().
+ - fixed a typo in reconnect().
+ - missing SMARTIRC_DEBUG_CHANNELSYNCHING constant added.
+ 
+changes:
+ - new design for HTML documentation used (PEAR template).
+ - moved all examples to their own directory (examples/).
+ - moved the documentation to docs/HTML/.
+ - added new file descriptions to README.
+ - removed not needed parts of DOCUMENTATION (most is now in the HTML version).
+ - updated the HTML documentation.
+ 
+new:
+ - example5/6/7.php added.
+ - setAutoRetry() method added.
+   Autoretrying of connecting to the IRC server, is now supported.
+ 
+v0.5.0
+------
+fixes:
+ - fixed critical bug in the main _rawreceive() for() loop, messages were lost.
+
+changes:
+ - License changed from GPL to LGPL.
+ - updated in all files the copyright year.
+ - changed documentation tags in front of all methods to the phpDocumentator compatible format.
+ - improved connect() errorhandling.
+ - changed login() parameters to $nick, $realname, $usermode = 0, $username = null, $password = null.
+ - changed join() parameters to $channelarray, $key = null.
+ - changed kick() parameters to $channel, $nicknamearray, $reason = null.
+ - changed listenFor() parameters to $messagetype
+   return value is now the result, instead the of a reference to the result parameter.
+ - sendbuffer has now 3 queues: high, medium and low
+   high sends 2 messages, then 1 of medium
+   low is only send if high _and_ medium is empty.
+ - select() call for sockets is strongly optimized
+
+new:
+ - phpDocumentator package tags.
+ - include() for messagehandler.php (needed for the new API).
+ - setChannelSynching() method, for enabling the channel synching.
+ - setCtcpVersion() method, for changing the ctcp version reply string.
+ - setReceiveTimeout() method, for changing the receive timeout.
+ - setTransmitTimeout() method, for changing the transmit timeout.
+ - setAutoReconnect() method, for enabling the autoreconnect feature.
+ - channel variable, a reference to _channels because $object-&gt;channel(&quot;#chan&quot;)-&gt;topic is not possible in PHP4 (ZE1).
+ - reconnect() method, it will reconnect and also join all channels.
+ - channel() method, getting a reference to the channel, only if channelsynching is on.
+ - added ident, host, messageex and rawmessageex variables to the Net_SmartIRC_data class.
+ - class Net_SmartIRC_user, stores info about one user, only used if channelsynching is on.
+ - class Net_SmartIRC_channel, stores info about one channel, only used if channelsynching is on.
+
+v0.4.0
+------
+* phpSmartIRCclass.inc.php:
+ - fixed serious socket bug
+   The buffer of the socket got full because only 512 bytes were read at once,
+   which caused losing some IRC messages that are comming fast like the MOTD.
+   Now it will read 10240 bytes at once, and doesn't loose any IRC message.
+ - fixed sendbuffer
+   The sendbuffer will only be sent, when the class is fully connected and
+   registered on the IRC network. Before if a nickname collision happened,
+   all sent IRC commands from the buffer were ignored by the IRC server.
+ - fixed socket status
+   Socket handling is now compatible with PHP 4.3 dev.
+ - fixed $_nick
+   When the nickname got changed because of nickname is already in use,
+   $_nick  will be updated. (thanks for the hint to Andreas Streichardt).
+ - fixed actionhandler ids (unregister caused that the other ids were  changed).
+ - fixed TYPE_TOPIC to the right bitoperator value.
+ - added a reference to the IRC class in actionhandler callbacks
+   WARNING: all user writtin methods have to be changed!!
+   method( &amp;$data ) _has to be changed_ to method( &amp;$irc, &amp;$data )
+   If you don't change those, your IRC scripts will _not_ work anymore!
+ - changed internal methodnames to _methodname
+ - changed sendbuffer
+   Now it uses configurable senddelay, instead of static 2 messages  
+   per second (send flood protection).
+ - changed TYPEs
+   All TYPE_* are now bitwise constants, register_actionhandler() can now
+   react to more than one message type.
+ - added TYPE_ACTION for those common /me messages.
+ - added timeevents   Added method register_timehandler()
+   unregister_timeid() and   reordertimehandler(). Those timehandler
+   can be used to call methods in specified intervalls, e.g. for
+   timeevents. Added needed class CphpSmartIRCclass_timehandler.
+ - moved all IRC related defines to defines.inc.php.
+ - changed if() elseif() structures where possible to switch() for
+   clearer/faster code.
+ - added more debug messages for actionhandler.
+ - added unregister_actionhandler() and unregister_actionid() method.
+   Also added needed reorderactionhandler(), which is called after an
+   unregister methods was called.
+ - added $data-&gt;channel to actionhandler callback.
+
+* defines.inc.php:
+ - initial import. 
+ - now all IRC related defines are now in this file instead of
+   phpSmartIRCclass.inc.php.
+
+* DOCUMENTATION:
+ - updated/added methods description
+
+* example.php:
+ - changed user function parameter to new style ( &amp;$irc and &amp;$data ).
+ - added TYPE_NOTICE to query_test example.
+
+v0.3.2
+------
+* phpSmartIRCclass.inc.php:
+ - Replaced all quotes by single quote where possible for speedup.
+ - Added _disconnecttime for doing a clean IRC quit.
+ - Added Zend IDE style documentation for parameter variables types
+   and method descriptions.
+ - Spaces in nickname and username will be automaticly removed.
+ - Nicknamecollisions are automaticly detected and nickname will be
+   changed to nickname with 3 random numbers.
+ - New method nicknameuse().
+ - Fixed a serious fsock bug.
+ - Added new type TYPE_ERROR.
+ - Fixed wrong usage of &amp; when calling methods with params that are
+   called by reference.
+ - Fixed a debug message &quot;DEBUG: disconnected&quot;, now it will only
+   occur when debug mode is enabled.
+ - listen_for() will now do a quickdisconnect, for a big speedup.
+ - Changed logging system, now with debug levels, default is
+   DEBUG_NOTICE.
+ - Added benchmark system, now its possible to time things for doing
+   optimizations.
+ - New methods: benchmark(), benchmarktstart(), benchmarkend()
+   and show_benchmark() for the benchmark system
+ - Added microint(), for getting the microtime as float, needed for
+   the benchmarks.
+ - Added a couple of log() calls, for different debug levels.
+ - fsockets now runs in non blocking mode, because of broken?
+   getstatus for fsockets.
+ - Added mode() method, for chaning modes of a user or channel.
+ - Added op() and deop() method.  Added ban() and unban() method
+   (thx for diff file to Peter Petermann).
+
+* DOCUMENTATION:
+ - added documentation for new logging system
+ - added the whole DEBUG_* list
+
+* HOWTO:
+ - changed parameter description for debug()
+
+* example.php:
+ - replaced all quotes by singlequotes where possible.
+ - fixed wrong usage of message()
+
+* example2.php:
+ - replaced all quotes by singlquotes where possible.
+ - added benchmark test to the example
+
+v0.3.0
+-----
+* phpSmartIRCclass.inc.php:
+ - added &quot;Ping? Pong!&quot; log message for debugging
+ - added real linux/windows syslog logging
+   to setlogdestination().
+ - new method listen_for() makes it possible
+   to show irc related information on a homepage, like how many users
+   on a channel are.
+
+* HOWTO:
+ - added how to run/call the selfwritten bot
+
+* DOCUMENTATION:
+ - added (missing) explaination for new methods
+
+* example2.php:
+ - new examplefile with the new listen_for() method
+
+v0.2.6
+------
+* phpSmartIRCclass.inc.php:
+ - phpSmartIRCclass.inc renamed to
+   phpSmartIRCclass.inc.php because of security reasons
+ - changed function_exists() to get_loaded_extensions() for
+   checking if the PHP build has real socket support
+ - log() changed to create Linux style formated logs
+ - new methods for logging (daemon style)
+   log() for add log entries setlogdestination() can be STDOUT or FILE
+   setlogfile() sets the file
+ - changed received data processing in rawreceive()
+
+* HOWTO:
+ - added a mini howto for using the class
+
+* DOCUMENTATION:
+ - added class documentation of the project
+
+* CREDITS:
+ - added credits file
+
+v0.2.5
+------
+- improved socket handling
+- bufferedsend fix
+- new version number system
+- cpu usage reduced
+- added changelog file
+
+</pre>
+        <div class="credit">
+		    <hr />
+		    Documentation generated on  by <a href="http://www.phpdoc.org" class="green">phpDocumentor 1.2.0beta1c</a><br>
+			HTML layout done by <a href="http://pear.php.net/wishlist.php/dickmann" class="green">Christian Dickmann</a> and originally
+		    <i>inspired by </i><a href="http://www.phpedit.com" class="green">PHPEdit</a><br>
+			
+			
+			
+	      </div>
+</td>
+    </tr>
+   </table>
+  </td>
+
+ </tr>
+</table>
+</body>
+</html>

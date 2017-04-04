@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3230b3afc1fc4c2b948ae3726f789c7a",
+    "content-hash": "9aa4ac5b02898f70196ea3efa8e20d34",
     "packages": [
         {
             "name": "apache/log4php",
@@ -330,56 +330,6 @@
             ],
             "abandoned": "guzzle/guzzle",
             "time": "2012-12-07T16:45:11+00:00"
-        },
-        {
-            "name": "pear/net_smartirc",
-            "version": "v1.1.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/pear/Net_SmartIRC.git",
-                "reference": "6d460c262a47d2658d02f83e2b17d017aa835bfe"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/pear/Net_SmartIRC/zipball/6d460c262a47d2658d02f83e2b17d017aa835bfe",
-                "reference": "6d460c262a47d2658d02f83e2b17d017aa835bfe",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpdocumentor/phpdocumentor": "2.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "Net": "Net/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "include-path": [
-                "Net/"
-            ],
-            "license": [
-                "LGPL"
-            ],
-            "authors": [
-                {
-                    "name": "Amir Mohammad Saied",
-                    "email": "amirsaied@gmail.com",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Mirco Bauer",
-                    "email": "meebey@php.net",
-                    "role": "Lead"
-                },
-                {
-                    "name": "Garrett Whitehorn",
-                    "email": "garrettw87@gmail.com",
-                    "role": "Lead"
-                }
-            ],
-            "description": "More info available on: http://pear.php.net/package/Net_SmartIRC",
-            "time": "2017-01-03T01:23:05+00:00"
         },
         {
             "name": "react/event-loop",

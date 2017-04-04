@@ -1,0 +1,1 @@
+http://wiki.shellium.org/w/Writing_an_IRC_bot_in_PHP

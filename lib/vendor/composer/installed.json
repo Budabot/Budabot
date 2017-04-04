@@ -635,58 +635,6 @@
         "homepage": "https://symfony.com"
     },
     {
-        "name": "pear/net_smartirc",
-        "version": "v1.1.10",
-        "version_normalized": "1.1.10.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/pear/Net_SmartIRC.git",
-            "reference": "6d460c262a47d2658d02f83e2b17d017aa835bfe"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/pear/Net_SmartIRC/zipball/6d460c262a47d2658d02f83e2b17d017aa835bfe",
-            "reference": "6d460c262a47d2658d02f83e2b17d017aa835bfe",
-            "shasum": ""
-        },
-        "require-dev": {
-            "phpdocumentor/phpdocumentor": "2.7.*"
-        },
-        "time": "2017-01-03T01:23:05+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Net": "Net/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "include-path": [
-            "Net/"
-        ],
-        "license": [
-            "LGPL"
-        ],
-        "authors": [
-            {
-                "name": "Amir Mohammad Saied",
-                "email": "amirsaied@gmail.com",
-                "role": "Lead"
-            },
-            {
-                "name": "Mirco Bauer",
-                "email": "meebey@php.net",
-                "role": "Lead"
-            },
-            {
-                "name": "Garrett Whitehorn",
-                "email": "garrettw87@gmail.com",
-                "role": "Lead"
-            }
-        ],
-        "description": "More info available on: http://pear.php.net/package/Net_SmartIRC"
-    },
-    {
         "name": "apache/log4php",
         "version": "2.3.0",
         "version_normalized": "2.3.0.0",

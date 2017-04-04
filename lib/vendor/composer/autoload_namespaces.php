@@ -15,7 +15,6 @@ return array(
     'React\\EventLoop' => array($vendorDir . '/react/event-loop'),
     'Ratchet\\Tests' => array($vendorDir . '/cboden/Ratchet/tests'),
     'Ratchet' => array($vendorDir . '/cboden/Ratchet/src'),
-    'Net' => array($vendorDir . '/pear/net_smartirc/Net'),
     'Guzzle\\Stream' => array($vendorDir . '/guzzle/stream'),
     'Guzzle\\Parser' => array($vendorDir . '/guzzle/parser'),
     'Guzzle\\Http' => array($vendorDir . '/guzzle/http'),

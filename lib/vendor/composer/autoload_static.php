@@ -66,13 +66,6 @@ class ComposerStaticInitdc7a7f870bf2b50e46f72eb64cbac8b9
                 0 => __DIR__ . '/..' . '/cboden/Ratchet/src',
             ),
         ),
-        'N' => 
-        array (
-            'Net' => 
-            array (
-                0 => __DIR__ . '/..' . '/pear/net_smartirc/Net',
-            ),
-        ),
         'G' => 
         array (
             'Guzzle\\Stream' => 
@@ -248,16 +241,6 @@ class ComposerStaticInitdc7a7f870bf2b50e46f72eb64cbac8b9
         'LoggerRoot' => __DIR__ . '/..' . '/apache/log4php/src/main/php/LoggerRoot.php',
         'LoggerThrowableInformation' => __DIR__ . '/..' . '/apache/log4php/src/main/php/LoggerThrowableInformation.php',
         'LoggerUtils' => __DIR__ . '/..' . '/apache/log4php/src/main/php/helpers/LoggerUtils.php',
-        'Net_SmartIRC' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC.php',
-        'Net_SmartIRC_Error' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC.php',
-        'Net_SmartIRC_channel' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC.php',
-        'Net_SmartIRC_channeluser' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC.php',
-        'Net_SmartIRC_data' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC.php',
-        'Net_SmartIRC_irccommands' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC/irccommands.php',
-        'Net_SmartIRC_ircuser' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC.php',
-        'Net_SmartIRC_listenfor' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC.php',
-        'Net_SmartIRC_messagehandler' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC/messagehandler.php',
-        'Net_SmartIRC_user' => __DIR__ . '/..' . '/pear/net_smartirc/Net/SmartIRC.php',
         'Ratchet\\AbstractConnectionDecorator' => __DIR__ . '/..' . '/cboden/Ratchet/src/Ratchet/AbstractConnectionDecorator.php',
         'Ratchet\\ComponentInterface' => __DIR__ . '/..' . '/cboden/Ratchet/src/Ratchet/ComponentInterface.php',
         'Ratchet\\ConnectionInterface' => __DIR__ . '/..' . '/cboden/Ratchet/src/Ratchet/ConnectionInterface.php',

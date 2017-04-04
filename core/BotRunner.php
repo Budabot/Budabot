@@ -141,6 +141,7 @@ In-Game Contact:  Tyrence27
 
 	private function loadPhpLibraries() {
 		require_once './lib/addendum-0.4.1/annotations.php';
+		require_once './lib/Net_SmartIRC-1.0.2/SmartIRC.php';
 		require_once './lib/vendor/autoload.php';
 		require_once './lib/LoggerAppenderBuffer.php';
 	}
