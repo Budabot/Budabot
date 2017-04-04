@@ -225,6 +225,7 @@ class IRCController {
 		$realname = 'Budabot - SmartIRC Client ' . SMARTIRC_VERSION;
 
 		$this->irc = new Net_SmartIRC();
+		$this->irc->setUseSockets(true);
 		$this->irc->setChannelSyncing(true);
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_CHANNEL, '', $this, 'channelMessage');
 		$this->irc->registerActionhandler(SMARTIRC_TYPE_QUERY, '', $this, 'queryMessage');
@@ -428,7 +429,7 @@ class IRCController {
 			return false;
 		}
 
-		if ($this->irc->_updatestate() !== SMARTIRC_STATE_CONNECTED) {
+		if ($this->irc->_state() !== SMARTIRC_STATE_CONNECTED) {
 			return false;
 		}
 
