@@ -25,14 +25,14 @@ class RunAsController extends AutoInject {
 	 * Set automatically by module loader.
 	 */
 	public $moduleName;
-	
+
 	/**
 	 * @Setup
 	 */
 	public function setup() {
 		
 	}
-	
+
 	/**
 	 * @HandlesCommand("runas")
 	 * @Matches("/^runas ([a-z0-9-]+) (.+)$/i")
@@ -40,6 +40,10 @@ class RunAsController extends AutoInject {
 	public function runasCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$command = $args[2];
-		$this->commandManager->process($channel, $command, $name, $sendto);
+		if ($this->chatBot->vars["SuperAdmin"] == $sender || $this->accessManager->compareCharacterAccessLevels($sender, $name) > 0) {
+			$this->commandManager->process($channel, $command, $name, $sendto);
+		} else {
+			$sendto->reply("Error! Access level not high enough to run commands as <highlight>$name<end>.");
+		}
 	}
 }
