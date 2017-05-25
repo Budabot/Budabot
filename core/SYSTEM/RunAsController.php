@@ -40,10 +40,10 @@ class RunAsController extends AutoInject {
 	public function runasCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[1]));
 		$command = $args[2];
-		if ($this->chatBot->vars["SuperAdmin"] == $sender || $this->accessManager->compareCharacterAccessLevels($sender, $name) > 0) {
+		if ($this->accessManager->checkAccess($sender, "superadmin") || $this->accessManager->compareCharacterAccessLevels($sender, $name) > 0) {
 			$this->commandManager->process($channel, $command, $name, $sendto);
 		} else {
-			$sendto->reply("Error! Access level not high enough to run commands as <highlight>$name<end>.");
+			$sendto->reply("Error! Access level not sufficient to run commands as <highlight>$name<end>.");
 		}
 	}
 }
