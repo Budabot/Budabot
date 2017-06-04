@@ -11,22 +11,22 @@ class CacheManager {
 
 	/** @Inject */
 	public $chatBot;
-	
+
 	/** @Inject */
 	public $http;
-	
+
 	/** @Inject */
 	public $util;
-	
-	private $cache;
+
+	private $cacheDir;
 
 	/** @Setup */
 	public function init() {
-		$this->cache = $this->chatBot->vars["cachefolder"];
+		$this->cacheDir = $this->chatBot->vars["cachefolder"];
 
 		//Making sure that the cache folder exists
-		if (!dir($this->cache)) {
-			mkdir($this->cache, 0777);
+		if (!dir($this->cacheDir)) {
+			mkdir($this->cacheDir, 0777);
 		}
 	}
 
@@ -34,9 +34,9 @@ class CacheManager {
 		if (empty($groupName)) {
 			throw new Exception("Cache group name cannot be empty");
 		}
-		
+
 		$cacheResult = new CacheResult();
-	
+
 		// Check if a xml file of the person exists and if it is uptodate
 		if (!$forceUpdate && $this->cacheExists($groupName, $filename)) {
 			$cacheAge = $this->getCacheAge($groupName, $filename);
@@ -84,22 +84,22 @@ class CacheManager {
 				$this->remove($groupName, $filename);
 			}
 		}
-		
+
 		// if a new file was downloaded, save it in the cache
 		if ($cacheResult->usedCache === false && $cacheResult->success === true) {
 			$this->store($groupName, $filename, $cacheResult->data);
 		}
-		
+
 		return $cacheResult;
 	}
-	
+
 	public function store($groupName, $filename, $contents) {
-		if (!dir($this->cache . '/' . $groupName)) {
-			mkdir($this->cache . '/' . $groupName, 0777);
+		if (!dir($this->cacheDir . '/' . $groupName)) {
+			mkdir($this->cacheDir . '/' . $groupName, 0777);
 		}
-		
-		$cacheFile = "$this->cache/$groupName/$filename";
-	
+
+		$cacheFile = "$this->cacheDir/$groupName/$filename";
+
 		// at least in windows, modifcation timestamp will not change unless this is done
 		// not sure why that is the case -tyrence
 		@unlink($cacheFile);
@@ -110,45 +110,45 @@ class CacheManager {
 	}
 	
 	public function retrieve($groupName, $filename) {
-		$cacheFile = "$this->cache/$groupName/$filename";
-		
+		$cacheFile = "{$this->cacheDir}/$groupName/$filename";
+
 		if (file_exists($cacheFile)) {
 			return file_get_contents($cacheFile);
 		} else {
 			return null;
 		}
 	}
-	
+
 	public function getCacheAge($groupName, $filename) {
-		$cacheFile = "$this->cache/$groupName/$filename";
-		
+		$cacheFile = "$this->cacheDir/$groupName/$filename";
+
 		if (file_exists($cacheFile)) {
 			return time() - filemtime($cacheFile);
 		} else {
 			return null;
 		}
 	}
-	
+
 	public function cacheExists($groupName, $filename) {
-		$cacheFile = "$this->cache/$groupName/$filename";
-		
+		$cacheFile = "$this->cacheDir/$groupName/$filename";
+
 		return file_exists($cacheFile);
 	}
-	
+
 	public function remove($groupName, $filename) {
-		$cacheFile = "$this->cache/$groupName/$filename";
-		
+		$cacheFile = "$this->cacheDir/$groupName/$filename";
+
 		@unlink($cacheFile);
 	}
-	
+
 	public function getFilesInGroup($groupName) {
-		$path = "$this->cache/$groupName/";
-	
+		$path = "$this->cacheDir/$groupName/";
+
 		return $this->util->getFilesInDirectory($path);
 	}
-	
+
 	public function getGroups() {
-		return $this->util->getDirectoriesInDirectory($this->cache);
+		return $this->util->getDirectoriesInDirectory($this->cacheDir);
 	}
 }
 

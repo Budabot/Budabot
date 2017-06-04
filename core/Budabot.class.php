@@ -129,6 +129,8 @@ class Budabot extends AOChat {
 		forEach (Registry::getAllInstances() as $name => $instance) {
 			if (isset($instance->moduleName)) {
 				$this->registerInstance($name, $instance);
+			} else {
+				$this->callSetupMethod($name, $instance);
 			}
 		}
 		$this->db->commit();
@@ -795,6 +797,17 @@ class Budabot extends AOChat {
 				$definition['help'],
 				$definition['defaultStatus']
 			);
+		}
+	}
+
+	public function callSetupMethod($name, $obj) {
+		$reflection = new ReflectionAnnotatedClass($obj);
+		forEach ($reflection->getMethods() as $method) {
+			if ($method->hasAnnotation('Setup')) {
+				if (call_user_func(array($obj, $method->name)) === false) {
+					$this->logger->log('ERROR', "Failed to call setup handler for '$name'");
+				}
+			}
 		}
 	}
 
