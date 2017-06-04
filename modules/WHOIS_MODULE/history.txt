@@ -4,4 +4,9 @@ To show the history of a player:
 To show the history of a player on specific dimension:
 <highlight><tab><symbol>history 'playername' 'dimension'<end>
 
-Note: valid values for dimension are 1 and 2.
+Valid values for dimension are 1, 2, and 5:
+1 - Atlantean
+2 - Rimor
+5 - New Server
+
+(this will not work for characters on Die Neue Welt)
