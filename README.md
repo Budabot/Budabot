@@ -2,7 +2,7 @@
 Budabot is a next-generation chatbot for Anarchy Online.
 
 ## Support & Bug Reports ##
-For all support questions and bug reports please use the [forums](http://budabot.com/forum/). We have also IRC channel available at **irc.funcom.com #budabot**.
+For all support questions and bug reports please use the [forums](http://budabot.com/forum/).
 
 ## Installation ##
 There are three ways that you can obtain Budabot: Release Archives (recommended for most users), Latest Development, or Cloning the Repository (recommended for developers).
@@ -24,4 +24,6 @@ Alternatively you can clone the Budabot git repository. The advantage to doing t
 
 https://github.com/Budabot/Budabot.git
 
+## Running Budabot
 
+To start the bot, run the ```chatbot.bat``` file (on linux run the ```chatbot.sh``` file). If it is your first time running the bot, it will take you through the configuration wizard to configure the bot. You will need to have a character name that you you want to run the bot as along with the username and password for the account that has that character. If you want to run this bot as an org bot, you will also need the EXACT org name of the org and the character that the bot runs as will need to have already been invited to the org.

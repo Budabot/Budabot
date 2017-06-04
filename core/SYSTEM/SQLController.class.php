@@ -14,7 +14,7 @@ use Budabot\Core\SQLException;
  *	@DefineCommand(
  *		command       = 'loadsql',
  *		accessLevel   = 'admin',
- *		description   = 'Manually reload an sql file',
+ *		description   = 'Manually reload an SQL file',
  *		help          = 'loadsql.txt'
  *	)
  *	@DefineCommand(
@@ -91,8 +91,6 @@ class SQLController {
 	}
 
 	/**
-	 * This command handler manually reload an sql file.
-	 *
 	 * @HandlesCommand("loadsql")
 	 * @Matches("/^loadsql (.*) (.*)$/i")
 	 */
