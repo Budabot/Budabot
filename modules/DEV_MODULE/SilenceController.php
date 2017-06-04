@@ -135,5 +135,3 @@ class SilenceController extends AutoInject {
 		}
 	}
 }
-
-?>

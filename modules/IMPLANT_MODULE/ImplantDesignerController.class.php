@@ -747,5 +747,3 @@ class ImplantDesignerController extends AutoInject {
 		}
 	}
 }
-
-?>

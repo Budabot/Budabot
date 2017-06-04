@@ -7,5 +7,3 @@ use Exception;
 class SQLException extends Exception {
 
 }
-
-?>

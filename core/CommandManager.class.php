@@ -376,5 +376,3 @@ class CommandManager {
 		return $regexes;
 	}
 }
-
-?>

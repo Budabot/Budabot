@@ -321,5 +321,3 @@ class EventManager {
 		}
 	}
 }
-
-?>

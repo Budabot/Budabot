@@ -153,5 +153,3 @@ class PremadeImplantController {
 		return "<header2>$implant->profession<end> $implant->slot <highlight>$implant->ability<end> $implant->shiny, $implant->bright, $implant->faded\n";
 	}
 }
-
-?>

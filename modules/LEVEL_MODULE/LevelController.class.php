@@ -160,5 +160,3 @@ class LevelController {
 		return $this->db->query($sql);
 	}
 }
-
-?>

@@ -24,10 +24,10 @@ class CommandSearchController {
 	public $db;
 
 	/** @Inject */
-	public $accessManager;
+	public $text;
 
-	/** @Inject("CommandSearchView") */
-	public $view;
+	/** @Inject */
+	public $accessManager;
 
 	private $searchWords;
 
@@ -59,7 +59,7 @@ class CommandSearchController {
 			$results = array_slice($results, 0, 5);
 		}
 
-		$msg = $this->view->render($results, $access, $exactMatch);
+		$msg = $this->render($results, $access, $exactMatch);
 
 		$sendto->reply($msg);
 
@@ -110,5 +110,34 @@ class CommandSearchController {
 			return 0;
 		}
 		return ($d1 < $d2) ? -1 : 1;
+	}
+
+	public function render($results, $hasAccess, $exactMatch) {
+		$blob = '';
+		forEach ($results as $row) {
+			if ($row->help != '') {
+				$helpLink = ' (' . $this->text->makeChatcmd("Help", "/tell <myname> help $row->cmd") . ')';
+			}
+			if ($hasAccess) {
+				$module = $this->text->makeChatcmd($row->module, "/tell <myname> config {$row->module}");
+			} else {
+				$module = "{$row->module}";
+			}
+
+			$cmd = str_pad($row->cmd . " ", 20, ".");
+			$blob .= "<highlight>{$cmd}<end> {$module} - {$row->description}{$helpLink}\n";
+		}
+
+		$count = count($results);
+		if ($count == 0) {
+			$msg = "No results found.";
+		} else {
+			if ($exactMatch) {
+				$msg = $this->text->makeBlob("Command Search Results ($count)", $blob);
+			} else {
+				$msg = $this->text->makeBlob("Possible Matches ($count)", $blob);
+			}
+		}
+		return $msg;
 	}
 }

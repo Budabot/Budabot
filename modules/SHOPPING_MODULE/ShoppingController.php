@@ -268,7 +268,7 @@ class ShoppingController {
 			$this->db->exec($sql, $id, $lowid, $highid, $ql, $iconid, $name);
 		}
 		
-		$this->playerManager->get_by_name($sender);
+		$this->playerManager->getByName($sender);
 	}
 	
 	private function parseSpambotMessage($eventObj) {

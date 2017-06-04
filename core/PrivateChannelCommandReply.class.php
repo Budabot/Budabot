@@ -17,5 +17,3 @@ class PrivateChannelCommandReply implements CommandReply {
 		$this->chatBot->sendPrivate($msg, false, $this->channel);
 	}
 }
-
-?>

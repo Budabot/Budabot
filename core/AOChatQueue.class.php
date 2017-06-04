@@ -104,5 +104,3 @@ class AOChatQueue {
 		return null;
 	}
 }
-
-?>

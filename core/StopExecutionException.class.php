@@ -7,5 +7,3 @@ use Exception;
 class StopExecutionException extends Exception {
 
 }
-
-?>

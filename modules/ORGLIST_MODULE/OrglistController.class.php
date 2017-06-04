@@ -106,7 +106,7 @@ class OrglistController {
 
 		// check if search is a character and add character's org to org list if it's not already in the list		
 		$name = ucfirst(strtolower($search));
-		$whois = $this->playerManager->get_by_name($name);
+		$whois = $this->playerManager->getByName($name);
 		if ($whois !== null && $whois->guild_id != 0) {
 			$found = false;
 			forEach ($orgs as $org) {
@@ -142,7 +142,7 @@ class OrglistController {
 
 		$sendto->reply("Downloading org roster for org id $orgid...");
 
-		$org = $this->guildManager->get_by_id($orgid);
+		$org = $this->guildManager->getById($orgid);
 
 		if ($org === null) {
 			$msg = "Error in getting the Org info. Either org does not exist or AO's server was too slow to respond.";

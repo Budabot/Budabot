@@ -167,5 +167,3 @@ class MMDBParser {
 		return $message;
 	}
 }
-
-?>

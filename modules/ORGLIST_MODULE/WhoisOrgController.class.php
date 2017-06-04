@@ -58,7 +58,7 @@ class WhoisOrgController {
 		} else {
 			// Someone's name.  Doing a whois to get an orgID.
 			$name = ucfirst(strtolower($args[1]));
-			$whois = $this->playerManager->get_by_name($name, $rk_num);
+			$whois = $this->playerManager->getByName($name, $rk_num);
 
 			if ($whois === null) {
 				$msg = "Could not find character info for $name.";
@@ -76,7 +76,7 @@ class WhoisOrgController {
 		$msg = "Getting org info...";
 		$sendto->reply($msg);
 
-		$org = $this->guildManager->get_by_id($org_id, $rk_num);
+		$org = $this->guildManager->getById($org_id, $rk_num);
 		if ($org === null) {
 			$msg = "Error in getting the org info. Either the org does not exist or AO's server was too slow to respond.";
 			$sendto->reply($msg);

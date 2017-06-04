@@ -204,5 +204,3 @@ class SettingManager {
 		return $handler;
 	}
 }
-
-?>

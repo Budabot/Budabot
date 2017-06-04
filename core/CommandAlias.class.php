@@ -181,5 +181,3 @@ class CommandAlias {
 		return $this->cmd_aliases[$alias];
 	}
 }
-
-?>

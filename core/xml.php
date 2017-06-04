@@ -59,6 +59,4 @@ class xml {
 		}
 		return $targetdata;
 	}
-} //end class xml
-
-?>
+}

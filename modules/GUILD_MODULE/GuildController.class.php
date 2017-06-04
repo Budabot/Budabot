@@ -185,21 +185,15 @@ class GuildController {
 		if (!$uid) {
 			$msg = "Character <highlight>$name<end> does not exist.";
 		} else {
-			$altInfo = $this->altsController->get_alt_info($name);
-			$onlineAlts = $altInfo->get_online_alts();
+			$altInfo = $this->altsController->getAltInfo($name);
+			$onlineAlts = $altInfo->getOnlineAlts();
 
 			$blob = "";
 			forEach ($onlineAlts as $onlineAlt) {
 				$blob .= "<highlight>$onlineAlt<end> is currently online.\n";
 			}
-
-			$namesSql = '';
-			forEach ($altInfo->get_all_alts() as $alt) {
-				if ($namesSql) {
-					$namesSql .= ", ";
-				}
-				$namesSql .= "'$alt'";
-			}
+			
+			$namesSql = implode(",", array_map(function($alt) { return "'$alt'";}, $altInfo->getAllAlts()));
 			$data = $this->db->query("SELECT * FROM org_members_<myname> WHERE `name` IN ($namesSql) AND `mode` != 'del' ORDER BY logged_off DESC");
 
 			forEach ($data as $row) {
@@ -358,7 +352,7 @@ class GuildController {
 			$this->logger->log('INFO', "Starting Roster update");
 
 			// Get the guild info
-			$org = $this->guildManager->get_by_id($this->chatBot->vars["my_guild_id"], $this->chatBot->vars["dimension"], true);
+			$org = $this->guildManager->getById($this->chatBot->vars["my_guild_id"], $this->chatBot->vars["dimension"], true);
 
 			// Check if guild xml file is correct if not abort
 			if ($org === null) {
@@ -482,7 +476,7 @@ class GuildController {
 			$this->chatBot->sendGuild($msg);
 
 			// update character info
-			$this->playerManager->get_by_name($name);
+			$this->playerManager->getByName($name);
 		} else if (preg_match("/^(.+) kicked (.+) from your organization.$/", $message, $arr) || preg_match("/^(.+) removed inactive character (.+) from your organization.$/", $message, $arr)) {
 			$name = ucfirst(strtolower($arr[2]));
 
@@ -514,16 +508,16 @@ class GuildController {
 	 */
 	public function orgMemberLogonMessageEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
+		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
 			if ($this->settingManager->get('first_and_last_alt_only') == 1) {
 				// if at least one alt/main is still online, don't show logoff message
-				$altInfo = $this->altsController->get_alt_info($sender);
-				if (count($altInfo->get_online_alts()) > 1) {
+				$altInfo = $this->altsController->getAltInfo($sender);
+				if (count($altInfo->getOnlineAlts()) > 1) {
 					return;
 				}
 			}
 
-			$whois = $this->playerManager->get_by_name($sender);
+			$whois = $this->playerManager->getByName($sender);
 
 			$msg = '';
 			if ($whois === null) {
@@ -533,9 +527,9 @@ class GuildController {
 
 				$msg .= " logged on.";
 
-				$altInfo = $this->altsController->get_alt_info($sender);
+				$altInfo = $this->altsController->getAltInfo($sender);
 				if (count($altInfo->alts) > 0) {
-					$msg .= " " . $altInfo->get_alts_blob(false, true);
+					$msg .= " " . $altInfo->getAltsBlob(false, true);
 				}
 			}
 
@@ -559,11 +553,11 @@ class GuildController {
 	 */
 	public function orgMemberLogoffMessageEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
+		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
 			if ($this->settingManager->get('first_and_last_alt_only') == 1) {
 				// if at least one alt/main is already online, don't show logoff message
-				$altInfo = $this->altsController->get_alt_info($sender);
-				if (count($altInfo->get_online_alts()) > 0) {
+				$altInfo = $this->altsController->getAltInfo($sender);
+				if (count($altInfo->getOnlineAlts()) > 0) {
 					return;
 				}
 			}
@@ -589,7 +583,7 @@ class GuildController {
 	 */
 	public function orgMemberLogoffRecordEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
+		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
 			$this->db->exec("UPDATE org_members_<myname> SET `logged_off` = ? WHERE `name` = ?", time(), $sender);
 		}
 	}

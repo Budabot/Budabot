@@ -67,7 +67,7 @@ class ConfigFile {
 					$lines []= "\$vars['$name'] = $value;\n";
 				}
 			}
-			$lines []= "?>\n";
+			$lines []= "\n";
 		}
 
 		file_put_contents($this->filePath, $lines);

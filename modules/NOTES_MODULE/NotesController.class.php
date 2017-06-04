@@ -45,7 +45,7 @@ class NotesController {
 	 * @Matches("/^notes$/i")
 	 */
 	public function notesListCommand($message, $channel, $sender, $sendto, $args) {
-		$altInfo = $this->altsController->get_alt_info($sender);
+		$altInfo = $this->altsController->getAltInfo($sender);
 		$main = $altInfo->getValidatedMain($sender);
 		
 		if ($main != $sender) {
@@ -78,7 +78,7 @@ class NotesController {
 	public function notesAddCommand($message, $channel, $sender, $sendto, $args) {
 		$note = $args[1];
 		
-		$altInfo = $this->altsController->get_alt_info($sender);
+		$altInfo = $this->altsController->getAltInfo($sender);
 		$main = $altInfo->getValidatedMain($sender);
 
 		$this->db->exec("INSERT INTO notes (name, note) VALUES(?, ?)", $main, $note);
@@ -94,7 +94,7 @@ class NotesController {
 	public function notesRemoveCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
 		
-		$altInfo = $this->altsController->get_alt_info($sender);
+		$altInfo = $this->altsController->getAltInfo($sender);
 		$main = $altInfo->getValidatedMain($sender);
 
 		$numRows = $this->db->exec("DELETE FROM notes WHERE id = ? AND name = ?", $id, $main);
@@ -107,5 +107,3 @@ class NotesController {
 		$sendto->reply($msg);
 	}
 }
-
-?>

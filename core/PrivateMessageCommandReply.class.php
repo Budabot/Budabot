@@ -17,5 +17,3 @@ class PrivateMessageCommandReply implements CommandReply {
 		$this->chatBot->sendTell($msg, $this->sender);
 	}
 }
-
-?>

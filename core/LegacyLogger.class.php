@@ -38,5 +38,3 @@ class LegacyLogger {
 		return $level;
 	}
 }
-
-?>

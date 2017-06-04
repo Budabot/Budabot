@@ -366,5 +366,3 @@ class RaffleController {
 		$this->raffles["nextmsgtime"] = $this->get_next_time($this->raffles["time"]);
 	}
 }
-
-?>

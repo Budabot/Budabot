@@ -142,5 +142,3 @@ function smallCast($val, $bits) {
 	$binstr = decbin2($val);
 	return bindec2(substr($binstr, 32 - $bits));
 }
-
-?>

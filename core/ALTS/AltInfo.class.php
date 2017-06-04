@@ -8,7 +8,7 @@ class AltInfo {
 	public $main; // The main for this character
 	public $alts = array(); // The list of alts for this character
 
-	public function is_validated($sender) {
+	public function isValidated($sender) {
 		if ($sender == $this->main) {
 			return true;
 		}
@@ -23,7 +23,7 @@ class AltInfo {
 		return false;
 	}
 
-	public function get_alts_blob($showValidateLinks = false, $firstPageOnly = false) {
+	public function getAltsBlob($showValidateLinks = false, $firstPageOnly = false) {
 		$db = Registry::getInstance('db');
 		$settingManager = Registry::getInstance('settingManager');
 		$playerManager = Registry::getInstance('playerManager');
@@ -37,7 +37,7 @@ class AltInfo {
 		$online = $buddylistManager->isOnline($this->main);
 		$blob .= $this->formatCharName($this->main, $online);
 
-		$character = $playerManager->get_by_name($this->main);
+		$character = $playerManager->getByName($this->main);
 		if ($character !== null) {
 			$blob .= " ({$character->level}/<green>{$character->ai_level}<end> {$character->profession})";
 		}
@@ -71,7 +71,7 @@ class AltInfo {
 		}
 	}
 
-	public function get_online_alts() {
+	public function getOnlineAlts() {
 		$online_list = array();
 		$buddylistManager = Registry::getInstance('buddylistManager');
 
@@ -88,7 +88,7 @@ class AltInfo {
 		return $online_list;
 	}
 
-	public function get_all_alts() {
+	public function getAllAlts() {
 		$online_list = array();
 
 		$online_list []= $this->main;
@@ -101,8 +101,8 @@ class AltInfo {
 	}
 
 	public function hasUnvalidatedAlts() {
-		forEach ($this->get_all_alts() as $alt) {
-			if (!$this->is_validated($alt)) {
+		forEach ($this->getAllAlts() as $alt) {
+			if (!$this->isValidated($alt)) {
 				return true;
 			}
 		}
@@ -110,7 +110,7 @@ class AltInfo {
 	}
 	
 	public function getValidatedMain($sender) {
-		if ($this->is_validated($sender)) {
+		if ($this->isValidated($sender)) {
 			return $this->main;
 		} else {
 			return $sender;

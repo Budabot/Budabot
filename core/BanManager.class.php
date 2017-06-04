@@ -53,7 +53,7 @@ class BanManager {
 		if (isset($this->banlist[$name])) {
 			return true;
 		} else {
-			$whois = $this->playerManager->get_by_name($name);
+			$whois = $this->playerManager->getByName($name);
 			return isset($this->banlist[$whois->guild]);
 		}
 	}
@@ -62,5 +62,3 @@ class BanManager {
 		return $this->banlist;
 	}
 }
-
-?>

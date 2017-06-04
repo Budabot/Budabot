@@ -204,7 +204,7 @@ class Budabot extends AOChat {
 		// when bot isn't ready we wait for packets
 		// to make sure the server has finished sending them
 		// before marking the bot as ready
-		$packet = $this->wait_for_packet($this->is_ready() ? 0 : 1);
+		$packet = $this->wait_for_packet($this->isReady() ? 0 : 1);
 		if ($packet) {
 			$this->process_packet($packet);
 			return true;
@@ -799,10 +799,10 @@ class Budabot extends AOChat {
 	}
 
 	/**
-	 * @name: is_ready
+	 * @name: isReady
 	 * @description: tells when the bot is logged on and all the start up events have finished
 	 */
-	public function is_ready() {
+	public function isReady() {
 		return $this->ready && (time() >= $this->vars["startup"] + $this->settingManager->get("logon_delay"));
 	}
 	
@@ -810,5 +810,3 @@ class Budabot extends AOChat {
 		return $channel == $this->setting->default_private_channel;
 	}
 }
-
-?>

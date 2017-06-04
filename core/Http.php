@@ -57,5 +57,3 @@ class Http {
 		return $asyncHttp;
 	}
 }
-
-?>

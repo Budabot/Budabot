@@ -15,5 +15,3 @@ class GuildChannelCommandReply implements CommandReply {
 		$this->chatBot->sendGuild($msg);
 	}
 }
-
-?>

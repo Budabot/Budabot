@@ -289,4 +289,3 @@ $configFile->insertVars($vars);
 $configFile->save();
 
 die("Restarting bot");
-?>

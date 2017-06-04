@@ -266,5 +266,3 @@ class AOChatPacket {
 		return true;
 	}
 }
-
-?>

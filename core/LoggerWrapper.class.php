@@ -50,5 +50,3 @@ class LoggerWrapper {
 		return $this->logger->isEnabledFor($level);
 	}
 }
-
-?>

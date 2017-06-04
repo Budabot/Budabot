@@ -77,5 +77,3 @@ class PrivateChannelCommandReplyA extends PrivateChannelCommandReply {
 		}
 	}
 }
-
-?>

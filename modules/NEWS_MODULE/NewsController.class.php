@@ -78,7 +78,7 @@ class NewsController {
 	public function logonEvent($eventObj) {
 		$sender = $eventObj->sender;
 
-		if ($this->chatBot->is_ready() && isset($this->chatBot->guildmembers[$sender])) {
+		if ($this->chatBot->isReady() && isset($this->chatBot->guildmembers[$sender])) {
 			if ($this->hasRecentNews()) {
 				$this->chatBot->sendTell($this->getNews(), $sender);
 			}
@@ -196,5 +196,3 @@ class NewsController {
 		return $this->db->queryRow("SELECT * FROM `news` WHERE `deleted` = 0 AND `id` = ?", $id);
 	}
 }
-
-?>

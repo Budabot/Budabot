@@ -183,7 +183,7 @@ class WhoisController {
 		$charId = $this->chatBot->get_uid($name);
 		$lookupNameLink = $this->text->makeChatcmd("Lookup", "/tell <myname> lookup $name");
 		$lookupCharIdLink = $this->text->makeChatcmd("Lookup", "/tell <myname> lookup $charId");
-		$whois = $this->playerManager->get_by_name($name);
+		$whois = $this->playerManager->getByName($name);
 		if ($whois === null) {
 			$blob = "<orange>Note: Could not retrieve detailed info for character.<end>\n\n";
 			$blob .= "Name: <highlight>{$name}<end> {$lookupNameLink}\n";
@@ -225,9 +225,9 @@ class WhoisController {
 			}
 			$msg .= " :: " . $this->text->makeBlob("More Info", $blob, "Detailed Info for {$name}");
 
-			$altInfo = $this->altsController->get_alt_info($name);
+			$altInfo = $this->altsController->getAltInfo($name);
 			if (count($altInfo->alts) > 0) {
-				$msg .= " :: " . $altInfo->get_alts_blob(false, true);
+				$msg .= " :: " . $altInfo->getAltsBlob(false, true);
 			}
 		}
 		return $msg;

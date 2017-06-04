@@ -336,5 +336,3 @@ class BanController {
 		return true;
 	}
 }
-
-?>

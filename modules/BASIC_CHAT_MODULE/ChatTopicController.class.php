@@ -108,7 +108,7 @@ class ChatTopicController {
 		if ($this->settingManager->get('topic') == '') {
 			return;
 		}
-		if (isset($this->chatBot->guildmembers[$eventObj->sender]) && $this->chatBot->is_ready()) {
+		if (isset($this->chatBot->guildmembers[$eventObj->sender]) && $this->chatBot->isReady()) {
 			$msg = $this->buildTopicMessage();
 			$this->chatBot->sendTell($msg, $eventObj->sender);
 		}

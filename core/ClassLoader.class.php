@@ -127,5 +127,3 @@ class ClassLoader {
 		return $newInstances;
 	}
 }
-
-?>

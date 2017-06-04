@@ -96,7 +96,7 @@ class LimitsController {
 	public function runChecks($sender) {
 		if ($this->settingManager->get("tell_req_lvl") != 0 || $this->settingManager->get("tell_req_faction") != "all") {
 			// get player info which is needed for following checks
-			$whois = $this->playerManager->get_by_name($sender);
+			$whois = $this->playerManager->getByName($sender);
 			if ($whois === null) {
 				return "Error! Unable to get your character info for limit checks. Please try again later.";
 			}
@@ -137,5 +137,3 @@ class LimitsController {
 		return true;
 	}
 }
-
-?>

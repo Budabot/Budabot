@@ -145,5 +145,3 @@ class AXPController {
 		$sendto->reply($msg);
 	}
 }
-
-?>

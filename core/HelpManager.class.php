@@ -147,5 +147,3 @@ class HelpManager {
 		return false;
 	}
 }
-
-?>

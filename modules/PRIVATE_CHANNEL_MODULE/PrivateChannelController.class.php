@@ -565,19 +565,19 @@ class PrivateChannelController {
 	 */
 	public function joinPrivateChannelMessageEvent($eventObj) {
 		$sender = $eventObj->sender;
-		$whois = $this->playerManager->get_by_name($sender);
+		$whois = $this->playerManager->getByName($sender);
 
-		$altInfo = $this->altsController->get_alt_info($sender);
+		$altInfo = $this->altsController->getAltInfo($sender);
 
 		if ($whois !== null) {
 			if (count($altInfo->alts) > 0) {
-				$msg = $this->playerManager->get_info($whois) . " has joined the private channel. " . $altInfo->get_alts_blob(false, true);
+				$msg = $this->playerManager->get_info($whois) . " has joined the private channel. " . $altInfo->getAltsBlob(false, true);
 			} else {
 				$msg = $this->playerManager->get_info($whois) . " has joined the private channel.";
 			}
 		} else {
 			if (count($altInfo->alts) > 0) {
-				$msg .= "$sender has joined the private channel. " . $altInfo->get_alts_blob(false, true);
+				$msg .= "$sender has joined the private channel. " . $altInfo->getAltsBlob(false, true);
 			} else {
 				$msg = "$sender has joined the private channel.";
 			}

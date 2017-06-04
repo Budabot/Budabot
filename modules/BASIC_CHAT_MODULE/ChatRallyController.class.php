@@ -157,5 +157,3 @@ class ChatRallyController {
 		$sendto->reply($rally);
 	}
 }
-
-?>

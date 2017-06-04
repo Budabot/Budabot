@@ -88,5 +88,3 @@ class ClusterController {
 		$sendto->reply($msg);
 	}
 }
-
-?>

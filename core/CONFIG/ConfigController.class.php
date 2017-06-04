@@ -576,7 +576,7 @@ class ConfigController {
 	/**
 	 * This helper method converts given short access level name to long name.
 	 */
-	private function get_admin_description($admin) {
+	private function getAdminDescription($admin) {
 		$desc = $this->accessManager->getDisplayName($admin);
 		return ucfirst(strtolower($desc));
 	}
@@ -594,7 +594,7 @@ class ConfigController {
 
 			$found_msg = 1;
 
-			$row->admin = $this->get_admin_description($row->admin);
+			$row->admin = $this->getAdminDescription($row->admin);
 
 			if ($row->status == 1) {
 				$status = "<green>Enabled<end>";
@@ -633,7 +633,7 @@ class ConfigController {
 				$subcmd_list .= "Description: $row->description\n";
 			}
 
-			$row->admin = $this->get_admin_description($row->admin);
+			$row->admin = $this->getAdminDescription($row->admin);
 
 			if ($row->status == 1) {
 				$status = "<green>Enabled<end>";

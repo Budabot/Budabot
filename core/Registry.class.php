@@ -86,5 +86,3 @@ class Registry {
 		return self::$repo;
 	}
 }
-
-?>

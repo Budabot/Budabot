@@ -166,5 +166,3 @@ class CityWaveController {
 		$this->timerController->add(self::TIMER_NAME, $this->chatBot->vars['name'], "guild", $alerts, 'timercontroller.timerCallback');
 	}
 }
-
-?>

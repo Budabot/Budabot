@@ -97,5 +97,3 @@ class BuddylistManager {
 		unset($this->buddyList[$bid]);
 	}
 }
-
-?>

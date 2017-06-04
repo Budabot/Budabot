@@ -82,5 +82,3 @@ class CountdownController {
 		$sendto->reply($msg);
 	}
 }
-
-?>

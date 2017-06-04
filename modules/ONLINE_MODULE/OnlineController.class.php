@@ -129,7 +129,7 @@ class OnlineController {
 	 */
 	public function showOnlineOnLogonEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
+		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
 			list($numonline, $msg, $blob) = $this->get_online_list();
 			if ($numonline != 0) {
 				$msg = $this->text->makeBlob($msg, $blob);
@@ -145,7 +145,7 @@ class OnlineController {
 	 * @Description("Online check")
 	 */
 	public function onlineCheckEvent($eventObj) {
-		if ($this->chatBot->is_ready()) {
+		if ($this->chatBot->isReady()) {
 			//$this->db->beginTransaction();
 			$data = $this->db->query("SELECT name, channel_type FROM `online`");
 
@@ -462,7 +462,7 @@ class OnlineController {
 	}
 
 	public function get_alt_char_info($name, $fancyColon) {
-		$altinfo = $this->altsController->get_alt_info($name);
+		$altinfo = $this->altsController->getAltInfo($name);
 
 		if (count($altinfo->alts) > 0) {
 			$altsLink = $this->text->makeChatcmd(($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}"), "/tell <myname> alts {$name}");
@@ -471,5 +471,3 @@ class OnlineController {
 		return $alt;
 	}
 }
-
-?>

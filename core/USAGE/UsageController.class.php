@@ -304,5 +304,3 @@ class UsageController {
 		return $guildClass;
 	}
 }
-
-?>

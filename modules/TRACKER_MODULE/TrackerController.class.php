@@ -72,7 +72,7 @@ class TrackerController {
 	 * @Description("Records a tracked user logging on")
 	 */
 	public function trackLogonEvent($eventObj) {
-		if ($this->chatBot->is_ready()) {
+		if ($this->chatBot->isReady()) {
 			$uid = $this->chatBot->get_uid($eventObj->sender);
 			$data = $this->db->query("SELECT * FROM tracked_users_<myname> WHERE uid = ?", $uid);
 			if (count($data) > 0) {
@@ -95,7 +95,7 @@ class TrackerController {
 	 * @Description("Records a tracked user logging off")
 	 */
 	public function trackLogoffEvent($eventObj) {
-		if ($this->chatBot->is_ready()) {
+		if ($this->chatBot->isReady()) {
 			$uid = $this->chatBot->get_uid($eventObj->sender);
 			$data = $this->db->query("SELECT * FROM tracked_users_<myname> WHERE uid = ?", $uid);
 			if (count($data) > 0) {

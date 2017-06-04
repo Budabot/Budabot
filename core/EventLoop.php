@@ -19,7 +19,7 @@ class EventLoop {
 	public function execSingleLoop() {
 		$this->chatBot->processAllPackets();
 
-		if ($this->chatBot->is_ready()) {
+		if ($this->chatBot->isReady()) {
 			$this->socketManager->checkMonitoredSockets();
 			$this->eventManager->executeConnectEvents();
 			$this->timer->executeTimerEvents();

@@ -829,5 +829,3 @@ class LootListsController {
 		return $blob;
 	}
 }
-
-?>

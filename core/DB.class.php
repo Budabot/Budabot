@@ -296,5 +296,3 @@ class DB {
 		return $msg;
 	}
 }
-
-?>

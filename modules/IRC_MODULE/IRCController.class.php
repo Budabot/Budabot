@@ -485,8 +485,8 @@ class IRCController {
 			if (isset($this->chatBot->guildmembers[$eventObj->sender])) {
 				if ($this->setting->first_and_last_alt_only == 1) {
 					// if at least one alt/main is still online, don't show logoff message
-					$altInfo = $this->altsController->get_alt_info($eventObj->sender);
-					if (count($altInfo->get_online_alts()) > 1) {
+					$altInfo = $this->altsController->getAltInfo($eventObj->sender);
+					if (count($altInfo->getOnlineAlts()) > 1) {
 						return;
 					}
 				}
@@ -517,8 +517,8 @@ class IRCController {
 			if (isset($this->chatBot->guildmembers[$eventObj->sender])) {
 				if ($this->setting->first_and_last_alt_only == 1) {
 					// if at least one alt/main is already online, don't show logon message
-					$altInfo = $this->altsController->get_alt_info($eventObj->sender);
-					if (count($altInfo->get_online_alts()) > 0) {
+					$altInfo = $this->altsController->getAltInfo($eventObj->sender);
+					if (count($altInfo->getOnlineAlts()) > 0) {
 						return;
 					}
 				}
@@ -534,7 +534,7 @@ class IRCController {
 	}
 
 	public function getIRCPlayerInfo($sender, $type) {
-		$whois = $this->playerManager->get_by_name($sender);
+		$whois = $this->playerManager->getByName($sender);
 		if ($whois === null) {
 			$whois = new stdClass;
 			$whois->name = $sender;
@@ -569,7 +569,7 @@ class IRCController {
 		}
 
 		// Alternative Characters Part
-		$altInfo = $this->altsController->get_alt_info($sender);
+		$altInfo = $this->altsController->getAltInfo($sender);
 		if ($altInfo->main != $sender) {
 			$msg .= " Alt of {$altInfo->main}";
 		}

@@ -104,5 +104,3 @@ class LinksController {
 		$sendto->reply($msg);
 	}
 }
-
-?>

@@ -321,5 +321,3 @@ class ImplantController {
 		$obj->$tempHighestName = $row->max;
 	}
 }
-
-?>

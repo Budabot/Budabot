@@ -176,8 +176,8 @@ class RelayController {
 	 */
 	public function relayLogonMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if ($this->settingManager->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
-			$whois = $this->playerManager->get_by_name($sender);
+		if ($this->settingManager->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
+			$whois = $this->playerManager->getByName($sender);
 
 			$msg = '';
 			if ($whois === null) {
@@ -187,9 +187,9 @@ class RelayController {
 
 				$msg .= " logged on.";
 
-				$altInfo = $this->altsController->get_alt_info($sender);
+				$altInfo = $this->altsController->getAltInfo($sender);
 				if (count($altInfo->alts) > 0) {
-					$msg .= " " . $altInfo->get_alts_blob(false, true);
+					$msg .= " " . $altInfo->getAltsBlob(false, true);
 				}
 
 				$logon_msg = $this->preferences->get($sender, 'logon_msg');
@@ -208,7 +208,7 @@ class RelayController {
 	 */
 	public function relayLogoffMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
-		if ($this->settingManager->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->is_ready()) {
+		if ($this->settingManager->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
 			$this->send_message_to_relay("grc [<myguild>] <highlight>{$sender}<end> logged off");
 		}
 	}
@@ -220,18 +220,18 @@ class RelayController {
 	public function relayJoinPrivMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if ($this->settingManager->get('relaybot') != 'Off') {
-			$whois = $this->playerManager->get_by_name($sender);
-			$altInfo = $this->altsController->get_alt_info($sender);
+			$whois = $this->playerManager->getByName($sender);
+			$altInfo = $this->altsController->getAltInfo($sender);
 
 			if ($whois !== null) {
 				if (count($altInfo->alts) > 0) {
-					$msg = $this->playerManager->get_info($whois) . " has joined the private channel. " . $altInfo->get_alts_blob(false, true);
+					$msg = $this->playerManager->get_info($whois) . " has joined the private channel. " . $altInfo->getAltsBlob(false, true);
 				} else {
 					$msg = $this->playerManager->get_info($whois) . " has joined the private channel.";
 				}
 			} else {
 				if (count($altInfo->alts) > 0) {
-					$msg .= "$sender has joined the private channel. " . $altInfo->get_alts_blob(false, true);
+					$msg .= "$sender has joined the private channel. " . $altInfo->getAltsBlob(false, true);
 				} else {
 					$msg = "$sender has joined the private channel.";
 				}

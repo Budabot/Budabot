@@ -118,5 +118,3 @@ class AOSpeakController {
 		$sendto->reply($msg);
 	}
 }
-
-?>

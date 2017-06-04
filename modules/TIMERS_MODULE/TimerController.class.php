@@ -397,5 +397,3 @@ class TimerController {
 		return $this->timers;
 	}
 }
-
-?>

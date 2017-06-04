@@ -161,7 +161,7 @@ class EventsController {
 						$info = " <white>Lvl $row->level $row->profession<end>";
 					}
 
-					$altInfo = $this->altsController->get_alt_info($name);
+					$altInfo = $this->altsController->getAltInfo($name);
 					$alt = '';
 					if (count($altInfo->alts) > 0) {
 						if ($altInfo->main == $name) {
@@ -303,7 +303,7 @@ class EventsController {
 	public function logonEvent($eventObj) {
 		$sender = $eventObj->sender;
 
-		if ($this->chatBot->is_ready() && isset($this->chatBot->guildmembers[$sender])) {
+		if ($this->chatBot->isReady() && isset($this->chatBot->guildmembers[$sender])) {
 			if ($this->hasRecentEvents()) {
 				$this->chatBot->sendTell($this->getEvents(), $sender);
 			}

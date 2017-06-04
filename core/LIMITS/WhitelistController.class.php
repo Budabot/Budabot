@@ -124,5 +124,3 @@ class WhitelistController {
 		return $this->db->query("SELECT * FROM whitelist ORDER BY name ASC");
 	}
 }
-
-?>

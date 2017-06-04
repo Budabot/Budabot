@@ -55,7 +55,7 @@ class VentriloController {
 	 * @DefaultStatus("0")
 	 */
 	public function sendVentStatusLogonEvent($eventObj) {
-		if ($this->chatBot->is_ready() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
+		if ($this->chatBot->isReady() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
 			$msg = $this->getVentStatus();
 			$this->chatBot->sendTell($msg, $eventObj->sender);
 		}

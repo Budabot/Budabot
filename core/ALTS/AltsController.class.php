@@ -79,7 +79,7 @@ class AltsController {
 	
 		$sender = ucfirst(strtolower($sender));
 	
-		$senderAltInfo = $this->get_alt_info($sender);
+		$senderAltInfo = $this->getAltInfo($sender);
 		$main = $senderAltInfo->main;
 	
 		$success = 0;
@@ -95,7 +95,7 @@ class AltsController {
 				continue;
 			}
 	
-			$altInfo = $this->get_alt_info($name);
+			$altInfo = $this->getAltInfo($name);
 			if ($altInfo->main == $senderAltInfo->main) {
 				// already registered to self
 				$msg = "<highlight>$name<end> is already registered to you.";
@@ -115,16 +115,16 @@ class AltsController {
 			}
 	
 			$validated = 0;
-			if ($senderAltInfo->is_validated($sender)) {
+			if ($senderAltInfo->isValidated($sender)) {
 				$validated = 1;
 			}
 	
 			// insert into database
-			$this->add_alt($senderAltInfo->main, $name, $validated);
+			$this->addAlt($senderAltInfo->main, $name, $validated);
 			$success++;
 	
 			// update character information
-			$this->playerManager->get_by_name($name);
+			$this->playerManager->getByName($name);
 		}
 	
 		if ($success > 0) {
@@ -142,16 +142,16 @@ class AltsController {
 	public function removeAltCommand($message, $channel, $sender, $sendto, $args) {
 		$name = ucfirst(strtolower($args[2]));
 	
-		$altInfo = $this->get_alt_info($sender);
+		$altInfo = $this->getAltInfo($sender);
 	
 		if ($altInfo->main == $name) {
 			$msg = "You cannot remove <highlight>{$name}<end> as your main.";
 		} else if (!array_key_exists($name, $altInfo->alts)) {
 			$msg = "<highlight>{$name}<end> is not registered as your alt.";
-		} else if (!$altInfo->is_validated($sender) && $altInfo->is_validated($name)) {
+		} else if (!$altInfo->isValidated($sender) && $altInfo->isValidated($name)) {
 			$msg = "You must be on a validated alt to remove another alt that is validated.";
 		} else {
-			$this->rem_alt($altInfo->main, $name);
+			$this->remAlt($altInfo->main, $name);
 			$msg = "<highlight>{$name}<end> has been removed as your alt.";
 		}
 		$sendto->reply($msg);
@@ -164,7 +164,7 @@ class AltsController {
 	 * @Matches("/^alts setmain$/i")
 	 */
 	public function setMainCommand($message, $channel, $sender, $sendto, $args) {
-		$altInfo = $this->get_alt_info($sender);
+		$altInfo = $this->getAltInfo($sender);
 	
 		if ($altInfo->main == $sender) {
 			$msg = "<highlight>{$sender}<end> is already registered as your main.";
@@ -172,7 +172,7 @@ class AltsController {
 			return;
 		}
 	
-		if (!$altInfo->is_validated($sender)) {
+		if (!$altInfo->isValidated($sender)) {
 			$msg = "You must run this command from a validated character.";
 			$sendto->reply($msg);
 			return;
@@ -182,12 +182,12 @@ class AltsController {
 		$this->db->exec("DELETE FROM `alts` WHERE `main` = '{$altInfo->main}'");
 	
 		// add current main to new main as an alt
-		$this->add_alt($sender, $altInfo->main, 1);
+		$this->addAlt($sender, $altInfo->main, 1);
 	
 		// add current alts to new main
 		forEach ($altInfo->alts as $alt => $validated) {
 			if ($alt != $sender) {
-				$this->add_alt($sender, $alt, $validated);
+				$this->addAlt($sender, $alt, $validated);
 			}
 		}
 	
@@ -211,11 +211,11 @@ class AltsController {
 			$name = $sender;
 		}
 	
-		$altInfo = $this->get_alt_info($name);
+		$altInfo = $this->getAltInfo($name);
 		if (count($altInfo->alts) == 0) {
 			$msg = "No alts are registered for <highlight>{$name}<end>.";
 		} else {
-			$msg = $altInfo->get_alts_blob($showValidateLinks);
+			$msg = $altInfo->getAltsBlob($showValidateLinks);
 		}
 	
 		$sendto->reply($msg);
@@ -228,7 +228,7 @@ class AltsController {
 	 * @Matches("/^alts main ([a-z0-9-]+)$/i")
 	 */
 	public function altsMainCommand($message, $channel, $sender, $sendto, $args) {
-		$new_main = $this->get_alt_info($args[1])->main;
+		$new_main = $this->getAltInfo($args[1])->main;
 	
 		$uid = $this->chatBot->get_uid($new_main);
 		if (!$uid) {
@@ -237,7 +237,7 @@ class AltsController {
 			return;
 		}
 	
-		$altInfo = $this->get_alt_info($sender);
+		$altInfo = $this->getAltInfo($sender);
 	
 		if ($altInfo->main == $new_main) {
 			$msg = "You are already registered as an alt of <highlight>{$new_main}<end>.";
@@ -253,12 +253,12 @@ class AltsController {
 	
 		// let them know if they are changing the main for this player
 		if ($altInfo->main != $sender) {
-			$this->rem_alt($altInfo->main, $sender);
+			$this->remAlt($altInfo->main, $sender);
 			$msg = "You have been removed as an alt of <highlight>{$altInfo->main}<end>.";
 			$sendto->reply($msg);
 		}
 	
-		$this->add_alt($new_main, $sender, 0);
+		$this->addAlt($new_main, $sender, 0);
 		$msg = "You have been registered as an alt of <highlight>{$new_main}<end>.";
 		$sendto->reply($msg);
 	}
@@ -270,10 +270,10 @@ class AltsController {
 	 * @Matches("/^altvalidate ([a-z0-9- ]+)$/i")
 	 */
 	public function altvalidateCommand($message, $channel, $sender, $sendto, $args) {
-		$altInfo = $this->get_alt_info($sender);
+		$altInfo = $this->getAltInfo($sender);
 		$alt = ucfirst(strtolower($args[1]));
 	
-		if (!$altInfo->is_validated($sender)) {
+		if (!$altInfo->isValidated($sender)) {
 			$sendto->reply("<highlight>$alt<end> cannot be validated from an alt that is not validated.");
 			return;
 		}
@@ -304,22 +304,18 @@ class AltsController {
 	 * @Description("Reminds players logging in to validate alts")
 	 */
 	public function checkUnvalidatedAltsEvent($eventObj) {
-		if ($this->chatBot->is_ready() && $this->settingManager->get('alts_inherit_admin') == 1) {
-			$altInfo = $this->get_alt_info($eventObj->sender);
+		if ($this->chatBot->isReady() && $this->settingManager->get('alts_inherit_admin') == 1) {
+			$altInfo = $this->getAltInfo($eventObj->sender);
 		
-			if ($altInfo->hasUnvalidatedAlts() && $altInfo->is_validated($eventObj->sender)) {
+			if ($altInfo->hasUnvalidatedAlts() && $altInfo->isValidated($eventObj->sender)) {
 				$msg = "You have unvalidated alts. Please validate them.";
 				$this->chatBot->sendTell($msg, $eventObj->sender);
-				$this->chatBot->sendTell($altInfo->get_alts_blob(true), $eventObj->sender);
+				$this->chatBot->sendTell($altInfo->getAltsBlob(true), $eventObj->sender);
 			}
 		}
 	}
 
-	/**
-	 * This method has been implemented from AltsInterface interface.
-	 * See the interface's documentation.
-	 */
-	public function get_alt_info($player) {
+	public function getAltInfo($player) {
 		$player = ucfirst(strtolower($player));
 
 		$ai = new AltInfo();
@@ -344,7 +340,7 @@ class AltsController {
 	/**
 	 * This method adds given @a $alt as @a $main's alt character.
 	 */
-	public function add_alt($main, $alt, $validated) {
+	public function addAlt($main, $alt, $validated) {
 		$main = ucfirst(strtolower($main));
 		$alt = ucfirst(strtolower($alt));
 
@@ -355,7 +351,7 @@ class AltsController {
 	/**
 	 * This method removes given @a $alt from being @a $main's alt character.
 	 */
-	public function rem_alt($main, $alt) {
+	public function remAlt($main, $alt) {
 		$sql = "DELETE FROM `alts` WHERE `alt` LIKE ? AND `main` LIKE ?";
 		return $this->db->exec($sql, $alt, $main);
 	}

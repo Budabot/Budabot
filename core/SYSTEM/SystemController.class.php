@@ -488,5 +488,3 @@ class SystemController {
 		$sendto->reply("Command <highlight>$cmd<end> has been sent to <highlight>$name<end>.");
 	}
 }
-
-?>

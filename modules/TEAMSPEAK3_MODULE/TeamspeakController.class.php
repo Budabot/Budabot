@@ -54,7 +54,7 @@ class TeamspeakController {
 	 * @DefaultStatus("0")
 	 */
 	public function sendTSStatusLogonEvent($eventObj) {
-		if ($this->chatBot->is_ready() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
+		if ($this->chatBot->isReady() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
 			$msg = $this->getTeamspeak3Status();
 			$this->chatBot->sendTell($msg, $eventObj->sender);
 		}
@@ -116,5 +116,3 @@ class TeamspeakController {
 		return $msg;
 	}
 }
-
-?>

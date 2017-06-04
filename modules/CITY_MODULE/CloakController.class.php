@@ -169,8 +169,8 @@ class CloakController {
 
 				if ($msg) {
 					// send message to all online alts
-					$altInfo = $this->altsController->get_alt_info($row->player);
-					forEach ($altInfo->get_online_alts() as $name) {
+					$altInfo = $this->altsController->getAltInfo($row->player);
+					forEach ($altInfo->getOnlineAlts() as $name) {
 						$this->chatBot->sendTell($msg, $name);
 					}
 				}
@@ -183,7 +183,7 @@ class CloakController {
 	 * @Description("Show cloak status to guild members logging in")
 	 */
 	public function cityGuildLogonEvent($eventObj) {
-		if ($this->chatBot->is_ready() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
+		if ($this->chatBot->isReady() && isset($this->chatBot->guildmembers[$eventObj->sender])) {
 			$row = $this->db->queryRow("SELECT * FROM org_city_<myname> WHERE `action` = 'on' OR `action` = 'off' ORDER BY `time` DESC LIMIT 0, 20 ");
 
 			$case = 0;
@@ -218,5 +218,3 @@ class CloakController {
 		}
 	}
 }
-
-?>

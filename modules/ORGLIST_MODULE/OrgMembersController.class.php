@@ -46,7 +46,7 @@ class OrgMembersController {
 		$msg = "Getting org info...";
 		$sendto->reply($msg);
 
-		$org = $this->guildManager->get_by_id($guild_id);
+		$org = $this->guildManager->getById($guild_id);
 		if ($org === null) {
 			$msg = "Error in getting the org info. Either org does not exist or AO's server was too slow to respond.";
 			$sendto->reply($msg);

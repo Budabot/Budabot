@@ -112,5 +112,3 @@ class GitController extends AutoInject {
 		return $blob;
 	}
 }
-
-?>

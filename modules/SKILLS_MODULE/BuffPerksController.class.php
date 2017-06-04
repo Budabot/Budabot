@@ -81,7 +81,7 @@ class BuffPerksController {
 	 */
 	public function buffPerksCommand($message, $channel, $sender, $sendto, $args) {
 		if (count($args) == 1) {
-			$whois = $this->playerManager->get_by_name($sender);
+			$whois = $this->playerManager->getByName($sender);
 			if (empty($whois)) {
 				$msg = "Could not retrieve whois info for you.";
 				$sendto->reply($msg);

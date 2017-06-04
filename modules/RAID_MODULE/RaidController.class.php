@@ -519,5 +519,3 @@ class RaidController {
 		return null;
 	}
 }
-
-?>

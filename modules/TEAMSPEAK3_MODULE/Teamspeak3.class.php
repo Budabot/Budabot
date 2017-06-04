@@ -69,5 +69,3 @@ class Teamspeak3 {
 		fclose($this->stream);
 	}
 }
-
-?>

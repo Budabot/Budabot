@@ -922,5 +922,3 @@ class AOChat {
 		return $message;
 	}
 }
-
-?>

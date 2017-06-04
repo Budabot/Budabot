@@ -228,5 +228,3 @@ class WhatBuffsController {
 		return $msg;
 	}
 }
-
-?>

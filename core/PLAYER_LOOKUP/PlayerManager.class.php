@@ -23,7 +23,7 @@ class PlayerManager {
 	/** @Inject */
 	public $http;
 
-	public function get_by_name($name, $rk_num = 0, $forceUpdate = false) {
+	public function getByName($name, $rk_num = 0, $forceUpdate = false) {
 		if ($rk_num == 0) {
 			$rk_num = $this->chatBot->vars['dimension'];
 		}
@@ -68,7 +68,7 @@ class PlayerManager {
 	}
 
 	public function lookup($name, $rk_num) {
-		$xml = $this->lookup_url("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml");
+		$xml = $this->lookupUrl("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml");
 		if ($xml->name == $name) {
 			$xml->source = 'people.anarchy-online.com';
 			$xml->dimension = $rk_num;
@@ -76,7 +76,7 @@ class PlayerManager {
 		}
 
 		// if people.anarchy-online.com was too slow to respond or returned invalid data then try to update from auno.org
-		//$xml = $this->lookup_url("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
+		//$xml = $this->lookupUrl("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
 		//if ($xml->name == $name) {
 		//	$xml->source = 'auno.org';
 		//	$xml->dimension = $rk_num;
@@ -86,7 +86,7 @@ class PlayerManager {
 		return null;
 	}
 
-	private function lookup_url($url) {
+	private function lookupUrl($url) {
 		$response = $this->http->get($url)->waitAndReturnResponse();
 		$playerbio = $response->body;
 
@@ -213,5 +213,3 @@ class PlayerManager {
 		}
 	}
 }
-
-?>

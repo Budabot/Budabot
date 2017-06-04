@@ -82,8 +82,8 @@ class AccessManager {
 			// and if the current character is validated,
 			// then check access against the main character,
 			// otherwise just return the result
-			$altInfo = $this->altsController->get_alt_info($sender);
-			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
+			$altInfo = $this->altsController->getAltInfo($sender);
+			if ($sender != $altInfo->main && $altInfo->isValidated($sender)) {
 				$this->logger->log("DEBUG", "Checking access level '$accessLevel' against the main of '$sender' which is '$altInfo->main'");
 				$returnVal = $this->checkSingleAccess($altInfo->main, $accessLevel);
 			}
@@ -162,8 +162,8 @@ class AccessManager {
 		$accessLevel = $this->getSingleAccessLevel($sender);
 
 		if ($this->setting->alts_inherit_admin == 1) {
-			$altInfo = $this->altsController->get_alt_info($sender);
-			if ($sender != $altInfo->main && $altInfo->is_validated($sender)) {
+			$altInfo = $this->altsController->getAltInfo($sender);
+			if ($sender != $altInfo->main && $altInfo->isValidated($sender)) {
 				$mainAccessLevel = $this->getSingleAccessLevel($altInfo->main);
 				if ($this->compareAccessLevels($mainAccessLevel, $accessLevel) > 0) {
 					$accessLevel = $mainAccessLevel;
@@ -241,5 +241,3 @@ class AccessManager {
 		return self::$ACCESS_LEVELS;
 	}
 }
-
-?>

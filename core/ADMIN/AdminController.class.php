@@ -196,7 +196,7 @@ class AdminController {
 	private function getAltAdminInfo($who, $showOfflineAlts) {
 		$blob = '';
 		if ($this->settingManager->get("alts_inherit_admin") == 1) {
-			$altInfo = $this->altsController->get_alt_info($who);
+			$altInfo = $this->altsController->getAltInfo($who);
 			if ($altInfo->main == $who) {
 				forEach ($altInfo->alts as $alt => $validated) {
 					if ($validated == 1 && ($showOfflineAlts || $this->buddylistManager->isOnline($alt))) {
@@ -274,7 +274,7 @@ class AdminController {
 	}
 	
 	public function checkAltsInheritAdmin($who) {
-		$ai = $this->altsController->get_alt_info($who);
+		$ai = $this->altsController->getAltInfo($who);
 		if ($this->settingManager->get("alts_inherit_admin") == 1 && $ai->main != $who) {
 			return false;
 		} else {

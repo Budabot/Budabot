@@ -782,7 +782,7 @@ class TowerController {
 		
 		// regardless of what the player lookup says, we use the information from the
 		// attack message where applicable because that will always be most up to date
-		$whois = $this->playerManager->get_by_name($att_player);
+		$whois = $this->playerManager->getByName($att_player);
 		if ($whois === null) {
 			$whois = new stdClass;
 			$whois->type = 'npc';
@@ -1376,5 +1376,3 @@ class TowerController {
 		return $faction;
 	}
 }
-
-?>
