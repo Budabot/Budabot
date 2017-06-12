@@ -1,6 +1,10 @@
 *****************************
 	Version 3.5_RC1:
 *****************************
+-renamed many core methods from snake-case to camel-case
+-dependencies now managed by composer
+-fixed issue with caching lookup results
+-removed !feedback
 -updated itemsdb to 18.08.22
 -updated NANO_MODULE (thanks Saavick and Lucier)
 -various bug fixes and code cleanups
