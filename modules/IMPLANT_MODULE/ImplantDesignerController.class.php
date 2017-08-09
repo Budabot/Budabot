@@ -262,7 +262,7 @@ class ImplantDesignerController extends AutoInject {
 		$item = $args[3];
 		
 		$design = $this->getDesign($sender, '@');
-		$slotObj = $design->$slot;
+		$slotObj = &$design->$slot;
 		
 		if ($type == 'symb') {
 			$sql = 
@@ -436,7 +436,7 @@ class ImplantDesignerController extends AutoInject {
 			$blob .= "\n-------------------------\n\n";
 			$blob .= $this->text->makeChatcmd($slot, "/tell <myname> implantdesigner $slot");
 			$blob .= $this->getImplantSummary($slotObj) . "\n";
-			$blob .= "Combinations for <highlight>$slot<end> that require $ability:\n";
+			$blob .= "Combinations for <highlight>$slot<end> that will require $ability:\n";
 			$params = [$ability];
 			$sql = 
 				"SELECT
