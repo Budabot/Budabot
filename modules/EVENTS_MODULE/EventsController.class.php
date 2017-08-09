@@ -56,6 +56,9 @@ class EventsController {
 	public $chatBot;
 
 	/** @Inject */
+	public $settingManager;
+
+	/** @Inject */
 	public $text;
 	
 	/** @Inject */
@@ -69,6 +72,8 @@ class EventsController {
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "events");
+
+		$this->settingManager->add($this->moduleName, "num_events_shown", "Maximum number of events shown", "edit", "number", "5", "5;10;15;20");
 	}
 	
 	/**
@@ -246,7 +251,8 @@ class EventsController {
 	}
 	
 	public function getEvents() {
-		$data = $this->db->query("SELECT * FROM events ORDER BY `event_date` DESC LIMIT 0,5");
+		$sql = "SELECT * FROM events ORDER BY `event_date` DESC LIMIT " . $this->settingManager->get('num_events_shown');
+		$data = $this->db->query($sql);
 		if (count($data) > 0) {
 			$upcoming_title = "<header2>Upcoming Events<end>\n\n";
 			$past_title = "<header2>Past Events<end>\n\n";
@@ -290,7 +296,7 @@ class EventsController {
 				$link = $upcoming_title.$upcoming_events.$past_title.$past_events;
 			}
 
-			return $this->text->makeLegacyBlob("Latest Events", $link) . " [Last updated " . $this->util->date($updated)."]";
+			return $this->text->makeBlob("Events" . " [Last updated " . $this->util->date($updated)."]", $link);
 		} else {
 			return "";
 		}
