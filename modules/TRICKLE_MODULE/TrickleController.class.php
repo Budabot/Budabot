@@ -89,7 +89,7 @@ class TrickleController {
 		$sendto->reply($msg);
 	}
 	
-	private function processAbilities($abilities, $sendto) {
+	private function processAbilities($abilities) {
 		$msg = "";
 
 		

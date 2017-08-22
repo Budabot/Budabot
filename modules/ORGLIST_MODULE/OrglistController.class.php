@@ -207,7 +207,7 @@ class OrglistController {
 		return array_shift($forms);
 	}
 	
-	public function checkOnline($members, $callback) {
+	public function checkOnline($members) {
 		// round to nearest thousand and then subtract 5
 		$this->orglist["maxsize"] = ceil(count($this->buddylistManager->buddyList) / 1000) * 1000 - 5;
 	
