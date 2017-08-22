@@ -1,1 +1,1 @@
-http://windows.php.net/downloads/releases/php-7.1.8-nts-Win32-VC14-x86.zip
+http://windows.php.net/downloads/releases/php-7.1.8-Win32-VC14-x86.zip
