@@ -385,18 +385,6 @@ class ConfigController {
 			$msg = "Could not find command <highlight>$cmd<end>.";
 		} else {
 			$blob = '';
-			$aliases = $this->commandAlias->findAliasesByCommand($cmd);
-			$count = 0;
-			forEach ($aliases as $row) {
-				if ($row->status == 1) {
-					$count++;
-					$aliases_blob .= "{$row->alias}, ";
-				}
-			}
-	
-			if ($count > 0) {
-				$blob .= "Aliases: <highlight>$aliases_blob<end>\n\n";
-			}
 	
 			$blob .= "<header2>Tells:<end> ";
 			$blob .= $this->getCommandInfo($cmd, 'msg');
@@ -442,6 +430,23 @@ class ConfigController {
 			$msg = $this->text->makeBlob(ucfirst($cmd)." Config", $blob);
 		}
 		$sendto->reply($msg);
+	}
+
+	public function getAliasInfo($cmd) {
+		$aliases = $this->commandAlias->findAliasesByCommand($cmd);
+		$count = 0;
+		forEach ($aliases as $row) {
+			if ($row->status == 1) {
+				$count++;
+				$aliases_blob .= "{$row->alias}, ";
+			}
+		}
+
+		$blob = '';
+		if ($count > 0) {
+			$blob .= "Aliases: <highlight>$aliases_blob<end>\n\n";
+		}
+		return $blob;
 	}
 
 	/**
