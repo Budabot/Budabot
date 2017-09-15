@@ -15,30 +15,16 @@ namespace Budabot\Core\Modules;
  *		defaultStatus = '1'
  *	)
  *	@DefineCommand(
- *		command       = 'addadmin',
+ *		command       = 'admin',
  *		accessLevel   = 'superadmin',
- *		description   = 'Add an administrator',
+ *		description   = 'Add or remove an administrator',
  *		help          = 'admin.txt',
  *		defaultStatus = '1'
  *	)
  *	@DefineCommand(
- *		command       = 'remadmin',
- *		accessLevel   = 'superadmin',
- *		description   = 'Remove an administrator',
- *		help          = 'admin.txt',
- *		defaultStatus = '1'
- *	)
- *	@DefineCommand(
- *		command       = 'addmod',
+ *		command       = 'mod',
  *		accessLevel   = 'admin',
- *		description   = 'Add a moderator',
- *		help          = 'mod.txt',
- *		defaultStatus = '1'
- *	)
- *	@DefineCommand(
- *		command       = 'remmod',
- *		accessLevel   = 'admin',
- *		description   = 'Remove a moderator',
+ *		description   = 'Add or remove a moderator',
  *		help          = 'mod.txt',
  *		defaultStatus = '1'
  *	)
@@ -81,13 +67,18 @@ class AdminController {
 	 */
 	public function setup() {
 		$this->adminManager->uploadAdmins();
+
+		$this->commandAlias->register($this->moduleName, "admin add", "addadmin");
+		$this->commandAlias->register($this->moduleName, "admin rem", "remadmin");
+		$this->commandAlias->register($this->moduleName, "mod add", "addmod");
+		$this->commandAlias->register($this->moduleName, "mod rem", "remmod");
 	}
 	
 	/**
-	 * @HandlesCommand("addadmin")
-	 * @Matches("/^addadmin (.+)$/i")
+	 * @HandlesCommand("admin")
+	 * @Matches("/^admin add (.+)$/i")
 	 */
-	public function addAdminCommand($message, $channel, $sender, $sendto, $args) {
+	public function adminAddCommand($message, $channel, $sender, $sendto, $args) {
 		$who = ucfirst(strtolower($args[1]));
 		$intlevel = 4;
 		$rank = 'an administrator';
@@ -96,10 +87,10 @@ class AdminController {
 	}
 	
 	/**
-	 * @HandlesCommand("addmod")
-	 * @Matches("/^addmod (.+)$/i")
+	 * @HandlesCommand("mod")
+	 * @Matches("/^mod add (.+)$/i")
 	 */
-	public function addModeratorCommand($message, $channel, $sender, $sendto, $args) {
+	public function modAddCommand($message, $channel, $sender, $sendto, $args) {
 		$who = ucfirst(strtolower($args[1]));
 		$intlevel = 3;
 		$rank = 'a moderator';
@@ -108,10 +99,10 @@ class AdminController {
 	}
 	
 	/**
-	 * @HandlesCommand("remadmin")
-	 * @Matches("/^remadmin (.+)$/i")
+	 * @HandlesCommand("admin")
+	 * @Matches("/^admin rem (.+)$/i")
 	 */
-	public function removeAdminCommand($message, $channel, $sender, $sendto, $args) {
+	public function adminRemoveCommand($message, $channel, $sender, $sendto, $args) {
 		$who = ucfirst(strtolower($args[1]));
 		$intlevel = 4;
 		$rank = 'an administrator';
@@ -120,10 +111,10 @@ class AdminController {
 	}
 	
 	/**
-	 * @HandlesCommand("remmod")
-	 * @Matches("/^remmod (.+)$/i")
+	 * @HandlesCommand("mod")
+	 * @Matches("/^mod rem (.+)$/i")
 	 */
-	public function removeModeratorCommand($message, $channel, $sender, $sendto, $args) {
+	public function modRemoveCommand($message, $channel, $sender, $sendto, $args) {
 		$who = ucfirst(strtolower($args[1]));
 		$intlevel = 3;
 		$rank = 'a moderator';

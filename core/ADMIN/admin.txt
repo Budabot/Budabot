@@ -1,5 +1,5 @@
 To add an administrator:
-<highlight><tab><symbol>addadmin <i>player</i><end>
+<highlight><tab><symbol>admin add <i>player</i><end>
 
 To remove an administrator:
-<highlight><tab><symbol>remadmin <i>player</i><end>
+<highlight><tab><symbol>admin rem <i>player</i><end>
