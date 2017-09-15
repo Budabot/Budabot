@@ -98,7 +98,7 @@ class AsyncHttp {
 	 * @internal
 	 */
 	public function abortWithMessage($errorString) {
-		$this->setError($errorString . " for uri: '$this->uri'");
+		$this->setError($errorString . " for uri: '" . $this->uri . "' with params: '" . http_build_query($this->queryParams) . "'");
 		$this->finish();
 	}
 
@@ -159,7 +159,7 @@ class AsyncHttp {
 		}
 
 		$this->timeoutEvent = $this->timer->callLater($this->timeout, array($this, 'abortWithMessage'),
-			"Timeout error after waiting {$this->timeout} seconds for: {$this->uri}");
+			"Timeout error after waiting {$this->timeout} seconds");
 	}
 
 	private function createStream() {
