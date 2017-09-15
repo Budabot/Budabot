@@ -1,1 +1,1 @@
-http://windows.php.net/downloads/releases/archives/php-5.6.18-nts-Win32-VC11-x86.zip
+http://windows.php.net/downloads/releases/archives/php-5.5.9-Win32-VC11-x86.zip
