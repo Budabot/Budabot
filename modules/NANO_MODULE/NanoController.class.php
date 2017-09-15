@@ -21,7 +21,8 @@ namespace Budabot\User\Modules;
  *		command     = 'nanolines', 
  *		accessLevel = 'all', 
  *		description = 'Shows nanos based on nanoline', 
- *		help        = 'nanolines.txt'
+ *		help        = 'nanolines.txt',
+ *		alias		= 'nl'
  *	)
  *	@DefineCommand(
  *		command     = 'nanoloc', 
