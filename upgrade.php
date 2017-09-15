@@ -94,4 +94,8 @@ if (checkIfTableExists($db, "settings_<myname>")) {
 	$db->exec("UPDATE settings_<myname> SET value = ? WHERE name = ? AND value = ?", 10, "http_timeout", 5);
 }
 
+if (checkIfTableExists($db, "cmd_alias_<myname>")) {
+	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ? AND cmd = ?", "as", "aimedshot");
+}
+
 ?>

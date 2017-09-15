@@ -114,7 +114,7 @@ class SkillsController {
 		$this->commandAlias->register($this->moduleName, "weapon", "specials");
 		$this->commandAlias->register($this->moduleName, "weapon", "inits");
 		$this->commandAlias->register($this->moduleName, "aimshot", "as");
-		$this->commandAlias->register($this->moduleName, "aimedshot", "as");
+		$this->commandAlias->register($this->moduleName, "aimshot", "aimedshot");
 	}
 	
 	/**
