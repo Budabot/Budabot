@@ -24,4 +24,4 @@
 /delay %1
 /text End VOTE_MODULE
 
-/ventrilo_module.txt %1
+/trickle_module.txt %1
