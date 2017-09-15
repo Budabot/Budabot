@@ -90,4 +90,8 @@ function minRequiredVersion($db, $minVersion) {
 
 minRequiredVersion($db, "3.4_GA");
 
+if (checkIfTableExists($db, "settings_<myname>")) {
+	$db->queryRow("UPDATE settings_<myname> SET value = ? WHERE name = ? AND value = ?", 10, "http_timeout", 5);
+}
+
 ?>

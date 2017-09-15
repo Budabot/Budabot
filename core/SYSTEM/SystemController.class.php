@@ -162,16 +162,6 @@ class SystemController {
 	public $defaultMaxBlobSize = "7500";
 
 	/**
-	 * @Setting("xml_timeout")
-	 * @Description("Max time to wait for response from xml servers")
-	 * @Visibility("edit")
-	 * @Type("time")
-	 * @Options("1s;2s;5s;10s;30s")
-	 * @AccessLevel("mod")
-	 */
-	public $defaultXmlTimeout = "5s";
-
-	/**
 	 * @Setting("http_timeout")
 	 * @Description("Max time to wait for response from making http queries")
 	 * @Visibility("edit")
@@ -179,7 +169,7 @@ class SystemController {
 	 * @Options("1s;2s;5s;10s;30s")
 	 * @AccessLevel("mod")
 	 */
-	public $defaultHttpTimeout = "5s";
+	public $defaultHttpTimeout = "10s";
 
 	/**
 	 * @Setting("logon_delay")
