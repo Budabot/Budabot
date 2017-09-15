@@ -27,6 +27,9 @@ class NewsController {
 	public $chatBot;
 
 	/** @Inject */
+	public $settingManager;
+
+	/** @Inject */
 	public $text;
 	
 	/** @Inject */
@@ -39,10 +42,13 @@ class NewsController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, 'news');
+
+		$this->settingManager->add($this->moduleName, "num_news_shown", "Maximum number of news items shown", "edit", "number", "10", "5;10;15;20");
 	}
 
 	public function getNews() {
-		$data = $this->db->query("SELECT * FROM `news` WHERE deleted = 0 ORDER BY `sticky` DESC, `time` DESC LIMIT 10");
+		$sql = "SELECT * FROM `news` WHERE deleted = 0 ORDER BY `sticky` DESC, `time` DESC LIMIT " . $this->settingManager->get('num_news_shown');
+		$data = $this->db->query($sql);
 		$msg = '';
 		if (count($data) != 0) {
 			$blob = '';
