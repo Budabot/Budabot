@@ -1,3 +1,4 @@
+.\win32\php -c php-win.ini composer.phar self-update
 .\win32\php -c php-win.ini composer.phar update
 .\win32\php -c php-win.ini composer.phar install
 .\win32\php -c php-win.ini composer.phar dumpautoload --optimize
