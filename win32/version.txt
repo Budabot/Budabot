@@ -1,1 +1,1 @@
-http://windows.php.net/downloads/releases/php-5.5.38-Win32-VC11-x86.zip
+http://windows.php.net/downloads/releases/archives/php-5.4.45-Win32-VC9-x86.zip
