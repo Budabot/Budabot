@@ -48,6 +48,9 @@ class AdminController {
 	
 	/** @Inject */
 	public $accessManager;
+
+	/** @Inject */
+	public $commandAlias;
 	
 	/** @Inject */
 	public $text;
