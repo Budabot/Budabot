@@ -7,7 +7,6 @@
 	],
 
 	"require": {
-		"evenement/evenement": "^2.0",
 		"apache/log4php": "2.3.0"
 	},
 

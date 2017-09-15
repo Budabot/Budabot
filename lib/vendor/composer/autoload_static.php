@@ -6,20 +6,7 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitdc7a7f870bf2b50e46f72eb64cbac8b9
 {
-    public static $prefixesPsr0 = array (
-        'E' => 
-        array (
-            'Evenement' => 
-            array (
-                0 => __DIR__ . '/..' . '/evenement/evenement/src',
-            ),
-        ),
-    );
-
     public static $classMap = array (
-        'Evenement\\EventEmitter' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitter.php',
-        'Evenement\\EventEmitterInterface' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterInterface.php',
-        'Evenement\\EventEmitterTrait' => __DIR__ . '/..' . '/evenement/evenement/src/Evenement/EventEmitterTrait.php',
         'Logger' => __DIR__ . '/..' . '/apache/log4php/src/main/php/Logger.php',
         'LoggerAppender' => __DIR__ . '/..' . '/apache/log4php/src/main/php/LoggerAppender.php',
         'LoggerAppenderConsole' => __DIR__ . '/..' . '/apache/log4php/src/main/php/appenders/LoggerAppenderConsole.php',
@@ -104,7 +91,6 @@ class ComposerStaticInitdc7a7f870bf2b50e46f72eb64cbac8b9
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixesPsr0 = ComposerStaticInitdc7a7f870bf2b50e46f72eb64cbac8b9::$prefixesPsr0;
             $loader->classMap = ComposerStaticInitdc7a7f870bf2b50e46f72eb64cbac8b9::$classMap;
 
         }, null, ClassLoader::class);

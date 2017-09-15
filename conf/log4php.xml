@@ -35,14 +35,6 @@
 		<param name="datePattern" value="Y-m" />
 	</appender>
 
-	<!-- Direct log to memory buffer -->
-	<appender name="appenderBuffer" class="LoggerAppenderBuffer">
-		<param name="logLimit" value="2000" />
-		<layout class="LoggerLayoutPattern">
-			<param name="ConversionPattern" value="%date{Y-m-d H:i:s} %-5level %message%newline" />
-		</layout>
-	</appender>
-
 	<!-- <logger name="Foo">
 		<level value="DEBUG" />
 		<appender_ref ref="myFileAppender" />
@@ -53,7 +45,6 @@
 		<appender_ref ref="defaultConsoleAppenderStdOut" />
 		<appender_ref ref="defaultConsoleAppenderStdErr" />
 		<appender_ref ref="defaultFileAppender" />
-		<appender_ref ref="appenderBuffer" />
 	</root>
     
 </configuration>

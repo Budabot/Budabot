@@ -6,9 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname(dirname($vendorDir));
 
 return array(
-    'Evenement\\EventEmitter' => $vendorDir . '/evenement/evenement/src/Evenement/EventEmitter.php',
-    'Evenement\\EventEmitterInterface' => $vendorDir . '/evenement/evenement/src/Evenement/EventEmitterInterface.php',
-    'Evenement\\EventEmitterTrait' => $vendorDir . '/evenement/evenement/src/Evenement/EventEmitterTrait.php',
     'Logger' => $vendorDir . '/apache/log4php/src/main/php/Logger.php',
     'LoggerAppender' => $vendorDir . '/apache/log4php/src/main/php/LoggerAppender.php',
     'LoggerAppenderConsole' => $vendorDir . '/apache/log4php/src/main/php/appenders/LoggerAppenderConsole.php',
