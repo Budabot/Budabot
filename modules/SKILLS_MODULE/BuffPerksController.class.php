@@ -136,7 +136,7 @@ class BuffPerksController {
 		$data = $this->db->query($sql, $params);
 		
 		if (empty($data)) {
-			$msg = "Could not find any perks matching your criteria.";
+			$msg = "Could not find any perks for level $minLevel $profession.";
 		} else {
 			$currentPerk = '';
 			$buffs = array();
