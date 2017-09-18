@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS buffs;
-CREATE TABLE buffs (skill VARCHAR(30) NOT NULL, type VARCHAR(10) NOT NULL, item VARCHAR(50) NOT NULL);INSERT INTO buffs (skill, type, item) VALUES ('ShieldMeleeAC', 'Nano', 'Cyclic Interlocking Barbs');
+CREATE TABLE buffs (skill VARCHAR(30) NOT NULL, type VARCHAR(10) NOT NULL, item VARCHAR(75) NOT NULL);INSERT INTO buffs (skill, type, item) VALUES ('ShieldMeleeAC', 'Nano', 'Cyclic Interlocking Barbs');
 INSERT INTO buffs (skill, type, item) VALUES ('ShieldMeleeAC', 'Nano', 'Screen of Blades');
 INSERT INTO buffs (skill, type, item) VALUES ('ShieldMeleeAC', 'Nano', 'Lightning Shield');
 INSERT INTO buffs (skill, type, item) VALUES ('ShieldMeleeAC', 'Nano', 'Retaliatory Barrier');
