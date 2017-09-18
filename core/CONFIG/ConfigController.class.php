@@ -478,7 +478,7 @@ class ConfigController {
 			}
 	
 			$settingHandler = $this->settingManager->getSettingHandler($row);
-			$blob .= ":  " . $settingHandler->displayValue() . "\n";
+			$blob .= ": " . $settingHandler->displayValue() . "\n";
 		}
 	
 		$sql =
