@@ -28,6 +28,9 @@ class WhatBuffs2Controller {
 	
 	/** @Inject */
 	public $util;
+
+	/** @Inject */
+	public $commandAlias;
 	
 	/** @Inject */
 	public $itemsController;
@@ -40,6 +43,8 @@ class WhatBuffs2Controller {
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "buffs");
+
+		$this->commandAlias->register($this->moduleName, "whatbuffs2", "whatbuffs");
 	}
 
 	/**
