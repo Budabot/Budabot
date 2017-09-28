@@ -117,9 +117,6 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Commander Jocasta', 'at Cyborg Barracks in Greater Tir County', NULL, 647, 3232, 2340);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Commander Kelly Frederickson', 'Tir County', 'Commander Kelly Frederickson Fredrickson', 646, 1750, 1100);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Commander Kend Ash', 'Omni-1 Trade', 'Bazzit''s Alien Library Linked Hacker Tool Vanguard Node Access Card Kyr''Ozch Structural Analyzer', 710, 415, 405);
-INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Condemned Subway - Borealis', 'Borealis, south part of city', 'Abandoned Subway Codemned Comdemned Condemned Condemnedsubway', 800, 637, 463);
-INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Condemned Subway - Galway Shire', 'Galyway Shire, just outside the east gates of Rome Blue', 'Abandoned Subway Codemned Comdemned Condemned Condemnedsubway', 687, 168, 874);
-INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Condemned Subway - Old Athen', 'Old Athen, just NE of town center', 'Abandoned Subway Codemned Comdemned Condemned Condemnedsubway', 540, 487, 439);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Conflagrant Spirit', 'in Inferno, NW of Yuttos', NULL, 4005, 2247, 1393);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Contemplating Spirits And Unrepentant Spirits', 'among the runes just north of the portal to Penumbra in Inferno surrounding the Spirit Of Disruption.', NULL, 4005, 0, 0);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Corrupt Spirit', 'Adonis, 1524 x 464 S and 1941 x 2241 N', NULL, 4872, 1524, 464);
@@ -170,6 +167,7 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Ember Chimera', 'Burning Marshes SW of Sorrow', NULL, 4005, 757, 870);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Enjoy It While It Lasts', 'Tir City', 'bar club', 640, 650, 400);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Enkindled Spirit', 'Inferno, NW of Yuttos', NULL, 4005, 2326, 1280);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Enterprice Shop', 'ICC', "veteran", 655, 3206, 820);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Eradicator Deimos', 'Cyborg Barracks, Greater Tir County', 'deimos demos eradicater eradicator', 647, 3232, 2340);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Ergo, Inferno Guardian of Shadows', '', '', 4605, 2800, 3378);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Ergo, Penumbra Guardian of Shadows', '', '', 4321, 2171, 2446);
@@ -378,7 +376,8 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Pained Predator', 'Elysium, South of Remnans', NULL, 0, 0, 0);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Patricia Johnson', 'Ace Camp, Eastern Fouls Plain', NULL, 620, 720, 1380);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Paxos', 'Inferno', '', 4605, 3143, 3168);
-INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Peacekeeper Constad', '', 'dustbrigade db', 655, 3277, 922);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Peacekeeper Constad 1', '', 'dustbrigade db', 655, 3277, 922);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Peacekeeper Constad 2', 'ICC', 'dustbrigade db', 655, 920, 655);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Pendpod Trapper', 'Pleasant Meadows (within a fairly large area of)', 'Bronto', 630, 890, 1689);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Penelopez Magistrale', 'Newland Desert. Multi-grip Soles AI Quest Social Clothing', 'AI Quest Social Clothing Combined Armor Multi-grip Soles', 565, 790, 2310);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Peristaltic Abomination', 'Adonis, Abyss East & West', NULL, 4873, 0, 0);
@@ -477,6 +476,7 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Strike Foreman', 'Condemned Subway, usually on the bridge', NULL, 0, 0, 0);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Striking Ant Tir Outpost', 'Tir County. The outpost has mission terms, shops, banks and insure terms.', NULL, 646, 1915, 1492);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Stumpy', 'Greater Omni Forest', NULL, 717, 2000, 1300);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Subway', 'ICC', NULL, 655, 3303, 838);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Suir-Katan, The Custodian', '', '', 4605, 2500, 2527);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Supply Master Eel', 'Avalon, Secondary Base', 'Supplymaster Eel', 505, 900, 1600);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Supply Master Smug', 'Wailing Wastes, NE corner', 'Supplymaster Smug', 551, 2700, 3500);
@@ -568,3 +568,4 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zibell The Wanderer', 'Central Artery Valley', NULL, 590, 3432, 2649);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zodiac', 'Pandemonium Caina, NE of the garden statues. Portal boss for entering pandemonium', '', 4328, 190, 85);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zoftig Blimp', 'Mort, City of Hope', NULL, 560, 0, 0);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zyvania Bagh', 'ICC', "steps of madness som", 655, 3158, 900);
