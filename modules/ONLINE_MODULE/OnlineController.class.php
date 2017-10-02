@@ -361,6 +361,7 @@ class OnlineController {
 		$blob = '';
 		forEach ($data as $row) {
 			if ($current_profession != $row->profession) {
+				$blob .= "<pagebreak>";
 				if ($this->settingManager->get("fancy_online") == 0) {
 					// old style delimiters
 					$blob .= "\n<tab><highlight>$row->profession<end>\n";
