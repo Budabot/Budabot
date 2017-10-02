@@ -7306,6 +7306,7 @@ INSERT INTO weapon_attributes VALUES (301745, 100, 150, null, null, 0, 1, 0);
 INSERT INTO weapon_attributes VALUES (301744, 100, 150, null, null, 0, 1, 0);
 INSERT INTO weapon_attributes VALUES (124710, 100, 150, 7300, 2400, 0, 0, 0);
 INSERT INTO weapon_attributes VALUES (124778, 250, 160, null, null, 0, 0, 0);
+INSERT INTO weapon_attributes VALUES (303510, 140, 140, null, null, 0, 1, 0);
 INSERT INTO weapon_attributes VALUES (163997, 255, 240, null, null, 0, 0, 0);
 INSERT INTO weapon_attributes VALUES (208087, 130, 130, null, null, 0, 0, 1);
 INSERT INTO weapon_attributes VALUES (208088, 130, 130, null, null, 0, 0, 1);
