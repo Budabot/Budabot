@@ -326,7 +326,6 @@ class SystemController {
 			$blob .= "Peak Memory Usage (Real): <highlight>" . $this->util->bytesConvert(memory_get_peak_usage(1)) . "<end>\n\n";
 		}
 		
-		$blob .= "Runkit Classloading: <highlight>" . (USE_RUNKIT_CLASS_LOADING ? "enabled" : "disabled") . "<end>\n";
 		$blob .= "Using Chat Proxy: <highlight>" . ($this->chatBot->vars['use_proxy'] == 1 ? "enabled" : "disabled") . "<end>\n";
 
 		$date_string = $this->util->unixtimeToReadable(time() - $this->chatBot->vars['startup']);

@@ -7,7 +7,7 @@
 /*
  ** This file is part of Budabot.
  **
- ** Budabot is free software: you can redistribute it and/org modify
+ ** Budabot is free software: you can redistribute it and/or modify
  ** it under the terms of the GNU General Public License as published by
  ** the Free Software Foundation, either version 3 of the License, or
  ** (at your option) any later version.
@@ -58,7 +58,3 @@ $vars['proxy_port'] = 9993;
 $vars['module_load_paths'] = array(
 	'./modules', './extras'
 );
-
-// This should only be enabled during development and only if you understand the implications
-// seen here: <http://code.google.com/p/budabot2/wiki/CompilingRunkit>
-define("USE_RUNKIT_CLASS_LOADING", false);

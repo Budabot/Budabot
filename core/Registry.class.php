@@ -35,11 +35,6 @@ class Registry {
 			LegacyLogger::log("WARN", "Registry", "Could not find instance for '$name'");
 		}
 
-		if ($instance !== null && (USE_RUNKIT_CLASS_LOADING === true || $reload === true)) {
-			Registry::importChanges($instance);
-			Registry::injectDependencies($instance);
-		}
-
 		return $instance;
 	}
 
@@ -69,17 +64,6 @@ class Registry {
 				$instance->{$property->name} = new LoggerWrapper($tag);
 			}
 		}
-	}
-
-	public static function importChanges($instance) {
-		try {
-			$reflection = new ReflectionClass($instance);
-		} catch(ReflectionException $e) {
-			LegacyLogger::log("WARN", "Registry", "RUNKIT: Failed to reflect class, reason was: '" . $e->getMessage() . "'");
-			return;
-		}
-		LegacyLogger::log("DEBUG", "Registry", "Re-importing file '" . $reflection->getFileName() . "'");
-		runkit_import($reflection->getFileName(), RUNKIT_IMPORT_CLASSES | RUNKIT_IMPORT_FUNCTIONS | RUNKIT_IMPORT_OVERRIDE);
 	}
 	
 	public static function getAllInstances() {
