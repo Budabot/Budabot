@@ -1,4 +1,4 @@
-<header>Admin Help<end>
+<header> :::::: Admin Help :::::: <end>
 
 This guide gives a quick overview of Budabot commands, features, and ideology that a bot admin may find useful when managing the bot.
 

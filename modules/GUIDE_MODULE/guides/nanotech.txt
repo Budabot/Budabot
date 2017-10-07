@@ -1,4 +1,4 @@
-<header> ::::: Guide to Nano Technicians ::::: <end>
+<header> :::::: Guide to Nano Technicians :::::: <end>
 
 <font color = green>* Main Weapons: Poor with all weapons, but Pistol is default</font>
 * Alternate Weapons: Shotgun

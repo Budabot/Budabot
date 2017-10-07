@@ -1,4 +1,4 @@
-<header>::::: Guide to Soldiers :::::<end>
+<header> :::::: Guide to Soldiers :::::: <end>
 
 <header2>At a glance<end>
 <font color = red>* Main Weapons: Ranged Energy, Assault Rifle, Pistol, Shotgun</font>

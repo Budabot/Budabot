@@ -1,4 +1,4 @@
-<header>::::: Guide to Agents :::::<end>
+<header> :::::: Guide to Agents :::::: <end>
 
 <header2>At a glance<end>
 <font color = red>* Main Weapons: Rifle</font>

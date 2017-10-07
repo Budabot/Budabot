@@ -1,4 +1,4 @@
-<header>::::: Guide to Enforcers :::::<end>
+<header> :::::: Guide to Enforcers :::::: <end>
 
 <pagebreak><header2>Basic Attributes<end>
 

@@ -22,7 +22,7 @@ Psychic  -> tick delay
 <font color=#66cccc>780<tab><tab>-><tab>02s</font>
 <img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>
 
-by Imoutochan, RK1
+by Imoutochan (RK1)
 
 <header2>Nanopoints by Breed<end>
 

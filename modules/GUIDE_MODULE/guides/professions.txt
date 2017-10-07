@@ -1,4 +1,4 @@
-<header> ::::: Guide to The AO Professions  ::::: <end>
+<header> :::::: Guide to The AO Professions  :::::: <end>
 
 Note: Not all professions have a guide at this time
 

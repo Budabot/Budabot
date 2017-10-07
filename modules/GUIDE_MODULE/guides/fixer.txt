@@ -1,4 +1,4 @@
-<header>::::: Guide to Fixers :::::<end>
+<header> :::::: Guide to Fixers :::::: <end>
 
 <pagebreak><font color = yellow>At a glance</font>
 <font color = red>* Main Weapons: SMGs</font>

@@ -1,4 +1,4 @@
-<header>::::: Guide to Traders :::::<end>
+<header> :::::: Guide to Traders :::::: <end>
 
 <header2>At a glance<end>
 <font color = red>* Main Weapons: Shotgun</font>

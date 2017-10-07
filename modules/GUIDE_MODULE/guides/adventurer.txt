@@ -1,4 +1,4 @@
-<header>::::: Guide To Adventurers :::::<end>
+<header> :::::: Guide To Adventurers :::::: <end>
 
 <header2>At a glance<end>
 <font color = green>* Main Weapons: Pistol or 1-Handed Edged</font>

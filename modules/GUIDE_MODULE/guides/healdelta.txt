@@ -41,7 +41,7 @@ Stamina  -> HD tick standing/sitting
 <font color=#ffcccc>810<tab><tab>-><tab>02s / 01s</font>
 <tab><img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>
 
-by Imoutochan, RK1
+by Imoutochan (RK1)
 
 <header2>Hitpoints by Breed<end>
 
@@ -52,9 +52,10 @@ Nanomage 2 hitpoints
 
 The amount of healdelta you get is:
 base + (bodydev / 100) + healdelta items
-Base is 4 for atrox, 3 for opi/sol, 2 for mage
+Base is 4 for atrox, 3 for opi/sol, 2 for nanomage
 
-healdelta tickrate formula ; (870-stam)/30=tickrate
+healdelta tickrate formula:
+(870 - stam) / 30 = tickrate
 
 example (870-810)/30=2 secs  
 
