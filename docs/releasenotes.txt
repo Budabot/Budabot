@@ -1,6 +1,8 @@
 *****************************
 	Version 3.5_RC2:
 *****************************
+-updated !whatbuffs to use data from aoitems.com
+-updated itemsdb to 18.08.24
 -changed from !addadmin, !remadmin, !addmod, !remmod to !admin add, !admin rem, !mod add, !mod rem
 -fix for !aimshot aliases: !as and !aimedshot
 -setting 'http_timeout' default value changed from 5s to 10s
@@ -14,7 +16,6 @@
 -dependencies now managed by composer
 -fixed issue with caching lookup results
 -removed !feedback
--updated itemsdb to 18.08.22
 -updated NANO_MODULE (thanks Saavick and Lucier)
 -various bug fixes and code cleanups
 -updated !whereis
