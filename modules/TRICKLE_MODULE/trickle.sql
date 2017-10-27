@@ -20,7 +20,7 @@ INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amoun
 INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES (16, 'Melee Weapons', 'Melee. Init.', .1, .1, .2, 0, 0, .6);
 INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES (17, 'Melee Weapons', 'Physic. Init', .1, .1, .2, 0, 0, .6);
 
-INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES (18, 'Melee Specials', 'Sneak Atck', 0, 0, .2, 0, 0, .8);
+INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES (18, 'Melee Specials', 'Sneak Atck', .5, .3, 0, 0, 0, .2);
 INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES (19, 'Melee Specials', 'Brawling', 0, 0, 0, .4, .6, 0);
 INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES (20, 'Melee Specials', 'Fast Attack', .6, 0, 0, 0, 0, .4);
 INSERT INTO trickle (id, groupName, name, amountAgi, amountInt, amountPsy, amountSta, amountStr, amountSen) VALUES (21, 'Melee Specials', 'Dimach', 0, 0, .2, 0, 0, .8);
