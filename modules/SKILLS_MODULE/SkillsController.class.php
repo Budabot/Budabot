@@ -470,17 +470,17 @@ class SkillsController {
 		// MA templates
 		$skill_list = array(1,200,1000,1001,2000,2001,3000);
 
-		$MA_min_list = array (4,45,125,130,220,225,450);
-		$MA_max_list = array (8,75,400,405,830,831,1300);
+		$MA_min_list =  array(4,45,125,130,220,225, 450);
+		$MA_max_list =  array(8,75,400,405,830,831,1300);
 		$MA_crit_list = array(3,50,500,501,560,561,800);
 		$MA_fist_speed = array(1.15,1.25,1.25,1.30,1.35,1.45,1.50);
 
-		$shade_min_list = array (3,25,55,56,130,131,280);
-		$shade_max_list = array (5,60,258,259,682,683,890);
+		$shade_min_list =  array(3,25, 55, 56,130,131,280);
+		$shade_max_list =  array(5,60,258,259,682,683,890);
 		$shade_crit_list = array(3,50,250,251,275,276,300);
 
-		$gen_min_list = array (3,25,65,66,140,141,300);
-		$gen_max_list = array (5,60,280,281,715,716,990);
+		$gen_min_list =  array(3,25, 65, 66,140,204,300);
+		$gen_max_list =  array(5,60,280,281,715,831,990);
 		$gen_crit_list = array(3,50,500,501,605,605,630);
 
 		if ($MaSkill < 200) {
