@@ -3,3 +3,6 @@ To set your logon message:
 
 To clear your logon message:
 <highlight><tab><symbol>logon clear<end>
+
+To see your logon message:
+<highlight><tab><symbol>logon<end>

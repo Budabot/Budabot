@@ -3,3 +3,6 @@ To set a logoff message:
 
 To clear your logoff message:
 <highlight><tab><symbol>logoff clear<end>
+
+To see your logoff message:
+<highlight><tab><symbol>logoff<end>
