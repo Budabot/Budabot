@@ -1,0 +1,907 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Budabot\Core\Modules\BanController | Budabot 3.5_GA Docs</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Budabot.html">
+						Budabot<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Budabot.User.html">
+						User<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.User.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.Modules.AdminController.html">AdminController</a></li>
+				<li><a href="class-Budabot.Core.Modules.AliasController.html">AliasController</a></li>
+				<li><a href="class-Budabot.Core.Modules.AltInfo.html">AltInfo</a></li>
+				<li><a href="class-Budabot.Core.Modules.AltsController.html">AltsController</a></li>
+				<li class="active"><a href="class-Budabot.Core.Modules.BanController.html">BanController</a></li>
+				<li><a href="class-Budabot.Core.Modules.BuddylistController.html">BuddylistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ColorsController.html">ColorsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.CommandlistController.html">CommandlistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.CommandSearchController.html">CommandSearchController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ConfigController.html">ConfigController</a></li>
+				<li><a href="class-Budabot.Core.Modules.EventlistController.html">EventlistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.HelpController.html">HelpController</a></li>
+				<li><a href="class-Budabot.Core.Modules.LogsController.html">LogsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.PlayerLookupController.html">PlayerLookupController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ProfileCommandReply.html">ProfileCommandReply</a></li>
+				<li><a href="class-Budabot.Core.Modules.ProfileController.html">ProfileController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SettingsController.html">SettingsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SQLController.html">SQLController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SystemController.html">SystemController</a></li>
+				<li><a href="class-Budabot.Core.Modules.UsageController.html">UsageController</a></li>
+				<li><a href="class-Budabot.Core.Modules.WhitelistController.html">WhitelistController</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Budabot.Core.Modules.read_input.html">read_input</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Budabot.Core.Modules.html" title="Summary of Budabot\Core\Modules"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class BanController</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Budabot.html">Budabot</a>\<a href="namespace-Budabot.Core.html">Core</a>\<a href="namespace-Budabot.Core.Modules.html">Modules</a><br>
+		
+
+				<b>Definecommand(:</b>
+				<p>command       = 'ban',
+    accessLevel   = 'mod',
+    description   = 'Ban a character from this bot',
+    help          = 'ban.txt',
+    defaultStatus = '1'
+)</p><br>
+				<b>Definecommand(:</b>
+				<p>command       = 'banlist',
+    accessLevel   = 'mod',
+    description   = 'Shows who is on the banlist',
+    help          = 'ban.txt',
+    defaultStatus = '1'
+)</p><br>
+				<b>Definecommand(:</b>
+				<p>command       = 'banorg',
+    accessLevel   = 'mod',
+    description   = 'Ban an organization from this bot',
+    help          = 'ban.txt',
+    defaultStatus = '1'
+)</p><br>
+				<b>Definecommand(:</b>
+				<p>command       = 'unban',
+    accessLevel   = 'mod',
+    description   = 'Unban a character from this bot',
+    help          = 'ban.txt',
+    defaultStatus = '1'
+)</p><br>
+				<b>Definecommand(:</b>
+				<p>command       = 'unbanorg',
+    accessLevel   = 'mod',
+    description   = 'Unban an organization from this bot',
+    help          = 'ban.txt',
+    defaultStatus = '1'
+)</p><br>
+				<b>Instance:</b>
+				Commands this controller contains:<br>
+			<b>Located at</b> <a href="source-class-Budabot.Core.Modules.BanController.html#5-338" title="Go to source code">BAN/BanController.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setup" id="_setup">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setup">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#85-92" title="Go to source code">setup</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Setup</h4>
+				<div class="list">
+						This handler is called on bot startup.<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="banPlayerWithTimeAndReasonCommand" id="_banPlayerWithTimeAndReasonCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_banPlayerWithTimeAndReasonCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#94-117" title="Go to source code">banPlayerWithTimeAndReasonCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>Command parameters are:
+ - name of the character
+ - time of ban
+ - banning reason string</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Command parameters are: - name of the character - time of ban - banning reason string</p>
+
+
+
+
+
+				<h4>Handlescommand("ban")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^ban</h4>
+				<div class="list">
+						([a-z0-9-]+) ([a-z0-9]+) (for|reason) (.+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="banPlayerWithTimeCommand" id="_banPlayerWithTimeCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_banPlayerWithTimeCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#119-142" title="Go to source code">banPlayerWithTimeCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler bans a player from this bot.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler bans a player from this bot.</p>
+
+<p>Command parameters are: - name of the player - time of ban</p>
+
+
+
+
+
+				<h4>Handlescommand("ban")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^ban</h4>
+				<div class="list">
+						([a-z0-9-]+) ([a-z0-9]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="banPlayerWithReasonCommand" id="_banPlayerWithReasonCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_banPlayerWithReasonCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#144-166" title="Go to source code">banPlayerWithReasonCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler bans a player from this bot.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler bans a player from this bot.</p>
+
+<p>Command parameters are: - name of the player - banning reason string</p>
+
+
+
+
+
+				<h4>Handlescommand("ban")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^ban</h4>
+				<div class="list">
+						([a-z0-9-]+) (for|reason) (.+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="banPlayerCommand" id="_banPlayerCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_banPlayerCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#168-188" title="Go to source code">banPlayerCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler bans a player from this bot.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler bans a player from this bot.</p>
+
+<p>Command parameter is: - name of the player</p>
+
+
+
+
+
+				<h4>Handlescommand("ban")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^ban</h4>
+				<div class="list">
+						([a-z0-9-]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="banlistCommand" id="_banlistCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_banlistCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#190-222" title="Go to source code">banlistCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler shows who is on the banlist.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler shows who is on the banlist.</p>
+
+
+
+
+
+				<h4>Handlescommand("banlist")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^banlist$/i")</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unbanCommand" id="_unbanCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unbanCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#224-247" title="Go to source code">unbanCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler unbans a player from this bot.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler unbans a player from this bot.</p>
+
+<p>Command parameter is: - name of the player</p>
+
+
+
+
+
+				<h4>Handlescommand("unban")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^unban</h4>
+				<div class="list">
+						(.+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="banorgCommand" id="_banorgCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_banorgCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#249-269" title="Go to source code">banorgCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler bans an organization from this bot.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler bans an organization from this bot.</p>
+
+<p>Command parameter is: - name of the organization</p>
+
+
+
+
+
+				<h4>Handlescommand("banorg")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^banorg</h4>
+				<div class="list">
+						(.+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="unbanorgCommand" id="_unbanorgCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_unbanorgCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#271-291" title="Go to source code">unbanorgCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler unbans an organization from this bot.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler unbans an organization from this bot.</p>
+
+<p>Command parameter is: - name of the organization</p>
+
+
+
+
+
+				<h4>Handlescommand("unbanorg")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^unbanorg</h4>
+				<div class="list">
+						(.+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkTempBan" id="_checkTempBan">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkTempBan">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#293-310" title="Go to source code">checkTempBan</a>( <span> <var>$eventObj</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Defaultstatus("1")</h4>
+				<div class="list">
+				</div>
+				<h4>Description("check</h4>
+				<div class="list">
+						temp bans to see if they have expired")<br>
+				</div>
+				<h4>Event("1min")</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="banPlayer" id="_banPlayer">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_banPlayer">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#312-337" title="Go to source code">banPlayer</a>( <span> <var>$who</var></span>, <span> <var>$sender</var></span>, <span> <var>$length</var></span>, <span> <var>$reason</var></span>, <span> <var>$sendto</var></span> )</code>
+
+		<div class="description short">
+			<p>This helper method bans player with given arguments.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This helper method bans player with given arguments.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="moduleName" id="$moduleName">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#47-51" title="Go to source code"><var>$moduleName</var></a>
+
+			<div class="description short">
+				<p>Name of the module.
+Set automatically by module loader.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Name of the module.
+Set automatically by module loader.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$moduleName" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="banManager" id="$banManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#53-54" title="Go to source code"><var>$banManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$banManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="accessManager" id="$accessManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#56-57" title="Go to source code"><var>$accessManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$accessManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="util" id="$util">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#59-60" title="Go to source code"><var>$util</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$util" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="chatBot" id="$chatBot">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#62-63" title="Go to source code"><var>$chatBot</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$chatBot" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="settingManager" id="$settingManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#65-66" title="Go to source code"><var>$settingManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$settingManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="text" id="$text">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#68-69" title="Go to source code"><var>$text</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$text" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="db" id="$db">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#71-72" title="Go to source code"><var>$db</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$db" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="defaultNotifyBannedPlayer" id="$defaultNotifyBannedPlayer">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#74-83" title="Go to source code"><var>$defaultNotifyBannedPlayer</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Accesslevel("mod")</h4>
+					<div class="list">
+					</div>
+					<h4>Description("notify</h4>
+					<div class="list">
+							character when banned from bot")<br>
+					</div>
+					<h4>Intoptions("1;0")</h4>
+					<div class="list">
+					</div>
+					<h4>Options("true;false")</h4>
+					<div class="list">
+					</div>
+					<h4>Setting("notify_banned_player")</h4>
+					<div class="list">
+					</div>
+					<h4>Type("options")</h4>
+					<div class="list">
+					</div>
+					<h4>Visibility("edit")</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$defaultNotifyBannedPlayer" class="anchor">#</a>
+				<code><span class="php-quote">&quot;1&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Budabot\Core\Modules\ConfigController | Budabot 3.5_GA Docs</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Budabot.html">
+						Budabot<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Budabot.User.html">
+						User<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.User.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.Modules.AdminController.html">AdminController</a></li>
+				<li><a href="class-Budabot.Core.Modules.AliasController.html">AliasController</a></li>
+				<li><a href="class-Budabot.Core.Modules.AltInfo.html">AltInfo</a></li>
+				<li><a href="class-Budabot.Core.Modules.AltsController.html">AltsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.BanController.html">BanController</a></li>
+				<li><a href="class-Budabot.Core.Modules.BuddylistController.html">BuddylistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ColorsController.html">ColorsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.CommandlistController.html">CommandlistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.CommandSearchController.html">CommandSearchController</a></li>
+				<li class="active"><a href="class-Budabot.Core.Modules.ConfigController.html">ConfigController</a></li>
+				<li><a href="class-Budabot.Core.Modules.EventlistController.html">EventlistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.HelpController.html">HelpController</a></li>
+				<li><a href="class-Budabot.Core.Modules.LogsController.html">LogsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.PlayerLookupController.html">PlayerLookupController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ProfileCommandReply.html">ProfileCommandReply</a></li>
+				<li><a href="class-Budabot.Core.Modules.ProfileController.html">ProfileController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SettingsController.html">SettingsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SQLController.html">SQLController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SystemController.html">SystemController</a></li>
+				<li><a href="class-Budabot.Core.Modules.UsageController.html">UsageController</a></li>
+				<li><a href="class-Budabot.Core.Modules.WhitelistController.html">WhitelistController</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Budabot.Core.Modules.read_input.html">read_input</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Budabot.Core.Modules.html" title="Summary of Budabot\Core\Modules"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ConfigController</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Budabot.html">Budabot</a>\<a href="namespace-Budabot.Core.html">Core</a>\<a href="namespace-Budabot.Core.Modules.html">Modules</a><br>
+		
+
+				<b>Instance</b>
+				<br>
+			<b>Located at</b> <a href="source-class-Budabot.Core.Modules.ConfigController.html#8-665" title="Go to source code">CONFIG/ConfigController.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setup" id="_setup">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setup">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#49-71" title="Go to source code">setup</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Setup</h4>
+				<div class="list">
+						This handler is called on bot startup.<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="configCommand" id="_configCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_configCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#73-130" title="Go to source code">configCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler lists list of modules which can be configured.
+Note: This handler has not been not registered, only activated.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler lists list of modules which can be configured.
+Note: This handler has not been not registered, only activated.</p>
+
+
+
+
+
+				<h4>Matches("/^config$/i")</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toggleChannelOfAllModulesCommand" id="_toggleChannelOfAllModulesCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toggleChannelOfAllModulesCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#132-159" title="Go to source code">toggleChannelOfAllModulesCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler turns a channel of all modules on or off.
+Note: This handler has not been not registered, only activated.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler turns a channel of all modules on or off.
+Note: This handler has not been not registered, only activated.</p>
+
+
+
+
+
+				<h4>Matches("/^config</h4>
+				<div class="list">
+						cmd (enable|disable) (all|guild|priv|msg)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="toggleChannelCommand" id="_toggleChannelCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_toggleChannelCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#161-297" title="Go to source code">toggleChannelCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler turns a channel of a single command, subcommand,
+module or event on or off.
+Note: This handler has not been not registered, only activated.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler turns a channel of a single command, subcommand,
+module or event on or off.
+Note: This handler has not been not registered, only activated.</p>
+
+
+
+
+
+				<h4>Matches("/^config</h4>
+				<div class="list">
+						(subcmd|mod|cmd|event) (.+) (enable|disable) (priv|msg|guild|all)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setAccessLevelOfChannelCommand" id="_setAccessLevelOfChannelCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setAccessLevelOfChannelCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#299-354" title="Go to source code">setAccessLevelOfChannelCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler sets command's access level on a particular channel.
+Note: This handler has not been not registered, only activated.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler sets command's access level on a particular channel.
+Note: This handler has not been not registered, only activated.</p>
+
+
+
+
+
+				<h4>Matches("/^config</h4>
+				<div class="list">
+						(subcmd|cmd) (.+) admin (msg|priv|guild|all) (.+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkCommandAccessLevels" id="_checkCommandAccessLevels">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkCommandAccessLevels">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#356-363" title="Go to source code">checkCommandAccessLevels</a>( <span> <var>$data</var></span>, <span> <var>$sender</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="configCommandCommand" id="_configCommandCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_configCommandCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#365-433" title="Go to source code">configCommandCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler shows information and controls of a command in
+each channel.
+Note: This handler has not been not registered, only activated.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler shows information and controls of a command in
+each channel.
+Note: This handler has not been not registered, only activated.</p>
+
+
+
+
+
+				<h4>Matches("/^config</h4>
+				<div class="list">
+						cmd ([a-z0-9_]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAliasInfo" id="_getAliasInfo">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAliasInfo">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#435-450" title="Go to source code">getAliasInfo</a>( <span> <var>$cmd</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="configModuleCommand" id="_configModuleCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_configModuleCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#452-579" title="Go to source code">configModuleCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler shows configuration and controls for a single module.
+Note: This handler has not been not registered, only activated.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler shows configuration and controls for a single module.
+Note: This handler has not been not registered, only activated.</p>
+
+
+
+
+
+				<h4>Matches("/^config</h4>
+				<div class="list">
+						([a-z0-9_]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAdminDescription" id="_getAdminDescription">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAdminDescription">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#581-587" title="Go to source code">getAdminDescription</a>( <span> <var>$admin</var></span> )</code>
+
+		<div class="description short">
+			<p>This helper method converts given short access level name to long name.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This helper method converts given short access level name to long name.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getCommandInfo" id="_getCommandInfo">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getCommandInfo">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#589-627" title="Go to source code">getCommandInfo</a>( <span> <var>$cmd</var></span>, <span> <var>$type</var></span> )</code>
+
+		<div class="description short">
+			<p>This helper method builds information and controls for given command.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This helper method builds information and controls for given command.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSubCommandInfo" id="_getSubCommandInfo">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSubCommandInfo">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ConfigController.html#629-664" title="Go to source code">getSubCommandInfo</a>( <span> <var>$cmd</var></span>, <span> <var>$type</var></span> )</code>
+
+		<div class="description short">
+			<p>This helper method builds information and controls for given subcommand.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This helper method builds information and controls for given subcommand.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="moduleName" id="$moduleName">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#13-17" title="Go to source code"><var>$moduleName</var></a>
+
+			<div class="description short">
+				<p>Name of the module.
+Set automatically by module loader.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Name of the module.
+Set automatically by module loader.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$moduleName" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="text" id="$text">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#19-20" title="Go to source code"><var>$text</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$text" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="db" id="$db">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#22-23" title="Go to source code"><var>$db</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$db" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="commandManager" id="$commandManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#25-26" title="Go to source code"><var>$commandManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$commandManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="eventManager" id="$eventManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#28-29" title="Go to source code"><var>$eventManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$eventManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="subcommandManager" id="$subcommandManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#31-32" title="Go to source code"><var>$subcommandManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$subcommandManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="commandAlias" id="$commandAlias">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#34-35" title="Go to source code"><var>$commandAlias</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$commandAlias" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="helpManager" id="$helpManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#37-38" title="Go to source code"><var>$helpManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$helpManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="settingManager" id="$settingManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#40-41" title="Go to source code"><var>$settingManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$settingManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="accessManager" id="$accessManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#43-44" title="Go to source code"><var>$accessManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$accessManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="logger" id="$logger">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ConfigController.html#46-47" title="Go to source code"><var>$logger</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Logger</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$logger" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

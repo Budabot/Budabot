@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Budabot\Core\SettingManager | Budabot 3.5_GA Docs</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Budabot.html">
+						Budabot<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.Core.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Budabot.User.html">
+						User<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.User.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.AccessManager.html">AccessManager</a></li>
+				<li><a href="class-Budabot.Core.AdminManager.html">AdminManager</a></li>
+				<li><a href="class-Budabot.Core.AOChat.html">AOChat</a></li>
+				<li><a href="class-Budabot.Core.AOChatPacket.html">AOChatPacket</a></li>
+				<li><a href="class-Budabot.Core.AOChatQueue.html">AOChatQueue</a></li>
+				<li><a href="class-Budabot.Core.AOExtMsg.html">AOExtMsg</a></li>
+				<li><a href="class-Budabot.Core.AsyncHttp.html">AsyncHttp</a></li>
+				<li><a href="class-Budabot.Core.AutoInject.html">AutoInject</a></li>
+				<li><a href="class-Budabot.Core.BanManager.html">BanManager</a></li>
+				<li><a href="class-Budabot.Core.BotRunner.html">BotRunner</a></li>
+				<li><a href="class-Budabot.Core.Budabot.html">Budabot</a></li>
+				<li><a href="class-Budabot.Core.BuddylistManager.html">BuddylistManager</a></li>
+				<li><a href="class-Budabot.Core.CacheManager.html">CacheManager</a></li>
+				<li><a href="class-Budabot.Core.CacheResult.html">CacheResult</a></li>
+				<li><a href="class-Budabot.Core.ClassLoader.html">ClassLoader</a></li>
+				<li><a href="class-Budabot.Core.ColorSettingHandler.html">ColorSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.CommandAlias.html">CommandAlias</a></li>
+				<li><a href="class-Budabot.Core.CommandManager.html">CommandManager</a></li>
+				<li><a href="class-Budabot.Core.ConfigFile.html">ConfigFile</a></li>
+				<li><a href="class-Budabot.Core.DB.html">DB</a></li>
+				<li><a href="class-Budabot.Core.DBRow.html">DBRow</a></li>
+				<li><a href="class-Budabot.Core.EventLoop.html">EventLoop</a></li>
+				<li><a href="class-Budabot.Core.EventManager.html">EventManager</a></li>
+				<li><a href="class-Budabot.Core.GuildChannelCommandReply.html">GuildChannelCommandReply</a></li>
+				<li><a href="class-Budabot.Core.GuildManager.html">GuildManager</a></li>
+				<li><a href="class-Budabot.Core.HelpManager.html">HelpManager</a></li>
+				<li><a href="class-Budabot.Core.Http.html">Http</a></li>
+				<li><a href="class-Budabot.Core.HttpRequest.html">HttpRequest</a></li>
+				<li><a href="class-Budabot.Core.LegacyLogger.html">LegacyLogger</a></li>
+				<li><a href="class-Budabot.Core.LimitsController.html">LimitsController</a></li>
+				<li><a href="class-Budabot.Core.LoggerWrapper.html">LoggerWrapper</a></li>
+				<li><a href="class-Budabot.Core.MMDBParser.html">MMDBParser</a></li>
+				<li><a href="class-Budabot.Core.NumberSettingHandler.html">NumberSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.OptionsSettingHandler.html">OptionsSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.PlayerHistory.html">PlayerHistory</a></li>
+				<li><a href="class-Budabot.Core.PlayerHistoryManager.html">PlayerHistoryManager</a></li>
+				<li><a href="class-Budabot.Core.PlayerManager.html">PlayerManager</a></li>
+				<li><a href="class-Budabot.Core.Preferences.html">Preferences</a></li>
+				<li><a href="class-Budabot.Core.PrivateChannelCommandReply.html">PrivateChannelCommandReply</a></li>
+				<li><a href="class-Budabot.Core.PrivateMessageCommandReply.html">PrivateMessageCommandReply</a></li>
+				<li><a href="class-Budabot.Core.Registry.html">Registry</a></li>
+				<li><a href="class-Budabot.Core.SettingHandler.html">SettingHandler</a></li>
+				<li class="active"><a href="class-Budabot.Core.SettingManager.html">SettingManager</a></li>
+				<li><a href="class-Budabot.Core.SettingObject.html">SettingObject</a></li>
+				<li><a href="class-Budabot.Core.SocketManager.html">SocketManager</a></li>
+				<li><a href="class-Budabot.Core.SocketNotifier.html">SocketNotifier</a></li>
+				<li><a href="class-Budabot.Core.SubcommandManager.html">SubcommandManager</a></li>
+				<li><a href="class-Budabot.Core.Text.html">Text</a></li>
+				<li><a href="class-Budabot.Core.TextSettingHandler.html">TextSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.Timer.html">Timer</a></li>
+				<li><a href="class-Budabot.Core.TimerEvent.html">TimerEvent</a></li>
+				<li><a href="class-Budabot.Core.TimeSettingHandler.html">TimeSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.Util.html">Util</a></li>
+				<li><a href="class-Budabot.Core.xml.html">xml</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.CommandReply.html">CommandReply</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.InvalidHttpRequest.html">InvalidHttpRequest</a></li>
+				<li><a href="class-Budabot.Core.SQLException.html">SQLException</a></li>
+				<li><a href="class-Budabot.Core.StopExecutionException.html">StopExecutionException</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Budabot.Core.isWindows.html">isWindows</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Budabot.Core.html" title="Summary of Budabot\Core"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class SettingManager</h1>
+
+
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Budabot.html">Budabot</a>\<a href="namespace-Budabot.Core.html">Core</a><br>
+		
+
+				<b>Instance</b>
+				<br>
+			<b>Located at</b> <a href="source-class-Budabot.Core.SettingManager.html#7-206" title="Go to source code">SettingManager.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="add" id="_add">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add">#</a>
+		<code><a href="source-class-Budabot.Core.SettingManager.html#33-84" title="Go to source code">add</a>( <span> <var>$module</var></span>, <span> <var>$name</var></span>, <span> <var>$description</var></span>, <span> <var>$mode</var></span>, <span> <var>$type</var></span>, <span> <var>$value</var></span>, <span> <var>$options</var> = <span class="php-quote">''</span></span>, <span> <var>$intoptions</var> = <span class="php-quote">''</span></span>, <span> <var>$accessLevel</var> = <span class="php-quote">'mod'</span></span>, <span> <var>$help</var> = <span class="php-quote">''</span></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Description:</h4>
+				<div class="list">
+						Adds a new setting<br>
+				</div>
+				<h4>Name:</h4>
+				<div class="list">
+						add<br>
+				</div>
+				<h4>Param:</h4>
+				<div class="list">
+						$module - the module name<br>
+						$name - the name of the setting<br>
+						$description - a description for the setting (will appear in the config)<br>
+						$mode - 'edit', 'noedit'<br>
+						$type - 'color', 'number', 'text', 'options', or 'time'<br>
+						$options - a list of values that the setting can be, semi-colon delimited (optional)<br>
+						$intoptions - int values corresponding to $options; if empty, the values from $options will be what is stored in the database (optional)<br>
+						$admin - the permission level needed to change this setting (default: mod) (optional)<br>
+						$help - a help file for this setting; if blank, will use a help topic with the same name as this setting if it exists (optional)<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="exists" id="_exists">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_exists">#</a>
+		<code><a href="source-class-Budabot.Core.SettingManager.html#86-93" title="Go to source code">exists</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Description:</h4>
+				<div class="list">
+						Determine if a setting with a given name exists<br>
+				</div>
+				<h4>Name:</h4>
+				<div class="list">
+						exists<br>
+				</div>
+				<h4>Return:</h4>
+				<div class="list">
+						true if the setting exists, false otherwise<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get" id="_get">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get">#</a>
+		<code><a href="source-class-Budabot.Core.SettingManager.html#95-108" title="Go to source code">get</a>( <span> <var>$name</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Description:</h4>
+				<div class="list">
+						Gets the value of a setting<br>
+				</div>
+				<h4>Name:</h4>
+				<div class="list">
+						get<br>
+				</div>
+				<h4>Return:</h4>
+				<div class="list">
+						the value of the setting, or false if a setting with that name does not exist<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="save" id="_save">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_save">#</a>
+		<code><a href="source-class-Budabot.Core.SettingManager.html#110-136" title="Go to source code">save</a>( <span> <var>$name</var></span>, <span> <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Description:</h4>
+				<div class="list">
+						Saves a new value for a setting<br>
+				</div>
+				<h4>Name:</h4>
+				<div class="list">
+						save<br>
+				</div>
+				<h4>Param:</h4>
+				<div class="list">
+						$name - the name of the setting<br>
+						@value - the new value to set the setting to<br>
+				</div>
+				<h4>Return:</h4>
+				<div class="list">
+						false if the setting with that name does not exist, true otherwise<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="upload" id="_upload">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_upload">#</a>
+		<code><a href="source-class-Budabot.Core.SettingManager.html#138-146" title="Go to source code">upload</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="registerChangeListener" id="_registerChangeListener">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_registerChangeListener">#</a>
+		<code><a href="source-class-Budabot.Core.SettingManager.html#148-180" title="Go to source code">registerChangeListener</a>( <span>string <var>$settingName</var></span>, <span>callable <var>$callback</var></span>, <span> <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Adds listener callback which will be called if given $settingName changes.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Adds listener callback which will be called if given $settingName changes.</p>
+
+<p>The callback has following signature:</p>
+
+<pre><span class="php-keyword1">function</span> callback(<span class="php-var">$value</span>, <span class="php-var">$data</span>)</pre>
+
+<p>$value: new value of the setting
+$data:  optional data variable given on register</p>
+
+<p>Example usage:</p>
+
+<pre>registerChangeListener(<span class="php-quote">&quot;some_setting_name&quot;</span>, <span class="php-keyword1">function</span>(<span class="php-var">$settingName</span>, <span class="php-var">$oldValue</span>, <span class="php-var">$newValue</span>, <span class="php-var">$data</span>) {
+    <span class="php-comment">// ...</span>
+} );</pre>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$settingName</var></dt>
+					<dd>changed setting's name</dd>
+					<dt><var>$callback</var></dt>
+					<dd><p>the callback function to call
+$param mixed    $data        any data which will be passed to to the callback (optional)</p>
+
+<p>In the event of an invalid setting value, throw an exception with a message indicating why the value is invalid.</p></dd>
+					<dt><var>$data</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSettingHandler" id="_getSettingHandler">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSettingHandler">#</a>
+		<code><a href="source-class-Budabot.Core.SettingManager.html#182-205" title="Go to source code">getSettingHandler</a>( <span> <var>$row</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="db" id="$db">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.SettingManager.html#11-12" title="Go to source code"><var>$db</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$db" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="chatBot" id="$chatBot">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.SettingManager.html#14-15" title="Go to source code"><var>$chatBot</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$chatBot" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="util" id="$util">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.SettingManager.html#17-18" title="Go to source code"><var>$util</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$util" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="helpManager" id="$helpManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.SettingManager.html#20-21" title="Go to source code"><var>$helpManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$helpManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="accessManager" id="$accessManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.SettingManager.html#23-24" title="Go to source code"><var>$accessManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$accessManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="logger" id="$logger">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.SettingManager.html#26-27" title="Go to source code"><var>$logger</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Logger</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$logger" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="settings" id="$settings">
+		<td class="attributes"><code>
+			public  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.SettingManager.html#29" title="Go to source code"><var>$settings</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$settings" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="changeListeners" id="$changeListeners">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.SettingManager.html#31" title="Go to source code"><var>$changeListeners</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$changeListeners" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

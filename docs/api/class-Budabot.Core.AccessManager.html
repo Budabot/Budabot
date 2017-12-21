@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Budabot\Core\AccessManager | Budabot 3.5_GA Docs</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Budabot.html">
+						Budabot<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.Core.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Budabot.User.html">
+						User<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.User.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li class="active"><a href="class-Budabot.Core.AccessManager.html">AccessManager</a></li>
+				<li><a href="class-Budabot.Core.AdminManager.html">AdminManager</a></li>
+				<li><a href="class-Budabot.Core.AOChat.html">AOChat</a></li>
+				<li><a href="class-Budabot.Core.AOChatPacket.html">AOChatPacket</a></li>
+				<li><a href="class-Budabot.Core.AOChatQueue.html">AOChatQueue</a></li>
+				<li><a href="class-Budabot.Core.AOExtMsg.html">AOExtMsg</a></li>
+				<li><a href="class-Budabot.Core.AsyncHttp.html">AsyncHttp</a></li>
+				<li><a href="class-Budabot.Core.AutoInject.html">AutoInject</a></li>
+				<li><a href="class-Budabot.Core.BanManager.html">BanManager</a></li>
+				<li><a href="class-Budabot.Core.BotRunner.html">BotRunner</a></li>
+				<li><a href="class-Budabot.Core.Budabot.html">Budabot</a></li>
+				<li><a href="class-Budabot.Core.BuddylistManager.html">BuddylistManager</a></li>
+				<li><a href="class-Budabot.Core.CacheManager.html">CacheManager</a></li>
+				<li><a href="class-Budabot.Core.CacheResult.html">CacheResult</a></li>
+				<li><a href="class-Budabot.Core.ClassLoader.html">ClassLoader</a></li>
+				<li><a href="class-Budabot.Core.ColorSettingHandler.html">ColorSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.CommandAlias.html">CommandAlias</a></li>
+				<li><a href="class-Budabot.Core.CommandManager.html">CommandManager</a></li>
+				<li><a href="class-Budabot.Core.ConfigFile.html">ConfigFile</a></li>
+				<li><a href="class-Budabot.Core.DB.html">DB</a></li>
+				<li><a href="class-Budabot.Core.DBRow.html">DBRow</a></li>
+				<li><a href="class-Budabot.Core.EventLoop.html">EventLoop</a></li>
+				<li><a href="class-Budabot.Core.EventManager.html">EventManager</a></li>
+				<li><a href="class-Budabot.Core.GuildChannelCommandReply.html">GuildChannelCommandReply</a></li>
+				<li><a href="class-Budabot.Core.GuildManager.html">GuildManager</a></li>
+				<li><a href="class-Budabot.Core.HelpManager.html">HelpManager</a></li>
+				<li><a href="class-Budabot.Core.Http.html">Http</a></li>
+				<li><a href="class-Budabot.Core.HttpRequest.html">HttpRequest</a></li>
+				<li><a href="class-Budabot.Core.LegacyLogger.html">LegacyLogger</a></li>
+				<li><a href="class-Budabot.Core.LimitsController.html">LimitsController</a></li>
+				<li><a href="class-Budabot.Core.LoggerWrapper.html">LoggerWrapper</a></li>
+				<li><a href="class-Budabot.Core.MMDBParser.html">MMDBParser</a></li>
+				<li><a href="class-Budabot.Core.NumberSettingHandler.html">NumberSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.OptionsSettingHandler.html">OptionsSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.PlayerHistory.html">PlayerHistory</a></li>
+				<li><a href="class-Budabot.Core.PlayerHistoryManager.html">PlayerHistoryManager</a></li>
+				<li><a href="class-Budabot.Core.PlayerManager.html">PlayerManager</a></li>
+				<li><a href="class-Budabot.Core.Preferences.html">Preferences</a></li>
+				<li><a href="class-Budabot.Core.PrivateChannelCommandReply.html">PrivateChannelCommandReply</a></li>
+				<li><a href="class-Budabot.Core.PrivateMessageCommandReply.html">PrivateMessageCommandReply</a></li>
+				<li><a href="class-Budabot.Core.Registry.html">Registry</a></li>
+				<li><a href="class-Budabot.Core.SettingHandler.html">SettingHandler</a></li>
+				<li><a href="class-Budabot.Core.SettingManager.html">SettingManager</a></li>
+				<li><a href="class-Budabot.Core.SettingObject.html">SettingObject</a></li>
+				<li><a href="class-Budabot.Core.SocketManager.html">SocketManager</a></li>
+				<li><a href="class-Budabot.Core.SocketNotifier.html">SocketNotifier</a></li>
+				<li><a href="class-Budabot.Core.SubcommandManager.html">SubcommandManager</a></li>
+				<li><a href="class-Budabot.Core.Text.html">Text</a></li>
+				<li><a href="class-Budabot.Core.TextSettingHandler.html">TextSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.Timer.html">Timer</a></li>
+				<li><a href="class-Budabot.Core.TimerEvent.html">TimerEvent</a></li>
+				<li><a href="class-Budabot.Core.TimeSettingHandler.html">TimeSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.Util.html">Util</a></li>
+				<li><a href="class-Budabot.Core.xml.html">xml</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.CommandReply.html">CommandReply</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.InvalidHttpRequest.html">InvalidHttpRequest</a></li>
+				<li><a href="class-Budabot.Core.SQLException.html">SQLException</a></li>
+				<li><a href="class-Budabot.Core.StopExecutionException.html">StopExecutionException</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Budabot.Core.isWindows.html">isWindows</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Budabot.Core.html" title="Summary of Budabot\Core"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AccessManager</h1>
+
+
+	<div class="description">
+	<p>The AccessLevel class provides functionality for checking a player's access level.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Budabot.html">Budabot</a>\<a href="namespace-Budabot.Core.html">Core</a><br>
+		
+
+				<b>Instance</b>
+				<br>
+			<b>Located at</b> <a href="source-class-Budabot.Core.AccessManager.html#7-243" title="Go to source code">AccessManager.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="checkAccess" id="_checkAccess">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkAccess">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#36-93" title="Go to source code">checkAccess</a>( <span>string <var>$sender</var></span>, <span>string <var>$accessLevel</var></span> )</code>
+
+		<div class="description short">
+			<p>This method checks if given $sender has at least $accessLevel rights.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This method checks if given $sender has at least $accessLevel rights.</p>
+
+<p>Normally, you don't have to worry about access levels in the bot.
+The bot will automatically restrict access to commands based on the
+access level setting on the command and the access level of the user
+trying to access the command.</p>
+
+<p>However, there are some cases where you may need this functionality.
+For instance, you may have a command that displays the names of the last
+ten people to send a tell to the bot.  You may wish to display a "ban"
+link when a moderator or higher uses that command.</p>
+
+<p>To check if a character named 'Tyrence' has raidleader access,
+you would do:</p>
+
+<pre><span class="php-keyword1">if</span> (<span class="php-var">$this</span>-&gt;accessManager-&gt;checkAccess(<span class="php-quote">&quot;Tyrence&quot;</span>, <span class="php-quote">&quot;raidleader&quot;</span>)) {
+   <span class="php-comment">// Tyrence has [at least] raidleader access level</span>
+} <span class="php-keyword1">else</span> {
+   <span class="php-comment">// Tyrence does not have raidleader access level</span>
+}</pre>
+
+<p>Note that this will return true if 'Tyrence' is a raidleader on your
+bot, but also if he is anything higher, such as moderator,
+administrator, or superadmin.</p>
+
+<p>If the setting 'alts_inherit_admin' is enabled, this command will return
+the character's "effective" admin level - Not necessarily that
+character's set access level, but the access level inherited from its
+main (if it has one).</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$sender</var></dt>
+					<dd><ul>
+<li>the name of the person you want to check access on</li>
+</ul></dd>
+					<dt><var>$accessLevel</var></dt>
+					<dd><ul>
+<li>can be one of: superadmin, admininistrator, moderator, raidleader, guild, member, all</li>
+</ul></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean<br>true if $sender has at least $accessLevel, false otherwise
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkSingleAccess" id="_checkSingleAccess">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkSingleAccess">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#95-100" title="Go to source code">checkSingleAccess</a>( <span> <var>$sender</var></span>, <span> <var>$accessLevel</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getDisplayName" id="_getDisplayName">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getDisplayName">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#102-117" title="Go to source code">getDisplayName</a>( <span> <var>$accessLevel</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getSingleAccessLevel" id="_getSingleAccessLevel">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getSingleAccessLevel">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#119-154" title="Go to source code">getSingleAccessLevel</a>( <span> <var>$sender</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns the access level of $sender, ignoring guild admin and alts_inherit_admin settings</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the access level of $sender, ignoring guild admin and alts_inherit_admin settings</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAccessLevelForCharacter" id="_getAccessLevelForCharacter">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAccessLevelForCharacter">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#156-175" title="Go to source code">getAccessLevelForCharacter</a>( <span> <var>$sender</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns the access level of $sender, accounting for guild admin and alts_inherit_admin settings</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns the access level of $sender, accounting for guild admin and alts_inherit_admin settings</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkGuildAdmin" id="_checkGuildAdmin">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkGuildAdmin">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#177-187" title="Go to source code">checkGuildAdmin</a>( <span> <var>$sender</var></span>, <span> <var>$accessLevel</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="compareAccessLevels" id="_compareAccessLevels">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_compareAccessLevels">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#189-201" title="Go to source code">compareAccessLevels</a>( <span> <var>$accessLevel1</var></span>, <span> <var>$accessLevel2</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns a positive number if $accessLevel1 is a greater access level than $accessLevel2,
+a negative number if $accessLevel1 is a lesser access level than $accessLevel2,
+and 0 if the access levels are equal.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns a positive number if $accessLevel1 is a greater access level than $accessLevel2,
+a negative number if $accessLevel1 is a lesser access level than $accessLevel2,
+and 0 if the access levels are equal.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="compareCharacterAccessLevels" id="_compareCharacterAccessLevels">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_compareCharacterAccessLevels">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#203-216" title="Go to source code">compareCharacterAccessLevels</a>( <span> <var>$char1</var></span>, <span> <var>$char2</var></span> )</code>
+
+		<div class="description short">
+			<p>Returns a positive number if the access level of $char1 is greater than the access level of $char2,
+a negative number if the access level of $char1 is less than the access level of $char2,
+and 0 if the access levels of $char1 and $char2 are equal.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Returns a positive number if the access level of $char1 is greater than the access level of $char2,
+a negative number if the access level of $char1 is less than the access level of $char2,
+and 0 if the access levels of $char1 and $char2 are equal.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAccessLevel" id="_getAccessLevel">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAccessLevel">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#218-238" title="Go to source code">getAccessLevel</a>( <span> <var>$accessLevel</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAccessLevels" id="_getAccessLevels">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAccessLevels">#</a>
+		<code><a href="source-class-Budabot.Core.AccessManager.html#240-242" title="Go to source code">getAccessLevels</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="ACCESS_LEVELS" id="$ACCESS_LEVELS">
+		<td class="attributes"><code>
+			private static 
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AccessManager.html#13" title="Go to source code"><var>$ACCESS_LEVELS</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$ACCESS_LEVELS" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>(<span class="php-quote">'none'</span> =&gt; <span class="php-num">0</span>, <span class="php-quote">'superadmin'</span> =&gt; <span class="php-num">1</span>,  <span class="php-quote">'admin'</span> =&gt; <span class="php-num">2</span>, <span class="php-quote">'mod'</span> =&gt; <span class="php-num">3</span>, <span class="php-quote">'rl'</span> =&gt; <span class="php-num">4</span>, <span class="php-quote">'guild'</span> =&gt; <span class="php-num">6</span>, <span class="php-quote">'member'</span> =&gt; <span class="php-num">7</span>, <span class="php-quote">'all'</span> =&gt; <span class="php-num">8</span>)</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="db" id="$db">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AccessManager.html#15-16" title="Go to source code"><var>$db</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$db" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="setting" id="$setting">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AccessManager.html#18-19" title="Go to source code"><var>$setting</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$setting" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="chatBot" id="$chatBot">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AccessManager.html#21-22" title="Go to source code"><var>$chatBot</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$chatBot" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="adminManager" id="$adminManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AccessManager.html#24-25" title="Go to source code"><var>$adminManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$adminManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="logger" id="$logger">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AccessManager.html#27-28" title="Go to source code"><var>$logger</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Logger</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$logger" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="altsController" id="$altsController">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AccessManager.html#30-31" title="Go to source code"><var>$altsController</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$altsController" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="chatLeaderController" id="$chatLeaderController">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AccessManager.html#33-34" title="Go to source code"><var>$chatLeaderController</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$chatLeaderController" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

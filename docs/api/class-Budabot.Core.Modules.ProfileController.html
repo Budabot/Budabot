@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Budabot\Core\Modules\ProfileController | Budabot 3.5_GA Docs</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Budabot.html">
+						Budabot<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Budabot.User.html">
+						User<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.User.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.Modules.AdminController.html">AdminController</a></li>
+				<li><a href="class-Budabot.Core.Modules.AliasController.html">AliasController</a></li>
+				<li><a href="class-Budabot.Core.Modules.AltInfo.html">AltInfo</a></li>
+				<li><a href="class-Budabot.Core.Modules.AltsController.html">AltsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.BanController.html">BanController</a></li>
+				<li><a href="class-Budabot.Core.Modules.BuddylistController.html">BuddylistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ColorsController.html">ColorsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.CommandlistController.html">CommandlistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.CommandSearchController.html">CommandSearchController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ConfigController.html">ConfigController</a></li>
+				<li><a href="class-Budabot.Core.Modules.EventlistController.html">EventlistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.HelpController.html">HelpController</a></li>
+				<li><a href="class-Budabot.Core.Modules.LogsController.html">LogsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.PlayerLookupController.html">PlayerLookupController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ProfileCommandReply.html">ProfileCommandReply</a></li>
+				<li class="active"><a href="class-Budabot.Core.Modules.ProfileController.html">ProfileController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SettingsController.html">SettingsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SQLController.html">SQLController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SystemController.html">SystemController</a></li>
+				<li><a href="class-Budabot.Core.Modules.UsageController.html">UsageController</a></li>
+				<li><a href="class-Budabot.Core.Modules.WhitelistController.html">WhitelistController</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Budabot.Core.Modules.read_input.html">read_input</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Budabot.Core.Modules.html" title="Summary of Budabot\Core\Modules"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ProfileController</h1>
+
+
+	<div class="description">
+	<p>Authors:
+- Tyrence (RK2)</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Budabot.html">Budabot</a>\<a href="namespace-Budabot.Core.html">Core</a>\<a href="namespace-Budabot.Core.Modules.html">Modules</a><br>
+		
+
+				<b>Definecommand(:</b>
+				<p>command     = 'profile',
+    accessLevel = 'admin',
+    description = 'View, add, remove, and load profiles',
+    help        = 'profile.txt',
+    alias       = 'profiles'
+)</p><br>
+				<b>Instance:</b>
+				Commands this controller contains:<br>
+			<b>Located at</b> <a href="source-class-Budabot.Core.Modules.ProfileController.html#8-228" title="Go to source code">PROFILE/ProfileController.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setup" id="_setup">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setup">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ProfileController.html#49-60" title="Go to source code">setup</a>( )</code>
+
+		<div class="description short">
+			<p>This handler is called on bot startup.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This handler is called on bot startup.</p>
+
+
+
+
+
+				<h4>Setup</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="profileListCommand" id="_profileListCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_profileListCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ProfileController.html#62-100" title="Go to source code">profileListCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Handlescommand("profile")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^profile$/i")</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="profileViewCommand" id="_profileViewCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_profileViewCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ProfileController.html#102-116" title="Go to source code">profileViewCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Handlescommand("profile")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^profile</h4>
+				<div class="list">
+						view ([a-z0-9_-]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="profileSaveCommand" id="_profileSaveCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_profileSaveCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ProfileController.html#118-162" title="Go to source code">profileSaveCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Handlescommand("profile")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^profile</h4>
+				<div class="list">
+						save ([a-z0-9_-]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="profileRemCommand" id="_profileRemCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_profileRemCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ProfileController.html#164-178" title="Go to source code">profileRemCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Handlescommand("profile")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^profile</h4>
+				<div class="list">
+						(rem|remove|del|delete) ([a-z0-9_-]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="profileLoadCommand" id="_profileLoadCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_profileLoadCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ProfileController.html#180-200" title="Go to source code">profileLoadCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Handlescommand("profile")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^profile</h4>
+				<div class="list">
+						load ([a-z0-9_-]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getFilename" id="_getFilename">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getFilename">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ProfileController.html#202-204" title="Go to source code">getFilename</a>( <span> <var>$profileName</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="loadProfile" id="_loadProfile">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_loadProfile">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.ProfileController.html#206-227" title="Go to source code">loadProfile</a>( <span> <var>$filename</var></span>, <span> <var>$sender</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="moduleName" id="$moduleName">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ProfileController.html#25-29" title="Go to source code"><var>$moduleName</var></a>
+
+			<div class="description short">
+				<p>Name of the module.
+Set automatically by module loader.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Name of the module.
+Set automatically by module loader.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$moduleName" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="db" id="$db">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ProfileController.html#31-32" title="Go to source code"><var>$db</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$db" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="settingManager" id="$settingManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ProfileController.html#34-35" title="Go to source code"><var>$settingManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$settingManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="text" id="$text">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ProfileController.html#37-38" title="Go to source code"><var>$text</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$text" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="util" id="$util">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ProfileController.html#40-41" title="Go to source code"><var>$util</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$util" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="commandManager" id="$commandManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ProfileController.html#43-44" title="Go to source code"><var>$commandManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$commandManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="path" id="$path">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ProfileController.html#46" title="Go to source code"><var>$path</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$path" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="fileExt" id="$fileExt">
+		<td class="attributes"><code>
+			private  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.ProfileController.html#47" title="Go to source code"><var>$fileExt</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$fileExt" class="anchor">#</a>
+				<code><span class="php-quote">&quot;.txt&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Budabot\Core\Modules\AltsController | Budabot 3.5_GA Docs</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Budabot.html">
+						Budabot<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Budabot.User.html">
+						User<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.User.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.Modules.AdminController.html">AdminController</a></li>
+				<li><a href="class-Budabot.Core.Modules.AliasController.html">AliasController</a></li>
+				<li><a href="class-Budabot.Core.Modules.AltInfo.html">AltInfo</a></li>
+				<li class="active"><a href="class-Budabot.Core.Modules.AltsController.html">AltsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.BanController.html">BanController</a></li>
+				<li><a href="class-Budabot.Core.Modules.BuddylistController.html">BuddylistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ColorsController.html">ColorsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.CommandlistController.html">CommandlistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.CommandSearchController.html">CommandSearchController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ConfigController.html">ConfigController</a></li>
+				<li><a href="class-Budabot.Core.Modules.EventlistController.html">EventlistController</a></li>
+				<li><a href="class-Budabot.Core.Modules.HelpController.html">HelpController</a></li>
+				<li><a href="class-Budabot.Core.Modules.LogsController.html">LogsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.PlayerLookupController.html">PlayerLookupController</a></li>
+				<li><a href="class-Budabot.Core.Modules.ProfileCommandReply.html">ProfileCommandReply</a></li>
+				<li><a href="class-Budabot.Core.Modules.ProfileController.html">ProfileController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SettingsController.html">SettingsController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SQLController.html">SQLController</a></li>
+				<li><a href="class-Budabot.Core.Modules.SystemController.html">SystemController</a></li>
+				<li><a href="class-Budabot.Core.Modules.UsageController.html">UsageController</a></li>
+				<li><a href="class-Budabot.Core.Modules.WhitelistController.html">WhitelistController</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Budabot.Core.Modules.read_input.html">read_input</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Budabot.Core.Modules.html" title="Summary of Budabot\Core\Modules"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AltsController</h1>
+
+
+	<div class="description">
+	<p>Authors: - Tyrence (RK2)</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Budabot.html">Budabot</a>\<a href="namespace-Budabot.Core.html">Core</a>\<a href="namespace-Budabot.Core.Modules.html">Modules</a><br>
+		
+
+				<b>Definecommand(:</b>
+				<p>command       = 'alts',
+    accessLevel   = 'member',
+    description   = 'Alt character handling',
+    help          = 'alts.txt'
+)</p><br>
+				<b>Definecommand(:</b>
+				<p>command       = 'alts main (.+)',
+    accessLevel   = 'member',
+    description   = 'Add yourself as an alt to a main'
+)</p><br>
+				<b>Definecommand(:</b>
+				<p>command       = 'altvalidate',
+    accessLevel   = 'member',
+    description   = 'Validate alts for admin privileges',
+    help          = 'altvalidate.txt'
+)</p><br>
+				<b>Instance:</b>
+				Commands this controller contains:<br>
+			<b>Located at</b> <a href="source-class-Budabot.Core.Modules.AltsController.html#5-358" title="Go to source code">ALTS/AltsController.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="setup" id="_setup">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setup">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#62-68" title="Go to source code">setup</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Setup</h4>
+				<div class="list">
+						This handler is called on bot startup.<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addAltCommand" id="_addAltCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addAltCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#70-134" title="Go to source code">addAltCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler adds alt character.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler adds alt character.</p>
+
+
+
+
+
+				<h4>Handlescommand("alts")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^alts</h4>
+				<div class="list">
+						add ([a-z0-9- ]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="removeAltCommand" id="_removeAltCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_removeAltCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#136-158" title="Go to source code">removeAltCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler removes alt character.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler removes alt character.</p>
+
+
+
+
+
+				<h4>Handlescommand("alts")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^alts</h4>
+				<div class="list">
+						(rem|del|remove|delete) ([a-z0-9-]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setMainCommand" id="_setMainCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setMainCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#160-196" title="Go to source code">setMainCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler sets main character.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler sets main character.</p>
+
+
+
+
+
+				<h4>Handlescommand("alts")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^alts</h4>
+				<div class="list">
+						setmain$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="altsCommand" id="_altsCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_altsCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#198-222" title="Go to source code">altsCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler lists alt characters.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler lists alt characters.</p>
+
+
+
+
+
+				<h4>Handlescommand("alts")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^alts</h4>
+				<div class="list">
+						([a-z0-9-]+)$/i")<br>
+				</div>
+				<h4>Matches("/^alts$/i")</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="altsMainCommand" id="_altsMainCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_altsMainCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#224-264" title="Go to source code">altsMainCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler adds yourself as an alt to a main.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler adds yourself as an alt to a main.</p>
+
+
+
+
+
+				<h4>Handlescommand("alts</h4>
+				<div class="list">
+						main (.+)")<br>
+				</div>
+				<h4>Matches("/^alts</h4>
+				<div class="list">
+						main ([a-z0-9-]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="altvalidateCommand" id="_altvalidateCommand">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_altvalidateCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#266-300" title="Go to source code">altvalidateCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>This command handler validate alts for admin privileges.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This command handler validate alts for admin privileges.</p>
+
+
+
+
+
+				<h4>Handlescommand("altvalidate")</h4>
+				<div class="list">
+				</div>
+				<h4>Matches("/^altvalidate</h4>
+				<div class="list">
+						([a-z0-9- ]+)$/i")<br>
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="checkUnvalidatedAltsEvent" id="_checkUnvalidatedAltsEvent">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_checkUnvalidatedAltsEvent">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#302-316" title="Go to source code">checkUnvalidatedAltsEvent</a>( <span> <var>$eventObj</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Description("reminds</h4>
+				<div class="list">
+						players logging in to validate alts")<br>
+				</div>
+				<h4>Event("logon")</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getAltInfo" id="_getAltInfo">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getAltInfo">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#318-338" title="Go to source code">getAltInfo</a>( <span> <var>$player</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="addAlt" id="_addAlt">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_addAlt">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#340-349" title="Go to source code">addAlt</a>( <span> <var>$main</var></span>, <span> <var>$alt</var></span>, <span> <var>$validated</var></span> )</code>
+
+		<div class="description short">
+			<p>This method adds given @a $alt as @a $main's alt character.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This method adds given @a $alt as @a $main's alt character.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="remAlt" id="_remAlt">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_remAlt">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.AltsController.html#351-357" title="Go to source code">remAlt</a>( <span> <var>$main</var></span>, <span> <var>$alt</var></span> )</code>
+
+		<div class="description short">
+			<p>This method removes given @a $alt from being @a $main's alt character.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>This method removes given @a $alt from being @a $main's alt character.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="moduleName" id="$moduleName">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.AltsController.html#32-36" title="Go to source code"><var>$moduleName</var></a>
+
+			<div class="description short">
+				<p>Name of the module.
+Set automatically by module loader.</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Name of the module.
+Set automatically by module loader.</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$moduleName" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="chatBot" id="$chatBot">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.AltsController.html#38-39" title="Go to source code"><var>$chatBot</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$chatBot" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="settingManager" id="$settingManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.AltsController.html#41-42" title="Go to source code"><var>$settingManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$settingManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="playerManager" id="$playerManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.AltsController.html#44-45" title="Go to source code"><var>$playerManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$playerManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="db" id="$db">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.AltsController.html#47-48" title="Go to source code"><var>$db</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$db" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="defaultAltsInheritAdmin" id="$defaultAltsInheritAdmin">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.AltsController.html#50-60" title="Go to source code"><var>$defaultAltsInheritAdmin</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Accesslevel("mod")</h4>
+					<div class="list">
+					</div>
+					<h4>Description("alts</h4>
+					<div class="list">
+							inherit admin privileges from main")<br>
+					</div>
+					<h4>Help("alts_inherit_admin.txt")</h4>
+					<div class="list">
+					</div>
+					<h4>Intoptions("1;0")</h4>
+					<div class="list">
+					</div>
+					<h4>Options("true;false")</h4>
+					<div class="list">
+					</div>
+					<h4>Setting("alts_inherit_admin")</h4>
+					<div class="list">
+					</div>
+					<h4>Type("options")</h4>
+					<div class="list">
+					</div>
+					<h4>Visibility("edit")</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$defaultAltsInheritAdmin" class="anchor">#</a>
+				<code><span class="php-quote">&quot;1&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

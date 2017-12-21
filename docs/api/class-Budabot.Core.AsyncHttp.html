@@ -1,0 +1,1711 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class Budabot\Core\AsyncHttp | Budabot 3.5_GA Docs</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-Budabot.html">
+						Budabot<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-Budabot.Core.html">
+						Core<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.Core.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
+				<li>
+					<a href="namespace-Budabot.User.html">
+						User<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Budabot.User.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li></ul></li>
+				<li>
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.AccessManager.html">AccessManager</a></li>
+				<li><a href="class-Budabot.Core.AdminManager.html">AdminManager</a></li>
+				<li><a href="class-Budabot.Core.AOChat.html">AOChat</a></li>
+				<li><a href="class-Budabot.Core.AOChatPacket.html">AOChatPacket</a></li>
+				<li><a href="class-Budabot.Core.AOChatQueue.html">AOChatQueue</a></li>
+				<li><a href="class-Budabot.Core.AOExtMsg.html">AOExtMsg</a></li>
+				<li class="active"><a href="class-Budabot.Core.AsyncHttp.html">AsyncHttp</a></li>
+				<li><a href="class-Budabot.Core.AutoInject.html">AutoInject</a></li>
+				<li><a href="class-Budabot.Core.BanManager.html">BanManager</a></li>
+				<li><a href="class-Budabot.Core.BotRunner.html">BotRunner</a></li>
+				<li><a href="class-Budabot.Core.Budabot.html">Budabot</a></li>
+				<li><a href="class-Budabot.Core.BuddylistManager.html">BuddylistManager</a></li>
+				<li><a href="class-Budabot.Core.CacheManager.html">CacheManager</a></li>
+				<li><a href="class-Budabot.Core.CacheResult.html">CacheResult</a></li>
+				<li><a href="class-Budabot.Core.ClassLoader.html">ClassLoader</a></li>
+				<li><a href="class-Budabot.Core.ColorSettingHandler.html">ColorSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.CommandAlias.html">CommandAlias</a></li>
+				<li><a href="class-Budabot.Core.CommandManager.html">CommandManager</a></li>
+				<li><a href="class-Budabot.Core.ConfigFile.html">ConfigFile</a></li>
+				<li><a href="class-Budabot.Core.DB.html">DB</a></li>
+				<li><a href="class-Budabot.Core.DBRow.html">DBRow</a></li>
+				<li><a href="class-Budabot.Core.EventLoop.html">EventLoop</a></li>
+				<li><a href="class-Budabot.Core.EventManager.html">EventManager</a></li>
+				<li><a href="class-Budabot.Core.GuildChannelCommandReply.html">GuildChannelCommandReply</a></li>
+				<li><a href="class-Budabot.Core.GuildManager.html">GuildManager</a></li>
+				<li><a href="class-Budabot.Core.HelpManager.html">HelpManager</a></li>
+				<li><a href="class-Budabot.Core.Http.html">Http</a></li>
+				<li><a href="class-Budabot.Core.HttpRequest.html">HttpRequest</a></li>
+				<li><a href="class-Budabot.Core.LegacyLogger.html">LegacyLogger</a></li>
+				<li><a href="class-Budabot.Core.LimitsController.html">LimitsController</a></li>
+				<li><a href="class-Budabot.Core.LoggerWrapper.html">LoggerWrapper</a></li>
+				<li><a href="class-Budabot.Core.MMDBParser.html">MMDBParser</a></li>
+				<li><a href="class-Budabot.Core.NumberSettingHandler.html">NumberSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.OptionsSettingHandler.html">OptionsSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.PlayerHistory.html">PlayerHistory</a></li>
+				<li><a href="class-Budabot.Core.PlayerHistoryManager.html">PlayerHistoryManager</a></li>
+				<li><a href="class-Budabot.Core.PlayerManager.html">PlayerManager</a></li>
+				<li><a href="class-Budabot.Core.Preferences.html">Preferences</a></li>
+				<li><a href="class-Budabot.Core.PrivateChannelCommandReply.html">PrivateChannelCommandReply</a></li>
+				<li><a href="class-Budabot.Core.PrivateMessageCommandReply.html">PrivateMessageCommandReply</a></li>
+				<li><a href="class-Budabot.Core.Registry.html">Registry</a></li>
+				<li><a href="class-Budabot.Core.SettingHandler.html">SettingHandler</a></li>
+				<li><a href="class-Budabot.Core.SettingManager.html">SettingManager</a></li>
+				<li><a href="class-Budabot.Core.SettingObject.html">SettingObject</a></li>
+				<li><a href="class-Budabot.Core.SocketManager.html">SocketManager</a></li>
+				<li><a href="class-Budabot.Core.SocketNotifier.html">SocketNotifier</a></li>
+				<li><a href="class-Budabot.Core.SubcommandManager.html">SubcommandManager</a></li>
+				<li><a href="class-Budabot.Core.Text.html">Text</a></li>
+				<li><a href="class-Budabot.Core.TextSettingHandler.html">TextSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.Timer.html">Timer</a></li>
+				<li><a href="class-Budabot.Core.TimerEvent.html">TimerEvent</a></li>
+				<li><a href="class-Budabot.Core.TimeSettingHandler.html">TimeSettingHandler</a></li>
+				<li><a href="class-Budabot.Core.Util.html">Util</a></li>
+				<li><a href="class-Budabot.Core.xml.html">xml</a></li>
+			</ul>
+
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.CommandReply.html">CommandReply</a></li>
+			</ul>
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-Budabot.Core.InvalidHttpRequest.html">InvalidHttpRequest</a></li>
+				<li><a href="class-Budabot.Core.SQLException.html">SQLException</a></li>
+				<li><a href="class-Budabot.Core.StopExecutionException.html">StopExecutionException</a></li>
+			</ul>
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-Budabot.Core.isWindows.html">isWindows</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-Budabot.Core.html" title="Summary of Budabot\Core"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class AsyncHttp</h1>
+
+
+	<div class="description">
+	<p>The AsyncHttp class provides means to make HTTP and HTTPS requests.</p>
+
+<p>This class should not be instanced as it is, but instead Http class's
+get() or post() method should be used to create instance of the
+AsyncHttp class.</p>
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-Budabot.html">Budabot</a>\<a href="namespace-Budabot.Core.html">Core</a><br>
+		
+
+			<b>Located at</b> <a href="source-class-Budabot.Core.AsyncHttp.html#7-397" title="Go to source code">AsyncHttp.class.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="execute" id="_execute">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_execute">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#67-84" title="Go to source code">execute</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="buildRequest" id="_buildRequest">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_buildRequest">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#86-95" title="Go to source code">buildRequest</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setError" id="_setError">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setError">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#105-113" title="Go to source code">setError</a>( <span>string <var>$errorString</var></span> )</code>
+
+		<div class="description short">
+			<p>Sets error to given $errorString.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Sets error to given $errorString.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$errorString</var></dt>
+					<dd>error string</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="finish" id="_finish">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_finish">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#115-123" title="Go to source code">finish</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="close" id="_close">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_close">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#125-132" title="Go to source code">close</a>( )</code>
+
+		<div class="description short">
+			<p>Removes socket notifier from bot's reactor loop and closes the stream.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Removes socket notifier from bot's reactor loop and closes the stream.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="callCallback" id="_callCallback">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_callCallback">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#134-142" title="Go to source code">callCallback</a>( )</code>
+
+		<div class="description short">
+			<p>Calls the user supplied callback.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Calls the user supplied callback.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="buildResponse" id="_buildResponse">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_buildResponse">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#144-154" title="Go to source code">buildResponse</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="initTimeout" id="_initTimeout">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_initTimeout">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#156-163" title="Go to source code">initTimeout</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="createStream" id="_createStream">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_createStream">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#165-173" title="Go to source code">createStream</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStreamUri" id="_getStreamUri">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStreamUri">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#175-180" title="Go to source code">getStreamUri</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getStreamFlags" id="_getStreamFlags">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getStreamFlags">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#182-190" title="Go to source code">getStreamFlags</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setupStreamNotify" id="_setupStreamNotify">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setupStreamNotify">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#192-200" title="Go to source code">setupStreamNotify</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="onStreamActivity" id="_onStreamActivity">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_onStreamActivity">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#202-226" title="Go to source code">onStreamActivity</a>( <span>integer <var>$type</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$type</var></dt>
+					<dd>type of activity, see SocketNotifier::ACTIVITY_* constants.</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="processResponse" id="_processResponse">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_processResponse">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#228-244" title="Go to source code">processResponse</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="processHeaders" id="_processHeaders">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_processHeaders">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#246-252" title="Go to source code">processHeaders</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getResponseBody" id="_getResponseBody">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getResponseBody">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#254-256" title="Go to source code">getResponseBody</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="areHeadersReceived" id="_areHeadersReceived">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_areHeadersReceived">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#258-260" title="Go to source code">areHeadersReceived</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isStreamClosed" id="_isStreamClosed">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isStreamClosed">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#262-264" title="Go to source code">isStreamClosed</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isBodyFullyReceived" id="_isBodyFullyReceived">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isBodyFullyReceived">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#266-268" title="Go to source code">isBodyFullyReceived</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isBodyLengthKnown" id="_isBodyLengthKnown">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isBodyLengthKnown">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#270-272" title="Go to source code">isBodyLengthKnown</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="readAllFromSocket" id="_readAllFromSocket">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_readAllFromSocket">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#274-294" title="Go to source code">readAllFromSocket</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getBodyLength" id="_getBodyLength">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBodyLength">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#296-298" title="Go to source code">getBodyLength</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="extractHeadersFromHeaderData" id="_extractHeadersFromHeaderData">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_extractHeadersFromHeaderData">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#300-313" title="Go to source code">extractHeadersFromHeaderData</a>( <span> <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="processRequest" id="_processRequest">
+
+		<td class="attributes"><code>
+			 private 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_processRequest">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#315-327" title="Go to source code">processRequest</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withHeader" id="_withHeader">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Budabot.Core.AsyncHttp.html">Budabot\Core\AsyncHttp</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withHeader">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#329-337" title="Go to source code">withHeader</a>( <span> <var>$header</var></span>, <span> <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$header</var></dt>
+					<dd></dd>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Budabot.Core.AsyncHttp.html">Budabot\Core\AsyncHttp</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withTimeout" id="_withTimeout">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Budabot.Core.AsyncHttp.html">Budabot\Core\AsyncHttp</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withTimeout">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#339-346" title="Go to source code">withTimeout</a>( <span> <var>$timeout</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$timeout</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Budabot.Core.AsyncHttp.html">Budabot\Core\AsyncHttp</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withCallback" id="_withCallback">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Budabot.Core.AsyncHttp.html">Budabot\Core\AsyncHttp</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withCallback">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#348-369" title="Go to source code">withCallback</a>( <span>callable <var>$callback</var></span>, <span>mixed <var>$data</var> = <span class="php-keyword1">null</span></span> )</code>
+
+		<div class="description short">
+			<p>Defines a callback which will be called later on when the remote
+server has responded or an error has occurred.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Defines a callback which will be called later on when the remote
+server has responded or an error has occurred.</p>
+
+<p>The callback has following signature:</p>
+
+<pre><span class="php-keyword1">function</span> callback(<span class="php-var">$response</span>, <span class="php-var">$data</span>)</pre>
+
+<ul>
+<li>$response - Response as an object, it has properties: $error: error message, if any $headers: received HTTP headers as an array $body: received contents * $data     - optional value which is same as given as argument to this method.</li>
+</ul>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$callback</var></dt>
+					<dd>callback which will be called when request is done</dd>
+					<dt><var>$data</var></dt>
+					<dd>extra data which will be passed as second argument to the callback</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Budabot.Core.AsyncHttp.html">Budabot\Core\AsyncHttp</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="withQueryParams" id="_withQueryParams">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-Budabot.Core.AsyncHttp.html">Budabot\Core\AsyncHttp</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_withQueryParams">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#371-378" title="Go to source code">withQueryParams</a>( <span>array <var>$params</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$params</var></dt>
+					<dd>array of key/value pair parameters passed as a query</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-Budabot.Core.AsyncHttp.html">Budabot\Core\AsyncHttp</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="waitAndReturnResponse" id="_waitAndReturnResponse">
+
+		<td class="attributes"><code>
+			 public 
+
+			mixed
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_waitAndReturnResponse">#</a>
+		<code><a href="source-class-Budabot.Core.AsyncHttp.html#380-396" title="Go to source code">waitAndReturnResponse</a>( )</code>
+
+		<div class="description short">
+			<p>Waits until response is fully received from remote server and returns
+the response. Note that this blocks execution, but does not freeze the bot
+as the execution will return to event loop while waiting.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Waits until response is fully received from remote server and returns
+the response. Note that this blocks execution, but does not freeze the bot
+as the execution will return to event loop while waiting.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					mixed
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="setting" id="$setting">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#16-17" title="Go to source code"><var>$setting</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$setting" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="socketManager" id="$socketManager">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#19-20" title="Go to source code"><var>$socketManager</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$socketManager" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="timer" id="$timer">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#22-23" title="Go to source code"><var>$timer</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Inject</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$timer" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="logger" id="$logger">
+		<td class="attributes"><code>
+			public  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#25-26" title="Go to source code"><var>$logger</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+					<h4>Logger</h4>
+					<div class="list">
+					</div>
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$logger" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="uri" id="$uri">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#29" title="Go to source code"><var>$uri</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$uri" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="callback" id="$callback">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#30" title="Go to source code"><var>$callback</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$callback" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="data" id="$data">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#31" title="Go to source code"><var>$data</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$data" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="headers" id="$headers">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#32" title="Go to source code"><var>$headers</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$headers" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="timeout" id="$timeout">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#33" title="Go to source code"><var>$timeout</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$timeout" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="queryParams" id="$queryParams">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#34" title="Go to source code"><var>$queryParams</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$queryParams" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="stream" id="$stream">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#37" title="Go to source code"><var>$stream</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$stream" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="notifier" id="$notifier">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#38" title="Go to source code"><var>$notifier</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$notifier" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="requestData" id="$requestData">
+		<td class="attributes"><code>
+			private  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#39" title="Go to source code"><var>$requestData</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$requestData" class="anchor">#</a>
+				<code><span class="php-quote">''</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="responseData" id="$responseData">
+		<td class="attributes"><code>
+			private  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#40" title="Go to source code"><var>$responseData</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$responseData" class="anchor">#</a>
+				<code><span class="php-quote">''</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="headersEndPos" id="$headersEndPos">
+		<td class="attributes"><code>
+			private  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#41" title="Go to source code"><var>$headersEndPos</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$headersEndPos" class="anchor">#</a>
+				<code><span class="php-keyword1">false</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="responseHeaders" id="$responseHeaders">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#42" title="Go to source code"><var>$responseHeaders</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$responseHeaders" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="request" id="$request">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#44" title="Go to source code"><var>$request</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$request" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="errorString" id="$errorString">
+		<td class="attributes"><code>
+			private  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#45" title="Go to source code"><var>$errorString</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$errorString" class="anchor">#</a>
+				<code><span class="php-keyword1">false</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="timeoutEvent" id="$timeoutEvent">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#46" title="Go to source code"><var>$timeoutEvent</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$timeoutEvent" class="anchor">#</a>
+				<code><span class="php-keyword1">null</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="finished" id="$finished">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#47" title="Go to source code"><var>$finished</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$finished" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="loop" id="$loop">
+		<td class="attributes"><code>
+			private  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.AsyncHttp.html#48" title="Go to source code"><var>$loop</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$loop" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
