@@ -18,7 +18,7 @@ class Util {
 	public function bytesConvert($bytes) {
 		$ext = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
 		$unitCount = 0;
-		for (; $bytes > 1024; $unitCount++) {
+		for ($max = count($ext) - 1; $bytes >= 1024 && $unitCount < $max; $unitCount++) {
 			$bytes /= 1024;
 		}
 		return round($bytes, 2) ." ". $ext[$unitCount];
