@@ -30,42 +30,30 @@ class Util {
 			return '0 secs';
 		}
 
-		if ($time > 0) {
-			$days = floor($time / 86400);
-		} else {
-			$days = ceil($time / 86400);
-		}
-		$remainder = $time % 86400;
-
-		if ($remainder > 0) {
-			$hours = floor($remainder / 3600);
-		} else {
-			$hours = ceil($remainder / 3600);
-		}
-		$remainder = $remainder % 3600;
-
-		if ($remainder > 0) {
-			$minutes = floor($remainder / 60);
-		} else {
-			$minutes = ceil($remainder / 60);
-		}
-		$remainder = $remainder % 60;
-
-		$seconds = $remainder;
+		$units = [
+			"day" => 86400,
+			"hr" => 3600,
+			"min" => 60,
+			"sec" => 1
+		];
 
 		$timeshift = '';
-		if ($days != 0) {
-			$timeshift .= $days . ($days == 1 ? ' day ' : ' days ');
+		forEach ($units as $unit => $seconds) {
+			if ($time > 0) {
+				$length = floor($time / $seconds);
+			} else {
+				$length = ceil($time / $seconds);
+			}
+			if ($unit != "sec" || $show_seconds || $timeshift == '') {
+				if ($length > 1) {
+					$timeshift .= $length . " " . $unit . "s "; 
+				} else if ($length == 1) {
+					$timeshift .= $length . " " . $unit . " ";
+				}
+			}
+			$time = $time % $seconds;
 		}
-		if ($hours != 0) {
-			$timeshift .= $hours . ($hours == 1 ? ' hr ' : ' hrs ');
-		}
-		if ($minutes != 0) {
-			$timeshift .= $minutes . ($minutes == 1 ? ' min ' : ' mins ');
-		}
-		if ($seconds != 0 && ($show_seconds || $timeshift == '')) {
-			$timeshift .= $seconds . ($seconds == 1 ? ' sec ' : ' secs');
-		}
+
 		return trim($timeshift);
 	}
 
