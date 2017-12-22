@@ -24,8 +24,7 @@ class Util {
 		return round($bytes, 2) ." ". $ext[$unitCount];
 	}
 
-	// taken from http://www.php.net/manual/en/function.date-diff.php
-	public function unixtimeToReadable($time, $show_seconds = true) {
+	public function unixtimeToReadable($time, $showSeconds = true) {
 		if ($time == 0) {
 			return '0 secs';
 		}
@@ -44,7 +43,7 @@ class Util {
 			} else {
 				$length = ceil($time / $seconds);
 			}
-			if ($unit != "sec" || $show_seconds || $timeshift == '') {
+			if ($unit != "sec" || $showSeconds || $timeshift == '') {
 				if ($length > 1) {
 					$timeshift .= $length . " " . $unit . "s "; 
 				} else if ($length == 1) {
