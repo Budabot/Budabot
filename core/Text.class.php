@@ -47,7 +47,7 @@ class Text {
 			$content = ' ';
 		}
 
-		$pages = $this->paginate($content, $this->settingManager->get("max_blob_size"), array("<pagebreak>", "\n", " "));
+		$pages = $this->paginate($content, $this->settingManager->get("max_blob_size"), array("<pagebreak>", "\n", "<br>", " "));
 		$num = count($pages);
 
 		if ($num == 1) {
