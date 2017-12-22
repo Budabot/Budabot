@@ -210,7 +210,8 @@ class Text {
 			"<myguild>" => $this->chatBot->vars["my_guild"],
 			"<tab>" => "    ",
 			"<end>" => "</font>",
-			"<symbol>" => $this->settingManager->get("symbol"));
+			"<symbol>" => $this->settingManager->get("symbol"),
+			"<br>" => "\n");
 
 		$message = str_ireplace(array_keys($array), array_values($array), $message);
 
