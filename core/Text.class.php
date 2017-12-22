@@ -41,13 +41,13 @@ class Text {
 		$header = str_replace('"', '&quot;', $header);
 
 		$content = $this->formatMessage($content);
-		
+
 		// if the content is blank, add a space so the blob will at least appear
 		if ($content == '') {
 			$content = ' ';
 		}
 
-		$pages = $this->paginate($content, $this->settingManager->get("max_blob_size"), array("<pagebreak>", "\n", "<br>", " "));
+		$pages = $this->paginate($content, $this->settingManager->get("max_blob_size"), array("<pagebreak>", "\n", " "));
 		$num = count($pages);
 
 		if ($num == 1) {
@@ -97,6 +97,11 @@ class Text {
 	}
 
 	public function paginate($input, $maxLength, $symbols) {
+		if (count($symbols) == 0) {
+			$this->logger->log('ERROR', "Could not successfully page blob due to lack of paging symbols");
+			return $input;
+		}
+
 		$pageSize = 0;
 		$currentPage = '';
 		$result = array();
@@ -117,13 +122,8 @@ class Text {
 					$pageSize = 0;
 				}
 
-				if (count($symbols) > 0) {
-					$newResult = $this->paginate($line, $maxLength, $symbols);
-					$result = array_merge($result, $newResult);
-				} else {
-					$this->logger->log('ERROR', "Could not successfully page blob");
-					$result []= $line;
-				}
+				$newResult = $this->paginate($line, $maxLength, $symbols);
+				$result = array_merge($result, $newResult);
 			} else if ($pageSize + $lineLength < $maxLength) {
 				$currentPage .= $line;
 				$pageSize += $lineLength;
