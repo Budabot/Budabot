@@ -182,7 +182,7 @@ INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('AP
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 250, 'Action Probability Estimator', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 250, 'Dynamic Gas Redistribution Valves', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Kyr''Ozch Video Processing Unit', 'All Bounties', 1);
-INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Intrusion Countermeasure Electronics Upgrade', 'All ICE', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Hacker ICE-Breaker Source', 'All ICE', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 13', 1, 'Kyr''Ozch Helmet', '2500 Token board', 1);
 
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Crystalline Matrix', '', 3);
@@ -190,7 +190,7 @@ INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('AP
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 250, 'Inertial Adjustment Processing Unit', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 250, 'Notum Amplification Coil', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Kyr''Ozch Video Processing Unit', 'All Bounties', 1);
-INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Intrusion Countermeasure Electronics Upgrade', 'All ICE', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Hacker ICE-Breaker Source', 'All ICE', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 28', 1, 'Kyr''Ozch Helmet', '2500 Token board', 1);
 
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 1, 'Alpha Program Chip', '', 3);
@@ -200,7 +200,7 @@ INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('AP
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 250, 'Energy Redistribution Unit', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 250, 'Visible Light Remodulation Device', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 1, 'Kyr''Ozch Video Processing Unit', 'All Bounties', 1);
-INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 1, 'Intrusion Countermeasure Electronics Upgrade', 'All ICE', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 1, 'Hacker ICE-Breaker Source', 'All ICE', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('APF', 'Sector 35', 1, 'Kyr''Ozch Helmet', '2500 Token board', 1);
 
 -- Albtraum
