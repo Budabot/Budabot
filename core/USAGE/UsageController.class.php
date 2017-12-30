@@ -274,7 +274,7 @@ class UsageController {
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $this->chatBot->vars['name'] . $this->chatBot->vars['dimension']);
-		$obj->version = "1.3";
+		$obj->version = "2";
 		$obj->debug = ($debug == true ? '1' : '0');
 		$obj->commands = $data;
 		$obj->settings = $settings;
