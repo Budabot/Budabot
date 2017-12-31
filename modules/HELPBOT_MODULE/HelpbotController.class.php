@@ -70,7 +70,7 @@ class HelpbotController {
 
 		$blob .= $this->formatResults($data);
 		
-		$blob .= "Dyna camp information taken from CSP help files. (http://creativestudent.com/ao/files-helpfiles.html)";
+		$blob .= "Dyna camp information taken from CSP help files: http://creativestudent.com/ao/files-helpfiles.html";
 
 		$msg = $this->text->makeBlob("Dynacamps ($count)", $blob);
 		$sendto->reply($msg);
@@ -89,7 +89,7 @@ class HelpbotController {
 
 		$blob .= $this->formatResults($data);
 		
-		$blob .= "Dyna camp information taken from CSP help files. (http://creativestudent.com/ao/files-helpfiles.html)";
+		$blob .= "Dyna camp information taken from CSP help files: http://creativestudent.com/ao/files-helpfiles.html";
 
 		$msg = $this->text->makeBlob("Dynacamps ($count)", $blob);
 		$sendto->reply($msg);
@@ -98,10 +98,9 @@ class HelpbotController {
 	private function formatResults($data) {
 		$blob = '';
 		forEach($data as $row) {
-			$coordLink = $this->text->makeChatcmd("{$row->cX}x{$row->cY} {$row->long_name}", "/waypoint $row->cX $row->cY $row->playfield_id");
-			$blob .="<pagebreak><highlight>$row->long_name<end>:  Co-ordinates $coordLink\n";
-			$blob .="Mob Type:  $row->mob\n";
-			$blob .="Level: <highlight>{$row->minQl}-{$row->maxQl}<end>\n\n";
+			$coordLink = $this->text->makeChatcmd("{$row->long_name} {$row->cX}x{$row->cY}", "/waypoint $row->cX $row->cY $row->playfield_id");
+			$blob .="<pagebreak>$coordLink\n";
+			$blob .="$row->mob - Level <highlight>{$row->minQl}-{$row->maxQl}<end>\n\n";
 		}
 		return $blob;
 	}
