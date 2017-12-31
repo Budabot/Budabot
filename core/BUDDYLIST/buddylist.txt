@@ -1,0 +1,17 @@
+To show all players on the buddy list:
+<highlight><tab><symbol>buddylist<end>
+
+To search the buddy list:
+<highlight><tab><symbol>buddylist <i>search</i><end>
+
+To remove unneeded players on the buddy list:
+<highlight><tab><symbol>buddylist clean<end>
+
+To add a player to the buddy list:
+<highlight><tab><symbol>buddylist add <i>name</i> <i>type</i><end>
+
+To remove a player from the buddy list:
+<highlight><tab><symbol>buddylist rem <i>name</i> <i>type</i><end>
+
+To remove all characters from the buddy list:
+<highlight><tab><symbol>buddylist rem all<end>

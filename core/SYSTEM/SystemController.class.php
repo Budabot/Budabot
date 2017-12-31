@@ -300,14 +300,14 @@ class SystemController {
 		$row = $this->db->queryRow($sql);
 		$num_player_cache = $row->count;
 
-		$num_friendlist = 0;
+		$num_buddylist = 0;
 		forEach ($this->buddylistManager->buddyList as $key => $value) {
 			if (!isset($value['name'])) {
 				// skip the buddies that have been added but the server hasn't sent back an update yet
 				continue;
 			}
 
-			$num_friendlist++;
+			$num_buddylist++;
 		}
 
 		$blob = "Name: <highlight><myname><end>\n";
@@ -346,7 +346,7 @@ class SystemController {
 		$blob .= "Active events: <highlight>" . $eventnum . "<end>\n";
 		$blob .= "Active help commands: <highlight>" . count($this->helpManager->getAllHelpTopics(null)) . "<end>\n\n";
 
-		$blob .= "Characters on the friendlist: <highlight>$num_friendlist / " . count($this->buddylistManager->buddyList) . "<end>\n";
+		$blob .= "Characters on the buddy list: <highlight>$num_buddylist / " . count($this->buddylistManager->buddyList) . "<end>\n";
 		$blob .= "Characters in the private channel: <highlight>" . count($this->chatBot->chatlist) . "<end>\n";
 		$blob .= "Guild members: <highlight>" . count($this->chatBot->guildmembers) . "<end>\n";
 		$blob .= "Character infos in cache: <highlight>" . $num_player_cache . "<end>\n";

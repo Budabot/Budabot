@@ -436,7 +436,7 @@ class GuildController {
 
 				sleep(5);
 
-				// in case some of the org members were already on the friendlist, we need to restart the bot
+				// in case some of the org members were already on the buddy list, we need to restart the bot
 				// in order to get them to appear on the online list
 				die();
 			}

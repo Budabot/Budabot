@@ -57,7 +57,7 @@ class TrackerController {
 	
 	/**
 	 * @Event("connect")
-	 * @Description("Adds all players on the track list to the friendlist")
+	 * @Description("Adds all players on the track list to the buddy list")
 	 */
 	public function trackedUsersConnectEvent($eventObj) {
 		$sql = "SELECT name FROM tracked_users_<myname>";
