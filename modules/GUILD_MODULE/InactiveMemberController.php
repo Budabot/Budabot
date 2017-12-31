@@ -91,7 +91,7 @@ class InactiveMemberController {
 			$lasttoon = $row->name;
 			$lastseen = ($row->logged_off == 0) ? "never" : $this->util->date($logged);
 
-			$player = $row->name."; Main: $main; [{$alts}]\nLast seen on [$lasttoon] on " . $lastseen . "\n\n";
+			$player = "<pagebreak>" . $row->name . "; Main: $main; [{$alts}]\nLast seen on [$lasttoon] on " . $lastseen . "\n\n";
 			if ($highlight == 1) {
 				$blob .= "<highlight>$player<end>";
 				$highlight = 0;

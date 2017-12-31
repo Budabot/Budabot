@@ -258,7 +258,7 @@ class GuildController {
 				$logged = $row->logged_off;
 				$lasttoon = $row->name;
 
-				$character = $row->main." [{$alts}]\nLast seen as [$lasttoon] on " . $this->util->date($logged) . "\n\n";
+				$character = "<pagebreak>" . $row->main . " [{$alts}]\nLast seen as [$lasttoon] on " . $this->util->date($logged) . "\n\n";
 				if ($highlight == 1) {
 					$blob .= "<highlight>$character<end>";
 					$highlight = 0;
