@@ -1,4 +1,6 @@
 {
+	"name":"Budabot/Budabot",
+	"type":"project",
 	"repositories": [
 		{
             "type": "vcs",
