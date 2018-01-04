@@ -32,20 +32,17 @@ class GuildManager {
 		}
 		
 		$name = ucfirst(strtolower($name));
-		$url = "http://people.anarchy-online.com/org/stats/d/$rk_num/name/$guild_id/basicstats.xml";
+		$url = "http://people.anarchy-online.com/org/stats/d/$rk_num/name/$guild_id/basicstats.xml?data_type=json";
 		$groupName = "guild_roster";
-		$filename = "$guild_id.$rk_num.xml";
+		$filename = "$guild_id.$rk_num.json";
 		if ($this->chatBot->vars["my_guild_id"] == $guild_id) {
 			$maxCacheAge = 21600;
 		} else {
 			$maxCacheAge = 86400;
 		}
 		$cb = function($data) {
-			if (xml::spliceData($data, "<id>", "</id>") != "") {
-				return true;
-			} else {
-				return false;
-			}
+			$result = json_decode($data) != null;
+			return $result;
 		};
 
 		$cacheResult = $this->cacheManager->lookup($url, $groupName, $filename, $cb, $maxCacheAge, $forceUpdate);
@@ -55,24 +52,25 @@ class GuildManager {
 			return null;
 		}
 		
+		list($orgInfo, $members, $lastUpdated) = json_decode($cacheResult->data);
+		
 		$guild = new stdClass;
 		$guild->guild_id = $guild_id;
 
-		// parsing of the memberdata
-		$members = xml::splicemultidata($cacheResult->data, "<member>", "</member>");
-		$guild->orgname	= xml::spliceData($cacheResult->data, "<name>", "</name>");
-		$guild->orgside	= xml::spliceData($cacheResult->data, "<side>", "</side");
+		// parsing of the member data
+		$guild->orgname	= $orgInfo->NAME;
+		$guild->orgside	= $orgInfo->SIDE_NAME;
 
-		// pre fetch the charids...this speeds things up immensely
-		forEach ($members as $xmlmember) {
-			$name = xml::splicedata($xmlmember, "<nickname>", "</nickname>");
+		// pre-fetch the charids...this speeds things up immensely
+		forEach ($members as $member) {
+			$name = $member->NAME;
 			if (!isset($this->chatBot->id[$name])) {
 				$this->chatBot->send_packet(new AOChatPacket("out", AOCP_CLIENT_LOOKUP, $name));
 			}
 		}
 
 		forEach ($members as $member) {
-			$name = xml::splicedata($member, "<nickname>", "</nickname>");
+			$name = $member->NAME;
 			$charid = $this->chatBot->get_uid($name);
 			if ($charid == null) {
 				$charid = 0;
@@ -80,23 +78,27 @@ class GuildManager {
 
 			$guild->members[$name]                 = new stdClass;
 			$guild->members[$name]->charid         = $charid;
-			$guild->members[$name]->firstname      = xml::spliceData($member, '<firstname>', '</firstname>');
-			$guild->members[$name]->name           = xml::spliceData($member, '<nickname>', '</nickname>');
-			$guild->members[$name]->lastname       = xml::spliceData($member, '<lastname>', '</lastname>');
-			$guild->members[$name]->level          = xml::spliceData($member, '<level>', '</level>');
-			$guild->members[$name]->breed          = xml::spliceData($member, '<breed>', '</breed>');
-			$guild->members[$name]->gender         = xml::spliceData($member, '<gender>', '</gender>');
+			$guild->members[$name]->firstname      = $member->FIRSTNAME;
+			$guild->members[$name]->name           = $name;
+			$guild->members[$name]->lastname       = $member->LASTNAME;
+			$guild->members[$name]->level          = $member->LEVELX;
+			$guild->members[$name]->breed          = $member->BREED;
+			$guild->members[$name]->gender         = $member->SEX;
 			$guild->members[$name]->faction        = $guild->orgside;
-			$guild->members[$name]->profession     = xml::spliceData($member, '<profession>', '</profession>');
-			$guild->members[$name]->prof_title     = xml::spliceData($member, '<profession_title>', '</profession_title>');
-			$guild->members[$name]->ai_rank        = xml::spliceData($member, '<defender_rank>', '</defender_rank>');
-			$guild->members[$name]->ai_level       = xml::spliceData($member, '<defender_rank_id>', '</defender_rank_id>');
+			$guild->members[$name]->profession     = $member->PROF;
+			$guild->members[$name]->prof_title     = $member->PROF_TITLE;
+			$guild->members[$name]->ai_rank        = $member->ALIENLEVEL;
+			$guild->members[$name]->ai_level       = $member->DEFENDER_RANK_TITLE;
 			$guild->members[$name]->guild_id       = $guild->guild_id;
 			$guild->members[$name]->guild          = $guild->orgname;
-			$guild->members[$name]->guild_rank     = xml::spliceData($member, '<rank_name>', '</rank_name>');
-			$guild->members[$name]->guild_rank_id  = xml::spliceData($member, '<rank>', '</rank>');
+			$guild->members[$name]->guild_rank     = $member->RANK_TITLE;
+			$guild->members[$name]->guild_rank_id  = $member->RANK;
 			$guild->members[$name]->dimension      = $rk_num;
 			$guild->members[$name]->source         = 'org_roster';
+			
+			$guild->members[$name]->head_id        = $member->HEADID;
+			$guild->members[$name]->pvp_rating     = $member->PVPRATING;
+			$guild->members[$name]->pvp_title      = $member->PVPTITLE;
 		}
 
 		// this is done separately from the loop above to prevent nested transaction errors from occuring

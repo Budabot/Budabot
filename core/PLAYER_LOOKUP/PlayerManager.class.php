@@ -68,48 +68,47 @@ class PlayerManager {
 	}
 
 	public function lookup($name, $rk_num) {
-		$xml = $this->lookupUrl("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml");
-		if ($xml->name == $name) {
-			$xml->source = 'people.anarchy-online.com';
-			$xml->dimension = $rk_num;
-			return $xml;
+		$obj = $this->lookupUrl("http://people.anarchy-online.com/character/bio/d/$rk_num/name/$name/bio.xml?data_type=json");
+		if ($obj->name == $name) {
+			$obj->source = 'people.anarchy-online.com';
+			$obj->dimension = $rk_num;
+			return $obj;
 		}
-
-		// if people.anarchy-online.com was too slow to respond or returned invalid data then try to update from auno.org
-		//$xml = $this->lookupUrl("http://auno.org/ao/char.php?output=xml&dimension=$rk_num&name=$name");
-		//if ($xml->name == $name) {
-		//	$xml->source = 'auno.org';
-		//	$xml->dimension = $rk_num;
-		//	return $xml;
-		//}
 
 		return null;
 	}
 
 	private function lookupUrl($url) {
 		$response = $this->http->get($url)->waitAndReturnResponse();
-		$playerbio = $response->body;
+		list($char, $org, $lastUpdated) = json_decode($response->body);
 
-		$xml = new stdClass;
+		$obj = new stdClass;
 
 		// parsing of the player data
-		$xml->firstname      = xml::spliceData($playerbio, '<firstname>', '</firstname>');
-		$xml->name           = xml::spliceData($playerbio, '<nick>', '</nick>');
-		$xml->lastname       = xml::spliceData($playerbio, '<lastname>', '</lastname>');
-		$xml->level          = xml::spliceData($playerbio, '<level>', '</level>');
-		$xml->breed          = xml::spliceData($playerbio, '<breed>', '</breed>');
-		$xml->gender         = xml::spliceData($playerbio, '<gender>', '</gender>');
-		$xml->faction        = xml::spliceData($playerbio, '<faction>', '</faction>');
-		$xml->profession     = xml::spliceData($playerbio, '<profession>', '</profession>');
-		$xml->prof_title     = xml::spliceData($playerbio, '<profession_title>', '</profession_title>');
-		$xml->ai_rank        = xml::spliceData($playerbio, '<defender_rank>', '</defender_rank>');
-		$xml->ai_level       = xml::spliceData($playerbio, '<defender_rank_id>', '</defender_rank_id>');
-		$xml->guild_id       = xml::spliceData($playerbio, '<organization_id>', '</organization_id>');
-		$xml->guild          = xml::spliceData($playerbio, '<organization_name>', '</organization_name>');
-		$xml->guild_rank     = xml::spliceData($playerbio, '<rank>', '</rank>');
-		$xml->guild_rank_id  = xml::spliceData($playerbio, '<rank_id>', '</rank_id>');
+		$obj->firstname      = $char->FIRSTNAME;
+		$obj->name           = $char->NAME;
+		$obj->lastname       = $char->LASTNAME;
+		$obj->level          = $char->LEVELX;
+		$obj->breed          = $char->BREED;
+		$obj->gender         = $char->SEX;
+		$obj->faction        = $char->SIDE;
+		$obj->profession     = $char->PROF;
+		$obj->prof_title     = $char->PROFNAME;
+		$obj->ai_rank        = $char->RANK_name;
+		$obj->ai_level       = $char->ALIENLEVEL;
+		$obj->guild_id       = $org->ORG_INSTANCE;
+		$obj->guild          = $org->NAME;
+		$obj->guild_rank     = $org->RANK_TITLE;
+		$obj->guild_rank_id  = $org->RANK;
 
-		return $xml;
+		$obj->head_id        = $char->HEADID;
+		$obj->pvp_rating     = $char->PVPRATING;
+		$obj->pvp_title      = $char->PVPTITLE;
+
+		$obj->charid        = $char->CHAR_INSTANCE;
+		$obj->dimension      = $char->CHAR_DIMENSION;
+
+		return $obj;
 	}
 
 	public function update($char) {
