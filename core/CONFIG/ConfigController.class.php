@@ -118,10 +118,10 @@ class ConfigController {
 				$a = "(<red>Disabled<end>)";
 			}
 	
-			$c = "(<a href='chatcmd:///tell <myname> config $row->module'>Configure</a>)";
+			$c = "(" . $this->text->makeChatcmd("Configure", "/tell <myname> config $row->module") . ")";
 	
-			$on = "<a href='chatcmd:///tell <myname> config mod $row->module enable all'>On</a>";
-			$off = "<a href='chatcmd:///tell <myname> config mod $row->module disable all'>Off</a>";
+			$on = $this->text->makeChatcmd("On", "/tell <myname> config mod $row->module enable all");
+			$off = $this->text->makeChatcmd("Off", "/tell <myname> config mod $row->module disable all");
 			$blob .= strtoupper($row->module)." $a ($on/$off) $c\n";
 		}
 	
@@ -459,8 +459,8 @@ class ConfigController {
 		$module = strtoupper($args[1]);
 		$found = false;
 	
-		$on = "<a href='chatcmd:///tell <myname> config mod {$module} enable all'>Enable</a>";
-		$off = "<a href='chatcmd:///tell <myname> config mod {$module} disable all'>Disable</a>";
+		$on = $this->text->makeChatcmd("Enable", "/tell <myname> config mod {$module} enable all");
+		$off = $this->text->makeChatcmd("Disable", "/tell <myname> config mod {$module} disable all");
 	
 		$blob = "Enable/disable entire module: ($on/$off)\n";
 	
@@ -474,7 +474,7 @@ class ConfigController {
 			$blob .= $row->description;
 	
 			if ($row->mode == "edit") {
-				$blob .= " (<a href='chatcmd:///tell <myname> settings change $row->name'>Modify</a>)";
+				$blob .= " (" . $this->text->makeChatcmd("Modify", "/tell <myname> settings change $row->name") . ")";
 			}
 	
 			$settingHandler = $this->settingManager->getSettingHandler($row);
@@ -508,12 +508,12 @@ class ConfigController {
 			$msg = '';
 	
 			if ($row->cmdevent == 'cmd') {
-				$on = "<a href='chatcmd:///tell <myname> config cmd $row->cmd enable all'>ON</a>";
-				$off = "<a href='chatcmd:///tell <myname> config cmd $row->cmd disable all'>OFF</a>";
+				$on = $this->text->makeChatcmd("ON", "/tell <myname> config cmd $row->cmd enable all");
+				$off = $this->text->makeChatcmd("OFF", "/tell <myname> config cmd $row->cmd disable all");
 				$cmdNameLink = $this->text->makeChatcmd($row->cmd, "/tell <myname> config cmd $row->cmd");
 			} else if ($row->cmdevent == 'subcmd') {
-				$on = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd enable all'>ON</a>";
-				$off = "<a href='chatcmd:///tell <myname> config subcmd $row->cmd disable all'>OFF</a>";
+				$on = $this->text->makeChatcmd("ON", "/tell <myname> config subcmd $row->cmd enable all");
+				$off = $this->text->makeChatcmd("OFF", "/tell <myname> config subcmd $row->cmd disable all");
 				$cmdNameLink = $row->cmd;
 			}
 	
@@ -554,8 +554,8 @@ class ConfigController {
 			$blob .= "\n<header2>Events<end>\n";
 		}
 		forEach ($data as $row) {
-			$on = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." enable all'>ON</a>";
-			$off = "<a href='chatcmd:///tell <myname> config event ".$row->type." ".$row->file." disable all'>OFF</a>";
+			$on = $this->text->makeChatcmd("ON", "/tell <myname> config event ".$row->type." ".$row->file." enable all");
+			$off = $this->text->makeChatcmd("OFF", "/tell <myname> config event ".$row->type." ".$row->file." disable all");
 	
 			if ($row->status == 1) {
 				$status = "<green>Enabled<end>";
@@ -609,15 +609,15 @@ class ConfigController {
 
 			$msg .= "$status (Access: $row->admin) \n";
 			$msg .= "Set status: ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} enable {$type}'>Enabled</a>  ";
-			$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} disable {$type}'>Disabled</a>\n";
+			$msg .= $this->text->makeChatcmd("Enabled", "/tell <myname> config cmd {$cmd} enable {$type}") . "  ";
+			$msg .= $this->text->makeChatcmd("Disabled", "/tell <myname> config cmd {$cmd} disable {$type}") . "\n";
 
 			$msg .= "Set access level: ";
 			forEach ($this->accessManager->getAccessLevels() as $accessLevel => $level) {
 				if ($accessLevel == 'none') {
 					continue;
 				}
-				$msg .= "<a href='chatcmd:///tell <myname> config cmd {$cmd} admin {$type} $accessLevel'>" . ucfirst($accessLevel) . "</a>  ";
+				$msg .= $this->text->makeChatcmd(ucfirst($accessLevel), "/tell <myname> config cmd {$cmd} admin {$type} $accessLevel") . "  ";
 			}
 			$msg .= "\n";
 		} else {
@@ -648,15 +648,15 @@ class ConfigController {
 
 			$subcmd_list .= "Current Status: $status (Access: $row->admin) \n";
 			$subcmd_list .= "Set status: ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} enable {$type}'>Enabled</a>  ";
-			$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} disable {$type}'>Disabled</a>\n";
+			$subcmd_list .= $this->text->makeChatcmd("Enabled", "/tell <myname> config subcmd {$row->cmd} enable {$type}") . "  ";
+			$subcmd_list .= $this->text->makeChatcmd("Disabled", "/tell <myname> config subcmd {$row->cmd} disable {$type}") . "\n";
 
 			$subcmd_list .= "Set access level: ";
 			forEach ($this->accessManager->getAccessLevels() as $accessLevel => $level) {
 				if ($accessLevel == 'none') {
 					continue;
 				}
-				$subcmd_list .= "<a href='chatcmd:///tell <myname> config subcmd {$row->cmd} admin {$type} $accessLevel'>" . ucfirst($accessLevel) . "</a>  ";
+				$subcmd_list .= $this->text->makeChatcmd(ucfirst($accessLevel), "/tell <myname> config subcmd {$row->cmd} admin {$type} $accessLevel") . "  ";
 			}
 			$subcmd_list .= "\n\n";
 		}
