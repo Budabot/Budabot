@@ -36,6 +36,7 @@ class EventManager {
 
 	private $lastCronTime = 0;
 	private $areConnectEventsFired = false;
+	const PACKET_TYPE_REGEX = '/packet\(\d+\)/';
 
 	/**
 	 * @name: register
@@ -47,7 +48,7 @@ class EventManager {
 		$this->logger->log('DEBUG', "Registering event Type:($type) File:($filename) Module:($module)");
 
 		$time = $this->util->parseTime($type);
-		if ($time <= 0 && !in_array($type, $this->eventTypes)) {
+		if ($time <= 0 && !in_array($type, $this->eventTypes) && preg_match(self::PACKET_TYPE_REGEX, $type) == 0) {
 			$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
@@ -100,7 +101,7 @@ class EventManager {
 			$eventObj->type = 'setup';
 
 			$this->callEventHandler($eventObj, $filename);
-		} else if (in_array($type, $this->eventTypes)) {
+		} else if (in_array($type, $this->eventTypes) || preg_match(self::PACKET_TYPE_REGEX, $type) == 1) {
 			if (!isset($this->events[$type]) || !in_array($filename, $this->events[$type])) {
 				$this->events[$type] []= $filename;
 			} else {

@@ -85,12 +85,13 @@ class WhoisController {
 	}
 	
 	/**
-	 * @Event("allpackets")
+	 * @Event("packet(20)")
+	 * @Event("packet(21)")
 	 * @Description("Records names and charIds")
 	 */
 	public function recordCharIds($eventObj) {
 		$packet = $eventObj->packet;
-		if (($packet->type == AOCP_CLIENT_NAME || $packet->type == AOCP_CLIENT_LOOKUP) && $this->util->isValidSender($packet->args[0])) {
+		if ($this->util->isValidSender($packet->args[0])) {
 			$this->nameHistoryCache []= $packet->args;
 		}
 	}

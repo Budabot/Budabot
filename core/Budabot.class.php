@@ -397,8 +397,15 @@ class Budabot extends AOChat {
 	}
 
 	function process_all_packets($packet) {
+		// fire allpackets event
 		$eventObj = new stdClass;
 		$eventObj->type = 'allpackets';
+		$eventObj->packet = $packet;
+		$this->eventManager->fireEvent($eventObj);
+
+		// fire individual packets event
+		$eventObj = new stdClass;
+		$eventObj->type = "packet({$packet->type})";
 		$eventObj->packet = $packet;
 		$this->eventManager->fireEvent($eventObj);
 	}
