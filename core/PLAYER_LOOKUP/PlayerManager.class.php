@@ -108,6 +108,12 @@ class PlayerManager {
 		$obj->charid        = $char->CHAR_INSTANCE;
 		$obj->dimension      = $char->CHAR_DIMENSION;
 
+		forEach ($obj as $key => $value) {
+			if (is_null($value)) {
+				$obj->$key = "";
+			}
+		}
+
 		return $obj;
 	}
 
