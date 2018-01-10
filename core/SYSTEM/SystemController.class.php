@@ -347,6 +347,7 @@ class SystemController {
 		$blob .= "Active help commands: <highlight>" . count($this->helpManager->getAllHelpTopics(null)) . "<end>\n\n";
 
 		$blob .= "Characters on the buddy list: <highlight>$num_buddylist / " . count($this->buddylistManager->buddyList) . "<end>\n";
+		$blob .= "Maximum buddy list size: <highlight>" . $this->chatBot->getBuddyListSize() . "<end>\n";
 		$blob .= "Characters in the private channel: <highlight>" . count($this->chatBot->chatlist) . "<end>\n";
 		$blob .= "Guild members: <highlight>" . count($this->chatBot->guildmembers) . "<end>\n";
 		$blob .= "Character infos in cache: <highlight>" . $num_player_cache . "<end>\n";

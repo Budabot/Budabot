@@ -66,6 +66,8 @@ class Budabot extends AOChat {
 
 	// array where modules can store stateful session data
 	public $data = array();
+	
+	private $buddyListSize = 0;
 
 	//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
 	public $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
@@ -185,6 +187,7 @@ class Budabot extends AOChat {
 			die();
 		}
 
+		$this->buddyListSize += 1000;
 		$this->logger->log('INFO', "All Systems ready!");
 	}
 
@@ -357,6 +360,9 @@ class Budabot extends AOChat {
 
 			// event handlers
 			switch ($packet->type){
+				case AOCP_LOGIN_OK: //5
+					$this->buddyListSize += 1000;
+					break;
 				case AOCP_GROUP_ANNOUNCE: // 60
 					$this->process_group_announce($packet->args);
 					break;
@@ -813,6 +819,10 @@ class Budabot extends AOChat {
 				}
 			}
 		}
+	}
+
+	public function getBuddyListSize() {
+		return $this->buddyListSize;
 	}
 
 	/**

@@ -208,9 +208,6 @@ class OrglistController {
 	}
 	
 	public function checkOnline($members) {
-		// round to nearest thousand and then subtract 5
-		$this->orglist["maxsize"] = ceil(count($this->buddylistManager->buddyList) / 1000) * 1000 - 5;
-	
 		forEach ($members as $member) {
 			$buddy_online_status = $this->buddylistManager->isOnline($member->name);
 			if ($buddy_online_status !== null) {
@@ -341,7 +338,7 @@ class OrglistController {
 	}
 	
 	public function checkBuddylistSize() {
-		return count($this->buddylistManager->buddyList) < ($this->orglist["maxsize"] - 5);
+		return count($this->buddylistManager->buddyList) < ($this->chatBot->getBuddyListSize() - 5);
 	}
 }
 
