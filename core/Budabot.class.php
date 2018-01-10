@@ -763,14 +763,16 @@ class Budabot extends AOChat {
 					$this->logger->log('WARN', "Cannot handle command '$commandName' as it is not defined with @DefineCommand in '$name'.");
 				}
 			} else if ($method->hasAnnotation('Event')) {
-				$this->eventManager->register(
-					$moduleName,
-					$method->getAnnotation('Event')->value,
-					$name . '.' . $method->name,
-					@$method->getAnnotation('Description')->value,
-					@$method->getAnnotation('Help')->value,
-					@$method->getAnnotation('DefaultStatus')->value
-				);
+				forEach ($method->getAllAnnotations('Event') as $eventAnnotation) {
+					$this->eventManager->register(
+						$moduleName,
+						$eventAnnotation->value,
+						$name . '.' . $method->name,
+						@$method->getAnnotation('Description')->value,
+						@$method->getAnnotation('Help')->value,
+						@$method->getAnnotation('DefaultStatus')->value
+					);
+				}
 			}
 		}
 
