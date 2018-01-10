@@ -250,6 +250,10 @@ class Budabot extends AOChat {
 	}
 
 	public function sendGuild($message, $disable_relay = false, $priority = null) {
+		if ($this->settingManager->get('guild_channel_status') != 1) {
+			return;
+		}
+
 		// for when $text->makeBlob generates several pages
 		if (is_array($message)) {
 			forEach ($message as $page) {
