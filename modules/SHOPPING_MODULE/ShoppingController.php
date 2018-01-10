@@ -161,15 +161,12 @@ class ShoppingController {
 	}
 	
 	/**
-	 * @Event("allpackets")
+	 * @Event("packet(65)")
 	 * @Description("Capture messages from shopping channel")
 	 * @DefaultStatus("0")
 	 */
 	public function captureShoppingMessagesEvent($eventObj) {
 		$packet = $eventObj->packet;
-		if ($packet->type != AOCP_GROUP_MESSAGE) {
-			return;
-		}
 
 		$b = unpack("C*", $packet->args[0]);
 		// check to make sure message is from a shopping channel
