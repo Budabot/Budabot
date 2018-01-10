@@ -148,9 +148,15 @@ class PlayerManager {
 				`guild_rank`,
 				`guild_rank_id`,
 				`dimension`,
+				`head_id`,
+				`pvp_rating`,
+				`pvp_title`,
 				`source`,
 				`last_update`
 			) VALUES (
+				?,
+				?,
+				?,
 				?,
 				?,
 				?,
@@ -174,7 +180,7 @@ class PlayerManager {
 
 		$this->db->exec($sql, $char->charid, $char->firstname, $char->name, $char->lastname, $char->level, $char->breed, $char->gender, $char->faction,
 			$char->profession, $char->prof_title, $char->ai_rank, $char->ai_level, $char->guild_id, $char->guild, $char->guild_rank, $char->guild_rank_id,
-			$char->dimension, $char->source, time());
+			$char->dimension, $char->head_id, $char->pvp_rating, $char->pvp_title, $char->source, time());
 	}
 
 	public function get_info($whois, $showFirstAndLastName = true) {

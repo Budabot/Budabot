@@ -99,4 +99,14 @@ if (checkIfTableExists($db, "cmd_alias_<myname>")) {
 	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ? AND cmd = ?", "as", "aimedshot");
 }
 
-?>
+if (checkIfTableExists($db, "players")) {
+	if (!checkIfColumnExists($db, "players", "head_id")) {
+		$db->exec("ALTER TABLE players ADD COLUMN `head_id` SMALLINT DEFAULT NULL");
+	}
+	if (!checkIfColumnExists($db, "players", "pvp_rating")) {
+		$db->exec("ALTER TABLE players ADD COLUMN `pvp_rating` SMALLINT DEFAULT NULL");
+	}
+	if (!checkIfColumnExists($db, "players", "pvp_title")) {
+		$db->exec("ALTER TABLE players ADD COLUMN `pvp_title` VARCHAR(20) DEFAULT NULL");
+	}
+}
