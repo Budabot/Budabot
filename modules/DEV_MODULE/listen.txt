@@ -1,5 +1,0 @@
-Listen and respond to commands in an external private channel:
-<highlight><tab><symbol>listen 'private channel'<end>
-
-To stop listening to an external private channel:
-<highlight><tab><symbol>unlisten<end>

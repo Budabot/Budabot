@@ -437,9 +437,6 @@ class Budabot extends AOChat {
 			$this->chatlist[$sender] = true;
 
 			$this->eventManager->fireEvent($eventObj);
-		} else {
-			$eventObj->type = "extjoinpriv";
-			$this->eventManager->fireEvent($eventObj);
 		}
 	}
 
@@ -459,10 +456,6 @@ class Budabot extends AOChat {
 
 			// Remove from Chatlist array
 			unset($this->chatlist[$sender]);
-
-			$this->eventManager->fireEvent($eventObj);
-		} else {
-			$eventObj->type = "extleavepriv";
 
 			$this->eventManager->fireEvent($eventObj);
 		}

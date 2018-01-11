@@ -433,7 +433,7 @@ class RaidController {
 			}
 
 			$msg = "$sender has been removed from all rolls.";
-			$this->chatBot->sendPrivate($msg, 'priv');
+			$this->chatBot->sendPrivate($msg);
 		} else {
 			$this->chatBot->sendTell("There is nothing to remove you from.", $sender);
 		}

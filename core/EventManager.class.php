@@ -29,9 +29,9 @@ class EventManager {
 	private $cronevents = array();
 
 	private $eventTypes = array(
-		'msg','priv','extpriv','guild','joinpriv','extjoinpriv','leavepriv','extleavepriv',
-		'orgmsg','extjoinprivrequest','extkickpriv','logon','logoff','towers','connect',
-		'sendguild','sendpriv','setup'
+		'msg','priv','extpriv','guild','joinpriv','leavepriv',
+		'orgmsg','extjoinprivrequest','logon','logoff','towers',
+		'connect','setup'
 	);
 
 	private $lastCronTime = 0;
