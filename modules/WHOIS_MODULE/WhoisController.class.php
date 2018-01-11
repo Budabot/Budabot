@@ -206,6 +206,9 @@ class WhoisController {
 			$blob .= "Level: <highlight>{$whois->level}<end>\n";
 			$blob .= "AI Level: <highlight>{$whois->ai_level} ({$whois->ai_rank})<end>\n";
 			$blob .= "Faction: <highlight>{$whois->faction}<end>\n";
+			$blob .= "Head Id: <highlight>{$whois->head_id}<end>\n";
+			$blob .= "PVP Rating: <highlight>{$whois->pvp_rating}<end>\n";
+			$blob .= "PVP Title: <highlight>{$whois->pvp_title}<end>\n";
 			$blob .= "Status: ";
 			if ($online) {
 				$blob .= "<green>Online<end>\n";
