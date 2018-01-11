@@ -55,7 +55,7 @@ class PrivateChannelResponseCommandReply implements CommandReply {
 
 	public function reply($msg) {
 		if ($this->channel == 'priv') {
-			$msg = str_replace("chatcmd:///tell {$this->botname} ", "chatcmd:///g {$this->botname} <symbol>", $msg);
+			$msg = str_replace("chatcmd:///tell {$this->botname} ", "chatcmd:///g {$this->botname} <symbol>g ", $msg);
 		}
 		$this->sendto->reply($msg);
 	}
