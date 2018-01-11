@@ -586,7 +586,7 @@ class TowerController {
 		$closing_time_seconds = $closing_time_array[0] * 3600 + $closing_time_array[1] * 60 + $closing_time_array[2];
 	
 		if (!$skip_checks && $this->settingManager->get('check_close_time_on_scout') == 1) {
-			$last_victory = $this->get_last_victory($tower_info->playfield_id, $tower_info->site_number);
+			$last_victory = $this->getLastVictory($tower_info->playfield_id, $tower_info->site_number);
 			if ($last_victory !== null) {
 				$victory_time_of_day = $last_attack->time % 86400;
 				if ($victory_time_of_day > $closing_time_seconds) {
@@ -614,7 +614,7 @@ class TowerController {
 
 			return $this->text->makeBlob("Scouting problems for $playfield->short_name $site_number", $check_blob);
 		} else {
-			$this->add_scout_site($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
+			$this->addScoutSite($playfield->id, $site_number, $closing_time_seconds, $ct_ql, $faction, $guild_name, $sender);
 			return "Scout info for <highlight>$playfield->short_name $site_number<end> has been updated.";
 		}
 	}
@@ -1221,7 +1221,7 @@ class TowerController {
 		return $this->db->query($sql);
 	}
 
-	protected function get_last_victory($playfield_id, $site_number) {
+	protected function getLastVictory($playfield_id, $site_number) {
 		$sql = "
 			SELECT
 				*
@@ -1259,7 +1259,7 @@ class TowerController {
 		return $this->db->exec($sql, time(), $last_attack->att_guild_name, $last_attack->att_faction, $last_attack->def_guild_name, $last_attack->def_faction, $last_attack->id);
 	}
 
-	protected function add_scout_site($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
+	protected function addScoutSite($playfield_id, $site_number, $close_time, $ct_ql, $faction, $guild_name, $scouted_by) {
 		$this->db->exec("DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?", $playfield_id, $site_number);
 
 		$sql = "
