@@ -87,8 +87,8 @@ class GuildManager {
 			$guild->members[$name]->faction        = $guild->orgside;
 			$guild->members[$name]->profession     = $member->PROF;
 			$guild->members[$name]->prof_title     = $member->PROF_TITLE;
-			$guild->members[$name]->ai_rank        = $member->ALIENLEVEL;
-			$guild->members[$name]->ai_level       = $member->DEFENDER_RANK_TITLE;
+			$guild->members[$name]->ai_rank        = $member->DEFENDER_RANK_TITLE;
+			$guild->members[$name]->ai_level       = $member->ALIENLEVEL;
 			$guild->members[$name]->guild_id       = $guild->guild_id;
 			$guild->members[$name]->guild          = $guild->orgname;
 			$guild->members[$name]->guild_rank     = $member->RANK_TITLE;
