@@ -63,7 +63,7 @@ class LevelController {
 	 */
 	public function levelCommand($message, $channel, $sender, $sendto, $args) {
 		$level = $args[1];
-		if (($row = $this->get_level_info($level)) != false) {
+		if (($row = $this->getLevelInfo($level)) != false) {
 			$msg = "<white>L $row->level: Team {$row->teamMin}-{$row->teamMax}<end><highlight> | <end><cyan>PvP {$row->pvpMin}-{$row->pvpMax}<end><highlight> | <end><orange>Missions {$row->missions}<end><highlight> | <end><blue>{$row->tokens} token(s)<end>";
 		} else {
 			$msg = "Level must be between <highlight>1<end> and <highlight>220<end>.";
@@ -82,7 +82,7 @@ class LevelController {
 		if ($missionQl > 0 && $missionQl <= 250) {
 			$msg = "QL{$missionQl} missions can be rolled from these levels:";
 
-			forEach ($this->find_all_levels() as $row) {
+			forEach ($this->findAllLevels() as $row) {
 				$array = explode(",", $row->missions);
 				if (in_array($missionQl, $array)) {
 					$msg .= " " . $row->level;
@@ -101,7 +101,7 @@ class LevelController {
 	 */
 	public function xpSingleCommand($message, $channel, $sender, $sendto, $args) {
 		$level = $args[1];
-		if (($row = $this->get_level_info($level)) != false) {
+		if (($row = $this->getLevelInfo($level)) != false) {
 			if ($level >= 200) {
 				$msg = "At level <highlight>{$row->level}<end> you need <highlight>".number_format($row->xpsk)."<end> SK to level up.";
 			} else {
@@ -150,12 +150,12 @@ class LevelController {
 		$sendto->reply($msg);
 	}
 
-	public function get_level_info($level) {
+	public function getLevelInfo($level) {
 		$sql = "SELECT * FROM levels WHERE level = ?";
 		return $this->db->queryRow($sql, $level);
 	}
 
-	public function find_all_levels() {
+	public function findAllLevels() {
 		$sql = "SELECT * FROM levels ORDER BY level";
 		return $this->db->query($sql);
 	}

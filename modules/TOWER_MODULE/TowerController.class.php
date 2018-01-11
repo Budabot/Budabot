@@ -195,7 +195,7 @@ class TowerController {
 			return;
 		}
 	
-		$tower_info = $this->get_tower_info($playfield->id, $args[2]);
+		$tower_info = $this->getTowerInfo($playfield->id, $args[2]);
 		if ($tower_info === null) {
 			$msg = "Invalid site number.";
 			$sendto->reply($msg);
@@ -478,7 +478,7 @@ class TowerController {
 			return;
 		}
 	
-		$tower_info = $this->get_tower_info($playfield->id, $site_number);
+		$tower_info = $this->getTowerInfo($playfield->id, $site_number);
 		if ($tower_info === null) {
 			$msg = "Invalid site number.";
 			$sendto->reply($msg);
@@ -573,7 +573,7 @@ class TowerController {
 			return "Invalid playfield.";
 		}
 	
-		$tower_info = $this->get_tower_info($playfield->id, $site_number);
+		$tower_info = $this->getTowerInfo($playfield->id, $site_number);
 		if ($tower_info === null) {
 			return "Invalid site number.";
 		}
@@ -601,7 +601,7 @@ class TowerController {
 		}
 	
 		if (!$skip_checks && $this->settingManager->get('check_guild_name_on_scout') == 1) {
-			if (!$this->check_guild_name($guild_name)) {
+			if (!$this->checkGuildName($guild_name)) {
 				$check_blob .= "- <green>Org name<end> The org name you entered has never attacked or been attacked.\n\n";
 			}
 		}
@@ -713,7 +713,7 @@ class TowerController {
 			return;
 		}
 	
-		$tower_info = $this->get_tower_info($playfield->id, $args[2]);
+		$tower_info = $this->getTowerInfo($playfield->id, $args[2]);
 		if ($tower_info === null) {
 			$msg = "Invalid site number.";
 			$sendto->reply($msg);
@@ -816,7 +816,7 @@ class TowerController {
 			$more = "[<red>UNKNOWN AREA!<end>]";
 		} else {
 		
-			$this->record_attack($whois, $def_side, $def_guild, $x_coords, $y_coords, $closest_site);
+			$this->recordAttack($whois, $def_side, $def_guild, $x_coords, $y_coords, $closest_site);
 			$this->logger->log('debug', "Site being attacked: ({$playfield_name}) '{$closest_site->playfield_id}' '{$closest_site->site_number}'");
 		
 			// Beginning of the 'more' window
@@ -842,7 +842,7 @@ class TowerController {
 				$link .= "Profession: <highlight>$whois->profession<end>\n";
 			}
 			if ($whois->level) {
-				$level_info = $this->levelController->get_level_info($whois->level);
+				$level_info = $this->levelController->getLevelInfo($whois->level);
 				$link .= "Level: <highlight>{$whois->level}/<green>{$whois->ai_level}<end> ({$level_info->pvpMin}-{$level_info->pvpMax})<end>\n";
 			}
 		
@@ -956,7 +956,7 @@ class TowerController {
 			$last_attack->id = '-1';
 		}
 		
-		$this->record_victory($last_attack);
+		$this->recordVictory($last_attack);
 	}
 
 	protected function attacksCommandHandler($page_label, $search, $cmd, $sendto) {
@@ -1100,7 +1100,7 @@ class TowerController {
 		$sendto->reply($msg);
 	}
 
-	public function get_tower_info($playfield_id, $site_number) {
+	public function getTowerInfo($playfield_id, $site_number) {
 		$sql = "
 			SELECT
 				*
@@ -1114,7 +1114,7 @@ class TowerController {
 		return $this->db->queryRow($sql, $playfield_id, $site_number);
 	}
 
-	protected function find_sites_in_playfield($playfield_id) {
+	protected function findSitesInPlayfield($playfield_id) {
 		$sql = "SELECT * FROM tower_site WHERE `playfield_id` = ?";
 
 		return $this->db->query($sql, $playfield_id);
@@ -1169,7 +1169,7 @@ class TowerController {
 		return $this->db->queryRow($sql, $att_guild_name, $att_faction, $def_guild_name, $def_faction, $playfield_id, $time);
 	}
 
-	protected function record_attack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
+	protected function recordAttack($whois, $def_faction, $def_guild_name, $x_coords, $y_coords, $closest_site) {
 		$sql = "
 			INSERT INTO tower_attack_<myname> (
 				`time`,
@@ -1205,7 +1205,7 @@ class TowerController {
 			$def_guild_name, $def_faction, $closest_site->playfield_id, $closest_site->site_number, $x_coords, $y_coords);
 	}
 
-	protected function find_all_scouted_sites() {
+	protected function findAllScoutedSites() {
 		$sql =
 			"SELECT
 				*
@@ -1238,7 +1238,7 @@ class TowerController {
 		return $this->db->queryRow($sql, $playfield_id, $site_number);
 	}
 
-	protected function record_victory($last_attack) {
+	protected function recordVictory($last_attack) {
 		$sql = "
 			INSERT INTO tower_victory_<myname> (
 				`time`,
@@ -1294,7 +1294,7 @@ class TowerController {
 		return $this->db->exec($sql, $playfield_id, $site_number);
 	}
 
-	protected function check_guild_name($guild_name) {
+	protected function checkGuildName($guild_name) {
 		$sql = "SELECT * FROM tower_attack_<myname> WHERE `att_guild_name` LIKE ? OR `def_guild_name` LIKE ? LIMIT 1";
 
 		$data = $this->db->query($sql, $guild_name, $guild_name);
