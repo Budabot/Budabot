@@ -4,4 +4,4 @@ To show the list of all events and their statuses:
 To show the list of all events of a certain type and their statuses:
 <highlight><tab><symbol>eventlist <i>event_type</i><end>
 
-Valid event types are: msg, priv, extpriv, guild, joinpriv, extjoinpriv, leavepriv, extleavepriv, orgmsg, extjoinprivrequest, extkickpriv, logon, logoff, towers, connect, sendguild, sendpriv, setup, and allpackets.
+Valid event types are: msg, priv, extpriv, guild, joinpriv, extjoinpriv, leavepriv, extleavepriv, orgmsg, extjoinprivrequest, extkickpriv, logon, logoff, towers, connect, sendguild, sendpriv, setup, and packet(id).
