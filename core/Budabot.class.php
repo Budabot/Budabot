@@ -405,10 +405,10 @@ class Budabot extends AOChat {
 	}
 
 	function process_group_announce($args) {
-		$b = unpack("C*", $args[0]);
+		$orgId = $this->getOrgId($args[0]);
 		$this->logger->log('DEBUG', "AOCP_GROUP_ANNOUNCE => name: '$args[1]'");
-		if ($b[1] == 3) {
-			$this->vars["my_guild_id"] = ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
+		if ($orgId) {
+			$this->vars["my_guild_id"] = $orgId;
 			//$this->vars["my_guild"] = $args[1];
 		}
 	}
@@ -634,8 +634,10 @@ class Budabot extends AOChat {
 			return;
 		}
 
+		$orgId = $this->getOrgId($args[0]);
+
 		// don't log tower messages with rest of chat messages
-		if ($channel != "All Towers" && $channel != "Tower Battle Outcome") {
+		if ($channel != "All Towers" && $channel != "Tower Battle Outcome" && (!$orgId || $this->settingManager->get('guild_channel_status') == 1)) {
 			$this->logger->logChat($channel, $sender, $message);
 		} else {
 			$this->logger->log('DEBUG', "[" . $channel . "]: " . $message);
@@ -651,8 +653,6 @@ class Budabot extends AOChat {
 			}
 		}
 
-		$b = unpack("C*", $args[0]);
-
 		if ($channel == "All Towers" || $channel == "Tower Battle Outcome") {
 			$eventObj->type = "towers";
 
@@ -661,7 +661,7 @@ class Budabot extends AOChat {
 			$eventObj->type = "orgmsg";
 
 			$this->eventManager->fireEvent($eventObj);
-		} else if ($b[1] == 3 && $this->settingManager->get('guild_channel_status') == 1) {
+		} else if ($orgId && $this->settingManager->get('guild_channel_status') == 1) {
 			$type = "guild";
 			$sendto = 'guild';
 
@@ -826,6 +826,15 @@ class Budabot extends AOChat {
 
 	public function getBuddyListSize() {
 		return $this->buddyListSize;
+	}
+
+	public function getOrgId($channelId) {
+		$b = unpack("C*", $channelId);
+		if ($b[1] == 3) {
+			return ($b[2] << 24) + ($b[3] << 16) + ($b[4] << 8) + ($b[5]);
+		} else {
+			return false;
+		}
 	}
 
 	/**
