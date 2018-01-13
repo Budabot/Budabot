@@ -465,15 +465,12 @@ class GuildController {
 				$this->db->exec("UPDATE org_members_<myname> SET `mode` = 'add' WHERE `name` = ?", $name);
 				$this->buddylistManager->add($name, 'org');
 				$this->chatBot->guildmembers[$name] = 6;
-				$msg = "<highlight>{$name}<end> has been added to the Notify list.";
 			} else {
 				$this->db->exec("INSERT INTO org_members_<myname> (`mode`, `name`) VALUES ('add', ?)", $name);
 				$this->buddylistManager->add($name, 'org');
 				$this->chatBot->guildmembers[$name] = 6;
-				$msg = "<highlight>{$name}<end> has been added to the Notify list.";
 			}
 			$this->db->exec("INSERT INTO online (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild>', 'guild', '<myname>', ?)", $name, time());
-			$this->chatBot->sendGuild($msg);
 
 			// update character info
 			$this->playerManager->getByName($name);
@@ -485,9 +482,6 @@ class GuildController {
 
 			unset($this->chatBot->guildmembers[$name]);
 			$this->buddylistManager->remove($name, 'org');
-
-			$msg = "Removed <highlight>{$name}<end> from the Notify list.";
-			$this->chatBot->sendGuild($msg);
 		} else if (preg_match("/^(.+) just left your organization.$/", $message, $arr) || preg_match("/^(.+) kicked from organization \\(alignment changed\\).$/", $message, $arr)) {
 			$name = ucfirst(strtolower($arr[1]));
 
@@ -496,9 +490,6 @@ class GuildController {
 
 			unset($this->chatBot->guildmembers[$name]);
 			$this->buddylistManager->remove($name, 'org');
-
-			$msg = "Removed <highlight>{$name}<end> from the Notify list.";
-			$this->chatBot->sendGuild($msg);
 		}
 	}
 	
