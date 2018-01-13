@@ -96,7 +96,7 @@ define('AOEM_AI_HQ_REMOVE',           0x36);
 class AOChat {
 	var $state, $id, $gid, $chars, $char, $grp, $buddies;
 	var $socket, $last_packet, $last_ping;
-	var $serverseed, $chatqueue;
+	var $chatqueue;
 	
 	var $mmdbParser;
 	var $logger;
@@ -113,7 +113,6 @@ class AOChat {
 			socket_close($this->socket);
 		}
 		$this->socket      = null;
-		$this->serverseed  = null;
 		$this->chars       = null;
 		$this->char        = null;
 		$this->last_packet = 0;
@@ -147,14 +146,7 @@ class AOChat {
 		socket_set_option($this->socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => $timeout, 'usec' => 0));
 
 		if (@socket_connect($s, $server, $port) === false) {
-			$this->logger->log('error', "Could not connect to the AO Chat server ($server:$port): " . socket_strerror(socket_last_error($s)));
-			$this->disconnect();
-			return false;
-		}
-
-		$packet = $this->get_packet();
-		if (!is_object($packet) || $packet->type != AOCP_LOGIN_SEED) {
-			$this->logger->log('error', "Received invalid greeting packet from AO Chat server");
+			$this->logger->log('error', "Could not connect to the AO Chat server ($server:$port): " . trim(socket_strerror(socket_last_error($s))));
 			$this->disconnect();
 			return false;
 		}
@@ -233,10 +225,6 @@ class AOChat {
 		}
 
 		switch ($type) {
-			case AOCP_LOGIN_SEED:
-				$this->serverseed = $packet->args[0];
-				break;
-
 			case AOCP_CLIENT_NAME:
 			case AOCP_CLIENT_LOOKUP:
 				list($id, $name) = $packet->args;
@@ -294,8 +282,14 @@ class AOChat {
 			$this->logger->log('error', "AOChat: not expecting authentication");
 			die();
 		}
+		
+		$packet = $this->get_packet();
+		if ($packet->type != AOCP_LOGIN_SEED) {
+			return false;
+		}
+		$serverseed = $packet->args[0];
 
-		$key = $this->generate_login_key($this->serverseed, $username, $password);
+		$key = $this->generate_login_key($serverseed, $username, $password);
 		$pak = new AOChatPacket("out", AOCP_LOGIN_REQUEST, array(0, $username, $key));
 		$this->send_packet($pak);
 		$packet = $this->get_packet();
