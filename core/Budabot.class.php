@@ -164,24 +164,21 @@ class Budabot extends AOChat {
 	function connectAO($login, $password, $server, $port) {
 		// Begin the login process
 		$this->logger->log('INFO', "Connecting to AO Server...({$server}:{$port})");
-		$this->connect($server, $port);
-		if ($this->state != "auth") {
+		if (false === $this->connect($server, $port)) {
 			$this->logger->log('ERROR', "Connection failed! Please check your Internet connection and firewall.");
 			sleep(10);
 			die();
 		}
 
 		$this->logger->log('INFO', "Authenticate login data...");
-		$this->authenticate($login, $password);
-		if ($this->state != "login") {
+		if (false === $this->authenticate($login, $password)) {
 			$this->logger->log('ERROR', "Authentication failed! Invalid username or password.");
 			sleep(10);
 			die();
 		}
 
 		$this->logger->log('INFO', "Logging in {$this->vars["name"]}...");
-		$this->login($this->vars["name"]);
-		if ($this->state != "ok") {
+		if (false === $this->login($this->vars["name"])) {
 			$this->logger->log('ERROR', "Character selection failed! Could not login on as character '{$this->vars["name"]}'.");
 			sleep(10);
 			die();
@@ -360,7 +357,7 @@ class Budabot extends AOChat {
 
 			// event handlers
 			switch ($packet->type){
-				case AOCP_LOGIN_OK: //5
+				case AOCP_LOGIN_OK: // 5
 					$this->buddyListSize += 1000;
 					break;
 				case AOCP_GROUP_ANNOUNCE: // 60

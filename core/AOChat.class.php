@@ -94,7 +94,7 @@ define('AOEM_AI_HQ_REMOVE_INIT',      0x35);
 define('AOEM_AI_HQ_REMOVE',           0x36);
 
 class AOChat {
-	var $state, $id, $gid, $chars, $char, $grp, $buddies;
+	var $id, $gid, $chars, $char, $grp, $buddies;
 	var $socket, $last_packet, $last_ping;
 	var $chatqueue;
 	
@@ -113,11 +113,9 @@ class AOChat {
 			socket_close($this->socket);
 		}
 		$this->socket      = null;
-		$this->chars       = null;
 		$this->char        = null;
 		$this->last_packet = 0;
 		$this->last_ping   = 0;
-		$this->state       = "connect";
 		$this->id          = array();
 		$this->gid         = array();
 		$this->grp         = array();
@@ -127,33 +125,26 @@ class AOChat {
 
 	/* Network stuff */
 	function connect($server, $port) {
-		if ($this->state !== "connect") {
-			$this->logger->log('error', "AOChat: not expecting connect");
-			die();
-		}
-
-		$s = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
-		if (!is_resource($s)) { /* this is fatal */
+		$this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP);
+		if (!is_resource($this->socket)) { /* this is fatal */
+			$this->socket = null;
 			$this->logger->log('error', "Could not create socket");
 			die();
 		}
 
-		$this->socket = $s;
-		$this->state = "auth";
-		
 		// prevents bot from hanging on startup when chatserver does not send login seed
 		$timeout = 10;
 		socket_set_option($this->socket, SOL_SOCKET, SO_RCVTIMEO, array('sec' => $timeout, 'usec' => 0));
 
-		if (@socket_connect($s, $server, $port) === false) {
-			$this->logger->log('error', "Could not connect to the AO Chat server ($server:$port): " . trim(socket_strerror(socket_last_error($s))));
+		if (@socket_connect($this->socket, $server, $port) === false) {
+			$this->logger->log('error', "Could not connect to the AO Chat server ($server:$port): " . trim(socket_strerror(socket_last_error($this->socket))));
 			$this->disconnect();
 			return false;
 		}
 
 		$this->chatqueue = new AOChatQueue(AOC_FLOOD_LIMIT, AOC_FLOOD_INC);
 
-		return $s;
+		return $this->socket;
 	}
 
 	function iteration() {
@@ -278,11 +269,6 @@ class AOChat {
 
 	/* Login functions */
 	function authenticate($username, $password) {
-		if ($this->state != "auth") {
-			$this->logger->log('error', "AOChat: not expecting authentication");
-			die();
-		}
-		
 		$packet = $this->get_packet();
 		if ($packet->type != AOCP_LOGIN_SEED) {
 			return false;
@@ -306,17 +292,11 @@ class AOChat {
 		}
 
 		$this->username = $username;
-		$this->state    = "login";
 
 		return $this->chars;
 	}
 
 	function login($char) {
-		if ($this->state != "login") {
-			$this->logger->log('error', "AOChat: not expecting login");
-			die();
-		}
-
 		if (is_int($char)) {
 			$field = "id";
 		} else if (is_string($char)) {
@@ -342,15 +322,14 @@ class AOChat {
 			return false;
 		}
 
-		$pq = new AOChatPacket("out", AOCP_LOGIN_SELECT, $char["id"]);
-		$this->send_packet($pq);
-		$pr = $this->get_packet();
-		if ($pr->type != AOCP_LOGIN_OK) {
+		$loginSelect = new AOChatPacket("out", AOCP_LOGIN_SELECT, $char["id"]);
+		$this->send_packet($loginSelect);
+		$packet = $this->get_packet();
+		if ($packet->type != AOCP_LOGIN_OK) {
 			return false;
 		}
 
 		$this->char  = $char;
-		$this->state = "ok";
 
 		return true;
 	}
