@@ -88,7 +88,7 @@ class NatubotController {
 			$blob .= "\nWritten by Naturarum (RK2)";
 			$msg = $this->text->makeBlob("Players Online ($count)", $blob);
 		} else {
-			$msg = "No players online";
+			$msg = "Players Online (0)";
 		}
 
 		$sendto->reply($msg);
@@ -139,7 +139,7 @@ class NatubotController {
 			$blob .= "\nWritten by Naturarum (RK2)";
 			$msg = $this->text->makeBlob("$prof Search Results ($count)", $blob);
 		} else {
-			$msg = "No players online";
+			$msg = "$prof Search Results (0)";
 		}
 
 		$sendto->reply($msg);
