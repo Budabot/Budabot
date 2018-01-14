@@ -304,20 +304,23 @@ class OrglistController {
 	
 	/**
 	 * @Event("logOn")
+	 * @Event("logOff")
 	 * @Description("Records online status of org members")
 	 */
 	public function orgMemberLogonEvent($eventObj) {
 		$this->updateOrglist($eventObj->sender, $eventObj->type);
 	}
-	
+
 	/**
-	 * @Event("logOff")
-	 * @Description("Records offline status of org members")
+	 * @Event("packet(41)")
+	 * @Description("Records online status of org members")
 	 */
-	public function orgMemberLogoffEvent($eventObj) {
-		$this->updateOrglist($eventObj->sender, $eventObj->type);
+	public function buddyRemovedEvent($eventObj) {
+		if (isset($this->orglist)) {
+			$this->addOrgMembersToBuddylist();
+		}
 	}
-	
+
 	public function updateOrglist($sender, $type) {
 		if (isset($this->orglist["added"][$sender])) {
 			if ($type == "logon") {
@@ -329,9 +332,7 @@ class OrglistController {
 			$this->buddylistManager->remove($sender, 'onlineorg');
 			unset($this->orglist["added"][$sender]);
 
-			$this->addOrgMembersToBuddylist();
-
-			if (count($this->orglist["added"]) == 0) {
+			if (count($this->orglist["check"]) == 0 && count($this->orglist["added"]) == 0) {
 				$this->orglistEnd();
 			}
 		}

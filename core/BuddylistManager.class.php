@@ -70,7 +70,6 @@ class BuddylistManager {
 			}
 
 			if (count($this->buddyList[$uid]['types']) == 0) {
-				unset($this->buddyList[$uid]);
 				$this->logger->log('debug', "$name buddy removed");
 				$this->chatBot->buddy_remove($uid);
 			}
