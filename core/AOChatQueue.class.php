@@ -53,7 +53,7 @@ class AOChatQueue {
 
 	var $queue;
 	var $qsize;  // the number of items in the queue for any priority
-	var $point;  // everytime a message is sent, this is incremented by $increment; if $point > (time() + $limit) metering kicks in
+	var $point;  // the next time we can send a message
 	var $limit;  // the amount of messages that can be sent before metering kicks in
 	var $increment;  // the amount of time in seconds to wait after the limit has been reached
 
@@ -82,9 +82,7 @@ class AOChatQueue {
 			return null;
 		}
 		$now = time();
-		if ($this->point < $now) {
-			$this->point = $now;
-		} else if ($this->point > ($now + $this->limit)) {
+		if ($this->point > $now) {
 			return null;
 		}
 
@@ -94,6 +92,12 @@ class AOChatQueue {
 				if ($item === null) {
 					unset($this->queue[$priority]);
 					break;
+				}
+
+				// $limit specifies how much buffer we have
+				// this check makes sure we don't go beyond that buffer
+				if ($this->point < ($now - $this->limit)) {
+					$this->point = $now - $this->limit;
 				}
 
 				$this->point += $this->increment;
