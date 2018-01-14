@@ -66,7 +66,7 @@ class NatubotController {
 			FROM online o
 			LEFT JOIN alts a ON o.name = a.alt
 			LEFT JOIN players p ON o.name = p.name
-			ORDER BY pmain ASC";
+			ORDER BY COALESCE(a.main, o.name) ASC";
 		$data = $this->db->query($sql);
 		$count = count($data);
 		$currentMain = "";
@@ -109,11 +109,11 @@ class NatubotController {
 			SELECT DISTINCT p.*, COALESCE(a.main, o.name) AS pmain, (CASE WHEN o2.name IS NULL THEN 0 ELSE 1 END) AS online
 			FROM online o
 			LEFT JOIN alts a ON o.name = a.alt
-			LEFT JOIN alts a2 ON a2.main = pmain
-			LEFT JOIN players p ON a2.alt = p.name OR pmain = p.name
+			LEFT JOIN alts a2 ON a2.main = COALESCE(a.main, o.name)
+			LEFT JOIN players p ON a2.alt = p.name OR COALESCE(a.main, o.name) = p.name
 			LEFT JOIN online o2 ON p.name = o2.name
 			WHERE p.profession = ?
-			ORDER BY pmain ASC";
+			ORDER BY COALESCE(a.main, o.name) ASC";
 		$data = $this->db->query($sql, $prof);
 		$count = count($data);
 		$currentMain = "";
