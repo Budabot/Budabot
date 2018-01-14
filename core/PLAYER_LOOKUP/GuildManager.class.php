@@ -101,7 +101,7 @@ class GuildManager {
 			$guild->members[$name]->pvp_title      = $member->PVPTITLE;
 		}
 
-		// this is done separately from the loop above to prevent nested transaction errors from occuring
+		// this is done separately from the loop above to prevent nested transaction errors from occurring
 		// when looking up charids for characters
 		if ($cacheResult->usedCache === false) {
 			$this->db->beginTransaction();

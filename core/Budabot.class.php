@@ -70,9 +70,9 @@ class Budabot extends AOChat {
 	private $buddyListSize = 0;
 
 	//Ignore Messages from Vicinity/IRRK New Wire/OT OOC/OT Newbie OOC...
-	public $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT Jpn OOC', 'OT shopping 11-50',
-		'Tour Announcements', 'Neu. Newbie OOC', 'Neu. Jpn OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
-		'Clan Newbie OOC', 'Clan Jpn OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
+	public $channelsToIgnore = array("", 'IRRK News Wire', 'OT OOC', 'OT Newbie OOC', 'OT shopping 11-50',
+		'Tour Announcements', 'Neu. Newbie OOC', 'Neu. shopping 11-50', 'Neu. OOC', 'Clan OOC',
+		'Clan Newbie OOC', 'Clan shopping 11-50', 'OT German OOC', 'Clan German OOC', 'Neu. German OOC');
 	
 	public function init(&$vars) {
 		$this->vars = $vars;
@@ -82,7 +82,7 @@ class Budabot extends AOChat {
 	
 		$this->logger->log('DEBUG', 'Initializing bot');
 
-		// Create core tables if not exists
+		// Create core tables if they don't already exist
 		$this->db->exec("CREATE TABLE IF NOT EXISTS cmdcfg_<myname> (`module` VARCHAR(50), `cmdevent` VARCHAR(6), `type` VARCHAR(18), `file` TEXT, `cmd` VARCHAR(50), `admin` VARCHAR(10), `description` VARCHAR(75) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `dependson` VARCHAR(25) DEFAULT 'none', `help` VARCHAR(255))");
 		$this->db->exec("CREATE TABLE IF NOT EXISTS eventcfg_<myname> (`module` VARCHAR(50), `type` VARCHAR(18), `file` VARCHAR(255), `description` VARCHAR(75) DEFAULT 'none', `verify` INT DEFAULT '0', `status` INT DEFAULT '0', `help` VARCHAR(255))");
 		$this->db->exec("CREATE TABLE IF NOT EXISTS settings_<myname> (`name` VARCHAR(50) NOT NULL, `module` VARCHAR(50), `type` VARCHAR(30), `mode` VARCHAR(10), `value` VARCHAR(255) DEFAULT '0', `options` VARCHAR(255) DEFAULT '0', `intoptions` VARCHAR(50) DEFAULT '0', `description` VARCHAR(75), `source` VARCHAR(5), `admin` VARCHAR(25), `verify` INT DEFAULT '0', `help` VARCHAR(255))");
@@ -492,9 +492,6 @@ class Budabot extends AOChat {
 
 	function process_buddy_removed($args) {
 		$sender	= $this->lookup_user($args[0]);
-
-		$eventObj = new stdClass;
-		$eventObj->sender = $sender;
 
 		$this->logger->log('DEBUG', "AOCP_BUDDY_REMOVE => sender: '$sender'");
 
