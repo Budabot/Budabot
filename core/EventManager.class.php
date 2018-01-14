@@ -45,11 +45,11 @@ class EventManager {
 	public function register($module, $type, $filename, $description = 'none', $help = '', $defaultStatus = null) {
 		$type = strtolower($type);
 
-		$this->logger->log('DEBUG', "Registering event Type:($type) File:($filename) Module:($module)");
+		$this->logger->log('DEBUG', "Registering event Type:($type) Handler:($filename) Module:($module)");
 
 		$time = $this->util->parseTime($type);
 		if ($time <= 0 && !in_array($type, $this->eventTypes) && preg_match(self::PACKET_TYPE_REGEX, $type) == 0) {
-			$this->logger->log('ERROR', "Error registering event Type:($type) File:($filename) Module:($module). The type is not a recognized event type!");
+			$this->logger->log('ERROR', "Error registering event Type:($type) Handler:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
 
@@ -88,7 +88,7 @@ class EventManager {
 	public function activate($type, $filename) {
 		$type = strtolower($type);
 
-		$this->logger->log('DEBUG', "Activating event Type:($type) File:($filename)");
+		$this->logger->log('DEBUG', "Activating event Type:($type) Handler:($filename)");
 
 		list($name, $method) = explode(".", $filename);
 		if (!Registry::instanceExists($name)) {
@@ -105,7 +105,7 @@ class EventManager {
 			if (!isset($this->events[$type]) || !in_array($filename, $this->events[$type])) {
 				$this->events[$type] []= $filename;
 			} else {
-				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). Event already activated!");
+				$this->logger->log('ERROR', "Error activating event Type:($type) Handler:($filename). Event already activated!");
 			}
 		} else {
 			$time = $this->util->parseTime($type);
@@ -114,10 +114,10 @@ class EventManager {
 				if ($key === null) {
 					$this->cronevents[] = array('nextevent' => 0, 'filename' => $filename, 'time' => $time);
 				} else {
-					$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). Event already activated!");
+					$this->logger->log('ERROR', "Error activating event Type:($type) Handler:($filename). Event already activated!");
 				}
 			} else {
-				$this->logger->log('ERROR', "Error activating event Type:($type) File:($filename). The type is not a recognized event type!");
+				$this->logger->log('ERROR', "Error activating event Type:($type) Handler:($filename). The type is not a recognized event type!");
 			}
 		}
 	}
@@ -129,9 +129,9 @@ class EventManager {
 	public function deactivate($type, $filename) {
 		$type = strtolower($type);
 
-		$this->logger->log('debug', "Deactivating event Type:($type) File:($filename)");
+		$this->logger->log('debug', "Deactivating event Type:($type) Handler:($filename)");
 
-		if (in_array($type, $this->eventTypes)) {
+		if (in_array($type, $this->eventTypes) || preg_match(self::PACKET_TYPE_REGEX, $type) == 1) {
 			if (in_array($filename, $this->events[$type])) {
 				$found = true;
 				$temp = array_flip($this->events[$type]);
@@ -146,13 +146,13 @@ class EventManager {
 					unset($this->cronevents[$key]);
 				}
 			} else {
-				$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The type is not a recognized event type!");
+				$this->logger->log('ERROR', "Error deactivating event Type:($type) Handler:($filename). The type is not a recognized event type!");
 				return;
 			}
 		}
 
 		if (!$found) {
-			$this->logger->log('ERROR', "Error deactivating event Type:($type) File:($filename). The event is not active or doesn't exist!");
+			$this->logger->log('ERROR', "Error deactivating event Type:($type) Handler:($filename). The event is not active or doesn't exist!");
 		}
 	}
 	
