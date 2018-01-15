@@ -14,12 +14,6 @@ namespace Natubot\Modules;
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'play', 
- *		accessLevel = 'member', 
- *		description = 'Shows online players and their currently logged alts', 
- *		help        = 'play.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'players', 
  *		accessLevel = 'member', 
  *		description = 'Shows online players and their currently logged alts in a long format', 

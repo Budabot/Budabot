@@ -766,7 +766,7 @@ class Budabot extends AOChat {
 
 		forEach ($commands as $command => $definition) {
 			if (count($definition['handlers']) == 0) {
-				$this->logger->log('ERROR', "No handlers defined for command $command in module '$moduleName'.");
+				$this->logger->log('ERROR', "No handlers defined for command '$command' in module '$moduleName'.");
 				continue;
 			}
 			$this->commandManager->register(
@@ -783,7 +783,7 @@ class Budabot extends AOChat {
 
 		forEach ($subcommands as $subcommand => $definition) {
 			if (count($definition['handlers']) == 0) {
-				$this->logger->log('ERROR', "No handlers defined for subcommand $subcommand in module '$moduleName'.");
+				$this->logger->log('ERROR', "No handlers defined for subcommand '$subcommand' in module '$moduleName'.");
 				continue;
 			}
 			$this->subcommandManager->register(
