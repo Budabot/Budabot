@@ -63,11 +63,13 @@ class NatubotController {
 			ORDER BY COALESCE(a.main, o.name) ASC";
 		$data = $this->db->query($sql);
 		$count = count($data);
+		$mainCount = 0;
 		$currentMain = "";
 
 		if ($count > 0) {
 			forEach ($data as $row) {
 				if ($currentMain != $row->pmain) {
+					$mainCount++;
 					$blob .= "\n<highlight>$row->pmain<end> on\n";
 					$currentMain = $row->pmain;
 				}
@@ -80,7 +82,7 @@ class NatubotController {
 				}
 			}
 			$blob .= "\nWritten by Naturarum (RK2)";
-			$msg = $this->text->makeBlob("Players Online ($count)", $blob);
+			$msg = $this->text->makeBlob("Players Online ($mainCount - $count)", $blob);
 		} else {
 			$msg = "Players Online (0)";
 		}
@@ -110,11 +112,13 @@ class NatubotController {
 			ORDER BY COALESCE(a.main, o.name) ASC";
 		$data = $this->db->query($sql, $prof);
 		$count = count($data);
+		$mainCount = 0;
 		$currentMain = "";
 
 		if ($count > 0) {
 			forEach ($data as $row) {
 				if ($currentMain != $row->pmain) {
+					$mainCount++;
 					$blob .= "\n<highlight>$row->pmain<end> has\n";
 					$currentMain = $row->pmain;
 				}
@@ -131,7 +135,7 @@ class NatubotController {
 				$blob .= "\n";
 			}
 			$blob .= "\nWritten by Naturarum (RK2)";
-			$msg = $this->text->makeBlob("$prof Search Results ($count)", $blob);
+			$msg = $this->text->makeBlob("$prof Search Results ($mainCount - $count)", $blob);
 		} else {
 			$msg = "$prof Search Results (0)";
 		}
