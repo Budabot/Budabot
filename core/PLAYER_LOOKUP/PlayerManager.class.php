@@ -105,7 +105,7 @@ class PlayerManager {
 		$obj->pvp_rating     = $char->PVPRATING;
 		$obj->pvp_title      = $char->PVPTITLE;
 
-		$obj->charid        = $char->CHAR_INSTANCE;
+		//$obj->charid        = $char->CHAR_INSTANCE;
 		$obj->dimension      = $char->CHAR_DIMENSION;
 
 		forEach ($obj as $key => $value) {
