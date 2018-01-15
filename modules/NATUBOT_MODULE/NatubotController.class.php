@@ -68,7 +68,7 @@ class NatubotController {
 		if ($count > 0) {
 			forEach ($data as $row) {
 				if ($currentMain != $row->pmain) {
-					$blob .= "<highlight>$row->pmain<end> on\n";
+					$blob .= "\n<highlight>$row->pmain<end> on\n";
 					$currentMain = $row->pmain;
 				}
 
@@ -115,7 +115,7 @@ class NatubotController {
 		if ($count > 0) {
 			forEach ($data as $row) {
 				if ($currentMain != $row->pmain) {
-					$blob .= "<highlight>$row->pmain<end> has\n";
+					$blob .= "\n<highlight>$row->pmain<end> has\n";
 					$currentMain = $row->pmain;
 				}
 
