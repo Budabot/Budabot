@@ -7,13 +7,13 @@ namespace Budabot\User\Modules;
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'whatbuffs2',
+ *		command     = 'whatbuffs',
  *		accessLevel = 'all',
  *		description = 'Find items that buff an ability or skill',
  *		help        = 'whatbuffs.txt'
  *	)
  */
-class WhatBuffs2Controller {
+class WhatBuffsController {
 	
 	public $moduleName;
 
@@ -43,41 +43,39 @@ class WhatBuffs2Controller {
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "buffs");
-
-		$this->commandAlias->register($this->moduleName, "whatbuffs2", "whatbuffs");
 	}
 
 	/**
-	 * @HandlesCommand("whatbuffs2")
-	 * @Matches("/^whatbuffs2$/i")
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs$/i")
 	 */
 	public function whatbuffsCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
 		forEach ($this->types as $type) {
-			$blob .= $this->text->makeChatcmd($type, "/tell <myname> whatbuffs2 $type") . "\n";
+			$blob .= $this->text->makeChatcmd($type, "/tell <myname> whatbuffs $type") . "\n";
 		}
 		$msg = $this->text->makeBlob("WhatBuffs - Choose Type", $blob);
 		$sendto->reply($msg);
 	}
 	
 	/**
-	 * @HandlesCommand("whatbuffs2")
-	 * @Matches("/^whatbuffs2 (nano|weapon|armor|utility|tower)$/i")
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs (nano|weapon|armor|utility|tower)$/i")
 	 */
 	public function whatbuffs2Command($message, $channel, $sender, $sendto, $args) {
 		$type = ucfirst(strtolower($args[1]));
 		$data = $this->db->query("SELECT skill, COUNT(1) AS num FROM buffs WHERE type = ? GROUP BY skill HAVING num > 0 ORDER BY skill ASC", $type);
 		$blob = '';
 		forEach ($data as $row) {
-			$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs2 $type $row->skill") . " ($row->num)\n";
+			$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs $type $row->skill") . " ($row->num)\n";
 		}
 		$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		$sendto->reply($msg);
 	}
 	
 	/**
-	 * @HandlesCommand("whatbuffs2")
-	 * @Matches("/^whatbuffs2 (nano|weapon|armor|utility|tower) (.*)$/i")
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs (nano|weapon|armor|utility|tower) (.*)$/i")
 	 */
 	public function whatbuffs3Command($message, $channel, $sender, $sendto, $args) {
 		$category = $args[1];
@@ -88,8 +86,8 @@ class WhatBuffs2Controller {
 	}
 	
 	/**
-	 * @HandlesCommand("whatbuffs2")
-	 * @Matches("/^whatbuffs2 (.*) (nano|weapon|armor|utility|tower)$/i")
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs (.*) (nano|weapon|armor|utility|tower)$/i")
 	 */
 	public function whatbuffs4Command($message, $channel, $sender, $sendto, $args) {
 		$category = $args[2];
@@ -100,8 +98,8 @@ class WhatBuffs2Controller {
 	}
 	
 	/**
-	 * @HandlesCommand("whatbuffs2")
-	 * @Matches("/^whatbuffs2 (.*)$/i")
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs (.*)$/i")
 	 */
 	public function whatbuffs5Command($message, $channel, $sender, $sendto, $args) {
 		$skill = $args[1];
@@ -116,13 +114,13 @@ class WhatBuffs2Controller {
 			$data = $this->db->query("SELECT type, COUNT(1) AS num FROM buffs WHERE skill = ? GROUP BY type HAVING num > 0 ORDER BY type ASC", $skill);
 			$blob = '';
 			forEach ($data as $row) {
-				$blob .= $this->text->makeChatcmd(ucfirst($row->type), "/tell <myname> whatbuffs2 $row->type $skill") . " ($row->num)\n";
+				$blob .= $this->text->makeChatcmd(ucfirst($row->type), "/tell <myname> whatbuffs $row->type $skill") . " ($row->num)\n";
 			}
 			$msg = $this->text->makeBlob("WhatBuffs - Choose Type for $skill", $blob);
 		} else {
 			$blob = '';
 			forEach ($skills as $row) {
-				$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs2 $row->skill") . "\n";
+				$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs $row->skill") . "\n";
 			}
 			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		}
@@ -221,7 +219,7 @@ class WhatBuffs2Controller {
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
-				$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs2 $category $row->skill") . "\n";
+				$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs $category $row->skill") . "\n";
 			}
 			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		}

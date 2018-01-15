@@ -97,6 +97,7 @@ if (checkIfTableExists($db, "settings_<myname>")) {
 
 if (checkIfTableExists($db, "cmd_alias_<myname>")) {
 	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ? AND cmd = ?", "as", "aimedshot");
+	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ? AND cmd = ?", "whatbuffs", "whatbuffs2");
 }
 
 if (checkIfTableExists($db, "players")) {

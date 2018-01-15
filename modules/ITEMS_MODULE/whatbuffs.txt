@@ -1,18 +1,2 @@
-To find items that buff an ability or skill:
+To find nanos, weapons, armor, utilities, or towers that buff an ability or skill:
 <highlight><tab><symbol>whatbuffs<end>
-
-To find items that buff an ability or skill using auno.org data:
-<highlight><tab><symbol>whatbuffs1<end>
-
-To find items that buff an ability or skill using aoitems.com data:
-<highlight><tab><symbol>whatbuffs2<end>
-
-By default, <highlight><symbol>whatbuffs<end> is aliased to <highlight><symbol>whatbuffs2<end> so it returns aoitems.com data.  If you have a preference on which data is better, please make a post at <a href='chatcmd:///start http://budabot.com/forum/viewtopic.php?f=4&t=1379'>http://budabot.com/forum/viewtopic.php?f=4&t=1379</a>. Specific examples would be extremely helpful but any feedback is welcome.
-
-If you would prefer to use auno.org data, you can change the alias to do so by first removing the old alias:
-
-<highlight><symbol>alias rem whatbuffs<end>
-
-And then adding the new one:
-
-<highlight><symbol>alias add whatbuffs whatbuffs1<end>
