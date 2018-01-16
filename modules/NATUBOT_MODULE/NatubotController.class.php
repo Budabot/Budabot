@@ -59,7 +59,7 @@ class NatubotController {
 		print_r($orgData);
 		list($orgCount, $orgMain, $orgBlob) = $this->formatData($orgData);
 
-		$privData = $this->getPlayers('guild');
+		$privData = $this->getPlayers('priv');
 		print_r($privData);
 		list($privCount, $privMain, $privBlob) = $this->formatData($privData);
 
