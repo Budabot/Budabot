@@ -20,6 +20,12 @@ namespace Natubot\Modules;
  *		help        = 'players.txt'
  *	)
  *	@DefineCommand(
+ *		command     = 'players2', 
+ *		accessLevel = 'member', 
+ *		description = 'Shows online players and their currently logged alts', 
+ *		help        = 'players.txt'
+ *	)
+ *	@DefineCommand(
  *		command     = 'findprof', 
  *		accessLevel = 'member', 
  *		description = 'Shows online players with alts of a specific profession / level', 
@@ -51,16 +57,14 @@ class NatubotController {
 	public $chatBot;
 
 	/**
-	 * @HandlesCommand("players")
-	 * @Matches("/^players$/i")
+	 * @HandlesCommand("players2")
+	 * @Matches("/^players2$/i")
 	 */
-	public function playersCommand($message, $channel, $sender, $sendto, $args) {
+	public function players2Command($message, $channel, $sender, $sendto, $args) {
 		$orgData = $this->getPlayers('guild');
-		print_r($orgData);
 		list($orgCount, $orgMain, $orgBlob) = $this->formatData($orgData);
 
 		$privData = $this->getPlayers('priv');
-		print_r($privData);
 		list($privCount, $privMain, $privBlob) = $this->formatData($privData);
 
 		$totalCount = $orgCount + $privCount;
@@ -81,6 +85,51 @@ class NatubotController {
 		if ($totalCount > 0) {
 			$blob .= "Written by Naturarum (RK2)";
 			$msg = $this->text->makeBlob("Players Online ($totalMain)", $blob);
+		} else {
+			$msg = "Players Online (0)";
+		}
+
+		$sendto->reply($msg);
+	}
+
+	/**
+	 * @HandlesCommand("players")
+	 * @Matches("/^players$/i")
+	 */
+	public function playersCommand($message, $channel, $sender, $sendto, $args) {
+		$sql = "
+			SELECT p.*, o.channel_type, COALESCE(a.main, o.name) AS pmain
+			FROM online o
+			LEFT JOIN alts a ON o.name = a.alt
+			LEFT JOIN players p ON o.name = p.name
+			ORDER BY COALESCE(a.main, o.name) ASC";
+		$data = $this->db->query($sql);
+		$count = count($data);
+		$mainCount = 0;
+		
+		$blob = "";
+		if ($count > 0) {
+			forEach ($data as $row) {
+				if ($currentMain != $row->pmain) {
+					$mainCount++;
+					$blob .= "\n<highlight>$row->pmain<end> on\n";
+					$currentMain = $row->pmain;
+				}
+
+				$priv = "";
+				if ($row->channel_type == 'priv') {
+					$priv = " &lt;Guest&gt;";
+				}
+
+				if ($row->profession === null) {
+					$blob .= "| $row->name $priv\n";
+				} else {
+					$prof = $this->util->getProfessionAbbreviation($row->profession);
+					$blob.= "| $row->name - $row->level/<green>$row->ai_level<end> $prof $priv\n";
+				}
+			}
+			$blob .= "\nWritten by Naturarum (RK2)";
+			$msg = $this->text->makeBlob("Players Online ($mainCount)", $blob);
 		} else {
 			$msg = "Players Online (0)";
 		}
