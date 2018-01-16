@@ -55,34 +55,32 @@ class NatubotController {
 	 * @Matches("/^players$/i")
 	 */
 	public function playersCommand($message, $channel, $sender, $sendto, $args) {
-		$sql = "
-			SELECT p.*, COALESCE(a.main, o.name) AS pmain
-			FROM online o
-			LEFT JOIN alts a ON o.name = a.alt
-			LEFT JOIN players p ON o.name = p.name
-			ORDER BY COALESCE(a.main, o.name) ASC";
-		$data = $this->db->query($sql);
-		$count = count($data);
-		$mainCount = 0;
-		$currentMain = "";
+		$orgData = $this->getPlayers('guild');
+		print_r($orgData);
+		list($orgCount, $orgMain, $orgBlob) = $this->formatData($orgData);
 
-		if ($count > 0) {
-			forEach ($data as $row) {
-				if ($currentMain != $row->pmain) {
-					$mainCount++;
-					$blob .= "\n<highlight>$row->pmain<end> on\n";
-					$currentMain = $row->pmain;
-				}
+		$privData = $this->getPlayers('guild');
+		print_r($privData);
+		list($privCount, $privMain, $privBlob) = $this->formatData($privData);
 
-				if ($row->profession === null) {
-					$blob .= "| ($row->name)\n";
-				} else {
-					$prof = $this->util->getProfessionAbbreviation($row->profession);
-					$blob.= "| $row->name - $row->level/<green>$row->ai_level<end> $prof\n";
-				}
-			}
-			$blob .= "\nWritten by Naturarum (RK2)";
-			$msg = $this->text->makeBlob("Players Online ($mainCount - $count)", $blob);
+		$totalCount = $orgCount + $privCount;
+		$totalMain = $orgMain + $privMain;
+		
+		$blob = "\n";
+		if ($orgCount > 0) {
+			$blob .= "<header2>Org Channel ($orgMain)<end>\n";
+			$blob .= $orgBlob;
+			$blob .= "\n\n";
+		}
+		if ($privCount > 0) {
+			$blob .= "<header2>Private Channel ($privMain)<end>\n";
+			$blob .= $privBlob;
+			$blob .= "\n\n";
+		}
+
+		if ($totalCount > 0) {
+			$blob .= "Written by Naturarum (RK2)";
+			$msg = $this->text->makeBlob("Players Online ($totalMain)", $blob);
 		} else {
 			$msg = "Players Online (0)";
 		}
@@ -141,5 +139,42 @@ class NatubotController {
 		}
 
 		$sendto->reply($msg);
+	}
+
+	public function formatData($data) {
+		$count = count($data);
+		$mainCount = 0;
+		$currentMain = "";
+		$blob = "";
+
+		if ($count > 0) {
+			forEach ($data as $row) {
+				if ($currentMain != $row->pmain) {
+					$mainCount++;
+					$blob .= "\n<highlight>$row->pmain<end> on\n";
+					$currentMain = $row->pmain;
+				}
+
+				if ($row->profession === null) {
+					$blob .= "| ($row->name)\n";
+				} else {
+					$prof = $this->util->getProfessionAbbreviation($row->profession);
+					$blob.= "| $row->name - $row->level/<green>$row->ai_level<end> $prof\n";
+				}
+			}
+		}
+		
+		return [$count, $mainCount, $blob];
+	}
+
+	public function getPlayers($channelType) {
+		$sql = "
+			SELECT p.*, COALESCE(a.main, o.name) AS pmain
+			FROM online o
+			LEFT JOIN alts a ON o.name = a.alt
+			LEFT JOIN players p ON o.name = p.name
+			WHERE o.channel_type = ?
+			ORDER BY COALESCE(a.main, o.name) ASC";
+		return $this->db->query($sql, $channelType);
 	}
 }
