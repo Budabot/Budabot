@@ -4,11 +4,6 @@ namespace Natubot\Modules;
 
 /**
  * Written By Naturarum (Paradise, RK2)
- * For Budabot 3.0
- * Written: 12/28/2012
- *
- * NOTE: this module is 100% dependent on !alts being setup.  If a person does not have !alts setup, they will not appear in this list
- * due to the way the Budabot DB tables are joined together to determine mains.
  *
  * @Instance
  *
