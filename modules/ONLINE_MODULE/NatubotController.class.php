@@ -25,12 +25,6 @@ namespace Natubot\Modules;
  *		description = 'Shows online players and their currently logged alts', 
  *		help        = 'players.txt'
  *	)
- *	@DefineCommand(
- *		command     = 'findprof', 
- *		accessLevel = 'member', 
- *		description = 'Shows online players with alts of a specific profession / level', 
- *		help        = 'findprof.txt'
- *	)
  */
 
 class NatubotController {
@@ -138,13 +132,13 @@ class NatubotController {
 	}
 
 	/**
-	 * @HandlesCommand("findprof")
-	 * @Matches("/^findprof (.+)$/i")
+	 * @HandlesCommand("players")
+	 * @Matches("/^players (.+)$/i")
 	 */
 	public function findProfCommand($message, $channel, $sender, $sendto, $args) {
 		// Normalize profession information and exit on bad
-		$prof = $this->util->getProfessionName($args[1]);
-		if (empty($prof)) {
+		$profession = $this->util->getProfessionName($args[1]);
+		if (empty($profession)) {
 			return false;
 		}
 
@@ -157,7 +151,7 @@ class NatubotController {
 			LEFT JOIN online o2 ON p.name = o2.name
 			WHERE p.profession = ?
 			ORDER BY COALESCE(a.main, o.name) ASC";
-		$data = $this->db->query($sql, $prof);
+		$data = $this->db->query($sql, $profession);
 		$count = count($data);
 		$mainCount = 0;
 		$currentMain = "";
@@ -182,9 +176,9 @@ class NatubotController {
 				$blob .= "\n";
 			}
 			$blob .= "\nWritten by Naturarum (RK2)";
-			$msg = $this->text->makeBlob("$prof Search Results ($mainCount - $count)", $blob);
+			$msg = $this->text->makeBlob("$profession Search Results ($mainCount)", $blob);
 		} else {
-			$msg = "$prof Search Results (0)";
+			$msg = "$profession Search Results (0)";
 		}
 
 		$sendto->reply($msg);
