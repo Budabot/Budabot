@@ -118,7 +118,7 @@ class NatubotController {
 
 				$priv = "";
 				if ($row->channel_type == 'priv') {
-					$priv = " &lt;Guest&gt;";
+					$priv = " <highlight>&lt;Guest&gt;<end>";
 				}
 
 				if ($row->profession === null) {
