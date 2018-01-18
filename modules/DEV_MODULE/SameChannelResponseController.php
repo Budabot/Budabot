@@ -9,13 +9,13 @@ use Budabot\Core\CommandReply;
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'g', 
+ *		command     = 'demo', 
  *		accessLevel = 'all', 
- *		description = 'Execute a command so that links will execute in private channel', 
- *		help        = 'g.txt'
+ *		description = 'Execute a command so that links will execute in the same channel', 
+ *		help        = 'demo.txt'
  *	)
  */
-class PrivateChannelResponseController {
+class SameChannelResponseController {
 	
 	/**
 	 * Name of the module.
@@ -30,19 +30,17 @@ class PrivateChannelResponseController {
 	public $chatBot;
 	
 	/**
-	 * This command handler execute multiple commands at once.
-	 *
-	 * @HandlesCommand("g")
-	 * @Matches("/^g (.+)$/si")
+	 * @HandlesCommand("demo")
+	 * @Matches("/^demo (.+)$/si")
 	 */
-	public function gCommand($message, $channel, $sender, $sendto, $args) {
+	public function demoCommand($message, $channel, $sender, $sendto, $args) {
 		$commandString = $args[1];
-		$customSendto = new PrivateChannelResponseCommandReply($channel, $sendto, $this->chatBot->vars["name"]);
+		$customSendto = new DemoResponseCommandReply($channel, $sendto, $this->chatBot->vars["name"]);
 		$this->commandManager->process($channel, $commandString, $sender, $customSendto);
 	}
 }
 
-class PrivateChannelResponseCommandReply implements CommandReply {
+class DemoResponseCommandReply implements CommandReply {
 	private $sendto;
 	private $channel;
 	private $botname;
@@ -55,7 +53,9 @@ class PrivateChannelResponseCommandReply implements CommandReply {
 
 	public function reply($msg) {
 		if ($this->channel == 'priv') {
-			$msg = str_replace("chatcmd:///tell {$this->botname} ", "chatcmd:///g {$this->botname} <symbol>g ", $msg);
+			$msg = str_replace("chatcmd:///tell {$this->botname} ", "chatcmd:///g {$this->botname} <symbol>demo ", $msg);
+		} else if ($this->channel == 'guild') {
+			$msg = str_replace("chatcmd:///tell {$this->botname} ", "chatcmd:///o <symbol>demo ", $msg);
 		}
 		$this->sendto->reply($msg);
 	}

@@ -1,2 +1,0 @@
-To have reply links to the bot go through the private channel instead of tells:
-<highlight><tab><symbol>g 'any-command-here'<end>
