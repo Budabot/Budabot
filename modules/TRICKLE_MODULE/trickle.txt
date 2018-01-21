@@ -6,3 +6,9 @@ To show which and how much your skills will increase by increasing an ability:
 <highlight><tab><symbol>trickle agi 20 intel 40 psychic 60<end>
 
 Valid abilities are: agi, int, psy, sta, str, sen
+
+To see how much of each ability is needed to trickle a skill:
+<highlight><tab><symbol>trickle 'skill'<end>
+
+<highlight>Example:<end>
+<highlight><tab><symbol>trickle treatment<end>

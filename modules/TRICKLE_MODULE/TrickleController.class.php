@@ -121,8 +121,8 @@ class TrickleController {
 			$fieldName = "amount" . ucfirst($ability);
 			if ($row->$fieldName > 0) {
 				$abilityName = $this->util->getAbility($ability, true);
-				$value = ($row->$fieldName) * 100;
-				$msg .= "($abilityName: ${value}%) ";
+				$value = round(4 / ($row->$fieldName), 2);
+				$msg .= "($abilityName: ${value}) ";
 			}
 		}
 		return $msg;
