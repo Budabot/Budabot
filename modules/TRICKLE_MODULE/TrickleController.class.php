@@ -88,6 +88,45 @@ class TrickleController {
 		$msg = $this->processAbilities($abilities);
 		$sendto->reply($msg);
 	}
+
+	/**
+	 * @HandlesCommand("trickle")
+	 * @Matches("/^trickle (.+)$/i")
+	 */
+	public function trickleSkillCommand($message, $channel, $sender, $sendto, $args) {
+		$search = $args[1];
+
+		$data = $this->db->query("SELECT * FROM trickle WHERE name LIKE ?", "%" . str_replace(" ", "%", $search) . "%");
+		$count = count($data);
+		if ($count == 0) {
+			$msg = "Could not find any skills for search '$search'";
+		} else if ($count == 1) { 
+			$row = $data[0];
+			$msg = $this->getTrickleAmounts($row);
+		} else {
+			$blob = "";
+			forEach ($data as $row) {
+				$blob .= $this->getTrickleAmounts($row) . "\n";
+			}
+			$msg = $this->text->makeBlob("Trickle Info: $search", $blob);
+		}
+
+		$sendto->reply($msg);
+	}
+
+	public function getTrickleAmounts($row) {
+		$arr = ['agi', 'int', 'psy', 'sta', 'str', 'sen'];
+		$msg = "<highlight>$row->name<end> ";
+		forEach ($arr as $ability) {
+			$fieldName = "amount" . ucfirst($ability);
+			if ($row->$fieldName > 0) {
+				$abilityName = $this->util->getAbility($ability, true);
+				$value = ($row->$fieldName) * 100;
+				$msg .= "($abilityName: ${value}%) ";
+			}
+		}
+		return $msg;
+	}
 	
 	private function processAbilities($abilities) {
 		$msg = "";
