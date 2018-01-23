@@ -294,6 +294,11 @@ class EventManager {
 			if ($time > 0) {
 				return $time;
 			}
+		} else { // legacy timer event format
+			$time = $this->util->parseTime($type);
+			if ($time > 0) {
+				return $time;
+			}
 		}
 		return 0;
 	}
