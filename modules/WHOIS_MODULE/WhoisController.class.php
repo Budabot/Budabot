@@ -64,7 +64,7 @@ class WhoisController {
 	}
 	
 	/**
-	 * @Event("1min")
+	 * @Event("timer(1min)")
 	 * @Description("Save cache of names and charIds to database")
 	 */
 	public function saveCharIds($eventObj) {

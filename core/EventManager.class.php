@@ -37,6 +37,7 @@ class EventManager {
 	private $lastCronTime = 0;
 	private $areConnectEventsFired = false;
 	const PACKET_TYPE_REGEX = '/packet\(\d+\)/';
+	const TIMER_EVENT_REGEX = '/timer\(([0-9a-z]+)\)/';
 
 	/**
 	 * @name: register
@@ -47,8 +48,7 @@ class EventManager {
 
 		$this->logger->log('DEBUG', "Registering event Type:($type) Handler:($filename) Module:($module)");
 
-		$time = $this->util->parseTime($type);
-		if ($time <= 0 && !in_array($type, $this->eventTypes) && preg_match(self::PACKET_TYPE_REGEX, $type) == 0) {
+		if (!$this->isValidEventType($type) && $this->getTimerEventTime($type) == 0) {
 			$this->logger->log('ERROR', "Error registering event Type:($type) Handler:($filename) Module:($module). The type is not a recognized event type!");
 			return;
 		}
@@ -101,14 +101,14 @@ class EventManager {
 			$eventObj->type = 'setup';
 
 			$this->callEventHandler($eventObj, $filename);
-		} else if (in_array($type, $this->eventTypes) || preg_match(self::PACKET_TYPE_REGEX, $type) == 1) {
+		} else if ($this->isValidEventType($type)) {
 			if (!isset($this->events[$type]) || !in_array($filename, $this->events[$type])) {
 				$this->events[$type] []= $filename;
 			} else {
 				$this->logger->log('ERROR', "Error activating event Type:($type) Handler:($filename). Event already activated!");
 			}
 		} else {
-			$time = $this->util->parseTime($type);
+			$time = $this->getTimerEventTime($type);
 			if ($time > 0) {
 				$key = $this->getKeyForCronEvent($time, $filename);
 				if ($key === null) {
@@ -131,14 +131,14 @@ class EventManager {
 
 		$this->logger->log('debug', "Deactivating event Type:($type) Handler:($filename)");
 
-		if (in_array($type, $this->eventTypes) || preg_match(self::PACKET_TYPE_REGEX, $type) == 1) {
+		if ($this->isValidEventType($type)) {
 			if (in_array($filename, $this->events[$type])) {
 				$found = true;
 				$temp = array_flip($this->events[$type]);
 				unset($this->events[$type][$temp[$filename]]);
 			}
 		} else {
-			$time = $this->util->parseTime($type);
+			$time = $this->getTimerEventTime($type);
 			if ($time > 0) {
 				$key = $this->getKeyForCronEvent($time, $filename);
 				if ($key != null) {
@@ -282,6 +282,20 @@ class EventManager {
 		$eventObj->type = 'connect';
 
 		$this->fireEvent($eventObj);
+	}
+
+	public function isValidEventType($type) {
+		return (in_array($type, $this->eventTypes) || preg_match(self::PACKET_TYPE_REGEX, $type) == 1);
+	}
+
+	public function getTimerEventTime($type) {
+		if (preg_match(self::TIMER_EVENT_REGEX, $type, $arr) == 1) {
+			$time = $this->util->parseTime($arr[1]);
+			if ($time > 0) {
+				return $time;
+			}
+		}
+		return 0;
 	}
 
 	public function fireEvent($eventObj) {

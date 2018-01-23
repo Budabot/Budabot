@@ -291,7 +291,7 @@ class BanController {
 	}
 
 	/**
-	 * @Event("1min")
+	 * @Event("timer(1min)")
 	 * @Description("Check temp bans to see if they have expired")
 	 * @DefaultStatus("1")
 	 */

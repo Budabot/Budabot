@@ -141,7 +141,7 @@ class OnlineController {
 	}
 	
 	/**
-	 * @Event("10mins")
+	 * @Event("timer(10mins)")
 	 * @Description("Online check")
 	 */
 	public function onlineCheckEvent($eventObj) {

@@ -118,7 +118,7 @@ class CloakController {
 	}
 	
 	/**
-	 * @Event("1min")
+	 * @Event("timer(1min)")
 	 * @Description("Checks timer to see if cloak can be raised or lowered")
 	 */
 	public function checkTimerEvent($eventObj) {
@@ -142,7 +142,7 @@ class CloakController {
 	}
 	
 	/**
-	 * @Event("1min")
+	 * @Event("timer(1min)")
 	 * @Description("Reminds the player who lowered cloak to raise it")
 	 */
 	public function cloakReminderEvent($eventObj) {

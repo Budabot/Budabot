@@ -209,7 +209,7 @@ class ShoppingController {
 	}
 	
 	/**
-	 * @Event("24hrs")
+	 * @Event("timer(24hrs)")
 	 * @Description("Remove old shopping messages from the database")
 	 * @DefaultStatus("0")
 	 */

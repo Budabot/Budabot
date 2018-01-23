@@ -258,7 +258,7 @@ class IRCController {
 	}
 
 	/**
-	 * @Event("1min")
+	 * @Event("timer(1min)")
 	 * @Description("Automatically reconnect to IRC server")
 	 * @DefaultStatus("0")
 	 */
@@ -275,7 +275,7 @@ class IRCController {
 	}
 
 	/**
-	 * @Event("2s")
+	 * @Event("timer(2sec)")
 	 * @Description("Listen for IRC messages")
 	 */
 	public function checkForIRCEvent($eventObj) {

@@ -444,7 +444,7 @@ class GuildController {
 	}
 
 	/**
-	 * @Event("24hrs")
+	 * @Event("timer(24hrs)")
 	 * @Description("Download guild roster xml and update guild members")
 	 */
 	public function downloadOrgRosterEvent($eventObj) {

@@ -226,7 +226,7 @@ class RaffleController {
 	}
 	
 	/**
-	 * @Event("2sec")
+	 * @Event("timer(2sec)")
 	 * @Description("Checks to see if raffle is over")
 	 */
 	public function checkRaffleEvent($eventObj) {

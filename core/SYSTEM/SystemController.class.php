@@ -414,7 +414,7 @@ class SystemController {
 	}
 
 	/**
-	 * @Event("1hour")
+	 * @Event("timer(1hr)")
 	 * @Description("This event handler is called every hour to keep MySQL connection active")
 	 * @DefaultStatus("1")
 	 */
@@ -426,7 +426,7 @@ class SystemController {
 	}
 
 	/**
-	 * @Event("2sec")
+	 * @Event("timer(2sec)")
 	 * @Description("Reduces spam values for players")
 	 * @DefaultStatus("1")
 	 */
