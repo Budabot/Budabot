@@ -2,7 +2,7 @@ To show all players on the buddy list:
 <highlight><tab><symbol>buddylist<end>
 
 To search the buddy list:
-<highlight><tab><symbol>buddylist <i>search</i><end>
+<highlight><tab><symbol>buddylist search <i>name</i><end>
 
 To remove unneeded players on the buddy list:
 <highlight><tab><symbol>buddylist clean<end>
