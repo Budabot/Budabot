@@ -429,8 +429,8 @@ class OnlineController {
 
 	public function getOrgInfo($show_org_info, $fancyColon, $guild, $guild_rank) {
 		switch ($show_org_info) {
-			case  3: return $guild != "" ? " $fancyColon {$guild}":" $fancyColon Not in a guild";
-			case  2: return $guild != "" ? " $fancyColon {$guild} ({$guild_rank})":" $fancyColon Not in a guild";
+			case  3: return $guild != "" ? " $fancyColon {$guild}":" $fancyColon Not in an org";
+			case  2: return $guild != "" ? " $fancyColon {$guild} ({$guild_rank})":" $fancyColon Not in an org";
 			case  1: return $guild != "" ? " $fancyColon {$guild_rank}":"";
 			default: return "";
 		}
@@ -454,10 +454,10 @@ class OnlineController {
 		if (empty($afk)) {
 			return '';
 		} else if (empty($reason)) {
-			$timeString = $this->util->unixtimeToReadable(time() - $time);
+			$timeString = $this->util->unixtimeToReadable(time() - $time, false);
 			return " $fancyColon <highlight>AFK for $timeString<end>";
 		} else {
-			$timeString = $this->util->unixtimeToReadable(time() - $time);
+			$timeString = $this->util->unixtimeToReadable(time() - $time, false);
 			return " $fancyColon <highlight>AFK for $timeString: {$reason}<end>";
 		}
 	}

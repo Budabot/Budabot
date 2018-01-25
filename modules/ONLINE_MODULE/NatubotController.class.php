@@ -86,7 +86,6 @@ class NatubotController {
 	 * @Matches("/^players (.+)$/i")
 	 */
 	public function findProfCommand($message, $channel, $sender, $sendto, $args) {
-		// Normalize profession information and exit on bad
 		$profession = $this->util->getProfessionName($args[1]);
 		if (empty($profession)) {
 			return false;
@@ -148,8 +147,7 @@ class NatubotController {
 					$blob .= "\n<highlight>$row->pmain<end> on\n";
 					$currentMain = $row->pmain;
 				}
-				// TODO
-				// add optional org ranks, check for anything else it might need
+
 				$admin = $this->onlineController->getAdminInfo($row->name, $separator);
 				$afk = $this->onlineController->getAfkInfo($row->afk, $separator);
 
