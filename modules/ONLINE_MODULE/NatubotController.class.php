@@ -14,12 +14,6 @@ namespace Natubot\Modules;
  *		description = 'Shows online players and their currently logged alts in a long format', 
  *		help        = 'players.txt'
  *	)
- *	@DefineCommand(
- *		command     = 'players2', 
- *		accessLevel = 'member', 
- *		description = 'Shows online players and their currently logged alts', 
- *		help        = 'players.txt'
- *	)
  */
 
 class NatubotController {
@@ -45,20 +39,26 @@ class NatubotController {
 	/** @Inject */
 	public $chatBot;
 
+	/** @Inject */
+	public $settingManager;
+
+		/** @Inject */
+	public $onlineController;
+
 	/**
-	 * @HandlesCommand("players2")
-	 * @Matches("/^players2$/i")
+	 * @HandlesCommand("players")
+	 * @Matches("/^players$/i")
 	 */
-	public function players2Command($message, $channel, $sender, $sendto, $args) {
+	public function playersCommand($message, $channel, $sender, $sendto, $args) {
 		$orgData = $this->getPlayers('guild');
-		list($orgCount, $orgMain, $orgBlob) = $this->formatData($orgData);
+		list($orgCount, $orgMain, $orgBlob) = $this->formatData($orgData, $this->settingManager->get("online_show_org_guild"));
 
 		$privData = $this->getPlayers('priv');
-		list($privCount, $privMain, $privBlob) = $this->formatData($privData);
+		list($privCount, $privMain, $privBlob) = $this->formatData($privData, $this->settingManager->get("online_show_org_priv"));
 
 		$totalCount = $orgCount + $privCount;
 		$totalMain = $orgMain + $privMain;
-		
+
 		$blob = "\n";
 		if ($orgCount > 0) {
 			$blob .= "<header2>Org Channel ($orgMain)<end>\n";
@@ -83,51 +83,6 @@ class NatubotController {
 
 	/**
 	 * @HandlesCommand("players")
-	 * @Matches("/^players$/i")
-	 */
-	public function playersCommand($message, $channel, $sender, $sendto, $args) {
-		$sql = "
-			SELECT p.*, o.channel_type, COALESCE(a.main, o.name) AS pmain
-			FROM online o
-			LEFT JOIN alts a ON o.name = a.alt
-			LEFT JOIN players p ON o.name = p.name
-			ORDER BY COALESCE(a.main, o.name) ASC";
-		$data = $this->db->query($sql);
-		$count = count($data);
-		$mainCount = 0;
-		
-		$blob = "";
-		if ($count > 0) {
-			forEach ($data as $row) {
-				if ($currentMain != $row->pmain) {
-					$mainCount++;
-					$blob .= "\n<highlight>$row->pmain<end> on\n";
-					$currentMain = $row->pmain;
-				}
-
-				$priv = "";
-				if ($row->channel_type == 'priv') {
-					$priv = " <highlight>&lt;Guest&gt;<end>";
-				}
-
-				if ($row->profession === null) {
-					$blob .= "| $row->name $priv\n";
-				} else {
-					$prof = $this->util->getProfessionAbbreviation($row->profession);
-					$blob.= "| $row->name - $row->level/<green>$row->ai_level<end> $prof $priv\n";
-				}
-			}
-			$blob .= "\nWritten by Naturarum (RK2)";
-			$msg = $this->text->makeBlob("Players Online ($mainCount)", $blob);
-		} else {
-			$msg = "Players Online (0)";
-		}
-
-		$sendto->reply($msg);
-	}
-
-	/**
-	 * @HandlesCommand("players")
 	 * @Matches("/^players (.+)$/i")
 	 */
 	public function findProfCommand($message, $channel, $sender, $sendto, $args) {
@@ -138,7 +93,7 @@ class NatubotController {
 		}
 
 		$sql = "
-			SELECT DISTINCT p.*, COALESCE(a.main, o.name) AS pmain, (CASE WHEN o2.name IS NULL THEN 0 ELSE 1 END) AS online
+			SELECT DISTINCT p.*, o.afk, COALESCE(a.main, o.name) AS pmain, (CASE WHEN o2.name IS NULL THEN 0 ELSE 1 END) AS online
 			FROM online o
 			LEFT JOIN alts a ON o.name = a.alt
 			LEFT JOIN alts a2 ON a2.main = COALESCE(a.main, o.name)
@@ -179,11 +134,12 @@ class NatubotController {
 		$sendto->reply($msg);
 	}
 
-	public function formatData($data) {
+	public function formatData($data, $showOrgInfo) {
 		$count = count($data);
 		$mainCount = 0;
 		$currentMain = "";
 		$blob = "";
+		$separator = "-";
 
 		if ($count > 0) {
 			forEach ($data as $row) {
@@ -192,12 +148,17 @@ class NatubotController {
 					$blob .= "\n<highlight>$row->pmain<end> on\n";
 					$currentMain = $row->pmain;
 				}
+				// TODO
+				// add optional org ranks, check for anything else it might need
+				$admin = $this->onlineController->getAdminInfo($row->name, $separator);
+				$afk = $this->onlineController->getAfkInfo($row->afk, $separator);
 
 				if ($row->profession === null) {
-					$blob .= "| ($row->name)\n";
+					$blob .= "| $row->name$admin$afk\n";
 				} else {
 					$prof = $this->util->getProfessionAbbreviation($row->profession);
-					$blob.= "| $row->name - $row->level/<green>$row->ai_level<end> $prof\n";
+					$orgRank = $this->onlineController->getOrgInfo($showOrgInfo, $separator, $row->guild, $row->guild_rank);
+					$blob.= "| $row->name - $row->level/<green>$row->ai_level<end> $prof$orgRank$admin$afk\n";
 				}
 			}
 		}
@@ -207,7 +168,7 @@ class NatubotController {
 
 	public function getPlayers($channelType) {
 		$sql = "
-			SELECT p.*, COALESCE(a.main, o.name) AS pmain
+			SELECT p.*, o.afk, COALESCE(a.main, o.name) AS pmain
 			FROM online o
 			LEFT JOIN alts a ON o.name = a.alt
 			LEFT JOIN players p ON o.name = p.name

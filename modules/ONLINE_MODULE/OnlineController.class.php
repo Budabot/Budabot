@@ -92,7 +92,7 @@ class OnlineController {
 			$prof = 'all';
 		}
 
-		list($numonline, $msg, $blob) = $this->get_online_list($prof);
+		list($numonline, $msg, $blob) = $this->getOnlineList($prof);
 		if ($numonline != 0) {
 			$msg = $this->text->makeBlob($msg, $blob);
 			$sendto->reply($msg);
@@ -130,7 +130,7 @@ class OnlineController {
 	public function showOnlineOnLogonEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
-			list($numonline, $msg, $blob) = $this->get_online_list();
+			list($numonline, $msg, $blob) = $this->getOnlineList();
 			if ($numonline != 0) {
 				$msg = $this->text->makeBlob($msg, $blob);
 				$this->chatBot->sendTell($msg, $sender);
@@ -305,7 +305,7 @@ class OnlineController {
 		$this->db->exec($sql, $sender, $channelType);
 	}
 	
-	public function get_online_list($prof = "all") {
+	public function getOnlineList($prof = "all") {
 		if ($prof != 'all') {
 			$prof_query = "AND `profession` = '$prof'";
 		}
@@ -410,16 +410,16 @@ class OnlineController {
 			}
 
 			$name = $this->text->makeChatcmd($row->name, "/tell $row->name");
-			$afk  = $this->get_afk_info($row->afk, $fancyColon);
-			$alt  = ($show_alts == true) ? $this->get_alt_char_info($row->name, $fancyColon) : "";
+			$afk  = $this->getAfkInfo($row->afk, $fancyColon);
+			$alt  = ($show_alts == true) ? $this->getAltCharInfo($row->name, $fancyColon) : "";
 
 			switch ($row->profession) {
 				case "":
 					$blob .= "<tab><tab>$name - Unknown$alt\n";
 					break;
 				default:
-					$admin = ($show_alts == true) ? $this->get_admin_info($row->name, $fancyColon) : "";
-					$guild = $this->get_org_info($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
+					$admin = ($show_alts == true) ? $this->getAdminInfo($row->name, $fancyColon) : "";
+					$guild = $this->getOrgInfo($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
 					$blob .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
 			}
 		}
@@ -427,7 +427,7 @@ class OnlineController {
 		return $blob;
 	}
 
-	public function get_org_info($show_org_info, $fancyColon, $guild, $guild_rank) {
+	public function getOrgInfo($show_org_info, $fancyColon, $guild, $guild_rank) {
 		switch ($show_org_info) {
 			case  3: return $guild != "" ? " $fancyColon {$guild}":" $fancyColon Not in a guild";
 			case  2: return $guild != "" ? " $fancyColon {$guild} ({$guild_rank})":" $fancyColon Not in a guild";
@@ -436,7 +436,7 @@ class OnlineController {
 		}
 	}
 
-	public function get_admin_info($name, $fancyColon) {
+	public function getAdminInfo($name, $fancyColon) {
 		if ($this->settingManager->get("online_admin") != 1) {
 			return "";
 		}
@@ -449,20 +449,20 @@ class OnlineController {
 		}
 	}
 
-	public function get_afk_info($afk, $fancyColon) {
+	public function getAfkInfo($afk, $fancyColon) {
 		list($time, $reason) = explode("|", $afk);
 		if (empty($afk)) {
 			return '';
 		} else if (empty($reason)) {
 			$timeString = $this->util->unixtimeToReadable(time() - $time);
-			return " $fancyColon <red>AFK for $timeString<end>";
+			return " $fancyColon <highlight>AFK for $timeString<end>";
 		} else {
 			$timeString = $this->util->unixtimeToReadable(time() - $time);
-			return " $fancyColon <red>AFK for $timeString - {$reason}<end>";
+			return " $fancyColon <highlight>AFK for $timeString: {$reason}<end>";
 		}
 	}
 
-	public function get_alt_char_info($name, $fancyColon) {
+	public function getAltCharInfo($name, $fancyColon) {
 		$altinfo = $this->altsController->getAltInfo($name);
 
 		if (count($altinfo->alts) > 0) {

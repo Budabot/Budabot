@@ -627,7 +627,7 @@ class PrivateChannelController {
 	public function joinPrivateChannelShowOnlineEvent($eventObj) {
 		$sender = $eventObj->sender;
 		$msg = "";
-		list($numonline, $msg, $blob) = $this->onlineController->get_online_list();
+		list($numonline, $msg, $blob) = $this->onlineController->getOnlineList();
 		if ($numonline != 0) {
 			$msg = $this->text->makeBlob($msg, $blob);
 			$this->chatBot->sendTell($msg, $sender);
