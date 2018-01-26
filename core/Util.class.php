@@ -178,6 +178,7 @@ class Util {
 				$prof = "Keeper";
 				break;
 			case "ma":
+			case "martial":
 			case "martialartist":
 			case "martial artist":
 				$prof = "Martial Artist";
@@ -189,6 +190,7 @@ class Util {
 				$prof = "Meta-Physicist";
 				break;
 			case "nt":
+			case "nano":
 			case "nanotechnician":
 			case "nano-technician":
 				$prof = "Nano-Technician";
@@ -198,9 +200,9 @@ class Util {
 			case "soldier":
 				$prof = "Soldier";
 				break;
-			case "trader":
-			case "trad":
 			case "tra":
+			case "trad":
+			case "trader":
 				$prof = "Trader";
 				break;
 			case "shade":
