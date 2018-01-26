@@ -91,7 +91,7 @@ class NanoController {
 			WHERE
 				$query
 			ORDER BY
-				n1.lowql DESC, n1.name ASC
+				n1.profession, n3.name, n1.lowql DESC, n1.name ASC
 			LIMIT
 				" . $this->settingManager->get("maxnano");
 
@@ -102,15 +102,19 @@ class NanoController {
 			$msg = "No nanos found.";
 		} else {
 			$blob = '';
+			$currentNanoline = -1;
 			forEach ($data as $row) {
+				if ($currentNanoline != $row->nanoline_id) {
+					if (!empty($row->nanoline_name)) {
+						$nanolineLink = $this->text->makeChatcmd($row->nanoline_name, "/tell <myname> nanolines $row->nanoline_id");
+						$blob .= "\n<header2>$row->profession<end> - $nanolineLink\n";
+					} else {
+						$blob .= "\n<header2>Unknown/General<end>\n";
+					}
+					$currentNanoline = $row->nanoline_id;
+				}
 				$blob .= $this->text->makeItem($row->lowid, $row->lowid, $row->lowql, $row->name);
 				$blob .= " [$row->lowql] $row->location";
-				if ($row->profession) {
-					$blob .= " - <highlight>$row->profession<end> ";
-				}
-				if ($row->nanoline_name) {
-					$blob .= $this->text->makeChatcmd($row->nanoline_name . " Nanoline", "/tell <myname> nanolines $row->nanoline_id");
-				}
 				$blob .= "\n";
 			}
 			$blob .= $this->getFooter();
