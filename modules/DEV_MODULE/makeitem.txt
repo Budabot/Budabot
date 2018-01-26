@@ -1,0 +1,2 @@
+To create a custom item link:
+<highlight><tab><symbol>makeitem 'lowid' 'highid' 'ql' 'name'<end>

@@ -49,6 +49,12 @@ use Budabot\Core\Registry;
  *		description = "Creates a blob of random characters",
  *		help        = 'createblob.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'makeitem',
+ *		accessLevel = 'admin',
+ *		description = "Creates an item link",
+ *		help        = 'makeitem.txt'
+ *	)
  */
 class DevController extends AutoInject {
 
@@ -189,6 +195,18 @@ class DevController extends AutoInject {
 		$msg = $this->text->makeBlob("Command Handlers for '$cmd'", $blob);
 		
 		$sendto->reply($msg);
+	}
+
+	/**
+	 * @HandlesCommand("makeitem")
+	 * @Matches("/^makeitem (\d+) (\d+) (\d+) (.+)$/i")
+	 */
+	public function makeitemCommand($message, $channel, $sender, $sendto, $args) {
+		$lowId = $args[1];
+		$highId = $args[2];
+		$ql = $args[3];
+		$name = $args[4];
+		$sendto->reply($this->text->makeItem($lowId, $highId, $ql, $name));
 	}
 	
 	/**
