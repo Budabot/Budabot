@@ -166,7 +166,7 @@ class NatubotController {
 
 	public function getPlayers($channelType) {
 		$sql = "
-			SELECT p.*, o.afk, COALESCE(a.main, o.name) AS pmain
+			SELECT p.*, o.name, o.afk, COALESCE(a.main, o.name) AS pmain
 			FROM online o
 			LEFT JOIN alts a ON o.name = a.alt
 			LEFT JOIN players p ON o.name = p.name
