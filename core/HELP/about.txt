@@ -10,12 +10,12 @@ I would like to give special thanks to:
 <highlight>-Dark Ninjas (RK2)<end>, <highlight>Devil Inside (RK2)<end> and <highlight>Conquered Dreams (RK2)<end> for letting me use their orgs to test new features.
 <highlight>-MajorOutage (RK1)<end> for providing items db rips.
 <highlight>-CaptainZero (RK1)<end> and <highlight>Greasegirl (RK2)<end> for hosting and moderating the budabot.com website.
-<highlight>-Mdkdoc420 (RK2)<end> for coming up with new ideas, submitted bug fixes and enhancements, testing new features, and testing the AO Chat Proxy in a live environment.
+<highlight>-Mdkdoc420 (RK2)<end> for coming up with new ideas, submitted bug fixes and enhancements, testing new features, and testing the AOChatProxy in a live environment.
 <highlight>-Docteeko (RK2)<end> for helping manage the Budabot project, testing new features and suggesting needed finishing touches.
 <highlight>-Rosss (RK1)<end>, <highlight>Kinaton (RK1)<end>, <highlight>JungleGeorge<end>, <highlight>DrUrban<end>, and <highlight>Captank<end> for testing the release candidates, reporting bugs, and continuously giving great feedback.
 <highlight>-Marebone (RK2)<end> for large code contributions to version 3.
 <highlight>-Shelleci (RK2)<end> for hosting <a href='chatcmd:///tell Budanet !help'>Budanet</a>.
-<highlight>-Bgmofo<end>, <highlight>Lithdanna<end>, and all of <highlight>Weyland Yutani<end> for letting me use their org to test changes to Budabot and AOChatProxy, and for providing valuable feedback.
+<highlight>-Bgmofo<end>, <highlight>Lithdanna<end>, and all of <highlight>Weyland Yutani<end> for letting me use their org to test changes to Budabot and the AOChatProxy, and for providing valuable feedback.
 -All the people who have contributed modules, ideas, and bug reports to help make Budabot the best bot AO has ever seen.
 
 Tyrence
