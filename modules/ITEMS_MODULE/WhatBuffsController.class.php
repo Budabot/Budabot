@@ -40,7 +40,7 @@ class WhatBuffsController {
 	
 	/** @Setup */
 	public function setup() {
-		$this->db->loadSQLFile($this->moduleName, "buffs");
+		$this->db->loadSQLFile($this->moduleName, "item_buffs");
 		$this->db->loadSQLFile($this->moduleName, "skills");
 		$this->db->loadSQLFile($this->moduleName, "item_types");
 	}
@@ -55,6 +55,7 @@ class WhatBuffsController {
 		forEach ($data as $row) {
 			$blob .= $this->text->makeChatcmd($row->item_type, "/tell <myname> whatbuffs $row->item_type") . "\n";
 		}
+		$blob .= "\nItem Extraction Info provided by Unk";
 		$msg = $this->text->makeBlob("WhatBuffs - Choose Type", $blob);
 		$sendto->reply($msg);
 	}
@@ -87,7 +88,7 @@ class WhatBuffsController {
 				SELECT s.name AS skill, COUNT(1) AS num
 				FROM aodb
 				JOIN item_types i ON aodb.highid = i.item_id
-				JOIN buffs b ON aodb.highid = b.item_id
+				JOIN item_buffs b ON aodb.highid = b.item_id
 				JOIN skills s ON b.attribute_id = s.id
 				WHERE i.item_type = ?
 				GROUP BY skill
@@ -98,6 +99,7 @@ class WhatBuffsController {
 			forEach ($data as $row) {
 				$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs $type $row->skill") . " ($row->num)\n";
 			}
+			$blob .= "\nItem Extraction Info provided by Unk";
 			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		} else {
 			$msg = "Could not find any items of type <highlight>$type<end>.";
@@ -110,7 +112,7 @@ class WhatBuffsController {
 			SELECT aodb.*, b.amount
 			FROM aodb
 			JOIN item_types i ON aodb.highid = i.item_id
-			JOIN buffs b ON aodb.highid = b.item_id
+			JOIN item_buffs b ON aodb.highid = b.item_id
 			JOIN skills s ON b.attribute_id = s.id
 			WHERE i.item_type = ? AND s.id = ?
 			ORDER BY amount DESC";
@@ -124,6 +126,7 @@ class WhatBuffsController {
 			list($count, $blob) = $result;
 			//$newUrl = "https://aoitems.com/search/acriteria:2-$skillId-1/";
 			//$blob = $this->text->makeChatcmd("See results on aoitems.com", "/start $newUrl") . "\n\n" . $blob;
+			$blob .= "\nItem Extraction Info provided by Unk";
 			$msg = $this->text->makeBlob("WhatBuffs - $category $skill->name ($count)", $blob);
 		}
 		return $msg;

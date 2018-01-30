@@ -1,2 +1,4 @@
 To find nanos, weapons, armor, utilities, or towers that buff an ability or skill:
 <highlight><tab><symbol>whatbuffs<end>
+<highlight><tab><symbol>whatbuffs 'type'<end>
+<highlight><tab><symbol>whatbuffs 'type' 'skill'<end>
