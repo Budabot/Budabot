@@ -38,11 +38,11 @@ class WhatBuffsController {
 	/** @Logger */
 	public $logger;
 	
-	private $types = array('Nano', 'Weapon', 'Armor', 'Utility', 'Tower');
-	
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "buffs");
+		$this->db->loadSQLFile($this->moduleName, "skills");
+		$this->db->loadSQLFile($this->moduleName, "item_types");
 	}
 
 	/**
@@ -51,136 +51,108 @@ class WhatBuffsController {
 	 */
 	public function whatbuffsCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
-		forEach ($this->types as $type) {
-			$blob .= $this->text->makeChatcmd($type, "/tell <myname> whatbuffs $type") . "\n";
+		$data = $this->db->query("SELECT DISTINCT item_type FROM item_types ORDER BY item_type ASC");
+		forEach ($data as $row) {
+			$blob .= $this->text->makeChatcmd($row->item_type, "/tell <myname> whatbuffs $row->item_type") . "\n";
 		}
 		$msg = $this->text->makeBlob("WhatBuffs - Choose Type", $blob);
 		$sendto->reply($msg);
 	}
+
+	/**
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs ([a-z]+) (.+)$/i")
+	 */
+	public function whatbuffs3Command($message, $channel, $sender, $sendto, $args) {
+		$type = $args[1];
+		$skill = $args[2];
+
+		if ($this->verifySlot($type)) {
+			$msg = $this->showSearchResults($type, $skill);
+		} else {
+			$msg = "Could not find any items of type <highlight>$type<end>.";
+		}
+		$sendto->reply($msg);
+	}
 	
 	/**
 	 * @HandlesCommand("whatbuffs")
-	 * @Matches("/^whatbuffs (nano|weapon|armor|utility|tower)$/i")
+	 * @Matches("/^whatbuffs ([a-z]+)$/i")
 	 */
 	public function whatbuffs2Command($message, $channel, $sender, $sendto, $args) {
 		$type = ucfirst(strtolower($args[1]));
-		$data = $this->db->query("SELECT skill, COUNT(1) AS num FROM buffs WHERE type = ? GROUP BY skill HAVING num > 0 ORDER BY skill ASC", $type);
-		$blob = '';
-		forEach ($data as $row) {
-			$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs $type $row->skill") . " ($row->num)\n";
-		}
-		$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("whatbuffs")
-	 * @Matches("/^whatbuffs (nano|weapon|armor|utility|tower) (.*)$/i")
-	 */
-	public function whatbuffs3Command($message, $channel, $sender, $sendto, $args) {
-		$category = $args[1];
-		$skill = $args[2];
 		
-		$msg = $this->showSearchResults($category, $skill);
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("whatbuffs")
-	 * @Matches("/^whatbuffs (.*) (nano|weapon|armor|utility|tower)$/i")
-	 */
-	public function whatbuffs4Command($message, $channel, $sender, $sendto, $args) {
-		$category = $args[2];
-		$skill = $args[1];
-		
-		$msg = $this->showSearchResults($category, $skill);
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("whatbuffs")
-	 * @Matches("/^whatbuffs (.*)$/i")
-	 */
-	public function whatbuffs5Command($message, $channel, $sender, $sendto, $args) {
-		$skill = $args[1];
-		
-		$skills = $this->searchForSkill($skill);
-		$count = count($skills);
-		
-		if ($count == 0) {
-			$msg = "Could not find any skills matching <highlight>$skill<end>.";
-		} else if ($count == 1) {
-			$skill = $skills[0]->skill;
-			$data = $this->db->query("SELECT type, COUNT(1) AS num FROM buffs WHERE skill = ? GROUP BY type HAVING num > 0 ORDER BY type ASC", $skill);
+		if ($this->verifySlot($type)) {
+			$sql = "
+				SELECT s.name AS skill, COUNT(1) AS num
+				FROM aodb
+				JOIN item_types i ON aodb.highid = i.item_id
+				JOIN buffs b ON aodb.highid = b.item_id
+				JOIN skills s ON b.attribute_id = s.id
+				WHERE i.item_type = ?
+				GROUP BY skill
+				HAVING num > 0
+				ORDER BY skill ASC";
+			$data = $this->db->query($sql, $type);
 			$blob = '';
 			forEach ($data as $row) {
-				$blob .= $this->text->makeChatcmd(ucfirst($row->type), "/tell <myname> whatbuffs $row->type $skill") . " ($row->num)\n";
-			}
-			$msg = $this->text->makeBlob("WhatBuffs - Choose Type for $skill", $blob);
-		} else {
-			$blob = '';
-			forEach ($skills as $row) {
-				$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs $row->skill") . "\n";
+				$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs $type $row->skill") . " ($row->num)\n";
 			}
 			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
+		} else {
+			$msg = "Could not find any items of type <highlight>$type<end>.";
 		}
 		$sendto->reply($msg);
 	}
 	
 	public function getSearchResults($category, $skill) {
-		$data = $this->db->query("SELECT * FROM buffs WHERE skill = ? AND type = ? ORDER BY item ASC", $skill, $category);
+		$sql = "
+			SELECT aodb.*, b.amount
+			FROM aodb
+			JOIN item_types i ON aodb.highid = i.item_id
+			JOIN buffs b ON aodb.highid = b.item_id
+			JOIN skills s ON b.attribute_id = s.id
+			WHERE i.item_type = ? AND s.id = ?
+			ORDER BY amount DESC";
+		$data = $this->db->query($sql, $category, $skill->id);
 
-		if ($category == 'Nano') {
-			$result = $this->formatNanos($data);
-		} else {
-			$result = $this->formatItems($data);
-		}
+		$result = $this->formatItems($data);
 
 		if ($result === null) {
-			$msg = "No {$category}s found that buff $skill.";
+			$msg = "No items found of type <highlight>$category<end> that buff <highlight>$skill->name<end>.";
 		} else {
 			list($count, $blob) = $result;
-			//$skillId = $data[0]->skill_id;
 			//$newUrl = "https://aoitems.com/search/acriteria:2-$skillId-1/";
 			//$blob = $this->text->makeChatcmd("See results on aoitems.com", "/start $newUrl") . "\n\n" . $blob;
-			$blob .= "\nSearch data provided by aoitems.com";
-			$msg = $this->text->makeBlob("WhatBuffs - $category $skill ($count)", $blob);
+			$msg = $this->text->makeBlob("WhatBuffs - $category $skill->name ($count)", $blob);
 		}
 		return $msg;
+	}
+
+	public function verifySlot($type) {
+		$type = ucfirst(strtolower($type));
+		$row = $this->db->queryRow("SELECT 1 FROM item_types WHERE item_type = ? LIMIT 1", $type);
+		return $row !== null;
 	}
 	
 	public function searchForSkill($skill) {
 		// check for exact match first, in order to disambiguate
 		// between Bow and Bow special attack 
-		$results = $this->db->query("SELECT DISTINCT skill FROM buffs WHERE skill LIKE ?", $skill);
+		$results = $this->db->query("SELECT DISTINCT id, name FROM skills WHERE name LIKE ?", $skill);
 		if (count($results) == 1) {
 			return $results;
 		}
 		
 		$tmp = explode(" ", $skill);
-		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'skill');
+		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'name');
 		
-		return $this->db->query("SELECT DISTINCT skill FROM buffs WHERE $query", $params);
+		return $this->db->query("SELECT DISTINCT id, name FROM skills WHERE $query", $params);
 	}
 	
-	public function formatItems($matches) {
-		$items = array();
-		forEach ($matches as $row) {
-			$item = $this->itemsController->findByName($row->item);
-			if ($item !== null) {
-				$items []= $item;
-			}
-		}
-		$items = array_unique($items, SORT_REGULAR);
-		
+	public function formatItems($items) {
 		$blob = '';
 		forEach ($items as $item) {
-			$ql = $item->highql;
-			if ($item->lowql != $item->highql) {
-				$ql = $item->lowql . " - " . $item->highql;
-			}
-			
-			$blob .= $this->text->makeItem($item->lowid, $item->highid, $item->highql, $item->name) . " ($ql)\n";
+			$blob .= $this->text->makeItem($item->lowid, $item->highid, $item->highql, $item->name) . " ($item->amount)\n";
 		}
 
 		$count = count($items);		
@@ -194,7 +166,7 @@ class WhatBuffsController {
 	public function formatNanos($matches) {
 		$blob = '';
 		forEach ($matches as $row) {
-			$blob .= $this->text->makeChatcmd($row->item, "/tell <myname> nano $row->item") . "\n";
+			$blob .= $this->text->makeChatcmd($row->item, "/tell <myname> nano $row->item") . " ($item->amount)\n";
 		}
 
 		$count = count($matches);		
@@ -215,7 +187,7 @@ class WhatBuffsController {
 			$msg = "Could not find any skills matching <highlight>$skill<end>.";
 		} else if ($count == 1) {
 			$row = $data[0];
-			$msg = $this->getSearchResults($category, $row->skill);
+			$msg = $this->getSearchResults($category, $row);
 		} else {
 			$blob = '';
 			forEach ($data as $row) {
