@@ -78,6 +78,9 @@ class RaidController {
 	
 	/** @Inject */
 	public $text;
+
+	/** @Inject */
+	public $chatLeaderController;
 	
 	private $loot = array();
 	private $residual = array();
@@ -109,6 +112,11 @@ class RaidController {
 	 * @Matches("/^loot clear$/i")
 	 */
 	public function lootClearCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$this->loot = array();
 		$this->residual = array();
 		$msg = "Loot has been cleared by <highlight>$sender<end>.";
@@ -124,6 +132,11 @@ class RaidController {
 	 * @Matches("/^loot add ([0-9]+)$/i")
 	 */
 	public function lootAddByIdCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$id = $args[1];
 
 		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE id = ?";
@@ -167,6 +180,11 @@ class RaidController {
 	 * @Matches("/^loot add (.+)$/i")
 	 */
 	public function lootAddCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$input = $args[1];
 		$this->addLootItem($input, 1, $sender);
 	}
@@ -176,6 +194,11 @@ class RaidController {
 	 * @Matches("/^multiloot ([0-9]+)x? (.+)$/i")
 	 */
 	public function multilootCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$multiloot = $args[1];
 		$input = $args[2];
 		$this->addLootItem($input, $multiloot, $sender);
@@ -252,6 +275,11 @@ class RaidController {
 	 * @Matches("/^loot rem ([0-9]+)$/i")
 	 */
 	public function lootRemCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$key = $args[1];
 		// validate item existance on loot list
 		if ($key > 0 && $key <= count($this->loot)) {
@@ -279,6 +307,11 @@ class RaidController {
 	 * @Matches("/^reroll$/i")
 	 */
 	public function rerollCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		//Check if a residual list exits
 		if (empty($this->residual)) {
 			$msg = "There are no remaining items to re-add.";
@@ -310,6 +343,11 @@ class RaidController {
 	 * @Matches("/^flatroll$/i")
 	 */
 	public function flatrollCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		global $loot_winners;
 		//Check if a loot list exits
 		if (empty($this->loot)) {

@@ -33,6 +33,9 @@ class ChatAssistController {
 	
 	/** @Inject */
 	public $text;
+
+	/** @Inject */
+	public $chatLeaderController;
 	
 	/**
 	 * Contains the assist macro message.
@@ -58,6 +61,11 @@ class ChatAssistController {
 	 * @Matches("/^assist clear$/i")
 	 */
 	public function assistClearCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$this->assistMessage = null;
 		$sendto->reply("Assist has been cleared.");
 	}
@@ -67,6 +75,11 @@ class ChatAssistController {
 	 * @Matches("/^assist (.+)$/i")
 	 */
 	public function assistSetCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$nameArray = explode(' ', $args[1]);
 		
 		if (count($nameArray) == 1) {

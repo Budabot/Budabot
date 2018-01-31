@@ -9,7 +9,13 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = 'rally',
  *		accessLevel = 'all',
- *		description = 'Shows or sets the rally waypoint',
+ *		description = 'Shows the rally waypoint',
+ *		help        = 'rally.txt'
+ *	)
+ *	@DefineCommand(
+ *		command     = 'rally .+',
+ *		accessLevel = 'rl',
+ *		description = 'Sets the rally waypoint',
  *		help        = 'rally.txt'
  *	)
  */
@@ -25,6 +31,9 @@ class ChatRallyController {
 
 	/** @Inject */
 	public $chatBot;
+
+	/** @Inject */
+	public $chatLeaderController;
 
 	/**
 	 * @Setting("rally")
@@ -45,10 +54,15 @@ class ChatRallyController {
 	
 	/**
 	 * This command handler ...
-	 * @HandlesCommand("rally")
+	 * @HandlesCommand("rally .+")
 	 * @Matches("/^rally clear$/i")
 	 */
 	public function rallyClearCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$this->clear();
 		$msg = "Rally has been cleared.";
 		$sendto->reply($msg);
@@ -61,10 +75,15 @@ class ChatRallyController {
 	 *  - rally 10.9, 30, <playfield id/name>
 	 *  - etc...
 	 *
-	 * @HandlesCommand("rally")
+	 * @HandlesCommand("rally .+")
 	 * @Matches("/^rally ([0-9\.]+)([x,. ]+)([0-9\.]+)([x,. ]+)([^ ]+)$/i")
 	 */
 	public function rallySet2Command($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$xCoords = $args[1];
 		$yCoords = $args[3];
 
@@ -94,10 +113,15 @@ class ChatRallyController {
 	 * This command handler sets rally waypoint, using following example syntaxes:
 	 *  - rally (10.9 30 y 20 2434234)
 	 *
-	 * @HandlesCommand("rally")
+	 * @HandlesCommand("rally .+")
 	 * @Matches("/^rally (.+)$/i")
 	 */
 	public function rallySet1Command($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		if (preg_match("/(\d+\.\d) (\d+\.\d) y \d+\.\d (\d+)/", $args[1], $matches)) {
 			$xCoords = $matches[1];
 			$yCoords = $matches[2];

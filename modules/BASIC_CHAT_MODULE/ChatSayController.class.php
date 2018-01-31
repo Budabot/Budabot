@@ -16,7 +16,7 @@ namespace Budabot\User\Modules;
  * Commands this class contains:
  *	@DefineCommand(
  *		command     = 'say',
- *		accessLevel = 'all',
+ *		accessLevel = 'rl',
  *		description = 'Sends message to org chat or private chat',
  *		help        = 'say.txt'
  *	)
@@ -38,12 +38,20 @@ class ChatSayController {
 	/** @Inject */
 	public $chatBot;
 
+	/** @Inject */
+	public $chatLeaderController;
+
 	/**
 	 * This command handler sends message to org chat.
 	 * @HandlesCommand("say")
 	 * @Matches("/^say org (.+)$/si")
 	 */
 	public function sayOrgCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$this->chatBot->sendGuild("$sender: $args[1]");
 	}
 
@@ -53,6 +61,11 @@ class ChatSayController {
 	 * @Matches("/^say priv (.+)$/si")
 	 */
 	public function sayPrivCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$this->chatBot->sendPrivate("$sender: $args[1]");
 	}
 
@@ -62,6 +75,11 @@ class ChatSayController {
 	 * @Matches("/^cmd (.+)$/si")
 	 */
 	public function cmdCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$msg = "\n<yellow>---------------------\n<red>$args[1]<end>\n<yellow>---------------------";
 
 		if ($channel == 'msg') {
@@ -78,6 +96,11 @@ class ChatSayController {
 	 * @Matches("/^tell (.+)$/si")
 	 */
 	public function tellCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		if ($channel == 'guild' || $channel == 'msg') {
 			$this->chatBot->sendGuild("<yellow>$args[1]<end>", true);
 			$this->chatBot->sendGuild("<yellow>$args[1]<end>", true);

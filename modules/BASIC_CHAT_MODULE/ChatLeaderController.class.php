@@ -109,8 +109,12 @@ class ChatLeaderController {
 	 * @Matches("/^leaderecho on$/i")
 	 */
 	public function leaderechoOnCommand($message, $channel, $sender, $sendto, $args) {
-		$this->settingManager->save("leaderecho", "1");
-		$this->chatBot->sendPrivate("Leader echo has been " . $this->getEchoStatusText());
+		if ($this->checkLeaderAccess($sender)) {
+			$this->settingManager->save("leaderecho", "1");
+			$this->chatBot->sendPrivate("Leader echo has been " . $this->getEchoStatusText());
+		} else {
+			$sendto->reply("You must be Raid Leader to use this command.");
+		}
 	}
 
 	/**
@@ -119,8 +123,12 @@ class ChatLeaderController {
 	 * @Matches("/^leaderecho off$/i")
 	 */
 	public function leaderechoOffCommand($message, $channel, $sender, $sendto, $args) {
-		$this->settingManager->save("leaderecho", "0");
-		$this->chatBot->sendPrivate("Leader echo has been " . $this->getEchoStatusText());
+		if ($this->checkLeaderAccess($sender)) {
+			$this->settingManager->save("leaderecho", "0");
+			$this->chatBot->sendPrivate("Leader echo has been " . $this->getEchoStatusText());
+		} else {
+			$sendto->reply("You must be Raid Leader to use this command.");
+		}
 	}
 
 	/**
@@ -129,8 +137,11 @@ class ChatLeaderController {
 	 * @Matches("/^leaderecho$/i")
 	 */
 	public function leaderechoCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = "Leader echo is currently " . $this->getEchoStatusText();
-		$this->chatBot->sendPrivate($msg);
+		if ($this->checkLeaderAccess($sender)) {
+			$this->chatBot->sendPrivate("Leader echo is currently " . $this->getEchoStatusText());
+		} else {
+			$sendto->reply("You must be Raid Leader to use this command.");
+		}
 	}
 
 	/**
@@ -151,7 +162,7 @@ class ChatLeaderController {
 	public function leavePrivEvent($eventObj) {
 		if ($this->leader == $eventObj->sender) {
 			unset($this->leader);
-			$msg = "Raid leader cleared.";
+			$msg = "Raid Leader cleared.";
 			$this->chatBot->sendPrivate($msg);
 		}
 	}
@@ -180,5 +191,17 @@ class ChatLeaderController {
 	
 	public function getLeader() {
 		return $this->leader;
+	}
+
+	public function checkLeaderAccess($sender) {
+		if (empty($this->leader)) {
+			return true;
+		} else if ($this->leader == $sender) {
+			return true;
+		} else if ($this->accessManager->checkAccess($sender, "moderator")) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }

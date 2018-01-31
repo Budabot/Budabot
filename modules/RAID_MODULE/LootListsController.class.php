@@ -223,6 +223,9 @@ class LootListsController {
 	
 	/** @Inject */
 	public $raidController;
+
+	/** @Inject */
+	public $chatLeaderController;
 	
 	/**
 	 * @Setup
@@ -296,6 +299,11 @@ class LootListsController {
 	 * @Matches("/^13$/i")
 	 */
 	public function apf13Command($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$this->addAPFLootToList(13);
 	}
 	
@@ -304,6 +312,11 @@ class LootListsController {
 	 * @Matches("/^28$/i")
 	 */
 	public function apf28Command($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$this->addAPFLootToList(28);
 	}
 	
@@ -312,6 +325,11 @@ class LootListsController {
 	 * @Matches("/^35$/i")
 	 */
 	public function apf35Command($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
 		$this->addAPFLootToList(35);
 	}
 	

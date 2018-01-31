@@ -13,7 +13,7 @@ namespace Budabot\User\Modules;
  *		help        = 'topic.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'topic (.+)', 
+ *		command     = 'topic .+', 
  *		accessLevel = 'rl', 
  *		description = 'Changes Topic', 
  *		help        = 'topic.txt'
@@ -38,6 +38,9 @@ class ChatTopicController {
 	
 	/** @Inject */
 	public $chatRallyController;
+
+	/** @Inject */
+	public $chatLeaderController;
 
 	/**
 	 * @Setting("topic")
@@ -79,24 +82,34 @@ class ChatTopicController {
 	}
 
 	/**
-	 * This command handler sets topic.
-	 * @HandlesCommand("topic (.+)")
-	 * @Matches("/^topic (?!clear)(.+)$/i")
+	 * This command handler clears topic.
+	 * @HandlesCommand("topic .+")
+	 * @Matches("/^topic clear$/i")
 	 */
-	public function topicSetCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setTopic($sender, $args[1]);
-		$msg = "Topic has been updated.";
+	public function topicClearCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
+		$this->setTopic($sender, "");
+		$msg = "Topic has been cleared.";
 		$sendto->reply($msg);
 	}
 
 	/**
-	 * This command handler clears topic.
-	 * @HandlesCommand("topic (.+)")
-	 * @Matches("/^topic clear$/i")
+	 * This command handler sets topic.
+	 * @HandlesCommand("topic .+")
+	 * @Matches("/^topic (.+)$/i")
 	 */
-	public function topicClearCommand($message, $channel, $sender, $sendto, $args) {
-		$this->setTopic($sender, "");
-		$msg = "Topic has been cleared.";
+	public function topicSetCommand($message, $channel, $sender, $sendto, $args) {
+		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
+			$sendto->reply("You must be Raid Leader to use this command.");
+			return;
+		}
+
+		$this->setTopic($sender, $args[1]);
+		$msg = "Topic has been updated.";
 		$sendto->reply($msg);
 	}
 
