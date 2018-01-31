@@ -424,56 +424,6 @@ class ItemsController {
 		return $list;
 	}
 	
-	public function getDetailedItemInfo($id, $ql = null) {
-		// leaving this function here in case something replaces this functionality in the future
-		return null;
-		
-		$params = array('id' => $id);
-		if ($ql !== null) {
-			$params['ql'] = $ql;
-		}
-		
-		$url = 'http://itemxml.xyphos.com/';
-	
-		$response = $this->http->get($url)->withQueryParams($params)->waitAndReturnResponse();
-		$data = $response->body;
-		if ($response->error || empty($data) || '<error>' == substr($data, 0, 7)) {
-			return null;
-		}
-		
-		$data = preg_replace_callback("|<description>(.+)</description>|s", array($this, 'escapeDescription'), $data);
-		
-		$doc = new DOMDocument();
-		$doc->prevservWhiteSpace = false;
-		$doc->loadXML($data);
-		
-		$obj = new stdClass;
-		
-		if ($doc->documentElement === null) {
-			$this->logger->log('WARN', "Could not parse xml: '$url' " . print_r($params, true));
-			return null;
-		} else {
-			$obj->lowid = $doc->getElementsByTagName('low')->item(0)->attributes->getNamedItem("id")->nodeValue;
-			$obj->highid = $doc->getElementsByTagName('high')->item(0)->attributes->getNamedItem("id")->nodeValue;
-			$obj->highql = $doc->getElementsByTagName('high')->item(0)->attributes->getNamedItem("ql")->nodeValue;
-			$obj->name = $doc->getElementsByTagName('name')->item(0)->nodeValue;
-
-			$attributes = $doc->getElementsByTagName('attribute');
-			$obj->icon = 0;
-			forEach ($attributes as $attribute) {
-				$name = $attribute->attributes->getNamedItem("name")->nodeValue;
-				$value = $attribute->attributes->getNamedItem("value")->nodeValue;
-				if ($name == "Icon") {
-					$obj->icon = $value;
-				}
-				$obj->attributes->$name->value = $value;
-				$obj->attributes->$name->extra = $attribute->attributes->getNamedItem("extra")->nodeValue;
-			}
-		}
-
-		return $obj;
-	}
-	
 	private function escapeDescription($arr) {
 		return "<description>" . htmlspecialchars($arr[1]) . "</description>";
 	}

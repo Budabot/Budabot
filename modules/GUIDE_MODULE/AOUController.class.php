@@ -203,14 +203,7 @@ class AOUController {
 		if ($row !== null) {
 			$output = $this->generateItemMarkup($type, $row);
 		} else {
-			$obj = $this->itemsController->getDetailedItemInfo($id);
-			if (null == $obj) {
-				$output = $id;
-			} else if ($obj->icon == 0) {  // for perks and items that aren't displayable in game
-				$output = $this->text->makeChatcmd($obj->name, "/start https://aoitems.com/item/{$obj->lowid}");
-			} else {
-				$output = $this->generateItemMarkup($type, $obj);
-			}
+			$output = $id;
 		}
 		return $output;
 	}
