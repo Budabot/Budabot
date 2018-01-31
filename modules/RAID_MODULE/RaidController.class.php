@@ -32,12 +32,6 @@ use stdClass;
  *		help        = 'flatroll.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'remloot',
- *		accessLevel = 'rl',
- *		description = 'Remove item from loot list',
- *		help        = 'flatroll.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'reroll',
  *		accessLevel = 'rl',
  *		description = 'Reroll the residual loot list',
@@ -127,7 +121,7 @@ class RaidController {
 	
 	/**
 	 * @HandlesCommand("loot .+")
-	 * @Matches("/^loot ([0-9]+)$/i")
+	 * @Matches("/^loot add ([0-9]+)$/i")
 	 */
 	public function lootAddByIdCommand($message, $channel, $sender, $sendto, $args) {
 		$id = $args[1];
@@ -164,14 +158,13 @@ class RaidController {
 			$this->loot[$key] = $item;
 		}
 
-		$msg = "$sender added <highlight>{$item->name}<end> (x$item->multiloot) to Slot <highlight>#$key<end>.";
-		$msg .= " To add use <symbol>add $key, or <symbol>rem to remove yourself.";
+		$msg = "$sender added <highlight>{$item->name}<end> (x$item->multiloot). To add use <symbol>add $key.";
 		$this->chatBot->sendPrivate($msg);
 	}
 
 	/**
 	 * @HandlesCommand("loot .+")
-	 * @Matches("/^loot (.+)$/i")
+	 * @Matches("/^loot add (.+)$/i")
 	 */
 	public function lootAddCommand($message, $channel, $sender, $sendto, $args) {
 		$input = $args[1];
@@ -255,10 +248,10 @@ class RaidController {
 	}
 	
 	/**
-	 * @HandlesCommand("remloot")
-	 * @Matches("/^remloot ([0-9]+)$/i")
+	 * @HandlesCommand("loot .+")
+	 * @Matches("/^loot rem ([0-9]+)$/i")
 	 */
-	public function remlootCommand($message, $channel, $sender, $sendto, $args) {
+	public function lootRemCommand($message, $channel, $sender, $sendto, $args) {
 		$key = $args[1];
 		// validate item existance on loot list
 		if ($key > 0 && $key <= count($this->loot)) {
@@ -274,7 +267,7 @@ class RaidController {
 					$loop++;
 				}
 				unset($this->loot[count($this->loot)]);
-				$this->chatBot->sendPrivate("Deleting item in slot <highlight>#".$key."<end>");
+				$this->chatBot->sendPrivate("Removing item in slot <highlight>#".$key."<end>");
 			}
 		} else {
 			$this->chatBot->sendPrivate("There is no item at slot <highlight>#".$key."<end>");
@@ -302,7 +295,7 @@ class RaidController {
 		//Reset residual list
 		$this->residual = array();
 		//Show winner list
-		$msg = "All remaining items have been re-added by <highlight>$sender<end>. Check <symbol>list.";
+		$msg = "All remaining items have been re-added by <highlight>$sender<end>. Check <symbol>loot.";
 		$this->chatBot->sendPrivate($msg);
 		if ($channel != 'priv') {
 			$sendto->reply($msg);
@@ -448,8 +441,8 @@ class RaidController {
 				$add = $this->text->makeChatcmd("Add", "/tell <myname> add $key");
 				$rem = $this->text->makeChatcmd("Remove", "/tell <myname> rem");
 				$added_players = count($item->users);
+				$players += $added_players;
 
-				$list .= "<header2>Slot #$key<end>\n";
 				if ($item->icon != "") {
 					$list .= $this->text->makeImage($item->icon) . "\n";
 				}
@@ -460,20 +453,16 @@ class RaidController {
 					$ml = "";
 				}
 
-				$list .= "Item: {$item->display}".$ml."\n";
-
-				$list .= "<highlight>$added_players<end> Total ($add/$rem)\n";
-				$list .= "Players added:";
+				$list .= "\n{$item->display}".$ml."";
+				$list .= "\n<header2>Slot #$key<end> $add / $rem";
+				$list .= "\nPlayers added (<highlight>$added_players<end>):";
 				if (count($item->users) > 0) {
-					$players += count($item->users);
 					forEach ($item->users as $key => $value) {
 						$list .= " [<yellow>$key<end>]";
 					}
-				} else {
-					$list .= " None added yet.";
 				}
 
-				$list .= "\n\n";
+				$list .= "\n\n\n";
 			}
 			$msg = $this->text->makeBlob("Loot List (Items: $items, Players: $players)", $list);
 		} else {

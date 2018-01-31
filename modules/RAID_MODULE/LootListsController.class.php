@@ -17,19 +17,19 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = 'alb',
  *		accessLevel = 'all',
- *		description = 'Shows Possible Albtraum loots',
+ *		description = 'Shows possible Albtraum loots',
  *		help        = 'albloot.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'db1',
  *		accessLevel = 'all',
- *		description = 'Shows Possible DB1 Armor/NCUs/Programs',
+ *		description = 'Shows possible DB1 Armor/NCUs/Programs',
  *		help        = 'dbloot.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'db2',
  *		accessLevel = 'all',
- *		description = 'Shows Possible DB2 Armor',
+ *		description = 'Shows possible DB2 Armor',
  *		help        = 'dbloot.txt'
  *	)
  *	@DefineCommand(
@@ -817,12 +817,12 @@ class LootListsController {
 		forEach ($data as $row) {
 			$blob .= "<pagebreak>";
 			$blob .= $this->text->makeItem($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->icon}>");
-			$blob .= "\nItem: <highlight>{$row->name}<end>";
+			$blob .= "\n<highlight>{$row->name}<end>";
 			if (!empty($row->comment)) {
 				$blob .= " ($row->comment)";
 			}
 			$blob .= "\n";
-			$blob .= $this->text->makeChatcmd("Add to Loot List", "/tell <myname> loot $row->id");
+			$blob .= $this->text->makeChatcmd("Add to Loot List", "/tell <myname> loot add $row->id");
 			$blob .= "\n\n";
 		}
 
