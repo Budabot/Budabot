@@ -571,9 +571,9 @@ class PrivateChannelController {
 
 		if ($whois !== null) {
 			if (count($altInfo->alts) > 0) {
-				$msg = $this->playerManager->get_info($whois) . " has joined the private channel. " . $altInfo->getAltsBlob(false, true);
+				$msg = $this->playerManager->getInfo($whois) . " has joined the private channel. " . $altInfo->getAltsBlob(false, true);
 			} else {
-				$msg = $this->playerManager->get_info($whois) . " has joined the private channel.";
+				$msg = $this->playerManager->getInfo($whois) . " has joined the private channel.";
 			}
 		} else {
 			if (count($altInfo->alts) > 0) {

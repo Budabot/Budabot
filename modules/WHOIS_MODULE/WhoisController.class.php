@@ -221,7 +221,7 @@ class WhoisController {
 
 			$blob .= $this->getNameHistory($charId, $this->chatBot->vars['dimension']);
 
-			$msg = $this->playerManager->get_info($whois);
+			$msg = $this->playerManager->getInfo($whois);
 			if ($online) {
 				$msg .= " :: <green>Online<end>";
 			} else {

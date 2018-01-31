@@ -183,7 +183,7 @@ class RelayController {
 			if ($whois === null) {
 				$msg = "$sender logged on.";
 			} else {
-				$msg = $this->playerManager->get_info($whois);
+				$msg = $this->playerManager->getInfo($whois);
 
 				$msg .= " logged on.";
 
@@ -225,9 +225,9 @@ class RelayController {
 
 			if ($whois !== null) {
 				if (count($altInfo->alts) > 0) {
-					$msg = $this->playerManager->get_info($whois) . " has joined the private channel. " . $altInfo->getAltsBlob(false, true);
+					$msg = $this->playerManager->getInfo($whois) . " has joined the private channel. " . $altInfo->getAltsBlob(false, true);
 				} else {
-					$msg = $this->playerManager->get_info($whois) . " has joined the private channel.";
+					$msg = $this->playerManager->getInfo($whois) . " has joined the private channel.";
 				}
 			} else {
 				if (count($altInfo->alts) > 0) {

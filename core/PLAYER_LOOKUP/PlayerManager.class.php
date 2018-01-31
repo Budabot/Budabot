@@ -183,7 +183,7 @@ class PlayerManager {
 			$char->dimension, $char->head_id, $char->pvp_rating, $char->pvp_title, $char->source, time());
 	}
 
-	public function get_info($whois, $showFirstAndLastName = true) {
+	public function getInfo($whois, $showFirstAndLastName = true) {
 		$msg = '';
 
 		if ($showFirstAndLastName && $whois->firstname) {

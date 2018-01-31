@@ -514,7 +514,7 @@ class GuildController {
 			if ($whois === null) {
 				$msg = "$sender logged on.";
 			} else {
-				$msg = $this->playerManager->get_info($whois);
+				$msg = $this->playerManager->getInfo($whois);
 
 				$msg .= " logged on.";
 
