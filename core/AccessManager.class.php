@@ -10,7 +10,7 @@ use Exception;
  * @Instance
  */
 class AccessManager {
-	private static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'rl' => 4, 'guild' => 6, 'member' => 7, 'all' => 8);
+	private static $ACCESS_LEVELS = array('none' => 0, 'superadmin' => 1,  'admin' => 2, 'mod' => 3, 'guild' => 4, 'member' => 5, 'rl' => 6, 'all' => 7);
 
 	/** @Inject */
 	public $db;
@@ -46,20 +46,19 @@ class AccessManager {
 	 * ten people to send a tell to the bot.  You may wish to display a "ban"
 	 * link when a moderator or higher uses that command.
 	 * 
-	 * To check if a character named 'Tyrence' has raidleader access,
+	 * To check if a character named 'Tyrence' has moderator access,
 	 * you would do:
 	 * 
 	 * <code>
-	 * if ($this->accessManager->checkAccess("Tyrence", "raidleader")) {
-	 *    // Tyrence has [at least] raidleader access level
+	 * if ($this->accessManager->checkAccess("Tyrence", "moderator")) {
+	 *    // Tyrence has [at least] moderator access level
 	 * } else {
-	 *    // Tyrence does not have raidleader access level
+	 *    // Tyrence does not have moderator access level
 	 * }
 	 * </code>
 	 * 
-	 * Note that this will return true if 'Tyrence' is a raidleader on your
-	 * bot, but also if he is anything higher, such as moderator,
-	 * administrator, or superadmin.
+	 * Note that this will return true if 'Tyrence' is a moderator on your
+	 * bot, but also if he is anything higher, such as administrator, or superadmin.
 	 *
 	 * If the setting 'alts_inherit_admin' is enabled, this command will return
 	 * the character's "effective" admin level - Not necessarily that
@@ -67,7 +66,7 @@ class AccessManager {
 	 * main (if it has one).
 	 * 
 	 * @param string $sender - the name of the person you want to check access on
-	 * @param string $accessLevel - can be one of: superadmin, admininistrator, moderator, raidleader, guild, member, all
+	 * @param string $accessLevel - can be one of: superadmin, admininistrator, moderator, guild, member, raidleader, all
 	 * @return bool true if $sender has at least $accessLevel, false otherwise
 	 */
 	public function checkAccess($sender, $accessLevel) {
