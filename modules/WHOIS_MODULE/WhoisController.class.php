@@ -195,7 +195,7 @@ class WhoisController {
 		} else {
 			$orglistLink = $this->text->makeChatcmd("Orglist", "/tell <myname> orglist $whois->guild_id");
 
-			$blob = "Name: <highlight>{$whois->firstname} \"{$name}\" {$whois->lastname}<end> {$lookupNameLink}\n";
+			$blob = "Name: <highlight>" . $this->getFullName($whois) . "<end> {$lookupNameLink}\n";
 			if ($whois->guild) {
 				$blob .= "Guild: <highlight>{$whois->guild} ({$whois->guild_id})<end> $orglistLink\n";
 				$blob .= "Guild Rank: <highlight>{$whois->guild_rank} ({$whois->guild_rank_id})<end>\n";
@@ -234,6 +234,22 @@ class WhoisController {
 				$msg .= " :: " . $altInfo->getAltsBlob(false, true);
 			}
 		}
+		return $msg;
+	}
+
+	public function getFullName($whois) {
+		$msg = "";
+		
+		if ($whois->firstName) {
+			$msg .= $whois->firstName . " ";
+		}
+
+		$msg .= "\"{$whois->name}\"";
+
+		if ($whois->lastName) {
+			$msg .= " " . $whois->lastName;
+		}
+
 		return $msg;
 	}
 	
