@@ -68,11 +68,13 @@ class ChatLeaderController {
 	public function leaderCommand($message, $channel, $sender, $sendto, $args) {
 		if ($this->leader == $sender) {
 			unset($this->leader);
-			$msg = "Raid Leader cleared.";
+			$this->chatBot->sendPrivate("Raid Leader cleared.");
 		} else {
 			$msg = $this->setLeader($sender, $sender);
+			if (!empty($msg)) {
+				$sendto->reply($msg);
+			}
 		}
-		$this->chatBot->sendPrivate($msg);
 	}
 
 	/**
@@ -82,7 +84,9 @@ class ChatLeaderController {
 	 */
 	public function leaderSetCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->setLeader($args[1], $sender);
-		$this->chatBot->sendPrivate($msg);
+		if (!empty($msg)) {
+			$sendto->reply($msg);
+		}
 	}
 	
 	public function setLeader($name, $sender) {
@@ -95,7 +99,7 @@ class ChatLeaderController {
 		} else {
 			if (!isset($this->leader) || $sender == $this->leader || $this->accessManager->compareCharacterAccessLevels($sender, $this->leader) > 0) {
 				$this->leader = $name;
-				$msg = $this->getLeaderStatusText();
+				$this->chatBot->sendPrivate($this->getLeaderStatusText());
 			} else {
 				$msg = "You cannot take Raid Leader from <highlight>{$this->leader}<end>.";
 			}
