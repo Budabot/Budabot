@@ -14,7 +14,7 @@ namespace Budabot\User\Modules;
  *	)
  *	@DefineCommand(
  *		command     = 'news .+',
- *		accessLevel = 'rl',
+ *		accessLevel = 'mod',
  *		description = 'Adds, removes, stickies or unstickies a news entry',
  *		help        = 'news.txt'
  *	)
