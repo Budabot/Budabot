@@ -11,8 +11,8 @@ namespace Budabot\User\Modules;
  * Commands this class contains:
  *	@DefineCommand(
  *		command     = 'countdown',
- *		accessLevel = 'guild',
- *		description = 'Start a 5 second countdown',
+ *		accessLevel = 'rl',
+ *		description = 'Start a 5-second countdown',
  *		help        = 'countdown.txt',
  *		alias		= 'cd'
  *	)
