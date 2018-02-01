@@ -62,23 +62,7 @@ class WhatBuffsController {
 
 	/**
 	 * @HandlesCommand("whatbuffs")
-	 * @Matches("/^whatbuffs ([a-z]+) (.+)$/i")
-	 */
-	public function whatbuffs3Command($message, $channel, $sender, $sendto, $args) {
-		$type = $args[1];
-		$skill = $args[2];
-
-		if ($this->verifySlot($type)) {
-			$msg = $this->showSearchResults($type, $skill);
-		} else {
-			$msg = "Could not find any items of type <highlight>$type<end>.";
-		}
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("whatbuffs")
-	 * @Matches("/^whatbuffs ([a-z]+)$/i")
+	 * @Matches("/^whatbuffs (arms|back|chest|deck|feet|fingers|hands|head|hud|legs|nano|neck|shoulders|unknown|util|weapon|wrists)$/i")
 	 */
 	public function whatbuffs2Command($message, $channel, $sender, $sendto, $args) {
 		$type = ucfirst(strtolower($args[1]));
@@ -100,9 +84,84 @@ class WhatBuffsController {
 				$blob .= $this->text->makeChatcmd(ucfirst($row->skill), "/tell <myname> whatbuffs $type $row->skill") . " ($row->num)\n";
 			}
 			$blob .= "\nItem Extraction Info provided by Unk";
-			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
+			$msg = $this->text->makeBlob("WhatBuffs $type - Choose Skill", $blob);
 		} else {
 			$msg = "Could not find any items of type <highlight>$type<end>.";
+		}
+		$sendto->reply($msg);
+	}
+
+	/**
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs (arms|back|chest|deck|feet|fingers|hands|head|hud|legs|nano|neck|shoulders|unknown|util|weapon|wrists) (.+)$/i")
+	 */
+	public function whatbuffs3Command($message, $channel, $sender, $sendto, $args) {
+		$type = $args[1];
+		$skill = $args[2];
+
+		if ($this->verifySlot($type)) {
+			$msg = $this->showSearchResults($type, $skill);
+		} else {
+			$msg = "Could not find any items of type <highlight>$type<end> for skill <highlight>$skill<end>.";
+		}
+		$sendto->reply($msg);
+	}
+
+	/**
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs (.+) (arms|back|chest|deck|feet|fingers|hands|head|hud|legs|nano|neck|shoulders|unknown|util|weapon|wrists)$/i")
+	 */
+	public function whatbuffs4Command($message, $channel, $sender, $sendto, $args) {
+		$skill = $args[1];
+		$type = $args[2];
+
+		if ($this->verifySlot($type)) {
+			$msg = $this->showSearchResults($type, $skill);
+		} else {
+			$msg = "Could not find any items of type <highlight>$type<end> for skill <highlight>$skill<end>.";
+		}
+		$sendto->reply($msg);
+	}
+
+	/**
+	 * @HandlesCommand("whatbuffs")
+	 * @Matches("/^whatbuffs (.+)$/i")
+	 */
+	public function whatbuffs5Command($message, $channel, $sender, $sendto, $args) {
+		$skill = $args[1];
+
+		$data = $this->getSkills($skill);
+		$count = count($data);
+
+		if ($count == 0) {
+			$msg = "Could not find skill <highlight>$skill<end>.";
+		} else if ($count > 1) {
+			$blob .= "Choose a skill:\n\n";
+			forEach ($data as $row) {
+				$blob .= $this->text->makeChatcmd(ucfirst($row->name), "/tell <myname> whatbuffs $row->name") . "\n";
+			}
+			$blob .= "\nItem Extraction Info provided by Unk";
+			$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
+		} else {
+			$skillId = $data[0]->id;
+			$skillName = $data[0]->name;
+			$sql = "
+				SELECT i.item_type, COUNT(1) AS num
+				FROM aodb
+				JOIN item_types i ON aodb.highid = i.item_id
+				JOIN item_buffs b ON aodb.highid = b.item_id
+				JOIN skills s ON b.attribute_id = s.id
+				WHERE s.id = ?
+				GROUP BY item_type
+				HAVING num > 0
+				ORDER BY item_type ASC";
+			$data = $this->db->query($sql, $skillId);
+			$blob = '';
+			forEach ($data as $row) {
+				$blob .= $this->text->makeChatcmd(ucfirst($row->item_type), "/tell <myname> whatbuffs $row->item_type $skillName") . " ($row->num)\n";
+			}
+			$blob .= "\nItem Extraction Info provided by Unk";
+			$msg = $this->text->makeBlob("WhatBuffs $skillName - Choose Type", $blob);
 		}
 		$sendto->reply($msg);
 	}
@@ -166,20 +225,6 @@ class WhatBuffsController {
 		}
 	}
 	
-	public function formatNanos($matches) {
-		$blob = '';
-		forEach ($matches as $row) {
-			$blob .= $this->text->makeChatcmd($row->item, "/tell <myname> nano $row->item") . " ($item->amount)\n";
-		}
-
-		$count = count($matches);		
-		if ($count > 0) {
-			return array($count, $blob);
-		} else {
-			return null;
-		}
-	}
-	
 	public function showSearchResults($category, $skill) {
 		$category = ucfirst(strtolower($category));
 		
@@ -200,5 +245,10 @@ class WhatBuffsController {
 		}
 		
 		return $msg;
+	}
+
+	public function getSkills($search) {
+		$sql = "SELECT * FROM skills WHERE name LIKE ?";
+		return $this->db->query($sql, "%" . $search . "%");
 	}
 }

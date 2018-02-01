@@ -1,4 +1,5 @@
 To find items or nanos that buff an ability or skill:
 <highlight><tab><symbol>whatbuffs<end>
 <highlight><tab><symbol>whatbuffs 'type'<end>
+<highlight><tab><symbol>whatbuffs 'skill'<end>
 <highlight><tab><symbol>whatbuffs 'type' 'skill'<end>
