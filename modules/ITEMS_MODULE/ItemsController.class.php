@@ -65,7 +65,7 @@ class ItemsController {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
 		
 		$this->settingManager->add($this->moduleName, 'maxitems', 'Number of items shown on the list', 'edit', 'number', '40', '30;40;50;60');
-		$this->settingManager->add($this->moduleName, 'cidb_url', "The URL of the CIDB to use (if items_database is set to 'central')", 'edit', 'text', 'http://cidb.botsharp.net/', 'http://cidb.botsharp.net/');
+		$this->settingManager->add($this->moduleName, 'cidb_url', "The URL of the CIDB to use for <symbol>citems", 'edit', 'text', 'http://cidb.botsharp.net/', 'http://cidb.botsharp.net/');
 	}
 
 	/**
@@ -213,9 +213,6 @@ class ItemsController {
 
 		$search = htmlspecialchars_decode($search);
 	
-		if ($db == null) {
-			$db = $this->settingManager->get('items_database');
-		}
 		switch ($db) {
 			case 'local':
 				// local database

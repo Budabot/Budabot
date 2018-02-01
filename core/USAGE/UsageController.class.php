@@ -268,7 +268,6 @@ class UsageController {
 		$settings['online_show_org_guild'] = $this->settingManager->get('online_show_org_guild');
 		$settings['online_show_org_priv'] = $this->settingManager->get('online_show_org_priv');
 		$settings['online_admin'] = $this->settingManager->get('online_admin');
-		$settings['items_database'] = $this->settingManager->get('items_database');
 		$settings['relaysymbolmethod'] = $this->settingManager->get('relaysymbolmethod');
 		$settings['http_server_enable'] = ($this->eventManager->getKeyForCronEvent("60", "httpservercontroller.startHTTPServer") != null ? "1" : "0");
 
