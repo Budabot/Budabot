@@ -200,6 +200,12 @@ namespace Budabot\User\Modules;
  *		description = 'Shows possible 12 man Loot',
  *		help        = 'xan.txt'
  *	)
+ *	@DefineCommand(
+ *		command     = 'poh',
+ *		accessLevel = 'all',
+ *		description = 'Shows possible Pyramid of Home loot',
+ *		help        = 'poh.txt'
+ *	)
  */
 class LootListsController {
 
@@ -822,7 +828,20 @@ class LootListsController {
 		$msg = $this->text->makeBlob("Legacy of the Xan Loot", $list);
 		$sendto->reply($msg);
 	}
-	
+
+	/**
+	 * @HandlesCommand("poh")
+	 * @Matches("/^poh$/i")
+	 */
+	public function pohCommand($message, $channel, $sender, $sendto, $args) {
+		$blob = $this->find_raid_loot('Pyramid of Home', 'General');
+		$blob .= $this->find_raid_loot('Pyramid of Home', 'HUD/NCU');
+		$msg = $this->text->makeBlob("Pyramid of Home Loot", $blob);
+
+		$sendto->reply($msg);
+		$sendto->reply($this->getPandemoniumLoot('Pande', 'Beast Weapons'));
+	}
+
 	public function find_raid_loot($raid, $category) {
 		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE raid = ? AND category = ?";
 		$data = $this->db->query($sql, $raid, $category);

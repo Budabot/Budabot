@@ -400,3 +400,15 @@ INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pa
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pande', 'Bastion', 1, 'Virus Programming: Bacteriophage Phi X 3957', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pande', 'Bastion', 1, 'Virus Programming: Bacteriophage M73', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pande', 'Bastion', 1, 'Virus Programming: Bacteriophage F9', '', 1);
+
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'General', 300, 'Inert Sigil of Alighieri', 'Drop von Boss 1-3', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'General', 300, 'Inert Sigil of Machiavelli', 'Drop von Boss 4', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'General', 300, 'Portable Notum Infusion Device', 'Geringe Chance von Boss 1-3, 100% Drop vom Preboss beim Endboss', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'General', 1, 'Laughing Spirit Capsule', 'Boss 1', 3);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'General', 1, 'Crying Spirit Capsule', 'Boss 2', 3);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'General', 1, 'Screaming Spirit Capsule', 'Boss 3', 3);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'HUD/NCU', 100, 'Ancient Resorative Fungus', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'HUD/NCU', 300, 'Sluggish Notum Lens', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'HUD/NCU', 100, 'Ancient Aggressive Webbing', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'HUD/NCU', 300, 'Dense Nanite Aegis', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('Pyramid of Home', 'HUD/NCU', 100, 'Ancient Protective Drone', '', 1);
