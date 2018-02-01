@@ -130,7 +130,7 @@ class WhatBuffsController {
 	public function whatbuffs5Command($message, $channel, $sender, $sendto, $args) {
 		$skill = $args[1];
 
-		$data = $this->getSkills($skill);
+		$data = $this->searchForSkill($skill);
 		$count = count($data);
 
 		if ($count == 0) {
@@ -245,10 +245,5 @@ class WhatBuffsController {
 		}
 		
 		return $msg;
-	}
-
-	public function getSkills($search) {
-		$sql = "SELECT * FROM skills WHERE name LIKE ?";
-		return $this->db->query($sql, "%" . $search . "%");
 	}
 }
