@@ -17,12 +17,6 @@ use DOMDocument;
  *		help        = 'items.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'litems',
- *		accessLevel = 'all',
- *		description = 'Searches for an item using the local items db',
- *		help        = 'items.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'items',
  *		accessLevel = 'all',
  *		description = 'Searches for an item using the default items db',
@@ -71,7 +65,6 @@ class ItemsController {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
 		
 		$this->settingManager->add($this->moduleName, 'maxitems', 'Number of items shown on the list', 'edit', 'number', '40', '30;40;50;60');
-		$this->settingManager->add($this->moduleName, 'items_database', 'Use local items database or a central items database', 'edit', 'options', 'local', 'local;central');
 		$this->settingManager->add($this->moduleName, 'cidb_url', "The URL of the CIDB to use (if items_database is set to 'central')", 'edit', 'text', 'http://cidb.botsharp.net/', 'http://cidb.botsharp.net/');
 	}
 
@@ -81,7 +74,7 @@ class ItemsController {
 	 * @Matches("/^items (.+)$/i")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->find_items($args);
+		$msg = $this->find_items($args, 'local');
 		$sendto->reply($msg);
 	}
 	
@@ -92,16 +85,6 @@ class ItemsController {
 	 */
 	public function citemsCommand($message, $channel, $sender, $sendto, $args) {
 		$msg = $this->find_items($args, 'central');
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("litems")
-	 * @Matches("/^litems ([0-9]+) (.+)$/i")
-	 * @Matches("/^litems (.+)$/i")
-	 */
-	public function litemsCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->find_items($args, 'local');
 		$sendto->reply($msg);
 	}
 	
