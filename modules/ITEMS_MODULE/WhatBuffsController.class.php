@@ -9,7 +9,7 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = 'whatbuffs',
  *		accessLevel = 'all',
- *		description = 'Find items that buff an ability or skill',
+ *		description = 'Find items or nanos that buff an ability or skill',
  *		help        = 'whatbuffs.txt'
  *	)
  */
