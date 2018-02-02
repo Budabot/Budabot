@@ -240,14 +240,14 @@ class WhoisController {
 	public function getFullName($whois) {
 		$msg = "";
 		
-		if ($whois->firstName) {
-			$msg .= $whois->firstName . " ";
+		if ($whois->firstname) {
+			$msg .= $whois->firstname . " ";
 		}
 
 		$msg .= "\"{$whois->name}\"";
 
-		if ($whois->lastName) {
-			$msg .= " " . $whois->lastName;
+		if ($whois->lastname) {
+			$msg .= " " . $whois->lastname;
 		}
 
 		return $msg;
