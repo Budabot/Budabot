@@ -1,22 +1,22 @@
-To add an item to the roll list:
+To add an item to the loot list:
 <highlight><tab><symbol>loot add 'item name'<end>
 or
 <highlight><tab><symbol>loot add 'item reference'<end>
 
-To add an item multiple times to the roll list:
+To add an item multiple times to the loot list:
 <highlight><tab><symbol>loot addmulti 'amount' 'item reference'<end>
 (e.g.: <symbol>loot addmulti 3 Lockpick)
 
-To remove an item from the roll list:
+To remove an item from the loot list:
 <highlight><tab><symbol>loot rem 'item number'<end>
 
-To clear the roll list:
+To clear the loot list:
 <highlight><tab><symbol>loot clear<end>
 
-To show the roll list:
+To show the loot list:
 <highlight><tab><symbol>loot<end>
 
-To roll the roll list:
+To roll the loot list:
 <highlight><tab><symbol>flatroll<end>
 
 To re-add remaining items after a roll:
