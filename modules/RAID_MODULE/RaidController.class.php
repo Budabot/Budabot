@@ -26,12 +26,6 @@ use stdClass;
  *		help        = 'flatroll.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'multiloot',
- *		accessLevel = 'rl',
- *		description = 'Add items with more than one quantity to the loot list',
- *		help        = 'flatroll.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'reroll',
  *		accessLevel = 'rl',
  *		description = 'Reroll the residual loot list',
@@ -190,8 +184,9 @@ class RaidController {
 	}
 	
 	/**
-	 * @HandlesCommand("multiloot")
-	 * @Matches("/^multiloot ([0-9]+)x? (.+)$/i")
+	 * @HandlesCommand("loot .+")
+	 * @Matches("/^loot addmulti ([0-9]+)x? (.+)$/i")
+	 * @Matches("/^loot multiadd ([0-9]+)x? (.+)$/i")
 	 */
 	public function multilootCommand($message, $channel, $sender, $sendto, $args) {
 		if (!$this->chatLeaderController->checkLeaderAccess($sender)) {
