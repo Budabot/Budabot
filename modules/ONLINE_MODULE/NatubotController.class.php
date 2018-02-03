@@ -144,7 +144,7 @@ class NatubotController {
 			forEach ($data as $row) {
 				if ($currentMain != $row->pmain) {
 					$mainCount++;
-					$blob .= "\n<highlight>$row->pmain<end> on\n";
+					$blob .= "\n<pagebreak><highlight>$row->pmain<end> on\n";
 					$currentMain = $row->pmain;
 				}
 
