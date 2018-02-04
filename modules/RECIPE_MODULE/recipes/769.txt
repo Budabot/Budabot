@@ -1,0 +1,30 @@
+Name: May Fly Throwing Grenade
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 All parts can be foundin the tradeskill section of any general store#C20
+
+#L "Pseudo-Nano Multibenzonoxydant Sulphosalycilic Liquid" "165120"
+<img src=rdb://156495>
+
+#L "Throwing Grenade Basic Kit" "165122"
+<img src=rdb://156202>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Pseudo-Nano Multibenzonoxydant Sulphosalycilic Liquid
+#C15+#C20
+Throwing Grenade Basic Kit
+#C15=#C20
+<img src=rdb://131256>
+#L "Secured May Fly Throwing Grenade" "165119"
+#C16Skills: | 4 x QL of the Kit in WS |#C20
+
+#C16Note: Right clicking it will activate the grenade. Once activated it becomes unstable and will disappear in 20 seconds. In a final note, the Secured May Fly Throwing Grenade is Unique so you can only have one at a time. The end result: #C20
+
+<img src=rdb://131253>
+#L "May Fly Throwing Grenade" "165116"

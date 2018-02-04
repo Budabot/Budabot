@@ -1,0 +1,65 @@
+Name: Bracelet Circuitry
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Screwdriver" "150922"
+<img src=rdb://151011>
+
+#L "Robot Junk" "42619"
+<img src=rdb://144715>
+
+#L "Nano Circuitry Wire" "150919" x 2
+<img src=rdb://151014>
+
+#L "Silver Filigree Wire" "150932"
+<img src=rdb://151017>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Screwdriver
+#C15+#C20
+Robot Junk
+#C15=#C20
+<img src=rdb://149940>
+#L "Nano Sensor" "150924"
+#C16Skills: |  ME  |#C20
+
+#C14------------------------------#C20
+
+Nano Circuitry Wire
+#C15+#C20
+Nano Sensor
+#C15=#C20
+<img src=rdb://149939>
+#L "Interfaced Nano Sensor" "150925"
+#C16Skills: |  EE  |#C20
+
+#C14------------------------------#C20
+
+Nano Circuitry Wire
+#C15+#C20
+Silver Filigree Wire
+#C15=#C20
+<img src=rdb://151017>
+#L "Silver Nano Circuitry Filigree Wire" "150920"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+Silver Nano Circuitry Filigree Wire
+#C15+#C20
+Interfaced Nano Sensor
+#C15=#C20
+<img src=rdb://149937>
+#L "Bracelet Circuitry" "150927"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Used in the construction of Arul Saba Bracelets.

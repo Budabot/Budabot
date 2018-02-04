@@ -1,0 +1,29 @@
+Name: Intrusion Countermeasure Electronics Upgrade
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Hacker ICE-Breaker Source" "257968"
+<img src=rdb://257196>
+
+#L "Nano Programming Interface" "161699"
+<img src=rdb://99279>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Nano Programming Interface
+#C15+#C20
+Hacker ICE-Breaker Source
+#C15=#C20
+<img src=rdb://218776>
+#L "Intrusion Countermeasure Electronics Upgrade" "257110"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+100% CRUs for City raids.

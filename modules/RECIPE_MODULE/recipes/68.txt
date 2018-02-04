@@ -1,0 +1,29 @@
+Name: Meister's Reinforced Suit
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Nelly Johnsons Little Black Dress" "165214"
+<img src=rdb://88047>
+
+#L "Nelly's Chip" "216341"
+<img src=rdb://43133>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Nelly's Chip
+#C15+#C20
+Nelly Johnsons Little Black Dress
+#C15=#C20
+<img src=rdb://156356>
+#L "Meister's Reinforced Suit" "216340"
+#C16Skills: | PS,CL |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Nelly's Chip can be found on First Brood Champions on Hollow Island

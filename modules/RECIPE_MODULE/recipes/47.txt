@@ -1,0 +1,59 @@
+Name: Focus-Funneling Helper
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "Focus-Funneling Device" "246206"
+<img src=rdb://205507>
+
+#L "Focus-Funneling Spirit" "246207"
+<img src=rdb://205507>
+
+And to upgrade it:
+
+#L "Spirit Training Program" "246209"
+<img src=rdb://205512>
+
+#L "Spirit Training Program" "246211"
+<img src=rdb://205512>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Focus-Funneling Device
+#C15+#C20
+Focus-Funneling Spirit
+#C15=#C20
+<img src=rdb://205510>
+#L "Primitive Focus-Funneling Helper" "246208"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+<highlight>Then you can update it to fit in a different Hud (in order to wear 3 of them !!)<end>
+
+Spirit Training Program (Love)
+#C15+#C20
+Primitive Focus-Funneling Helper
+#C15=#C20
+<img src=rdb://205511>
+#L "Loving Focus-Funneling Helper" "246210" ( for HUD 3 )
+#C16Skills: |  ??  |#C20
+
+#C15OR#C20
+
+Spirit Training Program (Hate)
+#C15+#C20
+Primitive Focus-Funneling Helper
+#C15=#C20
+<img src=rdb://205511>
+#L "Rancorous Focus-Funneling Helper" "246212" ( for HUD 1 )
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Awesome item for twinking.

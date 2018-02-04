@@ -1,0 +1,59 @@
+Name: Notum Saturated Metaplast Armor
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Notum Saturated Metaplast Shell" "163355"
+<img src=rdb://163352>
+
+#L "Programmed Photon Particle Emitter (Shape Hard Armor)" "162221"
+<img src=rdb://144466>
+#C15or#C20
+#L "Screwdriver" "150922"
+<img src=rdb://151011>
+
+HSR - Sketch and Etch
+(ex:#L "HSR - Sketch and Etch - Chestpiece" "162290")
+<img src=rdb://162275>
+
+#L "Mass Relocating Robot" "155592"
+<img src=rdb://155928>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Programmed Photon Particle Emitter (Shape Hard Armor)
+#C15+#C20
+Mass Relocating Robot
+#C15=#C20
+<img src=rdb://163856>
+#L "Mass Relocating Robot (Shape Hard Armor)" "162218"
+#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+
+#C16------------------------------#C20
+
+Notum Saturated Metaplast Shell
+#C15+#C20
+HSR - Sketch and Etch - Chestpiece
+#C15=#C20
+<img src=rdb://163353>
+#L "Etched Pattern for Notum Saturated Metaplast Breastplate" "163361"
+#C16Skills: |  CH  |#C20
+
+#C16------------------------------#C20
+
+Mass Relocating Robot (Shape Hard Armor)
+#C15+#C20
+Etched Pattern for Notum Saturated Metaplast Breastplate
+#C15=#C20
+<img src=rdb://13251>
+#L "Notum Saturated Metaplast Breastplate" "163343"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Nano Technician wear only. Notum Saturated Metaplast Shells can be seldom found on Digglets, Moles, Scooplets or Shovelets, underground low level mobs. It's an interesting armor to make. Unfortunately the PPPE is incredibly expensive. You can use a Screwdriver instead of a Mass Relocating Robot (Shape Hard Armor) but the skills required for the process will be much higher !!

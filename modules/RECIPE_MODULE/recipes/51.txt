@@ -1,0 +1,42 @@
+Name: Implant Disassembly Clinic
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "Portable Surgery Clinic" "43551"
+<img src=rdb://13369>
+
+#L "Hacker Tool" "87814"
+<img src=rdb://99282>
+
+#L "Implant Disassembly Unit" "161864"
+<img src=rdb://161874>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Hacker Tool
+#C15+#C20
+Portable Surgery Clinic
+#C15=#C20
+<img src=rdb://161872>
+#L "Hacked Portable Surgery Clinic" "161765"
+#C16Skills: | BE,CL |#C20
+
+#C14------------------------------#C20
+
+Implant Disassembly Unit
+#C15+#C20
+Hacked Portable Surgery Clinic
+#C15=#C20
+<img src=rdb://161871>
+#L "Implant Disassembly Clinic" "161867"
+#C16Skills: | EE,CL |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+This Clinic can only be worn by Fixers, but can be used by all. Added to the fact that it adds a bit of Treatement, you can use it to remove all the Clusters present on an Implant, thus creating a new Basic Implant of same QL. Don't forget that the Clusters are lost during the process.

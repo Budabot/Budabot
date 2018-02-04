@@ -1,0 +1,38 @@
+Name: Spirit Infused Yutto's Modified NCU
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 These nifty new NCU will be a great upgrade for your yuttos NCU. You can find the parts in Albtraum. You can find the guide for the tool needed #L "here" "/tell {myname} recipe 594". #C20
+
+#L "Ancient Engineering Device" "267751"
+<img src=rdb://156095>
+
+#L "Dormant Ancient Circuit" "267794"
+<img src=rdb://158233>
+
+#L "Yuttos Modified NCU" "238921"
+<img src=rdb://205500>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Ancient Engineering Device
+#C15+#C20
+Dormant Ancient Circuit
+#C15=#C20
+<img src=rdb://158233>
+#L "Active Ancient Circuit" "267795"
+#C16Skills: | 1500 ME | #C20
+
+Active Ancient Circuit
+#C15+#C20
+Yuttos Modified NCU
+#C15=#C20
+<img src=rdb://205500>
+#L "Spirit Infused Yuttos Modified NCU" "267797"
+#C16Skills: | 6X the QL of ME | #C20
+
+#C16To make a QL 220 NCU into a QL 300 you will need 1800ME.#C20

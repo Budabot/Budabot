@@ -1,0 +1,23 @@
+Name: MTI SL70 RX Razorback Gargantua
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Viral Weapon Upgrade" "248517"
+<img src=rdb://100335>
+
+#L "MTI SL70 Garganthua" "124182"
+<img src=rdb://33155>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Viral Weapon Upgrade
+#C15+#C20
+MTI SL70 Garganthua
+#C15=#C20
+<img src=rdb://33155>
+#L "MTI SL70 RX Razorback Gargantua" "249829"
+#C16Skills: |  |#C20

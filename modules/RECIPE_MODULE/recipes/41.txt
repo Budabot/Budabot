@@ -1,0 +1,29 @@
+Name: Enhanced Queen Blade
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Queen Blade" "157761"
+<img src=rdb://158239>
+
+#L "Diamond-Matrix Mesh" "202266"
+<img src=rdb://11615>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Diamond-Matrix Mesh
+#C15+#C20
+Queen Blade
+#C15=#C20
+<img src=rdb://158239>
+#L "Enhanced Queen Blade" "202264"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Nice weapon if you can get the parts.

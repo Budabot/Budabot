@@ -1,0 +1,30 @@
+Name: Enhanced Pads of Dedication
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C12 *** #C16 Omni-Tek employees and Neutrals will be happy to know that their Pads of Dedication which can be obtained by doing the Shoulderpads Quest can be upgraded even further. What's even better is that the upgrade doesn't require any skills to do.
+
+All you will need besides your Pads is an Omnifier. You can find it in missions, it's a common from mobs and you can also find it in chests.
+#C12 *** #C20
+
+#L "Omnifier" "208312"
+<img src=rdb://156479>
+
+#L "Pads of Dedication" "157998"
+<img src=rdb://31537>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Omnifier
+#C15+#C20
+Pads of Dedication
+#C15=#C20
+<img src=rdb://31537>
+#L "Enhanced Pads of Dedication" "209237"
+#C16Skills: | None | #C20
+
+Comparing stats between the original and upgraded versions, most of them have been enhanced by 50%. Oh and the Pads turn into a nice shiny black color which perfectly matches the popular Omni-Tek Armed Forces armor omnis wear.

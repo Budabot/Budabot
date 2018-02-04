@@ -1,0 +1,36 @@
+Name: Sloth of the Xan
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Xan Weapon Upgrade Device which drops from the Mitaar Hero, Ground Chief Vortexx and 12-Man instances can be tradeskilled with 30 different Shadowlands weapons/#C20
+
+#L "Xan Weapon Upgrade Device" "280786"
+<img src=rdb://246391>
+
+#L "Lord of Sloth" "244912"
+<img src=rdb://233214>
+#C15or#C20
+#L "Lady of Sloth" "244911"
+<img src=rdb://233214>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lord of Sloth
+#C15=#C20
+<img src=rdb://280911>
+#L "Sloth of the Xan" "280727"
+
+#C15or#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lady of Sloth
+#C15=#C20
+<img src=rdb://280911>
+#L "Sloth of the Xan" "280727"

@@ -1,0 +1,42 @@
+Name: Reanimator's Cloak
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Pit Demon Heart" "245171"
+<img src=rdb://231393>
+
+#L "Necromancer Cloak" "245170"
+<img src=rdb://22892>
+
+#L "Bio-Comminutor" "154332"
+<img src=rdb://149951>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Bio-Comminutor
+#C15+#C20
+Pit Demon Heart
+#C15=#C20
+<img src=rdb://100335>
+#L "Indigo Carmine" "245270"
+#C16Skills: | CH525 |#C20
+
+#C16------------------------------#C20
+
+Indigo Carmine
+#C15+#C20
+Necromancer Cloak
+#C15=#C20
+<img src=rdb://22892>
+#L "Reanimator's Cloak" "245260"
+#C16Skills: | CL450 |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Great back item which you can level by right clicking it.

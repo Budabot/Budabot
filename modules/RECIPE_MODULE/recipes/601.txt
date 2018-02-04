@@ -1,0 +1,30 @@
+Name: Anun Membrane Gloves
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C12 *** #C16 Only Bureaucrats and Traders can use these gloves. Since the
+tradeskill process creates a nondrop item, the user must do it him/herself.
+Basic ingredient for gloves are Anun Wings. They drop of any Anun mob, for
+higher quality I would suggest hunting Anuns in PW or inside missions.
+You'll also need Mass Relocating Robot (Shape Soft Armor) to complete the
+process.
+#C12 *** #C20
+
+#L "Anun Wing" "248930"
+<img src=rdb://144705>
+
+#L "Mass Relocating Robot (Shape Soft Armor)" "162220"
+<img src=rdb://163857>
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Anun Wing
+#C15+#C20
+Mass Relocating Robot (Shape Soft Armor)
+#C15=#C20
+<img src=rdb://159134>
+#L "Anun Membrane Gloves" "248928"
+#C16Skills: | requires 3.5 QL in Mech. Engi |#C20

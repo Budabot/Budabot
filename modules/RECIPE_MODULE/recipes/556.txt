@@ -1,0 +1,55 @@
+Name: Strong Regenerating Bioplate
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Stalker Carapace" "247817"
+<img src=rdb://247816>
+
+#L "Neutron Displacer" "144786"
+<img src=rdb://99235>
+
+#L "Rollerrat Queen Blood" "247758"
+<img src=rdb://100331>
+
+#L "Advanced Bio-Comminutor" "154332"
+<img src=rdb://149951>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Advanced Bio-Comminutor
+#C15+#C20
+Rollerrat Queen Blood
+#C15=#C20
+<img src=rdb://100330>
+#L "Rollerrat Queen Erythrocyte" "247759"
+#C16Skills: | PT400 |#C20
+
+#C16------------------------------#C20
+
+Neutron Displacer
+#C15+#C20
+Stalker Carapace
+#C15=#C20
+<img src=rdb://247754>
+#L "Non-Regenerating Bioplate" "247755"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Rollerrat Queen Erythrocyte
+#C15+#C20
+Non-Regenerating Bioplate
+#C15=#C20
+<img src=rdb://247756>
+#L "Strong Regenerating Bioplate" "247757"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Used in player Buildings.

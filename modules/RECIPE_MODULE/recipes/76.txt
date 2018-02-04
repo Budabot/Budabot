@@ -1,0 +1,29 @@
+Name: Notum Nuggets
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Sledgehammer" "129044"
+<img src=rdb://33167>
+
+#L "Enriched Notum Nugget" "136637" 
+<img src=rdb://136596>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Sledgehammer
+#C15+#C20
+Enriched Notum Nugget
+#C15=#C20
+<img src=rdb://25795>
+#L "Notum Fragment" "136625"
+#C16Skills: |  ST  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Another source of precious notum.

@@ -1,0 +1,103 @@
+Name: Alien Tank Armor
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Inactive Alien Tank Armor" "268507"
+<img src=rdb://22401>
+
+#L "Alien Activation Crystal" "268478"
+<img src=rdb://12252>
+
+#L "Alien Armor Materials" "268508" x2 or x3
+<img src=rdb://144715>
+
+#L "Inactive Alien Material Conversion Kit" "268510" 
+<img src=rdb://99658>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Alien Activation Crystal
+#C15+#C20
+Inactive Alien Material Conversion kit
+#C15=#C20
+<img src=rdb://99667>
+#L "Alien Material Conversion Kit" "268509" 
+#C16Skills: | 450ME |#C20
+
+Alien Material Conversion Kit
+#C15+#C20
+Alien Armor Materials
+#C15=#C20
+<img src=rdb://99668>
+#L "Processed Alien Armor Materials" "268511"
+#C16Skills: | 450ME |#C20
+
+#C16------------------------------#C20
+
+Alien Activation Crystal
+#C15+#C20
+Inactive Alien Tank Armor
+#C15=#C20
+<img src=rdb://22401>
+#L "Alien Tank Armor" "268503"
+#C16Skills: | 450ME |#C20
+
+#C16------------------------------#C20
+
+#C12Warning! -- The next step makes this item NODROP and UNIQUE! #C16
+
+#C12Warning! -- Nanomages DO NOT do the next 2 steps!! #C16
+
+#C16------------------------------#C20
+
+Processed Alien Armor Materials
+#C15+#C20
+Alien Tank Armor
+#C15=#C20
+<img src=rdb://22395>
+#L "Improved Alien Tank Armor" "268504"
+#C16Skills: | 450ME |#C20
+
+#C16------------------------------#C20
+
+Processed Alien Armor Materials
+#C15+#C20
+Improved Alien Tank Armor
+#C15=#C20
+<img src=rdb://22395>
+#L "Perfected Alien Tank Armor" "268505"
+#C16Skills: | 450ME |#C20
+
+#C16------------------------------#C20
+
+#C12 Warning! -- The next 2 steps are for NANOMAGES ONLY!! #C16
+
+#C16------------------------------#C20
+
+Alien Material Conversion Kit
+#C15+#C20
+Processed Alien Armor Materials
+#C15=#C20
+<img src=rdb://99669>
+#L "Specialised Alien Armor Materials" "268512"
+#C16Skills: | 450ME |#C20
+
+#C16------------------------------#C20
+
+Specialised Alien Armor Materials
+#C15+#C20
+Alien Tank Armor
+#C15=#C20
+<img src=rdb://22389>
+#L "Nanomage Enhanced Alien Tank Armor" "268506"
+#C16Skills: | 450ME |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Just be extra careful you perform the right steps for your breed.  Nanomages have different steps to take than other breeds.

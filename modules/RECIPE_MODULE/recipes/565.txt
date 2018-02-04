@@ -1,0 +1,55 @@
+Name: Nano Cube of Death
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Nophex Cube" "255542"
+<img src=rdb://233133>
+
+a special Pattern of Death
+( ie : #L "Pattern of Approaching Death" "255550" )
+<img src=rdb://231182>
+
+#L "Kenneth's Polishing Gel" "255555"
+<img src=rdb://156504>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Pattern of Death
+#C15+#C20
+Nophex Cube
+#C15=#C20
+<img src=rdb://233135>
+Nophex Cube of Death
+( ie : #L "Nophex Cube of Approaching Death" "255545" )
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Kenneth's Polishing Gel
+#C15+#C20
+Nophex Cube of Death
+#C15=#C20
+<img src=rdb://233132>
+Nano Cube
+( ie : #L "Nano Cube (Cellular Re-Structure)" "254433" )
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+#L "Nano Cube (Cellular Re-Structure)" "254433": #L "Pattern of Approaching Death" "255550"
+#L "Nano Cube (Poisoned Thorns)" "254436": #L "Pattern of Impending Death" "255551"
+#L "Nano Cube (Frost Blades)" "254438": #L "Pattern of Inevitable Death" "255552"
+#L "Nano Cube (Magma Covering)" "254440": #L "Pattern of Imminent Death" "255553"
+#L "Nano Cube (Self Illumination)" "254442": #L "Pattern of the Occurence of Death" "255554"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+NT secret weapons...

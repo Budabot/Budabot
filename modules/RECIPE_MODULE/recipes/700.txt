@@ -1,0 +1,36 @@
+Name: Galactic Jewel
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 Frozen Crystal Compound drops from Cascading Molokh, Novictum Blight and Reprogrammed Mezzorash in Alappaa.
+While all the Compounds looks almost the same there are really several types that drop. Easiest way to check which one dropped is to open the tradeskill window and check the result.#C20
+
+#L "Frozen Crystal Compound" "269800"
+<img src=rdb://269799>
+
+#L "Permafrost Melting Tool" "269805"
+<img src=rdb://269844>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+#C16Note: Depending on what Compound you found, you will end up with a different Jewel (or Robe)#C20
+
+Frozen Crystal Compound
+#C15+#C20
+Permafrost Melting Tool
+#C15=#C20
+<img src=rdb://286769>
+#L "Galactic Jewel of the Jagged Landscape" "168717"
+#C16Skills: | 1750 CH |#C20
+#C15or#C20
+Frozen Crystal Compound
+#C15+#C20
+Permafrost Melting Tool
+#C15=#C20
+<img src=rdb://159128>
+#L "Robe of City Lights" "269999"
+#C16Skills: | 1500 EE |#C20

@@ -1,0 +1,30 @@
+Name: Anti Gravity Unit
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "Small Backpack" "99228"
+<img src=rdb://99661>
+
+#L "Juggernaut's Anti-Gravity Unit" "207249"
+<img src=rdb://205514>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Juggernaut's Anti-Gravity Unit
+#C15+#C20
+Small Backpack
+#C15=#C20
+<img src=rdb://99661>
+#L "Anti-Gravity Unit" "207242"
+#C16Skills: |  ME  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Up up and away? .. hmmm ...
+

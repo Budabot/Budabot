@@ -1,0 +1,101 @@
+Name: Bureaucrat Suits
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Hacker Tool" "87814"
+<img src=rdb://99282>
+
+#L "Sealed Order BLCG-7791" "156330" (For Clan)
+#C15or#C20
+#L "Sealed Order XITL-0127" "156328" (For OMNI)
+<img src=rdb://156326>
+
+#L "Expendable Hologram Camera" "156054"
+<img src=rdb://156092>
+
+#L "ID-extractor" "156339"
+<img src=rdb://156324>
+
+A Multi-Form needed
+( ie #L "Omni-Tek Multi-Form" "156344" )
+<img src=rdb://156343>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Hacker Tool
+#C15+#C20
+Sealed Order
+#C15=#C20
+<img src=rdb://154678>
+Hacked Order
+( ie : #L "Hacked Order BLCG-7791" "156336" )
+#C16Skills: |  BE  |#C20
+
+#C14------------------------------#C20
+
+ID-extractor
+#C15+#C20
+Expendable Hologram Camera
+#C15=#C20
+<img src=rdb://156323>
+#L "ID-data" "156340"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+ID-data
+#C15+#C20
+Hacked Order
+#C15=#C20
+<img src=rdb://156325>
+Personal Order
+( ie : #L "Personal Order BLCG-7791" "156352" )
+#C16Skills: |  PS  |#C20
+
+#C14------------------------------#C20
+
+Multi-Form
+#C15+#C20
+Personal Order
+#C15=#C20
+<img src=rdb://156357>
+Bureaucrat Suits
+#C16Skills: |  PS  |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+#L "Sealed Order XITL-0127" "156328"
+#L "Omni-Tek Multi-Form" "156344"
+->
+#L "OT Standard Executive Secretary Suit" "156528"
+<img src=rdb://156357>
+
+#L "Sealed Order BLCG-7791" "156330"
+#L "Clans Multi-Form" "156346"
+->
+#L "Standard Clans Administration Suit" "156530"
+<img src=rdb://156356>
+
+#L "Sealed Order XITL-0127" "156328"
+#L "Clans Multi-Form" "156345"
+->
+#L "Universal Office Worker Suit" "156538"
+<img src=rdb://156355>
+
+#L "Sealed Order BLCG-7791" "156330"
+#L "Omni-Tek Multi-Form" "156344"
+->
+#L "Universal Office Worker Suit" "156538"
+<img src=rdb://156355>
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Nice buffs and they look great too.

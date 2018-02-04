@@ -38,9 +38,30 @@ class RecipeController {
 	/** @Inject */
 	public $itemsController;
 
+	private $path;
+	private $fileExt = ".txt";
+
 	/** @Setup */
 	public function setup() {
-		$this->db->loadSQLFile($this->moduleName, "recipes");
+		$this->db->loadSQLFile($this->moduleName, "recipes", true);
+
+		$this->path = getcwd() . "/modules/" . $this->moduleName . "/recipes/";
+		if ($handle = opendir($this->path)) {
+			while (false !== ($fileName = readdir($handle))) {
+				// if file has the correct extension, load recipe into database
+				if (preg_match("/(\d+){$this->fileExt}/", $fileName, $args)) {
+					$id = $args[1];
+					$lines = file($this->path . $fileName);
+					$name = substr(trim(array_shift($lines)), 6);
+					$author = substr(trim(array_shift($lines)), 8);
+					$data = implode("", $lines);
+					$this->db->exec("INSERT INTO recipes (id, name, author, recipe) VALUES (?, ?, ?, ?)", $id, $name, $author, $data);
+				}
+			}
+			closedir($handle);
+		} else {
+			throw new Exception("Could not open '$this->path' for loading recipes");
+		}
 	}
 	
 	/**

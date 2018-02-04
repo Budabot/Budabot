@@ -1,0 +1,25 @@
+Name: Hacked Omni-Tek Gunship
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 Omni-Tek Gunships can be found as chestloot in missions and from the Collector#C20
+
+#L "Omni-Tek Gunship" "96095"
+<img src=rdb://38024>
+
+#L "Advanced Hacker Tool" "87814"
+<img src=rdb://99282>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Omni-Tek Gunship
+#C15+#C20
+Advanced Hacker Tool
+#C15=#C20
+<img src=rdb://38024>
+#L "Hacked Omni-Tek Gunship" "286234"
+#C16Skills: | No skills required. Hacker Tool gets used up in the process and its QL does not matter |#C20

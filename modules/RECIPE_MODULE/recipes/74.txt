@@ -1,0 +1,29 @@
+Name: NCU Hacker Interface
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Lock Pick" "95577"
+<img src=rdb://12709>
+
+#L "Nano Programming Interface" "161699"
+<img src=rdb://99279>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Lock Pick
+#C15+#C20
+Nano Programming Interface
+#C15=#C20
+<img src=rdb://99279>
+#L "NCU Hacker Interface" "158417"
+#C16Skills: | BE,NP |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Fixers tool only. It adds some points in all Nanoskills, up to 60 for a QL200 one. Right click on it after each level to upgrade it.

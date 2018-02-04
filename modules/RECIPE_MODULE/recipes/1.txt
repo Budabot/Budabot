@@ -1,0 +1,49 @@
+Name: Accelerated NCU Memory
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "NCU Memory" "95520"
+<img src=rdb://119134>
+
+#L "Nano Formula Recompiler" "95519"
+<img src=rdb://119132>
+
+#L "Lock Pick" "95577"
+<img src=rdb://12709>
+
+#L "Nano Programming Interface" "161699"
+<img src=rdb://99279>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Lock Pick
+#C15+#C20
+NCU Memory
+#C15=#C20
+<img src=rdb://13371>
+#L "Disconnected NCU Memory" "164601"
+#C16Skills: | BE,CL |#C20
+
+#C14------------------------------#C20
+
+Nano Programming Interface
+#C15+#C20
+Nano Formular Recompiler
+#C15=#C20
+<img src=rdb://119133>
+#L "Re-configured Nano Formula Recompiler" "164600"
+#C16Skills: | NP,CL |#C20
+
+#C14------------------------------#C20
+
+Re-configured Nano Formula Recompiler
+#C15+#C20
+Disconnected NCU Memory
+#C15=#C20
+<img src=rdb://13367>
+#L "Accelerated NCU Memory" "164608"
+#C16Skills: | NP,CL |#C20

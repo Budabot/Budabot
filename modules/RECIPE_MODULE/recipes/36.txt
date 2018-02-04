@@ -1,0 +1,64 @@
+Name: Crepuscule Armor
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+a Patch of Novictum Spangled Hide
+( ie : #L "Large Patch of Hard Novictum Spangled Hide" "223432" )
+<img src=rdb://161078>
+
+#L "Canister of Pure Liquid Notum" "223446"
+<img src=rdb://100305>
+
+A Spirit Baube of Expertise
+( ie : #L "Spirit Bauble of Infantry Expertise" "223435" )
+<img src=rdb://25801>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Canister of Pure Liquid Notum
+#C15+#C20
+Patch of Novictum Spangled Hide
+#C15=#C20
+<img src=rdb://161075>
+Patch of Living Hide
+( ie #L "Large Patch of Hard Living Hide" "223460" )
+#C16Skills: |  NP  |#C20
+
+#C14------------------------------#C20
+
+A Spirit Baube of Expertise
+#C15+#C20
+Patch of Living Hide
+#C15=#C20
+<img src=rdb://13279>
+Crepuscule Armor
+( ie #L "Infantry Crepuscule Leather Gloves" "223086" )
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+#L "Large Patch of Soft Novictum Spangled Hide" "223430" for Pants 
+#L "Large Patch of Hard Novictum Spangled Hide" "223432" for Jacket 
+#L "Patch of Soft Novictum Spangled Hide" "223428" for Sleeves 
+#L "Patch of Hard Novictum Spangled Hide" "223426" for Boots 
+#L "Small Patch of Soft Novictum Spangled Hide" "223422" for Gloves 
+#L "Small Patch of Hard Novictum Spangled Hide" "223424" for skinchip
+
+ie :
+#L "Infantry Crepuscule Leather Jacket" "223090"
+#L "Artillery Crepuscule Leather Jacket" "223102"
+#L "Exterminator Unit Crepuscule Jacket" "223174"
+#L "Support Unit Crepuscule Jacket" "223401"
+#L "Control Unit Crepuscule Jacket" "223416"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Very nice armor if you can get your hands on the ingredients. A nice alternative to Alien Armor if you cant afford that.

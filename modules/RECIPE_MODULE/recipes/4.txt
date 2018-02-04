@@ -1,0 +1,29 @@
+Name: Aggression Multiplier (Jealousy Augmented)
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "Aggression Multiplier" "83919"
+<img src=rdb://12683>
+
+#L "Essence of Pure Jealousy" "152030"
+<img src=rdb://100332>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Essence of Pure Jealousy
+#C15+#C20
+Aggression Multiplier
+#C15=#C20
+<img src=rdb://12683>
+#L "Aggression Multiplier (Jealousy Augmented)" "152028"
+#C16Skills: | ME,WS |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Finally an effective way to get aggro...

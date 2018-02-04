@@ -1,0 +1,29 @@
+Name: Secured May Fly Throwing Grenade
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Throwing Grenade Basic Kit" "165123"
+<img src=rdb://156202>
+
+#L "Pseudo-Nano Multibenzonoxydant Sulphosalycilic Liquid" "165121"
+<img src=rdb://156495>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Pseudo-Nano Multibenzonoxydant Sulphosalycilic Liquid
+#C15+#C20
+Throwing Grenade Basic Kit
+#C15=#C20
+<img src=rdb://131256>
+#L "Secured May Fly Throwing Grenade" "165119"
+#C16Skills: |  BE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Hmmm not that useful as you can only carry one at a time...

@@ -1,0 +1,29 @@
+Name: Nizno Bomb Blaster
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Explosif Device" "251810"
+<img src=rdb://72783>
+
+#L "Biomaterial Tubing" "253151"
+<img src=rdb://156553>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Explosif Device
+#C15+#C20
+Biomaterial Tubing
+#C15=#C20
+<img src=rdb://13336>
+#L "Nizno's Bomb Blaster" "253233"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Engy make things go boom.

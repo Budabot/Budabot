@@ -1,0 +1,29 @@
+Name: Alien Material Conversion kit
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Alien Activation Crystal" "268478"
+<img src=rdb://12252>
+
+#L "Inactive Alien Material Conversion kit" "268510"
+<img src=rdb://99658>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Alien Activation Crystal
+#C15+#C20
+Inactive Alien Material Conversion kit
+#C15=#C20
+<img src=rdb://99667>
+#L "Alien Material Conversion kit" "268509"
+#C16Skills: | 450ME |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Used for creating #L "Alien Tank Armor" "/tell {myname} recipe 587"

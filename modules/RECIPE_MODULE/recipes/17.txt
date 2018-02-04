@@ -1,0 +1,61 @@
+Name: Basic Nano Kit/Recharger
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Notum Pellet" "207478"
+<img src=rdb://156562>
+
+#L "Jensen Personal Ore Extractor" "150275"
+<img src=rdb://149947>
+
+For Nano Rechargers:
+#L "Semi-Finished Nano Recharger" "207503"
+<img src=rdb://37991>
+
+For the Kits:
+#L "Semi-Finished Nano Kit" "207505"
+<img src=rdb://11751>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Jensen Personal Ore Extractor
+#C15+#C20
+Notum Pellet
+#C15=#C20
+<img src=rdb://156562>
+#L "Refined Notum Pellet" "207480"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+<highlight>For Nano Recharger Rechargers:<end>
+
+Refined Notum Pellet
+#C15+#C20
+Semi-Finished Nano Recharger
+#C15=#C20
+<img src=rdb://37992>
+Basic Nano Recharger
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+<highlight>For the Kits:<end>
+
+Refined Notum Pellet
+#C15+#C20
+Semi-Finished Nano Kit
+#C15=#C20
+<img src=rdb://11752>
+Basic Nano Kit
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+These are plain rechargers/kits, like the ones you find in shops...

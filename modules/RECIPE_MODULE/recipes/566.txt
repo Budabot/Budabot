@@ -1,0 +1,29 @@
+Name: Salabim Shotgun
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Fused Biotech Material" "251217"
+<img src=rdb://246096>
+
+#L "Biomaterial Tubing" "253151"
+<img src=rdb://156553>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Fused Biotech Material
+#C15+#C20
+Biomaterial Tubing
+#C15=#C20
+<img src=rdb://113991>
+#L "Salabim Shotgun" "253236"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Uber Trader shotgun!

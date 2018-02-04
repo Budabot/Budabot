@@ -1,0 +1,29 @@
+Name: Augmented Hellfury Assault Cannon
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Hellfury Assault Cannon" "153977"
+<img src=rdb://154362>
+
+#L "Pulsing Notum Disruptor" "202280"
+<img src=rdb://149943>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Pulsing Notum Disruptor
+#C15+#C20
+Hellfury Assault Cannon
+#C15=#C20
+<img src=rdb://154362>
+#L "Augmented Hellfury Assault Cannon" "202278"
+#C16Skills: |  BE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Nice weapon - the level lock is a killer though.

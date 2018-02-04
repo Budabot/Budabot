@@ -1,0 +1,25 @@
+Name: Ancient Skills Library
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 Both parts required for this process can be found in Albtraum#C20
+
+#L "Empty Ancient Device" "267709"
+<img src=rdb://218753>
+
+#L "Crystalised Memories of a Engineer" "267714"
+<img src=rdb://72771>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Empty Ancient Device
+#C15+#C20
+Crystalised Memories of a Engineer
+#C15=#C20
+<img src=rdb://218759>
+#L "Ancient Skills Library" "267652"
+#C16Skills: | 1250 CL |#C20

@@ -1,0 +1,24 @@
+Name: Adventure Shield
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+a Deflection Shield
+( ie : #L "Cold Deflection Shield" "158037" )
+<img src=rdb://12702>
+
+#L "Neutron Displacer" "144784"
+<img src=rdb://99235>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Neutron Displacer
+#C15+#C20
+Cold Deflection Shield
+#C15=#C20
+<img src=rdb://12702>
+#L "Cold Adventure Shield" "162385"
+#C16Skills: |  PT  |#C20

@@ -1,0 +1,42 @@
+Name: Mechanical Analyzer
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Technoscavenger Brain" "164538"
+<img src=rdb://130562>
+
+#L "Bio Analysing Computer" "156021"
+<img src=rdb://156084>
+
+#L "Screwdriver" "150922"
+<img src=rdb://151011>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Screwdriver
+#C15+#C20
+Technoscavenger Brain
+#C15=#C20
+<img src=rdb://100321>
+#L "Technoscavenger Mechanics Library" "164541"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------#C20
+
+Technoscavenger Mechanics Library
+#C15+#C20
+Bio Analysing Computer
+#C15=#C20
+<img src=rdb://156512>
+#L "Mechanical Analyzer" "164548"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Handy little buffer. But you can only have one.

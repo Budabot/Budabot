@@ -1,0 +1,56 @@
+Name: Subspace Storage Device
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Two-Dimensional Hole" "245718"
+<img src=rdb://203551>
+
+#L "Subspace Mesh" "245720"
+<img src=rdb://205520>
+
+#L "Meta-Cerebellum Ring" "245722"
+<img src=rdb://151933>
+
+#L "Short Circuited Spiritech Circlet" "245728"
+<img src=rdb://245726>
+
+#L "Short Circuited Spiritech Circlet" "245729"
+<img src=rdb://245727>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Two-Dimensional Hole
+#C15+#C20
+Subspace Mesh
+#C15=#C20
+<img src=rdb://203551>
+#L "Subspace Pocket" "245719"
+#C16Skills: | 1125 Psychology |#C20
+
+Subspace Pocket
+#C15+#C20
+Meta-Cerebellum Ring
+#C15=#C20
+<img src=rdb://203551>
+#L "Subspace Meta-Cerebellum Pocket" "245721"
+#C16Skills: | 1125 QFP |#C20
+
+Short Circuited Spiritech Circlet
+#C15+#C20
+Short Circuited Spiritech Circlet
+#C15=#C20
+<img src=rdb://151922>
+#L "Stabilized Spiritech Circlet" "245730"
+#C16Skills: | 1125 EE |#C20
+
+Subspace Meta-Cerebellum Pocket
+#C15+#C20
+Stabilized Spiritech Circlet
+#C15=#C20
+<img src=rdb://203551>
+#L "Subspace Storage Device" "245723"
+#C16Skills: | 1125 QFP |#C20

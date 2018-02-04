@@ -1,0 +1,24 @@
+Name: De'Valos Radiation Protection Ring
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Visible Light Remodulation Device drops in Alien Playfields and can be used for various tradeskill processes.#C20
+
+#L "Visible Light Remodulation Device" "257964"
+<img src=rdb://235270>
+
+#L "Hyper-Radiation Protection Skin and Glasses" "231236"
+<img src=rdb://234536>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Visible Light Remodulation Device
+#C15+#C20
+Hyper-Radiation Protection Skin and Glasses
+#C15=#C20
+<img src=rdb://281266>
+#L "De'Valos Radiation Protection Ring" "257117"

@@ -1,0 +1,29 @@
+Name: The Pioneer Backpack
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "The Pioneer Backpack" "152039"
+<img src=rdb://151882>
+
+#L "Screwdriver" "150922"
+<img src=rdb://151011>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Screwdriver
+#C15+#C20
+The Pioneer Backpack
+#C15=#C20
+<img src=rdb://151882>
+#L "The Pioneer Backpack (Modified Version)" "156831"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+You can switch it back to the normal version using the Screwdriver on it again.

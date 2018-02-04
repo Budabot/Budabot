@@ -1,0 +1,29 @@
+Name: Improved Solar Trader Shotgun
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Screwdriver" "150922"
+<img src=rdb://151011>
+
+#L "Solar-Powered Shotgun" "121570"
+<img src=rdb://113988>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Screwdriver
+#C15+#C20
+Solar-Powered Shotgun
+#C15=#C20
+<img src=rdb://113988>
+#L "Improved Solar Trader Shotgun" "243846"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Improve your noob island weapon.

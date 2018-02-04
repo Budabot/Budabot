@@ -1,0 +1,54 @@
+Name: Prowler Armor
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+a piece of Crawler Armor ( #L "see here" "/tell {myname} recipe 37" )
+<img src=rdb://13259>
+
+#L "Damaged Proliferation Unit" "245215"
+<img src=rdb://205534>
+
+#L "Screwdriver" "150922"
+<img src=rdb://151011>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Screwdriver
+#C15+#C20
+Damaged Proliferation Unit
+#C15=#C20
+<img src=rdb://205533>
+#L "Proliferation Unit" "245216"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Proliferation Unit
+#C15+#C20
+a piece of Crawler Armor
+#C15=#C20
+<img src=rdb://13259>
+a piece of Prowler Armor
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+#L "Prowler Armor Sleeves" "245176"
+#L "Prowler Body Armor" "245178"
+#L "Prowler Armor Gloves" "245180"
+#L "Prowler Armor Pants" "245182"
+#L "Prowler Armor Boots" "245184"
+#L "Prowler Armor Shoulder Pad" "245186"
+#L "Prowler Armor Hood" "245188"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Great armor if you can get 7 DPUs.. this can often prove a difficult task though, as they are well camped.

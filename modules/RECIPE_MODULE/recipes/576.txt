@@ -1,0 +1,52 @@
+Name: Range Meter
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Antonio's Adaptation Factory" "248306" x 2
+<img src=rdb://205493>
+
+#L "Power Supply" "248307"
+<img src=rdb://20412>
+
+#L "Optical Enhancer" "248318"
+<img src=rdb://130837>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Antonio's Adaptation Factory
+#C15+#C20
+Power Supply
+#C15=#C20
+<img src=rdb://20402>
+#L "Adapted Power Supply" "248308"
+#C16Skills: | CL20 |#C20
+
+#C16------------------------------#C20
+
+Antonio's Adaptation Factory
+#C15+#C20
+Optical Enhancer
+#C15=#C20
+<img src=rdb://130777>
+#L "Recalibrated Scope Unit" "248317"
+#C16Skills: | CL20 |#C20
+
+#C16------------------------------#C20
+
+Adapted Power Supply
+#C15+#C20
+Recalibrated Scope Unit
+#C15=#C20
+<img src=rdb://99262>
+#L "Range Meter" "248374"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Crit Increase item.

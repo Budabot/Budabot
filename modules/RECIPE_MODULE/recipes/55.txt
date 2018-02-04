@@ -1,0 +1,52 @@
+Name: Cyberdeck Upgrades
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Izgimmer-modified Cyberdeck" "233454"
+<img src=rdb://218706>
+
+a Kyr'Ozch Chip Mold
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Kyr'Ozch Chip Mold
+#C15+#C20
+Izgimmer-modified Cyberdeck
+#C15=#C20
+<img src=rdb://218706>
+#L "Izgimmer-modified Cyberdeck" "253194"
+#C16Skills: | BE,CL |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+You can remove the chip using a ...
+
+#L "Disassambler Tool" "253167"
+<img src=rdb://215258>
+
+... on the Izgimmer-modified Cyberdeck.
+( this process will destroy the chip )
+
+#L "Circular Kyr'Ozch Chip Mold" "253155"
+Adds 150 Nano Init  
+<img src=rdb://130740>
+
+#L "Square Kyr'Ozch Chip Mold" "253157"
+Adds 3% Damage
+<img src=rdb://130842>
+
+#L "Triangular Kyr'Ozch Chip Mold" "253159"
+Adds -5% Nano Cost
+<img src=rdb://130745>
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Nice improvements for the NT Cyberdeck.  An already-uber item.

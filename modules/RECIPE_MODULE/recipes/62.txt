@@ -1,0 +1,115 @@
+Name: Jewels
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+a Ring or Bracer
+(ie:#L "Engagement Ring" "136603")
+<img src=rdb://84061>
+
+#L "Generic Ring Template" "151365"
+<img src=rdb://84063>
+
+#L "Personal Furnace" "150930"
+<img src=rdb://149949>
+
+#L "Precious Metal Reclaimer" "150929"
+<img src=rdb://149942>
+
+#L "Wire Drawing Machine" "150917"
+<img src=rdb://149952>
+
+And, if you want to crimp it :
+#L "Perfectly Cut Gem" "151552" #L "Recipe" "/tell {myname} recipe 117"
+<img src=rdb://136593>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Precious Metal Reclaimer
+#C15+#C20
+a Ring or Bracer
+#C15=#C20
+<img src=rdb://151012>
+an Ingot
+(ie:#L "Small Gold Ingot" "151369")
+#C16Skills: |  ME  |#C20
+
+#C14------------------------------#C20
+
+Personal Furnace
+#C15+#C20
+an Ingot
+#C15=#C20
+<img src=rdb://149950>
+Liquid Metal
+(ie:#L "Liquid Gold" "151372")
+#C16Skills: |  ME  |#C20
+
+#C14------------------------------#C20
+
+Wire Drawing Machine
+#C15+#C20
+Liquid Metal
+#C15=#C20
+<img src=rdb://151015>
+Metal Wire
+(ie:#L "Gold Filigree Wire" "151368")
+#C16Skills: |  ME  |#C20
+
+#C14------------------------------#C20
+
+Generic Ring Template
+#C15+#C20
+Metal Wire
+#C15=#C20
+<img src=rdb://151923>
+Precious Metal Filigree Ring
+(ie:#L "Gold Filigree Ring" "151375")
+#C16Skills: |  ME  |#C20
+
+#C14------------------------------#C20
+
+From this point, two paths are possible... either sell this ring or crimp it with a Valuable Stone to make it even more valuable. to crimp it, follow this recipe:
+
+#C14------------------------------#C20
+
+Perfectly Cut Stone
+#C15+#C20
+Precious Metal Filigree Ring
+#C15=#C20
+<img src=rdb://84061>
+Crimped Ring
+(ie:#L "Gold Filigree Ring set with a Perfectly Cut Gem" "151541")
+#C16Skills: |  ME  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Considering the time involved in the matching of QLs and the actual crafting, it's not really worth it for me. But if you have some Mechanical Engineering Skill, it may still be interesting...
+
+Making Jewels with SL stones will give you some little buff according to this :
+    
+<highlight>Almandine<end> - Strength / Agility  
+<highlight>Amber<end> - Melee init / Psychic Init / Ranged Init  
+<highlight>Aquamarine<end> - SensoryImp. / Psycho Mod / MaxHealth  
+<highlight>Balas Ruby<end> - AddAllOff  
+<highlight>Black Opal<end> - AddAllDef  
+<highlight>Chrysoberyl<end> - Max Health / Heal Delta  
+<highlight>Coral<end> - Nano Delta / Heal Delta / Max health  
+<highlight>Demantoid<end> - MeleeDamageMod / ProjectileDamageM / EnergyDamageMod  
+<highlight>Diamond<end> - SpaceTime / PshychoMod  
+<highlight>Emerald<end> - BiologicalMet. / SensoryImprov.  
+<highlight>Fire Opal<end> - FireAc / MaxHealth  
+<highlight>Jet<end> - MaterialMet. / NanoC.Init  
+<highlight>Pearl<end> - ChemicalAC / ColdDamageMod.  
+<highlight>Red Beryl<end> - Stamina / Intelligence  
+<highlight>Ruby Pearl<end> - Sense / Intelligence  
+<highlight>Sapphire<end> - MaterialMet. / BiologicalMet / MaxNcu  
+<highlight>Star Ruby<end> - MaterialCreation / SpaceTime / MaxNanoEnergy  
+<highlight>Topaz<end> - EnergyAC / ProjectileAC  
+<highlight>Water Opal<end> - NanoDelta / MaxNanoEnergy  
+<highlight>White Opal<end> - ColdAC / PoisonAC

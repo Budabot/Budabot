@@ -1,0 +1,71 @@
+Name: CAS Symbiotic Armor
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+2 pieces of Notum
+#L "Notum Fragment" "136624"
+<img src=rdb://25795>
+#C15or#C20
+#L "Notum Chip" "136622"
+<img src=rdb://25794>
+
+#L "Nano Programming Interface" "161699"
+<img src=rdb://99279>
+
+#L "Inactive OT Metamorphing Liquid Nanobots" "164952"
+<img src=rdb://156496>
+
+A Graft Armor part
+( ie : #L "Flawless Graft Armor Boots" "142685" )
+<img src=rdb://99787>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Nano Programming Interface
+#C15+#C20
+Inactive OT Metamorphing Liquid Nanobots
+#C15=#C20
+<img src=rdb://156492>
+#L "Activated OT Metamorphing Liquid Nanobots" "164954"
+#C16Skills: | NP,CH |#C20
+
+#C14------------------------------#C20
+
+Notum piece
+#C15+#C20
+Activated OT Metamorphing Liquid Nanobots
+#C15=#C20
+<img src=rdb://164949>
+#L "Stabilized OT Metamorphing Liquid Nanobots" "164956"
+#C16Skills: | NP,CH |#C20
+
+#C14------------------------------#C20
+
+Notum piece
+#C15+#C20
+Stabilized OT Metamorphing Liquid Nanobots
+#C15=#C20
+<img src=rdb://164950>
+#L "Super-Stabilized OT Metamorphing Liquid Nanobots" "164958"
+#C16Skills: | NP,CH |#C20
+
+#C14------------------------------#C20
+
+Super-Stabilized OT Metamorphing Liquid Nanobots
+#C15+#C20
+Graft Armor
+#C15=#C20
+<img src=rdb://37596>
+CAS Symbiotic Armor
+( ie : #L "CAS Symbiotic Armor Boots" "165000" )
+#C16Skills: | NP,CH |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Popular Froob armor

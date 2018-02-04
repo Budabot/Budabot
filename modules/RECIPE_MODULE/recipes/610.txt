@@ -1,0 +1,129 @@
+Name: Alappaa shoulderpads
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C12 *** #C16 You'll get parts for upgrade in Alappaa and in Dustbrigade Outpost. There are 3 different types you can upgrade them into. But first you need to unfreeze them.
+#C12 *** #C20
+
+#L "Frozen Shoulderpads" "269896"
+<img src=rdb://269968>
+
+#L "Permafrost Melting Tool" "269805"
+<img src=rdb://269844>
+
+#L "Permafrost Armor Component" "269937"
+<img src=rdb://269936>
+
+#L "Combat Program" "269946"
+<img src=rdb://269949>
+#C15or#C20
+#L "Nano Technology Program" "269945"
+<img src=rdb://269950>
+#C15or#C20
+#L "Melee Program" "269947"
+<img src=rdb://269948>
+
+#C15-And the upgrades-#C20
+
+#L "Master Combat Program" "269960"
+<img src=rdb://269949>
+#C15or#C20
+#L "Master Nano Technology Program" "269959"
+<img src=rdb://269950>
+#C15or#C20
+#L "Master Melee Program" "269961"
+<img src=rdb://269948>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+#C16 Unfreezing the shoulderpads #C20
+
+Frozen Shoulderpads
+#C15+#C20
+Permafrost Melting Tool
+#C15=#C20
+<img src=rdb://269968>
+#L "Shoulderpads of the Icy Wastes" "269897"
+#C16Skills: | None | #C20
+
+#C16 Superior Icy Shoulderpads of Explosive Power #C20
+
+Combat Program
+#C15+#C20
+Permafrost Armor Component
+#C15=#C20
+<img src=rdb://269936>
+#L "Combat Attuned Permafrost Armor Component" "269938"
+#C16Skills: | 1500 ME | #C20
+
+Shoulderpads of the Icy Wastes
+#C15+#C20
+Combat Attuned Permafrost Armor Component
+#C15=#C20
+<img src=rdb://269963>
+#L "Icy Shoulderpads of Explosive Power" "269898"
+#C16Skills: | none | #C20
+
+Icy Shoulderpads of Explosive Power
+#C15+#C20
+Master Combat Program
+#C15=#C20
+<img src=rdb://269963>
+#L "Superior Icy Shoulderpads of Explosive Power" "269899"
+#C16Skills: | none | #C20
+
+#C16 Superior Icy Shoulderpads of the Powerful Mind #C20
+
+Nano Technology Program
+#C15+#C20
+Permafrost Armor Component
+#C15=#C20
+<img src=rdb://269936>
+#L "Nano Attuned Permafrost Armor Component" "269939"
+#C16Skills: | 1500 ME | #C20
+
+Shoulderpads of the Icy Wastes
+#C15+#C20
+Nano Attuned Permafrost Armor Component
+#C15=#C20
+<img src=rdb://269962>
+#L "Icy Shoulderpads of Explosive Power" "269898"
+#C16Skills: | none | #C20
+
+Icy Shoulderpads of the Powerful Mind
+#C15+#C20
+Master Nano Technology Program
+#C15=#C20
+<img src=rdb://269962>
+#L "Superior Icy Shoulderpads of the Powerful Mind" "269900"
+#C16Skills: | none | #C20
+
+#C16 Superior Icy Shoulderpads of Brawn #C20
+
+Melee Program
+#C15+#C20
+Permafrost Armor Component
+#C15=#C20
+<img src=rdb://269936>
+#L "Melee Attuned Permafrost Armor Component" "269940"
+#C16Skills: | 1500 ME | #C20
+
+Shoulderpads of the Icy Wastes
+#C15+#C20
+Melee Attuned Permafrost Armor Component
+#C15=#C20
+<img src=rdb://269964>
+#L "Icy Shoulderpads of Brawn" "269902"
+#C16Skills: | none | #C20
+
+Icy Shoulderpads of Brawn
+#C15+#C20
+Master Melee Program
+#C15=#C20
+<img src=rdb://269964>
+#L "Superior Icy Shoulderpads of Brawn" "269903"
+#C16Skills: | none | #C20

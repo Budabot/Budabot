@@ -1,0 +1,22 @@
+Name: Viral Communications Larvae
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Screwdriver" "150922"
+<img src=rdb://151011>
+
+#L "Kyr'Ozch Storage Box" "288137"
+<img src=rdb://288096>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Screwdriver
+#C15+#C20
+Kyr'Ozch Storage Box
+#C15=#C20
+<img src=rdb://288690>
+#L "Viral Communications Larvae" "288281"

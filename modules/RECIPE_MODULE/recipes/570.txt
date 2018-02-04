@@ -1,0 +1,29 @@
+Name: Xnemth Plasmaprojector
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Viral Weapon Upgrade" "248517"
+<img src=rdb://100335>
+
+#L "Plasmaprojector" "121892"
+<img src=rdb://21145>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Viral Weapon Upgrade
+#C15+#C20
+Plasmaprojector
+#C15=#C20
+<img src=rdb://21145>
+#L "Xnemth Plasmaprojector" "248626"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+More Viral weapon upgrades.

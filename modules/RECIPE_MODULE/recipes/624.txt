@@ -1,0 +1,84 @@
+Name: Ancient Technical Bracer
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 All parts required for this process can be found in Albtraum. 
+You will need to build an Ancient Engineering Device as well if you do not have one already. 
+A link to this tradeskill process is included#C20
+
+#L "Crystalised Memories of a Technician" "267698"
+<img src=rdb://72770>
+
+#L "Crystalised Memories of a Mechanic" "267701"
+<img src=rdb://72771>
+
+#L "Ancient Scrap of Spirit Knowledge" "267677"
+<img src=rdb://163575>
+
+#L "Ancient Scrap of Saturated Spirit Knowledge" "267679"
+<img src=rdb://163575>
+
+#L "Inactive Ancient Bracer" "267746"
+<img src=rdb://290853>
+
+#L "Inert Knowledge Crystal" "267737"
+<img src=rdb://151030>
+
+#L "Ancient Engineering Device" "267751"
+<img src=rdb://156095>
+#C16Note:To build your Ancient Engineering Device, go here:
+#L "Ancient Engineering Device" "/tell {myname} recipe 594"#C20
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Crystalised Memories of a Technician
+#C15+#C20
+Crystalised Memories of a Mechanic
+#C15=#C20
+<img src=rdb://72769>
+#L "Combined Crystalised Technical Memories" "267702"
+#C16Skills: | 1875 NP |#C20
+
+Ancient Scrap of Spirit Knowledge
+#C15+#C20
+Ancient Scrap of Saturated Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
+#C16Skills: | 1750 PT |#C20
+
+Combined Crystalised Technical Memories
+#C15+#C20
+Ancient Scrap of Condensed Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Spirit Technical Knowledge" "267703"
+#C16Skills: | 1875 NP |#C20
+
+Ancient Scrap of Spirit Technical Knowledge
+#C15+#C20
+Inert Knowledge Crystal
+#C15=#C20
+<img src=rdb://151030>
+#L "Technical Knowledge Crystal" "267740"
+#C16Skills: | 1750 CH |#C20
+
+Ancient Engineering Device
+#C15+#C20
+Inactive Ancient Bracer
+#C15=#C20
+<img src=rdb://290847>
+#L "Active Ancient Bracer" "267747"
+#C16Skills: | 1500 ME |#C20
+
+Active Ancient Bracer
+#C15+#C20
+Technical Knowledge Crystal
+#C15=#C20
+<img src=rdb://290852>
+#L "Ancient Technical Bracer" "267754"
+#C16Skills: | 1250 ME |#C20

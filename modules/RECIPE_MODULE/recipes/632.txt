@@ -1,0 +1,32 @@
+Name: Full Data Receptacle Container
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 Empty Data Receptacle Containers can be found on RK team mission bosses and dyna's. 
+A Fixer can fill it and the owner of the container can use it to enter the Fixer Grid#C20
+
+#L "Empty Data Receptacle Container" "275056"
+<img src=rdb://275054>
+
+#L "Quiescent Grid Waveform Template" "265479"
+<img src=rdb://149936>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Empty Data Receptacle Container
+#C15+#C20
+Quiescent Grid Waveform Template
+#C15=#C20
+<img src=rdb://275055>
+#L "Full Data Receptacle Container" "275057"
+#C16Skills: | No Skills Required |#C20
+#C16Note: by right clicking the full container it will revert to an empty container and also spawn:#C20
+
+#L "Data Receptacle" "160978"
+<img src=rdb://287621>
+
+#C16Click the Data Receptacle on a Grid Terminal and you will be granted access to the Fixer Grid.#C20

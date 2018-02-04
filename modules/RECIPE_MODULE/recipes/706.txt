@@ -1,0 +1,42 @@
+Name: Viral Component Belt
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Viral Belt Control Component" "288130"
+<img src=rdb://288090>
+
+#L "Basic Belt" "288131"
+<img src=rdb://288089>
+
+#L "Viral Belt NCU Slots" "288133"
+<img src=rdb://288091>
+
+#L "Viral Belt Nanobot Power Unit" "288135"
+<img src=rdb://288092>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Viral Belt Control Component
+#C15+#C20
+Basic Belt
+#C15=#C20
+<img src=rdb://288093>
+#L "Belt with Control Component" "288132"
+
+Viral Belt NCU Slots
+#C15+#C20
+Belt with Control Component
+#C15=#C20
+<img src=rdb://288094>
+#L "Viral Belt" "288134"
+
+Viral Belt Nanobot Power Unit
+#C15+#C20
+Viral Belt
+#C15=#C20
+<img src=rdb://288088>
+#L "Viral Belt Component Platform" "288084"

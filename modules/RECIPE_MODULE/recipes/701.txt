@@ -1,0 +1,29 @@
+Name: The Dantian Belt of Life
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 This little belt can be built with help of an item found inside The Crypt in Broken Shores.
+This belt is nice, because there aren't many belts that add to basic abilities#C20
+
+#L "Pit Demon Heart" "245171"
+<img src=rdb://231393>
+
+#L "Belt Component Platform 5000" "36784"
+<img src=rdb://119144>
+#C15or#C20
+#L "Belt Component Platform 6K-X" "36787"
+<img src=rdb://119144>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Pit Demon Heart
+#C15+#C20
+Belt Component Platform 5000
+#C15=#C20
+<img src=rdb://119143>
+#L "The Dantian Belt of Life" "245429"
+#C16Skills: | 450 CL |#C20

@@ -1,0 +1,83 @@
+Name: Improving Weapons
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+Robot Instruction Disc (Improve Weapons)
+( ie #L "Robot Instruction Disc (Improve Slashing Weapons)" "155533" )
+<img src=rdb://83446>
+
+#L "Mass Relocating Robot" "155592"
+<img src=rdb://155928>
+
+#L "Symbol Library - Space" "144790"
+<img src=rdb://72782>
+
+#L "Photon Particle Emitter" "144812"
+<img src=rdb://83869>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Robot Instruction Disc (Improve Weapons)
+#C15+#C20
+Symbol Library - Space
+#C15=#C20
+<img src=rdb://83151>
+Robot Compiled Algorithm (Improve Weapons)
+( ie : #L "Robot Compiled Algorithm (Improve Slashing Weapons)" "155534" )
+#C16Skills: | NP,CL |#C20
+
+#C16------------------------------#C20
+
+Photon Particle Emitter
+#C15+#C20
+Robot Compiled Algorithm (Improve Weapons)
+#C15=#C20
+<img src=rdb://83739>
+Programmed Photon Particle Emitter (Improve Weapons)
+( ie : #L "Programmed Photon Particle Emitter (Improve Slashing Weapons)" "155544" )
+#C16Skills: |  NP  |#C20
+
+#C16------------------------------#C20
+
+Mass Relocating Robot
+#C15+#C20
+Programmed Photon Particle Emitter (Improve Weapons)
+#C15=#C20
+<img src=rdb://155929>
+Mass Relocating Robot (Improve Weapons)
+( ie : #L "Mass Relocating Robot (Improve Slashing Weapons)" "155594" )
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Uses#C16
+#C16------------------------------#C20
+
+Once you have your Mass Relocating Robot (Improve Weapons), you can now use it to improve some weapons, of which you'll find the list, depending of the the type of your Mass Relocating Robot.
+
+<highlight>Improve Crushing Weapons<end>
+Advanced Baseballbat
+Club
+Stun-Baton
+   
+<highlight>Improve Slashing Weapons<end>
+Tripler
+Whings
+Cutlass
+Meatcleaver
+Zenith Taichi
+Burning Crescent
+
+<highlight>Improve Thrusting Weapons<end>
+Slank Chop
+Gofleprod
+Click Stabber
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+The best thing to do is compare, before the process : #L "Grandmaster Click Stabber" "152776", and afterward :#L "Much Improved Click Stabber" "157820".

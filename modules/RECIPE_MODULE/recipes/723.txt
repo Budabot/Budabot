@@ -1,0 +1,24 @@
+Name: Amplified Sleek Cannon
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Dynamic Gas Redistribution Valves drops in Alien Playfields and can be used for various tradeskill processes.#C20
+
+#L "Dynamic Gas Redistribution Valves" "257962"
+<img src=rdb://205508>
+
+#L "Excellent Sleek Cannon" "160162"
+<img src=rdb://13342>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Dynamic Gas Redistribution Valves
+#C15+#C20
+Excellent Sleek Cannon
+#C15=#C20
+<img src=rdb://255470>
+#L "Amplified Sleek Cannon" "257126"

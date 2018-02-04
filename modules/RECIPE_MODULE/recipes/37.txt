@@ -1,0 +1,42 @@
+Name: Crawler Armor
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+a Patch of Skincrawler Hide
+( ie : #L "Patch of Hard Skincrawler Hide" "245211" )
+<img src=rdb://161077>
+
+#L "Mass Relocating Robot (Shape Soft Armor)" "162220"
+<img src=rdb://163857>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Mass Relocating Robot (Shape Soft Armor)
+#C15+#C20
+a Patch of Skincrawler Hide
+#C15=#C20
+<img src=rdb://13259>
+a piece of Crawler Armor
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+#L "Crawler Armor Gloves" "245118"
+#L "Crawler Armor Sleeves" "245119"
+#L "Crawler Armor Pants" "245120"
+#L "Crawler Armor Boots" "245122"
+#L "Crawler Body Armor" "245123"
+#L "Crawler Armor Hood" "245124"
+#L "Crawler Armor Shoulder Pad" "245125"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Another great example of crafted armor.  The hide can be found in CoH.

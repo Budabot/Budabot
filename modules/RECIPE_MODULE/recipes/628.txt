@@ -1,0 +1,27 @@
+Name: Infused Ancient Defender
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Dust Brigade Notum Infuser" "274552"
+<img src=rdb://218768>
+
+#L "Ancient Defender" "267627"
+<img src=rdb://218752>
+
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+#C16Note:To build your Ancient Defender, go here:
+#L "Ancient Defender" "/tell {myname} recipe 621"#C20
+
+Dust Brigade Notum Infuser
+#C15+#C20
+Ancient Defender
+#C15=#C20
+<img src=rdb://218752>
+#L "Infused Ancient Defender" "274556"
+#C16Skills: | CL 1500 |#C20

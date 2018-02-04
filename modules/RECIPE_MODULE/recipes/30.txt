@@ -1,0 +1,77 @@
+Name: Carbonum Armor
+Author: 
+#C16------------------------------
+#C12Forward#C20
+#C16------------------------------#C20
+
+You need a different HSR - Sketch and Etch for each piece of this armor.
+
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Sheet of Curved Carbonum Plating" "156017"
+<img src=rdb://156091>
+
+#L "Programmed Photon Particle Emitter (Shape Hard Armor)" "162221"
+<img src=rdb://144466>
+
+HSR - Sketch and Etch
+(ie : #L "HSR - Sketch and Etch - Chestpiece" "162290")
+<img src=rdb://162275>
+
+#L "Mass Relocating Robot" "155592"
+<img src=rdb://155928>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Programmed Photon Particle Emitter (Shape Hard Armor)
+#C15+#C20
+Mass Relocating Robot
+#C15=#C20
+<img src=rdb://163856>
+#L "Mass Relocating Robot (Shape Hard Armor)" "162218"
+#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+
+#C14------------------------------#C20
+
+Sheet of Curved Carbonum Plating
+#C15+#C20
+HSR - Sketch and Etch - Chestpiece
+#C15=#C20
+<img src=rdb://162297>
+#L "Etched Pattern for Carbonum Breastplate" "162299"
+#C16Skills: | 4.5ME,CH |#C20
+
+#C14------------------------------#C20
+
+Mass Relocating Robot (Shape Hard Armor)
+#C15+#C20
+Etched Pattern for Carbonum Breastplate
+#C15=#C20
+<img src=rdb://162421>
+#L "Carbonum Breastplate" "162432"
+#C16Skills: | 4.5CH,2.5EE,2.5INT |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+You can use...
+
+<img src=rdb://151011>
+#L "Screwdriver" "150922"
+
+...instead of the Mass Relocating Robot (Shape Hard Armor), but skill's requirement is higher like this:
+
+Screwdriver
+#C15+#C20
+Etched Pattern for Carbonum Breastplate
+#L "Carbonum Breastplate" "162432"
+#C15=#C20
+<img src=rdb://162421>
+#C16Skills: | 6ME,5.5EE,2.5INT |#C20
+
+Carb armor is great armor, especially when you are just starting out.  The NCU buffs can be handy for twinking also. Unfortunately, The Programmed Photon Particle Emitter (Shape Hard Armor) is a Boss-loot-only QL 60 stuff and very rare.

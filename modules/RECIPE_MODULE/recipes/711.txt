@@ -1,0 +1,44 @@
+Name: Alien Utilities
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 All parts required for this process can be found Sector 10.#C20
+
+#L "Alien Activation Crystal" "268478"
+<img src=rdb://12252>
+
+#L "Inactive Alien Battery" "268496"
+<img src=rdb://220416>
+
+#L "Inactive Alien Reflex Modifier" "268499"
+<img src=rdb://220416>
+
+#L "Inactive Alien Beacon" "268494"
+<img src=rdb://220416>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Alien Activation Crystal
+#C15+#C20
+Inactive Alien Battery
+#C15=#C20
+<img src=rdb://220419>
+#L "Alien Battery" "268497"
+
+Alien Activation Crystal
+#C15+#C20
+Inactive Alien Reflex Modifier
+#C15=#C20
+<img src=rdb://220417>
+#L "Alien Reflex Modifier" "268498"
+
+Alien Activation Crystal
+#C15+#C20
+Inactive Alien Beacon
+#C15=#C20
+<img src=rdb://220420>
+#L "Alien Beacon" "268495"

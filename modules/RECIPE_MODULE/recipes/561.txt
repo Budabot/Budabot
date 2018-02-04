@@ -1,0 +1,29 @@
+Name: Merren Flamethrower
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Viral Weapon Upgrade" "248517"
+<img src=rdb://100335>
+
+#L "Flamethrower" "121930"
+<img src=rdb://19800>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Viral Weapon Upgrade
+#C15+#C20
+Flamethrower
+#C15=#C20
+<img src=rdb://19800>
+#L "Merren Flamethrower" "248607"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+More Viral Weapon upgrades.

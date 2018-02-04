@@ -1,0 +1,29 @@
+Name: Veil of the Revoked
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Spirit Tech Circlet of Cerubin" "245139"
+<img src=rdb://130733>
+
+#L "Cloak of the Revoked" "245135"
+<img src=rdb://22896>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Spirit Tech Circlet of Cerubin
+#C15+#C20
+Cloak of the Revoked
+#C15=#C20
+<img src=rdb://246888>
+#L "Veil of the Revoked" "247081"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Very nice item for Traders and Enforcers!

@@ -1,0 +1,23 @@
+Name: Infused Ancient Vision Preservation Unit
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Dust Brigade Notum Infuser" "274552"
+<img src=rdb://218768>
+
+#L "Ancient Vision Preservation Unit" "267626"
+<img src=rdb://218752>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Dust Brigade Notum Infuser
+#C15+#C20
+Ancient Vision Preservation Unit
+#C15=#C20
+<img src=rdb://218752>
+#L "Infused Ancient Vision Preservation Unit" "274553"
+#C16Skills: | CL 1500 |#C20

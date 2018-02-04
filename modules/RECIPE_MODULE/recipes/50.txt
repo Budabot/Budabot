@@ -1,0 +1,31 @@
+Name: Hologram
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "Expendable Hologram Camera" "156054"
+<img src=rdb://156092>
+
+A Hologram Projector Data
+( ie : #L "Hologram PD: Barrel" "160580" )
+<img src=rdb://20412>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Hologram Projector Data
+#C15+#C20
+Expendable Hologram Camera
+#C15=#C20
+<img src=rdb://156092>
+Hologram Projector
+( ie : #L "Hologram Projector: Barrel" "160583" )
+#C16Skills: |  EE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Available only to agents, it allows them to hide disguise themselves as different objects, such as a crate >.<

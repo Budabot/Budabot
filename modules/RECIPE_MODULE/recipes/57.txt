@@ -1,0 +1,89 @@
+Name: Jobe Armor Tier 3 ( Chosen / Faithfull )
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+a part of Jobe Armor QL 220
+( #L "see here" "/tell {myname} recipe 58" and #L "here" "/tell {myname} recipe 56" )
+<img src=rdb://213586>
+
+a Blue Glyph
+( ie : #L "Blue Glyph of Enel" "218349" )
+<img src=rdb://227544>
+
+#L "Finely Refined Notum" "227643"
+<img src=rdb://151030>
+
+a sided Insigna
+#L "Insignia of the Faithful" "229043"
+<img src=rdb://227629>
+#C15or#C20
+#L "Insignia of the Chosen" "229047" )
+<img src=rdb://227628>
+
+#C16------------------------------
+#C12First#C20
+#C16------------------------------#C20
+
+Upgrade your Jobe Armor to QL220. If it's Tier 2 part, right-click on it. If it's a Tier 1 part, you have to find a #L "Glyph of the Arcana" "227911" and use it on Advanced Jobe Suit part.
+
+Example:
+
+<img src=rdb://214741>
+#L "Advanced Jobe Suit Support System" "227906"
+#C15+#C20
+<img src=rdb://227586>
+#L "Glyph of the Arcana" "227911"
+#C15=#C20
+<img src=rdb://214741>
+#L "Excellent Jobe Suit Support System" "227909"
+
+#C12 WARNING #C16 : Back Part for MetaPhysistis, Doctor, Soldier and Adventurer are the same. Once you apply the Glyph of the Arcana on it, you have to right-click the Excellent Jobe Suit Support System to turn it into your profession before continuing.
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Blue Glyph
+#C15+#C20
+Finely Refined Notum
+#C15=#C20
+<img src=rdb://227530>
+Blue Glyph - Revived
+( ie #L "Blue Glyph of Aban - Revived" "227702" )
+#C16Skills: | QP1210,CL1210  |#C20
+
+#C14------------------------------#C20
+
+Blue Glyph - Revived
+#C15+#C20
+Sided Insigna
+#C15=#C20
+<img src=rdb://227584>
+Sided Glyph ( ie #L "Water Glyph of Judgement" "229049" )
+#C16Skills: | QFT1375,EE1375 |#C20
+
+#C14------------------------------#C20
+
+Sided Glyph
+#C15+#C20
+Jobe Armor QL220
+#C15=#C20
+<img src=rdb://213567>
+Sided Tier 3 Armor
+( ie #L "Chosen Nano Technician Boots" "214795" )
+#C16Skills: | PS?? |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+Omni: #L "Insignia of the Chosen" "229047"
+Clan: #L "Insignia of the Faithful" "229043"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+You have now fully ugraded your Jobe armor... congratulations!

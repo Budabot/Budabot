@@ -1,0 +1,29 @@
+Name: Guise of the Hooded Crow
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Spirit of the Hooded Crow" "245888"
+<img src=rdb://236568>
+
+#L "Augmented Nano Armor Helmet" "21813"
+<img src=rdb://10839>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Spirit of the Hooded Crow
+#C15+#C20
+Augmented Nano Armor Helmet
+#C15=#C20
+<img src=rdb://10839>
+#L "Guise of the Hooded Crow" "245887"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Very nice shadowlands helmet.

@@ -1,0 +1,60 @@
+Name: Metallic Mantis Armor
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+A Deformed Mantidae...
+
+#L "Head" "164272"
+<img src=rdb://144707>
+#C15or#C20
+#L "Abdomen" "164274"
+<img src=rdb://144711>
+#C15or#C20
+#L "Femur" "164276"
+<img src=rdb://158239>
+#C15or#C20
+#L "Tarsus" "164278"
+<img src=rdb://158238>
+#C15or#C20
+#L "Tibia" "164280"
+<img src=rdb://158239>
+#C15or#C20
+#L "Wing" "164282"
+<img src=rdb://161085>
+
+#L "Programmed Photon Particle Emitter (Shape Soft Armor)" "162222"
+<img src=rdb://144476>
+
+#L "Mass Relocating Robot" "155591"
+<img src=rdb://155928>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Programmed Photon Particle Emitter (Shape Soft Armor)
+#C15+#C20
+Mass Relocating Robot
+#C15=#C20
+<img src=rdb://163857>
+#L "Mass Relocating Robot (Shape Soft Armor)" "162220"
+#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+
+#C16------------------------------#C20
+
+Mass Relocating Robot (Shape Soft Armor)
+#C15+#C20
+Deformed Mantidae
+#C15=#C20
+<img src=rdb://13249>
+Metallic Mantis Armor
+( ie : #L "Metallic Mantis Body Armor" "164349"
+#C16Skills: | ME,INT |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Excellent armor but up to QL130 approximatively.

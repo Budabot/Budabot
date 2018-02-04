@@ -1,0 +1,42 @@
+Name: Prohibited Hand Mortar of Bacam-Xum
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Barrel of Bacam-Xum" "246874"
+<img src=rdb://130706>
+
+#L "Ignition chamber of Bacam-Xum" "246875"
+<img src=rdb://130672>
+
+#L "Stock of Bacam-Xum" "246877"
+<img src=rdb://130872>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Ignition chamber of Bacam-Xum
+#C15+#C20
+Barrel of Bacam-Xum
+#C15=#C20
+<img src=rdb://130705>
+#L "Half-Finished Hand-Mortar of Bacam-Xum" "246876"
+#C16Skills: |  1750WS,1250ME  |#C20
+
+#C16------------------------------#C20
+
+Stock of Bacam-Xum
+#C15+#C20
+Half-Finished Hand-Mortar of Bacam-Xum
+#C15=#C20
+<img src=rdb://233213>
+#L "Prohibited Hand-Mortar of Bacam-Xum" "246873"
+#C16Skills: |  1750WS,1250ME  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Extremely hard (if not impossible) to equip at level 205 without some seriously expensive buffing armor on.  As if the Tradeskilling wasnt hard enough for this item.

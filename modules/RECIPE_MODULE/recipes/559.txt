@@ -1,0 +1,114 @@
+Name: ICC Shuttleport Weapons
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Antonio's Adaptation Factory" "248306"
+<img src=rdb://205493>
+
+a Startup weapon
+( ie : #L "Solar-Powered Shotgun" "121570" )
+<img src=rdb://113988>
+
+a special item
+( ie : #L "Stalker Limb" "248314" )
+<img src=rdb://130881>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Antonio's Adaptation Factory
+#C15+#C20
+a special item
+#C15=#C20
+<img src=rdb://130870>
+a special upgrade
+( ie : #L "Polishing Tool" "248313" )
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------#C20
+
+a special upgrade
+#C15+#C20
+a Startup weapon
+#C15=#C20
+<img src=rdb://113988>
+an upgraded startup weapon
+( ie : #L "Polished Eliminator" "248345" )
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+#L "Caustic Meta Shield" "248342":
+#L "Salamander Bile" "248337"
+#L "Bile Cartridge" "248336"
+
+#L "Shaolin Sporting Bow" "248354":
+#L "Rollerrat Intestines" "248333"
+#L "Gut Bowstring" "248332"
+
+#L "Balanced War Hammer" "248353":
+#L "Malle Skull" "248330"
+#L "Reinforced Hammer Head" "248331"
+
+#L "Stabilized Silent Spitter" "248344":
+#L "Bone Plates" "248310"
+#L "Bone Stock" "248312"
+
+#L "Leet Spine Sword" "248351":
+#L "Spinal Section" "248323"
+#L "Bone Cross Guard" "248324"
+
+#L "Wailing Bat" "248341":
+#L "Reet Beak" "248328"
+#L "Reet Beak Whistling Plug" "248327"
+
+#L "Injector Dirk" "248350":
+#L "Venom Sample" "248322"
+#L "Venom Cartridge" "248321"
+
+#L "Polished Eliminator" "248345":
+#L "Stalker Limb" "248314"
+#L "Polishing Tool" "248313"
+
+#L "Cerset Zapper Rifle" "248348":
+#L "Optical Enhancer" "248318"
+#L "Recalibrated Scope Unit" "248317"
+
+#L "Nizno's Bomb Thrower" "248346":
+#L "Compression Chamber" "248334"
+#L "Pneumatic Compression Chamber" "248335"
+
+#L "BO-18 (Blue Offset)" "248347":
+#L "Fluid Sample" "248315"
+#L "Chemical Tempering Fluid" "248316"
+
+#L "Surge Baseball Bat" "248355":
+#L "Power Supply" "248307"
+#L "Adapted Power Supply" "248308"
+
+#L "Salamander Grip Sword" "248352":
+#L "Swatch of Salamander Skin" "248325"
+#L "Salamander Skin Grip Tape" "248326"
+
+#L "Electrical Surge Pistol" "248343":
+#L "Power Supply" "248307"
+#L "Adapted Power Supply" "248308"
+
+#L "Solar-Powered Shotgun" "121570"
+#L "Screwdriver" "150922"
+#L "Improved Solar Trader Shotgun" "243846"
+
+#L "Tiny Sword" "218404"
+#L "Bone Cross Guard" "248324"
+#L "Leet Spine Sword" "248351"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Upgrade your startup weapons.

@@ -1,0 +1,86 @@
+Name: Frozen Yutto Remedies
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C12 *** #C16 With items gathered during the Penumbra quests and found in Alappaa, you can create 3 different kinds of Yutto Remedies. The base for all is the same, just the last components differ depending which type you wish to build. 
+Note: Every step requires 1100 in Pharmacy skill and every product comes in stack of 5.
+#C12 *** #C20
+
+#L "Yuttos Filter" "269884"
+<img src=rdb://205505>
+
+#L "Permafrost Residue" "269872"
+<img src=rdb://72768>
+
+#L "Empty Permafrost Stimulant Chamber" "269891"
+<img src=rdb://100323>
+
+#L "Volatile Permafrost Chemicals" "269893"
+<img src=rdb://100330>
+#C15or#C20
+#L "Viscous Permafrost Chemicals" "269894"
+<img src=rdb://100337>
+#C15or#C20
+#L "Regenerative Permafrost Chemicals" "269895"
+<img src=rdb://100333>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+<highlight>The Base:<end>
+
+Yuttos Filter
+#C15+#C20
+Permafrost Residue
+#C15=#C20
+<img src=rdb://100323>
+#L "Filtered Permafrost Residue" "269890"
+#C16Skills: | PH |#C20
+
+Filtered Permafrost Residue
+#C15+#C20
+Empty Permafrost Stimulant Chamber
+#C15=#C20
+<img src=rdb://100315>
+#L "Full Permafrost Stimulant Chamber" "269892"
+#C16Skills: | PH |#C20
+
+#C14------------------------------#C20
+
+<highlight>The variations:<end>
+
+#C16Cold damage#C20
+Full Permafrost Stimulant Chamber
+#C15+#C20
+Volatile Permafrost Chemicals
+#C15=#C20
+<img src=rdb://100314>
+#L "Frozen Yuttos Remedy - Bane" "269865"
+#C16Skills: |  PH  |#C20
+#C16Note: Runs Vengeful Ward of Penumbra in your NCU (+50 cold damage, +500 Cold AC)#C20
+#C14------------------------------#C20
+
+#C16Add all defence#C20
+Full Permafrost Stimulant Chamber
+#C15+#C20
+Viscous Permafrost Chemicals
+#C15=#C20
+<img src=rdb://100314>
+#L "Frozen Yuttos Remedy - Icy Scales" "269866"
+#C16Skills: |  PH  |#C20
+#C16Note: Runs Protective Ward of Penumbra in your NCU (+5 AAD, +500 Cold AC)#C20
+#C14------------------------------#C20
+
+#C16Heal and Nano Delta#C20
+Full Permafrost Stimulant Chamber
+#C15+#C20
+Regenerative Permafrost Chemicals
+#C15=#C20
+<img src=rdb://100314>
+#L "Frozen Yuttos Remedy - Tonic" "269867"
+#C16Skills: |  PH  |#C20
+#C16Note: Runs Regenerative Ward of Penumbra in your NCU (+2 heal delta, +2 nano delta, +500 Cold AC)#C20
+#C14------------------------------#C20

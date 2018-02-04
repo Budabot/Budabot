@@ -1,0 +1,39 @@
+Name: Trimmer - Damage Modifier
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+An Energy Core
+( ie : #L "Charged Energy Core" "249646" )
+<img src=rdb://20405>
+
+#L "Trimmer Casing" "154938"
+<img src=rdb://154935>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Energy Core
+#C15+#C20
+Trimmer Casing
+#C15=#C20
+<img src=rdb://12697>
+Trimmer - Damage Modifier
+( ie : #L "Trimmer - Energy Damage Modifier" "249110" )
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+#L "Charged Energy Core" "249646" - #L "Trimmer - Energy Damage Modifier" "249110"
+#L "Heated Energy Core" "249647" - #L "Trimmer - Fire Damage Modifier" "249109"
+#L "Cooled Energy Core" "249648" - #L "Trimmer - Cold Damage Modifier" "249107"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Supercharged Trimmers for players with Ai Expansion.

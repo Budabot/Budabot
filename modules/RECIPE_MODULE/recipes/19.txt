@@ -1,0 +1,84 @@
+Name: Biotech Rod Ring
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Small Gold Ingot" "151369"
+<img src=rdb://151012>
+
+#L "Personal Furnace" "150930"
+<img src=rdb://149949>
+
+#L "Generic Ring Template" "151365"
+<img src=rdb://84063>
+
+#L "Wire Drawing Machine" "150917"
+<img src=rdb://149952>
+
+A Biotech Rod:
+
+#L "Glowing Biotech Rod" "251267"
+<img src=rdb://100330>
+#C15or#C20
+#L "Pulsing Biotech Rod" "251269"
+<img src=rdb://100333>
+#C15or#C20
+#L "Dark Biotech Rod" "251271"
+<img src=rdb://100338>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Personal Furnace
+#C15+#C20
+Small Gold Ingot
+#C15=#C20
+<img src=rdb://149950>
+#L "Liquid Gold" "151372"
+#C16Skills: |  ME  |#C20
+
+#C14------------------------------#C20
+
+Wire Drawing Machine
+#C15+#C20
+Liquid Gold
+#C15=#C20
+<img src=rdb://151015>
+#L "Gold Filigree Wire" "151368"
+#C16Skills: |  ME  |#C20
+
+#C14------------------------------#C20
+
+Generic Ring Template
+#C15+#C20
+Gold Filigree Wire
+#C15=#C20
+<img src=rdb://151923>
+#L "Gold Filigree Ring" "151375"
+#C16Skills: |  ME  |#C20
+
+#C14------------------------------#C20
+
+Gold Filigree Ring
+#C15+#C20
+a Biotech Rod
+#C15=#C20
+<img src=rdb://245673>
+a Biotech Rod Ring
+#C16Skills: | ME,EE |#C20
+
+#C16------------------------------
+#C12Details#C16
+#C16------------------------------#C20
+
+#L "Pulsing Biotech Rod Ring" "251760"
+#L "Dark Biotech Rod Ring" "251758"
+#L "Glowing Biotech Rod Ring" "251261"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Nice ring that requires Alien Tech level 3 to wear

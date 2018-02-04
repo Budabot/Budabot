@@ -1,0 +1,81 @@
+Name: AC Buff Stim
+Author: 
+<highlight>1. Polymerizing Stim<end>
+
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Gas Bladder" "245115"
+<img src=rdb://37970>
+
+#L "Empty Stim Unit" "247235"
+<img src=rdb://11716>
+
+#L "Mimicking Cellular Oil" "154268"
+<img src=rdb://100306>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Gas Bladder
+#C15+#C20
+Empty Stim Unit
+#C15=#C20
+<img src=rdb://100338>
+#L "Chemical Poison Sample" "245274"
+#C16Skills: | CH450 |#C20
+
+#C16------------------------------#C20
+
+Chemical Poison Sample
+#C15+#C20
+Mimicking Cellular Oil
+#C15=#C20
+<img src=rdb://100310>
+#L "Polymerizing Stim" "245167"
+#C16Skills: | CH525 |#C20
+
+<highlight>2. Bioremediation Stim<end>
+
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Pit Demon Spit" "245169"
+<img src=rdb://154417>
+
+#L "Empty Stim Unit" "247235"
+<img src=rdb://11716>
+
+#L "Mimicking Cellular Oil" "154268"
+<img src=rdb://100306>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Pit Demon Spit
+#C15+#C20
+Empty Stim Unit
+#C15=#C20
+<img src=rdb://100330>
+#L "Deinococcus Radiodurans" "245168"
+#C16Skills: | PH450 |#C20
+
+#C16------------------------------#C20
+
+Deinococcus Radiodurans
+#C15+#C20
+Mimicking Cellular Oil
+#C15=#C20
+<img src=rdb://11710>
+#L "Bioremediation Stim" "245156"
+#C16Skills: | PH450 |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Enhance your ubahness.

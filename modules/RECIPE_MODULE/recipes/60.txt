@@ -1,0 +1,68 @@
+Name: Emergency Treatment Laboratory
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Antiseptic Jar" "154330"
+<img src=rdb://37966>
+
+#L "Mimicking Cellular Oil" "154268"
+<img src=rdb://100306>
+
+#L "Revitalizing Serum" "154344"
+<img src=rdb://20192>
+
+#L "Blood Plasma" "154359" #L "Recipe" "/tell {myname} recipe 20"
+<img src=rdb://19857>
+
+#L "Treatment Laboratory Bot-Injector" "154340"
+<img src=rdb://154420>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Mimicking Cellular Oil
+#C15+#C20
+Antiseptic Jar
+#C15=#C20
+<img src=rdb://154419>
+#L "Jar of Mimicking Cellular Oil" "154334"
+#C16Skills: |  PT  |#C20
+
+#C14------------------------------#C20
+
+Revitalizing Serum
+#C15+#C20
+Jar of Mimicking Cellular Oil
+#C15=#C20
+<img src=rdb://154417>
+#L "Jar of Prepared Serum" "154336"
+#C16Skills: |  PT  |#C20
+
+#C14------------------------------#C20
+
+Blood Plasma
+#C15+#C20
+Jar of Prepared Serum
+#C15=#C20
+<img src=rdb://154418>
+#L "Jar of Transient Fluid" "154338"
+#C16Skills: |  PT  |#C20
+
+#C14------------------------------#C20
+
+Jar of Transient Fluid
+#C15+#C20
+Treatment Laboratory Bot-Injector
+#C15=#C20
+<img src=rdb://37994>
+#L "Emergency Treatment Laboratory" "154328"
+#C16Skills: |  PT  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Theses Emergency Treatment Laboratory are extremeley efficient and can be sold very high. Sadly, the cost of the ingredients involved to make them is really high too...

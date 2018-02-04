@@ -1,0 +1,42 @@
+Name: Trimmer - Increase Aggressiveness
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "XU-11 Serum" "154909"
+<img src=rdb://100338>
+
+#L "Chemical Impact Injector" "142911"
+<img src=rdb://130815>
+
+#L "Trimmer Casing" "154938"
+<img src=rdb://154935>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+XU-11 Serum
+#C15+#C20
+Chemical Impact Injector
+#C15=#C20
+<img src=rdb://130814>
+#L "Modified Chemical Impact Injector" "154911"
+#C16Skills: |  CH  |#C20
+
+#C16------------------------------#C20
+
+Modified Chemical Impact Injector
+#C15+#C20
+Trimmer Casing
+#C15=#C20
+<img src=rdb://12697>
+#L "Trimmer - Increase Aggressiveness" "154940"
+#C16Skills: |  ME  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+An extremely important item for Engineers.  Select your bot and use this item.  The effect should stay on your pet and make it more aggressive.  A level 200 one of these works VERY well for engis when they are taking on 'real mean' and 'ace' mobs.

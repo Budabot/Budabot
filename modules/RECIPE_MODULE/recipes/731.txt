@@ -1,0 +1,50 @@
+Name: Amplified Kyr'Ozch Carbine
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Notum Amplification Coil drops in Alien Playfields and can be used for various tradeskill processes.#C20
+
+#L "Notum Amplification Coil" "257963"
+<img src=rdb://257195>
+
+#L "Kyr'Ozch Carbine - Type 5" "254499"
+<img src=rdb://255466>
+
+#L "Kyr'Ozch Carbine - Type 12" "254506"
+<img src=rdb://255466>
+
+#L "Kyr'Ozch Carbine - Type 13" "254513"
+<img src=rdb://255466>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Notum Amplification Coil
+#C15+#C20
+Kyr'Ozch Carbine - Type 5
+#C15=#C20
+<img src=rdb://255466>
+#L "Amplified Kyr'Ozch Carbine - Type 5" "257144"
+#C16Skills: | 1250 CL |#C20
+#C16Note: The Carbine has to be QL250+#C20
+
+Notum Amplification Coil
+#C15+#C20
+Kyr'Ozch Carbine - Type 12
+#C15=#C20
+<img src=rdb://255466>
+#L "Amplified Kyr'Ozch Carbine - Type 12" "257143"
+#C16Skills: | 1250 CL |#C20
+#C16Note: The Carbine has to be QL250+#C20
+
+Notum Amplification Coil
+#C15+#C20
+Kyr'Ozch Carbine - Type 13
+#C15=#C20
+<img src=rdb://255466>
+#L "Amplified Kyr'Ozch Carbine - Type 13" "257142"
+#C16Skills: | 1250 CL |#C20
+#C16Note: The Carbine has to be QL250+#C20

@@ -1,0 +1,119 @@
+Name: Building Nanoprograms
+Author: 
+#C16------------------------------
+#C12Forward#C20
+#C16------------------------------#C20
+
+In this recipe everything will be done by using:
+
+#L "Instruction Disc (A Maker's Touch)" "147348"
+
+as an example.
+
+To build a Nanoprogram, you first need to make a Programmed Photon Particle Emitter. The construction of this item require different ingredients depending of the Instruction Disc. In fact, to make it you need a Symbol Library. To know which one you need, just read the description of the Instruction Disc. In our case, it'll be a #L "Symbol Library - Medical" "144796". As for the Crystal Reflection Pattern (Medical one in this case).
+
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "Instruction Disc (A Maker's Touch)" "147348"
+<img src=rdb://83413>
+
+#L "Symbol Library - Medical" "144796"
+<img src=rdb://72779>
+
+#L "Photon Particle Emitter" "144788"
+<img src=rdb://83869>
+
+#L "Carbonrich Rock" "150274"
+<img src=rdb://72772>
+
+#L "Jensen Personal Ore Extractor" "150281"
+<img src=rdb://149947>
+
+#L "Isotope Separator" "144785"
+<img src=rdb://72783>
+
+#L "Neutron Displacer" "144784"
+<img src=rdb://99235>
+
+#L "Crystal Reflection Pattern - Medical" "144778"
+<img src=rdb://72776>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Instruction Disc (A Maker's Touch)
+#C15+#C20
+Symbol Library - Medical
+#C15=#C20
+<img src=rdb://83118>
+#L "Compiled Algorithm (A Maker's Touch)" "145848"
+#C16Skills: | NP,CL |#C20
+
+#C14------------------------------#C20
+
+Compiled Algorithm (A Maker's Touch)
+#C15+#C20
+Photon Particle Emitter
+#C15=#C20
+<img src=rdb://83706>
+#L "Programmed Photon Particle Emitter (A Maker's Touch)" "148848"
+#C16Skills: |  NP  |#C20
+
+#C14------------------------------#C20
+
+Carbonrich Rock
+#C15+#C20
+Jensen Personal Ore Extractor
+#C15=#C20
+<img src=rdb://72766>
+#L "Carbonrich Ore" "144770"
+#C16Skills: | NP,CL |#C20
+
+#C14------------------------------#C20
+
+Isotope Separator
+#C15+#C20
+Carbonrich Ore
+#C15=#C20
+<img src=rdb://72765>
+#L "Pure Carbon Crystal" "144800"
+#C16Skills: |  EE  |#C20
+
+#C14------------------------------#C20
+
+Pure Carbon Crystal
+#C15+#C20
+Neutron Displacer
+#C15=#C20
+<img src=rdb://72764>
+#L "Program Crystal" "144801"
+#C16Skills: | ME,QT |#C20
+
+#C14------------------------------#C20
+
+Program Crystal
+#C15+#C20
+Crystal Reflection Pattern - Medical
+#C15=#C20
+<img src=rdb://72762>
+#L "Prepared Program Crystal - Medical" "144809"
+#C16Skills: | EE,QT |#C20
+
+#C14------------------------------#C20
+
+Programmed Photon Particle Emitter (A Maker's Touch)
+#C15+#C20
+Prepared Program Crystal - Medical
+#C15=#C20
+<img src=rdb://42448>
+#L "Nano Crystal (A Maker's Touch)" "116804"
+#C16Skills: | ME,NP |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Once you have all the tools (and the reqs...), it's very profitable to build Nanoprograms. Especially since the cost of all the parts have been greatly reduced since 14.4 Patch. Moreover some Nanoprograms are only available by making them from the Instruction Disc...

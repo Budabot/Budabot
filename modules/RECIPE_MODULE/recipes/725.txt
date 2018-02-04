@@ -1,0 +1,25 @@
+Name: Extruder's Molybdenum Crash Helmet
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Action Probability Estimator drops in Sector 13 and can be used for various tradeskill processes.#C20
+
+#L "Action Probability Estimator" "257960"
+<img src=rdb://203502>
+
+#L "Kegern's Molybdenum Plate Helmet" "252017"
+<img src=rdb://252429>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Action Probability Estimator
+#C15+#C20
+Kegern's Molybdenum Plate Helmet
+#C15=#C20
+<img src=rdb://252429>
+#L "Extruder's Molybdenum Crash Helmet" "257379"
+#C16Note: Omni Helmet#C20

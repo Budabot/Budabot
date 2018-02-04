@@ -1,0 +1,26 @@
+Name: Trimmer - Improved Actuators
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16This Trimmer will heal your pet for up to 6k of HP and will give an additional boost to damage for 600 secs.
+It will lock your Mechanical Engineering skill for 60 minutes.#C20
+
+#L "Trimmer Casing" "263824"
+<img src=rdb://154935>
+
+#L "Smelly Liquid" "253173"
+<img src=rdb://20412>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Smelly Liquid
+#C15+#C20
+Trimmer Casing
+#C15=#C20
+<img src=rdb://292754>
+#L "Trimmer - Improve Actuators" "253189"
+#C16Skills: | trimmer casing needs to be 90% of the Smelly Liquid |#C20

@@ -1,0 +1,24 @@
+Name: Vektor ND Grand Wyrm
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Energy Redistribution Unit drops in Alien Playfields and can be used for various tradeskill processes.#C20
+
+#L "Energy Redistribution Unit" "257961"
+<img src=rdb://257197>
+
+#L "Vektor ND DRAGON Shotgun" "124262"
+<img src=rdb://21144>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Energy Redistribution Unit
+#C15+#C20
+Vektor ND DRAGON Shotgun
+#C15=#C20
+<img src=rdb://257711>
+#L "Vektor ND Grand Wyrm" "257123"

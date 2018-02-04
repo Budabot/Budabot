@@ -1,0 +1,55 @@
+Name: Personalized Basic Robot Brain
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Screwdriver" "150922"
+<img src=rdb://151011>
+
+#L "Robot Junk" "42619"
+<img src=rdb://144715>
+
+#L "Bio Analyzing Computer" "156021"
+<img src=rdb://156084>
+
+#L "MasterComm - Personalization Device" "156024"
+<img src=rdb://11618>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Screwdriver
+#C15+#C20
+Robot Junk
+#C15=#C20
+<img src=rdb://149940>
+#L "Nano Sensor" "150924"
+#C16Skills: |  ME  |#C20
+
+#C16------------------------------#C20
+
+Bio Analyzing Computer
+#C15+#C20
+Nano Sensor
+#C15=#C20
+<img src=rdb://156085>
+#L "Basic Robot Brain" "156023"
+#C16Skills: |  EE  |#C20
+
+#C16------------------------------#C20
+
+MasterComm - Personalization Device
+#C15+#C20
+Basic Robot Brain
+#C15=#C20
+<img src=rdb://156087>
+#L "Personalized Basic Robot Brain" "156027"
+#C16Skills: |  EE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+This nifty little thing costs quite a lot to make and only gives a little bit of sense when equipped. However, it can useful for equipping Sense/Agi armors.

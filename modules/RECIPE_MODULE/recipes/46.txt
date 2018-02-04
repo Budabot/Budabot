@@ -1,0 +1,42 @@
+Name: Thick Flesh Hood
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "Monster Parts" "42640"
+<img src=rdb://144704>
+
+#L "Programmed Photon Particle Emitter (Shape Soft Armor)" "162222"
+<img src=rdb://144476>
+
+#L "Mass Relocating Robot" "155591"
+<img src=rdb://155928>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Programmed Photon Particle Emitter (Shape Soft Armor)
+#C15+#C20
+Mass Relocating Robot
+#C15=#C20
+<img src=rdb://163857>
+#L "Mass Relocating Robot (Shape Soft Armor)" "162220"
+#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+
+#C14------------------------------#C20
+
+Mass Relocating Robot (Shape Soft Armor)
+#C15+#C20
+Monster Parts
+#C15=#C20
+<img src=rdb://23001>
+#L "Thick Flesh Hood" "163217"
+#C16Skills: | ME,INT |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+No AC holes :)

@@ -1,0 +1,60 @@
+Name: Envy of the Xan
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Xan Weapon Upgrade Device which drops from the Mitaar Hero, Ground Chief Vortexx and 12-Man instances can be tradeskilled with 30 different Shadowlands weapons/#C20
+
+#L "Xan Weapon Upgrade Device" "280786"
+<img src=rdb://246391>
+
+#L "Rapid-Reload-And-Fire Gyro" "121391"
+<img src=rdb://130700>
+
+#L "Lord of Envy" "244843"
+<img src=rdb://244836>
+#C15or#C20
+#L "Lady of Envy" "244842"
+<img src=rdb://244836>
+#C15or#C20
+#L "Superior Rebuilt Perennium Beamer" "260713"
+<img src=rdb://244836>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lord of Envy
+#C15=#C20
+<img src=rdb://281599>
+#L "Envy of the Xan" "280724"
+
+#C15or#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lady of Envy
+#C15=#C20
+<img src=rdb://281599>
+#L "Envy of the Xan" "280724"
+
+#C15or#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Superior Rebuilt Perennium Beamer
+#C15=#C20
+<img src=rdb://281599>
+#L "Envy of the Xan" "280724"
+
+#C16Note: The Envy can be further upgraded with ql150+ shop bought items:#C20
+
+Rapid-Reload-And-Fire Gyro
+#C15+#C20
+Envy of the Xan
+#C15=#C20
+<img src=rdb://281599>
+#L "Rhat'Ata Gun" "281507"

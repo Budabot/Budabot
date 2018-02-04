@@ -1,0 +1,33 @@
+Name: Improved Immortal Katana
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Faded Immortal Katana" "154893"
+#C15or#C20
+#L "Broken Immortal Katana" "154907"
+#C15or#C20
+#L "Immortal Katana" "154505"
+<img src=rdb://154506>
+
+#L "SSC Reversive Energy-Packs" "154943"
+<img src=rdb://12667>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+SSC Reversive Energy-Packs
+#C15+#C20
+An Immortal Katana
+#C15=#C20
+<img src=rdb://154506>
+#L "Improved Immortal Katana" "155863"
+#C16Skills: |  EE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Only the faded version of the Immortal Katana seems to be worth upgrading.

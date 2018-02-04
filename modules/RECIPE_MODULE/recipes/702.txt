@@ -1,0 +1,87 @@
+Name: Steps of Madness upgrades
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 Mobs in Steps of Madness drop a lot of Nightmare XXX Ethers. Those are used for upgrading 3 items that Neleb drops:
+namely Fractured Sanity, Neleb's Notum Battlerod and Neleb's Nano-circuit Robe.#C20
+
+#L "Nightmare Tidal Ether" "274879"
+<img src=rdb://290662>
+
+#L "Nightmare Arachnid Ether" "274958"
+<img src=rdb://290657>
+
+#L "Nightmare Spacial Ether" "274959"
+<img src=rdb://290661>
+
+#L "Nightmare Burning Ether" "274960"
+<img src=rdb://290660>
+
+#L "Nightmare Tidal Ether" "274961"
+<img src=rdb://290659>
+
+#L "Fractured Sanity" "151896"
+<img src=rdb://84068>
+
+#L "Neleb's Notum Battlerod" "152026"
+<img src=rdb://33165>
+
+#L "Neleb's Nano-circuit Robe" "151895"
+<img src=rdb://151898>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Nightmare Tidal Ether
+#C15+#C20
+Nightmare Arachnid Ether
+#C15=#C20
+<img src=rdb://290658>
+#L "Combined Nightmare Ether" "274967"
+
+Combined Nightmare Ether
+#C15+#C20
+Nightmare Spacial Ether
+#C15=#C20
+<img src=rdb://290658>
+#L "Combined Nightmare Ether" "274968"
+
+Combined Nightmare Ether
+#C15+#C20
+Nightmare Burning Ether
+#C15=#C20
+<img src=rdb://290658>
+#L "Combined Nightmare Ether" "274969"
+
+Combined Nightmare Ether
+#C15+#C20
+Nightmare Darkness Ether
+#C15=#C20
+<img src=rdb://290656>
+#L "Complete Nightmare Ether" "274970"
+
+#C16Now combine Neleb's items with the ethers:#C20
+
+Fractured Sanity
+#C15+#C20
+Complete Nightmare Ether
+#C15=#C20
+<img src=rdb://84068>
+#L "Fractured Nightmare" "274957"
+
+Neleb's Notum Battlerod
+#C15+#C20
+Complete Nightmare Ether
+#C15=#C20
+<img src=rdb://33165>
+#L "Neleb's Nightmare Battlerod" "274955"
+
+Neleb's Nano-circuit Robe
+#C15+#C20
+Complete Nightmare Ether
+#C15=#C20
+<img src=rdb://151898>
+#L "Neleb's Nano-master Robe" "274956"

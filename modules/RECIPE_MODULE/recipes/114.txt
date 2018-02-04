@@ -1,0 +1,42 @@
+Name: Spider Shank Machete
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Snake Bile" "227172"
+<img src=rdb://156493>
+
+#L "Spider Shank" "227171"
+<img src=rdb://158238>
+
+#L "Handle-Shaped Gofle Toe Bone" "227175"
+<img src=rdb://130862>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Snake Bile
+#C15+#C20
+Handle-Shaped Gofle Toe Bone
+#C15=#C20
+<img src=rdb://130862>
+#L "Bone Handle" "227177"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------#C20
+
+Bone Handle
+#C15+#C20
+Spider Shank
+#C15=#C20
+<img src=rdb://158238>
+#L "Spider Shank Machete" "227089"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+More startup weapons for the SL nooby. :)

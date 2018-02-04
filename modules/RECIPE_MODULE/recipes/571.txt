@@ -1,0 +1,29 @@
+Name: Codex of the Insulting Emerto
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Library of Foul Language" "165111"
+<img src=rdb://131266>
+
+#L "Alien Language Matrix" "253171"
+<img src=rdb://144714>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Library of Foul Language
+#C15+#C20
+Alien Language Matrix
+#C15=#C20
+<img src=rdb://131266>
+#L "Codex of the Insulting Emerto" "253187"
+#C16Skills: |  BE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+An Enforcer taunt item

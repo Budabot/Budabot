@@ -1,0 +1,58 @@
+Name: Lust of the Xan
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Xan Weapon Upgrade Device which drops from the Mitaar Hero, Ground Chief Vortexx and 12-Man instances can be tradeskilled with 30 different Shadowlands weapons/#C20
+
+#L "Xan Weapon Upgrade Device" "280786"
+<img src=rdb://246391>
+
+#L "Nano Pylon" "121277"
+<img src=rdb://130748>
+
+#L "Runtime Critical Area Analyzer" "137299"
+<img src=rdb://130696>
+
+#L "Lord of Lust" "244914"
+<img src=rdb://244837>
+#C15or#C20
+#L "Lady of Lust" "244913"
+<img src=rdb://244837>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lord of Lust
+#C15=#C20
+<img src=rdb://280912>
+#L "Lust of the Xan" "280728"
+
+#C15or#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lady of Lust
+#C15=#C20
+<img src=rdb://280912>
+#L "Lust of the Xan" "280728"
+
+#C16Note: The Lust can be further upgraded with ql150+ shop bought items:#C20
+
+Nano Pylon
+#C15+#C20
+Lust of the Xan
+#C15=#C20
+<img src=rdb://281582>
+#L "Peh'Wer Pistol" "281505"
+
+Runtime Critical Area Analyzer
+#C15+#C20
+Peh'Wer Pistol
+#C15=#C20
+<img src=rdb://281583>
+#L "Troa'Ler Pistol" "281506"

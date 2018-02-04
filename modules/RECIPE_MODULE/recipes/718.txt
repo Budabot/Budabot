@@ -1,0 +1,25 @@
+Name: Explosif's Polychromatic Pillows
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Visible Light Remodulation Device drops in Alien Playfields and can be used for various tradeskill processes.#C20
+
+#L "Visible Light Remodulation Device" "257964"
+<img src=rdb://235270>
+
+#L "Concrete Cushion" "125456"
+<img src=rdb://85162>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Visible Light Remodulation Device
+#C15+#C20
+Concrete Cushion
+#C15=#C20
+<img src=rdb://257710>
+#L "Explosif's Polychromatic Pillows" "258345"
+#C16Note: right clicking the pillow will change the modifications on it#C20

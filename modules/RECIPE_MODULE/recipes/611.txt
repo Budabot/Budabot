@@ -1,0 +1,38 @@
+Name: De'Valos Protection Ring
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C12 *** #C16 Drops from the Bosses in Sector 35.#C12 *** #C20
+
+#L "De'Valos Radiation Protection Ring" "257117"
+<img src=rdb://281266>
+
+#L "De'Valos Lava Protection Ring" "257116"
+<img src=rdb://281266>
+
+#L "Hold Hell at Bay" "231234"
+<img src=rdb://234505>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+#C16 This tradeskill process does not require any skill whatsoever, just combine rings. #C20
+
+De'Valos Radiation Protection Ring
+#C15+#C20
+De'Valos Lava Protection Ring
+#C15=#C20
+<img src=rdb://281266>
+#L "De'Valos Radiation and Lava Protection Ring" "281264"
+#C16Skills: | None | #C20
+
+De'Valos Radiation and Lava Protection Ring
+#C15+#C20
+Hold Hell at Bay
+#C15=#C20
+<img src=rdb://281266>
+#L "De'Valos Protection Ring" "281267"
+#C16Skills: | None | #C20

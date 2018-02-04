@@ -1,0 +1,36 @@
+Name: Ice of Albtraum - Special Arrows
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 All parts required for this process can be found in Albtraum.#C20
+
+#L "Ancient Scrap of Spirit Knowledge" "267677"
+<img src=rdb://163575>
+
+#L "Ancient Scrap of Saturated Spirit Knowledge" "267679"
+<img src=rdb://163575>
+
+#L "Crystalised Memories of an Archer" "267708"
+<img src=rdb://72771>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Ancient Scrap of Spirit Knowledge
+#C15+#C20
+Ancient Scrap of Saturated Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
+#C16Skills: | 1750 PT |#C20
+
+Ancient Scrap of Condensed Spirit Knowledge
+#C15+#C20
+Crystalised Memories of an Archer
+#C15=#C20
+<img src=rdb://33176>
+#L "Ice of Albtraum - Special Arrows" "267929"
+#C16Skills: | 1250 CL |#C20

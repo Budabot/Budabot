@@ -1,0 +1,131 @@
+Name: Sector 10 Signal Relay
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 Within Sector10, you need to collect items to spawn the bosses of the zone.
+This is what you need to gather: #C20
+
+#L "Broken and Powerless Signal Amplifier" "284280" x 4
+<img src=rdb://284331>
+
+#L "Kyr'ozch Fuel Gland" "284284" x 4
+<img src=rdb://284345>
+
+#L "Inert Kyr'ozch Teleportation Relay" "284285"
+<img src=rdb://284346>
+
+#L "XXX Compiler Unit" "284298"
+<img src=rdb://284332>
+#C16Note: There are 4 different Compilers to be found (Alpha, Kappa, Rho and Sigma) 
+and you will only ever need 1 of each.#C20 
+
+#L "XXX Crystal - Left Fragment" "284295"
+<img src=rdb://284334>
+#C16Note: There are 4 different Left Fragments,
+you will need 1 for each boss (Alpha, Kappa, Rho and Sigma)#C20
+
+#L "XXX Crystal - Right Fragment" "284296"
+<img src=rdb://284335>
+##C16Note: There are 4 different Right Fragments,
+you will need 1 for each boss (Alpha, Kappa, Rho and Sigma)#C20
+
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Broken and Powerless Signal Amplifier
+#C15+#C20
+Broken and Powerless Signal Amplifier
+#C15=#C20
+<img src=rdb://284331>
+#L "Broken and Powerless Signal Amplifier" "284281"
+#C16Skill: | 625 ME | #C20
+
+Broken and Powerless Signal Amplifier
+#C15+#C20
+Broken and Powerless Signal Amplifier
+#C15=#C20
+<img src=rdb://284331>
+#L "Broken and Powerless Signal Amplifier" "284282"
+#C16Skill: | 625 ME | #C20
+
+Broken and Powerless Signal Amplifier
+#C15+#C20
+Broken and Powerless Signal Amplifier
+#C15=#C20
+<img src=rdb://284331>
+#L "Powerless Signal Amplifier" "284283"
+#C16Skill: | 625 ME | #C20
+
+#C16------------------------------#C20
+
+Kyr'ozch Fuel Gland
+#C15+#C20
+Inert Kyr'ozch Teleportation Relay
+#C15=#C20
+<img src=rdb://284347>
+#L "Inert Kyr'ozch Teleportation Relay" "284286"
+#C16Skill: | 625 EE | #C20
+
+Kyr'ozch Fuel Gland
+#C15+#C20
+Inert Kyr'ozch Teleportation Relay
+#C15=#C20
+<img src=rdb://284348>
+#L "Inert Kyr'ozch Teleportation Relay" "284287"
+#C16Skill: | 625 EE | #C20
+
+Kyr'ozch Fuel Gland
+#C15+#C20
+Inert Kyr'ozch Teleportation Relay
+#C15=#C20
+<img src=rdb://284349>
+#L "Inert Kyr'ozch Teleportation Relay" "284288"
+#C16Skill: | 625 EE | #C20
+
+Kyr'ozch Fuel Gland
+#C15+#C20
+Inert Kyr'ozch Teleportation Relay
+#C15=#C20
+<img src=rdb://284350>
+#L "Powered Kyr'ozch Teleportation Relay" "284289"
+#C16Skill: | 625 EE | #C20
+
+#C16------------------------------#C20
+
+Powerless Signal Amplifier
+#C15+#C20
+Powered Kyr'ozch Teleportation Relay
+#C15=#C20
+<img src=rdb://284325>
+#L "Untuned Kyr'ozch Teleportation Relay" "284290"
+#C16Skill: | 625 EE | #C20
+
+#C16------------------------------#C20
+
+XXX Crystal - Left Fragment
+#C15+#C20
+XXX Crystal - Right Fragment
+#C15=#C20
+<img src=rdb://284333>
+#L "XXX Tuning Crystal" "284297"
+#C16Skill: | 625 NP | #C20
+
+XXX Tuning Crystal
+#C15+#C20
+XXX Compiler Unit
+#C15=#C20
+<img src=rdb://284326>
+#L "XXX Tuning Unit - Inactive" "284433"
+#C16Skill: | 687 NP | #C20
+#C16Note: right clicking activates the Tuning Unit but also makes it NODROP #C20
+
+Untuned Kyr'ozch Teleportation Relay
+#C15+#C20
+XXX Tuning Unit
+#C15=#C20
+<img src=rdb://284321>
+#L "XXX Signal Relay" "284291"

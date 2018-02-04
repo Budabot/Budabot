@@ -1,0 +1,29 @@
+Name: Stalker Helmet
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Stalker Carapace" "247817"
+<img src=rdb://247816>
+
+#L "MasterComm - Personalization Device" "156025"
+<img src=rdb://11618>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+MasterComm - Personalization Device
+#C15+#C20
+Stalker Carapace
+#C15=#C20
+<img src=rdb://247804>
+#L "Stalker Helmet" "247803"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Turn a stalker into a helmet as a trophie of your kill :D

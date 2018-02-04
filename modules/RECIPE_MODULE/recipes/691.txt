@@ -1,0 +1,113 @@
+Name: Masterpiece Ancient Manual Aiming Aid
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 All parts required for this process can be found in Albtraum.#C20
+
+#L "Empty Ancient Device" "267709"
+<img src=rdb://218753>
+
+#L "Ancient Scrap of Spirit Knowledge" "267677" x 2
+<img src=rdb://163575>
+
+#L "Ancient Scrap of Saturated Spirit Knowledge" "267679" x 2
+<img src=rdb://163575>
+
+#L "Crystalised Memories of an Archer" "267708"
+<img src=rdb://72771>
+
+#L "Crystalised Memories of a Technician" "267698"
+<img src=rdb://72770>
+
+#L "Crystalised Memories of a Mechanic" "267701"
+<img src=rdb://72771>
+
+#L "Crystalised Memories of a Sniper" "267704"
+<img src=rdb://72771>
+
+#L "Crystalised Memories of a Warrior" "267697"
+<img src=rdb://72771>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+<highlight>Ancient Manual Aiming Aid<end>
+
+Empty Ancient Device
+#C15+#C20
+Crystalised Memories of an Archer
+#C15=#C20
+<img src=rdb://218779>
+#L "Ancient Manual Aiming Aid" "267651"
+#C16Skills: | 1250 CL |#C20
+
+<highlight>Improved Ancient Manual Aiming Aid<end>
+
+Ancient Scrap of Spirit Knowledge
+#C15+#C20
+Ancient Scrap of Saturated Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
+#C16Skills: | 1750 PT |#C20
+
+Crystalised Memories of a Sniper
+#C15+#C20
+Crystalised Memories of a Warrior
+#C15=#C20
+<img src=rdb://72769>
+#L "Combined Crystalised Combat Memories" "267705"
+#C16Skills: | 1250 NP |#C20
+
+Combined Crystalised Combat Memories
+#C15+#C20
+Ancient Scrap of Condensed Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Spirit Combat Knowledge" "267681"
+#C16Skills: | 1250 CL |#C20
+
+Ancient Manual Aiming Aid
+#C15+#C20
+Ancient Scrap of Spirit Combat Knowledge
+#C15=#C20
+<img src=rdb://218778>
+#L "Improved Ancient Manual Aiming Aid" "267706"
+#C16Skills: | 1250 CL |#C20
+
+<highlight>Masterpiece Ancient Manual Aiming Aid<end>
+
+Crystalised Memories of a Technician
+#C15+#C20
+Crystalised Memories of a Mechanic
+#C15=#C20
+<img src=rdb://72769>
+#L "Combined Crystalised Technical Memories" "267702"
+#C16Skills: | 1875 NP |#C20
+
+Ancient Scrap of Spirit Knowledge
+#C15+#C20
+Ancient Scrap of Saturated Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
+#C16Skills: | 1750 PT |#C20
+
+Combined Crystalised Technical Memories
+#C15+#C20
+Ancient Scrap of Condensed Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Spirit Technical Knowledge" "267681"
+#C16Skills: | 1875 NP |#C20
+
+Improved Ancient Manual Aiming Aid
+#C15+#C20
+Ancient Scrap of Spirit Technical Knowledge
+#C15=#C20
+<img src=rdb://218778>
+#L "Masterpiece Ancient Manual Aiming Aid" "267707"
+#C16Skills: | 1250 CL |#C20

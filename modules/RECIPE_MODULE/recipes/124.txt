@@ -1,0 +1,208 @@
+Name: Yalmaha 29500 - The Stiletto
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Cold Stone" "136649" x 36
+<img src=rdb://25800>
+
+#L "Reinforced NotuComm Wire" "203646" x 6
+<img src=rdb://151017>
+
+#L "Nano Programming Interface" "161699"
+<img src=rdb://99279>
+
+#L "Yalmaha 29500 - Stiletto Building Kit" "203828"
+<img src=rdb://203520>
+
+#L "Ganimedes Flux - Multi-Surface Engine" "203638"
+<img src=rdb://203511>
+
+#L "Klang Orbiter MK" "203636"
+<img src=rdb://203515>
+
+#L "BSEC" "203480"
+<img src=rdb://203507>
+
+#L "Steiner Flexipus Chassis" "203472"
+<img src=rdb://203519>
+
+#L "Stiletto Registar" "203817"
+<img src=rdb://163069>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+<highlight>Repeat for the 36 Cold Stones:<end>
+
+Nano Programming Interface
+#C15+#C20
+Cold Stone
+#C15=#C20
+<img src=rdb://25800>
+#L "Sentient Cold Stone" "203648"
+#C16Skills: |  NP  |#C20
+
+#C16------------------------------#C20
+
+<highlight>Repeat for the 6 Reinforced NotuComm Wires:<end>
+
+Sentient Cold Stone
+#C15+#C20
+Reinforced NotuComm Wire
+#C15=#C20
+<img src=rdb://130729>
+#L "NotuComm Circuitry with One Sensor" "203630"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with One Sensor
+#C15=#C20
+<img src=rdb://130726>
+#L "NotuComm Circuitry with Two Sensors" "203626"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with Two Sensors
+#C15=#C20
+<img src=rdb://130730>
+#L "NotuComm Circuitry with Three Sensors" "203628"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with Three Sensors
+#C15=#C20
+<img src=rdb://130733>
+#L "NotuComm Circuitry with Four Sensors" "203632"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with Four Sensors
+#C15=#C20
+<img src=rdb://130732>
+#L "NotuComm Circuitry with Five Sensors" "203634"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with Five Sensors
+#C15=#C20
+<img src=rdb://130728>
+#L "Complete NotuComm Circuitry" "203642"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+<highlight>Repeat for the 6 Complete NotuComm Circuitries:<end>
+
+Complete NotuComm Circuitry
+#C15+#C20
+Complete NotuComm Circuitry
+#C15=#C20
+<img src=rdb://130727>
+#L "Double NotuComm Circuitry" "203640"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Double NotumComm Circuitry
+#C15+#C20
+Double NotumComm Circuitry
+#C15=#C20
+<img src=rdb://130731>
+#L "Quadruple NotuComm Circuitry" "203644"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Quadruple NotuComm Circuitry
+#C15+#C20
+Double NotumComm Circuitry
+#C15=#C20
+<img src=rdb://130790>
+#L "NotuComm Mesh" "203624"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Steiner Flexipus Chassis
+#C15+#C20
+Yalmaha 29500 - Stiletto Building Kit
+#C15=#C20
+<img src=rdb://203520>
+#L "Yalmaha 29500 - Stiletto Building Kit - Step 1" "203827"
+#C16Skills: |  ME  |#C20
+
+#C16------------------------------#C20
+
+Ganimedes Flux -Multi-Surface Engine
+#C15+#C20
+Yalmaha 29500 - Stiletto Building Kit - Step 1
+#C15=#C20
+<img src=rdb://203520>
+#L "Yalmaha 29500 - Stiletto Building Kit - Step 2" "203825"
+#C16Skills: |  QT  |#C20
+
+#C16------------------------------#C20
+
+Klang Orbiter MK
+#C15+#C20
+Yalmaha 29500 - Stiletto Building Kit - Step 2
+#C15=#C20
+<img src=rdb://203520>
+#L "Yalmaha 29500 - Stiletto Building Kit - Step 3" "203823"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+BSEC
+#C15+#C20
+Yalmaha 29500 - Stiletto Building Kit - Step 3
+#C15=#C20
+<img src=rdb://203520>
+#L "Yalmaha 29500 - Stiletto Building Kit - Step 4" "203821"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+NotuComm Mesh
+#C15+#C20
+Yalmaha 29500 - Stiletto Building Kit - Step 4
+#C15=#C20
+<img src=rdb://203498>
+#L "Unmarked Yalmaha 29500 - The Stiletto" "203819"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Stiletto Registar
+#C15+#C20
+Unmarked Yalmaha 29500 - The Stiletto
+#C15=#C20
+<img src=rdb://203498>
+#L "Yalmaha - 29500 - The Stiletto" "203556"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+You didnt think it would be easy (or cheap) did you?
+
+Dont forget that the last step makes it NODROP, so if you are planning to sell it dont add the registrar.. sell that with it.

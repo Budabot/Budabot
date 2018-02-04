@@ -1,0 +1,23 @@
+Name: Infused Ancient Nano Enhancer
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Dust Brigade Notum Infuser" "274552"
+<img src=rdb://218768>
+
+#L "Ancient Nano Enhancer" "267712"
+<img src=rdb://218768>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Dust Brigade Notum Infuser
+#C15+#C20
+Ancient Nano Enhancer
+#C15=#C20
+<img src=rdb://218768>
+#L "Infused Ancient Nano Enhancer" "274554"
+#C16Skills: | CL 1500 |#C20

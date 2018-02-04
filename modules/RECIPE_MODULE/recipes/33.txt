@@ -1,0 +1,93 @@
+Name: Chimera Weapons
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Chimera Metal Bone Pipe" "227181"
+<img src=rdb://130704>
+
+#L "Energy Accumulator" "227179"
+<img src=rdb://205513>
+
+and <highlight>one<end> of the following:
+
+#L "Howling Soul Stone" "227189"
+<img src=rdb://136594>
+
+#L "Laughing Soul Stone" "227185"
+<img src=rdb://136594>
+
+#L "Singing Soul Stone" "227183"
+<img src=rdb://136594>
+
+#L "Whispering Soul Stone" "227187"
+<img src=rdb://136594>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+<highlight>First:<end>
+
+Energy Accumulator
+#C15+#C20
+Chimera Metal Bone Pipe
+#C15=#C20
+<img src=rdb://13311>
+#L "Basic Firearm" "227167"
+#C16Skills: |  WS  |#C20
+
+#C14------------------------------#C20
+
+<highlight>Then, depending on what you want:<end>
+
+Basic Firearm
+#C15+#C20
+Howling Soul Stone
+#C15=#C20
+<img src=rdb://13314>
+#L "Chimera Shotgun" "227104"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+<highlight>or,<end>
+
+Basic Firearm
+#C15+#C20
+Laughing Soul Stone
+#C15=#C20
+<img src=rdb://13322>
+#L "Chimera Machine Gun" "227121"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+<highlight>or,<end>
+
+Basic Firearm
+#C15+#C20
+Singing Soul Stone
+#C15=#C20
+<img src=rdb://13322>
+#L "Chimera Pistol" "227137"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+<highlight>or,<end>
+
+Basic Firearm
+#C15+#C20
+Whispering Soul Stone
+#C15=#C20
+<img src=rdb://13314>
+#L "Chimera Rifle" "227107"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+SL N00by weapons :D By the time you've done all that you could be level 50 :D

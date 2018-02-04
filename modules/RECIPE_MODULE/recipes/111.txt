@@ -1,0 +1,31 @@
+Name: Bio-Material
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Solid Clump of Kyr'Ozch Bio-Material" "247702"
+<img src=rdb://247101>
+
+#L "Kyr'Ozch Structural Analyzer" "247100"
+( #L "see here" "/tell {myname} recipe 115" )
+<img src=rdb://247097>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Kyr'Ozch Structural Analyzer
+#C15+#C20
+Solid Clump of Kyr'Ozch Bio-Material
+#C15=#C20
+<img src=rdb://255705>
+a Bio-Material
+( ie #L "Kyr'Ozch Bio-Material - Type 1" "247684" )
+#C16Skills: |  EE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Bio material can be found in LE missions, APFs and AI City raids.  Basically anywhere you find aliens ^^

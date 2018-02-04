@@ -1,0 +1,216 @@
+Name: Masterpiece Ancient Bracer
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Ancient Scrap of Spirit Knowledge" "267677" x 3
+<img src=rdb://163575>
+
+#L "Ancient Scrap of Saturated Spirit Knowledge" "267679" x 3
+<img src=rdb://163575>
+
+#L "Inert Knowledge Crystal" "267737" x 3
+<img src=rdb://151030>
+
+#L "Inactive Bracer" "267746"
+<img src=rdb://84048>
+
+#L "Ancient Engineering Device" "267751" #L "Recipe" "/tell {myname} recipe 594"
+<img src=rdb://156095>
+
+#L "Crystalised Memories of a Sniper" "267704"
+<img src=rdb://72771>
+
+#L "Crystalised Memories of a Warrior" "267697"
+<img src=rdb://72771>
+
+#L "Crystalised Memories of a Doctor" "267726"
+<img src=rdb://72771>
+
+#L "Crystalised Memories of a Surgeon" "267728"
+<img src=rdb://72771>
+
+#L "Crystalised Memories of a Technician" "267698"
+<img src=rdb://72771>
+
+#L "Crystalised Memories of a Mechanic" "267701"
+<img src=rdb://72771>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+<highlight>Part 1:<end>
+
+Crystalised Memories of a Sniper
+#C15+#C20
+Crystalised Memories of a Warrior
+#C15=#C20
+<img src=rdb://72769>
+#L "Combined Crystalised Combat Memories" "267705"
+#C16Skills: | NP1250 |#C20
+
+#C16------------------------------#C20
+
+Ancient Scrap of Spirit Knowledge
+#C15+#C20
+Ancient Scrap of Saturated Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
+#C16Skills: | PT1750 |#C20
+
+#C16------------------------------#C20
+
+Combined Crystalised Combat Memories
+#C15+#C20
+Ancient Scrap of Condensed Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Spirit Combat Knowledge" "267681"
+#C16Skills: | CL1250 |#C20
+
+#C16------------------------------#C20
+
+Ancient Scrap of Spirit Combat Knowledge
+#C15+#C20
+Inert Knowledge Crystal
+#C15=#C20
+<img src=rdb://151030>
+#L "Combat Knowledge Crystal" "267739"
+#C16Skills: | CL1250 |#C20
+
+#C16------------------------------#C20
+
+<highlight>Part 2:<end>
+
+Crystalised Memories of a Doctor
+#C15+#C20
+Crystalised Memories of a Surgeon
+#C15=#C20
+<img src=rdb://72769>
+#L "Combined Crystalised Medical Memories" "267729"
+#C16Skills: | CH1750 |#C20
+
+#C16------------------------------#C20
+
+Ancient Scrap of Spirit Knowledge
+#C15+#C20
+Ancient Scrap of Saturated Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
+#C16Skills: | PT1750 |#C20
+
+#C16------------------------------#C20
+
+Combined Crystalised Medical Memories
+#C15+#C20
+Ancient Scrap of Condensed Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Spirit Medical Knowledge" "267727"
+#C16Skills: | CH1750 |#C20
+
+#C16------------------------------#C20
+
+Ancient Scrap of Spirit Medical Knowledge
+#C15+#C20
+Inert Knowledge Crystal
+#C15=#C20
+<img src=rdb://151030>
+#L "Medical Knowledge Crystal" "267738"
+#C16Skills: | CH1750 |#C20
+
+#C16------------------------------#C20
+
+<highlight>Part 3:<end>
+
+Crystalised Memories of a Technician
+#C15+#C20
+Crystalised Memories of a Mechanic
+#C15=#C20
+<img src=rdb://72769>
+#L "Combined Crystalised Technical Memories" "267702"
+#C16Skills: | NP1875 |#C20
+
+#C16------------------------------#C20
+
+Ancient Scrap of Spirit Knowledge
+#C15+#C20
+Ancient Scrap of Saturated Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
+#C16Skills: | PT1750 |#C20
+
+#C16------------------------------#C20
+
+Combined Crystalised Technical Memories
+#C15+#C20
+Ancient Scrap of Condensed Spirit Knowledge
+#C15=#C20
+<img src=rdb://163575>
+#L "Ancient Scrap of Spirit Technical Knowledge" "267703"
+#C16Skills: | NP1875 |#C20
+
+#C16------------------------------#C20
+
+Ancient Scrap of Spirit Technical Knowledge
+#C15+#C20
+Inert Knowledge Crystal
+#C15=#C20
+<img src=rdb://151030>
+#L "Technical Knowledge Crystal" "267740"
+#C16Skills: | CH1750 |#C20
+
+#C16------------------------------#C20
+
+<highlight>Next we combine the Knowledge Crystals:<end>
+
+Combat Knowledge Crystal
+#C15+#C20
+Medical Knowledge Crystal
+#C15=#C20
+<img src=rdb://156511>
+#L "Incomplete Crystalised Memories" "267781"
+#C16Skills: | QT1562 |#C20
+
+#C16------------------------------#C20
+
+Incomplete Crystalised Memories
+#C15+#C20
+Technical Knowledge Crystal
+#C15=#C20
+<img src=rdb://156511>
+#L "Complete Crystalised Memories" "267778"
+#C16Skills: | QT1562 |#C20
+
+#C16------------------------------#C20
+
+<highlight>Activate the Bracer and combine with Completed Memories:<end>
+
+Inactive Bracer
+#C15+#C20
+Ancient Engineering Device
+#C15=#C20
+<img src=rdb://84048>
+#L "Active Ancient Bracer" "267747"
+#C16Skills: | ME1500 |#C20
+
+#C16------------------------------#C20
+
+Active Ancient Bracer
+#C15+#C20
+Complete Crystalised Memories
+#C15=#C20
+<img src=rdb://84062>
+#L "Masterpiece Ancient Bracer" "267780"
+#C16Skills: | CL1250 |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+I know what you are thinking.. and yes.. that IS a lot of steps :P

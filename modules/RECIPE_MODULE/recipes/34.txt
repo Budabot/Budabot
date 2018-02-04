@@ -1,0 +1,136 @@
+Name: Coffee Machines
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Hacker Tool" "87814" x 2
+<img src=rdb://99282>
+
+#L "Sealing Cell Kit" "157275"
+<img src=rdb://157282>
+
+#L "White Wine" "130589"
+<img src=rdb://37937>
+
+#L "Expendable Hologram Camera" "156054"
+<img src=rdb://156092>
+
+#L "ID-extractor" "156339"
+<img src=rdb://156324>
+
+#L "Omni-Tek Multi-Form" "156344"
+<img src=rdb://156343>
+
+#L "Small Titan Message Container" "157222"
+<img src=rdb://131266>
+
+#L "Fink Fragrant Morning Enhanced Coffee Block" "157281"
+<img src=rdb://156506>
+#C15or#C20
+#L "Carioso Menthol Pseudo-Coffee Block" "157277"
+<img src=rdb://156510>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+ID-extractor
+#C15+#C20
+Expendable Hologram Camera
+#C15=#C20
+<img src=rdb://156323>
+#L "ID-data" "156340"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+Hacker Tool
+#C15+#C20
+Small Titan Message Container
+#C15=#C20
+<img src=rdb://157369>
+#L "Sealed Bioplast Folder" "157341"
+#C16Skills: |  BE  |#C20
+
+#C14------------------------------#C20
+
+Hacker Tool
+#C15+#C20
+Sealed Bioplast Folder
+#C15=#C20
+<img src=rdb://157283>
+#L "Open Bioplast Folder with a Folded Note" "157272"
+#C16Skills: |  BE  |#C20
+
+#C14------------------------------#C20
+
+White Wine
+#C15+#C20
+Open Bioplast Folder with a Folded Note
+#C15=#C20
+<img src=rdb://154678>
+#L "Folded Note" "157273"
+#C16Skills: | PS120 |#C20
+
+#C14------------------------------#C20
+
+ID-data
+#C15+#C20
+Folded Note
+#C15=#C20
+<img src=rdb://156325>
+#L "Personal Folded Note" "157274"
+#C16Skills: | PS300 |#C20
+
+#C14------------------------------#C20
+
+Personal Folded Note
+#C15+#C20
+Sealing Cell Kit
+#C15=#C20
+<img src=rdb://156325>
+#L "Sealed Personal Note" "157278"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+Sealed Personal Note
+#C15+#C20
+Omni-Tek Multi-Form
+#C15=#C20
+<img src=rdb://155965>
+#L "New Miyashiro Superior Coffee Machine" "157276"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+Now you must decide what kind of coffee your machine will produce:
+
+<highlight>For normal coffee:<end>
+
+Fink Fragrant Morning Enhanced Coffee Block
+#C15+#C20
+New Miyashiro Superior Coffee Machine
+#C15=#C20
+<img src=rdb://155965>
+#L "Miyashiro Superior Enhanced Coffee Machine" "157340"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+<highlight>Or mentholed one:<end>
+
+Carioso Menthol Pseudo-Coffee Block
+#C15+#C20
+New Miyashiro Superior Coffee Machine
+#C15=#C20
+<img src=rdb://155965>
+#L "Miyashiro Superior Menthol Coffee Machine" "157339"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+This machine is used to produce ... Coffee ...

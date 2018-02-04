@@ -1,0 +1,25 @@
+Name: ObiTom's Nano Calculato
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Notum Amplification Coil drops in Alien Playfields and can be used for various tradeskill processes.#C20
+
+#L "Notum Amplification Coil" "257963"
+<img src=rdb://257195>
+
+#L "Aquarius's Multitask Calculator" "244376"
+<img src=rdb://205528>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Notum Amplification Coil
+#C15+#C20
+Aquarius's Multitask Calculator
+#C15=#C20
+<img src=rdb://205528>
+#L "ObiTom's Nano Calculator" "257118"
+#C16Skills: | 1250 CL |#C20

@@ -1,0 +1,60 @@
+Name: Angst of the Xan
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Xan Weapon Upgrade Device which drops from the Mitaar Hero, Ground Chief Vortexx and 12-Man instances can be tradeskilled with 30 different Shadowlands weapons/#C20
+
+#L "Xan Weapon Upgrade Device" "280786"
+<img src=rdb://246391>
+
+#L "High Lord of Angst" "257128"
+<img src=rdb://245082>
+#C15or#C20
+#L "Lord of Angst" "244821"
+<img src=rdb://245082>
+#C15or#C20
+#L "Lady of Angst" "244820"
+<img src=rdb://245082>
+#C15or#C20
+#L "Superior Rebuilt Perennium Sniper" "260720"
+<img src=rdb://245082>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+High Lord of Angst
+#C15=#C20
+<img src=rdb://280920>
+#L "Angst of the Xan" "280723"
+
+#C15or#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lord of Angst
+#C15=#C20
+<img src=rdb://280920>
+#L "Angst of the Xan" "280723"
+
+#C15or#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lady of Angst
+#C15=#C20
+<img src=rdb://280920>
+#L "Angst of the Xan" "280723"
+
+#C15or#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Superior Rebuilt Perennium Sniper
+#C15=#C20
+<img src=rdb://280920>
+#L "Angst of the Xan" "280723"

@@ -1,0 +1,33 @@
+Name: Turn Spirit Weapon
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+an Upgraded Inamorata or Sacrosanct Weapon (#L "see here" "/tell {myname} recipe 108")
+eg: #L "Sacrosanct Bhotaar Blaster" "212247"
+<img src=rdb://210185>
+
+#L "Turn Spirit Flesh Pouch" "246236"
+<img src=rdb://246237>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Extract a Turn Spirit from the Turn Spirit Flesh Pouch by right clicking on it.
+
+Turn Spirit
+#C15+#C20
+an Upgraded Inamorata or Sacrosanct Weapon
+#C15=#C20
+<img src=rdb://210173>
+a Turn Spirit weapon
+(eg: #L "Metropolis Blaster" "214201")
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Further upgrade your Inamorata or Sacrosanct Weapons.

@@ -1,0 +1,29 @@
+Name: Half Digested Human Parts
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+a Half Digested Human Parts
+( ie : #L "Half Digested Human Torso" "223567" )
+<img src=rdb://144701>
+
+#L "Advanced Bio-Comminutor" "154332"
+<img src=rdb://149951>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Advanced Bio-Comminutor
+#C15+#C20
+Half Digested Human Parts
+#C15=#C20
+an Implant
+#C16Skills: | BE,CL |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+There is a large chance to obtain a jobe implant. you can convert the Half Digested Human Parts by right clicking on it , but that way of processing is not sure.

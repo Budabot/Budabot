@@ -1,0 +1,55 @@
+Name: Briefcase of Holding
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Order OTSC-490 Group A" "206398"
+<img src=rdb://154678>
+
+#L "Expendable Hologram Camera" "156054"
+<img src=rdb://156092>
+
+#L "ID-extractor" "156339"
+<img src=rdb://156324>
+
+#L "Omni-Tek Multi-Form" "156344"
+<img src=rdb://156343>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+ID-extractor
+#C15+#C20
+Expendable Hologram Camera
+#C15=#C20
+<img src=rdb://156323>
+#L "ID-data" "156340"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+ID-data
+#C15+#C20
+Order OTSC-490 Group A
+#C15=#C20
+<img src=rdb://156325>
+#L "Personal Order OTSC-490 Group A" "206399"
+#C16Skills: |  PS  |#C20
+
+#C14------------------------------#C20
+
+Omni-Tek Multi-Form
+#C15+#C20
+Personal Order OTSC-490 Group A
+#C15=#C20
+<img src=rdb://99662>
+#L "Briefcase of Holding" "205736"
+#C16Skills: |  PS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+You can access your bank with this. Bureaucrat item only.

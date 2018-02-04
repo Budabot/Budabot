@@ -1,0 +1,42 @@
+Name: Restoration Kit
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Mimicking Cellular Oil" "154268"
+<img src=rdb://100306>
+
+#L "Receptive Bots" "154266"
+<img src=rdb://11755>
+
+#L "Shining Nano Knot of Restoration" "154270"
+<img src=rdb://19860>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Mimicking Cellular Oil
+#C15+#C20
+Receptive Bots
+#C15=#C20
+<img src=rdb://11754>
+#L "Purple Glowing Stim" "154274"
+#C16Skills: |  PT  |#C20
+
+#C16------------------------------#C20
+
+Shining Nano Knot of Restoration
+#C15+#C20
+Purple Glowing Stim
+#C15=#C20
+<img src=rdb://156492>
+#L "Restoration Kit" "154272"
+#C16Skills: |  PT  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Very useful on the paper, recovering Nanopoints and Lifepoints... But ridiculously expensive, this recipe will cost you all your exploited credits...

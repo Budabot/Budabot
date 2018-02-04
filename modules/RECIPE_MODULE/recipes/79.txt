@@ -1,0 +1,55 @@
+Name: Omni-Tek Steel-Ribbed Armor
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+a part of Steel-Ribbed Armor
+( ie #L "High-Quality Steel-Ribbed Armor Boots" "22158" )
+<img src=rdb://13274>
+
+#L "Hacker Tool" "87814"
+<img src=rdb://99282>
+
+#L "Omnifier" "208312"
+<img src=rdb://156479>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Hacker Tool
+#C15+#C20
+a part of Steel-Ribbed Armor
+#C15=#C20
+<img src=rdb://245925>
+a part of Hacked Steel-Ribbed Armor
+( ie : #L "Hacked Steel-Ribbed Armor Boots" "245948" )
+#C16Skills: |  BE  |#C20
+
+#C16------------------------------#C20
+
+Omnifier
+#C15+#C20
+a part of Hacked Steel-Ribbed Armor
+#C15=#C20
+<img src=rdb://245925>
+a part of Omni-Tek Steel-Ribbed Armor
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+#L "Omni-Tek Steel-Ribbed Armor Boots" "245936"
+#L "Omni-Tek Steel-Ribbed Armor Gloves" "245940"
+#L "Omni-Tek Steel-Ribbed Armor Helmet" "245934"
+#L "Omni-Tek Steel-Ribbed Armor Pants" "245938"
+#L "Omni-Tek Steel-Ribbed Armor Sleeves" "245932"
+#L "Omni-Tek Steel-Ribbed Body Armor" "245930"
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Great sided armor.

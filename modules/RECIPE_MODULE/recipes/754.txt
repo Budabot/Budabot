@@ -1,0 +1,36 @@
+Name: Hatred of the Xan
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 The Xan Weapon Upgrade Device which drops from the Mitaar Hero, Ground Chief Vortexx and 12-Man instances can be tradeskilled with 30 different Shadowlands weapons/#C20
+
+#L "Xan Weapon Upgrade Device" "280786"
+<img src=rdb://246391>
+
+#L "Lord of Hatred" "244762"
+<img src=rdb://158269>
+#C15or#C20
+#L "Lady of Hatred" "244761"
+<img src=rdb://158269>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lord of Hatred
+#C15=#C20
+<img src=rdb://280922>
+#L "Hatred of the Xan" "280718"
+
+#C15or#C20
+
+Xan Weapon Upgrade Device
+#C15+#C20
+Lady of Hatred
+#C15=#C20
+<img src=rdb://280922>
+#L "Hatred of the Xan" "280718"

@@ -1,0 +1,28 @@
+Name: Ancient Nano Enhancer
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 Both parts required for this process can be found in Albtraum#C20
+
+#L "Empty Ancient Device" "267709"
+<img src=rdb://218753>
+
+#L "Crystalised Memories of a Scientist" "267713"
+<img src=rdb://72771>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Empty Ancient Device
+#C15+#C20
+Crystalised Memories of a Scientist
+#C15=#C20
+<img src=rdb://218768>
+#L "Ancient Nano Enhancer" "267712"
+#C16Skills: | 1250 CL |#C20
+
+#C16Note: You can upgrade this item with a #L "Dust Brigade Notum Infuser" "274552"
+The recipe for this can be found here:#L "Infused Ancient Nano Enhancer" "/tell {myname} recipe 630"#C2

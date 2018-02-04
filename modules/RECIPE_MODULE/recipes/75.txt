@@ -1,0 +1,156 @@
+Name: NotuComm Mesh Trenchcoat
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "TrenchCoat" "31516"
+<img src=rdb://22891>
+
+#L "Cold Stone" "136649" x 36
+<img src=rdb://25800>
+
+#L "Reinforced NotuComm Wire" "203646" x 6
+<img src=rdb://151017>
+
+#L "Nano Programming Interface" "161699"
+<img src=rdb://99279>
+
+#L "Solid Spiritech Mesh" "245676"
+<img src=rdb://151933>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+<highlight>Repeat for the 36 Cold Stones:<end>
+
+Nano Programming Interface
+#C15+#C20
+Cold Stone
+#C15=#C20
+<img src=rdb://25800>
+#L "Sentient Cold Stone" "203648"
+#C16Skills: |  NP  |#C20
+
+#C16------------------------------#C20
+
+<highlight>Repeat for the 6 Reinforced NotuComm Wires:<end>
+
+Sentient Cold Stone
+#C15+#C20
+Reinforced NotuComm Wire
+#C15=#C20
+<img src=rdb://130729>
+#L "NotuComm Circuitry with One Sensor" "203630"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with One Sensor
+#C15=#C20
+<img src=rdb://130726>
+#L "NotuComm Circuitry with Two Sensors" "203626"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with Two Sensors
+#C15=#C20
+<img src=rdb://130730>
+#L "NotuComm Circuitry with Three Sensors" "203628"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with Three Sensors
+#C15=#C20
+<img src=rdb://130733>
+#L "NotuComm Circuitry with Four Sensors" "203632"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with Four Sensors
+#C15=#C20
+<img src=rdb://130732>
+#L "NotuComm Circuitry with Five Sensors" "203634"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Sentient Cold Stone
+#C15+#C20
+NotuComm Circuitry with Five Sensors
+#C15=#C20
+<img src=rdb://130728>
+#L "Complete NotuComm Circuitry" "203642"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+<highlight>Repeat for the 6 Complete NotuComm Circuitries:<end>
+
+Complete NotuComm Circuitry
+#C15+#C20
+Complete NotuComm Circuitry
+#C15=#C20
+<img src=rdb://130727>
+#L "Double NotuComm Circuitry" "203640"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Double NotumComm Circuitry
+#C15+#C20
+Double NotuComm Circuitry
+#C15=#C20
+<img src=rdb://130731>
+#L "Quadruple NotuComm Circuitry" "203644"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+Quadruple NotuComm Circuitry
+#C15+#C20
+Double NotuComm Circuitry
+#C15=#C20
+<img src=rdb://130790>
+#L "NotuComm Mesh" "203624"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+TrenchCoat
+#C15+#C20
+NotuComm Mesh
+#C15=#C20
+<img src=rdb://22891>
+#L "NotuComm Mesh Trenchcoat" "204207"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+<highlight>and finally:<end>
+
+NotuComm Mesh Trenchcoat
+#C15+#C20
+Solid Spiritech Mesh
+#C15=#C20
+<img src=rdb://22891>
+#L "Modified NotuComm Mesh Trenchcoat" "245675"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+A lot of work but a very nice coat.

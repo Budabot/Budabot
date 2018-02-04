@@ -1,0 +1,23 @@
+Name: Infused Ancient Speed Preservation Unit
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Dust Brigade Notum Infuser" "274552"
+<img src=rdb://218768>
+
+#L "Ancient Speed Preservation Unit" "267625"
+<img src=rdb://218753>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Dust Brigade Notum Infuser
+#C15+#C20
+Ancient Speed Preservation Unit
+#C15=#C20
+<img src=rdb://218753>
+#L "Infused Ancient Speed Preservation Unit" "274555"
+#C16Skills: | CL 1500 |#C20

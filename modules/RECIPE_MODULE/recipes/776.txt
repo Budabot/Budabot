@@ -1,0 +1,43 @@
+Name: Sword of Dusk - Sword of Dawn
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#C16 Drops in Pandemonium, requires 30.000 faction to wear so neutrals can not use it since they are capped at 25.000. Both weapons can be upgraded with a #L "Xan Weapon Upgrade Device" "280786" #C20
+
+Omni:
+#L "Novictum Seed" "246817"
+<img src=rdb://246816>
+#C15and#C20
+#L "Sunset Hilt" "246814"
+<img src=rdb://235341>
+
+#C15or#C20
+
+Clan:
+#L "Notum Seed" "246818"
+<img src=rdb://246815>
+#C15and#C20
+#L "Sunrise Hilt" "246813"
+<img src=rdb://235342>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Novictum Seed
+#C15+#C20
+Sunset Hilt
+#C15=#C20
+<img src=rdb://246240>
+#L "Sword of Dusk" "246256"
+
+#C15or#C20
+
+Notum Seed
+#C15+#C20
+Sunrise Hilt
+#C15=#C20
+<img src=rdb://246241>
+#L "Sword of Dawn" "246244"

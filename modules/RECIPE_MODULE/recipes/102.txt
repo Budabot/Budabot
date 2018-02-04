@@ -1,0 +1,72 @@
+Name: Repairman's Hat
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+Some Notum 
+#L "Notum Fragment" "136624"
+<img src=rdb://25795>
+#C15or#C20
+#L "Notum Chip" "136622"
+<img src=rdb://25794>
+
+#L "Salesman's Hat" "205738"
+<img src=rdb://205771>
+
+#L "Nano Programming Interface" "161699"
+<img src=rdb://99279>
+
+#L "Inactive OT Metamorphing Liquid Nanobots" "164952"
+<img src=rdb://156496>
+
+#L "Field Quantum Physics All-Purpose Tool" "164558"
+<img src=rdb://20410>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Field Quantum Physics All-Purpose Tool
+#C15+#C20
+Salesman's Hat
+#C15=#C20
+<img src=rdb://205772>
+#L "Transformed Salesman's Hat" "205741"
+#C16Skills: | NP,CH |#C20
+
+#C16------------------------------#C20
+
+Nano Programming Interface
+#C15+#C20
+Inactive OT Metamorphing Liquid Nanobots
+#C15=#C20
+<img src=rdb://156492>
+#L "Activated OT Metamorphing Liquid Nanobots" "164954"
+#C16Skills: | NP,CH |#C20
+
+#C16------------------------------#C20
+
+Notum
+#C15+#C20
+Activated OT Metamorphing Liquid Nanobots
+#C15=#C20
+<img src=rdb://164949>
+#L "Stabilized OT Metamorphing Liquid Nanobots" "164956"
+#C16Skills: | NP,CH |#C20
+
+#C16------------------------------#C20
+
+Stabilized OT Metamorphing Liquid Nanobots
+#C15+#C20
+Transformed Salesman's Hat
+#C15=#C20
+<img src=rdb://205772>
+#L "Repairman's Hat" "205743"
+#C16Skills: | NP,CH |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+You can right-clic it to upgrad it up to QL50.

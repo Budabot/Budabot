@@ -1,0 +1,42 @@
+Name: Personal Lock Pick
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Lock Pick" "95577"
+<img src=rdb://12709>
+
+#L "ID-extractor" "156339"
+<img src=rdb://156324>
+
+#L "Expendable Hologram Camera" "156054"
+<img src=rdb://156092>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+ID-extractor
+#C15+#C20
+Expendable Hologram Camera
+#C15=#C20
+<img src=rdb://156323>
+#L "ID-data" "156340"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------#C20
+
+ID-data
+#C15+#C20
+Lock Pick
+#C15=#C20
+<img src=rdb://12709>
+#L "Personal Lock Pick" "156639"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+This recipe is simplest to make, even a lvl 1 can make it. In fact i don't know which skill is used... It transforms your Standard Lockpick in a NODROP one and nothing else. By this way, you can make a bag NODROP too by putting your lockpick inside.

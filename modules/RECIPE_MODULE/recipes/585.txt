@@ -1,0 +1,29 @@
+Name: Nano Controller Unit
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Disk of Cloudy Crystal" "253177"
+<img src=rdb://227251>
+
+#L "Nano programming interface" "161699"
+<img src=rdb://99279>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Nano programming interface
+#C15+#C20
+Disk of Cloudy Crystal
+#C15=#C20
+<img src=rdb://99279>
+#L "Nano Controller Unit" "253193"
+#C16Skills: |  ??  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Buff all your nano skills with this great item.

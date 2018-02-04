@@ -1,0 +1,29 @@
+Name: Kaetan Supernova
+Author: 
+#C16------------------------------
+#C12Ingredients#C20
+#C16------------------------------#C20
+
+#L "Viral Weapon Upgrade" "248517"
+<img src=rdb://100335>
+
+#L "Supernova Mk VI" "122595"
+<img src=rdb://33146>
+
+#C16------------------------------
+#C12Recipe#C16
+#C16------------------------------#C20
+
+Viral Weapon Upgrade
+#C15+#C20
+Supernova Mk VI
+#C15=#C20
+<img src=rdb://33146>
+#L "Kaetans Supernova" "248577"
+#C16Skills: |  WS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+More Viral Weapon upgrades.

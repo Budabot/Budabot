@@ -1,0 +1,58 @@
+Name: All-Match Augmented Bow Tie
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Hacker Tool" "87814"
+<img src=rdb://99282>
+
+#L "Sealed Order FPGA-202" "156332"
+<img src=rdb://156326>
+
+#L "Expendable Hologram Camera" "156054"
+<img src=rdb://156092>
+
+#L "ID-extractor" "156339"
+<img src=rdb://156324>
+
+#L "Multi-Form" "156345"
+<img src=rdb://156341>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Hacker Tool
+#C15+#C20
+Sealed Order FPGA-202
+#C15=#C20
+<img src=rdb://154678>
+#L "Hacked Order FPGA-202" "156338"
+#C16Skills: |  BE  |#C20
+
+#C14------------------------------#C20
+
+ID-extractor
+#C15+#C20
+Expendable Hologram Camera
+#C15=#C20
+<img src=rdb://156323>
+#L "ID-data" "156340"
+#C16Skills: |  ??  |#C20
+
+#C14------------------------------#C20
+
+ID-data
+#C15+#C20
+Hacked Order FPGA-202
+#C15=#C20
+<img src=rdb://156358>
+#L "All-Match Augmented Bow Tie" "156540"
+#C16Skills: |  PS  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+Simply perfect for neutral because they don't have token rewards, and excellent for chars based on trade-skills. But you have to kill the Lab Director in order to loot Sealed Order FPGA-202 and this Foreman's mine boss is quite camped :(. Moreover he drops three different Orders, and never the one you want...

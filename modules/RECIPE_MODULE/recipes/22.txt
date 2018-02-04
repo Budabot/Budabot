@@ -1,0 +1,29 @@
+Name: Boosted Hellfury Assault Cannon
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Hellfury Assault Cannon" "153977"
+<img src=rdb://154362>
+
+#L "Erratic Notum Disruptor" "202281"
+<img src=rdb://149944>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Erratic Notum Disruptor
+#C15+#C20
+Hellfury Assault Cannon
+#C15=#C20
+<img src=rdb://154362>
+#L "Boosted Hellfury Assault Cannon" "202279"
+#C16Skills: |  BE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+This weapon is only available through this Tradeskill.

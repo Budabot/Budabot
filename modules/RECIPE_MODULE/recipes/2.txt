@@ -1,0 +1,23 @@
+Name: Advanced Salesman's Hat
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------
+
+#L "Salesmans Chip" "206742"
+<img src=rdb://43121>
+
+#L "Salesmans Hat" "205738"
+<img src=rdb://205771>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Salesmans Chip
+#C15+#C20
+Salesmans Hat
+#C15=#C20
+<img src=rdb://205771>
+#L "Advanced Salesmans Hat" "206741"
+#C16Skills: |  ??  |#C20

@@ -1,0 +1,29 @@
+Name: Boosted Hellspinner Shock Cannon
+Author: 
+#C16------------------------------
+#C12Ingredients #C20
+#C16------------------------------#C20
+
+#L "Hellspinner Shock Cannon" "153976"
+<img src=rdb://154361>
+
+#L "Fluctuating Anti-Matter Generator" "201941"
+<img src=rdb://149941>
+
+#C16------------------------------
+#C12Recipe #C16
+#C16------------------------------#C20
+
+Fluctuating Anti-Matter Generator
+#C15+#C20
+Hellspinner Shock Cannon
+#C15=#C20
+<img src=rdb://154361>
+#L "Boosted Hellspinner Shock Cannon" "201940"
+#C16Skills: |  BE  |#C20
+
+#C16------------------------------
+#C12Comments#C16
+#C16------------------------------#C20
+
+This weapon is only available through this Tradeskill. Awesome gun... perfect but soldier only.
