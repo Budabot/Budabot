@@ -100,10 +100,8 @@ class AlienMiscController {
 	 */
 	public function leprocsInfoCommand($message, $channel, $sender, $sendto, $args) {
 		$profession = $this->util->getProfessionName($args[1]);
-		if ($profession == '') {
-			$msg = "Please choose one of these professions: adv, agent, crat, doc, enf, eng, fix, keep, ma, mp, nt, sol, shade, or trader";
-			$sendto->reply($msg);
-			return;
+		if (empty($profession)) {
+			return false;
 		}
 
 		$data = $this->db->query("SELECT * FROM leprocs WHERE profession LIKE ? ORDER BY proc_type ASC, research_lvl DESC", $profession);
