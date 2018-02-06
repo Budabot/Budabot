@@ -127,12 +127,10 @@ class AltInfo {
 	}
 	
 	public function formatOnlineStatus($online) {
-		if ($online === null) {
-			return " - No status";
-		} else if ($online == 1) {
+		if ($online == 1) {
 			return " - <green>Online<end>";
 		} else {
-			return " - <red>Offline<end>";
+			return "";
 		}
 	}
 }
