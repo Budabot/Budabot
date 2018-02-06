@@ -88,6 +88,7 @@ class RaidController {
 		$this->commandAlias->register($this->moduleName, "flatroll", "rollloot");
 		$this->commandAlias->register($this->moduleName, "flatroll", "result");
 		$this->commandAlias->register($this->moduleName, "flatroll", "win");
+		$this->commandAlias->register($this->moduleName, "loot addmulti", "multiloot");
 		
 		$this->commandAlias->register($this->moduleName, "loot", "list");
 	}
