@@ -17,6 +17,7 @@ use Budabot\Core\StopExecutionException;
  *		accessLevel = 'member',
  *		description = 'Shows who is online',
  *		help        = 'online.txt'
+ *		alias		= 'sm'
  *	)
  */
 class OnlineController {

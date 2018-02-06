@@ -17,12 +17,6 @@ namespace Budabot\User\Modules;
  *		help        = 'private_channel.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'sm', 
- *		accessLevel = 'all', 
- *		description = "Shows who is in the private channel", 
- *		help        = 'private_channel.txt'
- *	)
- *	@DefineCommand(
  *		command     = 'adduser', 
  *		accessLevel = 'guild', 
  *		description = "Adds a player to the members list", 
@@ -166,36 +160,6 @@ class PrivateChannelController {
 		} else {
 			$sendto->reply("There are no members of this bot.");
 		}
-	}
-	
-	/**
-	 * @HandlesCommand("sm")
-	 * @Matches("/^sm$/i")
-	 */
-	public function smCommand($message, $channel, $sender, $sendto, $args) {
-		if (count($this->chatBot->chatlist) > 0) {
-			$msg = $this->getChatlist();
-			$sendto->reply($msg);
-		} else {
-			$sendto->reply("No characters are in the private channel.");
-		}
-	}
-	
-	public function getChatlist() {
-		$sql = "SELECT p.*, o.name as name FROM online o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE `channel_type` = 'priv' AND added_by = '<myname>' ORDER BY `profession`, `level` DESC";
-		$data = $this->db->query($sql);
-		$numguest = count($data);
-
-		$blob = '';
-		forEach ($data as $row) {
-			if ($row->profession == null) {
-				$blob .= "$row->name - Unknown\n";
-			} else {
-				$blob .= "$row->name - $row->level<green>/$row->ai_level<end> $row->profession, $row->guild\n";
-			}
-		}
-
-		return $this->text->makeBlob("Chatlist ($numguest)", $blob);
 	}
 	
 	/**
@@ -633,18 +597,6 @@ class PrivateChannelController {
 			$this->chatBot->sendTell($msg, $sender);
 		} else {
 			$this->chatBot->sendTell($msg, $sender);
-		}
-	}
-	
-	/**
-	 * @Event("joinPriv")
-	 * @Description("Sends the chatlist to people as they join the private channel")
-	 * @DefaultStatus("0")
-	 */
-	public function joinPrivateChannelShowChatlistEvent($eventObj) {
-		if (count($this->chatBot->chatlist) > 0) {
-			$msg = $this->getChatlist();
-			$this->chatBot->sendTell($msg, $eventObj->sender);
 		}
 	}
 	
