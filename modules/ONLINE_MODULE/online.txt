@@ -1,6 +1,5 @@
-To show the online list:
+To show a full list of players online with their alts:
 <highlight><tab><symbol>online<end>
-<highlight><tab><symbol>online all<end>
 
-To show the online list filtered by profession:
-<highlight><tab><symbol>online 'prof'<end>
+To show a list of players that have the specified profession as an alt:
+<highlight><tab><symbol>online 'profession'<end>

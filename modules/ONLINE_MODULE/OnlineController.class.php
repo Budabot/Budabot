@@ -8,6 +8,7 @@ use Budabot\Core\StopExecutionException;
  * Authors: 
  *  - Tyrence (RK2)
  *  - Mindrila (RK1)
+ *	- Naturarum (Paradise, RK2)
  *
  * @Instance
  *
@@ -16,7 +17,7 @@ use Budabot\Core\StopExecutionException;
  *		command     = 'online',
  *		accessLevel = 'member',
  *		description = 'Shows who is online',
- *		help        = 'online.txt'
+ *		help        = 'online.txt',
  *		alias		= 'sm'
  *	)
  */
@@ -55,8 +56,6 @@ class OnlineController {
 	/** @Logger */
 	public $logger;
 	
-	private $instances = array();
-	
 	/**
 	 * @Setup
 	 */
@@ -70,36 +69,65 @@ class OnlineController {
 		$this->settingManager->add($this->moduleName, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
 	}
 	
-	public function register($instance) {
-		$this->instances []= $instance;
-	}
-	
 	/**
 	 * @HandlesCommand("online")
 	 * @Matches("/^online$/i")
-	 * @Matches("/^online (.*)$/i")
 	 */
 	public function onlineCommand($message, $channel, $sender, $sendto, $args) {
-		if (count($args) == 2) {
-			$prof = strtolower($args[1]);
-			if ($prof != 'all') {
-				$prof = $this->util->getProfessionName($prof);
-			}
+		$msg = $this->getOnlineList();
+		$sendto->reply($msg);
+	}
 
-			if ($prof == null) {
-				return false;
-			}
-		} else {
-			$prof = 'all';
+	/**
+	 * @HandlesCommand("online")
+	 * @Matches("/^online (.+)$/i")
+	 */
+	public function onlineProfCommand($message, $channel, $sender, $sendto, $args) {
+		$profession = $this->util->getProfessionName($args[1]);
+		if (empty($profession)) {
+			return false;
 		}
 
-		list($numonline, $msg, $blob) = $this->getOnlineList($prof);
-		if ($numonline != 0) {
-			$msg = $this->text->makeBlob($msg, $blob);
-			$sendto->reply($msg);
+		$sql = "
+			SELECT DISTINCT p.*, o.afk, COALESCE(a.main, o.name) AS pmain, (CASE WHEN o2.name IS NULL THEN 0 ELSE 1 END) AS online
+			FROM online o
+			LEFT JOIN alts a ON o.name = a.alt
+			LEFT JOIN alts a2 ON a2.main = COALESCE(a.main, o.name)
+			LEFT JOIN players p ON a2.alt = p.name OR COALESCE(a.main, o.name) = p.name
+			LEFT JOIN online o2 ON p.name = o2.name
+			WHERE p.profession = ?
+			ORDER BY COALESCE(a.main, o.name) ASC";
+		$data = $this->db->query($sql, $profession);
+		$count = count($data);
+		$mainCount = 0;
+		$currentMain = "";
+
+		if ($count > 0) {
+			forEach ($data as $row) {
+				if ($currentMain != $row->pmain) {
+					$mainCount++;
+					$blob .= "\n<highlight>$row->pmain<end> has\n";
+					$currentMain = $row->pmain;
+				}
+
+				if ($row->profession === null) {
+					$blob .= "| ($row->name)\n";
+				} else {
+					$prof = $this->util->getProfessionAbbreviation($row->profession);
+					$blob.= "| $row->name - $row->level/<green>$row->ai_level<end> $prof";
+				}
+				if ($row->online == 1) {
+					$blob .= " <green>Online<end>";
+				}
+				$blob .= "\n";
+			}
+			$blob .= "\nWritten by Naturarum (RK2)";
+			$msg = $this->text->makeBlob("$profession Search Results ($mainCount)", $blob);
 		} else {
-			$sendto->reply($msg);
+			$msg = "$profession Search Results (0)";
 		}
+
+		$sendto->reply($msg);
 	}
 	
 	/**
@@ -131,13 +159,8 @@ class OnlineController {
 	public function showOnlineOnLogonEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
-			list($numonline, $msg, $blob) = $this->getOnlineList();
-			if ($numonline != 0) {
-				$msg = $this->text->makeBlob($msg, $blob);
-				$this->chatBot->sendTell($msg, $sender);
-			} else {
-				$this->chatBot->sendTell($msg, $sender);
-			}
+			$msg = $this->getOnlineList();
+			$this->chatBot->sendTell($msg, $sender);
 		}
 	}
 	
@@ -306,126 +329,35 @@ class OnlineController {
 		$this->db->exec($sql, $sender, $channelType);
 	}
 	
-	public function getOnlineList($prof = "all") {
-		if ($prof != 'all') {
-			$prof_query = "AND `profession` = '$prof'";
+	public function getOnlineList() {
+		$orgData = $this->getPlayers('guild');
+		list($orgCount, $orgMain, $orgBlob) = $this->formatData($orgData, $this->settingManager->get("online_show_org_guild"));
+
+		$privData = $this->getPlayers('priv');
+		list($privCount, $privMain, $privBlob) = $this->formatData($privData, $this->settingManager->get("online_show_org_priv"));
+
+		$totalCount = $orgCount + $privCount;
+		$totalMain = $orgMain + $privMain;
+
+		$blob = "\n";
+		if ($orgCount > 0) {
+			$blob .= "<header2>Org Channel ($orgMain)<end>\n";
+			$blob .= $orgBlob;
+			$blob .= "\n\n";
+		}
+		if ($privCount > 0) {
+			$blob .= "<header2>Private Channel ($privMain)<end>\n";
+			$blob .= $privBlob;
+			$blob .= "\n\n";
 		}
 
-		$order_by = "ORDER BY `profession`, `level` DESC";
-
-		$blob = '';
-
-		// Guild Channel Part
-		$data = $this->db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'guild' {$prof_query} {$order_by}");
-		$numguild = count($data);
-
-		if ($numguild >= 1) {
-			$blob .= "<header2>Guild Channel ($numguild)<end>\n";
-
-			// create the list with alts shown
-			$blob .= $this->createList($data, true, $this->settingManager->get("online_show_org_guild"));
+		if ($totalCount > 0) {
+			$blob .= "Written by Naturarum (RK2)";
+			$msg = $this->text->makeBlob("Players Online ($totalMain)", $blob);
+		} else {
+			$msg = "Players Online (0)";
 		}
-
-		// Private Channel Part
-		$data = $this->db->query("SELECT p.*, o.name, o.channel, o.afk FROM `online` o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>') WHERE o.channel_type = 'priv' {$prof_query} {$order_by}");
-		$numguest = count($data);
-
-		if ($numguest >= 1) {
-			if ($numguild >= 1) {
-				$blob .= "\n\n";
-			}
-			$blob .= "<header2>Private Channel ($numguest)<end>\n";
-
-			// create the list of guests, without showing alts
-			$blob .= $this->createList($data, true, $this->settingManager->get("online_show_org_priv"));
-		}
-		
-		$numonline = $numguild + $numguest;
-
-		// IRC/BBIN part
-		forEach ($this->instances as $instance) {
-			list($num, $window) = $instance->getOnlineList();
-			$numonline += $num;
-			$blob .= $window;
-		}
-
-		$msg .= "Online ($numonline)";
-
-		return array($numonline, $msg, $blob);
-	}
-
-	public function createList($data, $show_alts, $show_org_info) {
-		$fancyColon = "::";
-
-		$current_profession = "";
-
-		$blob = '';
-		forEach ($data as $row) {
-			if ($current_profession != $row->profession) {
-				$blob .= "<pagebreak>";
-				if ($this->settingManager->get("fancy_online") == 0) {
-					// old style delimiters
-					$blob .= "\n<tab><highlight>$row->profession<end>\n";
-				} else {
-					// fancy delimiters
-					$blob .= "\n";
-					$blob .= "<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
-
-					if ($row->profession == "Adventurer") {
-						$blob .= $this->text->makeImage(84203);
-					} else if ($row->profession == "Agent") {
-						$blob .= $this->text->makeImage(16186);
-					} else if ($row->profession == "Bureaucrat") {
-						$blob .= $this->text->makeImage(296548);
-					} else if ($row->profession == "Doctor") {
-						$blob .= $this->text->makeImage(44235);
-					} else if ($row->profession == "Enforcer") {
-						$blob .= $this->text->makeImage(117926);
-					} else if ($row->profession == "Engineer") {
-						$blob .= $this->text->makeImage(287091);
-					} else if ($row->profession == "Fixer") {
-						$blob .= $this->text->makeImage(16300);
-					} else if ($row->profession == "Keeper") {
-						$blob .= $this->text->makeImage(38911);
-					} else if ($row->profession == "Martial Artist") {
-						$blob .= $this->text->makeImage(16289);
-					} else if ($row->profession == "Meta-Physicist") {
-						$blob .= $this->text->makeImage(16308);
-					} else if ($row->profession == "Nano-Technician") {
-						$blob .= $this->text->makeImage(45190);
-					} else if ($row->profession == "Soldier") {
-						$blob .= $this->text->makeImage(16195);
-					} else if ($row->profession == "Shade") {
-						$blob .= $this->text->makeImage(39290);
-					} else if ($row->profession == "Trader") {
-						$blob .= $this->text->makeImage(118049);
-					} else {
-						$blob .= $this->text->makeImage(46268);
-					}
-
-					$blob .= " <highlight>$row->profession<end>\n";
-					$blob .= "<img src=tdb://id:GFX_GUI_FRIENDLIST_SPLITTER>\n";
-				}
-
-				$current_profession = $row->profession;
-			}
-
-			$name = $this->text->makeChatcmd($row->name, "/tell $row->name");
-			$afk  = $this->getAfkInfo($row->afk, $fancyColon);
-			$alt  = ($show_alts == true) ? $this->getAltCharInfo($row->name, $fancyColon) : "";
-
-			switch ($row->profession) {
-				case "":
-					$blob .= "<tab><tab>$name - Unknown$alt\n";
-					break;
-				default:
-					$admin = ($show_alts == true) ? $this->getAdminInfo($row->name, $fancyColon) : "";
-					$guild = $this->getOrgInfo($show_org_info, $fancyColon, $row->guild, $row->guild_rank);
-					$blob .= "<tab><tab>$name (Lvl $row->level/<green>$row->ai_level<end>)$guild$afk$alt$admin\n";
-			}
-		}
-
-		return $blob;
+		return $msg;
 	}
 
 	public function getOrgInfo($show_org_info, $fancyColon, $guild, $guild_rank) {
@@ -463,13 +395,45 @@ class OnlineController {
 		}
 	}
 
-	public function getAltCharInfo($name, $fancyColon) {
-		$altinfo = $this->altsController->getAltInfo($name);
+	public function formatData($data, $showOrgInfo) {
+		$count = count($data);
+		$mainCount = 0;
+		$currentMain = "";
+		$blob = "";
+		$separator = "-";
 
-		if (count($altinfo->alts) > 0) {
-			$altsLink = $this->text->makeChatcmd(($altinfo->main == $name ? "Alts":"Alt of {$altinfo->main}"), "/tell <myname> alts {$name}");
-			$alt = " $fancyColon $altsLink";
+		if ($count > 0) {
+			forEach ($data as $row) {
+				if ($currentMain != $row->pmain) {
+					$mainCount++;
+					$blob .= "\n<pagebreak><highlight>$row->pmain<end> on\n";
+					$currentMain = $row->pmain;
+				}
+
+				$admin = $this->getAdminInfo($row->name, $separator);
+				$afk = $this->getAfkInfo($row->afk, $separator);
+
+				if ($row->profession === null) {
+					$blob .= "| $row->name$admin$afk\n";
+				} else {
+					$prof = $this->util->getProfessionAbbreviation($row->profession);
+					$orgRank = $this->getOrgInfo($showOrgInfo, $separator, $row->guild, $row->guild_rank);
+					$blob.= "| $row->name - $row->level/<green>$row->ai_level<end> $prof$orgRank$admin$afk\n";
+				}
+			}
 		}
-		return $alt;
+		
+		return [$count, $mainCount, $blob];
+	}
+
+	public function getPlayers($channelType) {
+		$sql = "
+			SELECT p.*, o.name, o.afk, COALESCE(a.main, o.name) AS pmain
+			FROM online o
+			LEFT JOIN alts a ON o.name = a.alt
+			LEFT JOIN players p ON o.name = p.name
+			WHERE o.channel_type = ?
+			ORDER BY COALESCE(a.main, o.name) ASC";
+		return $this->db->query($sql, $channelType);
 	}
 }
