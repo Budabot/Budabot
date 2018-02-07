@@ -195,15 +195,11 @@ class ShoppingController {
 	public function removeOldMessagesEvent($eventObj) {
 		$dt = time() - $this->settingManager->get('shop_message_age');
 
-		$this->db->beginTransaction();
-
 		$sql = "DELETE FROM shopping_messages WHERE dt < ?";
 		$this->db->exec($sql, $dt);
 
 		$sql = "DELETE FROM shopping_items WHERE message_id NOT IN (SELECT id FROM shopping_messages)";
 		$this->db->exec($sql);
-
-		$this->db->commit();
 	}
 	
 	public function processShoppingMessage($channel, $sender, $message) {
