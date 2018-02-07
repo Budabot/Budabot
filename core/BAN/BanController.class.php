@@ -232,13 +232,14 @@ class BanController {
 	 */
 	public function unbanCommand($message, $channel, $sender, $sendto, $args) {
 		$who = ucfirst(strtolower($args[1]));
-	
-		if (!$this->banManager->isBanned($who)) {
+
+		$charId = $this->chatBot->get_uid($who);
+		if (!$this->banManager->isBanned($charId)) {
 			$sendto->reply("<highlight>$who<end> is not banned on this bot.");
 			return;
 		}
 	
-		$this->banManager->remove($who);
+		$this->banManager->remove($charId);
 	
 		$sendto->reply("You have unbanned <highlight>$who<end> from this bot.");
 		if ($this->settingManager->get('notify_banned_player') == 1) {
@@ -296,15 +297,9 @@ class BanController {
 	 * @DefaultStatus("1")
 	 */
 	public function checkTempBan($eventObj) {
-		$update = false;
-		forEach ($this->banManager->getBanlist() as $ban){
-			if ($ban->banend != 0 && ((time() - $ban->banend) >= 0)) {
-				$update = true;
-				$this->db->exec("DELETE FROM banlist_<myname> WHERE name = ?", $ban->name);
-			}
-		}
+		$numRows = $this->db->exec("DELETE FROM banlist_<myname> WHERE banend != 0 AND banend < ?", time());
 
-		if ($update) {
+		if ($numRows > 0) {
 			$this->banManager->uploadBanlist();
 		}
 	}
@@ -313,12 +308,13 @@ class BanController {
 	 * This helper method bans player with given arguments.
 	 */
 	private function banPlayer($who, $sender, $length, $reason, $sendto) {
-		if ($this->chatBot->get_uid($who) == null) {
+		$charId = $this->chatBot->get_uid($who);
+		if ($charId == null) {
 			$sendto->reply("Character <highlight>$who<end> does not exist.");
 			return;
 		}
 
-		if ($this->banManager->isBanned($who)) {
+		if ($this->banManager->isBanned($charId)) {
 			$sendto->reply("Character <highlight>$who<end> is already banned.");
 			return;
 		}
@@ -332,7 +328,7 @@ class BanController {
 			return false;
 		}
 
-		$this->banManager->add($who, $sender, $length, $reason);
+		$this->banManager->add($charId, $sender, $length, $reason);
 		return true;
 	}
 }

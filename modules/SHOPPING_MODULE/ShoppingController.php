@@ -174,11 +174,12 @@ class ShoppingController {
 			return;
 		}
 
+		$charId = $packet->args[1];
 		$channel = $this->chatBot->get_gname($packet->args[0]);
-		$sender	= $this->chatBot->lookup_user($packet->args[1]);
+		$sender	= $this->chatBot->lookup_user($charId);
 		$message = $packet->args[2];
 		
-		if ($this->banManager->isBanned($sender)) {
+		if ($this->banManager->isBanned($charId)) {
 			return;
 		}
 		

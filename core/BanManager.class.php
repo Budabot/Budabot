@@ -15,7 +15,7 @@ class BanManager {
 
 	private $banlist = array();
 
-	public function add($char, $sender, $length, $reason) {
+	public function add($charId, $sender, $length, $reason) {
 
 		if ($length == null) {
 			$ban_end = "0";
@@ -23,17 +23,17 @@ class BanManager {
 			$ban_end = time() + $length;
 		}
 
-		$sql = "INSERT INTO banlist_<myname> (`name`, `admin`, `time`, `reason`, `banend`) VALUES (?, ?, ?, ?, ?)";
-		$numrows = $this->db->exec($sql, $char, $sender, time(), $reason, $ban_end);
+		$sql = "INSERT INTO banlist_<myname> (`charid`, `admin`, `time`, `reason`, `banend`) VALUES (?, ?, ?, ?, ?)";
+		$numrows = $this->db->exec($sql, $charId, $sender, time(), $reason, $ban_end);
 
 		$this->uploadBanlist();
 
 		return $numrows;
 	}
 
-	public function remove($char) {
-		$sql = "DELETE FROM banlist_<myname> WHERE name = ?";
-		$numrows = $this->db->exec($sql, $char);
+	public function remove($charId) {
+		$sql = "DELETE FROM banlist_<myname> WHERE charid = ?";
+		$numrows = $this->db->exec($sql, $charId);
 
 		$this->uploadBanlist();
 
@@ -43,19 +43,17 @@ class BanManager {
 	public function uploadBanlist() {
 		$this->banlist = array();
 
-		$data = $this->db->query("SELECT * FROM banlist_<myname>");
+		$sql = "
+			SELECT b.*, IFNULL(p.name, b.charid) AS name
+			FROM banlist_<myname> b LEFT JOIN players p ON b.charid = p.charid";
+		$data = $this->db->query($sql);
 		forEach ($data as $row) {
-			$this->banlist[$row->name] = $row;
+			$this->banlist[$row->charid] = $row;
 		}
 	}
 
-	public function isBanned($name) {
-		if (isset($this->banlist[$name])) {
-			return true;
-		} else {
-			$whois = $this->playerManager->getByName($name);
-			return isset($this->banlist[$whois->guild]);
-		}
+	public function isBanned($charId) {
+		return isset($this->banlist[$charId]);
 	}
 
 	public function getBanlist() {

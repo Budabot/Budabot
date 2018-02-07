@@ -102,3 +102,12 @@ if (checkIfTableExists($db, "players")) {
 		$db->exec("ALTER TABLE players ADD COLUMN `pvp_title` VARCHAR(20) DEFAULT NULL");
 	}
 }
+
+if (checkIfTableExists($db, "banlist_<myname>")) {
+	if (!checkIfColumnExists($db, "banlist_<myname>", "charid")) {
+		$db->exec("ALTER TABLE banlist_<myname> RENAME TO old_banlist_<myname>");
+		$db->exec("CREATE TABLE IF NOT EXISTS banlist_<myname> (charid BIGINT NOT NULL PRIMARY KEY, admin VARCHAR(25), time INT, reason TEXT, banend INT);");
+		$db->exec("INSERT INTO banlist_<myname> (charid, admin, time, reason, banend) SELECT p.charid, b.admin, b.time, b.reason, b.banend FROM old_banlist_<myname> b JOIN players p ON b.name = p.name");
+		$db->exec("DROP TABLE old_banlist_<myname>");
+	}
+}
