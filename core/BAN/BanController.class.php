@@ -54,6 +54,8 @@ class BanController {
 	/** @Inject */
 	public $db;
 
+	private $banlist = array();
+
 	/**
 	 * @Setting("notify_banned_player")
 	 * @Description("Notify character when banned from bot")
@@ -71,6 +73,14 @@ class BanController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "banlist");
+	}
+
+	/**
+	 * @Event("connect")
+	 * @Description("Upload banlist into memory")
+	 * @DefaultStatus("1")
+	 */
+	public function initializeBanList($eventObj) {
 		$this->uploadBanlist();
 	}
 
@@ -270,8 +280,6 @@ class BanController {
 		$this->add($charId, $sender, $length, $reason);
 		return true;
 	}
-
-	private $banlist = array();
 
 	public function add($charId, $sender, $length, $reason) {
 
