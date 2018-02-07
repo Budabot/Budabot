@@ -51,9 +51,6 @@ class BanController {
 	public $moduleName;
 
 	/** @Inject */
-	public $banManager;
-
-	/** @Inject */
 	public $accessManager;
 
 	/** @Inject */
@@ -88,7 +85,7 @@ class BanController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "banlist");
-		$this->banManager->uploadBanlist();
+		$this->uploadBanlist();
 	}
 
 	/**
@@ -194,7 +191,7 @@ class BanController {
 	 * @Matches("/^banlist$/i")
 	 */
 	public function banlistCommand($message, $channel, $sender, $sendto, $args) {
-		$banlist = $this->banManager->getBanlist();
+		$banlist = $this->getBanlist();
 		$count = count($banlist);
 
 		if ($count == 0) {
@@ -234,12 +231,12 @@ class BanController {
 		$who = ucfirst(strtolower($args[1]));
 
 		$charId = $this->chatBot->get_uid($who);
-		if (!$this->banManager->isBanned($charId)) {
+		if (!$this->isBanned($charId)) {
 			$sendto->reply("<highlight>$who<end> is not banned on this bot.");
 			return;
 		}
 	
-		$this->banManager->remove($charId);
+		$this->remove($charId);
 	
 		$sendto->reply("You have unbanned <highlight>$who<end> from this bot.");
 		if ($this->settingManager->get('notify_banned_player') == 1) {
@@ -259,12 +256,12 @@ class BanController {
 	public function banorgCommand($message, $channel, $sender, $sendto, $args) {
 		$who = $args[1];
 	
-		if ($this->banManager->isBanned($who)) {
+		if ($this->isBanned($who)) {
 			$sendto->reply("The organization <highlight>$who<end> is already banned.");
 			return;
 		}
 	
-		$this->banManager->add($who, $sender, null, '');
+		$this->add($who, $sender, null, '');
 	
 		$sendto->reply("You have banned the organization <highlight>$who<end> from this bot.");
 	}
@@ -281,12 +278,12 @@ class BanController {
 	public function unbanorgCommand($message, $channel, $sender, $sendto, $args) {
 		$who = $args[1];
 	
-		if (!$this->banManager->isBanned($who)) {
+		if (!$this->isBanned($who)) {
 			$sendto->reply("The org <highlight>$who<end> is not banned on this bot.");
 			return;
 		}
 	
-		$this->banManager->remove($who);
+		$this->remove($who);
 	
 		$sendto->reply("You have unbanned the org <highlight>$who<end> from this bot.");
 	}
@@ -300,7 +297,7 @@ class BanController {
 		$numRows = $this->db->exec("DELETE FROM banlist_<myname> WHERE banend != 0 AND banend < ?", time());
 
 		if ($numRows > 0) {
-			$this->banManager->uploadBanlist();
+			$this->uploadBanlist();
 		}
 	}
 
@@ -314,7 +311,7 @@ class BanController {
 			return;
 		}
 
-		if ($this->banManager->isBanned($charId)) {
+		if ($this->isBanned($charId)) {
 			$sendto->reply("Character <highlight>$who<end> is already banned.");
 			return;
 		}
@@ -328,7 +325,54 @@ class BanController {
 			return false;
 		}
 
-		$this->banManager->add($charId, $sender, $length, $reason);
+		$this->add($charId, $sender, $length, $reason);
 		return true;
+	}
+
+	private $banlist = array();
+
+	public function add($charId, $sender, $length, $reason) {
+
+		if ($length == null) {
+			$ban_end = "0";
+		} else {
+			$ban_end = time() + $length;
+		}
+
+		$sql = "INSERT INTO banlist_<myname> (`charid`, `admin`, `time`, `reason`, `banend`) VALUES (?, ?, ?, ?, ?)";
+		$numrows = $this->db->exec($sql, $charId, $sender, time(), $reason, $ban_end);
+
+		$this->uploadBanlist();
+
+		return $numrows;
+	}
+
+	public function remove($charId) {
+		$sql = "DELETE FROM banlist_<myname> WHERE charid = ?";
+		$numrows = $this->db->exec($sql, $charId);
+
+		$this->uploadBanlist();
+
+		return $numrows;
+	}
+
+	public function uploadBanlist() {
+		$this->banlist = array();
+
+		$sql = "
+			SELECT b.*, IFNULL(p.name, b.charid) AS name
+			FROM banlist_<myname> b LEFT JOIN players p ON b.charid = p.charid";
+		$data = $this->db->query($sql);
+		forEach ($data as $row) {
+			$this->banlist[$row->charid] = $row;
+		}
+	}
+
+	public function isBanned($charId) {
+		return isset($this->banlist[$charId]);
+	}
+
+	public function getBanlist() {
+		return $this->banlist;
 	}
 }

@@ -46,7 +46,7 @@ class ShoppingController {
 	public $settingManager;
 	
 	/** @Inject */
-	public $banManager;
+	public $banController;
 	
 	/** @Inject */
 	public $playerManager;
@@ -179,7 +179,7 @@ class ShoppingController {
 		$sender	= $this->chatBot->lookup_user($charId);
 		$message = $packet->args[2];
 		
-		if ($this->banManager->isBanned($charId)) {
+		if ($this->banController->isBanned($charId)) {
 			return;
 		}
 		
