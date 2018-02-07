@@ -15,14 +15,14 @@ To temporarily ban a character from the bot (without a reason specified):
 <tab>(bans badplayer for 2weeks from the bot)
 
 To temporarily ban a character from the bot (with a reason specified):
-<highlight><tab><symbol>ban <i>time</i> <i>playername</i> reason <i>reason for the ban</i><end>
+<highlight><tab><symbol>ban <i>time</i> <i>playername</i> reason <i>reason_for_ban</i><end>
 
 <tab><header2>For example:<end>
 <highlight><tab><symbol>ban 2weeks badplayer reason Ninjalooter<end>
 <tab>(bans badplayer for 2 weeks from the bot with the reason 'Ninjalooter')
 
 To permanently ban a character from the bot (with a reason specified):
-<highlight><tab><symbol>ban <i>playername</i> reason <i>reason for the ban</i><end>
+<highlight><tab><symbol>ban <i>playername</i> reason <i>reason_for_ban</i><end>
 
 <tab><header2>For example:<end>
 <highlight><tab><symbol>ban badplayer reason Ninjalooter<end>

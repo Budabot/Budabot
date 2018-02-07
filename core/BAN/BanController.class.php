@@ -21,23 +21,9 @@ namespace Budabot\Core\Modules;
  *		defaultStatus = '1'
  *	)
  *	@DefineCommand(
- *		command       = 'banorg',
- *		accessLevel   = 'mod',
- *		description   = 'Ban an organization from this bot',
- *		help          = 'ban.txt',
- *		defaultStatus = '1'
- *	)
- *	@DefineCommand(
  *		command       = 'unban',
  *		accessLevel   = 'mod',
  *		description   = 'Unban a character from this bot',
- *		help          = 'ban.txt',
- *		defaultStatus = '1'
- *	)
- *	@DefineCommand(
- *		command       = 'unbanorg',
- *		accessLevel   = 'mod',
- *		description   = 'Unban an organization from this bot',
  *		help          = 'ban.txt',
  *		defaultStatus = '1'
  *	)
@@ -242,50 +228,6 @@ class BanController {
 		if ($this->settingManager->get('notify_banned_player') == 1) {
 			$this->chatBot->sendTell("You have been unbanned from this bot by $sender.", $who);
 		}
-	}
-	
-	/**
-	 * This command handler bans an organization from this bot.
-	 *
-	 * Command parameter is:
-	 *  - name of the organization
-	 *
-	 * @HandlesCommand("banorg")
-	 * @Matches("/^banorg (.+)$/i")
-	 */
-	public function banorgCommand($message, $channel, $sender, $sendto, $args) {
-		$who = $args[1];
-	
-		if ($this->isBanned($who)) {
-			$sendto->reply("The organization <highlight>$who<end> is already banned.");
-			return;
-		}
-	
-		$this->add($who, $sender, null, '');
-	
-		$sendto->reply("You have banned the organization <highlight>$who<end> from this bot.");
-	}
-
-	/**
-	 * This command handler unbans an organization from this bot.
-	 *
-	 * Command parameter is:
-	 *  - name of the organization
-	 *
-	 * @HandlesCommand("unbanorg")
-	 * @Matches("/^unbanorg (.+)$/i")
-	 */
-	public function unbanorgCommand($message, $channel, $sender, $sendto, $args) {
-		$who = $args[1];
-	
-		if (!$this->isBanned($who)) {
-			$sendto->reply("The org <highlight>$who<end> is not banned on this bot.");
-			return;
-		}
-	
-		$this->remove($who);
-	
-		$sendto->reply("You have unbanned the org <highlight>$who<end> from this bot.");
 	}
 
 	/**
