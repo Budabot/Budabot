@@ -189,26 +189,6 @@ class ShoppingController {
 	}
 	
 	/**
-	 * @Event("msg")
-	 * @Description("Capture messages from spam bots")
-	 * @DefaultStatus("0")
-	 */
-	public function captureSpambotMessagesEvent($eventObj) {
-		$sender = $eventObj->sender;
-
-		if ($this->banManager->isBanned($sender)) {
-			return;
-		}
-
-		if (preg_match("/Neutnet\d+/", $sender) || preg_match("/Dnet\d+/", $sender)) {
-			$this->parseSpambotMessage($eventObj);
-			
-			// we don't want the bot to respond back to the spam bots
-			throw new StopExecutionException();
-		}
-	}
-	
-	/**
 	 * @Event("timer(24hrs)")
 	 * @Description("Remove old shopping messages from the database")
 	 * @DefaultStatus("0")
