@@ -399,15 +399,6 @@ class Util {
 		return $msg;
 	}
 	
-	public function parseSpamMessage($message) {
-		$rawmsg = $this->stripColors($message);
-		if (preg_match_all("/\\[([^\\]]+)\\] (.+?) \\[([^\\]]+)\\]/s", $rawmsg, $arr, PREG_SET_ORDER) > 0) {
-		} else {
-			$this->logger->log("WARN", "Invalid spam message format: $rawmsg");
-		}
-		return $arr;
-	}
-	
 	public function generateQueryFromParams($params, $column) {
 		$queryParams = array();
 		$first = true;

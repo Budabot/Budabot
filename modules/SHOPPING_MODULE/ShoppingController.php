@@ -163,7 +163,6 @@ class ShoppingController {
 	/**
 	 * @Event("packet(65)")
 	 * @Description("Capture messages from shopping channel")
-	 * @DefaultStatus("0")
 	 */
 	public function captureShoppingMessagesEvent($eventObj) {
 		$packet = $eventObj->packet;
@@ -191,7 +190,6 @@ class ShoppingController {
 	/**
 	 * @Event("timer(24hrs)")
 	 * @Description("Remove old shopping messages from the database")
-	 * @DefaultStatus("0")
 	 */
 	public function removeOldMessagesEvent($eventObj) {
 		$dt = time() - $this->settingManager->get('shop_message_age');
@@ -247,17 +245,22 @@ class ShoppingController {
 		
 		$this->playerManager->getByName($sender);
 	}
+
+	public function parseSpamMessage($message) {
+		$rawmsg = $this->stripColors($message);
+		if (preg_match_all("/\\[([^\\]]+)\\] (.+?) \\[([^\\]]+)\\]/s", $rawmsg, $arr, PREG_SET_ORDER) > 0) {
+		} else {
+			$this->logger->log("WARN", "Invalid spam message format: $rawmsg");
+		}
+		return $arr;
+	}
 	
 	private function parseSpambotMessage($eventObj) {
-		$arr = $this->util->parseSpamMessage($eventObj->message);
+		$arr = $this->parseSpamMessage($eventObj->message);
 		forEach ($arr as $entry) {
 			$channel = $entry[1];
 			$text = $entry[2];
 			$sender = $entry[3];
-
-			if ($this->banManager->isBanned($sender)) {
-				continue;
-			}
 			
 			$this->processShoppingMessage("$eventObj->sender - $channel", $sender, $text);
 		}
