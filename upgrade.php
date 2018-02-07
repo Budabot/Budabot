@@ -85,18 +85,9 @@ function minRequiredVersion($db, $minVersion) {
 	}
 }
 
-minRequiredVersion($db, "3.4_GA");
-
-if (checkIfTableExists($db, "settings_<myname>")) {
-	$row = $db->queryRow("SELECT value FROM settings_<myname> WHERE name = ?", "version");
-	global $version;
-	if ($version != $row->value) {
-		$db->exec("UPDATE settings_<myname> SET value = ? WHERE name = ? AND value = ?", 10, "http_timeout", 5);
-	}
-}
+minRequiredVersion($db, "3.5_GA");
 
 if (checkIfTableExists($db, "cmd_alias_<myname>")) {
-	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ? AND cmd = ?", "as", "aimedshot");
 	$db->exec("DELETE FROM cmd_alias_<myname> WHERE alias = ? AND cmd = ?", "whatbuffs", "whatbuffs2");
 }
 
