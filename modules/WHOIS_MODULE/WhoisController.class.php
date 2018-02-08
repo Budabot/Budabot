@@ -15,8 +15,7 @@ use Budabot\Core\DB;
  *		command     = 'whois',
  *		accessLevel = 'member', 
  *		description = 'Show character info, online status, and name history', 
- *		help        = 'whois.txt',
- *		alias       = 'is'
+ *		help        = 'whois.txt'
  *	)
  *	@DefineCommand(
  *		command     = 'lookup',
@@ -53,6 +52,9 @@ class WhoisController {
 	
 	/** @Inject */
 	public $buddylistManager;
+
+	/** @Inject */
+	public $commandAlias;
 	
 	private $nameHistoryCache = array();
 	
@@ -61,6 +63,9 @@ class WhoisController {
 	/** @Setup */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "name_history");
+
+		$this->commandAlias->register($this->moduleName, "whois", "w");
+		$this->commandAlias->register($this->moduleName, "whois", "is");
 	}
 	
 	/**

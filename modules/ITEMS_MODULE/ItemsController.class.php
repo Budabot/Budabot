@@ -14,7 +14,8 @@ use DOMDocument;
  *		command     = 'citems',
  *		accessLevel = 'all',
  *		description = 'Searches for an item using the central items db',
- *		help        = 'items.txt'
+ *		help        = 'items.txt',
+ *		alias		= 'i'
  *	)
  *	@DefineCommand(
  *		command     = 'items',

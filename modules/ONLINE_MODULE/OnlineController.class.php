@@ -17,8 +17,7 @@ use Budabot\Core\StopExecutionException;
  *		command     = 'online',
  *		accessLevel = 'member',
  *		description = 'Shows who is online',
- *		help        = 'online.txt',
- *		alias		= 'sm'
+ *		help        = 'online.txt'
  *	)
  */
 class OnlineController {
@@ -52,6 +51,9 @@ class OnlineController {
 	
 	/** @Inject */
 	public $util;
+
+	/** @Inject */
+	public $commandAlias;
 	
 	/** @Logger */
 	public $logger;
@@ -67,6 +69,9 @@ class OnlineController {
 		$this->settingManager->add($this->moduleName, "online_show_org_guild", "Show org/rank for players in guild channel", "edit", "options", "1", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
 		$this->settingManager->add($this->moduleName, "online_show_org_priv", "Show org/rank for players in private channel", "edit", "options", "2", "Show org and rank;Show rank only;Show org only;Show no org info", "2;1;3;0");
 		$this->settingManager->add($this->moduleName, "online_admin", "Show admin levels in online list", "edit", "options", "0", "true;false", "1;0");
+
+		$this->commandAlias->register($this->moduleName, "online", "o");
+		$this->commandAlias->register($this->moduleName, "online", "sm");
 	}
 	
 	/**
