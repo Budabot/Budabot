@@ -62,15 +62,16 @@ class NotesController {
 		} else {
 			$blob = '';
 			$current = '';
+			$count = count($data);
 			forEach ($data as $row) {
 				if ($row->added_by != $current) {
-					$blob .= "\n<header>$row->added_by<end>\n";
+					$blob .= "\n<header2>$row->added_by<end>\n\n";
 					$current = $row->added_by;
 				}
 				$remove = $this->text->makeChatcmd('Remove', "/tell <myname> notes rem $row->id");
 				$blob .= "$remove $row->note\n\n";
 			}
-			$msg = $this->text->makeBlob("Notes for $sender", $blob);
+			$msg = $this->text->makeBlob("Notes for $sender ($count)", $blob);
 		}
 
 		$sendto->reply($msg);
@@ -86,7 +87,7 @@ class NotesController {
 		$altInfo = $this->altsController->getAltInfo($sender);
 		$main = $altInfo->getValidatedMain($sender);
 
-		$this->db->exec("INSERT INTO notes (owner, added_by, note) VALUES(?, ?)", $main, $sender, $note);
+		$this->db->exec("INSERT INTO notes (owner, added_by, note, dt) VALUES (?, ?, ?, ?)", $main, $sender, $note, time());
 		$msg = "Note added successfully.";
 
 		$sendto->reply($msg);
