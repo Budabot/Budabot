@@ -98,12 +98,14 @@ class ItemsController {
 
 		$row = $this->findById($id);
 		if ($row === null) {
-			$output = "No item found with id <highlight>$id<end>.";
+			$msg = "No item found with id <highlight>$id<end>.";
 		} else {
-			$output = trim($this->formatSearchResults(array($row), false, false));
+			$blob = print_r($row, true);
+			$blob .= "\n\n" . $this->formatSearchResults(array($row), null, true);
+			$msg = $this->text->makeBlob($id, $blob);
 		}
 
-		$sendto->reply($output);
+		$sendto->reply($msg);
 	}
 	
 	public function findById($id) {
