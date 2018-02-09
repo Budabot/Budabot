@@ -142,7 +142,8 @@ class RecipeController {
 		$recipe_name = $row->name;
 		$author = empty($row->author) ? "Unknown" : $row->author;
 
-		$recipeText = "Author: <highlight>$author<end>\n\n";
+		$recipeText = "Recipe Id: <highlight>$row->id<end>\n"; 
+		$recipeText .= "Author: <highlight>$author<end>\n\n";
 		$recipeText .= $this->formatRecipeText($row->recipe);
 
 		return $this->text->makeBlob("Recipe for $recipe_name", $recipeText);
