@@ -50,18 +50,23 @@ class NotesController {
 		
 		if ($main != $sender) {
 			// convert all notes to be assigned to the main
-			$sql = "UPDATE notes SET name = ? WHERE name = ?";
+			$sql = "UPDATE notes SET owner = ? WHERE owner = ?";
 			$this->db->exec($sql, $main, $sender);
 		}
 
-		$sql = "SELECT * FROM notes WHERE name = ?";
+		$sql = "SELECT * FROM notes WHERE owner = ? ORDER BY added_by ASC, dt DESC";
 		$data = $this->db->query($sql, $main);
 
 		if (count($data) == 0) {
 			$msg = "No notes for $sender.";
 		} else {
 			$blob = '';
+			$current = '';
 			forEach ($data as $row) {
+				if ($row->added_by != $current) {
+					$blob .= "\n<header>$row->added_by<end>\n";
+					$current = $row->added_by;
+				}
 				$remove = $this->text->makeChatcmd('Remove', "/tell <myname> notes rem $row->id");
 				$blob .= "$remove $row->note\n\n";
 			}
@@ -81,7 +86,7 @@ class NotesController {
 		$altInfo = $this->altsController->getAltInfo($sender);
 		$main = $altInfo->getValidatedMain($sender);
 
-		$this->db->exec("INSERT INTO notes (name, note) VALUES(?, ?)", $main, $note);
+		$this->db->exec("INSERT INTO notes (owner, added_by, note) VALUES(?, ?)", $main, $sender, $note);
 		$msg = "Note added successfully.";
 
 		$sendto->reply($msg);
@@ -97,7 +102,7 @@ class NotesController {
 		$altInfo = $this->altsController->getAltInfo($sender);
 		$main = $altInfo->getValidatedMain($sender);
 
-		$numRows = $this->db->exec("DELETE FROM notes WHERE id = ? AND name = ?", $id, $main);
+		$numRows = $this->db->exec("DELETE FROM notes WHERE id = ? AND owner = ?", $id, $main);
 		if ($numRows == 0) {
 			$msg = "Note could not be found or note does not belong to you.";
 		} else {

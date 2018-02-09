@@ -111,3 +111,13 @@ if (checkIfTableExists($db, "banlist_<myname>")) {
 		$db->exec("DROP TABLE old_banlist_<myname>");
 	}
 }
+
+if (checkIfTableExists($db, "notes")) {
+	if (checkIfColumnExists($db, "notes", "name")) {
+		$db->exec("ALTER TABLE notes RENAME TO notes_old");
+		$db->exec("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTO_INCREMENT, owner VARCHAR(25) NOT NULL, added_by VARCHAR(25) NOT NULL, note VARCHAR(255) NOT NULL, dt INTEGER NOT NULL);");
+		$db->exec("INSERT INTO notes (id, owner, added_by, note, dt) SELECT id, name, name, note, 0 FROM notes_old");
+		$db->exec("DROP TABLE notes_old");
+		$db->exec("UPDATE notes SET dt = ?", time());
+	}
+}
