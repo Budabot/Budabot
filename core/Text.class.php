@@ -167,7 +167,7 @@ class Text {
 	 * @name: makeItem
 	 * @description: creates an item link
 	 */
-	public function makeItem($lowId, $highId,  $ql, $name) {
+	public function makeItem($lowId, $highId, $ql, $name) {
 		return "<a href='itemref://{$lowId}/{$highId}/{$ql}'>{$name}</a>";
 	}
 
