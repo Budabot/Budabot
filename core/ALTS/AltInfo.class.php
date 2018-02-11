@@ -23,6 +23,20 @@ class AltInfo {
 		return false;
 	}
 
+	public function getAllValidated($sender) {
+		if (!$this->isValidated($sender)) {
+			return array($sender);
+		} else {
+			$arr = array($this->main);
+			forEach($this->alts as $alt => $validated) {
+				if ($validated) {
+					$arr []= $alt;
+				}
+			}
+			return $arr;
+		}
+	}
+
 	public function getAltsBlob($showValidateLinks = false, $firstPageOnly = false) {
 		$db = Registry::getInstance('db');
 		$settingManager = Registry::getInstance('settingManager');
