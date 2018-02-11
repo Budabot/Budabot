@@ -63,9 +63,6 @@ class Budabot extends AOChat {
 	public $chatlist = array();
 	public $guildmembers = array();
 	public $vars;
-
-	// array where modules can store stateful session data
-	public $data = array();
 	
 	private $buddyListSize = 0;
 

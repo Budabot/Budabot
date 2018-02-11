@@ -1,2 +1,2 @@
-To check when an nember of your organisation was online last:
+To check when an member of your organization was online last:
 <highlight><tab><symbol>lastseen 'player'<end>

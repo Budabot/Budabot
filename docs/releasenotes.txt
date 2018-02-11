@@ -1,5 +1,5 @@
 *****************************
-	Version 3.5_RC2:
+	Version 3.5_GA:
 *****************************
 -updated !whatbuffs to use data from aoitems.com
 -updated itemsdb to 18.08.24
@@ -554,7 +554,7 @@
 - Updated the Level Info with some new colors and also show how much tokens you get(done by Blackruby)
 - Added a Module with that you can see what you need for a specific Alien Armor Part(like which Viralbots and skills for the combine)
 - Updated the Character/org/server lookup class(xml.php) to solve some issues with getting wrong data. Also the Speed of the Splitting functions for xml files has been increased.
-- The Organisation XML file from the Bot org will be able to update every 6hrs while the rest is still set to 24hrs.
+- The Organization XML file from the Bot org will be able to update every 6hrs while the rest is still set to 24hrs.
 - Updated to PHP5.2
 - Added a Exec command to the DB Class
 - Added a Function to the DB class to change the Create Table statements for SQLite(as they are compatibel with the ones used for MYSQL f.e. the autoincrement columns)

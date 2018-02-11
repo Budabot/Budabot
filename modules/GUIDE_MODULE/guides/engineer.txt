@@ -113,7 +113,7 @@ Shortcuts for certain chat channels are also available to you.
 /v is talk in vicinity
 /w is whisper
 /g is talk in team chat
-/o is talk in organisation (guild) chat
+/o is talk in organization (guild) chat
 /me refers to yourself
 
 Finally it's also possible to change chat channel like this as well.
