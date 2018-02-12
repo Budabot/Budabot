@@ -1,0 +1,44 @@
+{
+	"name":"Perfected Diamondine Kick Pistol",
+	"author":"Illork",
+	"items":[
+		{
+			"item_id":165168,
+			"ql":200
+		},
+		{
+			"item_id":257959,
+			"ql":250
+		},
+		{
+			"item_id":150922,
+			"ql":10
+		},
+		{
+			"item_id":257109,
+			"ql":300
+		},
+		{
+			"item_id":301901,
+			"ql":300
+		}
+	],
+	"ingredients":[
+		257959,
+		165168,
+		150922
+	],
+	"steps":[
+		{
+			"source":257959,
+			"target":165168,
+			"result":257109
+		},
+		{
+			"source":150922,
+			"target":257109,
+			"result":301901,
+			"skills":"2250 WS,2175 ME,2100 EE"
+		}
+	]
+}

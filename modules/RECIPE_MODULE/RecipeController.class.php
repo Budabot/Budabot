@@ -39,7 +39,6 @@ class RecipeController {
 	public $itemsController;
 
 	private $path;
-	private $fileExt = ".txt";
 
 	/** @Setup */
 	public function setup() {
@@ -49,12 +48,58 @@ class RecipeController {
 		if ($handle = opendir($this->path)) {
 			while (false !== ($fileName = readdir($handle))) {
 				// if file has the correct extension, load recipe into database
-				if (preg_match("/(\d+){$this->fileExt}/", $fileName, $args)) {
+				if (preg_match("/(\d+)\.txt/", $fileName, $args)) {
 					$id = $args[1];
 					$lines = file($this->path . $fileName);
 					$name = substr(trim(array_shift($lines)), 6);
 					$author = substr(trim(array_shift($lines)), 8);
 					$data = implode("", $lines);
+					$this->db->exec("INSERT INTO recipes (id, name, author, recipe) VALUES (?, ?, ?, ?)", $id, $name, $author, $data);
+				} else if (preg_match("/(\d+)\.json/", $fileName, $args)) {
+					$recipe = json_decode(file_get_contents($this->path . $fileName));
+					if ($recipe === null) {
+						throw new \Exception("Could not read '$fileName', invalid JSON");
+					}
+					$id = $args[1];
+					$name = $recipe->name;
+					$author = $recipe->author;
+					$items = [];
+					forEach ($recipe->items as $item) {
+						$dbItem = $this->itemsController->findById($item->item_id);
+						if ($dbItem === null) {
+							throw \Exception("Could not find item '{$item->item_id}'");
+						}
+						$items[$item->item_id] = $dbItem;
+						$items[$item->item_id]->ql = $item->ql;
+					}
+					$data = "#C16------------------------------\n";
+					$data .= "#C12Ingredients #C20\n";
+					$data .= "#C16------------------------------\n\n";
+					forEach ($recipe->ingredients as $ingredient) {
+						$item = $items[$ingredient];
+						$data .= $this->text->makeImage($item->icon) . "\n";
+						$data .= $this->text->makeItem($item->lowid, $item->highid, $item->ql, $item->name) . "\n\n\n";
+					}
+
+					$data .= "#C16------------------------------\n";
+					$data .= "#C12Recipe #C16\n";
+					$data .= "#C16------------------------------#C20\n\n";
+					forEach ($recipe->steps as $step) {
+						$source = $items[$step->source];
+						$target = $items[$step->target];
+						$result = $items[$step->result];
+						$data .= $source->name . "\n";
+						$data .= "#C15+#C20" . "\n";
+						$data .= $target->name . "\n";
+						$data .= "#C15=#C20" . "\n";
+						$data .= $this->text->makeImage($result->icon) . "\n";
+						$data .= $this->text->makeItem($result->lowid, $result->highid, $result->result->ql, $result->name) . "\n";
+						if ($step->skills) {
+							$data .= "#C16Skills: | {$step->skills} |#C20\n";
+						}
+						$data .= "\n\n";
+					}
+
 					$this->db->exec("INSERT INTO recipes (id, name, author, recipe) VALUES (?, ?, ?, ?)", $id, $name, $author, $data);
 				}
 			}
