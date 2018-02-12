@@ -58,6 +58,16 @@
 			"ql":300
 		},
 		{
+			"_name":"Sleeves of Senseless Violence",
+			"item_id":244705,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Sleeves of Senseless Violence",
+			"item_id":302723,
+			"ql":300
+		},
+		{
 			"_name":"Inert Sigil of Machiavelli",
 			"item_id":302928,
 			"ql":300
@@ -115,6 +125,7 @@
 		244714,
 		244704,
 		244715,
+		244705,
 		302928,
 		244718,
 		244717,
@@ -146,6 +157,11 @@
 			"source":302927,
 			"target":244715,
 			"result":302727
+		},
+		{
+			"source":302927,
+			"target":244705,
+			"result":302723
 		},
 		{
 			"source":302932,
