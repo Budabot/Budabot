@@ -1,0 +1,176 @@
+{
+	"name":"Pyramid of Home",
+	"author":"Illork",
+	"items":[
+		{
+			"_name":"Portable Notum Infusion Device",
+			"item_id":302932,
+			"ql":300
+		},
+		{
+			"_name":"Inert Sigil of Alighieri",
+			"item_id":302926,
+			"ql":300
+		},
+		{
+			"_name":"Charged Sigil of Alighieri",
+			"item_id":302927,
+			"ql":300
+		},
+		{
+			"_name":"Armplates of Elimination",
+			"item_id":244712,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Armplates of Elimination",
+			"item_id":302724,
+			"ql":300
+		},
+		{
+			"_name":"Boots of Concourse",
+			"item_id":244714,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Boots of Concourse",
+			"item_id":302726,
+			"ql":300
+		},
+		{
+			"_name":"Gauntlets of Deformation",
+			"item_id":244704,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Gauntlets of Deformation",
+			"item_id":302722,
+			"ql":300
+		},
+		{
+			"_name":"Greaves of Malfeasance",
+			"item_id":244715,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Greaves of Malfeasance",
+			"item_id":302727,
+			"ql":300
+		},
+		{
+			"_name":"Inert Sigil of Machiavelli",
+			"item_id":302928,
+			"ql":300
+		},
+		{
+			"_name":"Charged Sigil of Machiavelli",
+			"item_id":302929,
+			"ql":300
+		},
+		{
+			"_name":"Burden of Competence",
+			"item_id":244718,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Burden of Competence",
+			"item_id":302730,
+			"ql":300
+		},
+		{
+			"_name":"Cuirass of Obstinacy",
+			"item_id":244717,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Cuirass of Obstinacy",
+			"item_id":302729,
+			"ql":300
+		},
+		{
+			"_name":"Helmet of Hypocrisy",
+			"item_id":244716,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Helmet of Hypocrisy",
+			"item_id":302728,
+			"ql":300
+		},
+		{
+			"_name":"Shoulderplates of Sabotage",
+			"item_id":244713,
+			"ql":300
+		},
+		{
+			"_name":"Awakened Shoulderplates of Sabotage",
+			"item_id":302725,
+			"ql":300
+		}
+	],
+	"ingredients":[
+		302932,
+		302926,
+		244712,
+		244714,
+		244704,
+		244715,
+		302928,
+		244718,
+		244717,
+		244716,
+		244713
+	],
+	"steps":[
+		{
+			"source":302932,
+			"target":302926,
+			"result":302927
+		},
+		{
+			"source":302927,
+			"target":244712,
+			"result":302724
+		},
+		{
+			"source":302927,
+			"target":244714,
+			"result":302726
+		},
+		{
+			"source":302927,
+			"target":244704,
+			"result":302722
+		},
+		{
+			"source":302927,
+			"target":244715,
+			"result":302727
+		},
+		{
+			"source":302932,
+			"target":302928,
+			"result":302929
+		},
+		{
+			"source":302929,
+			"target":244718,
+			"result":302730
+		},
+		{
+			"source":302929,
+			"target":244717,
+			"result":302729
+		},
+		{
+			"source":302929,
+			"target":244716,
+			"result":302728
+		},
+		{
+			"source":302929,
+			"target":244713,
+			"result":302725
+		}
+	]
+}

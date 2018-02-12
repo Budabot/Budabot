@@ -2,6 +2,8 @@
 
 namespace Budabot\User\Modules;
 
+use Exception;
+
 /**
  * Authors:
  *  - Tyrence
@@ -58,7 +60,7 @@ class RecipeController {
 				} else if (preg_match("/(\d+)\.json/", $fileName, $args)) {
 					$recipe = json_decode(file_get_contents($this->path . $fileName));
 					if ($recipe === null) {
-						throw new \Exception("Could not read '$fileName', invalid JSON");
+						throw new Exception("Could not read '$fileName', invalid JSON");
 					}
 					$id = $args[1];
 					$name = $recipe->name;
@@ -67,7 +69,7 @@ class RecipeController {
 					forEach ($recipe->items as $item) {
 						$dbItem = $this->itemsController->findById($item->item_id);
 						if ($dbItem === null) {
-							throw \Exception("Could not find item '{$item->item_id}'");
+							throw Exception("Could not find item '{$item->item_id}'");
 						}
 						$items[$item->item_id] = $dbItem;
 						$items[$item->item_id]->ql = $item->ql;
@@ -93,7 +95,7 @@ class RecipeController {
 						$data .= $target->name . "\n";
 						$data .= "#C15=#C20" . "\n";
 						$data .= $this->text->makeImage($result->icon) . "\n";
-						$data .= $this->text->makeItem($result->lowid, $result->highid, $result->result->ql, $result->name) . "\n";
+						$data .= $this->text->makeItem($result->lowid, $result->highid, $result->ql, $result->name) . "\n";
 						if ($step->skills) {
 							$data .= "#C16Skills: | {$step->skills} |#C20\n";
 						}
