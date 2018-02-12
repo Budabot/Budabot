@@ -1,0 +1,2 @@
+To see how many characters are contained in a command response and how long it took to process the command:
+<highlight><tab><symbol>msginfo 'command'<end>

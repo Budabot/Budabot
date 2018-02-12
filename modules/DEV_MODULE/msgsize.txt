@@ -1,2 +1,0 @@
-To see how many characters are contained in a command response:
-<highlight><tab><symbol>msgsize 'command'<end>

@@ -63,10 +63,10 @@ use stdClass;
  *		help        = 'test.txt'
  *	)
  *	@DefineCommand(
- *		command     = 'msgsize',
+ *		command     = 'msginfo',
  *		accessLevel = 'all',
- *		description = "Show the number of characters in a command response",
- *		help        = 'msgsize.txt'
+ *		description = "Show number of characters in response and the time it took to process",
+ *		help        = 'msginfo.txt'
  *	)
  */
 class TestController extends AutoInject {
@@ -115,7 +115,7 @@ class TestController extends AutoInject {
 		} else {
 			$mockSendto = new MockCommandReply();
 		}
-	
+
 		$files = $this->util->getFilesInDirectory($this->path);
 		$starttime = time();
 		$sendto->reply("Starting tests...");
@@ -133,7 +133,7 @@ class TestController extends AutoInject {
 	 */
 	public function testModuleCommand($message, $channel, $sender, $sendto, $args) {
 		$file = $args[1] . ".txt";
-		
+
 		$type = "msg";
 		if ($this->setting->show_test_results == 1) {
 			$mockSendto = $sendto;
@@ -275,13 +275,13 @@ class TestController extends AutoInject {
 	}
 	
 	/**
-	 * @HandlesCommand("msgsize")
-	 * @Matches("/^msgsize (.+)$/i")
+	 * @HandlesCommand("msginfo")
+	 * @Matches("/^msginfo (.+)$/i")
 	 */
-	public function msgsizeCommand($message, $channel, $sender, $sendto, $args) {
+	public function msginfoCommand($message, $channel, $sender, $sendto, $args) {
 		$cmd = $args[1];
 
-		$mockSendto = new ReplySizeCommandReply($sendto);
+		$mockSendto = new MessageInfoCommandReply($sendto);
 		$this->commandManager->process($channel, $cmd, $sender, $mockSendto);
 	}
 }
@@ -293,21 +293,26 @@ class MockCommandReply implements CommandReply {
 	}
 }
 
-class ReplySizeCommandReply implements CommandReply {
+class MessageInfoCommandReply implements CommandReply {
 	private $sendto;
+	private $startTime;
 
 	public function __construct($sendto) {
 		$this->sendto = $sendto;
+		$this->startTime = microtime(true);
 	}
 
 	public function reply($msg) {
+		$endTime = microtime(true);
 		if (!is_array($msg)) {
 			$msg = array($msg);
 		}
 		
 		forEach ($msg as $page) {
+			$elapsed = round($endTime - $this->startTime, 4);
 			$this->sendto->reply($page);
-			$this->sendto->reply(strlen($page));
+			$this->sendto->reply("Size: " . strlen($page));
+			$this->sendto->reply("Time: $elapsed seconds");
 		}
 	}
 }
