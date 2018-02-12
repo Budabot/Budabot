@@ -65,28 +65,31 @@ class RecipeController {
 					$id = $args[1];
 					$name = $recipe->name;
 					$author = $recipe->author;
-					$items = [];
-					forEach ($recipe->items as $item) {
+					$items = array();
+					forEach($recipe->items as $item) {
 						$dbItem = $this->itemsController->findById($item->item_id);
 						if ($dbItem === null) {
 							throw Exception("Could not find item '{$item->item_id}'");
 						}
-						$items[$item->item_id] = $dbItem;
-						$items[$item->item_id]->ql = $item->ql;
+						$items[$item->alias] = $dbItem;
+						$items[$item->alias]->ql = $item->ql;
 					}
 					$data = "#C16------------------------------\n";
 					$data .= "#C12Ingredients #C20\n";
 					$data .= "#C16------------------------------\n\n";
-					forEach ($recipe->ingredients as $ingredient) {
-						$item = $items[$ingredient];
-						$data .= $this->text->makeImage($item->icon) . "\n";
-						$data .= $this->text->makeItem($item->lowid, $item->highid, $item->ql, $item->name) . "\n\n\n";
+					$ingredients = $items;
+					forEach($recipe->steps as $step) {
+						unset($ingredients[$step->result]);
+					}
+					forEach($ingredients as $ingredient) {
+						$data .= $this->text->makeImage($ingredient->icon) . "\n";
+						$data .= $this->text->makeItem($ingredient->lowid, $ingredient->highid, $ingredient->ql, $ingredient->name) . "\n\n\n";
 					}
 
 					$data .= "#C16------------------------------\n";
 					$data .= "#C12Recipe #C16\n";
 					$data .= "#C16------------------------------#C20\n\n";
-					forEach ($recipe->steps as $step) {
+					forEach($recipe->steps as $step) {
 						$source = $items[$step->source];
 						$target = $items[$step->target];
 						$result = $items[$step->result];
