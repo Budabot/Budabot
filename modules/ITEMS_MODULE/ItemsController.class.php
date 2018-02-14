@@ -75,7 +75,7 @@ class ItemsController {
 	 * @Matches("/^items (.+)$/i")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->find_items($args, 'local');
+		$msg = $this->findItems($args, 'local');
 		$sendto->reply($msg);
 	}
 	
@@ -85,7 +85,7 @@ class ItemsController {
 	 * @Matches("/^citems (.+)$/i")
 	 */
 	public function citemsCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->find_items($args, 'central');
+		$msg = $this->findItems($args, 'central');
 		$sendto->reply($msg);
 	}
 	
@@ -202,7 +202,7 @@ class ItemsController {
 		return $msg;
 	}
 
-	public function find_items($args, $db = null) {
+	public function findItems($args, $db = null) {
 		if (count($args) == 3) {
 			$ql = $args[1];
 			if (!($ql >= 1 && $ql <= 500)) {
@@ -219,7 +219,7 @@ class ItemsController {
 		switch ($db) {
 			case 'local':
 				// local database
-				$data = $this->find_items_from_local($search, $ql);
+				$data = $this->findItemsFromLocal($search, $ql);
 
 				$budabotItemsExtractorLink = $this->text->makeChatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
 				$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
@@ -229,7 +229,7 @@ class ItemsController {
 			default:
 				// central items database
 				$url = $this->settingManager->get('cidb_url');
-				$obj = $this->find_items_from_remote($search, $ql, $url);
+				$obj = $this->findItemsFromRemote($search, $ql, $url);
 
 				if ($obj == null) {
 					$msg = "Unable to query Central Items Database.";
@@ -244,7 +244,7 @@ class ItemsController {
 	/*
 	 * Method to query the Central Items Database - Demoder
 	 */
-	public function find_items_from_remote($search, $ql, $server) {
+	public function findItemsFromRemote($search, $ql, $server) {
 		$parameters = array(
 			"bot" => "Budabot",
 			"output" => "json",
@@ -300,7 +300,7 @@ class ItemsController {
 		}
 	}
 	
-	public function find_items_from_local($search, $ql) {
+	public function findItemsFromLocal($search, $ql) {
 		$tmp = explode(" ", $search);
 		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'name');
 

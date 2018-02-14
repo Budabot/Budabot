@@ -62,6 +62,7 @@ class RecipeController {
 					if ($recipe === null) {
 						throw new Exception("Could not read '$fileName', invalid JSON");
 					}
+
 					$id = $args[1];
 					$name = $recipe->name;
 					$author = $recipe->author;
@@ -74,6 +75,7 @@ class RecipeController {
 						$items[$item->alias] = $dbItem;
 						$items[$item->alias]->ql = $item->ql;
 					}
+
 					$data = "#C16------------------------------\n";
 					$data .= "#C12Ingredients #C20\n";
 					$data .= "#C16------------------------------\n\n";
