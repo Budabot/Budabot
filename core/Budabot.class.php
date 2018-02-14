@@ -241,7 +241,7 @@ class Budabot extends AOChat {
 
 			// relay to bot relay
 			if (!$disable_relay && $this->settingManager->get("relaybot") != "Off" && $this->settingManager->get("bot_relay_commands") == 1) {
-				$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] [Guest] {$senderLink}: $message");
+				$this->relayController->sendMessageToRelay("grc [{$guildNameForRelay}] [Guest] {$senderLink}: $message");
 			}
 		}
 	}
@@ -278,7 +278,7 @@ class Budabot extends AOChat {
 
 		// relay to bot relay
 		if (!$disable_relay && $this->settingManager->get("relaybot") != "Off" && $this->settingManager->get("bot_relay_commands") == 1) {
-			$this->relayController->send_message_to_relay("grc [{$guildNameForRelay}] {$senderLink}: $message");
+			$this->relayController->sendMessageToRelay("grc [{$guildNameForRelay}] {$senderLink}: $message");
 		}
 	}
 

@@ -118,7 +118,7 @@ class ItemsController {
 	 * @Matches("/^updateitems$/i")
 	 */
 	public function updateitemsCommand($message, $channel, $sender, $sendto) {
-		$msg = $this->download_newest_itemsdb();
+		$msg = $this->downloadNewestItemsdb();
 		$sendto->reply($msg);
 	}
 
@@ -127,13 +127,13 @@ class ItemsController {
 	 * @Description("Check to make sure items db is the latest version available")
 	 */
 	public function checkForUpdate() {
-		$msg = $this->download_newest_itemsdb();
+		$msg = $this->downloadNewestItemsdb();
 		if (preg_match("/^The items database has been updated/", $msg)) {
 			$this->chatBot->sendGuild($msg);
 		}
 	}
 
-	public function download_newest_itemsdb() {
+	public function downloadNewestItemsdb() {
 		$this->logger->log('DEBUG', "Starting items db update");
 
 		// get list of files in ITEMS_MODULE

@@ -98,7 +98,7 @@ class RaidController {
 	 * @Matches("/^loot$/i")
 	 */
 	public function lootCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->get_current_loot_list();
+		$msg = $this->getCurrentLootList();
 		$sendto->reply($msg);
 	}
 	
@@ -330,7 +330,7 @@ class RaidController {
 			$sendto->reply($msg);
 		}
 
-		$msg = $this->get_current_loot_list();
+		$msg = $this->getCurrentLootList();
 		$sendto->reply($msg);
 	}
 	
@@ -466,7 +466,7 @@ class RaidController {
 		}
 	}
 	
-	public function get_current_loot_list() {
+	public function getCurrentLootList() {
 		if (!empty($this->loot)) {
 			$list = "Use <symbol>flatroll to roll.\n\n";
 			$players = 0;
@@ -506,7 +506,7 @@ class RaidController {
 		return $msg;
 	}
 
-	public function add_raid_to_loot_list($raid, $category) {
+	public function addRaidToLootList($raid, $category) {
 		// clear current loot list
 		$this->loot = array();
 		$count = 1;

@@ -144,7 +144,7 @@ class RelayController {
 				$this->logger->log('WARN', "Invalid type; expecting 'guild' or 'priv'.  Actual: '$type'");
 				return;
 			}
-			$this->send_message_to_relay($msg);
+			$this->sendMessageToRelay($msg);
 		}
 	}
 	
@@ -166,7 +166,7 @@ class RelayController {
 	public function relayOrgMessagesEvent($eventObj) {
 		if ($this->settingManager->get("relaybot") != "Off") {
 			$msg = "grc [<myguild>] {$eventObj->message}<end>";
-			$this->send_message_to_relay($msg);
+			$this->sendMessageToRelay($msg);
 		}
 	}
 	
@@ -198,7 +198,7 @@ class RelayController {
 				}
 			}
 
-			$this->send_message_to_relay("grc [<myguild>] ".$msg);
+			$this->sendMessageToRelay("grc [<myguild>] ".$msg);
 		}
 	}
 	
@@ -209,7 +209,7 @@ class RelayController {
 	public function relayLogoffMessagesEvent($eventObj) {
 		$sender = $eventObj->sender;
 		if ($this->settingManager->get("relaybot") != "Off" && isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->isReady()) {
-			$this->send_message_to_relay("grc [<myguild>] <highlight>{$sender}<end> logged off");
+			$this->sendMessageToRelay("grc [<myguild>] <highlight>{$sender}<end> logged off");
 		}
 	}
 	
@@ -237,7 +237,7 @@ class RelayController {
 				}
 			}
 
-			$this->send_message_to_relay("grc [<myguild>] " . $msg);
+			$this->sendMessageToRelay("grc [<myguild>] " . $msg);
 		}
 	}
 	
@@ -249,11 +249,11 @@ class RelayController {
 		$sender = $eventObj->sender;
 		if ($this->settingManager->get('relaybot') != 'Off') {
 			$msg = "<highlight>{$sender}<end> has left the private channel.";
-			$this->send_message_to_relay("grc [<myguild>] " . $msg);
+			$this->sendMessageToRelay("grc [<myguild>] " . $msg);
 		}
 	}
 	
-	function send_message_to_relay($message) {
+	function sendMessageToRelay($message) {
 		$relayBot = $this->settingManager->get('relaybot');
 		$message = str_ireplace("<myguild>", $this->getGuildAbbreviation(), $message);
 

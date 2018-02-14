@@ -255,7 +255,7 @@ class LootListsController {
 	}
 
 	public function getAlbatraumLoot($raid, $category) {
-		$blob = $this->find_raid_loot($raid, $category);
+		$blob = $this->findRaidLoot($raid, $category);
 		$blob .= "\n\nAlbtraum Loot By Dare2005 (RK2)";
 		return $this->text->makeBlob("$raid $category Loot", $blob);
 	}
@@ -283,7 +283,7 @@ class LootListsController {
 	}
 	
 	public function getDustBrigadeLoot($raid, $category) {
-		$blob = $this->find_raid_loot($raid, $category);
+		$blob = $this->findRaidLoot($raid, $category);
 		$blob .= "\n\nDust Brigrade Loot By Chachy (RK2)";
 		return $this->text->makeBlob("$raid $category Loot", $blob);
 	}
@@ -295,7 +295,7 @@ class LootListsController {
 	public function apf7Command($message, $channel, $sender, $sendto, $args) {
 		$raid = "APF";
 		$category = "Sector 7";
-		$blob = $this->find_raid_loot($raid, $category);
+		$blob = $this->findRaidLoot($raid, $category);
 		$msg = $this->text->makeBlob("$raid $category Loot", $blob);
 		$sendto->reply($msg);
 	}
@@ -341,11 +341,11 @@ class LootListsController {
 	
 	public function addAPFLootToList($sector) {
 		// adding apf stuff
-		$this->raidController->add_raid_to_loot_list('APF', "Sector $sector");
+		$this->raidController->addRaidToLootList('APF', "Sector $sector");
 		$msg = "Sector $sector loot table was added to the loot list.";
 		$this->chatBot->sendPrivate($msg);
 
-		$msg = $this->raidController->get_current_loot_list();
+		$msg = $this->raidController->getCurrentLootList();
 		$this->chatBot->sendPrivate($msg);
 	}
 	
@@ -401,7 +401,7 @@ class LootListsController {
 			case "7":
 				$raid = "APF";
 				$category = "Sector 7";
-				$list = $this->find_raid_loot($raid, $category);
+				$list = $this->findRaidLoot($raid, $category);
 				
 				break;
 			case "13":
@@ -713,7 +713,7 @@ class LootListsController {
 	}
 	
 	public function getPandemoniumLoot($raid, $category) {
-		$blob = $this->find_raid_loot($raid, $category);
+		$blob = $this->findRaidLoot($raid, $category);
 		$blob .= "\n\nPande Loot By Marinerecon (RK2)";
 		return $this->text->makeBlob("$raid $category Loot", $blob);
 	}
@@ -795,7 +795,7 @@ class LootListsController {
 	}
 	
 	public function getXanLoot($raid, $category) {
-		$blob = $this->find_raid_loot($raid, $category);
+		$blob = $this->findRaidLoot($raid, $category);
 		$blob .= "\n\nXan Loot By Morgo (RK2)";
 		return $this->text->makeBlob("$raid $category Loot", $blob);
 	}
@@ -834,15 +834,15 @@ class LootListsController {
 	 * @Matches("/^poh$/i")
 	 */
 	public function pohCommand($message, $channel, $sender, $sendto, $args) {
-		$blob = $this->find_raid_loot('Pyramid of Home', 'General');
-		$blob .= $this->find_raid_loot('Pyramid of Home', 'HUD/NCU');
+		$blob = $this->findRaidLoot('Pyramid of Home', 'General');
+		$blob .= $this->findRaidLoot('Pyramid of Home', 'HUD/NCU');
 		$msg = $this->text->makeBlob("Pyramid of Home Loot", $blob);
 
 		$sendto->reply($msg);
 		$sendto->reply($this->getPandemoniumLoot('Pande', 'Beast Weapons'));
 	}
 
-	public function find_raid_loot($raid, $category) {
+	public function findRaidLoot($raid, $category) {
 		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE raid = ? AND category = ?";
 		$data = $this->db->query($sql, $raid, $category);
 

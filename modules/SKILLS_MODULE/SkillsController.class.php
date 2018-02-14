@@ -232,7 +232,7 @@ class SkillsController {
 		$RechT = $args[2];
 		$InitS = $args[3];
 
-		list($cap, $ASCap) = $this->cap_aimed_shot($AttTim, $RechT);
+		list($cap, $ASCap) = $this->capAimedShot($AttTim, $RechT);
 
 		$ASRech	= ceil(($RechT * 40) - ($InitS * 3 / 100) + $AttTim - 1);
 		if ($ASRech < $cap) {
@@ -299,7 +299,7 @@ class SkillsController {
 		$BurstDelay = $args[3];
 		$BurstSkill = $args[4];
 
-		list($cap, $burstskillcap) = $this->cap_burst($AttTim, $RechT, $BurstDelay);
+		list($cap, $burstskillcap) = $this->capBurst($AttTim, $RechT, $BurstDelay);
 
 		$burstrech = floor(($RechT * 20) + ($BurstDelay / 100) - ($BurstSkill / 25) + $AttTim);
 		if ($burstrech <= $cap) {
@@ -382,7 +382,7 @@ class SkillsController {
 		$AttTim = $args[1];
 		$fastSkill = $args[2];
 
-		list($fasthardcap, $fastskillcap) = $this->cap_fast_attack($AttTim);
+		list($fasthardcap, $fastskillcap) = $this->capFastAttack($AttTim);
 
 		$fastrech =  round(($AttTim * 16) - ($fastSkill / 100));
 
@@ -407,7 +407,7 @@ class SkillsController {
 		$AttTim = $args[1];
 		$FlingSkill = $args[2];
 
-		list($flinghardcap, $flingskillcap) = $this->cap_fling_shot($AttTim);
+		list($flinghardcap, $flingskillcap) = $this->capFlingShot($AttTim);
 
 		$flingrech =  round(($AttTim * 16) - ($FlingSkill / 100));
 
@@ -434,7 +434,7 @@ class SkillsController {
 		$FARecharge = $args[3];
 		$FullAutoSkill = $args[4];
 
-		list($FACap, $FA_Skill_Cap) = $this->cap_full_auto($AttTim, $RechT, $FARecharge);
+		list($FACap, $FA_Skill_Cap) = $this->capFullAuto($AttTim, $RechT, $FARecharge);
 
 		$FA_Recharge = round(($RechT * 40) + ($FARecharge / 100) - ($FullAutoSkill / 25) + round($AttTim - 1));
 		if ($FA_Recharge < $FACap) {
@@ -545,10 +545,10 @@ class SkillsController {
 		$attack_time = $args[1];
 		$init_skill = $args[2];
 
-		$attack_time_reduction = $this->calc_attack_time_reduction($init_skill);
+		$attack_time_reduction = $this->calcAttackTimeReduction($init_skill);
 		$effective_attack_time = $attack_time - $attack_time_reduction;
 
-		$bar_setting = $this->calc_bar_setting($effective_attack_time);
+		$bar_setting = $this->calcBarSetting($effective_attack_time);
 		if ($bar_setting < 0) {
 			$bar_setting = 0;
 		}
@@ -556,9 +556,9 @@ class SkillsController {
 			$bar_setting = 100;
 		}
 
-		$Init1 = $this->calc_inits($attack_time - 1);
-		$Init2 = $this->calc_inits($attack_time);
-		$Init3 = $this->calc_inits($attack_time + 1);
+		$Init1 = $this->calcInits($attack_time - 1);
+		$Init2 = $this->calcInits($attack_time);
+		$Init3 = $this->calcInits($attack_time + 1);
 
 		$blob = "Attack: <highlight>". $attack_time ." <end>second(s)\n";
 		$blob .= "Init Skill: <highlight>". $init_skill ."<end>\n";
@@ -626,28 +626,28 @@ class SkillsController {
 
 		if ($highAttributes->full_auto !== null) {
 			$full_auto_recharge = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->full_auto, $highAttributes->full_auto, $ql);
-			list($hard_cap, $skill_cap) = $this->cap_full_auto($attack_time, $recharge_time, $full_auto_recharge);
+			list($hard_cap, $skill_cap) = $this->capFullAuto($attack_time, $recharge_time, $full_auto_recharge);
 			$blob .= "FullAutoRecharge: $full_auto_recharge -- You need <highlight>".$skill_cap."<end> Full Auto skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if ($highAttributes->burst !== null) {
 			$burst_recharge = $this->util->interpolate($row->lowql, $row->highql, $lowAttributes->burst, $highAttributes->burst, $ql);
-			list($hard_cap, $skill_cap) = $this->cap_burst($attack_time, $recharge_time, $burst_recharge);
+			list($hard_cap, $skill_cap) = $this->capBurst($attack_time, $recharge_time, $burst_recharge);
 			$blob .= "BurstRecharge: $burst_recharge -- You need <highlight>".$skill_cap."<end> Burst skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if ($highAttributes->fling_shot == 1) {
-			list($hard_cap, $skill_cap) = $this->cap_fling_shot($attack_time);
+			list($hard_cap, $skill_cap) = $this->capFlingShot($attack_time);
 			$blob .= "FlingRecharge: You need <highlight>".$skill_cap."<end> Fling Shot skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if ($highAttributes->fast_attack == 1) {
-			list($hard_cap, $skill_cap) = $this->cap_fast_attack($attack_time);
+			list($hard_cap, $skill_cap) = $this->capFastAttack($attack_time);
 			$blob .= "FastAttackRecharge: You need <highlight>".$skill_cap."<end> Fast Attack skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
 		if ($highAttributes->aimed_shot == 1) {
-			list($hard_cap, $skill_cap) = $this->cap_aimed_shot($attack_time, $recharge_time);
+			list($hard_cap, $skill_cap) = $this->capAimedShot($attack_time, $recharge_time);
 			$blob .= "AimedShotRecharge: You need <highlight>".$skill_cap."<end> Aimed Shot skill to cap your recharge at <highlight>".$hard_cap."<end>s.\n\n";
 			$found = true;
 		}
@@ -665,7 +665,7 @@ class SkillsController {
 		$sendto->reply($msg);
 	}
 
-	public function calc_attack_time_reduction($init_skill) {
+	public function calcAttackTimeReduction($init_skill) {
 		if ($init_skill > 1200) {
 			$RechTk = $init_skill - 1200;
 			$attack_time_reduction = ($RechTk / 600) + 6;
@@ -676,7 +676,7 @@ class SkillsController {
 		return $attack_time_reduction;
 	}
 
-	public function calc_bar_setting($effective_attack_time) {
+	public function calcBarSetting($effective_attack_time) {
 		if ($effective_attack_time < 0) {
 			return 88 + (88 * $effective_attack_time);
 		} else if ($effective_attack_time > 0) {
@@ -686,7 +686,7 @@ class SkillsController {
 		}
 	}
 
-	public function calc_inits($attack_time) {
+	public function calcInits($attack_time) {
 		if ($attack_time < 0) {
 			return 0;
 		} else if ($attack_time < 6) {
@@ -696,35 +696,35 @@ class SkillsController {
 		}
 	}
 
-	public function cap_full_auto($attack_time, $recharge_time, $full_auto_recharge) {
+	public function capFullAuto($attack_time, $recharge_time, $full_auto_recharge) {
 		$hard_cap = floor(10 + $attack_time);
 		$skill_cap = ((40 * $recharge_time) + ($full_auto_recharge / 100) - 11) * 25;
 
 		return array($hard_cap, $skill_cap);
 	}
 
-	public function cap_burst($attack_time, $recharge_time, $burst_recharge) {
+	public function capBurst($attack_time, $recharge_time, $burst_recharge) {
 		$hard_cap = round($attack_time + 8,0);
 		$skill_cap = floor((($recharge_time * 20) + ($burst_recharge / 100) - 8) * 25);
 
 		return array($hard_cap, $skill_cap);
 	}
 
-	public function cap_fling_shot($attack_time) {
+	public function capFlingShot($attack_time) {
 		$hard_cap = 5 + $attack_time;
 		$skill_cap = (($attack_time * 16) - $hard_cap) * 100;
 
 		return array($hard_cap, $skill_cap);
 	}
 
-	public function cap_fast_attack($attack_time) {
+	public function capFastAttack($attack_time) {
 		$hard_cap = 5 + $attack_time;
 		$skill_cap = (($attack_time * 16) - $hard_cap) * 100;
 
 		return array($hard_cap, $skill_cap);
 	}
 
-	public function cap_aimed_shot($attack_time, $recharge_time) {
+	public function capAimedShot($attack_time, $recharge_time) {
 		$hard_cap = floor($attack_time + 10);
 		$skill_cap = ceil((4000 * $recharge_time - 1100) / 3);
 		//$skill_cap = round((($recharge_time * 4000) - ($attack_time * 100) - 1000) / 3);

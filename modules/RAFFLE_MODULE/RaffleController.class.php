@@ -111,7 +111,7 @@ class RaffleController {
 	Click $link to join the raffle. Raffle will end in $timeString.
 	-----------------------------------------------------------------------";
 
-		$this->raffles["nextmsgtime"] = $this->get_next_time($this->raffles["time"]);
+		$this->raffles["nextmsgtime"] = $this->getNextTime($this->raffles["time"]);
 		$sendto->reply($msg);
 	}
 
@@ -238,7 +238,7 @@ class RaffleController {
 			// if there is no time left or we even skipped over the time, end raffle
 			$this->endraffle();
 		} else {
-			$this->show_raffle_reminder();
+			$this->showRaffleReminder();
 		}
 	}
 	
@@ -317,7 +317,7 @@ class RaffleController {
 		$this->raffles["sendto"]->reply($msg);
 	}
 
-	function get_next_time($endtime) {
+	function getNextTime($endtime) {
 		$tleft = $endtime - time();
 		if ($tleft <= 0) {
 			$ret = false;
@@ -333,7 +333,7 @@ class RaffleController {
 		return $ret;
 	}
 
-	function show_raffle_reminder() {
+	function showRaffleReminder() {
 		// there is a raffle running
 		$time_string = $this->util->unixtimeToReadable($this->raffles["time"] - $this->raffles["nextmsgtime"]);
 		$item = $this->raffles["item"];
@@ -363,6 +363,6 @@ class RaffleController {
 		}
 
 		$this->raffles["sendto"]->reply($msg);
-		$this->raffles["nextmsgtime"] = $this->get_next_time($this->raffles["time"]);
+		$this->raffles["nextmsgtime"] = $this->getNextTime($this->raffles["time"]);
 	}
 }

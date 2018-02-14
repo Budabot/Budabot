@@ -54,7 +54,7 @@ class TimezoneController extends AutoInject {
 	 * @HandlesCommand("timezone")
 	 * @Matches("/^timezone set ([^ ]*)$/i")
 	 */
-	public function timezoneSEtCommand($message, $channel, $sender, $sendto, $args) {
+	public function timezoneSetCommand($message, $channel, $sender, $sendto, $args) {
 		$timezone = $args[1];
 		
 		$result = date_default_timezone_set($timezone);

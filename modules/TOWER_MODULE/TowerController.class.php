@@ -485,7 +485,7 @@ class TowerController {
 			return;
 		}
 	
-		$num_rows = $this->rem_scout_site($playfield->id, $site_number);
+		$num_rows = $this->remScoutSite($playfield->id, $site_number);
 	
 		if ($num_rows == 0) {
 			$msg = "Could not find a scout record for {$playfield->short_name} {$site_number}.";
@@ -799,7 +799,7 @@ class TowerController {
 		}
 		
 		$playfield = $this->playfieldController->getPlayfieldByName($playfield_name);
-		$closest_site = $this->get_closest_site($playfield->id, $x_coords, $y_coords);
+		$closest_site = $this->getClosestSite($playfield->id, $x_coords, $y_coords);
 
 		$defender = new stdClass();
 		$defender->faction   = $def_side;
@@ -943,9 +943,9 @@ class TowerController {
 			return;
 		}
 		
-		$last_attack = $this->get_last_attack($win_faction, $win_guild_name, $lose_faction, $lose_guild_name, $playfield->id);
+		$last_attack = $this->getLastAttack($win_faction, $win_guild_name, $lose_faction, $lose_guild_name, $playfield->id);
 		if ($last_attack !== null) {
-			$this->rem_scout_site($last_attack->playfield_id, $last_attack->site_number);
+			$this->remScoutSite($last_attack->playfield_id, $last_attack->site_number);
 		} else {
 			$last_attack = new stdClass;
 			$last_attack->att_guild_name = $win_guild_name;
@@ -1120,7 +1120,7 @@ class TowerController {
 		return $this->db->query($sql, $playfield_id);
 	}
 
-	protected function get_closest_site($playfield_id, $x_coords, $y_coords) {
+	protected function getClosestSite($playfield_id, $x_coords, $y_coords) {
 		$sql = "
 			SELECT
 				*,
@@ -1147,7 +1147,7 @@ class TowerController {
 		return $this->db->queryRow($sql, $playfield_id);
 	}
 
-	protected function get_last_attack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
+	protected function getLastAttack($att_faction, $att_guild_name, $def_faction, $def_guild_name, $playfield_id) {
 		$time = time() - (7 * 3600);
 
 		$sql = "
@@ -1288,7 +1288,7 @@ class TowerController {
 		return $numrows;
 	}
 
-	protected function rem_scout_site($playfield_id, $site_number) {
+	protected function remScoutSite($playfield_id, $site_number) {
 		$sql = "DELETE FROM scout_info WHERE `playfield_id` = ? AND `site_number` = ?";
 
 		return $this->db->exec($sql, $playfield_id, $site_number);
