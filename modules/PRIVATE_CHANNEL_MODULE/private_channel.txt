@@ -1,8 +1,8 @@
 To invite a player to the private channel:
-<highlight><tab><symbol>inviteuser 'player'<end>
+<highlight><tab><symbol>invite 'player'<end>
 
 To kick a player from the private channel
-<highlight><tab><symbol>kickuser 'player'<end>
+<highlight><tab><symbol>kick 'player'<end>
 
 To add a player to the guestlist(he will get auto-invited after he logs on):
 <highlight><tab><symbol>adduser 'player'<end>
