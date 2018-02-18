@@ -166,6 +166,7 @@ class Util {
 				break;
 			case "eng":
 			case "engi":
+			case "engy":
 			case "engineer":
 				$prof = "Engineer";
 				break;
