@@ -78,9 +78,9 @@ class GuildManager {
 
 			$guild->members[$name]                 = new stdClass;
 			$guild->members[$name]->charid         = $charid;
-			$guild->members[$name]->firstname      = $member->FIRSTNAME;
+			$guild->members[$name]->firstname      = trim($member->FIRSTNAME);
 			$guild->members[$name]->name           = $name;
-			$guild->members[$name]->lastname       = $member->LASTNAME;
+			$guild->members[$name]->lastname       = trim($member->LASTNAME);
 			$guild->members[$name]->level          = $member->LEVELX;
 			$guild->members[$name]->breed          = $member->BREED;
 			$guild->members[$name]->gender         = $member->SEX;

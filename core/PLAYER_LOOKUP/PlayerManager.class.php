@@ -85,9 +85,9 @@ class PlayerManager {
 		$obj = new stdClass;
 
 		// parsing of the player data
-		$obj->firstname      = $char->FIRSTNAME;
+		$obj->firstname      = trim($char->FIRSTNAME);
 		$obj->name           = $char->NAME;
-		$obj->lastname       = $char->LASTNAME;
+		$obj->lastname       = trim($char->LASTNAME);
 		$obj->level          = $char->LEVELX;
 		$obj->breed          = $char->BREED;
 		$obj->gender         = $char->SEX;
