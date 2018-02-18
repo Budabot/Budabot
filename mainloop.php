@@ -21,5 +21,3 @@ while (true) {
 		break;
 	}
 }
-
-?>
