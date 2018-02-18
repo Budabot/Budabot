@@ -94,11 +94,6 @@ class Budabot extends AOChat {
 		$this->db->exec("UPDATE eventcfg_<myname> SET `status` = 1 WHERE `type` = 'setup'");
 
 		// To reduce queries load core items into memory
-		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'cmd'");
-		forEach ($data as $row) {
-			$this->existing_commands[$row->type][$row->cmd] = true;
-		}
-
 		$data = $this->db->query("SELECT * FROM cmdcfg_<myname> WHERE `cmdevent` = 'subcmd'");
 		forEach ($data as $row) {
 			$this->existing_subcmds[$row->type][$row->cmd] = true;
@@ -135,7 +130,6 @@ class Budabot extends AOChat {
 		$this->db->commit();
 		
 		//remove arrays
-		unset($this->existing_commands);
 		unset($this->existing_events);
 		unset($this->existing_subcmds);
 		unset($this->existing_settings);

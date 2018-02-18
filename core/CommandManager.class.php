@@ -92,9 +92,10 @@ class CommandManager {
 
 		for ($i = 0; $i < count($channel); $i++) {
 			$this->logger->log('debug', "Adding Command to list:($command) File:($filename) Admin:({$accessLevel[$i]}) Channel:({$channel[$i]})");
+			$row = $this->db->queryRow("SELECT 1 FROM cmdcfg_<myname> WHERE cmd = ? AND type = ?", $command, $channel[$i]);
 
 			try {
-				if (isset($this->chatBot->existing_commands[$channel[$i]][$command])) {
+				if ($row !== null) {
 					$sql = "UPDATE cmdcfg_<myname> SET `module` = ?, `verify` = ?, `file` = ?, `description` = ?, `help` = ? WHERE `cmd` = ? AND `type` = ?";
 					$this->db->exec($sql, $module, '1', $filename, $description, $help, $command, $channel[$i]);
 				} else {
