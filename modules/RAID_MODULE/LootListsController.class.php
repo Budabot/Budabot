@@ -843,7 +843,10 @@ class LootListsController {
 	}
 
 	public function findRaidLoot($raid, $category) {
-		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE raid = ? AND category = ?";
+		$sql =
+			"SELECT *, COALESCE(a.name, r.name) AS name
+			FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql)
+			WHERE raid = ? AND category = ?";
 		$data = $this->db->query($sql, $raid, $category);
 
 		if (count($data) == 0) {
@@ -853,7 +856,9 @@ class LootListsController {
 		$blob = "\n";
 		forEach ($data as $row) {
 			$blob .= "<pagebreak>";
-			$blob .= $this->text->makeItem($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->icon}>");
+			if ($row->lowid) {
+				$blob .= $this->text->makeItem($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->icon}>");
+			}
 			$blob .= "\n<highlight>{$row->name}<end>";
 			if ($row->multiloot > 1) {
 				$blob .= " x" . $row->multiloot;

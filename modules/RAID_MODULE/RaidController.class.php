@@ -134,7 +134,10 @@ class RaidController {
 
 		$id = $args[1];
 
-		$sql = "SELECT * FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql) WHERE id = ?";
+		$sql =
+			"SELECT *, COALESCE(a.name, r.name) AS name
+			FROM raid_loot r LEFT JOIN aodb a ON (r.name = a.name AND r.ql >= a.lowql AND r.ql <= a.highql)
+			WHERE id = ?";
 		$row = $this->db->queryRow($sql, $id);
 
 		if ($row === null) {

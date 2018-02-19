@@ -91,6 +91,8 @@ INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'General', 1, 'Multi Colored Xan Belt Tuning Device', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'General', 1, 'Green Xan Belt Tuning Device', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'General', 300, 'Xan Weapon Upgrade Device', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'General', 300, 'All YesDrop Symbs', '', 1);
+INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'General', 300, 'All YesDrop Spirits', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'Symbiants', 300, 'Xan Right Arm Symbiant, Artillery Unit Beta', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'Symbiants', 300, 'Xan Right Arm Symbiant, Control Unit Beta', '', 1);
 INSERT INTO raid_loot (raid, category, ql, name, comment, multiloot) VALUES ('12Man', 'Symbiants', 300, 'Xan Right Arm Symbiant, Extermination Unit Beta', '', 1);
