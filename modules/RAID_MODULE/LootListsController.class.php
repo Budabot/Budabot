@@ -855,6 +855,9 @@ class LootListsController {
 			$blob .= "<pagebreak>";
 			$blob .= $this->text->makeItem($row->lowid, $row->highid, $row->ql, "<img src=rdb://{$row->icon}>");
 			$blob .= "\n<highlight>{$row->name}<end>";
+			if ($row->multiloot > 1) {
+				$blob .= " x" . $row->multiloot;
+			}
 			if (!empty($row->comment)) {
 				$blob .= " ($row->comment)";
 			}
