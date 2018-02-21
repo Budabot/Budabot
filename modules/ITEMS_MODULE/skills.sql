@@ -147,3 +147,4 @@ INSERT INTO skills (id, name) VALUES (368, "VisualProfession");
 INSERT INTO skills (id, name) VALUES (430, "WaitState");
 INSERT INTO skills (id, name) VALUES (158, "Weapon Smt");
 INSERT INTO skills (id, name) VALUES (355, "WornItem");
+INSERT INTO skills (id, name) VALUES (319, "XPModifier");
