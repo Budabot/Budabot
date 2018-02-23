@@ -64,23 +64,26 @@ class AOUController {
 		}
 
 		$content = $dom->getElementsByTagName('content')->item(0);
+		if ($content == null) {
+			$msg = "Error retrieving guide <highlight>$guideid<end> from AO-Universe.com";
+		} else {
+			$title = $content->getElementsByTagName('name')->item(0)->nodeValue;
 
-		$title = $content->getElementsByTagName('name')->item(0)->nodeValue;
+			$blob = '';
+			$blob .= $this->text->makeChatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n\n";
 
-		$blob = '';
-		$blob .= $this->text->makeChatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n\n";
+			$blob .= "Update: <highlight>" . $content->getElementsByTagName('update')->item(0)->nodeValue . "<end>\n";
+			$blob .= "Profession: <highlight>" . $content->getElementsByTagName('class')->item(0)->nodeValue . "<end>\n";
+			$blob .= "Faction: <highlight>" . $content->getElementsByTagName('faction')->item(0)->nodeValue . "<end>\n";
+			$blob .= "Level: <highlight>" . $content->getElementsByTagName('level')->item(0)->nodeValue . "<end>\n";
+			$blob .= "Author: <highlight>" . $this->processInput($content->getElementsByTagName('author')->item(0)->nodeValue) . "<end>\n\n";
 
-		$blob .= "Update: <highlight>" . $content->getElementsByTagName('update')->item(0)->nodeValue . "<end>\n";
-		$blob .= "Profession: <highlight>" . $content->getElementsByTagName('class')->item(0)->nodeValue . "<end>\n";
-		$blob .= "Faction: <highlight>" . $content->getElementsByTagName('faction')->item(0)->nodeValue . "<end>\n";
-		$blob .= "Level: <highlight>" . $content->getElementsByTagName('level')->item(0)->nodeValue . "<end>\n";
-		$blob .= "Author: <highlight>" . $this->processInput($content->getElementsByTagName('author')->item(0)->nodeValue) . "<end>\n\n";
+			$blob .= $this->processInput($content->getElementsByTagName('text')->item(0)->nodeValue);
 
-		$blob .= $this->processInput($content->getElementsByTagName('text')->item(0)->nodeValue);
+			$blob .= "\n\n<highlight>Powered by<end> " . $this->text->makeChatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
 
-		$blob .= "\n\n<highlight>Powered by<end> " . $this->text->makeChatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
-
-		$msg = $this->text->makeBlob($title, $blob);
+			$msg = $this->text->makeBlob($title, $blob);
+		}
 		$sendto->reply($msg);
 	}
 	
