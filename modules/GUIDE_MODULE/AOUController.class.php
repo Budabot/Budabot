@@ -36,7 +36,7 @@ class AOUController {
 	/** @Inject */
 	public $http;
 
-	const AOU_URL = "http://www.ao-universe.com/mobile/parser.php?bot=budabot";
+	const AOU_URL = "https://www.ao-universe.com/mobile/parser.php?bot=budabot";
 	
 	/**
 	 * View an AO-U guide.
