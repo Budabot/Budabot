@@ -51,12 +51,12 @@ class WhatBuffsController {
 	 */
 	public function whatbuffsCommand($message, $channel, $sender, $sendto, $args) {
 		$blob = '';
-		$data = $this->db->query("SELECT DISTINCT item_type FROM item_types ORDER BY item_type ASC");
+		$data = $this->db->query("SELECT DISTINCT name FROM skills ORDER BY name ASC");
 		forEach ($data as $row) {
-			$blob .= $this->text->makeChatcmd($row->item_type, "/tell <myname> whatbuffs $row->item_type") . "\n";
+			$blob .= $this->text->makeChatcmd($row->name, "/tell <myname> whatbuffs $row->name") . "\n";
 		}
 		$blob .= "\nItem Extraction Info provided by Unk";
-		$msg = $this->text->makeBlob("WhatBuffs - Choose Type", $blob);
+		$msg = $this->text->makeBlob("WhatBuffs - Choose Skill", $blob);
 		$sendto->reply($msg);
 	}
 
