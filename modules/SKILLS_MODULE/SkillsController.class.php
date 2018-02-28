@@ -518,12 +518,12 @@ class SkillsController {
 		$blob .= "Fist speed: <highlight>".$ma_speed."<end>s/<highlight>".$ma_speed."<end>s\n";
 		$blob .= "Fist damage: ".$dmg."\n\n\n";
 
-		$blob .= "Fist speed for other professions: <highlight>".$speed."<end>s/<highlight>".$speed."<end>s\n\n";
 		$min = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_min_list[$i], $shade_min_list[($i + 1)], $MaSkill);
 		$max = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_max_list[$i], $shade_max_list[($i + 1)], $MaSkill);
 		$crit = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $shade_crit_list[$i], $shade_crit_list[($i + 1)], $MaSkill);
 		$dmg = "<highlight>".$min."<end>-<highlight>".$max."<end>(<highlight>".$crit."<end>)";
 		$blob .= "Profession: <highlight>Shade<end>\n";
+		$blob .= "Fist speed: <highlight>".$speed."<end>s/<highlight>".$speed."<end>s\n";
 		$blob .= "Fist damage: ".$dmg."\n\n";
 
 		$min = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $gen_min_list[$i], $gen_min_list[($i + 1)], $MaSkill);
@@ -531,6 +531,7 @@ class SkillsController {
 		$crit = $this->util->interpolate($skill_list[$i], $skill_list[($i + 1)], $gen_crit_list[$i], $gen_crit_list[($i + 1)], $MaSkill);
 		$dmg = "<highlight>".$min."<end>-<highlight>".$max."<end>(<highlight>".$crit."<end>)";
 		$blob .= "Profession: <highlight>All professions besides MA and Shade<end>\n";
+		$blob .= "Fist speed: <highlight>".$speed."<end>s/<highlight>".$speed."<end>s\n";
 		$blob .= "Fist damage: ".$dmg."\n\n";
 
 		$msg = $this->text->makeBlob("Martial Arts Results", $blob);
