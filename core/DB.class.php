@@ -138,6 +138,8 @@ class DB {
 			forEach ($params as $param) {
 				if ($param === "NULL") {
 					$ps->bindValue($count++, $param, PDO::PARAM_NULL);
+				} else if (is_int($param)) {
+					$ps->bindValue($count++, $param, PDO::PARAM_INT);
 				} else {
 					$ps->bindValue($count++, $param);
 				}

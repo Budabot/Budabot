@@ -178,8 +178,8 @@ class UsageController {
 		$blob .= "\n";
 		
 		// most used commands
-		$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE dt > ? GROUP BY command ORDER BY count DESC LIMIT $limit";
-		$data = $this->db->query($sql, $time);
+		$sql = "SELECT command, COUNT(command) AS count FROM usage_<myname> WHERE dt > ? GROUP BY command ORDER BY count DESC LIMIT ?";
+		$data = $this->db->query($sql, $time, $limit);
 
 		$blob .= "<header2>$limit Most Used Commands<end>\n";
 		forEach ($data as $row) {
@@ -188,8 +188,8 @@ class UsageController {
 		}
 
 		// users who have used the most commands
-		$sql = "SELECT sender, COUNT(sender) AS count FROM usage_<myname> WHERE dt > ? GROUP BY sender ORDER BY count DESC LIMIT $limit";
-		$data = $this->db->query($sql, $time);
+		$sql = "SELECT sender, COUNT(sender) AS count FROM usage_<myname> WHERE dt > ? GROUP BY sender ORDER BY count DESC LIMIT ?";
+		$data = $this->db->query($sql, $time, $limit);
 
 		$blob .= "\n<header2>$limit Most Active Users<end>\n";
 		forEach ($data as $row) {
