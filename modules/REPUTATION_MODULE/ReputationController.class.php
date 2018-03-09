@@ -168,8 +168,8 @@ class ReputationController {
 				$blob .= "All comments about this user:\n\n";
 			}
 
-			$sql = "SELECT * FROM reputation WHERE name = ? ORDER BY `dt` DESC LIMIT " . $limit;
-			$data = $this->db->query($sql, $name);
+			$sql = "SELECT * FROM reputation WHERE name = ? ORDER BY `dt` DESC LIMIT ?";
+			$data = $this->db->query($sql, $name, $limit);
 			forEach ($data as $row) {
 				if ($row->reputation == '-1') {
 					$blob .= "<orange>";

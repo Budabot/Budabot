@@ -74,6 +74,7 @@ class NanoController {
 		$search = htmlspecialchars_decode($search);
 		$tmp = explode(" ", $search);
 		list($query, $params) = $this->util->generateQueryFromParams($tmp, 'n1.`name`');
+		array_push($params, intval($this->settingManager->get("maxnano")));
 
 		$sql =
 			"SELECT
@@ -93,7 +94,7 @@ class NanoController {
 			ORDER BY
 				n1.profession, n3.name, n1.lowql DESC, n1.name ASC
 			LIMIT
-				" . $this->settingManager->get("maxnano");
+				?";
 
 		$data = $this->db->query($sql, $params);
 

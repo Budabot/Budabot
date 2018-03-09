@@ -56,8 +56,8 @@ class OrgHistoryController {
 
 		$blob = '';
 
-		$sql = "SELECT actor, actee, action, organization, time FROM `org_history` ORDER BY time DESC LIMIT $startingRecord, $pageSize";
-		$data = $this->db->query($sql);
+		$sql = "SELECT actor, actee, action, organization, time FROM `org_history` ORDER BY time DESC LIMIT ?, ?";
+		$data = $this->db->query($sql, intval($startingRecord), intval($pageSize));
 		if (count($data) != 0) {
 			forEach ($data as $row) {
 				$blob .= $this->formatOrgAction($row);

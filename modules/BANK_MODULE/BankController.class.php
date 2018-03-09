@@ -102,7 +102,8 @@ class BankController {
 		$limit = $this->settingManager->get('max_bank_items');
 
 		$blob = '';
-		$data = $this->db->query("SELECT * FROM bank WHERE player = ? AND container_id = ? ORDER BY name ASC, ql ASC LIMIT {$limit}", $name, $containerId);
+		$sql = "SELECT * FROM bank WHERE player = ? AND container_id = ? ORDER BY name ASC, ql ASC LIMIT ?";
+		$data = $this->db->query($sql, $name, $containerId, intval($limit));
 
 		if (count($data) > 0) {
 			forEach ($data as $row) {
@@ -127,9 +128,10 @@ class BankController {
 		$limit = $this->settingManager->get('max_bank_items');
 		
 		list($where_sql, $params) = $this->util->generateQueryFromParams($words, 'name');
+		array_push($params, intval($limit));
 
 		$blob = '';
-		$data = $this->db->query("SELECT * FROM bank WHERE {$where_sql} ORDER BY name ASC, ql ASC LIMIT {$limit}", $params);
+		$data = $this->db->query("SELECT * FROM bank WHERE {$where_sql} ORDER BY name ASC, ql ASC LIMIT ?", $params);
 
 		if (count($data) > 0) {
 			forEach ($data as $row) {

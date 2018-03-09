@@ -982,9 +982,9 @@ class TowerController {
 			ORDER BY
 				a.`time` DESC
 			LIMIT
-				$start_row, $page_size";
+				?, ?";
 
-		$data = $this->db->query($sql);
+		$data = $this->db->query($sql, intval($start_row), intval($page_size));
 		if (count($data) == 0) {
 			$msg = "No tower attacks found.";
 		} else {
@@ -1058,9 +1058,9 @@ class TowerController {
 			ORDER BY
 				`victory_time` DESC
 			LIMIT
-				$start_row, $page_size";
+				?, ?";
 
-		$data = $this->db->query($sql);
+		$data = $this->db->query($sql, intval($start_row), intval($page_size));
 		if (count($data) == 0) {
 			$msg = "No Tower results found.";
 		} else {

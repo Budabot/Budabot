@@ -47,8 +47,8 @@ class NewsController {
 	}
 
 	public function getNews() {
-		$sql = "SELECT * FROM `news` WHERE deleted = 0 ORDER BY `sticky` DESC, `time` DESC LIMIT " . $this->settingManager->get('num_news_shown');
-		$data = $this->db->query($sql);
+		$sql = "SELECT * FROM `news` WHERE deleted = 0 ORDER BY `sticky` DESC, `time` DESC LIMIT ?";
+		$data = $this->db->query($sql, intval($this->settingManager->get('num_news_shown')));
 		$msg = '';
 		if (count($data) != 0) {
 			$blob = '';

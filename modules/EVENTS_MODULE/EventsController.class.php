@@ -251,8 +251,8 @@ class EventsController {
 	}
 	
 	public function getEvents() {
-		$sql = "SELECT * FROM events ORDER BY `event_date` DESC LIMIT " . $this->settingManager->get('num_events_shown');
-		$data = $this->db->query($sql);
+		$sql = "SELECT * FROM events ORDER BY `event_date` DESC LIMIT ?";
+		$data = $this->db->query($sql, intval($this->settingManager->get('num_events_shown')));
 		if (count($data) > 0) {
 			$upcoming_title = "<header2>Upcoming Events<end>\n\n";
 			$past_title = "<header2>Past Events<end>\n\n";
