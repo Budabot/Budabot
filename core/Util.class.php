@@ -494,4 +494,8 @@ class Util {
 		   return $f != '.' && $f != '..' && is_dir($path . DIRECTORY_SEPARATOR . $f);
 	   });
 	}
+
+	public function isInteger($input){
+		return(ctype_digit(strval($input)));
+	}
 }
