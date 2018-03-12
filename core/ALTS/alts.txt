@@ -11,7 +11,7 @@ To add yourself as an alt of a character:
 <highlight><tab><symbol>alts main <i>name</i><end>
 
 To choose one of your alts to be your new main (you must run this from the character you want to be your new main):
-<highlight><tab><symbol>alts setmain
+<highlight><tab><symbol>alts setmain<end>
 
 To remove alts from your list:
 <highlight><tab><symbol>alts rem <i>alt</i><end>
