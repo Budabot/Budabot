@@ -19,8 +19,6 @@ class CommandAlias {
 	/** @Logger */
 	public $logger;
 
-	public $cmd_aliases = array();
-
 	const ALIAS_HANDLER = "CommandAlias.process";
 
 	/**
@@ -30,14 +28,10 @@ class CommandAlias {
 	public function load() {
 		$this->logger->log('DEBUG', "Loading enabled command aliases");
 
-		$data = $this->db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1'");
+		$data = $this->db->query("SELECT * FROM cmd_alias_<myname> WHERE status = 1");
 		forEach ($data as $row) {
 			$this->activate($row->cmd, $row->alias);
 		}
-	}
-
-	public function getEnabledAliases() {
-		return $this->db->query("SELECT * FROM cmd_alias_<myname> WHERE `status` = '1' ORDER BY alias ASC");
 	}
 
 	/**
@@ -52,10 +46,10 @@ class CommandAlias {
 		$this->logger->log('DEBUG', "Registering alias: '{$alias}' for command: '$command'");
 
 		if ($this->chatBot->existing_cmd_aliases[$alias] == true) {
-			$sql = "UPDATE cmd_alias_<myname> SET `module` = ?, `cmd` = ? WHERE `alias` = ?";
+			$sql = "UPDATE cmd_alias_<myname> SET module = ?, cmd = ? WHERE alias = ?";
 			$this->db->exec($sql, $module, $command, $alias);
 		} else {
-			$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES (?, ?, ?, ?)";
+			$sql = "INSERT INTO cmd_alias_<myname> (module, cmd, alias, status) VALUES (?, ?, ?, ?)";
 			$this->db->exec($sql, $module, $command, $alias, $status);
 		}
 	}
@@ -72,7 +66,6 @@ class CommandAlias {
 		$this->commandManager->activate('msg', self::ALIAS_HANDLER, $alias, 'all');
 		$this->commandManager->activate('priv', self::ALIAS_HANDLER, $alias, 'all');
 		$this->commandManager->activate('guild', self::ALIAS_HANDLER, $alias, 'all');
-		$this->cmd_aliases[$alias] = $command;
 	}
 
 	/**
@@ -87,7 +80,6 @@ class CommandAlias {
 		$this->commandManager->deactivate('msg', self::ALIAS_HANDLER, $alias);
 		$this->commandManager->deactivate('priv', self::ALIAS_HANDLER, $alias);
 		$this->commandManager->deactivate('guild', self::ALIAS_HANDLER, $alias);
-		unset($this->cmd_aliases[$alias]);
 	}
 
 	public function process($message, $channel, $sender, CommandReply $sendto) {
@@ -95,12 +87,13 @@ class CommandAlias {
 		$alias = strtolower($alias);
 
 		// Check if this is an alias for a command
-		if (!isset($this->cmd_aliases[$alias])) {
+		$row = $this->get($alias);
+		if ($row === null) {
 			return false;
 		}
 
-		$this->logger->log('DEBUG', "Command alias found command: '{$this->cmd_aliases[$alias]}' alias: '{$alias}'");
-		$cmd = $this->cmd_aliases[$alias];
+		$this->logger->log('DEBUG', "Command alias found command: '{$row->cmd}' alias: '{$row->alias}'");
+		$cmd = $row->cmd;
 		if ($params) {
 			// count number of parameters and don't split more than that so that the
 			// last parameter will have whatever is left
@@ -139,7 +132,7 @@ class CommandAlias {
 	public function add($row) {
 		$this->logger->log('DEBUG', "Adding alias: '{$alias}' for command: '$command'");
 
-		$sql = "INSERT INTO cmd_alias_<myname> (`module`, `cmd`, `alias`, `status`) VALUES (?, ?, ?, ?)";
+		$sql = "INSERT INTO cmd_alias_<myname> (module, cmd, alias, status) VALUES (?, ?, ?, ?)";
 		return $this->db->exec($sql, $row->module, $row->cmd, $row->alias, $row->status);
 	}
 
@@ -150,14 +143,14 @@ class CommandAlias {
 	public function update($row) {
 		$this->logger->log('DEBUG', "Updating alias :($row->alias)");
 
-		$sql = "UPDATE cmd_alias_<myname> SET `module` = ?, `cmd` = ?, `status` = ? WHERE `alias` = ?";
+		$sql = "UPDATE cmd_alias_<myname> SET module = ?, cmd = ?, status = ? WHERE alias = ?";
 		return $this->db->exec($sql, $row->module, $row->cmd, $row->status, $row->alias);
 	}
 
 	public function get($alias) {
 		$alias = strtolower($alias);
 
-		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `alias` = ?";
+		$sql = "SELECT * FROM cmd_alias_<myname> WHERE alias = ?";
 		return $this->db->queryRow($sql, $alias);
 	}
 
@@ -173,11 +166,11 @@ class CommandAlias {
 	}
 
 	public function findAliasesByCommand($command) {
-		$sql = "SELECT * FROM cmd_alias_<myname> WHERE `cmd` LIKE ?";
+		$sql = "SELECT cmd, alias FROM cmd_alias_<myname> WHERE cmd LIKE ?";
 		return $this->db->query($sql, $command);
 	}
-	
-	public function getCommandByAlias($alias) {
-		return $this->cmd_aliases[$alias];
+
+	public function getEnabledAliases() {
+		return $this->db->query("SELECT cmd, alias FROM cmd_alias_<myname> WHERE status = 1 ORDER BY alias ASC");
 	}
 }

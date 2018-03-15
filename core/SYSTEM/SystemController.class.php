@@ -336,7 +336,7 @@ class SystemController {
 			$eventnum += count($events);
 		}
 
-		$numAliases = count($this->commandAlias->cmd_aliases);
+		$numAliases = count($this->commandAlias->getEnabledAliases());
 
 		$blob .= "Active tell commands: <highlight>" . (count($this->commandManager->commands['msg']) - $numAliases) . "<end>\n";
 		$blob .= "Active private channel commands: <highlight>" . (count($this->commandManager->commands['priv']) - $numAliases) . "<end>\n";

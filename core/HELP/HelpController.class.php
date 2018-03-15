@@ -97,9 +97,9 @@ class HelpController {
 		}
 	
 		// check for alias
-		$temp = $this->commandAlias->getCommandByAlias($helpcmd);
-		if ($temp !== null) {
-			$arr = explode(' ', $temp);
+		$row = $this->commandAlias->get($helpcmd);
+		if ($row !== null && $row->status == 1) {
+			$arr = explode(' ', $row->cmd);
 			$helpcmd = $arr[0];
 		}
 
