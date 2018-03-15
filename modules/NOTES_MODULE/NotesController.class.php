@@ -83,7 +83,7 @@ class NotesController {
 	 */
 	public function notesAddCommand($message, $channel, $sender, $sendto, $args) {
 		$note = $args[1];
-		
+
 		$altInfo = $this->altsController->getAltInfo($sender);
 		$main = $altInfo->getValidatedMain($sender);
 

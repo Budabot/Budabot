@@ -121,3 +121,9 @@ if (checkIfTableExists($db, "notes")) {
 		$db->exec("UPDATE notes SET dt = ?", time());
 	}
 }
+
+if ($db->getType() == DB::MYSQL && checkIfTableExists($db, "notes") && checkIfColumnExists($db, "notes", "note")) {
+	if (getColumnType($db, "notes", "note") == "varchar(255)") {
+		$db->exec("ALTER TABLE notes MODIFY COLUMN note TEXT NOT NULL");
+	}
+}
