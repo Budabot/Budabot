@@ -100,7 +100,9 @@ class GuildController {
 		$this->settingManager->add($this->moduleName, "first_and_last_alt_only", "Show logon/logoff for first/last alt only", "edit", "options", "0", "true;false", "1;0");
 		
 		$this->chatBot->guildmembers = array();
-		$sql = "SELECT p.name, p.guild_rank_id FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>' AND p.guild = '<myguild>') WHERE mode <> 'del'";
+		$sql = "SELECT o.name, IFNULL(p.guild_rank_id, 6) AS guild_rank_id 
+			FROM org_members_<myname> o LEFT JOIN players p ON (o.name = p.name AND p.dimension = '<dim>' AND p.guild = '<myguild>')
+			WHERE mode != 'del'";
 		$data = $this->db->query($sql);
 		forEach ($data as $row) {
 			$this->chatBot->guildmembers[$row->name] = $row->guild_rank_id;
@@ -296,7 +298,10 @@ class GuildController {
 			} else {
 				$this->db->exec("UPDATE org_members_<myname> SET `mode` = 'add' WHERE `name` = ?", $name);
 			}
-			$this->db->exec("INSERT INTO online (`name`, `channel`, `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild>', 'guild', '<myname>', ?)", $name, time());
+
+			if ($this->buddylistManager->isOnline($name) == 1) {
+				$this->db->exec("INSERT INTO online (`name`, `channel`, `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild>', 'guild', '<myname>', ?)", $name, time());
+			}
 			$this->buddylistManager->add($name, 'org');
 			$this->chatBot->guildmembers[$name] = 6;
 			$msg = "<highlight>{$name}<end> has been added to the Notify list.";
@@ -460,8 +465,12 @@ class GuildController {
 		if (preg_match("/^(.+) invited (.+) to your organization.$/", $message, $arr)) {
 			$name = ucfirst(strtolower($arr[2]));
 
+			if ($this->buddylistManager->isOnline("") == 1) {
+				$this->db->exec("INSERT INTO online (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild>', 'guild', '<myname>', ?)", $name, time());
+			}
+
 			$row = $this->db->queryRow("SELECT * FROM org_members_<myname> WHERE `name` = ?", $name);
-			if ($row != null) {
+			if ($row !== null) {
 				$this->db->exec("UPDATE org_members_<myname> SET `mode` = 'add' WHERE `name` = ?", $name);
 				$this->buddylistManager->add($name, 'org');
 				$this->chatBot->guildmembers[$name] = 6;
@@ -470,7 +479,6 @@ class GuildController {
 				$this->buddylistManager->add($name, 'org');
 				$this->chatBot->guildmembers[$name] = 6;
 			}
-			$this->db->exec("INSERT INTO online (`name`, `channel`,  `channel_type`, `added_by`, `dt`) VALUES (?, '<myguild>', 'guild', '<myname>', ?)", $name, time());
 
 			// update character info
 			$this->playerManager->getByName($name);
