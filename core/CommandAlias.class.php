@@ -28,7 +28,7 @@ class CommandAlias {
 	public function load() {
 		$this->logger->log('DEBUG', "Loading enabled command aliases");
 
-		$data = $this->db->query("SELECT * FROM cmd_alias_<myname> WHERE status = 1");
+		$data = $this->db->query("SELECT cmd, alias FROM cmd_alias_<myname> WHERE status = 1");
 		forEach ($data as $row) {
 			$this->activate($row->cmd, $row->alias);
 		}
@@ -154,7 +154,7 @@ class CommandAlias {
 	public function get($alias) {
 		$alias = strtolower($alias);
 
-		$sql = "SELECT * FROM cmd_alias_<myname> WHERE alias = ?";
+		$sql = "SELECT cmd, alias, module, status FROM cmd_alias_<myname> WHERE alias = ?";
 		return $this->db->queryRow($sql, $alias);
 	}
 
@@ -170,11 +170,11 @@ class CommandAlias {
 	}
 
 	public function findAliasesByCommand($command) {
-		$sql = "SELECT cmd, alias FROM cmd_alias_<myname> WHERE cmd LIKE ?";
+		$sql = "SELECT cmd, alias, module, status FROM cmd_alias_<myname> WHERE cmd LIKE ?";
 		return $this->db->query($sql, $command);
 	}
 
 	public function getEnabledAliases() {
-		return $this->db->query("SELECT cmd, alias FROM cmd_alias_<myname> WHERE status = 1 ORDER BY alias ASC");
+		return $this->db->query("SELECT cmd, alias, module, status FROM cmd_alias_<myname> WHERE status = 1 ORDER BY alias ASC");
 	}
 }

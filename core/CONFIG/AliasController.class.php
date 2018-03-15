@@ -54,7 +54,7 @@ class AliasController {
 		$commands = $this->commandManager->get($alias);
 		$enabled = false;
 		forEach ($commands as $command) {
-			if ($command->status == '1') {
+			if ($command->status == 1) {
 				$enabled = true;
 				break;
 			}
