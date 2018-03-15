@@ -113,11 +113,6 @@ class Budabot extends AOChat {
 		forEach ($data as $row) {
 			$this->existing_settings[$row->name] = true;
 		}
-
-		$data = $this->db->query("SELECT * FROM cmd_alias_<myname>");
-		forEach ($data as $row) {
-			$this->existing_cmd_aliases[$row->alias] = true;
-		}
 		
 		$this->db->beginTransaction();
 		forEach (Registry::getAllInstances() as $name => $instance) {
@@ -134,7 +129,6 @@ class Budabot extends AOChat {
 		unset($this->existing_subcmds);
 		unset($this->existing_settings);
 		unset($this->existing_helps);
-		unset($this->existing_cmd_aliases);
 
 		//Delete old entrys in the DB
 		$this->db->exec("DELETE FROM cmdcfg_<myname> WHERE `verify` = 0");

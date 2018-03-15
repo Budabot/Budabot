@@ -45,9 +45,13 @@ class CommandAlias {
 
 		$this->logger->log('DEBUG', "Registering alias: '{$alias}' for command: '$command'");
 
-		if ($this->chatBot->existing_cmd_aliases[$alias] == true) {
-			$sql = "UPDATE cmd_alias_<myname> SET module = ?, cmd = ? WHERE alias = ?";
-			$this->db->exec($sql, $module, $command, $alias);
+		$row = $this->get($alias);
+		if ($row !== null) {
+			// do not update an alias that a user created
+			if (!empty($row->module)) {
+				$sql = "UPDATE cmd_alias_<myname> SET module = ?, cmd = ? WHERE alias = ?";
+				$this->db->exec($sql, $module, $command, $alias);
+			}
 		} else {
 			$sql = "INSERT INTO cmd_alias_<myname> (module, cmd, alias, status) VALUES (?, ?, ?, ?)";
 			$this->db->exec($sql, $module, $command, $alias, $status);
