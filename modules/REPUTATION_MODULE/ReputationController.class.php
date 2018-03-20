@@ -12,7 +12,7 @@ namespace Budabot\User\Modules;
  *	@DefineCommand(
  *		command     = 'reputation', 
  *		accessLevel = 'guild', 
- *		description = 'Allows people to see and and reputation of other players', 
+ *		description = 'Allows people to see and add reputation of other players', 
  *		help        = 'reputation.txt'
  *	)
  */

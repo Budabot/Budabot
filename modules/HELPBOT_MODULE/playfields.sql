@@ -55,7 +55,7 @@ INSERT INTO playfields (id, long_name, short_name) VALUES (6101, 'Three Craters 
 INSERT INTO playfields (id, long_name, short_name) VALUES (6553, 'Arete', 'ARETE');
 
 
-#--SL
+--SL
 INSERT INTO playfields (id, long_name, short_name) VALUES (4872, 'Adonis City', 'ADOCITY');
 INSERT INTO playfields (id, long_name, short_name) VALUES (4873, 'Adonis Abyss', 'ADO');
 INSERT INTO playfields (id, long_name, short_name) VALUES (4542, 'Elysium', 'ELY');
