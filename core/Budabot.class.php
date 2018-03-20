@@ -470,7 +470,7 @@ class Budabot extends AOChat {
 		} else if ($status == 1) {
 			$eventObj->type = "logon";
 
-			$this->logger->log('INFO', "$sender logged on");
+			$this->logger->log('DEBUG', "$sender logged on");
 
 			$this->eventManager->fireEvent($eventObj);
 		}
