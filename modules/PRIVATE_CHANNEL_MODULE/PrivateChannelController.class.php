@@ -595,7 +595,7 @@ class PrivateChannelController {
 		$this->chatBot->sendTell($msg, $sender);
 	}
 	
-	public function addUser($name) {
+	public function addUser($name, $autoInvite = 1) {
 		$name = ucfirst(strtolower($name));
 		$uid = $this->chatBot->get_uid($name);
 		if ($this->chatBot->vars["name"] == $name) {
@@ -607,7 +607,7 @@ class PrivateChannelController {
 			if (count($data) != 0) {
 				$msg = "<highlight>$name<end> is already a member of this bot.";
 			} else {
-				$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $name, '1');
+				$this->db->exec("INSERT INTO members_<myname> (`name`, `autoinv`) VALUES (?, ?)", $name, $autoInvite);
 				$msg = "<highlight>$name<end> has been added as a member of this bot.";
 			}
 
