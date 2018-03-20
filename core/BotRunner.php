@@ -36,7 +36,7 @@ class BotRunner {
 
 		echo $this->getInitialInfoMessage();
 		$this->loadPhpExtensions();
-		
+
 		// these must happen first since the classes that are loaded may be used by processes below
 		$this->loadPhpLibraries();
 		$this->loadEssentialCoreClasses();
@@ -67,21 +67,15 @@ class BotRunner {
 		$this->runUpgradeScripts();
 
 		list($server, $port) = $this->getServerAndPort($vars);
-		
+
 		$chatBot = Registry::getInstance('chatBot');
-		
+
 		// startup core systems and load modules
 		$chatBot->init($vars);
-		
-		// when using AOChatProxy, wait 10s before connecting to give AOChatProxy time to reset
-		if ($vars['use_proxy'] == 1) {
-			LegacyLogger::log('INFO', 'StartUp', "Waiting 10 seconds for AOChatProxy to reset...");
-			sleep(10);
-		}
-		
+
 		// connect to ao chat server
 		$chatBot->connectAO($vars['login'], $vars['password'], $server, $port);
-		
+
 		// clear login credentials
 		unset($vars['login']);
 		unset($vars['password']);
