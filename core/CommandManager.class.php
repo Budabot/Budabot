@@ -240,23 +240,7 @@ class CommandManager {
 		}
 
 		// if the character doesn't have access
-		if ($this->accessManager->checkAccess($sender, $commandHandler->admin) !== true) {
-			if ($channel == 'msg') {
-				if ($this->settingManager->get('access_denied_notify_guild') == 1) {
-					$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$cmd<end>.", true);
-				}
-				if ($this->settingManager->get('access_denied_notify_priv') == 1) {
-					$this->chatBot->sendPrivate("Player <highlight>$sender<end> was denied access to command <highlight>$cmd<end>.", true);
-				}
-			}
-		
-			// if they've disabled feedback for guild or private channel, just return
-			if (($channel == 'guild' && $this->settingManager->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->settingManager->get('private_channel_cmd_feedback') == 0)) {
-				return;
-			}
-
-			$sendto->reply("Error! Access denied.");
-			$this->chatBot->spam[$sender] += 20;
+		if (!$this->checkAccessLevel($channel, $message, $sender, $sendto, $commandHandler)) {
 			return;
 		}
 
@@ -287,6 +271,29 @@ class CommandManager {
 		}
 
 		$this->chatBot->spam[$sender] += 10;
+	}
+
+	public function checkAccessLevel($channel, $message, $sender, $sendto, $commandHandler) {
+		if ($this->accessManager->checkAccess($sender, $commandHandler->admin) !== true) {
+			if ($channel == 'msg') {
+				if ($this->settingManager->get('access_denied_notify_guild') == 1) {
+					$this->chatBot->sendGuild("Player <highlight>$sender<end> was denied access to command <highlight>$cmd<end>.", true);
+				}
+				if ($this->settingManager->get('access_denied_notify_priv') == 1) {
+					$this->chatBot->sendPrivate("Player <highlight>$sender<end> was denied access to command <highlight>$cmd<end>.", true);
+				}
+			}
+		
+			// if they've disabled feedback for guild or private channel, just return
+			if (($channel == 'guild' && $this->settingManager->get('guild_channel_cmd_feedback') == 0) || ($channel == 'priv' && $this->settingManager->get('private_channel_cmd_feedback') == 0)) {
+				return false;
+			}
+
+			$sendto->reply("Error! Access denied.");
+			$this->chatBot->spam[$sender] += 20;
+			return false;
+		}
+		return true;
 	}
 
 	public function callCommandHandler($commandHandler, $message, $channel, $sender, CommandReply $sendto) {
