@@ -240,7 +240,7 @@ class CommandManager {
 		}
 
 		// if the character doesn't have access
-		if (!$this->checkAccessLevel($channel, $message, $sender, $sendto, $commandHandler)) {
+		if (!$this->checkAccessLevel($channel, $message, $sender, $sendto, $cmd, $commandHandler)) {
 			return;
 		}
 
@@ -273,7 +273,7 @@ class CommandManager {
 		$this->chatBot->spam[$sender] += 10;
 	}
 
-	public function checkAccessLevel($channel, $message, $sender, $sendto, $commandHandler) {
+	public function checkAccessLevel($channel, $message, $sender, $sendto, $cmd, $commandHandler) {
 		if ($this->accessManager->checkAccess($sender, $commandHandler->admin) !== true) {
 			if ($channel == 'msg') {
 				if ($this->settingManager->get('access_denied_notify_guild') == 1) {
