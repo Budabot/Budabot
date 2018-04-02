@@ -55,7 +55,7 @@ class ColorSettingHandler extends SettingHandler {
 		if (preg_match("/^#([0-9a-f]{6})$/i", $newValue)) {
 			return "<font color='$newValue'>";
 		} else {
-			throw new Exception("<highlight>{$change_to_setting}<end> is not a valid HTML-Color (example: <i>#FF33DD</i>).");
+			throw new Exception("<highlight>{$newValue}<end> is not a valid HTML-Color (example: <i>#FF33DD</i>).");
 		}
 	}
 }
