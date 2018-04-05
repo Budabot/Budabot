@@ -118,27 +118,6 @@ class SystemController {
 	public $defaultSymbol = "!";
 
 	/**
-	 * @Setting("guild_admin_rank")
-	 * @Description("Guild rank required to be considered a guild admin")
-	 * @Visibility("edit")
-	 * @Type("options")
-	 * @Options("0;1;2;3;4;5;6")
-	 * @AccessLevel("mod")
-	 * @Help("guild_admin_rank.txt")
-	 */
-	public $defaultGuildAdminRank = "1";
-
-	/**
-	 * @Setting("guild_admin_access_level")
-	 * @Description("Access level that guild admins acquire")
-	 * @Visibility("edit")
-	 * @Type("options")
-	 * @Options("admin;mod;rl;all")
-	 * @AccessLevel("mod")
-	 */
-	public $defaultGuildAdminAccessLevel = "all";
-
-	/**
 	 * @Setting("max_blob_size")
 	 * @Description("Max chars for a window")
 	 * @Visibility("edit")

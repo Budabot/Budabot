@@ -257,8 +257,6 @@ class UsageController {
 		$settings['relay_type'] = $this->settingManager->get('relaytype');
 		$settings['first_and_last_alt_only'] = $this->settingManager->get('first_and_last_alt_only');
 		$settings['aodb_db_version'] = $this->settingManager->get('aodb_db_version');
-		$settings['guild_admin_access_level'] = $this->settingManager->get('guild_admin_access_level');
-		$settings['guild_admin_rank'] = $this->settingManager->get('guild_admin_rank');
 		$settings['max_blob_size'] = $this->settingManager->get('max_blob_size');
 		$settings['online_show_org_guild'] = $this->settingManager->get('online_show_org_guild');
 		$settings['online_show_org_priv'] = $this->settingManager->get('online_show_org_priv');

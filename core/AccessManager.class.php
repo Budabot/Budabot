@@ -129,12 +129,6 @@ class AccessManager {
 				return "mod";
 			}
 		}
-		if ($this->checkGuildAdmin($sender, 'admin')) {
-			return "admin";
-		}
-		if ($this->checkGuildAdmin($sender, 'mod')) {
-			return "mod";
-		}
 		if ($this->chatLeaderController !== null && $this->chatLeaderController->getLeader() == $sender) {
 			return "rl";
 		}
@@ -167,18 +161,6 @@ class AccessManager {
 		}
 
 		return $accessLevel;
-	}
-
-	public function checkGuildAdmin($sender, $accessLevel) {
-		if (isset($this->chatBot->guildmembers[$sender]) && $this->chatBot->guildmembers[$sender] <= $this->setting->guild_admin_rank) {
-			if ($this->compareAccessLevels($this->setting->guild_admin_access_level, $accessLevel) >= 0) {
-				return true;
-			} else {
-				return false;
-			}
-		} else {
-			return false;
-		}
 	}
 
 	/**
