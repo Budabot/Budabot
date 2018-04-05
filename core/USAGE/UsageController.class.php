@@ -253,7 +253,6 @@ class UsageController {
 		$settings['os'] = (\budabot\core\isWindows() === true ? 'Windows' : 'Other');
 		
 		$settings['symbol'] = $this->settingManager->get('symbol');
-		$settings['spam_protection'] = $this->settingManager->get('spam_protection');
 		$settings['relay_enabled'] = ($this->settingManager->get('relaybot') == 'Off' ? '0' : '1');
 		$settings['relay_type'] = $this->settingManager->get('relaytype');
 		$settings['first_and_last_alt_only'] = $this->settingManager->get('first_and_last_alt_only');

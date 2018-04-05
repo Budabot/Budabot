@@ -139,18 +139,6 @@ class SystemController {
 	public $defaultGuildAdminAccessLevel = "all";
 
 	/**
-	 * @Setting("spam_protection")
-	 * @Description("Enable spam protection")
-	 * @Visibility("edit")
-	 * @Type("options")
-	 * @Options("true;false")
-	 * @Intoptions("1;0")
-	 * @AccessLevel("mod")
-	 * @Help("spam_protection.txt")
-	 */
-	public $defaultSpamProtection = "0";
-
-	/**
 	 * @Setting("max_blob_size")
 	 * @Description("Max chars for a window")
 	 * @Visibility("edit")
@@ -413,23 +401,6 @@ class SystemController {
 		$this->logger->log('DEBUG', "Pinging database");
 		$sql = "SELECT * FROM settings_<myname>";
 		$this->db->query($sql);
-	}
-
-	/**
-	 * @Event("timer(2sec)")
-	 * @Description("Reduces spam values for players")
-	 * @DefaultStatus("1")
-	 */
-	public function reduceSpamValuesEvent($eventObj) {
-		if (isset($this->chatBot->spam)) {
-			forEach ($this->chatBot->spam as $key => $value){
-				if ($value > 0) {
-					$this->chatBot->spam[$key] = $value - 10;
-				} else {
-					$this->chatBot->spam[$key] = 0;
-				}
-			}
-		}
 	}
 
 	/**

@@ -1,5 +1,0 @@
-<highlight>WARNING! When enabled, it may be possible for someone to gain unwanted access to your bot.<end>
-
-<highlight><symbol>alts main<end> allows players to add themselves as an alt of another player.  However, they will not inherit the admin privileges of the main until that character is <a href='chatcmd:///tell <myname> help altvalidate'>validated</a>.
-
-Please note that while this is a secure system, it is still possible through inattention to accidentally grant unwanted access to the bot.

@@ -410,8 +410,8 @@ class Budabot extends AOChat {
 
 			$this->logger->logChat("Priv Group", -1, "$sender joined the channel.");
 
-			// Remove sender if they are banned or if spam filter is blocking them
-			if ($this->banController->isBanned($charId) || $this->spam[$sender] > 100){
+			// Remove sender if they are banned
+			if ($this->banController->isBanned($charId)){
 				$this->privategroup_kick($sender);
 				return;
 			}
@@ -526,9 +526,6 @@ class Budabot extends AOChat {
 
 		if ($this->banController->isBanned($charId)) {
 			return;
-		} else if ($this->settingManager->get('spam_protection') == 1 && $this->spam[$sender] > 100) {
-			$this->spam[$sender] += 20;
-			return;
 		}
 
 		$this->eventManager->fireEvent($eventObj);
@@ -563,15 +560,6 @@ class Budabot extends AOChat {
 
 		if ($sender == $this->vars["name"] || $this->banController->isBanned($charId)) {
 			return;
-		}
-
-		if ($this->settingManager->get('spam_protection') == 1) {
-			if ($this->spam[$sender] == 40) {
-				$this->sendTell("Error! Your client is sending a high frequency of chat messages. Stop or be kicked.", $sender);
-			}
-			if ($this->spam[$sender] > 60) {
-				$this->privategroup_kick($sender);
-			}
 		}
 
 		if ($this->isDefaultPrivateChannel($channel)) {

@@ -235,7 +235,6 @@ class CommandManager {
 			$cmdNames = array_map(array($this, 'mapToCmd'), $similarCommands);
 
 			$sendto->reply("Error! Unknown command. Did you mean..." . implode(", ", $cmdNames) . '?');
-			$this->chatBot->spam[$sender] += 20;
 			return;
 		}
 
@@ -269,8 +268,6 @@ class CommandManager {
 		} catch (Exception $e) {
 			$this->logger->log("ERROR", $e->getMessage(), $e);
 		}
-
-		$this->chatBot->spam[$sender] += 10;
 	}
 
 	public function checkAccessLevel($channel, $message, $sender, $sendto, $cmd, $commandHandler) {
@@ -290,7 +287,6 @@ class CommandManager {
 			}
 
 			$sendto->reply("Error! Access denied.");
-			$this->chatBot->spam[$sender] += 20;
 			return false;
 		}
 		return true;

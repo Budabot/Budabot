@@ -1,3 +1,0 @@
-Spam protection helps to prevent the bot from getting spammed in tells or private channel. When a person spams too much in the priv channel he will get kicked from the bot and need to wait a few seconds to get back in there.
-
-The same counts for the tells, if someone spams the bot in tells he will get ignored for a few.
