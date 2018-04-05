@@ -57,7 +57,7 @@ class RelayController {
 	public function setup() {
 		$this->settingManager->add($this->moduleName, 'relaytype', "Type of relay", "edit", "options", "1", "tell;private channel", '1;2');
 		$this->settingManager->add($this->moduleName, 'relaysymbol', "Symbol for external relay", "edit", "options", "@", "!;#;*;@;$;+;-");
-		$this->settingManager->add($this->moduleName, 'relaysymbolmethod', "When to relay messages", "edit", "options", "0", "Always relay;Relay when symbol;Relay unless symbol", '0;1;2');
+		$this->settingManager->add($this->moduleName, 'relay_symbol_method', "When to relay messages", "edit", "options", "0", "Always relay;Relay when symbol;Relay unless symbol", '0;1;2');
 		$this->settingManager->add($this->moduleName, 'relaybot', "Bot for Guildrelay", "edit", "text", "Off", "Off", '', "mod", "relaybot.txt");
 		$this->settingManager->add($this->moduleName, 'bot_relay_commands', "Relay commands and results over the bot relay", "edit", "options", "1", "true;false", "1;0");
 		$this->settingManager->add($this->moduleName, 'relay_color_guild', "Color of messages from relay to guild channel", 'edit', "color", "<font color='#C3C3C3'>");
@@ -120,11 +120,11 @@ class RelayController {
 	public function processOutgoingRelayMessage($sender, $message, $type) {
 		if (($this->settingManager->get("relaybot") != "Off") && ($this->settingManager->get("bot_relay_commands") == 1 || $message[0] != $this->settingManager->get("symbol"))) {
 			$relayMessage = '';
-			if ($this->settingManager->get('relaysymbolmethod') == '0') {
+			if ($this->settingManager->get('relay_symbol_method') == '0') {
 				$relayMessage = $message;
-			} else if ($this->settingManager->get('relaysymbolmethod') == '1' && $message[0] == $this->settingManager->get('relaysymbol')) {
+			} else if ($this->settingManager->get('relay_symbol_method') == '1' && $message[0] == $this->settingManager->get('relaysymbol')) {
 				$relayMessage = substr($message, 1);
-			} else if ($this->settingManager->get('relaysymbolmethod') == '2' && $message[0] != $this->settingManager->get('relaysymbol')) {
+			} else if ($this->settingManager->get('relay_symbol_method') == '2' && $message[0] != $this->settingManager->get('relaysymbol')) {
 				$relayMessage = $message;
 			} else {
 				return;

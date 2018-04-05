@@ -127,3 +127,7 @@ if ($db->getType() == DB::MYSQL && checkIfTableExists($db, "notes") && checkIfCo
 		$db->exec("ALTER TABLE notes MODIFY COLUMN note TEXT NOT NULL");
 	}
 }
+
+if (checkIfTableExists($db, "settings_<myname>")) {
+	$db->exec("UPDATE settings_<myname> SET name = ? WHERE name = ?", "relay_symbol_method", "relaysymbolmethod");
+}
