@@ -179,7 +179,6 @@ class OnlineController {
 
 			$guildArray = array();
 			$privArray = array();
-			$ircArray = array();
 
 			forEach ($data as $row) {
 				switch ($row->channel_type) {
@@ -189,11 +188,8 @@ class OnlineController {
 					case 'priv':
 						$privArray []= $row->name;
 						break;
-					case 'irc':
-						$ircArray []= $row->name;
-						break;
 					default:
-						$this->logger->log("WARN", "ONLINE_MODULE", "Unknown channel type: '$row->channel_type'. Expected: 'guild', 'priv' or 'irc'");
+						$this->logger->log("WARN", "ONLINE_MODULE", "Unknown channel type: '$row->channel_type'. Expected: 'guild' or 'priv'");
 				}
 			}
 
