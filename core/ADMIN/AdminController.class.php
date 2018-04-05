@@ -189,13 +189,11 @@ class AdminController {
 	
 	private function getAltAdminInfo($who, $showOfflineAlts) {
 		$blob = '';
-		if ($this->settingManager->get("alts_inherit_admin") == 1) {
-			$altInfo = $this->altsController->getAltInfo($who);
-			if ($altInfo->main == $who) {
-				forEach ($altInfo->alts as $alt => $validated) {
-					if ($validated == 1 && ($showOfflineAlts || $this->buddylistManager->isOnline($alt))) {
-						$blob .= "<tab><tab>$alt" . $this->getOnlineStatus($alt) . "\n";
-					}
+		$altInfo = $this->altsController->getAltInfo($who);
+		if ($altInfo->main == $who) {
+			forEach ($altInfo->alts as $alt => $validated) {
+				if ($validated == 1 && ($showOfflineAlts || $this->buddylistManager->isOnline($alt))) {
+					$blob .= "<tab><tab>$alt" . $this->getOnlineStatus($alt) . "\n";
 				}
 			}
 		}
@@ -234,7 +232,7 @@ class AdminController {
 		}
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$msg = "<red>WARNING<end>: alts_inherit_admin is enabled, but $who is not a main.  This command did NOT affect $who's access level.";
+			$msg = "<red>WARNING<end>: $who is not a main.  This command did NOT affect $who's access level and no action was performed.";
 			$sendto->reply($msg);
 			return;
 		}
@@ -259,7 +257,7 @@ class AdminController {
 		$this->adminManager->removeFromLists($who);
 
 		if (!$this->checkAltsInheritAdmin($who)) {
-			$msg = "<red>WARNING<end>: alts_inherit_admin is enabled, but $who is not a main.  This command did NOT affect $who's access level.";
+			$msg = "<red>WARNING<end>: $who is not a main.  This command did NOT affect $who's access level.";
 			$sendto->reply($msg);
 		}
 
@@ -269,7 +267,7 @@ class AdminController {
 	
 	public function checkAltsInheritAdmin($who) {
 		$ai = $this->altsController->getAltInfo($who);
-		if ($this->settingManager->get("alts_inherit_admin") == 1 && $ai->main != $who) {
+		if ($ai->main != $who) {
 			return false;
 		} else {
 			return true;

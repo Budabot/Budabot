@@ -69,7 +69,7 @@ class AltInfo {
 			}
 			$blob .= $this->formatOnlineStatus($online);
 
-			if ($showValidateLinks && $settingManager->get('alts_inherit_admin') == 1 && $row->validated == 0) {
+			if ($showValidateLinks && $row->validated == 0) {
 				$blob .= " [Unvalidated] " . $text->makeChatcmd('Validate', "/tell <myname> <symbol>altvalidate {$row->alt}");
 			}
 

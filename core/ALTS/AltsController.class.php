@@ -48,18 +48,6 @@ class AltsController {
 	public $db;
 
 	/**
-	 * @Setting("alts_inherit_admin")
-	 * @Description("Alts inherit admin privileges from main")
-	 * @Visibility("edit")
-	 * @Type("options")
-	 * @Options("true;false")
-	 * @Intoptions("1;0")
-	 * @AccessLevel("mod")
-	 * @Help("alts_inherit_admin.txt")
-	 */
-	public $defaultAltsInheritAdmin = "1";
-
-	/**
 	 * @Setup
 	 * This handler is called on bot startup.
 	 */
@@ -304,7 +292,7 @@ class AltsController {
 	 * @Description("Reminds players logging in to validate alts")
 	 */
 	public function checkUnvalidatedAltsEvent($eventObj) {
-		if ($this->chatBot->isReady() && $this->settingManager->get('alts_inherit_admin') == 1) {
+		if ($this->chatBot->isReady()) {
 			$altInfo = $this->getAltInfo($eventObj->sender);
 		
 			if ($altInfo->hasUnvalidatedAlts() && $altInfo->isValidated($eventObj->sender)) {
@@ -322,8 +310,6 @@ class AltsController {
 
 		$sql = "SELECT `alt`, `main`, `validated` FROM `alts` WHERE (`main` LIKE ?) OR (`main` LIKE (SELECT `main` FROM `alts` WHERE `alt` LIKE ?))";
 		$data = $this->db->query($sql, $player, $player);
-
-		$isValidated = 0;
 
 		if (count($data) > 0) {
 			forEach ($data as $row) {

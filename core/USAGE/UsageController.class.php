@@ -256,7 +256,6 @@ class UsageController {
 		$settings['spam_protection'] = $this->settingManager->get('spam_protection');
 		$settings['relay_enabled'] = ($this->settingManager->get('relaybot') == 'Off' ? '0' : '1');
 		$settings['relay_type'] = $this->settingManager->get('relaytype');
-		$settings['alts_inherit_admin'] = $this->settingManager->get('alts_inherit_admin');
 		$settings['first_and_last_alt_only'] = $this->settingManager->get('first_and_last_alt_only');
 		$settings['aodb_db_version'] = $this->settingManager->get('aodb_db_version');
 		$settings['guild_admin_access_level'] = $this->settingManager->get('guild_admin_access_level');

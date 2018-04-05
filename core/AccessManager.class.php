@@ -60,10 +60,9 @@ class AccessManager {
 	 * Note that this will return true if 'Tyrence' is a moderator on your
 	 * bot, but also if he is anything higher, such as administrator, or superadmin.
 	 *
-	 * If the setting 'alts_inherit_admin' is enabled, this command will return
-	 * the character's "effective" admin level - Not necessarily that
-	 * character's set access level, but the access level inherited from its
-	 * main (if it has one).
+	 * This command will check the character's "effective" access level, meaning
+	 * the higher of it's own access level and that of it's main, if it has a main
+	 * and if it has been validated as an alt.
 	 * 
 	 * @param string $sender - the name of the person you want to check access on
 	 * @param string $accessLevel - can be one of: superadmin, admininistrator, moderator, guild, member, raidleader, all
@@ -74,9 +73,8 @@ class AccessManager {
 
 		$returnVal = $this->checkSingleAccess($sender, $accessLevel);
 
-		if ($returnVal === false && $this->setting->alts_inherit_admin == 1) {
+		if ($returnVal === false) {
 			// if current character doesn't have access,
-			// and if alts_inherit_admin is enabled,
 			// and if the current character is not a main character,
 			// and if the current character is validated,
 			// then check access against the main character,
@@ -116,7 +114,7 @@ class AccessManager {
 	}
 
 	/**
-	 * Returns the access level of $sender, ignoring guild admin and alts_inherit_admin settings
+	 * Returns the access level of $sender, ignoring guild admin and inheriting access level from main
 	 */
 	public function getSingleAccessLevel($sender) {
 		if ($this->chatBot->vars["SuperAdmin"] == $sender){
@@ -153,20 +151,18 @@ class AccessManager {
 	}
 
 	/**
-	 * Returns the access level of $sender, accounting for guild admin and alts_inherit_admin settings
+	 * Returns the access level of $sender, accounting for guild admin and inheriting access level from main
 	 */
 	public function getAccessLevelForCharacter($sender) {
 		$sender = ucfirst(strtolower($sender));
 
 		$accessLevel = $this->getSingleAccessLevel($sender);
 
-		if ($this->setting->alts_inherit_admin == 1) {
-			$altInfo = $this->altsController->getAltInfo($sender);
-			if ($sender != $altInfo->main && $altInfo->isValidated($sender)) {
-				$mainAccessLevel = $this->getSingleAccessLevel($altInfo->main);
-				if ($this->compareAccessLevels($mainAccessLevel, $accessLevel) > 0) {
-					$accessLevel = $mainAccessLevel;
-				}
+		$altInfo = $this->altsController->getAltInfo($sender);
+		if ($sender != $altInfo->main && $altInfo->isValidated($sender)) {
+			$mainAccessLevel = $this->getSingleAccessLevel($altInfo->main);
+			if ($this->compareAccessLevels($mainAccessLevel, $accessLevel) > 0) {
+				$accessLevel = $mainAccessLevel;
 			}
 		}
 
