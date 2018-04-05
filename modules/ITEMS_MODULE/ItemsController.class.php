@@ -137,14 +137,14 @@ class ItemsController {
 		$this->logger->log('DEBUG', "Starting items db update");
 
 		// get list of files in ITEMS_MODULE
-		$data = $this->http
+		$response = $this->http
 			->get("https://api.github.com/repos/Budabot/Budabot/contents/modules/ITEMS_MODULE")
+			->withHeader("Accept", "application/vnd.github.v3+json")
 			->withHeader('User-Agent', 'Budabot')
-			->waitAndReturnResponse()
-			->body;
+			->waitAndReturnResponse();
 
 		try {
-			$json = json_decode($data);
+			$json = json_decode($response->body);
 		
 			// find the latest items db version on the server
 			$latestVersion = null;
