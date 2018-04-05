@@ -261,7 +261,6 @@ class UsageController {
 		$settings['guild_admin_access_level'] = $this->settingManager->get('guild_admin_access_level');
 		$settings['guild_admin_rank'] = $this->settingManager->get('guild_admin_rank');
 		$settings['max_blob_size'] = $this->settingManager->get('max_blob_size');
-		$settings['logon_delay'] = $this->settingManager->get('logon_delay');
 		$settings['online_show_org_guild'] = $this->settingManager->get('online_show_org_guild');
 		$settings['online_show_org_priv'] = $this->settingManager->get('online_show_org_priv');
 		$settings['online_admin'] = $this->settingManager->get('online_admin');

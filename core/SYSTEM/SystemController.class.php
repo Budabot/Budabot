@@ -172,16 +172,6 @@ class SystemController {
 	public $defaultHttpTimeout = "10s";
 
 	/**
-	 * @Setting("logon_delay")
-	 * @Description("Time to wait before executing connect events and cron jobs")
-	 * @Visibility("edit")
-	 * @Type("time")
-	 * @Options("5s;10s;20s;30s")
-	 * @AccessLevel("mod")
-	 */
-	public $defaultLogonDelay = "10s";
-
-	/**
 	 * @Setting("guild_channel_status")
 	 * @Description("Enable the guild channel")
 	 * @Visibility("edit")

@@ -818,7 +818,7 @@ class Budabot extends AOChat {
 	 * @description: tells when the bot is logged on and all the start up events have finished
 	 */
 	public function isReady() {
-		return $this->ready && (time() >= $this->vars["startup"] + $this->settingManager->get("logon_delay"));
+		return $this->ready;
 	}
 	
 	public function isDefaultPrivateChannel($channel) {
