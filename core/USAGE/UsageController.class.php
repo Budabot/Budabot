@@ -266,6 +266,7 @@ class UsageController {
 		$settings['online_admin'] = $this->settingManager->get('online_admin');
 		$settings['relaysymbolmethod'] = $this->settingManager->get('relaysymbolmethod');
 		$settings['http_server_enable'] = ($this->eventManager->getKeyForCronEvent("60", "httpservercontroller.startHTTPServer") != null ? "1" : "0");
+		$settings['tower_attack_spam'] = $this->settingManager->get('tower_attack_spam');
 
 		$obj = new stdClass;
 		$obj->id = sha1($botid . $this->chatBot->vars['name'] . $this->chatBot->vars['dimension']);
