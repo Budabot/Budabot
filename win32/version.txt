@@ -1,2 +1,2 @@
-http://windows.php.net/downloads/releases/archives/php-5.4.45-Win32-VC9-x86.zip
-https://www.microsoft.com/en-us/download/details.aspx?id=29
+https://windows.php.net/downloads/releases/php-7.2.4-nts-Win32-VC15-x64.zip
+https://aka.ms/vs/15/release/VC_redist.x64.exe
