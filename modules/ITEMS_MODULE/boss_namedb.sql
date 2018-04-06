@@ -17,7 +17,7 @@ INSERT INTO `boss_namedb` VALUES (14,'Atakirh');
 INSERT INTO `boss_namedb` VALUES (15,'Athlar');
 INSERT INTO `boss_namedb` VALUES (16,'Bane');
 INSERT INTO `boss_namedb` VALUES (17,'Bending Eremite');
-INSERT INTO `boss_namedb` VALUES (18,'Bigot');
+INSERT INTO `boss_namedb` VALUES (18,'Bigot Inmodeah');
 INSERT INTO `boss_namedb` VALUES (19,'Black');
 INSERT INTO `boss_namedb` VALUES (20,'Brutish Dryad');
 INSERT INTO `boss_namedb` VALUES (21,'Cacophonous Imp');
