@@ -1,5 +1,0 @@
-To show a full list of players online with their alts:
-<highlight><tab><symbol>players<end>
-
-To show a list of players that have the specified profession as an alt:
-<highlight><tab><symbol>players 'profession'<end>
