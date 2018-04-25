@@ -4,5 +4,3 @@ This command allows the main of an altlist (or another validated character at yo
 
 To validate your alt to enable it to inherit your main's admin privileges:
 <highlight><tab><symbol>altvalidate <i>alt</i><end>
-
-<highlight>Note: This command requires that alts <a href='chatcmd:///tell <myname> settings change alts_inherit_admin'>inherit</a> admin privileges.<end>
