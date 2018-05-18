@@ -11,7 +11,7 @@ namespace Budabot\Core;
 *
 * AOChat, a PHP class for talking with the Anarchy Online chat servers.
 * It requires the sockets extension (to connect to the chat server..)
-* from PHP 4.2.0+ and either the GMP or BCMath extension (for generating
+* from PHP 4.2.0+ and the BCMath extension (for generating
 * and calculating the login keys) to work.
 *
 * A disassembly of the official java chat client[1] for Anarchy Online
@@ -56,8 +56,8 @@ if (!extension_loaded("sockets")) {
 	die("AOChat class needs the Sockets extension to work.\n");
 }
 
-if (!extension_loaded("gmp") && !extension_loaded("bcmath")) {
-	die("AOChat class needs either GMP or BCMath extension to work.\n");
+if (!extension_loaded("bcmath")) {
+	die("AOChat class needs the BCMath extension to work.\n");
 }
 
 set_time_limit(0);
@@ -579,26 +579,8 @@ class AOChat {
 		$exp  = $this->bighexdec($exp);
 		$mod  = $this->bighexdec($mod);
 
-		/* PHP5 finally has this */
-		if (function_exists("bcpowmod")) {
-			$r = bcpowmod($base, $exp, $mod);
-			return $this->bigdechex($r);
-		}
-
-		$r = 1;
-		$p = $base;
-
-		while (true) {
-			if (bcmod($exp, 2)) {
-				$r = bcmod(bcmul($p, $r), $mod);
-				$exp = bcsub($exp, "1");
-				if (bccomp($exp, "0") == 0) {
-					return $this->bigdechex($r);
-				}
-			}
-			$exp = bcdiv($exp, 2);
-			$p = bcmod(bcmul($p, $p), $mod);
-		}
+		$r = bcpowmod($base, $exp, $mod);
+		return $this->bigdechex($r);
 	}
 
 	/*
@@ -701,17 +683,8 @@ class AOChat {
 		$dhG = "0x5";
 		$dhx = "0x".$this->get_random_hex_key(256);
 
-		if (extension_loaded("gmp")) {
-			$dhN = gmp_init($dhN);
-			$dhX = gmp_strval(gmp_powm($dhG, $dhx, $dhN), 16);
-			$dhK = gmp_strval(gmp_powm($dhY, $dhx, $dhN), 16);
-		} else if (extension_loaded("bcmath")) {
-			$dhX = $this->bcmath_powm($dhG, $dhx, $dhN);
-			$dhK = $this->bcmath_powm($dhY, $dhx, $dhN);
-		} else {
-			$this->logger->log('error', "generate_login_key(): no idea how to powm...");
-			die();
-		}
+		$dhX = $this->bcmath_powm($dhG, $dhx, $dhN);
+		$dhK = $this->bcmath_powm($dhY, $dhx, $dhN);
 
 		$str = sprintf("%s|%s|%s", $username, $servkey, $password);
 
