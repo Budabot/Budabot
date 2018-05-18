@@ -42,8 +42,14 @@ class RecipeController {
 
 	private $path;
 
-	/** @Setup */
-	public function setup() {
+	/**
+	 * @Event("connect")
+	 * @Description("Initializes the recipe database")
+	 * @DefaultStatus("1")
+	 * 
+	 * This is a Event("connect") instead of @Setup since it depends on the items db being loaded
+	 */
+	public function connectEvent() {
 		$this->db->loadSQLFile($this->moduleName, "recipes", true);
 
 		$this->path = getcwd() . "/modules/" . $this->moduleName . "/recipes/";
