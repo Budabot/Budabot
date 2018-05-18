@@ -47,7 +47,7 @@ class RecipeController {
 	 * @Description("Initializes the recipe database")
 	 * @DefaultStatus("1")
 	 * 
-	 * This is a Event("connect") instead of @Setup since it depends on the items db being loaded
+	 * This is a Event("connect") instead of Setup since it depends on the items db being loaded
 	 */
 	public function connectEvent() {
 		$this->db->loadSQLFile($this->moduleName, "recipes", true);
