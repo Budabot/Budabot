@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Budabot\Core\Modules\BuddylistController | Budabot 3.5_GA Docs</title>
+	<title>Class Budabot\Core\Modules\BuddylistController | Budabot 4.Beta Docs</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -53,6 +53,18 @@
 						None					</a>
 
 						</li>
+				<li>
+					<a href="namespace-Tyrence.html">
+						Tyrence<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Tyrence.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -148,32 +160,15 @@
 		
 
 				<b>Definecommand(:</b>
-				<p>command     = 'friendlist',
-    accessLevel = 'mod',
-    description = 'Show buddies on the buddylist',
-    help        = 'friendlist.txt'
-)</p><br>
-				<b>Definecommand(:</b>
-				<p>command     = 'addbuddy',
-    accessLevel = 'mod',
-    description = 'Add a buddy to the buddylist',
-    help        = 'friendlist.txt'
-)</p><br>
-				<b>Definecommand(:</b>
-				<p>command     = 'rembuddy',
-    accessLevel = 'mod',
-    description = 'Remove a buddy from the buddylist',
-    help        = 'friendlist.txt'
-)</p><br>
-				<b>Definecommand(:</b>
-				<p>command     = 'rembuddyall',
-    accessLevel = 'mod',
-    description = 'Remove all buddies from the buddylist',
-    help        = 'friendlist.txt'
+				<p>command     = 'buddylist',
+    accessLevel = 'admin',
+    description = 'Shows and manages buddies on the buddylist',
+    help        = 'buddylist.txt',
+    alias       = 'friendlist'
 )</p><br>
 				<b>Instance:</b>
 				Commands this controller contains:<br>
-			<b>Located at</b> <a href="source-class-Budabot.Core.Modules.BuddylistController.html#5-191" title="Go to source code">FRIENDLIST/BuddylistController.class.php</a>
+			<b>Located at</b> <a href="source-class-Budabot.Core.Modules.BuddylistController.html#5-174" title="Go to source code">BUDDYLIST/BuddylistController.class.php</a>
 		<br>
 	</div>
 
@@ -181,7 +176,7 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="friendlistShowCommand" id="_friendlistShowCommand">
+	<tr data-order="buddylistShowCommand" id="_buddylistShowCommand">
 
 		<td class="attributes"><code>
 			 public 
@@ -192,8 +187,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_friendlistShowCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#54-106" title="Go to source code">friendlistShowCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<a class="anchor" href="#_buddylistShowCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#37-89" title="Go to source code">buddylistShowCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			
@@ -206,14 +201,14 @@
 
 
 
-				<h4>Handlescommand("friendlist")</h4>
+				<h4>Handlescommand("buddylist")</h4>
 				<div class="list">
 				</div>
-				<h4>Matches("/^friendlist</h4>
+				<h4>Matches("/^buddylist</h4>
 				<div class="list">
 						(clean)$/i")<br>
 				</div>
-				<h4>Matches("/^friendlist$/i")</h4>
+				<h4>Matches("/^buddylist$/i")</h4>
 				<div class="list">
 				</div>
 
@@ -221,7 +216,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="friendlistSearchCommand" id="_friendlistSearchCommand">
+	<tr data-order="buddylistAddCommand" id="_buddylistAddCommand">
 
 		<td class="attributes"><code>
 			 public 
@@ -232,8 +227,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_friendlistSearchCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#108-135" title="Go to source code">friendlistSearchCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<a class="anchor" href="#_buddylistAddCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#91-106" title="Go to source code">buddylistAddCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			
@@ -246,19 +241,19 @@
 
 
 
-				<h4>Handlescommand("friendlist")</h4>
+				<h4>Handlescommand("buddylist")</h4>
 				<div class="list">
 				</div>
-				<h4>Matches("/^friendlist</h4>
+				<h4>Matches("/^buddylist</h4>
 				<div class="list">
-						(.*)$/i")<br>
+						add (.+) (.+)$/i")<br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="addbuddyCommand" id="_addbuddyCommand">
+	<tr data-order="buddylistRemAllCommand" id="_buddylistRemAllCommand">
 
 		<td class="attributes"><code>
 			 public 
@@ -269,8 +264,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_addbuddyCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#137-152" title="Go to source code">addbuddyCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<a class="anchor" href="#_buddylistRemAllCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#108-119" title="Go to source code">buddylistRemAllCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			
@@ -283,19 +278,19 @@
 
 
 
-				<h4>Handlescommand("addbuddy")</h4>
+				<h4>Handlescommand("buddylist")</h4>
 				<div class="list">
 				</div>
-				<h4>Matches("/^addbuddy</h4>
+				<h4>Matches("/^buddylist</h4>
 				<div class="list">
-						(.+) (.+)$/i")<br>
+						rem all$/i")<br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="rembuddyCommand" id="_rembuddyCommand">
+	<tr data-order="buddylistRemCommand" id="_buddylistRemCommand">
 
 		<td class="attributes"><code>
 			 public 
@@ -306,8 +301,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_rembuddyCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#154-169" title="Go to source code">rembuddyCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<a class="anchor" href="#_buddylistRemCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#121-136" title="Go to source code">buddylistRemCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			
@@ -320,19 +315,19 @@
 
 
 
-				<h4>Handlescommand("rembuddy")</h4>
+				<h4>Handlescommand("buddylist")</h4>
 				<div class="list">
 				</div>
-				<h4>Matches("/^rembuddy</h4>
+				<h4>Matches("/^buddylist</h4>
 				<div class="list">
-						(.+) (.+)$/i")<br>
+						rem (.+) (.+)$/i")<br>
 				</div>
 
 
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="rembuddyallCommand" id="_rembuddyallCommand">
+	<tr data-order="buddylistSearchCommand" id="_buddylistSearchCommand">
 
 		<td class="attributes"><code>
 			 public 
@@ -343,8 +338,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_rembuddyallCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#171-182" title="Go to source code">rembuddyallCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<a class="anchor" href="#_buddylistSearchCommand">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#138-165" title="Go to source code">buddylistSearchCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			
@@ -357,11 +352,12 @@
 
 
 
-				<h4>Handlescommand("rembuddyall")</h4>
+				<h4>Handlescommand("buddylist")</h4>
 				<div class="list">
 				</div>
-				<h4>Matches("/^rembuddyall$/i")</h4>
+				<h4>Matches("/^buddylist</h4>
 				<div class="list">
+						search (.*)$/i")<br>
 				</div>
 
 
@@ -380,7 +376,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSortedBuddyList">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#184-190" title="Go to source code">getSortedBuddyList</a>( )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BuddylistController.html#167-173" title="Go to source code">getSortedBuddyList</a>( )</code>
 
 		<div class="description short">
 			
@@ -420,7 +416,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BuddylistController.html#39-43" title="Go to source code"><var>$moduleName</var></a>
+				<a href="source-class-Budabot.Core.Modules.BuddylistController.html#22-26" title="Go to source code"><var>$moduleName</var></a>
 
 			<div class="description short">
 				<p>Name of the module.
@@ -447,7 +443,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BuddylistController.html#45-46" title="Go to source code"><var>$chatBot</var></a>
+				<a href="source-class-Budabot.Core.Modules.BuddylistController.html#28-29" title="Go to source code"><var>$chatBot</var></a>
 
 			<div class="description short">
 				
@@ -475,7 +471,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BuddylistController.html#48-49" title="Go to source code"><var>$buddylistManager</var></a>
+				<a href="source-class-Budabot.Core.Modules.BuddylistController.html#31-32" title="Go to source code"><var>$buddylistManager</var></a>
 
 			<div class="description short">
 				
@@ -503,7 +499,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BuddylistController.html#51-52" title="Go to source code"><var>$text</var></a>
+				<a href="source-class-Budabot.Core.Modules.BuddylistController.html#34-35" title="Go to source code"><var>$text</var></a>
 
 			<div class="description short">
 				
@@ -534,7 +530,7 @@ Set automatically by module loader.</p>
 </div>
 
 	<div id="footer">
-		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		Budabot 4.Beta Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
 </div>

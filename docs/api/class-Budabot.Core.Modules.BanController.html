@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Budabot\Core\Modules\BanController | Budabot 3.5_GA Docs</title>
+	<title>Class Budabot\Core\Modules\BanController | Budabot 4.Beta Docs</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -53,6 +53,18 @@
 						None					</a>
 
 						</li>
+				<li>
+					<a href="namespace-Tyrence.html">
+						Tyrence<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Tyrence.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -158,29 +170,15 @@
     defaultStatus = '1'
 )</p><br>
 				<b>Definecommand(:</b>
-				<p>command       = 'banorg',
-    accessLevel   = 'mod',
-    description   = 'Ban an organization from this bot',
-    help          = 'ban.txt',
-    defaultStatus = '1'
-)</p><br>
-				<b>Definecommand(:</b>
 				<p>command       = 'unban',
     accessLevel   = 'mod',
     description   = 'Unban a character from this bot',
     help          = 'ban.txt',
     defaultStatus = '1'
 )</p><br>
-				<b>Definecommand(:</b>
-				<p>command       = 'unbanorg',
-    accessLevel   = 'mod',
-    description   = 'Unban an organization from this bot',
-    help          = 'ban.txt',
-    defaultStatus = '1'
-)</p><br>
 				<b>Instance:</b>
 				Commands this controller contains:<br>
-			<b>Located at</b> <a href="source-class-Budabot.Core.Modules.BanController.html#5-338" title="Go to source code">BAN/BanController.class.php</a>
+			<b>Located at</b> <a href="source-class-Budabot.Core.Modules.BanController.html#5-328" title="Go to source code">BAN/BanController.class.php</a>
 		<br>
 	</div>
 
@@ -200,7 +198,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setup">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#85-92" title="Go to source code">setup</a>( )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#70-76" title="Go to source code">setup</a>( )</code>
 
 		<div class="description short">
 			
@@ -222,6 +220,46 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="initializeBanList" id="_initializeBanList">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_initializeBanList">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#78-85" title="Go to source code">initializeBanList</a>( <span> <var>$eventObj</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+				<h4>Defaultstatus("1")</h4>
+				<div class="list">
+				</div>
+				<h4>Description("upload</h4>
+				<div class="list">
+						banlist into memory")<br>
+				</div>
+				<h4>Event("connect")</h4>
+				<div class="list">
+				</div>
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="banPlayerWithTimeAndReasonCommand" id="_banPlayerWithTimeAndReasonCommand">
 
 		<td class="attributes"><code>
@@ -234,7 +272,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_banPlayerWithTimeAndReasonCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#94-117" title="Go to source code">banPlayerWithTimeAndReasonCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#87-110" title="Go to source code">banPlayerWithTimeAndReasonCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			<p>Command parameters are:
@@ -274,7 +312,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_banPlayerWithTimeCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#119-142" title="Go to source code">banPlayerWithTimeCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#112-135" title="Go to source code">banPlayerWithTimeCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			<p>This command handler bans a player from this bot.</p>
@@ -313,7 +351,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_banPlayerWithReasonCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#144-166" title="Go to source code">banPlayerWithReasonCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#137-159" title="Go to source code">banPlayerWithReasonCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			<p>This command handler bans a player from this bot.</p>
@@ -352,7 +390,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_banPlayerCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#168-188" title="Go to source code">banPlayerCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#161-181" title="Go to source code">banPlayerCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			<p>This command handler bans a player from this bot.</p>
@@ -391,7 +429,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_banlistCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#190-222" title="Go to source code">banlistCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#183-215" title="Go to source code">banlistCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			<p>This command handler shows who is on the banlist.</p>
@@ -427,7 +465,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_unbanCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#224-247" title="Go to source code">unbanCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#217-241" title="Go to source code">unbanCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			<p>This command handler unbans a player from this bot.</p>
@@ -454,84 +492,6 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="banorgCommand" id="_banorgCommand">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_banorgCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#249-269" title="Go to source code">banorgCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
-
-		<div class="description short">
-			<p>This command handler bans an organization from this bot.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>This command handler bans an organization from this bot.</p>
-
-<p>Command parameter is: - name of the organization</p>
-
-
-
-
-
-				<h4>Handlescommand("banorg")</h4>
-				<div class="list">
-				</div>
-				<h4>Matches("/^banorg</h4>
-				<div class="list">
-						(.+)$/i")<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="unbanorgCommand" id="_unbanorgCommand">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_unbanorgCommand">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#271-291" title="Go to source code">unbanorgCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
-
-		<div class="description short">
-			<p>This command handler unbans an organization from this bot.</p>
-		</div>
-
-		<div class="description detailed hidden">
-			<p>This command handler unbans an organization from this bot.</p>
-
-<p>Command parameter is: - name of the organization</p>
-
-
-
-
-
-				<h4>Handlescommand("unbanorg")</h4>
-				<div class="list">
-				</div>
-				<h4>Matches("/^unbanorg</h4>
-				<div class="list">
-						(.+)$/i")<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="checkTempBan" id="_checkTempBan">
 
 		<td class="attributes"><code>
@@ -544,7 +504,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkTempBan">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#293-310" title="Go to source code">checkTempBan</a>( <span> <var>$eventObj</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#243-254" title="Go to source code">checkTempBan</a>( <span> <var>$eventObj</var></span> )</code>
 
 		<div class="description short">
 			
@@ -564,7 +524,7 @@
 				<div class="list">
 						temp bans to see if they have expired")<br>
 				</div>
-				<h4>Event("1min")</h4>
+				<h4>Event("timer(1min)")</h4>
 				<div class="list">
 				</div>
 
@@ -584,7 +544,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_banPlayer">#</a>
-		<code><a href="source-class-Budabot.Core.Modules.BanController.html#312-337" title="Go to source code">banPlayer</a>( <span> <var>$who</var></span>, <span> <var>$sender</var></span>, <span> <var>$length</var></span>, <span> <var>$reason</var></span>, <span> <var>$sendto</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#256-282" title="Go to source code">banPlayer</a>( <span> <var>$who</var></span>, <span> <var>$sender</var></span>, <span> <var>$length</var></span>, <span> <var>$reason</var></span>, <span> <var>$sendto</var></span> )</code>
 
 		<div class="description short">
 			<p>This helper method bans player with given arguments.</p>
@@ -592,6 +552,156 @@
 
 		<div class="description detailed hidden">
 			<p>This helper method bans player with given arguments.</p>
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="add" id="_add">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_add">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#284-298" title="Go to source code">add</a>( <span> <var>$charId</var></span>, <span> <var>$sender</var></span>, <span> <var>$length</var></span>, <span> <var>$reason</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="remove" id="_remove">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_remove">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#300-307" title="Go to source code">remove</a>( <span> <var>$charId</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="uploadBanlist" id="_uploadBanlist">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_uploadBanlist">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#309-319" title="Go to source code">uploadBanlist</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isBanned" id="_isBanned">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isBanned">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#321-323" title="Go to source code">isBanned</a>( <span> <var>$charId</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getBanlist" id="_getBanlist">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getBanlist">#</a>
+		<code><a href="source-class-Budabot.Core.Modules.BanController.html#325-327" title="Go to source code">getBanlist</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
 
 
 
@@ -624,7 +734,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#47-51" title="Go to source code"><var>$moduleName</var></a>
+				<a href="source-class-Budabot.Core.Modules.BanController.html#33-37" title="Go to source code"><var>$moduleName</var></a>
 
 			<div class="description short">
 				<p>Name of the module.
@@ -644,34 +754,6 @@ Set automatically by module loader.</p>
 			</div>
 		</td>
 	</tr>
-	<tr data-order="banManager" id="$banManager">
-		<td class="attributes"><code>
-			public  
-			
-		</code></td>
-
-		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#53-54" title="Go to source code"><var>$banManager</var></a>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-					<h4>Inject</h4>
-					<div class="list">
-					</div>
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#$banManager" class="anchor">#</a>
-				<code></code>
-			</div>
-		</td>
-	</tr>
 	<tr data-order="accessManager" id="$accessManager">
 		<td class="attributes"><code>
 			public  
@@ -679,7 +761,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#56-57" title="Go to source code"><var>$accessManager</var></a>
+				<a href="source-class-Budabot.Core.Modules.BanController.html#39-40" title="Go to source code"><var>$accessManager</var></a>
 
 			<div class="description short">
 				
@@ -707,7 +789,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#59-60" title="Go to source code"><var>$util</var></a>
+				<a href="source-class-Budabot.Core.Modules.BanController.html#42-43" title="Go to source code"><var>$util</var></a>
 
 			<div class="description short">
 				
@@ -735,7 +817,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#62-63" title="Go to source code"><var>$chatBot</var></a>
+				<a href="source-class-Budabot.Core.Modules.BanController.html#45-46" title="Go to source code"><var>$chatBot</var></a>
 
 			<div class="description short">
 				
@@ -763,7 +845,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#65-66" title="Go to source code"><var>$settingManager</var></a>
+				<a href="source-class-Budabot.Core.Modules.BanController.html#48-49" title="Go to source code"><var>$settingManager</var></a>
 
 			<div class="description short">
 				
@@ -791,7 +873,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#68-69" title="Go to source code"><var>$text</var></a>
+				<a href="source-class-Budabot.Core.Modules.BanController.html#51-52" title="Go to source code"><var>$text</var></a>
 
 			<div class="description short">
 				
@@ -819,7 +901,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#71-72" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-Budabot.Core.Modules.BanController.html#54-55" title="Go to source code"><var>$db</var></a>
 
 			<div class="description short">
 				
@@ -840,6 +922,31 @@ Set automatically by module loader.</p>
 			</div>
 		</td>
 	</tr>
+	<tr data-order="banlist" id="$banlist">
+		<td class="attributes"><code>
+			private  
+			array
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-Budabot.Core.Modules.BanController.html#57" title="Go to source code"><var>$banlist</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$banlist" class="anchor">#</a>
+				<code><span class="php-keyword1">array</span>()</code>
+			</div>
+		</td>
+	</tr>
 	<tr data-order="defaultNotifyBannedPlayer" id="$defaultNotifyBannedPlayer">
 		<td class="attributes"><code>
 			public  
@@ -847,7 +954,7 @@ Set automatically by module loader.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.Core.Modules.BanController.html#74-83" title="Go to source code"><var>$defaultNotifyBannedPlayer</var></a>
+				<a href="source-class-Budabot.Core.Modules.BanController.html#59-68" title="Go to source code"><var>$defaultNotifyBannedPlayer</var></a>
 
 			<div class="description short">
 				
@@ -897,7 +1004,7 @@ Set automatically by module loader.</p>
 </div>
 
 	<div id="footer">
-		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		Budabot 4.Beta Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
 </div>

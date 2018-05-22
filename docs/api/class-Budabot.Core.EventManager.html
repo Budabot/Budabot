@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Budabot\Core\EventManager | Budabot 3.5_GA Docs</title>
+	<title>Class Budabot\Core\EventManager | Budabot 4.Beta Docs</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -53,6 +53,18 @@
 						None					</a>
 
 						</li>
+				<li>
+					<a href="namespace-Tyrence.html">
+						Tyrence<span></span>
+					</a>
+
+						<ul>
+				<li>
+					<a href="namespace-Tyrence.Modules.html">
+						Modules					</a>
+
+						</li>
+							</ul></li>
 			</ul>
 		</div>
 
@@ -70,7 +82,6 @@
 				<li><a href="class-Budabot.Core.AOExtMsg.html">AOExtMsg</a></li>
 				<li><a href="class-Budabot.Core.AsyncHttp.html">AsyncHttp</a></li>
 				<li><a href="class-Budabot.Core.AutoInject.html">AutoInject</a></li>
-				<li><a href="class-Budabot.Core.BanManager.html">BanManager</a></li>
 				<li><a href="class-Budabot.Core.BotRunner.html">BotRunner</a></li>
 				<li><a href="class-Budabot.Core.Budabot.html">Budabot</a></li>
 				<li><a href="class-Budabot.Core.BuddylistManager.html">BuddylistManager</a></li>
@@ -188,7 +199,7 @@
 
 				<b>Instance</b>
 				<br>
-			<b>Located at</b> <a href="source-class-Budabot.Core.EventManager.html#8-323" title="Go to source code">EventManager.class.php</a>
+			<b>Located at</b> <a href="source-class-Budabot.Core.EventManager.html#8-343" title="Go to source code">EventManager.class.php</a>
 		<br>
 	</div>
 
@@ -208,7 +219,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_register">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#40-81" title="Go to source code">register</a>( <span> <var>$module</var></span>, <span> <var>$type</var></span>, <span> <var>$filename</var></span>, <span> <var>$description</var> = <span class="php-quote">'none'</span></span>, <span> <var>$help</var> = <span class="php-quote">''</span></span>, <span> <var>$defaultStatus</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#42-82" title="Go to source code">register</a>( <span> <var>$module</var></span>, <span> <var>$type</var></span>, <span> <var>$filename</var></span>, <span> <var>$description</var> = <span class="php-quote">'none'</span></span>, <span> <var>$help</var> = <span class="php-quote">''</span></span>, <span> <var>$defaultStatus</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -246,7 +257,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_activate">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#83-122" title="Go to source code">activate</a>( <span> <var>$type</var></span>, <span> <var>$filename</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#84-123" title="Go to source code">activate</a>( <span> <var>$type</var></span>, <span> <var>$filename</var></span> )</code>
 
 		<div class="description short">
 			
@@ -284,7 +295,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deactivate">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#124-156" title="Go to source code">deactivate</a>( <span> <var>$type</var></span>, <span> <var>$filename</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#125-157" title="Go to source code">deactivate</a>( <span> <var>$type</var></span>, <span> <var>$filename</var></span> )</code>
 
 		<div class="description short">
 			
@@ -322,7 +333,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_activateIfDeactivated">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#158-182" title="Go to source code">activateIfDeactivated</a>( <span>Object <var>$obj</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#159-183" title="Go to source code">activateIfDeactivated</a>( <span>Object <var>$obj</var></span> )</code>
 
 		<div class="description short">
 			<p>Activates events that are annotated on one or more method names
@@ -359,7 +370,7 @@ if the events are not already activated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_deactivateIfActivated">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#184-208" title="Go to source code">deactivateIfActivated</a>( <span>Object <var>$obj</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#185-209" title="Go to source code">deactivateIfActivated</a>( <span>Object <var>$obj</var></span> )</code>
 
 		<div class="description short">
 			<p>Deactivates events that are annotated on one or more method names
@@ -396,7 +407,7 @@ if the events are not already deactivated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEventTypeByMethod">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#210-217" title="Go to source code">getEventTypeByMethod</a>( <span> <var>$obj</var></span>, <span> <var>$methodName</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#211-218" title="Go to source code">getEventTypeByMethod</a>( <span> <var>$obj</var></span>, <span> <var>$methodName</var></span> )</code>
 
 		<div class="description short">
 			
@@ -426,7 +437,7 @@ if the events are not already deactivated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getKeyForCronEvent">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#219-226" title="Go to source code">getKeyForCronEvent</a>( <span> <var>$time</var></span>, <span> <var>$filename</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#220-227" title="Go to source code">getKeyForCronEvent</a>( <span> <var>$time</var></span>, <span> <var>$filename</var></span> )</code>
 
 		<div class="description short">
 			
@@ -456,7 +467,7 @@ if the events are not already deactivated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_loadEvents">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#228-239" title="Go to source code">loadEvents</a>( )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#229-240" title="Go to source code">loadEvents</a>( )</code>
 
 		<div class="description short">
 			
@@ -494,7 +505,7 @@ if the events are not already deactivated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_crons">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#241-265" title="Go to source code">crons</a>( )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#242-266" title="Go to source code">crons</a>( )</code>
 
 		<div class="description short">
 			
@@ -532,7 +543,67 @@ if the events are not already deactivated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_executeConnectEvents">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#271-284" title="Go to source code">executeConnectEvents</a>( )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#272-285" title="Go to source code">executeConnectEvents</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isValidEventType" id="_isValidEventType">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isValidEventType">#</a>
+		<code><a href="source-class-Budabot.Core.EventManager.html#287-289" title="Go to source code">isValidEventType</a>( <span> <var>$type</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getTimerEventTime" id="_getTimerEventTime">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getTimerEventTime">#</a>
+		<code><a href="source-class-Budabot.Core.EventManager.html#291-304" title="Go to source code">getTimerEventTime</a>( <span> <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -562,7 +633,7 @@ if the events are not already deactivated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_fireEvent">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#286-292" title="Go to source code">fireEvent</a>( <span> <var>$eventObj</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#306-312" title="Go to source code">fireEvent</a>( <span> <var>$eventObj</var></span> )</code>
 
 		<div class="description short">
 			
@@ -592,7 +663,7 @@ if the events are not already deactivated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_callEventHandler">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#294-310" title="Go to source code">callEventHandler</a>( <span> <var>$eventObj</var></span>, <span> <var>$handler</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#314-330" title="Go to source code">callEventHandler</a>( <span> <var>$eventObj</var></span>, <span> <var>$handler</var></span> )</code>
 
 		<div class="description short">
 			
@@ -622,7 +693,7 @@ if the events are not already deactivated</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addEventType">#</a>
-		<code><a href="source-class-Budabot.Core.EventManager.html#312-322" title="Go to source code">addEventType</a>( <span> <var>$eventType</var></span> )</code>
+		<code><a href="source-class-Budabot.Core.EventManager.html#332-342" title="Go to source code">addEventType</a>( <span> <var>$eventType</var></span> )</code>
 
 		<div class="description short">
 			
@@ -649,6 +720,57 @@ if the events are not already deactivated</p>
 
 
 
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="PACKET_TYPE_REGEX" id="PACKET_TYPE_REGEX">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Budabot.Core.EventManager.html#39" title="Go to source code"><b>PACKET_TYPE_REGEX</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#PACKET_TYPE_REGEX" class="anchor">#</a>
+				<code><span class="php-quote">'/packet\(\d+\)/'</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="TIMER_EVENT_REGEX" id="TIMER_EVENT_REGEX">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-Budabot.Core.EventManager.html#40" title="Go to source code"><b>TIMER_EVENT_REGEX</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#TIMER_EVENT_REGEX" class="anchor">#</a>
+				<code><span class="php-quote">'/timer\(([0-9a-z]+)\)/'</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
@@ -867,9 +989,9 @@ if the events are not already deactivated</p>
 			<div>
 				<a href="#$eventTypes" class="anchor">#</a>
 				<code><span class="php-keyword1">array</span>(
-    <span class="php-quote">'msg'</span>,<span class="php-quote">'priv'</span>,<span class="php-quote">'extpriv'</span>,<span class="php-quote">'guild'</span>,<span class="php-quote">'joinpriv'</span>,<span class="php-quote">'extjoinpriv'</span>,<span class="php-quote">'leavepriv'</span>,<span class="php-quote">'extleavepriv'</span>,
-    <span class="php-quote">'orgmsg'</span>,<span class="php-quote">'extjoinprivrequest'</span>,<span class="php-quote">'extkickpriv'</span>,<span class="php-quote">'logon'</span>,<span class="php-quote">'logoff'</span>,<span class="php-quote">'towers'</span>,<span class="php-quote">'connect'</span>,
-    <span class="php-quote">'sendguild'</span>,<span class="php-quote">'sendpriv'</span>,<span class="php-quote">'setup'</span>,<span class="php-quote">'allpackets'</span>
+    <span class="php-quote">'msg'</span>,<span class="php-quote">'priv'</span>,<span class="php-quote">'extpriv'</span>,<span class="php-quote">'guild'</span>,<span class="php-quote">'joinpriv'</span>,<span class="php-quote">'leavepriv'</span>,
+    <span class="php-quote">'orgmsg'</span>,<span class="php-quote">'extjoinprivrequest'</span>,<span class="php-quote">'logon'</span>,<span class="php-quote">'logoff'</span>,<span class="php-quote">'towers'</span>,
+    <span class="php-quote">'connect'</span>,<span class="php-quote">'setup'</span>
 )</code>
 			</div>
 		</td>
@@ -934,7 +1056,7 @@ if the events are not already deactivated</p>
 </div>
 
 	<div id="footer">
-		Budabot 3.5_GA Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		Budabot 4.Beta Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
 </div>
