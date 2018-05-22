@@ -1,6 +1,7 @@
 *****************************
 	Version 4.Beta:
 *****************************
+now includes DEV_MODULE which includes !cache, !cmdhandlers, !createblob, !demo, !htmldecode, !makeitem, !mdb, !msginfo, !silence, !unsilence, !timezone, and several commands for testing different things on the bot
 all references to gmp module have been removed, and bcmath module is now required
 updated items db to 18.08.25
 !sendtell is now included in releases, to allow for scripts to configure the bots for spam relay
