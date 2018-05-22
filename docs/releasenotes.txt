@@ -1,4 +1,36 @@
 *****************************
+	Version 4.Beta:
+*****************************
+all references to gmp module have been removed, and bcmath module is now required
+updated items db to 18.08.25
+!sendtell is now included in releases, to allow for scripts to configure the bots for spam relay
+removed guild_admin_access_level and guild_admin_rank settings along with the corresponding functionality
+removed spam_protection
+alts_inherit_admin functionality is now always on, and removed the setting
+added chat_commands, rollable_items, special_attacks, deflect, chatfilter, spamfilter to !guides (thanks longsdale)
+removed IRC_MODULE
+fix for !aou (and !title) not working
+!notes now show all notes for all alts, and which alt they belong to
+added several default aliases that were in wide use: !i for !items, !w for !whois, and !o for !online
+removed !banorg and !unbanorg
+removed !sm
+!multiloot is now !loot addmulti
+added !poh to show loot from Pyramid of Home for the RAID_MODULE (thanks Illork)
+!items now always uses the local items database, and !litems has been removed; you can still use !citems to get results from Demoder's central items database
+to add loot, now use !loot add <item> instead of !loot <item>
+!trickle can now take a skill as a parameter and tell how much of each ability is needed to trickle that skill one whole point
+!whatbuffs has been improved and !whatbuffs1 and !whatbuffs2 have been removed
+!online now has a new format
+improved support for AOChatProxy 2.x versions
+!whois now shows head_id, pvp_rating (legacy), and pvp_title (legacy) in 'More Info' link
+other various fixes and improvements to !perks, !loot, pagination, !dyna, !whereis, !recentseen, !inactivemem, !leprocs, and !recipe
+!mafist and !trickle values updated (thanks Daniel Grim and Lucier)
+API docs are now included in /docs/api
+removed extjoinpriv, extleavepriv, extkickpriv, sendguild, and sendpriv event types
+timer events have a new format: timer(time)
+added packet(id) event type and removed allpackets event type
+
+*****************************
 	Version 3.5_GA:
 *****************************
 -updated !whatbuffs to use data from aoitems.com
