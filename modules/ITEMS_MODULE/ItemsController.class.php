@@ -123,7 +123,7 @@ class ItemsController {
 	}
 
 	/**
-	 * @Event("timer(24hrs)")
+	 * @Event("timer(7days)")
 	 * @Description("Check to make sure items db is the latest version available")
 	 */
 	public function checkForUpdate() {
