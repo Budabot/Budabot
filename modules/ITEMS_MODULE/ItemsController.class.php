@@ -224,7 +224,7 @@ class ItemsController {
 				$budabotItemsExtractorLink = $this->text->makeChatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
 				$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
 
-				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer, null);
+				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
 				break;
 			default:
 				// central items database
@@ -318,7 +318,7 @@ class ItemsController {
 		return $data;
 	}
 	
-	public function createItemsBlob($data, $search, $ql, $version, $server, $footer, $elapsed) {
+	public function createItemsBlob($data, $search, $ql, $version, $server, $footer, $elapsed = null) {
 		$num = count($data);
 		if ($num == 0) {
 			if ($ql) {
@@ -337,7 +337,7 @@ class ItemsController {
 				$blob .= "Search: <highlight>$search<end>\n";
 			}
 			$blob .= "Server: <highlight>" . $server . "<end>\n";
-			if (isset($elapsed)) {
+			if ($elapsed) {
 				$blob .= "Time: <highlight>" . round($elapsed, 2) . "s<end>\n";
 			}
 			$blob .= "\n";
