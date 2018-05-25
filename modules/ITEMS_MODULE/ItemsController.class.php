@@ -224,7 +224,7 @@ class ItemsController {
 				$budabotItemsExtractorLink = $this->text->makeChatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
 				$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
 
-				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
+				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer, null);
 				break;
 			default:
 				// central items database
