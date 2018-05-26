@@ -46,7 +46,6 @@ class QuoteController {
 	 */
 	public function setup() {
 		$this->db->loadSQLFile($this->moduleName, "quote");
-		$this->settingManager->add($this->moduleName, "quote_stat_count", "Number of users shown in stats", "edit", "number", "10");
 	}
 
 	/**
