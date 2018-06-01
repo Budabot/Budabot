@@ -420,7 +420,7 @@ class Util {
 		}
 		return array($query, $queryParams);
 	}
-	
+
 	// taken from http://php.net/manual/en/function.usort.php
 	public function mergesort(&$array, $cmp_function) {
 		// Arrays of size < 2 require no action.
@@ -458,13 +458,16 @@ class Util {
 		}
 		return;
 	}
-	
+
 	public function interpolate($x1, $x2, $y1, $y2, $x) {
+		if ($x1 == $x2) {
+			return $y2;
+		}
 		$result = ($y2 - $y1) / ($x2 - $x1) * ($x - $x1) + $y1;
 		$result = round($result, 0);
 		return $result;
 	}
-	
+
 	public function mapFilterCombine($arr, $glue, $func) {
 		$newArr = array();
 		forEach ($arr as $key => $value) {
@@ -475,7 +478,7 @@ class Util {
 		}
 		return implode($glue, $newArr);
 	}
-	
+
 	public function getFilesInDirectory($path) {
 		$files = array();
 		if ($dir = dir($path)) {
@@ -488,7 +491,7 @@ class Util {
 		}
 		return $files;
 	}
-	
+
 	public function getDirectoriesInDirectory($path) {
 	   return array_filter(scandir($path), function ($f) use($path) {
 		   return $f != '.' && $f != '..' && is_dir($path . DIRECTORY_SEPARATOR . $f);
