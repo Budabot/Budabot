@@ -1808,7 +1808,7 @@ INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (27243, 4, '
 INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (29393, 50, 'Nano Crystal (MatMet Mastery)', 'Meta-Physicist', 'RK Store');
 INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (27244, 4, 'Nano Crystal (MatMet Proficiency)', 'General', 'No longer drops');
 INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (27245, 10, 'Nano Crystal (Mechanical Engineering Expertise)', 'General', 'No longer drops');
-INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (227658, 82, 'Nano Crystal (Mechanical Engineering Knowledge)', 'Engineer', 'Scheol Sanctuary');
+INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (227658, 82, 'Nano Crystal (Mechanical Engineering Knowledge)', 'Engineer', 'Scheol Garden');
 INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (227668, 135, 'Nano Crystal (Mechanical Engineering Mastery)', 'Engineer', 'Adonis Sanctuary');
 INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (27246, 4, 'Nano Crystal (Mechanical Engineering Proficiency)', 'General', 'No longer drops');
 INSERT INTO nanos (lowid, lowql, name, profession, location) VALUES (42417, 57, 'Nano Crystal (Medic''s Call)', 'Doctor', 'RK Store');
