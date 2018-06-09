@@ -80,7 +80,7 @@ class PlayerHistoryController {
 					$blob .= "$date |  $entry->level  | $ailevel | $faction | $entry->breed | $guild\n";
 				}
 			}
-			$blob .= "\nHistory provided by Budabot.com and Auno.org";
+			$blob .= "\nHistory provided by Auno.org, Chrisax, and Athen Paladins";
 			$msg = $this->text->makeBlob("History of $name for RK{$rk_num}", $blob);
 		}
 
