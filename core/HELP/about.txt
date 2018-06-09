@@ -16,6 +16,7 @@ I would like to give special thanks to:
 <highlight>-Marebone (RK2)<end> for large code contributions to version 3.
 <highlight>-Shelleci (RK2)<end> for hosting <a href='chatcmd:///tell Budanet !help'>Budanet</a>.
 <highlight>-Bgmofo<end>, <highlight>Lithdanna<end>, and all of <highlight>Weyland Yutani<end> for letting me use their org to test changes to Budabot and the AOChatProxy, and for providing valuable feedback.
+<highlight>-Chrisax<end> for his feedback and insight, and for hosting the character history API.
 -All the people who have contributed modules, ideas, and bug reports to help make Budabot the best bot AO has ever seen.
 
 Tyrence
