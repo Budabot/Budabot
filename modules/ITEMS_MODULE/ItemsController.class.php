@@ -11,13 +11,6 @@ use DOMDocument;
  *
  * Commands this controller contains:
  *	@DefineCommand(
- *		command     = 'citems',
- *		accessLevel = 'all',
- *		description = 'Searches for an item using the central items db',
- *		help        = 'items.txt',
- *		alias		= 'i'
- *	)
- *	@DefineCommand(
  *		command     = 'items',
  *		accessLevel = 'all',
  *		description = 'Searches for an item using the default items db',
@@ -66,7 +59,6 @@ class ItemsController {
 		$this->db->loadSQLFile($this->moduleName, "aodb");
 		
 		$this->settingManager->add($this->moduleName, 'maxitems', 'Number of items shown on the list', 'edit', 'number', '40', '30;40;50;60');
-		$this->settingManager->add($this->moduleName, 'cidb_url', "The URL of the CIDB to use for <symbol>citems", 'edit', 'text', 'http://cidb.botsharp.net/', 'http://cidb.botsharp.net/');
 	}
 
 	/**
@@ -75,17 +67,7 @@ class ItemsController {
 	 * @Matches("/^items (.+)$/i")
 	 */
 	public function itemsCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->findItems($args, 'local');
-		$sendto->reply($msg);
-	}
-	
-	/**
-	 * @HandlesCommand("citems")
-	 * @Matches("/^citems ([0-9]+) (.+)$/i")
-	 * @Matches("/^citems (.+)$/i")
-	 */
-	public function citemsCommand($message, $channel, $sender, $sendto, $args) {
-		$msg = $this->findItems($args, 'central');
+		$msg = $this->findItems($args);
 		$sendto->reply($msg);
 	}
 	
@@ -202,7 +184,7 @@ class ItemsController {
 		return $msg;
 	}
 
-	public function findItems($args, $db = null) {
+	public function findItems($args) {
 		if (count($args) == 3) {
 			$ql = $args[1];
 			if (!($ql >= 1 && $ql <= 500)) {
@@ -216,88 +198,15 @@ class ItemsController {
 
 		$search = htmlspecialchars_decode($search);
 	
-		switch ($db) {
-			case 'local':
-				// local database
-				$data = $this->findItemsFromLocal($search, $ql);
+		// local database
+		$data = $this->findItemsFromLocal($search, $ql);
 
-				$budabotItemsExtractorLink = $this->text->makeChatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
-				$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
+		$budabotItemsExtractorLink = $this->text->makeChatcmd("Budabot Items Extractor", "/start https://github.com/Budabot/ItemsExtractor");
+		$footer = "Item DB rips created using the $budabotItemsExtractorLink tool.";
 
-				$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
-				break;
-			default:
-				// central items database
-				$url = $this->settingManager->get('cidb_url');
-				$obj = $this->findItemsFromRemote($search, $ql, $url);
+		$msg = $this->createItemsBlob($data, $search, $ql, $this->settingManager->get('aodb_db_version'), 'local', $footer);
 
-				if ($obj == null) {
-					$msg = "Unable to query Central Items Database.";
-				} else {
-					$msg = $this->createItemsBlob($obj->results, $search, $ql, $obj->version, $url, '', $obj->elapsed);
-				}
-				break;
-		}
 		return $msg;
-	}
-	
-	/*
-	 * Method to query the Central Items Database - Demoder
-	 */
-	public function findItemsFromRemote($search, $ql, $server) {
-		$parameters = array(
-			"bot" => "Budabot",
-			"output" => "json",
-			"max" => "250",
-			"version" => "1.2"
-		);
-
-		if ($ql > 0) {
-			$parameters["ql"] = $ql;
-		}
-		
-		// special search commands for aoitems.com
-		$searchParams = explode(' ', $search);
-		$specialSearch = array('type', 'slot', 'ql');
-		forEach ($searchParams as $key => $searchParam) {
-			forEach ($specialSearch as $s) {
-				if ($this->util->startsWith($searchParam, $s . '=')) {
-					$value = substr($searchParam, strlen($s) + 1);
-					if (!empty($value)) {
-						unset($searchParams[$key]);
-						$parameters[$s] = $value;
-					}
-				}
-			}
-		}
-		$search = implode(' ', $searchParams);
-		$parameters['search'] = $search;
-
-		$startTime = microtime(true);
-		$response = $this->http->get($server)->withQueryParams($parameters)->waitAndReturnResponse();
-		$elapsed = microtime(true) - $startTime;
-		if (empty($response) || empty($response->body)) {
-			return null;
-		} else {
-			$obj = json_decode($response->body);
-			$obj->elapsed = $elapsed;
-			
-			// change attribute names to match expected format
-			forEach ($obj->results as $item) {
-				$item->lowid = $item->LowID;
-				$item->highid = $item->HighID;
-				$item->lowql = $item->LowQL;
-				$item->highql = $item->HighQL;
-				$item->name = $item->Name;
-				$item->icon = $item->Icon;
-			}
-			
-			// sort results to match Budabot local results order, and restrict to first 40 results
-			$data = $this->orderSearchResults($obj->results, $search);
-			$obj->results = array_slice($data, 0, $this->settingManager->get("maxitems"));
-			
-			return $obj;
-		}
 	}
 	
 	public function findItemsFromLocal($search, $ql) {
