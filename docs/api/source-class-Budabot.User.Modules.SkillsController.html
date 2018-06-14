@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File SKILLS_MODULE/SkillsController.class.php | Budabot 4.Beta Docs</title>
+	<title>File SKILLS_MODULE/SkillsController.class.php | Budabot 4 Docs</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -180,7 +180,6 @@
 				<li><a href="class-Budabot.User.Modules.FunController.html">Budabot\User\Modules\FunController</a></li>
 				<li><a href="class-Budabot.User.Modules.GitController.html">Budabot\User\Modules\GitController</a></li>
 				<li><a href="class-Budabot.User.Modules.GuideController.html">Budabot\User\Modules\GuideController</a></li>
-				<li><a href="class-Budabot.User.Modules.GuildChannelCommandReplyA.html">Budabot\User\Modules\GuildChannelCommandReplyA</a></li>
 				<li><a href="class-Budabot.User.Modules.GuildController.html">Budabot\User\Modules\GuildController</a></li>
 				<li><a href="class-Budabot.User.Modules.HelpbotController.html">Budabot\User\Modules\HelpbotController</a></li>
 				<li><a href="class-Budabot.User.Modules.HtmlDecodeController.html">Budabot\User\Modules\HtmlDecodeController</a></li>
@@ -197,7 +196,6 @@
 				<li><a href="class-Budabot.User.Modules.MockCommandReply.html">Budabot\User\Modules\MockCommandReply</a></li>
 				<li><a href="class-Budabot.User.Modules.NanoController.html">Budabot\User\Modules\NanoController</a></li>
 				<li><a href="class-Budabot.User.Modules.NewsController.html">Budabot\User\Modules\NewsController</a></li>
-				<li><a href="class-Budabot.User.Modules.NoSymbolController.html">Budabot\User\Modules\NoSymbolController</a></li>
 				<li><a href="class-Budabot.User.Modules.NotesController.html">Budabot\User\Modules\NotesController</a></li>
 				<li><a href="class-Budabot.User.Modules.OnlineController.html">Budabot\User\Modules\OnlineController</a></li>
 				<li><a href="class-Budabot.User.Modules.OrgHistoryController.html">Budabot\User\Modules\OrgHistoryController</a></li>
@@ -208,7 +206,6 @@
 				<li><a href="class-Budabot.User.Modules.PlayfieldController.html">Budabot\User\Modules\PlayfieldController</a></li>
 				<li><a href="class-Budabot.User.Modules.PocketbossController.html">Budabot\User\Modules\PocketbossController</a></li>
 				<li><a href="class-Budabot.User.Modules.PremadeImplantController.html">Budabot\User\Modules\PremadeImplantController</a></li>
-				<li><a href="class-Budabot.User.Modules.PrivateChannelCommandReplyA.html">Budabot\User\Modules\PrivateChannelCommandReplyA</a></li>
 				<li><a href="class-Budabot.User.Modules.PrivateChannelController.html">Budabot\User\Modules\PrivateChannelController</a></li>
 				<li><a href="class-Budabot.User.Modules.QuoteController.html">Budabot\User\Modules\QuoteController</a></li>
 				<li><a href="class-Budabot.User.Modules.RaffleController.html">Budabot\User\Modules\RaffleController</a></li>
@@ -216,7 +213,6 @@
 				<li><a href="class-Budabot.User.Modules.RandomController.html">Budabot\User\Modules\RandomController</a></li>
 				<li><a href="class-Budabot.User.Modules.RecipeController.html">Budabot\User\Modules\RecipeController</a></li>
 				<li><a href="class-Budabot.User.Modules.RelayController.html">Budabot\User\Modules\RelayController</a></li>
-				<li><a href="class-Budabot.User.Modules.RenameTablesController.html">Budabot\User\Modules\RenameTablesController</a></li>
 				<li><a href="class-Budabot.User.Modules.ReputationController.html">Budabot\User\Modules\ReputationController</a></li>
 				<li><a href="class-Budabot.User.Modules.ResearchController.html">Budabot\User\Modules\ResearchController</a></li>
 				<li><a href="class-Budabot.User.Modules.RunAsController.html">Budabot\User\Modules\RunAsController</a></li>
@@ -639,14 +635,14 @@
 </span><span id="325" class="l"><a href="#325">325: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> dimachCommand(<span class="php-var">$message</span>, <span class="php-var">$channel</span>, <span class="php-var">$sender</span>, <span class="php-var">$sendto</span>, <span class="php-var">$args</span>) {
 </span><span id="326" class="l"><a href="#326">326: </a>        <span class="php-var">$dim_skill</span> = <span class="php-var">$args</span>[<span class="php-num">1</span>];
 </span><span id="327" class="l"><a href="#327">327: </a>
-</span><span id="328" class="l"><a href="#328">328: </a>        <span class="php-var">$skill_list</span> = <span class="php-keyword1">array</span>(   <span class="php-num">1</span>, <span class="php-num">1000</span>, <span class="php-num">1001</span>, <span class="php-num">2000</span>, <span class="php-num">2001</span>, <span class="php-num">3000</span>);
+</span><span id="328" class="l"><a href="#328">328: </a>        <span class="php-var">$skill_list</span>     = <span class="php-keyword1">array</span>(   <span class="php-num">1</span>, <span class="php-num">1000</span>, <span class="php-num">1001</span>, <span class="php-num">2000</span>, <span class="php-num">2001</span>, <span class="php-num">3000</span>);
 </span><span id="329" class="l"><a href="#329">329: </a>        <span class="php-var">$gen_dmg_list</span>   = <span class="php-keyword1">array</span>(   <span class="php-num">1</span>, <span class="php-num">2000</span>, <span class="php-num">2001</span>, <span class="php-num">2500</span>, <span class="php-num">2501</span>, <span class="php-num">2850</span>);
 </span><span id="330" class="l"><a href="#330">330: </a>        <span class="php-var">$MA_rech_list</span>   = <span class="php-keyword1">array</span>(<span class="php-num">1800</span>, <span class="php-num">1800</span>, <span class="php-num">1188</span>,  <span class="php-num">600</span>,  <span class="php-num">600</span>,  <span class="php-num">300</span>);
 </span><span id="331" class="l"><a href="#331">331: </a>        <span class="php-var">$MA_dmg_list</span>    = <span class="php-keyword1">array</span>(   <span class="php-num">1</span>, <span class="php-num">2000</span>, <span class="php-num">2001</span>, <span class="php-num">2340</span>, <span class="php-num">2341</span>, <span class="php-num">2550</span>);
 </span><span id="332" class="l"><a href="#332">332: </a>        <span class="php-var">$shad_rech_list</span> = <span class="php-keyword1">array</span>( <span class="php-num">300</span>,  <span class="php-num">300</span>,  <span class="php-num">300</span>,  <span class="php-num">300</span>,  <span class="php-num">240</span>,  <span class="php-num">200</span>);
 </span><span id="333" class="l"><a href="#333">333: </a>        <span class="php-var">$shad_dmg_list</span>  = <span class="php-keyword1">array</span>(   <span class="php-num">1</span>,  <span class="php-num">920</span>,  <span class="php-num">921</span>, <span class="php-num">1872</span>, <span class="php-num">1873</span>, <span class="php-num">2750</span>);
 </span><span id="334" class="l"><a href="#334">334: </a>        <span class="php-var">$shad_rec_list</span>  = <span class="php-keyword1">array</span>(  <span class="php-num">70</span>,   <span class="php-num">70</span>,   <span class="php-num">70</span>,   <span class="php-num">75</span>,   <span class="php-num">75</span>,   <span class="php-num">80</span>);
-</span><span id="335" class="l"><a href="#335">335: </a>        <span class="php-var">$keep_heal_list</span> = <span class="php-keyword1">array</span>(   <span class="php-num">1</span>, <span class="php-num">3000</span>, <span class="php-num">3001</span>,<span class="php-num">10500</span>,<span class="php-num">10501</span>,<span class="php-num">30000</span>);
+</span><span id="335" class="l"><a href="#335">335: </a>        <span class="php-var">$keep_heal_list</span> = <span class="php-keyword1">array</span>(   <span class="php-num">1</span>, <span class="php-num">3000</span>, <span class="php-num">3001</span>,<span class="php-num">10500</span>,<span class="php-num">10501</span>,<span class="php-num">15000</span>);
 </span><span id="336" class="l"><a href="#336">336: </a>
 </span><span id="337" class="l"><a href="#337">337: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$dim_skill</span> &lt; <span class="php-num">1001</span>) {
 </span><span id="338" class="l"><a href="#338">338: </a>            <span class="php-var">$i</span> = <span class="php-num">0</span>;
@@ -1096,11 +1092,11 @@
 </span><span id="782" class="l"><a href="#782">782: </a></span></code></pre>
 
 	<div id="footer">
-		Budabot 4.Beta Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		Budabot 4 Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?79c396e43ea6ce9e80172b8ba8071c728b7dd6de"></script>
-<script src="elementlist.js?fd9fe157b4658c67c8a0e54ec77b833abaab7e30"></script>
+<script src="resources/combined.js?1a411f53ed13f374f3fefe3a4c6da2a27880e763"></script>
+<script src="elementlist.js?66cdee89a0f389df70ed5ff86ad233d34a0a221a"></script>
 </body>
 </html>

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>File Util.class.php | Budabot 4.Beta Docs</title>
+	<title>File Util.class.php | Budabot 4 Docs</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -180,7 +180,6 @@
 				<li><a href="class-Budabot.User.Modules.FunController.html">Budabot\User\Modules\FunController</a></li>
 				<li><a href="class-Budabot.User.Modules.GitController.html">Budabot\User\Modules\GitController</a></li>
 				<li><a href="class-Budabot.User.Modules.GuideController.html">Budabot\User\Modules\GuideController</a></li>
-				<li><a href="class-Budabot.User.Modules.GuildChannelCommandReplyA.html">Budabot\User\Modules\GuildChannelCommandReplyA</a></li>
 				<li><a href="class-Budabot.User.Modules.GuildController.html">Budabot\User\Modules\GuildController</a></li>
 				<li><a href="class-Budabot.User.Modules.HelpbotController.html">Budabot\User\Modules\HelpbotController</a></li>
 				<li><a href="class-Budabot.User.Modules.HtmlDecodeController.html">Budabot\User\Modules\HtmlDecodeController</a></li>
@@ -197,7 +196,6 @@
 				<li><a href="class-Budabot.User.Modules.MockCommandReply.html">Budabot\User\Modules\MockCommandReply</a></li>
 				<li><a href="class-Budabot.User.Modules.NanoController.html">Budabot\User\Modules\NanoController</a></li>
 				<li><a href="class-Budabot.User.Modules.NewsController.html">Budabot\User\Modules\NewsController</a></li>
-				<li><a href="class-Budabot.User.Modules.NoSymbolController.html">Budabot\User\Modules\NoSymbolController</a></li>
 				<li><a href="class-Budabot.User.Modules.NotesController.html">Budabot\User\Modules\NotesController</a></li>
 				<li><a href="class-Budabot.User.Modules.OnlineController.html">Budabot\User\Modules\OnlineController</a></li>
 				<li><a href="class-Budabot.User.Modules.OrgHistoryController.html">Budabot\User\Modules\OrgHistoryController</a></li>
@@ -208,7 +206,6 @@
 				<li><a href="class-Budabot.User.Modules.PlayfieldController.html">Budabot\User\Modules\PlayfieldController</a></li>
 				<li><a href="class-Budabot.User.Modules.PocketbossController.html">Budabot\User\Modules\PocketbossController</a></li>
 				<li><a href="class-Budabot.User.Modules.PremadeImplantController.html">Budabot\User\Modules\PremadeImplantController</a></li>
-				<li><a href="class-Budabot.User.Modules.PrivateChannelCommandReplyA.html">Budabot\User\Modules\PrivateChannelCommandReplyA</a></li>
 				<li><a href="class-Budabot.User.Modules.PrivateChannelController.html">Budabot\User\Modules\PrivateChannelController</a></li>
 				<li><a href="class-Budabot.User.Modules.QuoteController.html">Budabot\User\Modules\QuoteController</a></li>
 				<li><a href="class-Budabot.User.Modules.RaffleController.html">Budabot\User\Modules\RaffleController</a></li>
@@ -216,7 +213,6 @@
 				<li><a href="class-Budabot.User.Modules.RandomController.html">Budabot\User\Modules\RandomController</a></li>
 				<li><a href="class-Budabot.User.Modules.RecipeController.html">Budabot\User\Modules\RecipeController</a></li>
 				<li><a href="class-Budabot.User.Modules.RelayController.html">Budabot\User\Modules\RelayController</a></li>
-				<li><a href="class-Budabot.User.Modules.RenameTablesController.html">Budabot\User\Modules\RenameTablesController</a></li>
 				<li><a href="class-Budabot.User.Modules.ReputationController.html">Budabot\User\Modules\ReputationController</a></li>
 				<li><a href="class-Budabot.User.Modules.ResearchController.html">Budabot\User\Modules\ResearchController</a></li>
 				<li><a href="class-Budabot.User.Modules.RunAsController.html">Budabot\User\Modules\RunAsController</a></li>
@@ -734,7 +730,7 @@
 </span><span id="420" class="l"><a href="#420">420: </a>        }
 </span><span id="421" class="l"><a href="#421">421: </a>        <span class="php-keyword1">return</span> <span class="php-keyword1">array</span>(<span class="php-var">$query</span>, <span class="php-var">$queryParams</span>);
 </span><span id="422" class="l"><a href="#422">422: </a>    }
-</span><span id="423" class="l"><a href="#423">423: </a>    
+</span><span id="423" class="l"><a href="#423">423: </a>
 </span><span id="424" class="l"><a href="#424">424: </a>    <span class="php-comment">// taken from http://php.net/manual/en/function.usort.php</span>
 </span><span id="425" class="l"><a href="#425">425: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> mergesort(&amp;<span class="php-var">$array</span>, <span class="php-var">$cmp_function</span>) {
 </span><span id="426" class="l"><a href="#426">426: </a>        <span class="php-comment">// Arrays of size &lt; 2 require no action.</span>
@@ -772,55 +768,58 @@
 </span><span id="458" class="l"><a href="#458">458: </a>        }
 </span><span id="459" class="l"><a href="#459">459: </a>        <span class="php-keyword1">return</span>;
 </span><span id="460" class="l"><a href="#460">460: </a>    }
-</span><span id="461" class="l"><a href="#461">461: </a>    
+</span><span id="461" class="l"><a href="#461">461: </a>
 </span><span id="462" class="l"><a href="#462">462: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> interpolate(<span class="php-var">$x1</span>, <span class="php-var">$x2</span>, <span class="php-var">$y1</span>, <span class="php-var">$y2</span>, <span class="php-var">$x</span>) {
-</span><span id="463" class="l"><a href="#463">463: </a>        <span class="php-var">$result</span> = (<span class="php-var">$y2</span> - <span class="php-var">$y1</span>) / (<span class="php-var">$x2</span> - <span class="php-var">$x1</span>) * (<span class="php-var">$x</span> - <span class="php-var">$x1</span>) + <span class="php-var">$y1</span>;
-</span><span id="464" class="l"><a href="#464">464: </a>        <span class="php-var">$result</span> = <span class="php-keyword2">round</span>(<span class="php-var">$result</span>, <span class="php-num">0</span>);
-</span><span id="465" class="l"><a href="#465">465: </a>        <span class="php-keyword1">return</span> <span class="php-var">$result</span>;
-</span><span id="466" class="l"><a href="#466">466: </a>    }
-</span><span id="467" class="l"><a href="#467">467: </a>    
-</span><span id="468" class="l"><a href="#468">468: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> mapFilterCombine(<span class="php-var">$arr</span>, <span class="php-var">$glue</span>, <span class="php-var">$func</span>) {
-</span><span id="469" class="l"><a href="#469">469: </a>        <span class="php-var">$newArr</span> = <span class="php-keyword1">array</span>();
-</span><span id="470" class="l"><a href="#470">470: </a>        <span class="php-keyword1">forEach</span> (<span class="php-var">$arr</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$value</span>) {
-</span><span id="471" class="l"><a href="#471">471: </a>            <span class="php-var">$result</span> = <span class="php-keyword2">call_user_func</span>(<span class="php-var">$func</span>, <span class="php-var">$key</span>, <span class="php-var">$value</span>);
-</span><span id="472" class="l"><a href="#472">472: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$result</span> !== <span class="php-keyword1">null</span>) {
-</span><span id="473" class="l"><a href="#473">473: </a>                <span class="php-var">$newArr</span> []= <span class="php-var">$result</span>;
-</span><span id="474" class="l"><a href="#474">474: </a>            }
-</span><span id="475" class="l"><a href="#475">475: </a>        }
-</span><span id="476" class="l"><a href="#476">476: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">implode</span>(<span class="php-var">$glue</span>, <span class="php-var">$newArr</span>);
-</span><span id="477" class="l"><a href="#477">477: </a>    }
-</span><span id="478" class="l"><a href="#478">478: </a>    
-</span><span id="479" class="l"><a href="#479">479: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getFilesInDirectory(<span class="php-var">$path</span>) {
-</span><span id="480" class="l"><a href="#480">480: </a>        <span class="php-var">$files</span> = <span class="php-keyword1">array</span>();
-</span><span id="481" class="l"><a href="#481">481: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$dir</span> = <span class="php-keyword2">dir</span>(<span class="php-var">$path</span>)) {
-</span><span id="482" class="l"><a href="#482">482: </a>            <span class="php-keyword1">while</span> (<span class="php-keyword1">false</span> !== (<span class="php-var">$entry</span> = <span class="php-var">$dir</span>-&gt;read())) {
-</span><span id="483" class="l"><a href="#483">483: </a>                <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_dir</span>(<span class="php-var">$path</span> . <span class="php-quote">&quot;/&quot;</span> . <span class="php-var">$entry</span>)) {
-</span><span id="484" class="l"><a href="#484">484: </a>                    <span class="php-var">$files</span> []= <span class="php-var">$entry</span>;
-</span><span id="485" class="l"><a href="#485">485: </a>                }
-</span><span id="486" class="l"><a href="#486">486: </a>            }
-</span><span id="487" class="l"><a href="#487">487: </a>            <span class="php-var">$dir</span>-&gt;close();
-</span><span id="488" class="l"><a href="#488">488: </a>        }
-</span><span id="489" class="l"><a href="#489">489: </a>        <span class="php-keyword1">return</span> <span class="php-var">$files</span>;
-</span><span id="490" class="l"><a href="#490">490: </a>    }
-</span><span id="491" class="l"><a href="#491">491: </a>    
-</span><span id="492" class="l"><a href="#492">492: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getDirectoriesInDirectory(<span class="php-var">$path</span>) {
-</span><span id="493" class="l"><a href="#493">493: </a>       <span class="php-keyword1">return</span> <span class="php-keyword2">array_filter</span>(<span class="php-keyword2">scandir</span>(<span class="php-var">$path</span>), <span class="php-keyword1">function</span> (<span class="php-var">$f</span>) <span class="php-keyword1">use</span>(<span class="php-var">$path</span>) {
-</span><span id="494" class="l"><a href="#494">494: </a>           <span class="php-keyword1">return</span> <span class="php-var">$f</span> != <span class="php-quote">'.'</span> &amp;&amp; <span class="php-var">$f</span> != <span class="php-quote">'..'</span> &amp;&amp; <span class="php-keyword2">is_dir</span>(<span class="php-var">$path</span> . DIRECTORY_SEPARATOR . <span class="php-var">$f</span>);
-</span><span id="495" class="l"><a href="#495">495: </a>       });
-</span><span id="496" class="l"><a href="#496">496: </a>    }
-</span><span id="497" class="l"><a href="#497">497: </a>
-</span><span id="498" class="l"><a href="#498">498: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> isInteger(<span class="php-var">$input</span>){
-</span><span id="499" class="l"><a href="#499">499: </a>        <span class="php-keyword1">return</span>(<span class="php-keyword2">ctype_digit</span>(<span class="php-keyword2">strval</span>(<span class="php-var">$input</span>)));
-</span><span id="500" class="l"><a href="#500">500: </a>    }
-</span><span id="501" class="l"><a href="#501">501: </a>}
-</span><span id="502" class="l"><a href="#502">502: </a></span></code></pre>
+</span><span id="463" class="l"><a href="#463">463: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$x1</span> == <span class="php-var">$x2</span>) {
+</span><span id="464" class="l"><a href="#464">464: </a>            <span class="php-keyword1">return</span> <span class="php-var">$y2</span>;
+</span><span id="465" class="l"><a href="#465">465: </a>        }
+</span><span id="466" class="l"><a href="#466">466: </a>        <span class="php-var">$result</span> = (<span class="php-var">$y2</span> - <span class="php-var">$y1</span>) / (<span class="php-var">$x2</span> - <span class="php-var">$x1</span>) * (<span class="php-var">$x</span> - <span class="php-var">$x1</span>) + <span class="php-var">$y1</span>;
+</span><span id="467" class="l"><a href="#467">467: </a>        <span class="php-var">$result</span> = <span class="php-keyword2">round</span>(<span class="php-var">$result</span>, <span class="php-num">0</span>);
+</span><span id="468" class="l"><a href="#468">468: </a>        <span class="php-keyword1">return</span> <span class="php-var">$result</span>;
+</span><span id="469" class="l"><a href="#469">469: </a>    }
+</span><span id="470" class="l"><a href="#470">470: </a>
+</span><span id="471" class="l"><a href="#471">471: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> mapFilterCombine(<span class="php-var">$arr</span>, <span class="php-var">$glue</span>, <span class="php-var">$func</span>) {
+</span><span id="472" class="l"><a href="#472">472: </a>        <span class="php-var">$newArr</span> = <span class="php-keyword1">array</span>();
+</span><span id="473" class="l"><a href="#473">473: </a>        <span class="php-keyword1">forEach</span> (<span class="php-var">$arr</span> <span class="php-keyword1">as</span> <span class="php-var">$key</span> =&gt; <span class="php-var">$value</span>) {
+</span><span id="474" class="l"><a href="#474">474: </a>            <span class="php-var">$result</span> = <span class="php-keyword2">call_user_func</span>(<span class="php-var">$func</span>, <span class="php-var">$key</span>, <span class="php-var">$value</span>);
+</span><span id="475" class="l"><a href="#475">475: </a>            <span class="php-keyword1">if</span> (<span class="php-var">$result</span> !== <span class="php-keyword1">null</span>) {
+</span><span id="476" class="l"><a href="#476">476: </a>                <span class="php-var">$newArr</span> []= <span class="php-var">$result</span>;
+</span><span id="477" class="l"><a href="#477">477: </a>            }
+</span><span id="478" class="l"><a href="#478">478: </a>        }
+</span><span id="479" class="l"><a href="#479">479: </a>        <span class="php-keyword1">return</span> <span class="php-keyword2">implode</span>(<span class="php-var">$glue</span>, <span class="php-var">$newArr</span>);
+</span><span id="480" class="l"><a href="#480">480: </a>    }
+</span><span id="481" class="l"><a href="#481">481: </a>
+</span><span id="482" class="l"><a href="#482">482: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getFilesInDirectory(<span class="php-var">$path</span>) {
+</span><span id="483" class="l"><a href="#483">483: </a>        <span class="php-var">$files</span> = <span class="php-keyword1">array</span>();
+</span><span id="484" class="l"><a href="#484">484: </a>        <span class="php-keyword1">if</span> (<span class="php-var">$dir</span> = <span class="php-keyword2">dir</span>(<span class="php-var">$path</span>)) {
+</span><span id="485" class="l"><a href="#485">485: </a>            <span class="php-keyword1">while</span> (<span class="php-keyword1">false</span> !== (<span class="php-var">$entry</span> = <span class="php-var">$dir</span>-&gt;read())) {
+</span><span id="486" class="l"><a href="#486">486: </a>                <span class="php-keyword1">if</span> (!<span class="php-keyword2">is_dir</span>(<span class="php-var">$path</span> . <span class="php-quote">&quot;/&quot;</span> . <span class="php-var">$entry</span>)) {
+</span><span id="487" class="l"><a href="#487">487: </a>                    <span class="php-var">$files</span> []= <span class="php-var">$entry</span>;
+</span><span id="488" class="l"><a href="#488">488: </a>                }
+</span><span id="489" class="l"><a href="#489">489: </a>            }
+</span><span id="490" class="l"><a href="#490">490: </a>            <span class="php-var">$dir</span>-&gt;close();
+</span><span id="491" class="l"><a href="#491">491: </a>        }
+</span><span id="492" class="l"><a href="#492">492: </a>        <span class="php-keyword1">return</span> <span class="php-var">$files</span>;
+</span><span id="493" class="l"><a href="#493">493: </a>    }
+</span><span id="494" class="l"><a href="#494">494: </a>
+</span><span id="495" class="l"><a href="#495">495: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> getDirectoriesInDirectory(<span class="php-var">$path</span>) {
+</span><span id="496" class="l"><a href="#496">496: </a>       <span class="php-keyword1">return</span> <span class="php-keyword2">array_filter</span>(<span class="php-keyword2">scandir</span>(<span class="php-var">$path</span>), <span class="php-keyword1">function</span> (<span class="php-var">$f</span>) <span class="php-keyword1">use</span>(<span class="php-var">$path</span>) {
+</span><span id="497" class="l"><a href="#497">497: </a>           <span class="php-keyword1">return</span> <span class="php-var">$f</span> != <span class="php-quote">'.'</span> &amp;&amp; <span class="php-var">$f</span> != <span class="php-quote">'..'</span> &amp;&amp; <span class="php-keyword2">is_dir</span>(<span class="php-var">$path</span> . DIRECTORY_SEPARATOR . <span class="php-var">$f</span>);
+</span><span id="498" class="l"><a href="#498">498: </a>       });
+</span><span id="499" class="l"><a href="#499">499: </a>    }
+</span><span id="500" class="l"><a href="#500">500: </a>
+</span><span id="501" class="l"><a href="#501">501: </a>    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> isInteger(<span class="php-var">$input</span>){
+</span><span id="502" class="l"><a href="#502">502: </a>        <span class="php-keyword1">return</span>(<span class="php-keyword2">ctype_digit</span>(<span class="php-keyword2">strval</span>(<span class="php-var">$input</span>)));
+</span><span id="503" class="l"><a href="#503">503: </a>    }
+</span><span id="504" class="l"><a href="#504">504: </a>}
+</span><span id="505" class="l"><a href="#505">505: </a></span></code></pre>
 
 	<div id="footer">
-		Budabot 4.Beta Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		Budabot 4 Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?79c396e43ea6ce9e80172b8ba8071c728b7dd6de"></script>
-<script src="elementlist.js?fd9fe157b4658c67c8a0e54ec77b833abaab7e30"></script>
+<script src="resources/combined.js?1a411f53ed13f374f3fefe3a4c6da2a27880e763"></script>
+<script src="elementlist.js?66cdee89a0f389df70ed5ff86ad233d34a0a221a"></script>
 </body>
 </html>

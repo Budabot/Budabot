@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class Budabot\User\Modules\ItemsController | Budabot 4.Beta Docs</title>
+	<title>Class Budabot\User\Modules\ItemsController | Budabot 4 Docs</title>
 
 	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
 
@@ -104,7 +104,6 @@
 				<li><a href="class-Budabot.User.Modules.FunController.html">FunController</a></li>
 				<li><a href="class-Budabot.User.Modules.GitController.html">GitController</a></li>
 				<li><a href="class-Budabot.User.Modules.GuideController.html">GuideController</a></li>
-				<li><a href="class-Budabot.User.Modules.GuildChannelCommandReplyA.html">GuildChannelCommandReplyA</a></li>
 				<li><a href="class-Budabot.User.Modules.GuildController.html">GuildController</a></li>
 				<li><a href="class-Budabot.User.Modules.HelpbotController.html">HelpbotController</a></li>
 				<li><a href="class-Budabot.User.Modules.HtmlDecodeController.html">HtmlDecodeController</a></li>
@@ -121,7 +120,6 @@
 				<li><a href="class-Budabot.User.Modules.MockCommandReply.html">MockCommandReply</a></li>
 				<li><a href="class-Budabot.User.Modules.NanoController.html">NanoController</a></li>
 				<li><a href="class-Budabot.User.Modules.NewsController.html">NewsController</a></li>
-				<li><a href="class-Budabot.User.Modules.NoSymbolController.html">NoSymbolController</a></li>
 				<li><a href="class-Budabot.User.Modules.NotesController.html">NotesController</a></li>
 				<li><a href="class-Budabot.User.Modules.OnlineController.html">OnlineController</a></li>
 				<li><a href="class-Budabot.User.Modules.OrgHistoryController.html">OrgHistoryController</a></li>
@@ -132,7 +130,6 @@
 				<li><a href="class-Budabot.User.Modules.PlayfieldController.html">PlayfieldController</a></li>
 				<li><a href="class-Budabot.User.Modules.PocketbossController.html">PocketbossController</a></li>
 				<li><a href="class-Budabot.User.Modules.PremadeImplantController.html">PremadeImplantController</a></li>
-				<li><a href="class-Budabot.User.Modules.PrivateChannelCommandReplyA.html">PrivateChannelCommandReplyA</a></li>
 				<li><a href="class-Budabot.User.Modules.PrivateChannelController.html">PrivateChannelController</a></li>
 				<li><a href="class-Budabot.User.Modules.QuoteController.html">QuoteController</a></li>
 				<li><a href="class-Budabot.User.Modules.RaffleController.html">RaffleController</a></li>
@@ -140,7 +137,6 @@
 				<li><a href="class-Budabot.User.Modules.RandomController.html">RandomController</a></li>
 				<li><a href="class-Budabot.User.Modules.RecipeController.html">RecipeController</a></li>
 				<li><a href="class-Budabot.User.Modules.RelayController.html">RelayController</a></li>
-				<li><a href="class-Budabot.User.Modules.RenameTablesController.html">RenameTablesController</a></li>
 				<li><a href="class-Budabot.User.Modules.ReputationController.html">ReputationController</a></li>
 				<li><a href="class-Budabot.User.Modules.ResearchController.html">ResearchController</a></li>
 				<li><a href="class-Budabot.User.Modules.RunAsController.html">RunAsController</a></li>
@@ -224,17 +220,11 @@
 		
 
 				<b>Definecommand(:</b>
-				<p>command     = 'citems',
-    accessLevel = 'all',
-    description = 'Searches for an item using the central items db',
-    help        = 'items.txt',
-    alias       = 'i'
-)</p><br>
-				<b>Definecommand(:</b>
 				<p>command     = 'items',
     accessLevel = 'all',
     description = 'Searches for an item using the default items db',
-    help        = 'items.txt'
+    help        = 'items.txt',
+    alias       = 'i'
 )</p><br>
 				<b>Definecommand(:</b>
 				<p>command     = 'itemid',
@@ -250,7 +240,7 @@
 )</p><br>
 				<b>Instance:</b>
 				Commands this controller contains:<br>
-			<b>Located at</b> <a href="source-class-Budabot.User.Modules.ItemsController.html#9-442" title="Go to source code">ITEMS_MODULE/ItemsController.class.php</a>
+			<b>Located at</b> <a href="source-class-Budabot.User.Modules.ItemsController.html#9-352" title="Go to source code">ITEMS_MODULE/ItemsController.class.php</a>
 		<br>
 	</div>
 
@@ -270,7 +260,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setup">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#64-70" title="Go to source code">setup</a>( )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#58-63" title="Go to source code">setup</a>( )</code>
 
 		<div class="description short">
 			
@@ -303,7 +293,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_itemsCommand">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#72-80" title="Go to source code">itemsCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#65-73" title="Go to source code">itemsCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			
@@ -329,44 +319,6 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="citemsCommand" id="_citemsCommand">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_citemsCommand">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#82-90" title="Go to source code">citemsCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-				<h4>Handlescommand("citems")</h4>
-				<div class="list">
-				</div>
-				<h4>Matches("/^citems</h4>
-				<div class="list">
-						([0-9]+) (.+)$/i")<br>
-						(.+)$/i")<br>
-				</div>
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="itemIdCommand" id="_itemIdCommand">
 
 		<td class="attributes"><code>
@@ -379,7 +331,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_itemIdCommand">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#92-109" title="Go to source code">itemIdCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#75-92" title="Go to source code">itemIdCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span>, <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			
@@ -416,7 +368,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_findById">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#111-114" title="Go to source code">findById</a>( <span> <var>$id</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#94-97" title="Go to source code">findById</a>( <span> <var>$id</var></span> )</code>
 
 		<div class="description short">
 			
@@ -446,7 +398,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_updateitemsCommand">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#116-123" title="Go to source code">updateitemsCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#99-106" title="Go to source code">updateitemsCommand</a>( <span> <var>$message</var></span>, <span> <var>$channel</var></span>, <span> <var>$sender</var></span>, <span> <var>$sendto</var></span> )</code>
 
 		<div class="description short">
 			
@@ -482,7 +434,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkForUpdate">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#125-134" title="Go to source code">checkForUpdate</a>( )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#108-117" title="Go to source code">checkForUpdate</a>( )</code>
 
 		<div class="description short">
 			
@@ -499,7 +451,7 @@
 				<div class="list">
 						to make sure items db is the latest version available")<br>
 				</div>
-				<h4>Event("timer(24hrs)")</h4>
+				<h4>Event("timer(7days)")</h4>
 				<div class="list">
 				</div>
 
@@ -519,7 +471,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_downloadNewestItemsdb">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#136-203" title="Go to source code">downloadNewestItemsdb</a>( )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#119-186" title="Go to source code">downloadNewestItemsdb</a>( )</code>
 
 		<div class="description short">
 			
@@ -549,37 +501,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_findItems">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#205-242" title="Go to source code">findItems</a>( <span> <var>$args</var></span>, <span> <var>$db</var> = <span class="php-keyword1">null</span></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="findItemsFromRemote" id="_findItemsFromRemote">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_findItemsFromRemote">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#247-301" title="Go to source code">findItemsFromRemote</a>( <span> <var>$search</var></span>, <span> <var>$ql</var></span>, <span> <var>$server</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#188-211" title="Go to source code">findItems</a>( <span> <var>$args</var></span> )</code>
 
 		<div class="description short">
 			
@@ -609,7 +531,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_findItemsFromLocal">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#303-319" title="Go to source code">findItemsFromLocal</a>( <span> <var>$search</var></span>, <span> <var>$ql</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#213-229" title="Go to source code">findItemsFromLocal</a>( <span> <var>$search</var></span>, <span> <var>$ql</var></span> )</code>
 
 		<div class="description short">
 			
@@ -639,7 +561,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createItemsBlob">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#321-353" title="Go to source code">createItemsBlob</a>( <span> <var>$data</var></span>, <span> <var>$search</var></span>, <span> <var>$ql</var></span>, <span> <var>$version</var></span>, <span> <var>$server</var></span>, <span> <var>$footer</var></span>, <span> <var>$elapsed</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#231-263" title="Go to source code">createItemsBlob</a>( <span> <var>$data</var></span>, <span> <var>$search</var></span>, <span> <var>$ql</var></span>, <span> <var>$version</var></span>, <span> <var>$server</var></span>, <span> <var>$footer</var></span>, <span> <var>$elapsed</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -669,7 +591,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_orderSearchResults">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#356-385" title="Go to source code">orderSearchResults</a>( <span> <var>$data</var></span>, <span> <var>$search</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#266-295" title="Go to source code">orderSearchResults</a>( <span> <var>$data</var></span>, <span> <var>$search</var></span> )</code>
 
 		<div class="description short">
 			
@@ -699,7 +621,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_formatSearchResults">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#387-408" title="Go to source code">formatSearchResults</a>( <span> <var>$data</var></span>, <span> <var>$ql</var></span>, <span> <var>$showImages</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#297-318" title="Go to source code">formatSearchResults</a>( <span> <var>$data</var></span>, <span> <var>$ql</var></span>, <span> <var>$showImages</var></span> )</code>
 
 		<div class="description short">
 			
@@ -729,7 +651,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_escapeDescription">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#410-412" title="Go to source code">escapeDescription</a>( <span> <var>$arr</var></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#320-322" title="Go to source code">escapeDescription</a>( <span> <var>$arr</var></span> )</code>
 
 		<div class="description short">
 			
@@ -759,7 +681,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_findByName">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#414-420" title="Go to source code">findByName</a>( <span> <var>$name</var></span>, <span> <var>$ql</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#324-330" title="Go to source code">findByName</a>( <span> <var>$name</var></span>, <span> <var>$ql</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -789,7 +711,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getItem">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#422-430" title="Go to source code">getItem</a>( <span> <var>$name</var></span>, <span> <var>$ql</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#332-340" title="Go to source code">getItem</a>( <span> <var>$name</var></span>, <span> <var>$ql</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -819,7 +741,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getItemAndIcon">#</a>
-		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#432-441" title="Go to source code">getItemAndIcon</a>( <span> <var>$name</var></span>, <span> <var>$ql</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-Budabot.User.Modules.ItemsController.html#342-351" title="Go to source code">getItemAndIcon</a>( <span> <var>$name</var></span>, <span> <var>$ql</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			
@@ -859,7 +781,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.User.Modules.ItemsController.html#41" title="Go to source code"><var>$moduleName</var></a>
+				<a href="source-class-Budabot.User.Modules.ItemsController.html#35" title="Go to source code"><var>$moduleName</var></a>
 
 			<div class="description short">
 				
@@ -884,7 +806,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.User.Modules.ItemsController.html#43-44" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-Budabot.User.Modules.ItemsController.html#37-38" title="Go to source code"><var>$db</var></a>
 
 			<div class="description short">
 				
@@ -912,7 +834,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.User.Modules.ItemsController.html#46-47" title="Go to source code"><var>$chatBot</var></a>
+				<a href="source-class-Budabot.User.Modules.ItemsController.html#40-41" title="Go to source code"><var>$chatBot</var></a>
 
 			<div class="description short">
 				
@@ -940,7 +862,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.User.Modules.ItemsController.html#49-50" title="Go to source code"><var>$http</var></a>
+				<a href="source-class-Budabot.User.Modules.ItemsController.html#43-44" title="Go to source code"><var>$http</var></a>
 
 			<div class="description short">
 				
@@ -968,7 +890,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.User.Modules.ItemsController.html#52-53" title="Go to source code"><var>$settingManager</var></a>
+				<a href="source-class-Budabot.User.Modules.ItemsController.html#46-47" title="Go to source code"><var>$settingManager</var></a>
 
 			<div class="description short">
 				
@@ -996,7 +918,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.User.Modules.ItemsController.html#55-56" title="Go to source code"><var>$text</var></a>
+				<a href="source-class-Budabot.User.Modules.ItemsController.html#49-50" title="Go to source code"><var>$text</var></a>
 
 			<div class="description short">
 				
@@ -1024,7 +946,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.User.Modules.ItemsController.html#58-59" title="Go to source code"><var>$util</var></a>
+				<a href="source-class-Budabot.User.Modules.ItemsController.html#52-53" title="Go to source code"><var>$util</var></a>
 
 			<div class="description short">
 				
@@ -1052,7 +974,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-Budabot.User.Modules.ItemsController.html#61-62" title="Go to source code"><var>$logger</var></a>
+				<a href="source-class-Budabot.User.Modules.ItemsController.html#55-56" title="Go to source code"><var>$logger</var></a>
 
 			<div class="description short">
 				
@@ -1083,7 +1005,7 @@
 </div>
 
 	<div id="footer">
-		Budabot 4.Beta Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
+		Budabot 4 Docs API documentation generated by <a href="http://apigen.org">ApiGen</a>
 	</div>
 </div>
 </div>
