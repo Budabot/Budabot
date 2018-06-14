@@ -325,14 +325,14 @@ class SkillsController {
 	public function dimachCommand($message, $channel, $sender, $sendto, $args) {
 		$dim_skill = $args[1];
 
-		$skill_list	= array(   1, 1000, 1001, 2000, 2001, 3000);
+		$skill_list	    = array(   1, 1000, 1001, 2000, 2001, 3000);
 		$gen_dmg_list	= array(   1, 2000, 2001, 2500, 2501, 2850);
 		$MA_rech_list	= array(1800, 1800, 1188,  600,  600,  300);
 		$MA_dmg_list	= array(   1, 2000, 2001, 2340, 2341, 2550);
 		$shad_rech_list = array( 300,  300,  300,  300,  240,  200);
 		$shad_dmg_list	= array(   1,  920,  921, 1872, 1873, 2750);
 		$shad_rec_list	= array(  70,   70,   70,   75,   75,   80);
-		$keep_heal_list = array(   1, 3000, 3001,10500,10501,30000);
+		$keep_heal_list = array(   1, 3000, 3001,10500,10501,15000);
 
 		if ($dim_skill < 1001) {
 			$i = 0;
