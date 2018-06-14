@@ -6007,6 +6007,7 @@ INSERT INTO aodb VALUES (227462, 227463, 105, 109, 'Dervish Bow Split of the Hur
 INSERT INTO aodb VALUES (227460, 227461, 100, 104, 'Dervish Bow Split of the Storm', 21134);
 INSERT INTO aodb VALUES (227464, 227464, 110, 110, 'Dervish Bow Split of the Tornado', 21134);
 INSERT INTO aodb VALUES (206008, 206008, 1, 1, 'Desecrated Bloodmark', 25796);
+INSERT INTO aodb VALUES (303530, 303530, 1, 1, 'Desert Fangs', 257716);
 INSERT INTO aodb VALUES (289966, 289966, 1, 1, 'Desert Nomad Armor', 290005);
 INSERT INTO aodb VALUES (303052, 303052, 1, 1, 'Desert Nomad Armor', 290005);
 INSERT INTO aodb VALUES (290228, 290229, 1, 300, 'Desert Nomad Body Armor', 290216);
