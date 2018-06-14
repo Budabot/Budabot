@@ -14,7 +14,8 @@ use DOMDocument;
  *		command     = 'items',
  *		accessLevel = 'all',
  *		description = 'Searches for an item using the default items db',
- *		help        = 'items.txt'
+ *		help        = 'items.txt',
+ *		alias		= 'i'
  *	)
  *	@DefineCommand(
  *		command     = 'itemid',
