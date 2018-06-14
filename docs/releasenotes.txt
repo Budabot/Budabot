@@ -1,5 +1,5 @@
 *****************************
-	Version 4.Beta:
+	Version 4:
 *****************************
 now includes DEV_MODULE which includes !cache, !cmdhandlers, !createblob, !demo, !htmldecode, !makeitem, !mdb, !msginfo, !silence, !unsilence, !timezone, and several commands for testing different things on the bot
 all references to gmp module have been removed, and bcmath module is now required
@@ -17,14 +17,14 @@ removed !banorg and !unbanorg
 removed !sm
 !multiloot is now !loot addmulti
 added !poh to show loot from Pyramid of Home for the RAID_MODULE (thanks Illork)
-!items now always uses the local items database, and !litems has been removed; you can still use !citems to get results from Demoder's central items database
+!items now always uses the local items database, !citems has been removed
 to add loot, now use !loot add <item> instead of !loot <item>
 !trickle can now take a skill as a parameter and tell how much of each ability is needed to trickle that skill one whole point
 !whatbuffs has been improved and !whatbuffs1 and !whatbuffs2 have been removed
 !online now has a new format
 improved support for AOChatProxy 2.x versions
 !whois now shows head_id, pvp_rating (legacy), and pvp_title (legacy) in 'More Info' link
-other various fixes and improvements to !perks, !loot, pagination, !dyna, !whereis, !recentseen, !inactivemem, !leprocs, and !recipe
+other various fixes and improvements to !perks, !loot, pagination, !dyna, !whereis, !recentseen, !inactivemem, !leprocs, !recipe, !dimach, !init, !lag, !items, and !nanoloc
 !mafist and !trickle values updated (thanks Daniel Grim and Lucier)
 API docs are now included in /docs/api
 removed extjoinpriv, extleavepriv, extkickpriv, sendguild, and sendpriv event types
