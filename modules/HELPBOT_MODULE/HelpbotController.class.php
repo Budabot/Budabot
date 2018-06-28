@@ -147,7 +147,7 @@ class HelpbotController {
 		$calc = strtolower($args[1]);
 
 		// check if the calc string includes not allowed chars
-		$calc_check = strspn($calc, "0123456789.,+-*x%()/\\ ");
+		$calc_check = strspn($calc, "0123456789.+-*%()/\\ ");
 
 		// if no wrong char found
 		if ($calc_check == strlen($calc)) {
