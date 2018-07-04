@@ -167,7 +167,7 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Ember Chimera', 'Burning Marshes SW of Sorrow', NULL, 4005, 757, 870);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Enjoy It While It Lasts', 'Tir City', 'bar club', 640, 650, 400);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Enkindled Spirit', 'Inferno, NW of Yuttos', NULL, 4005, 2326, 1280);
-INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Enterprice Shop', 'ICC', "veteran", 655, 3206, 820);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Enterprice Shop', 'ICC', 'veteran', 655, 3206, 820);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Eradicator Deimos', 'Cyborg Barracks, Greater Tir County', 'deimos demos eradicater eradicator', 647, 3232, 2340);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Ergo, Inferno Guardian of Shadows', '', '', 4605, 2800, 3378);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Ergo, Penumbra Guardian of Shadows', '', '', 4321, 2171, 2446);
@@ -568,4 +568,4 @@ INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VAL
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zibell The Wanderer', 'Central Artery Valley', NULL, 590, 3432, 2649);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zodiac', 'Pandemonium Caina, NE of the garden statues. Portal boss for entering pandemonium', '', 4328, 190, 85);
 INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zoftig Blimp', 'Mort, City of Hope', NULL, 560, 0, 0);
-INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zyvania Bagh', 'ICC', "steps of madness som", 655, 3158, 900);
+INSERT INTO `whereis` (name, answer, keywords, playfield_id, xcoord, ycoord) VALUES ('Zyvania Bagh', 'ICC', 'steps of madness som', 655, 3158, 900);
