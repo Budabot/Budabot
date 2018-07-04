@@ -91,7 +91,7 @@ Budabot {$this->version}
 
 Project Site:     https://github.com/Budabot/Budabot
 Support Forum:    http://www.budabot.com/forum
-In-Game Contact:  Tyrence27
+In-Game Contact:  Tyrence
 **************************************************
 \n";
 	}
