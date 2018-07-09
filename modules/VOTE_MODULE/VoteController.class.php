@@ -398,7 +398,11 @@ class VoteController {
 		}
 
 		forEach ($results as $key => $value) {
-			$val = number_format(100 * ($value / $totalresults), 0);
+			if ($totalresults == 0) {
+				$val = 0;
+			} else {
+				$val = number_format(100 * ($value / $totalresults), 0);
+			}
 			if ($val < 10) {
 				$blob .= "<black>__<end>$val% ";
 			} else if ($val < 100) {
