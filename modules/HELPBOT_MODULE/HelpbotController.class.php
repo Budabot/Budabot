@@ -2,6 +2,8 @@
 
 namespace Budabot\User\Modules;
 
+use ParseError;
+
 /**
  * Authors: 
  *	- Tyrence (RK2)
@@ -153,14 +155,14 @@ class HelpbotController {
 		if ($calc_check == strlen($calc)) {
 			$result = "";
 			// do the calculations
-			$calc = "\$result = ".$calc.";";
-			eval($calc);
-			// if calculation is succesful
-			if (is_numeric($result)) {
+			try {
+				$calc = "\$result = ".$calc.";";
+				eval($calc);
+				
 				$result = round($result, 4);
 				$msg = $args[1]." = <highlight>".$result."<end>";
 				$sendto->reply($msg);
-			} else {
+			} catch (ParseError $e) {
 				return false;
 			}
 		} else {
