@@ -151,10 +151,7 @@ class HelpbotController {
 		// check if the calc string includes not allowed chars
 		$calc_check = strspn($calc, "0123456789.+-*%()/\\ ");
 
-		// if no wrong char found
 		if ($calc_check == strlen($calc)) {
-			$result = "";
-			// do the calculations
 			try {
 				$calc = "\$result = ".$calc.";";
 				eval($calc);

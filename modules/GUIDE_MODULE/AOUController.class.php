@@ -70,9 +70,9 @@ class AOUController {
 			$title = $content->getElementsByTagName('name')->item(0)->nodeValue;
 
 			$blob = '';
-			$blob .= $this->text->makeChatcmd("Guide on AO-Universe.com", "/start http://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n\n";
+			$blob .= $this->text->makeChatcmd("Guide on AO-Universe.com", "/start https://www.ao-universe.com/main.php?site=knowledge&id={$guideid}") . "\n\n";
 
-			$blob .= "Update: <highlight>" . $content->getElementsByTagName('update')->item(0)->nodeValue . "<end>\n";
+			$blob .= "Updated: <highlight>" . $content->getElementsByTagName('update')->item(0)->nodeValue . "<end>\n";
 			$blob .= "Profession: <highlight>" . $content->getElementsByTagName('class')->item(0)->nodeValue . "<end>\n";
 			$blob .= "Faction: <highlight>" . $content->getElementsByTagName('faction')->item(0)->nodeValue . "<end>\n";
 			$blob .= "Level: <highlight>" . $content->getElementsByTagName('level')->item(0)->nodeValue . "<end>\n";
@@ -80,7 +80,7 @@ class AOUController {
 
 			$blob .= $this->processInput($content->getElementsByTagName('text')->item(0)->nodeValue);
 
-			$blob .= "\n\n<highlight>Powered by<end> " . $this->text->makeChatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
+			$blob .= "\n\n<highlight>Powered by<end> " . $this->text->makeChatcmd("AO-Universe.com", "/start https://www.ao-universe.com");
 
 			$msg = $this->text->makeBlob($title, $blob);
 		}
@@ -152,7 +152,7 @@ class AOUController {
 			}
 		}
 
-		$blob .= "\n<highlight>Powered by<end> " . $this->text->makeChatcmd("AO-Universe.com", "/start http://www.ao-universe.com");
+		$blob .= "\n<highlight>Powered by<end> " . $this->text->makeChatcmd("AO-Universe.com", "/start https://www.ao-universe.com");
 
 		if ($count > 0) {
 			if ($searchGuideText) {
