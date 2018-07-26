@@ -183,8 +183,6 @@ class WhatBuffsController {
 			$msg = "No items found of type <highlight>$category<end> that buff <highlight>$skill->name<end>.";
 		} else {
 			list($count, $blob) = $result;
-			//$newUrl = "https://aoitems.com/search/acriteria:2-$skillId-1/";
-			//$blob = $this->text->makeChatcmd("See results on aoitems.com", "/start $newUrl") . "\n\n" . $blob;
 			$blob .= "\nItem Extraction Info provided by Unk";
 			$msg = $this->text->makeBlob("WhatBuffs - $category $skill->name ($count)", $blob);
 		}
