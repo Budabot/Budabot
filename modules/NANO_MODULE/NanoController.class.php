@@ -209,7 +209,7 @@ class NanoController {
 			if ($this->settingManager->get("shownanolineicons") == "1") {
 				$blob .= $this->text->makeImage($row->image_id) . "\n";
 			}
-			$blob .= $this->text->makeChatcmd("$row->name", "/tell <myname> nanolines $row->id");
+			$blob .= $this->text->makeChatcmd($row->name, "/tell <myname> nanolines $row->id");
 			$blob .= "\n";
 		}
 		$blob .= $this->getFooter();
