@@ -101,7 +101,7 @@ class RecipeController {
 						$source = $items[$step->source];
 						$target = $items[$step->target];
 						$result = $items[$step->result];
-						$data .= $source->name . "\n";
+						$data .= "<font color=#009B00>" . $source->name . "</font>\n";
 						$data .= "<font color=#FFFFFF>+</font>" . "\n";
 						$data .= "<font color=#009B00>" . $target->name . "</font>\n";
 						$data .= "<font color=#FFFFFF>=</font>" . "\n";
