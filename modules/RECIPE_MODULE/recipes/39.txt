@@ -1,8 +1,8 @@
 Name: De'Valos Sleeves
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "High-Quality Cyber Armor Sleeves" "21917"
 <img src=rdb://13223>
@@ -10,20 +10,20 @@ Author:
 #L "Powdered Viral-Bots" "253149"
 <img src=rdb://99236>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 High-Quality Cyber Armor Sleeves
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Powdered Viral-Bots
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://255237>
 #L "De'Valos Sleeves" "253185"
-#C16Skills: | EE,NP |#C20
+</font><font color=#FFFF00>Skills: | EE,NP |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Viral-Bots drop from alien Generals.

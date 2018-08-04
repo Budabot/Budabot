@@ -1,8 +1,8 @@
 Name: Chimera Weapons
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Chimera Metal Bone Pipe" "227181"
 <img src=rdb://130704>
@@ -24,70 +24,70 @@ and <highlight>one<end> of the following:
 #L "Whispering Soul Stone" "227187"
 <img src=rdb://136594>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>First:<end>
 
 Energy Accumulator
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Chimera Metal Bone Pipe
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13311>
 #L "Basic Firearm" "227167"
-#C16Skills: |  WS  |#C20
+</font><font color=#FFFF00>Skills: |  WS  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 <highlight>Then, depending on what you want:<end>
 
 Basic Firearm
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Howling Soul Stone
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13314>
 #L "Chimera Shotgun" "227104"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 <highlight>or,<end>
 
 Basic Firearm
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Laughing Soul Stone
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13322>
 #L "Chimera Machine Gun" "227121"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 <highlight>or,<end>
 
 Basic Firearm
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Singing Soul Stone
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13322>
 #L "Chimera Pistol" "227137"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 <highlight>or,<end>
 
 Basic Firearm
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Whispering Soul Stone
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13314>
 #L "Chimera Rifle" "227107"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 SL N00by weapons :D By the time you've done all that you could be level 50 :D

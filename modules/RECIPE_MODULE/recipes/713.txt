@@ -1,10 +1,10 @@
 Name: Alien Augmentation Device
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 All parts required for this process can be found in Sector 10#C20
+</font><font color=#FFFF00> All parts required for this process can be found in Sector 10</font><font color=#009B00>
 
 <img src=rdb://218751>
 #L "Inactive Empty Alien Augmentation Device" "268493"
@@ -17,51 +17,51 @@ Author:
 
 <img src=rdb://83069>
 #L "Alien Data Storage Crystal - Combat" "268479"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Alien Data Storage Crystal - Nano Technology" "268480"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Alien Data Storage Crystal - Defense" "268481"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Alien Data Storage Crystal - Technical" "268482"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Alien Data Storage Crystal - Medical" "268483"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Alien Data Storage Crystal - Insight" "268484"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Alien Data Storage Crystal - Protection" "268485"
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Alien Activation Crystal
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inactive Alien Translation Device
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://12693>
 #L "Alien Translation Device" "268476"
-#C16Skills: | 450 ME |#C20
+</font><font color=#FFFF00>Skills: | 450 ME |</font><font color=#009B00>
 
 Alien Activation Crystal
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inactive Empty Alien Augmentation Device
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218751>
 #L "Empty Alien Augmentation Device" "268475"
-#C16Skills: | 450 ME |#C20
+</font><font color=#FFFF00>Skills: | 450 ME |</font><font color=#009B00>
 
 #L "Alien Data Storage Crystal - Combat" "268479"
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Alien Translation Device
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://82988>
 #L "Translated Alien Data Storage Crystal - Combat" "268486"
-#C16Skills: | 450 ME |#C20
+</font><font color=#FFFF00>Skills: | 450 ME |</font><font color=#009B00>
 
 Translated Alien Data Storage Crystal - Combat
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Empty Alien Augmentation Device
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218750>
 #L "Alien Augmentation Device - Combat" "268467"
-#C16Skills: | 450 ME & EE |#C20
+</font><font color=#FFFF00>Skills: | 450 ME & EE |</font><font color=#009B00>

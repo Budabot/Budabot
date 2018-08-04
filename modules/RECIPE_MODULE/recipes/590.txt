@@ -1,8 +1,8 @@
 Name: Upgrading Ofab Armor
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Kyr'Ozch Bio-Material - Type 64" "265333"
 Doctors, Engineers, Keepers, Meta-physicists 
@@ -24,32 +24,32 @@ A piece of ofab armor
 (ie: #L "Ofab Soldier Helmet" "264432")
 <img src=rdb://266393>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Example:
 
 Kyr'Ozch Bio-Material - Type 295
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ofab Soldier Helmet
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://266393>
 #L "Improved Ofab Soldier Helmet" "264430"
-#C16Skills: |  --  |#C20
+</font><font color=#FFFF00>Skills: |  --  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Kyr'Ozch Bio-Material - Type 295
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Improved Ofab Soldier Helmet
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://266394>
 #L "Penultimate Ofab Soldier Helmet" "264428"
-#C16Skills: |  --  |#C20
+</font><font color=#FFFF00>Skills: |  --  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 These upgrades require no tradeskills.  Simply combine the ofab piece with the bio-material and you're set.  **NOTE** The clump must be at least 85% the ql of the Ofab piece.

@@ -1,13 +1,13 @@
 Name: Modernized ICC Cloaks
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 A piece of Notum
 #L "Notum Fragment" "136624"
 <img src=rdb://25795>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Notum Chip" "136622"
 <img src=rdb://25794>
 
@@ -21,41 +21,41 @@ An ICC Cloak
 ( ie: #L "Worn ICC Bodyguard Cloak" "158750" )
 <img src=rdb://22893>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Nano Programming Interface
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inactive OT Metamorphing Liquid Nanobots
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156492>
 #L "Activated OT Metamorphing Liquid Nanobots" "164954"
-#C16Skills: | NP,CH |#C20
+</font><font color=#FFFF00>Skills: | NP,CH |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Notum
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Activated OT Metamorphing Liquid Nanobots
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://164949>
 #L "Stabilized OT Metamorphing Liquid Nanobots" "164956"
-#C16Skills: | NP,CH |#C20
+</font><font color=#FFFF00>Skills: | NP,CH |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Stabilized OT Metamorphing Liquid Nanobots
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 ICC Cloak = Modernized ICC Cloaks
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://205930>
 Modernized ICC Cloaks
 #L "Modernized ICC Bodyguard Cloak" "164972"
-#C16Skills: | NP,CH |#C20
+</font><font color=#FFFF00>Skills: | NP,CH |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 It's only useful to change the look of the old ICC cloaks, nothing else.

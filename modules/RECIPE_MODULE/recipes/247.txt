@@ -1,6 +1,6 @@
 Name: Dull Notum Spear
 Author: 
-#C20
+</font><font color=#009B00>
 
 This Instruction Manual will teach you how to assemble a:
   'Dull Notum Spear'

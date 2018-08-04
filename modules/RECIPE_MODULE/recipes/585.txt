@@ -1,8 +1,8 @@
 Name: Nano Controller Unit
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Disk of Cloudy Crystal" "253177"
 <img src=rdb://227251>
@@ -10,20 +10,20 @@ Author:
 #L "Nano programming interface" "161699"
 <img src=rdb://99279>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Nano programming interface
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Disk of Cloudy Crystal
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://99279>
 #L "Nano Controller Unit" "253193"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Buff all your nano skills with this great item.

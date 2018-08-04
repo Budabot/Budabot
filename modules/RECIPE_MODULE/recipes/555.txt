@@ -1,8 +1,8 @@
 Name: Stalker Helmet
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Stalker Carapace" "247817"
 <img src=rdb://247816>
@@ -10,20 +10,20 @@ Author:
 #L "MasterComm - Personalization Device" "156025"
 <img src=rdb://11618>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 MasterComm - Personalization Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Stalker Carapace
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://247804>
 #L "Stalker Helmet" "247803"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Turn a stalker into a helmet as a trophie of your kill :D

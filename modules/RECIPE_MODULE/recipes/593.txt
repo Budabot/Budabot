@@ -1,8 +1,8 @@
 Name: Ancient Combat Bracer
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Crystalised Memories of a Sniper" "267704"
 <img src=rdb://72771>
@@ -28,106 +28,106 @@ Author:
 #L "Crystalised Memories of a Defender" "267711"
 <img src=rdb://72771>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Crystalised Memories of a Sniper
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Warrior
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://72769>
 #L "Combined Crystalised Combat Memories" "267705"
-#C16Skills: | NP1250 |#C20
+</font><font color=#FFFF00>Skills: | NP1250 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Scrap of Spirit Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Saturated Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
-#C16Skills: | PT1750 |#C20
+</font><font color=#FFFF00>Skills: | PT1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Combined Crystalised Combat Memories
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Condensed Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Spirit Combat Knowledge" "267681"
-#C16Skills: | CL1250 |#C20
+</font><font color=#FFFF00>Skills: | CL1250 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Scrap of Spirit Combat Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inert Knowledge Crystal
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://151030>
 #L "Combat Knowledge Crystal" "267739"
-#C16Skills: | PT1750 |#C20
+</font><font color=#FFFF00>Skills: | PT1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Inactive Bracer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Engineering Device
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://84048>
 #L "Active Ancient Bracer" "267747"
-#C16Skills: | ME1500 |#C20
+</font><font color=#FFFF00>Skills: | ME1500 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Active Ancient Bracer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Combat Knowledge Crystal
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://84062>
 #L "Ancient Combat Bracer" "267753"
-#C16Skills: | CL1250 |#C20
+</font><font color=#FFFF00>Skills: | CL1250 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 You can now modify your Ancient Combat bracer with a Crystalised Memory. The result will depend on which Memory you use:
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Variation 1:<end>
 
 Ancient Combat Bracer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Sniper
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://84062>
 #L "Modified Ancient Combat Bracer" "267756"
-#C16Skills: | CL1250 |#C20
+</font><font color=#FFFF00>Skills: | CL1250 |</font><font color=#009B00>
 
 <highlight>Variation 2:<end>
 
 Ancient Combat Bracer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Warrior
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://84062>
 #L "Modified Ancient Combat Bracer" "267757"
-#C16Skills: | CL1250 |#C20
+</font><font color=#FFFF00>Skills: | CL1250 |</font><font color=#009B00>
 
 <highlight>Variation 3:<end>
 
 Ancient Combat Bracer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Defender
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://84062>
 #L "Modified Ancient Combat Bracer" "267755"
-#C16Skills: | CL1250 |#C20
+</font><font color=#FFFF00>Skills: | CL1250 |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 You can further upgrade this item, but thats another recipe... #L "Click here" "/tell {myname} recipe 596" to see it.

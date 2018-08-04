@@ -1,8 +1,8 @@
 Name: Anti Gravity Unit
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------
 
 #L "Small Backpack" "99228"
 <img src=rdb://99661>
@@ -10,21 +10,21 @@ Author:
 #L "Juggernaut's Anti-Gravity Unit" "207249"
 <img src=rdb://205514>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Juggernaut's Anti-Gravity Unit
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Small Backpack
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://99661>
 #L "Anti-Gravity Unit" "207242"
-#C16Skills: |  ME  |#C20
+</font><font color=#FFFF00>Skills: |  ME  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Up up and away? .. hmmm ...
 

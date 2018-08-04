@@ -1,8 +1,8 @@
 Name: Viral Component Belt
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Viral Belt Control Component" "288130"
 <img src=rdb://288090>
@@ -16,27 +16,27 @@ Author:
 #L "Viral Belt Nanobot Power Unit" "288135"
 <img src=rdb://288092>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Viral Belt Control Component
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Basic Belt
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://288093>
 #L "Belt with Control Component" "288132"
 
 Viral Belt NCU Slots
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Belt with Control Component
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://288094>
 #L "Viral Belt" "288134"
 
 Viral Belt Nanobot Power Unit
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Viral Belt
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://288088>
 #L "Viral Belt Component Platform" "288084"

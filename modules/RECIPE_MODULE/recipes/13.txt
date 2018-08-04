@@ -1,8 +1,8 @@
 Name: Arrows
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Reet-Tech Metaplast Arrowshafts" "158575"
 <img src=rdb://159121>
@@ -25,21 +25,21 @@ And <highlight>one<end> of the following types of arrowheads:
 <img src=rdb://159119>
 
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Arrowheads
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Reet-Tech Metaplast Arrowshafts
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://33175>
 Special Arrows
-#C16Skills: | AG,IN |#C20
+</font><font color=#FFFF00>Skills: | AG,IN |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Chemical: #L "Needle of Pine" "158593"
 Fire: #L "Maple Blaze" "158591"
@@ -47,9 +47,9 @@ Frost: #L "Frozen Cherry Blossom" "158595"
 Poison: #L "Poison Bamboo" "158589"
 Radiation: #L "Apple Seed" "158597"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Spice up your bow
 

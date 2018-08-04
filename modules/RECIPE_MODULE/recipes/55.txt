@@ -1,29 +1,29 @@
 Name: Cyberdeck Upgrades
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Izgimmer-modified Cyberdeck" "233454"
 <img src=rdb://218706>
 
 a Kyr'Ozch Chip Mold
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Kyr'Ozch Chip Mold
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Izgimmer-modified Cyberdeck
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218706>
 #L "Izgimmer-modified Cyberdeck" "253194"
-#C16Skills: | BE,CL |#C20
+</font><font color=#FFFF00>Skills: | BE,CL |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 You can remove the chip using a ...
 
@@ -45,8 +45,8 @@ Adds 3% Damage
 Adds -5% Nano Cost
 <img src=rdb://130745>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Nice improvements for the NT Cyberdeck.  An already-uber item.

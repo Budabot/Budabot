@@ -1,8 +1,8 @@
 Name: Aggression Multiplier (Jealousy Augmented)
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------
 
 #L "Aggression Multiplier" "83919"
 <img src=rdb://12683>
@@ -10,20 +10,20 @@ Author:
 #L "Essence of Pure Jealousy" "152030"
 <img src=rdb://100332>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Essence of Pure Jealousy
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Aggression Multiplier
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://12683>
 #L "Aggression Multiplier (Jealousy Augmented)" "152028"
-#C16Skills: | ME,WS |#C20
+</font><font color=#FFFF00>Skills: | ME,WS |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Finally an effective way to get aggro...

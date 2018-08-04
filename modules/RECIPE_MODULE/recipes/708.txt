@@ -1,8 +1,8 @@
 Name: Power Core
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Power Core Stabilizer" "287976"
 <img src=rdb://287971>
@@ -13,20 +13,20 @@ Author:
 #L "Inactive Power Core" "287974"
 <img src=rdb://287970>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Power Core Stabilizer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Power Core Mainboard
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://287969>
 #L "Power Core Base Unit" "287977"
 
 Inactive Power Core
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Power Core Base Unit
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://287967>
 #L "Power Core" "287978"

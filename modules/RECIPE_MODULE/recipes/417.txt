@@ -1,6 +1,6 @@
 Name: Punk-Slicer X79 Nightspear Initiate
 Author: 
-#C20
+</font><font color=#009B00>
 
 This Instruction Manual will teach you how to assemble a:
  'Punk-Slicer X79 Nightspear Initiate'

@@ -1,8 +1,8 @@
 Name: Guardian Conductor
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------
 
 #L "Cloud of Polychromic Nanobots" "202537"
 <img src=rdb://203581>
@@ -17,40 +17,40 @@ a Conductor Program
 #L "HSR Compressed Regenerating Bioplate" "202540"
 <img src=rdb://203584>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Cloud of Polychromic Nanobots
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Guardian Conductor Building Kit
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://203580>
 #L "Guardian Conductor Controller" "202574"
-#C16Skills: | 5.75EE,4CL,4NP |#C20
+</font><font color=#FFFF00>Skills: | 5.75EE,4CL,4NP |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Guardian Conductor Controller
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Conductor of Presence Program
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://203580>
 #L "Conductor of Presence Controller" "202564"
-#C16Skills: | 5.75EE,4CL,4NP |#C20
+</font><font color=#FFFF00>Skills: | 5.75EE,4CL,4NP |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Conductor of Presence Controller
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 HSR Compressed Regenerating Bioplate
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://202151>
 #L "Guardian Conductor of Presence" "202987"
-#C16Skills: |  4ME  |#C20
+</font><font color=#FFFF00>Skills: |  4ME  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Constructed towers are so much better than prefab ones.  Problem is that they dont seem to last long out there these days ;)

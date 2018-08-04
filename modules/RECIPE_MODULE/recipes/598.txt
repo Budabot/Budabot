@@ -1,8 +1,8 @@
 Name: Ancient Medical Device
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Energy Infused Crystal" "267749"
 <img src=rdb://156567>
@@ -13,30 +13,30 @@ Author:
 #L "Crystalised Memories of a Doctor" "267726"
 <img src=rdb://72771>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Energy Infused Crystal
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inactive Ancient Medical Device
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218774>
 #L "Active Ancient Medical Device" "267914"
-#C16Skills: | ME1500 |#C20
+</font><font color=#FFFF00>Skills: | ME1500 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Active Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Doctor
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218775>
 #L "Ancient Medical Device" "267736"
-#C16Skills: | ME1500 |#C20
+</font><font color=#FFFF00>Skills: | ME1500 |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Another handy reusable tool for tradeskillers.

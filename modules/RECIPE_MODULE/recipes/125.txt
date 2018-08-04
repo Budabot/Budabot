@@ -1,8 +1,8 @@
 Name: Yalmaha Tuning
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 a Yalmaha
 ( ie : #L "Yalmaha XL - 29478" "117322" )
@@ -12,21 +12,21 @@ a Auto Paint
 ( ie : #L "Auto Paint v. 303 - XL Gold Flash" "204205" )
 <img src=rdb://20403>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Auto Paint
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Yalmaha XL - 29478
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://202446>
 Painted Yalmaha
 ( ie : #L "Yalmaha XL Gold Flash - 29478" "203292" )
-#C16Skills: | ME,CL |#C20
+</font><font color=#FFFF00>Skills: | ME,CL |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 You can remove paint by using a #L "Auto Paint - Adaga Paint Remover" "207719" (in theory), but apparently it doesnt work with all the painted yalms.. like Gold Flash for example.

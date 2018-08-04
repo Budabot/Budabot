@@ -1,8 +1,8 @@
 Name: Apocalypse Leather Armors
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------
 
 a piece of Leather Armor
 ( ie #L "Enhanced Leather Armor Boots" "85644" )
@@ -14,33 +14,33 @@ a piece of Leather Armor
 #L "Clanalizer" "208313"
 <img src=rdb://156479>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Hacker Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 a piece of Leather Armor
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13264>
 a piece of Hacked Leather Armor
 ( ie : #L "Hacked Leather Armor Boots" "245979" )
-#C16Skills: |  BE  |#C20
+</font><font color=#FFFF00>Skills: |  BE  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Clanalizer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 a piece of Hacked Leather Armor
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13264>
 a piece of Apocalypse Leather Armor
 ( ie : #L "Apocalypse Leather Armor Boots" "245966" )
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Apocalypse Leather Armor Boots" "245967"
 #L "Apocalypse Leather Armor Gloves" "245969"
@@ -49,9 +49,9 @@ a piece of Apocalypse Leather Armor
 #L "Apocalypse Leather Armor Sleeves" "245973"
 #L "Apocalypse Leather Body Armor" "245965"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Nice froob armor.. but ugleh!
 

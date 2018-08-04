@@ -1,8 +1,8 @@
 Name: ICC Shuttleport Weapons
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Antonio's Adaptation Factory" "248306"
 <img src=rdb://205493>
@@ -15,33 +15,33 @@ a special item
 ( ie : #L "Stalker Limb" "248314" )
 <img src=rdb://130881>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Antonio's Adaptation Factory
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 a special item
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://130870>
 a special upgrade
 ( ie : #L "Polishing Tool" "248313" )
-#C16Skills: |  WS  |#C20
+</font><font color=#FFFF00>Skills: |  WS  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 a special upgrade
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 a Startup weapon
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://113988>
 an upgraded startup weapon
 ( ie : #L "Polished Eliminator" "248345" )
-#C16Skills: |  WS  |#C20
+</font><font color=#FFFF00>Skills: |  WS  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Caustic Meta Shield" "248342":
 #L "Salamander Bile" "248337"
@@ -107,8 +107,8 @@ an upgraded startup weapon
 #L "Bone Cross Guard" "248324"
 #L "Leet Spine Sword" "248351"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Upgrade your startup weapons.

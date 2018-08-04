@@ -1,8 +1,8 @@
 Name: Coffee Machines
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Hacker Tool" "87814" x 2
 <img src=rdb://99282>
@@ -27,110 +27,110 @@ Author:
 
 #L "Fink Fragrant Morning Enhanced Coffee Block" "157281"
 <img src=rdb://156506>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Carioso Menthol Pseudo-Coffee Block" "157277"
 <img src=rdb://156510>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 ID-extractor
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Expendable Hologram Camera
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156323>
 #L "ID-data" "156340"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Hacker Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Small Titan Message Container
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://157369>
 #L "Sealed Bioplast Folder" "157341"
-#C16Skills: |  BE  |#C20
+</font><font color=#FFFF00>Skills: |  BE  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Hacker Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Sealed Bioplast Folder
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://157283>
 #L "Open Bioplast Folder with a Folded Note" "157272"
-#C16Skills: |  BE  |#C20
+</font><font color=#FFFF00>Skills: |  BE  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 White Wine
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Open Bioplast Folder with a Folded Note
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://154678>
 #L "Folded Note" "157273"
-#C16Skills: | PS120 |#C20
+</font><font color=#FFFF00>Skills: | PS120 |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 ID-data
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Folded Note
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156325>
 #L "Personal Folded Note" "157274"
-#C16Skills: | PS300 |#C20
+</font><font color=#FFFF00>Skills: | PS300 |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Personal Folded Note
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Sealing Cell Kit
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156325>
 #L "Sealed Personal Note" "157278"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Sealed Personal Note
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Omni-Tek Multi-Form
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://155965>
 #L "New Miyashiro Superior Coffee Machine" "157276"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Now you must decide what kind of coffee your machine will produce:
 
 <highlight>For normal coffee:<end>
 
 Fink Fragrant Morning Enhanced Coffee Block
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 New Miyashiro Superior Coffee Machine
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://155965>
 #L "Miyashiro Superior Enhanced Coffee Machine" "157340"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 <highlight>Or mentholed one:<end>
 
 Carioso Menthol Pseudo-Coffee Block
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 New Miyashiro Superior Coffee Machine
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://155965>
 #L "Miyashiro Superior Menthol Coffee Machine" "157339"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 This machine is used to produce ... Coffee ...

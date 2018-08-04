@@ -1,8 +1,8 @@
 Name: Veil of the Revoked
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Spirit Tech Circlet of Cerubin" "245139"
 <img src=rdb://130733>
@@ -10,20 +10,20 @@ Author:
 #L "Cloak of the Revoked" "245135"
 <img src=rdb://22896>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Spirit Tech Circlet of Cerubin
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Cloak of the Revoked
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://246888>
 #L "Veil of the Revoked" "247081"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Very nice item for Traders and Enforcers!

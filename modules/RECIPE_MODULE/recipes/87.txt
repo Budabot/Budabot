@@ -1,8 +1,8 @@
 Name: Pocket Boss
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Abhan, Bhotaar, Chi and Dom Patterns of the same Boss
 
@@ -30,71 +30,71 @@ a special Novictum
 #L "Ancient Novictum Refiner" "229870"
 <img src=rdb://205503>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Abhan Pattern
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Bhotaar Pattern
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 Aban-Bhotar Assembly
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Aban-Bhotar Assembly
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Chi Pattern
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 Aban-Bhotar-Chi Assembly
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Aban-Bhotar-Chi Assembly
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Dom Pattern
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://229138>
 Complete Blueprint Pattern
 ( ie: #L "Complete Blueprint Pattern of 'Screech'" "229186")
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Novictum Refiner
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 a special Novictum
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://235352>
 #L "Subdued Flow of Novictum" "229924"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Crystal Filled by the Source
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Complete Blueptrint Pattern
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://229139>
 Etched Notum Crystal
 ( ie: #L "Notum Crystal with Etched 'Screech'" "229187")
-#C16Skills: |  NP  |#C20
+</font><font color=#FFFF00>Skills: |  NP  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Subdued Flow of Novictum
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Notum Crystal with Etched
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://229141>
 Novictalized Notum Crystal
 ( ie: #L "Novictalized Notum Crystal with 'Screech'" "229188")
-#C16Skills: |  QP  |#C20
+</font><font color=#FFFF00>Skills: |  QP  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Use the Novictalized Notum Crystal on an Incarnator on SL. take care, the user of the crystal will fall to 1 HP !!

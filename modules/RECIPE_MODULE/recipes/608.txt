@@ -1,15 +1,15 @@
 Name: Cranium Nano Cloak
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C12 *** #C16 The Red Cranium Nano Cloak is a Clan & Meta-Physicist only
+</font><font color=#FF0000> *** </font><font color=#FFFF00> The Red Cranium Nano Cloak is a Clan & Meta-Physicist only
 item but you can remove some of these requirements. Doing so however will
 also remove or lower some of the modifiers: Nano Init. and MaxNanoEnergy.
 The quality of the Field Quantum Physics All-Purpose Tool and Hacker Tool
 must be at least 40% of QL of the cloak.
-#C12 *** #C20
+</font><font color=#FF0000> *** </font><font color=#009B00>
 
 #L "Red Cranium Nano Cloak" "204996"
 <img src=rdb://85941>
@@ -20,25 +20,25 @@ must be at least 40% of QL of the cloak.
 #L "Advanced Hacker Tool" "87814"
 <img src=rdb://99282>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Red Cranium Nano Cloak
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Field Quantum Physics All-Purpose Tool
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://85942>
 #L "Grey Cranium Nano Cloak" "204998"
-#C16Skills: |FQP tool needs to be at least 40% the ql of Tank Armor. You'll
-need 5x Field Quantum Physics skill to hack it.|#C20
+</font><font color=#FFFF00>Skills: |FQP tool needs to be at least 40% the ql of Tank Armor. You'll
+need 5x Field Quantum Physics skill to hack it.|</font><font color=#009B00>
 
 
 Grey Cranium Nano Cloak
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Advanced Hacker Tool
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://85945>
 #L "Grey Nano Cloak" "205000"
-#C16Skills: |Hacker Tool needs to be at least 40% of the ql of the Cloak.
-Requires 6X of cloaks QL of Breaking & Entering and the QL of the.|#C20
+</font><font color=#FFFF00>Skills: |Hacker Tool needs to be at least 40% of the ql of the Cloak.
+Requires 6X of cloaks QL of Breaking & Entering and the QL of the.|</font><font color=#009B00>

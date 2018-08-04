@@ -1,15 +1,15 @@
 Name: Notum Saturated Metaplast Armor
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Notum Saturated Metaplast Shell" "163355"
 <img src=rdb://163352>
 
 #L "Programmed Photon Particle Emitter (Shape Hard Armor)" "162221"
 <img src=rdb://144466>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Screwdriver" "150922"
 <img src=rdb://151011>
 
@@ -20,40 +20,40 @@ HSR - Sketch and Etch
 #L "Mass Relocating Robot" "155592"
 <img src=rdb://155928>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Programmed Photon Particle Emitter (Shape Hard Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Mass Relocating Robot
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163856>
 #L "Mass Relocating Robot (Shape Hard Armor)" "162218"
-#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+</font><font color=#FFFF00>Skills: | 2.5EE,2.5ME,2.5NP |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Notum Saturated Metaplast Shell
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 HSR - Sketch and Etch - Chestpiece
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163353>
 #L "Etched Pattern for Notum Saturated Metaplast Breastplate" "163361"
-#C16Skills: |  CH  |#C20
+</font><font color=#FFFF00>Skills: |  CH  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Mass Relocating Robot (Shape Hard Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Etched Pattern for Notum Saturated Metaplast Breastplate
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13251>
 #L "Notum Saturated Metaplast Breastplate" "163343"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Nano Technician wear only. Notum Saturated Metaplast Shells can be seldom found on Digglets, Moles, Scooplets or Shovelets, underground low level mobs. It's an interesting armor to make. Unfortunately the PPPE is incredibly expensive. You can use a Screwdriver instead of a Mass Relocating Robot (Shape Hard Armor) but the skills required for the process will be much higher !!

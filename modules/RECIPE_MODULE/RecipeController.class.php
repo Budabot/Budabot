@@ -82,9 +82,9 @@ class RecipeController {
 						$items[$item->alias]->ql = $item->ql;
 					}
 
-					$data = "#C16------------------------------\n";
-					$data .= "#C12Ingredients #C20\n";
-					$data .= "#C16------------------------------\n\n";
+					$data = "<font color=#FFFF00>------------------------------</font>\n";
+					$data .= "<font color=#FF0000>Ingredients</font>\n";
+					$data .= "<font color=#FFFF00>------------------------------</font>\n\n";
 					$ingredients = $items;
 					forEach($recipe->steps as $step) {
 						unset($ingredients[$step->result]);
@@ -94,21 +94,21 @@ class RecipeController {
 						$data .= $this->text->makeItem($ingredient->lowid, $ingredient->highid, $ingredient->ql, $ingredient->name) . "\n\n\n";
 					}
 
-					$data .= "#C16------------------------------\n";
-					$data .= "#C12Recipe #C16\n";
-					$data .= "#C16------------------------------#C20\n\n";
+					$data .= "<font color=#FFFF00>------------------------------</font>\n";
+					$data .= "<font color=#FF0000>Recipe</font>\n";
+					$data .= "<font color=#FFFF00>------------------------------</font>\n\n";
 					forEach($recipe->steps as $step) {
 						$source = $items[$step->source];
 						$target = $items[$step->target];
 						$result = $items[$step->result];
 						$data .= $source->name . "\n";
-						$data .= "#C15+#C20" . "\n";
-						$data .= $target->name . "\n";
-						$data .= "#C15=#C20" . "\n";
+						$data .= "<font color=#FFFFFF>+</font>" . "\n";
+						$data .= "<font color=#009B00>" . $target->name . "</font>\n";
+						$data .= "<font color=#FFFFFF>=</font>" . "\n";
 						$data .= $this->text->makeImage($result->icon) . "\n";
 						$data .= $this->text->makeItem($result->lowid, $result->highid, $result->ql, $result->name) . "\n";
 						if ($step->skills) {
-							$data .= "#C16Skills: | {$step->skills} |#C20\n";
+							$data .= "<font color=#FFFF00>Skills: | {$step->skills} |</font>\n";
 						}
 						$data .= "\n\n";
 					}
@@ -184,15 +184,6 @@ class RecipeController {
 		// of several bots sharing the same db
 		$input = str_replace("{myname}", "<myname>", $input);
 
-		$input = str_replace("#C09","</font><font color=#FFFFFF>", $input);
-		$input = str_replace("#C12","</font><font color=#FF0000>", $input);
-		$input = str_replace("#C13","</font><font color=#FFFFFF>", $input);
-		$input = str_replace("#C14","</font><font color=#FFFFFF>", $input);
-		$input = str_replace("#C15","</font><font color=#FFFFFF>", $input);
-		$input = str_replace("#C16","</font><font color=#FFFF00>", $input);
-		$input = str_replace("#C18","</font><font color=#AAFF00>", $input);
-		$input = str_replace("#C20","</font><font color=#009B00>", $input);
-			
 		return $input;
 	}
 	

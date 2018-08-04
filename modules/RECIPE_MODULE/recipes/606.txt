@@ -1,11 +1,11 @@
 Name: Molybdenum Plate Armor Upgrades
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 Upgrade your Molybdenum Plate Armor (from Biodomes) with Black Molybdenum-Matrix of Xan and White Molybdenum-Matrix of Xan from Inside the
-Machine.#C20
+</font><font color=#FFFF00> Upgrade your Molybdenum Plate Armor (from Biodomes) with Black Molybdenum-Matrix of Xan and White Molybdenum-Matrix of Xan from Inside the
+Machine.</font><font color=#009B00>
 
 #L "Jathos' Molybdenum Plate Vest" "252001"
 <img src=rdb://252433>
@@ -25,42 +25,42 @@ Machine.#C20
 #L "White Molybdenum-Matrix of Xan" "272459"
 <img src=rdb://272535>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Jathos' Molybdenum Plate Vest
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Black Molybdenum-Matrix of Xan
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://272440>
 #L "Enhanced Jathos' Molybdenum Plate Vest" "272444"
-#C16Skills: | ? |#C20
+</font><font color=#FFFF00>Skills: | ? |</font><font color=#009B00>
 
 Kegern's Molybdenum Plate Helmet
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Black Molybdenum-Matrix of Xan
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://272431>
 #L "Enhanced Kegern's Molybdenum Plate Helmet" "272454"
-#C16Skills: | ? |#C20
-#C16Note: Black Molybdenum-Matrix of Xan is used to upgrade both types of armor, Kegern's as well as Jathos, but only vest and helmet pieces. And if you have already upgraded helmet with Action Probability Estimator from Apf, you won't be able to do this combine.#C20
+</font><font color=#FFFF00>Skills: | ? |</font><font color=#009B00>
+</font><font color=#FFFF00>Note: Black Molybdenum-Matrix of Xan is used to upgrade both types of armor, Kegern's as well as Jathos, but only vest and helmet pieces. And if you have already upgraded helmet with Action Probability Estimator from Apf, you won't be able to do this combine.</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Jathos' Molybdenum Plate Boots
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 White Molybdenum-Matrix of Xan
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://272442>
 #L "Enhanced Jathos' Molybdenum Plate Boots" "272445"
-#C16Skills: | ? |#C20
+</font><font color=#FFFF00>Skills: | ? |</font><font color=#009B00>
 
 Kegern's Molybdenum Plate Gloves
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 White Molybdenum-Matrix of Xan
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://272433>
 #L "Enhanced Kegern's Molybdenum Plate Gloves" "272453"
-#C16Skills: | ? |#C20
-#C16Note: White Molybdenum-Matrix of Xan is used to upgrade both types of armor, Kegern's as well as Jathos, but only boots, gloves, sleeves and pant pieces.#C20
+</font><font color=#FFFF00>Skills: | ? |</font><font color=#009B00>
+</font><font color=#FFFF00>Note: White Molybdenum-Matrix of Xan is used to upgrade both types of armor, Kegern's as well as Jathos, but only boots, gloves, sleeves and pant pieces.</font><font color=#009B00>

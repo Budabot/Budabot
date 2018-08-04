@@ -2,9 +2,9 @@ Name: ICC Shuttle Port Tools
 Author: 
 <highlight>Poison Injector Bracelet<end>
 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Antonio's Adaptation Factory" "248306" x 2
 <img src=rdb://205493>
@@ -15,45 +15,45 @@ Author:
 #L "Venom Sample" "248322"
 <img src=rdb://100307>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Antonio's Adaptation Factory
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Compression Chamber
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://100311>
 #L "Pneumatic Compression Chamber" "248335"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Antonio's Adaptation Factory
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Venom Sample
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://130825>
 #L "Venom Cartridge" "248321"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Pneumatic Compression Chamber
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Venom Cartridge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://84053>
 #L "Poison Injector Bracelet" "248375"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Range Meter<end>
 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Antonio's Adaptation Factory" "248306" x 2
 <img src=rdb://205493>
@@ -64,45 +64,45 @@ Venom Cartridge
 #L "Power Supply" "248307"
 <img src=rdb://20412>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Antonio's Adaptation Factory
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Optical Enhancer
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://130777>
 #L "Recalibrated Scope Unit" "248317"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Antonio's Adaptation Factory
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Power Supply
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://20402>
 #L "Adapted Power Supply" "248308"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Recalibrated Scope Unit
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Adapted Power Supply
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://99262>
 #L "Range Meter" "248374"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Salamander Vest<end>
 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Antonio's Adaptation Factory" "248306"
 <img src=rdb://205493>
@@ -113,30 +113,30 @@ Adapted Power Supply
 #L "Swatch of Salamander Skin" "248325"
 <img src=rdb://161070>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Antonio's Adaptation Factory
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Rollerrat Intestines
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://130728>
 #L "Gut Bowstring" "248332"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Gut Bowstring
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Swatch of Salamander Skin
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19812>
 #L "Salamander Vest" "248373"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 More things to run around and do on noob island...

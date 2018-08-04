@@ -1,10 +1,10 @@
 Name: Alien Utilities
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 All parts required for this process can be found Sector 10.#C20
+</font><font color=#FFFF00> All parts required for this process can be found Sector 10.</font><font color=#009B00>
 
 #L "Alien Activation Crystal" "268478"
 <img src=rdb://12252>
@@ -18,27 +18,27 @@ Author:
 #L "Inactive Alien Beacon" "268494"
 <img src=rdb://220416>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Alien Activation Crystal
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inactive Alien Battery
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://220419>
 #L "Alien Battery" "268497"
 
 Alien Activation Crystal
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inactive Alien Reflex Modifier
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://220417>
 #L "Alien Reflex Modifier" "268498"
 
 Alien Activation Crystal
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inactive Alien Beacon
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://220420>
 #L "Alien Beacon" "268495"

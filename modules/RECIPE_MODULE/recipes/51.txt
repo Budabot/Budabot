@@ -1,8 +1,8 @@
 Name: Implant Disassembly Clinic
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------
 
 #L "Portable Surgery Clinic" "43551"
 <img src=rdb://13369>
@@ -13,30 +13,30 @@ Author:
 #L "Implant Disassembly Unit" "161864"
 <img src=rdb://161874>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Hacker Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Portable Surgery Clinic
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://161872>
 #L "Hacked Portable Surgery Clinic" "161765"
-#C16Skills: | BE,CL |#C20
+</font><font color=#FFFF00>Skills: | BE,CL |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Implant Disassembly Unit
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Hacked Portable Surgery Clinic
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://161871>
 #L "Implant Disassembly Clinic" "161867"
-#C16Skills: | EE,CL |#C20
+</font><font color=#FFFF00>Skills: | EE,CL |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 This Clinic can only be worn by Fixers, but can be used by all. Added to the fact that it adds a bit of Treatement, you can use it to remove all the Clusters present on an Implant, thus creating a new Basic Implant of same QL. Don't forget that the Clusters are lost during the process.

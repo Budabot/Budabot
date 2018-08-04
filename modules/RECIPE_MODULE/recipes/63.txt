@@ -1,8 +1,8 @@
 Name: Living Dragon Armor
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 A piece of Tarasque
 ( ie : #L "Piece of Living Dragon Wing" "158894" )
@@ -14,55 +14,55 @@ A piece of Tarasque
 #L "Mass Relocating Robot" "155592"
 <img src=rdb://155928>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Programmed Photon Particle Emitter (Shape Soft Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Mass Relocating Robot
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163856>
 #L "Mass Relocating Robot (Shape Soft Armor)" "162218"
-#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+</font><font color=#FFFF00>Skills: | 2.5EE,2.5ME,2.5NP |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 A piece of Tarasque
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Mass Relocating Robot (Shape Soft Armor)
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://37545>
 A piece of Living Dragon Armor
 ( ie : #L "Living Dragonflesh Body Armor" "158791" )
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Chunk of Living Dragon Flesh" "158892"
-#C15->#C20
+</font><font color=#FFFFFF>-></font><font color=#009B00>
 #L "Living Dragonflesh Body Armor" "158791"
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 #L "Lump of Living Dragon Marrow" "158895"
-#C15->#C20
+</font><font color=#FFFFFF>-></font><font color=#009B00>
 #L "Living Dragonmarrow Feet Armor" "158794"
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 #L "Patch of Living Dragon Skin" "158893"
-#C15->#C20
+</font><font color=#FFFFFF>-></font><font color=#009B00>
 #L "Living Dragonskin Legs Armor" "158793"
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 #L "Piece of Living Dragon Wing" "158894"
-#C15->#C20
+</font><font color=#FFFFFF>-></font><font color=#009B00>
 #L "Living Dragonskull Circlet" "158799"
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 #L "Shard of Living Dragon Skull" "158896"
-#C15->#C20
+</font><font color=#FFFFFF>-></font><font color=#009B00>
 #L "Living Dragonwing Arms Armor" "158792"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 The biggest armor of this game(??)... Nothing more to add except that the spawn is 9h, extremely camped and in PVP zone. Sugar on the top, the PPPE is extremely rare...

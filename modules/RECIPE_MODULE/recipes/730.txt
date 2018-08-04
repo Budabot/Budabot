@@ -1,10 +1,10 @@
 Name: ObiTom's Nano Calculato
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 The Notum Amplification Coil drops in Alien Playfields and can be used for various tradeskill processes.#C20
+</font><font color=#FFFF00> The Notum Amplification Coil drops in Alien Playfields and can be used for various tradeskill processes.</font><font color=#009B00>
 
 #L "Notum Amplification Coil" "257963"
 <img src=rdb://257195>
@@ -12,14 +12,14 @@ Author:
 #L "Aquarius's Multitask Calculator" "244376"
 <img src=rdb://205528>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Notum Amplification Coil
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Aquarius's Multitask Calculator
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://205528>
 #L "ObiTom's Nano Calculator" "257118"
-#C16Skills: | 1250 CL |#C20
+</font><font color=#FFFF00>Skills: | 1250 CL |</font><font color=#009B00>

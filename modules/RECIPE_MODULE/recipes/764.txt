@@ -1,10 +1,10 @@
 Name: Bacchante's Anun Wings
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 This meal adds 50 fire damage for 30 seconds.#C20
+</font><font color=#FFFF00> This meal adds 50 fire damage for 30 seconds.</font><font color=#009B00>
 
 #L "Anun Leg" "248932"
 <img src=rdb://144706>
@@ -12,15 +12,15 @@ Author:
 #L "Premium E-Beamer" "122139"
 <img src=rdb://21150>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Anun Leg
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Premium E-Beamer
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://99288>
 #L "Bacchante's Anun Wings" "248934"
-#C16Skills: | 4 x QL Ranged Energy and E-Beamer has to be 80% of the QL of the Wings |#C20
-#C16Note: the Beamer must be one of these variations: #L "Premium E-Beamer" "122139" - #L "Quality E-Beamer" "122131" - #L "Balanced E-Beamer" "122134" - "#L "Fine-Tuned E-Beamer" "122136" - #L "Deluxe E-Beamer" "122137" or #L "E-Beamer" "122129"
+</font><font color=#FFFF00>Skills: | 4 x QL Ranged Energy and E-Beamer has to be 80% of the QL of the Wings |</font><font color=#009B00>
+</font><font color=#FFFF00>Note: the Beamer must be one of these variations: #L "Premium E-Beamer" "122139" - #L "Quality E-Beamer" "122131" - #L "Balanced E-Beamer" "122134" - "#L "Fine-Tuned E-Beamer" "122136" - #L "Deluxe E-Beamer" "122137" or #L "E-Beamer" "122129"

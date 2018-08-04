@@ -1,8 +1,8 @@
 Name: Bracelet Circuitry
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Screwdriver" "150922"
 <img src=rdb://151011>
@@ -16,50 +16,50 @@ Author:
 #L "Silver Filigree Wire" "150932"
 <img src=rdb://151017>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Robot Junk
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://149940>
 #L "Nano Sensor" "150924"
-#C16Skills: |  ME  |#C20
+</font><font color=#FFFF00>Skills: |  ME  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Nano Circuitry Wire
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Nano Sensor
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://149939>
 #L "Interfaced Nano Sensor" "150925"
-#C16Skills: |  EE  |#C20
+</font><font color=#FFFF00>Skills: |  EE  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Nano Circuitry Wire
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Silver Filigree Wire
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://151017>
 #L "Silver Nano Circuitry Filigree Wire" "150920"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Silver Nano Circuitry Filigree Wire
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Interfaced Nano Sensor
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://149937>
 #L "Bracelet Circuitry" "150927"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Used in the construction of Arul Saba Bracelets.

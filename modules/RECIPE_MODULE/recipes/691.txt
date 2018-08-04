@@ -1,10 +1,10 @@
 Name: Masterpiece Ancient Manual Aiming Aid
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 All parts required for this process can be found in Albtraum.#C20
+</font><font color=#FFFF00> All parts required for this process can be found in Albtraum.</font><font color=#009B00>
 
 #L "Empty Ancient Device" "267709"
 <img src=rdb://218753>
@@ -30,84 +30,84 @@ Author:
 #L "Crystalised Memories of a Warrior" "267697"
 <img src=rdb://72771>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Ancient Manual Aiming Aid<end>
 
 Empty Ancient Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of an Archer
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218779>
 #L "Ancient Manual Aiming Aid" "267651"
-#C16Skills: | 1250 CL |#C20
+</font><font color=#FFFF00>Skills: | 1250 CL |</font><font color=#009B00>
 
 <highlight>Improved Ancient Manual Aiming Aid<end>
 
 Ancient Scrap of Spirit Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Saturated Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
-#C16Skills: | 1750 PT |#C20
+</font><font color=#FFFF00>Skills: | 1750 PT |</font><font color=#009B00>
 
 Crystalised Memories of a Sniper
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Warrior
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://72769>
 #L "Combined Crystalised Combat Memories" "267705"
-#C16Skills: | 1250 NP |#C20
+</font><font color=#FFFF00>Skills: | 1250 NP |</font><font color=#009B00>
 
 Combined Crystalised Combat Memories
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Condensed Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Spirit Combat Knowledge" "267681"
-#C16Skills: | 1250 CL |#C20
+</font><font color=#FFFF00>Skills: | 1250 CL |</font><font color=#009B00>
 
 Ancient Manual Aiming Aid
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Spirit Combat Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218778>
 #L "Improved Ancient Manual Aiming Aid" "267706"
-#C16Skills: | 1250 CL |#C20
+</font><font color=#FFFF00>Skills: | 1250 CL |</font><font color=#009B00>
 
 <highlight>Masterpiece Ancient Manual Aiming Aid<end>
 
 Crystalised Memories of a Technician
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Mechanic
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://72769>
 #L "Combined Crystalised Technical Memories" "267702"
-#C16Skills: | 1875 NP |#C20
+</font><font color=#FFFF00>Skills: | 1875 NP |</font><font color=#009B00>
 
 Ancient Scrap of Spirit Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Saturated Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
-#C16Skills: | 1750 PT |#C20
+</font><font color=#FFFF00>Skills: | 1750 PT |</font><font color=#009B00>
 
 Combined Crystalised Technical Memories
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Condensed Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Spirit Technical Knowledge" "267681"
-#C16Skills: | 1875 NP |#C20
+</font><font color=#FFFF00>Skills: | 1875 NP |</font><font color=#009B00>
 
 Improved Ancient Manual Aiming Aid
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Spirit Technical Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218778>
 #L "Masterpiece Ancient Manual Aiming Aid" "267707"
-#C16Skills: | 1250 CL |#C20
+</font><font color=#FFFF00>Skills: | 1250 CL |</font><font color=#009B00>

@@ -1,8 +1,8 @@
 Name: Basic Nano Kit/Recharger
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Notum Pellet" "207478"
 <img src=rdb://156562>
@@ -18,44 +18,44 @@ For the Kits:
 #L "Semi-Finished Nano Kit" "207505"
 <img src=rdb://11751>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Jensen Personal Ore Extractor
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Notum Pellet
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156562>
 #L "Refined Notum Pellet" "207480"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 <highlight>For Nano Recharger Rechargers:<end>
 
 Refined Notum Pellet
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Semi-Finished Nano Recharger
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://37992>
 Basic Nano Recharger
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 <highlight>For the Kits:<end>
 
 Refined Notum Pellet
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Semi-Finished Nano Kit
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://11752>
 Basic Nano Kit
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 These are plain rechargers/kits, like the ones you find in shops...

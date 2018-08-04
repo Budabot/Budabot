@@ -1,14 +1,14 @@
 Name: Bureaucrat Suits
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Hacker Tool" "87814"
 <img src=rdb://99282>
 
 #L "Sealed Order BLCG-7791" "156330" (For Clan)
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Sealed Order XITL-0127" "156328" (For OMNI)
 <img src=rdb://156326>
 
@@ -22,53 +22,53 @@ A Multi-Form needed
 ( ie #L "Omni-Tek Multi-Form" "156344" )
 <img src=rdb://156343>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Hacker Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Sealed Order
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://154678>
 Hacked Order
 ( ie : #L "Hacked Order BLCG-7791" "156336" )
-#C16Skills: |  BE  |#C20
+</font><font color=#FFFF00>Skills: |  BE  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 ID-extractor
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Expendable Hologram Camera
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156323>
 #L "ID-data" "156340"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 ID-data
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Hacked Order
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156325>
 Personal Order
 ( ie : #L "Personal Order BLCG-7791" "156352" )
-#C16Skills: |  PS  |#C20
+</font><font color=#FFFF00>Skills: |  PS  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Multi-Form
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Personal Order
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156357>
 Bureaucrat Suits
-#C16Skills: |  PS  |#C20
+</font><font color=#FFFF00>Skills: |  PS  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Sealed Order XITL-0127" "156328"
 #L "Omni-Tek Multi-Form" "156344"
@@ -94,8 +94,8 @@ Bureaucrat Suits
 #L "Universal Office Worker Suit" "156538"
 <img src=rdb://156355>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Nice buffs and they look great too.

@@ -1,26 +1,26 @@
 Name: Metallic Mantis Armor
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 A Deformed Mantidae...
 
 #L "Head" "164272"
 <img src=rdb://144707>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Abdomen" "164274"
 <img src=rdb://144711>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Femur" "164276"
 <img src=rdb://158239>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Tarsus" "164278"
 <img src=rdb://158238>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Tibia" "164280"
 <img src=rdb://158239>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Wing" "164282"
 <img src=rdb://161085>
 
@@ -30,31 +30,31 @@ A Deformed Mantidae...
 #L "Mass Relocating Robot" "155591"
 <img src=rdb://155928>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Programmed Photon Particle Emitter (Shape Soft Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Mass Relocating Robot
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163857>
 #L "Mass Relocating Robot (Shape Soft Armor)" "162220"
-#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+</font><font color=#FFFF00>Skills: | 2.5EE,2.5ME,2.5NP |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Mass Relocating Robot (Shape Soft Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Deformed Mantidae
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13249>
 Metallic Mantis Armor
 ( ie : #L "Metallic Mantis Body Armor" "164349"
-#C16Skills: | ME,INT |#C20
+</font><font color=#FFFF00>Skills: | ME,INT |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Excellent armor but up to QL130 approximatively.

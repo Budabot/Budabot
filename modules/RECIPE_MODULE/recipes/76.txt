@@ -1,8 +1,8 @@
 Name: Notum Nuggets
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Sledgehammer" "129044"
 <img src=rdb://33167>
@@ -10,20 +10,20 @@ Author:
 #L "Enriched Notum Nugget" "136637" 
 <img src=rdb://136596>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Sledgehammer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Enriched Notum Nugget
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://25795>
 #L "Notum Fragment" "136625"
-#C16Skills: |  ST  |#C20
+</font><font color=#FFFF00>Skills: |  ST  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Another source of precious notum.

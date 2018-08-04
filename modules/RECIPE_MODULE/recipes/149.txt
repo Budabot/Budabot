@@ -1,6 +1,6 @@
 Name: Balanced Kolt 58 Magnum
 Author: 
-#C20
+</font><font color=#009B00>
 
 This Instruction Manual will teach you how to assemble a:
   'Balanced Kolt 58 Magnum'

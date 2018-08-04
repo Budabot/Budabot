@@ -1,11 +1,11 @@
 Name: Signet of the Apocalypse
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 So, you have a nice De'Valos Protection Ring and now you want to upgrade it further? No problem! 
-This easy tradeskill (which doesn't have any skill requirements) process will make your ring a little bit more useful in certain situations: #C20
+</font><font color=#FFFF00> So, you have a nice De'Valos Protection Ring and now you want to upgrade it further? No problem! 
+This easy tradeskill (which doesn't have any skill requirements) process will make your ring a little bit more useful in certain situations: </font><font color=#009B00>
 
 #L "Jensen Gem Cutter" "151366"
 <img src=rdb://149941>
@@ -15,52 +15,52 @@ This easy tradeskill (which doesn't have any skill requirements) process will ma
 
 <img src=rdb://281224>
 #L "Sniper's Gem" "281209"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Explorer's Gem" "281210"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Dictator's Gem" "281211"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Healer's Gem" "281212"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Brute's Gem" "281213"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Builder's Gem" "281214"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Hacker's Gem" "281215"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Protector's Gem" "281216"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Master's Gem" "281217"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Worshipper's Gem" "281218"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Techno Wizard's Gem" "281219"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Spirit's Gem" "281220"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Warrior's Gem" "281221"
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "Merchant's Gem" "281222"
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Jensen Gem Cutter
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Sniper's Gem
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281223>
 #L "Sniper's Cut Gem" "281225"
 
 Sniper's Cut Gem
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 De'Valos Protection Ring
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281195>
 #L "Sniper's Signet of The Apocalypse" "281194"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 Each ring gives you a profession specific buff when activated.

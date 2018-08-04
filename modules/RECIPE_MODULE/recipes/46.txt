@@ -1,8 +1,8 @@
 Name: Thick Flesh Hood
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------
 
 #L "Monster Parts" "42640"
 <img src=rdb://144704>
@@ -13,30 +13,30 @@ Author:
 #L "Mass Relocating Robot" "155591"
 <img src=rdb://155928>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Programmed Photon Particle Emitter (Shape Soft Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Mass Relocating Robot
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163857>
 #L "Mass Relocating Robot (Shape Soft Armor)" "162220"
-#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+</font><font color=#FFFF00>Skills: | 2.5EE,2.5ME,2.5NP |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Mass Relocating Robot (Shape Soft Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Monster Parts
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://23001>
 #L "Thick Flesh Hood" "163217"
-#C16Skills: | ME,INT |#C20
+</font><font color=#FFFF00>Skills: | ME,INT |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 No AC holes :)

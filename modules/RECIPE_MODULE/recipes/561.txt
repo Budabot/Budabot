@@ -1,8 +1,8 @@
 Name: Merren Flamethrower
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Viral Weapon Upgrade" "248517"
 <img src=rdb://100335>
@@ -10,20 +10,20 @@ Author:
 #L "Flamethrower" "121930"
 <img src=rdb://19800>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Viral Weapon Upgrade
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Flamethrower
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19800>
 #L "Merren Flamethrower" "248607"
-#C16Skills: |  WS  |#C20
+</font><font color=#FFFF00>Skills: |  WS  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 More Viral Weapon upgrades.

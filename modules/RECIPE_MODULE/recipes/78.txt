@@ -1,8 +1,8 @@
 Name: Notum Threaded Backpack
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Notum Threaded Zodiacal Blanket" "164563"
 <img src=rdb://161084>
@@ -13,40 +13,40 @@ Author:
 #L "Hacker Tool" "87814"
 <img src=rdb://99282>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Hacker Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Field Quantum Physics All-Purpose Tool
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://20406>
 #L "Hacked Field Quantum Physics Tool" "164560"
-#C16Skills: |  BE  |#C20
+</font><font color=#FFFF00>Skills: |  BE  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Field Quantum Physics All-Purpose Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Hacked Field Quantum Physics Tool
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://20412>
 #L "Unstable Space Reduction Chamber" "164562"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Notum Threaded Zodiacal Blanket
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Unstable Space Reduction Chamber
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://99660>
 #L "Notum Threaded Backpack" "164564"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Nice back-pack for players level 75 and higher.  Blankets drop from medusas.

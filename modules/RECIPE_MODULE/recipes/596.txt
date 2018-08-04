@@ -1,8 +1,8 @@
 Name: Masterpiece Ancient Defensive Bracer
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Ancient Scrap of Spirit Knowledge" "267677" x 3
 <img src=rdb://163575>
@@ -34,170 +34,170 @@ Author:
 #L "Modified Ancient Combat Bracer" "267755"
 <img src=rdb://84062>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Part 1:<end>
 
 Crystalised Memories of a Sniper
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Warrior
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://72769>
 #L "Combined Crystalised Combat Memories" "267705"
-#C16Skills: | NP1250 |#C20
+</font><font color=#FFFF00>Skills: | NP1250 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Scrap of Spirit Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Saturated Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
-#C16Skills: | PT1750 |#C20
+</font><font color=#FFFF00>Skills: | PT1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Combined Crystalised Combat Memories
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Condensed Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Spirit Combat Knowledge" "267681"
-#C16Skills: | CL1250 |#C20
+</font><font color=#FFFF00>Skills: | CL1250 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Scrap of Spirit Combat Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inert Knowledge Crystal
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://151030>
 #L "Combat Knowledge Crystal" "267739"
-#C16Skills: | CL1250 |#C20
+</font><font color=#FFFF00>Skills: | CL1250 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Part 2:<end>
 
 Crystalised Memories of a Doctor
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Surgeon
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://72769>
 #L "Combined Crystalised Medical Memories" "267729"
-#C16Skills: | CH1750 |#C20
+</font><font color=#FFFF00>Skills: | CH1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Scrap of Spirit Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Saturated Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
-#C16Skills: | PT1750 |#C20
+</font><font color=#FFFF00>Skills: | PT1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Combined Crystalised Medical Memories
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Condensed Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Spirit Medical Knowledge" "267727"
-#C16Skills: | CH1750 |#C20
+</font><font color=#FFFF00>Skills: | CH1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Scrap of Spirit Medical Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inert Knowledge Crystal
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://151030>
 #L "Medical Knowledge Crystal" "267738"
-#C16Skills: | CH1750 |#C20
+</font><font color=#FFFF00>Skills: | CH1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Part 3:<end>
 
 Crystalised Memories of a Technician
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Mechanic
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://72769>
 #L "Combined Crystalised Technical Memories" "267702"
-#C16Skills: | NP1875 |#C20
+</font><font color=#FFFF00>Skills: | NP1875 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Scrap of Spirit Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Saturated Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Condensed Spirit Knowledge" "267680"
-#C16Skills: | PT1750 |#C20
+</font><font color=#FFFF00>Skills: | PT1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Combined Crystalised Technical Memories
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Ancient Scrap of Condensed Spirit Knowledge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163575>
 #L "Ancient Scrap of Spirit Technical Knowledge" "267703"
-#C16Skills: | NP1875 |#C20
+</font><font color=#FFFF00>Skills: | NP1875 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Scrap of Spirit Technical Knowledge
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inert Knowledge Crystal
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://151030>
 #L "Technical Knowledge Crystal" "267740"
-#C16Skills: | CH1750 |#C20
+</font><font color=#FFFF00>Skills: | CH1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Next we combine the Knowledge Crystals:<end>
 
 Combat Knowledge Crystal
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Medical Knowledge Crystal
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156511>
 #L "Incomplete Crystalised Memories" "267781"
-#C16Skills: | QT1562 |#C20
+</font><font color=#FFFF00>Skills: | QT1562 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Incomplete Crystalised Memories
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Technical Knowledge Crystal
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156511>
 #L "Complete Crystalised Memories" "267778"
-#C16Skills: | QT1562 |#C20
+</font><font color=#FFFF00>Skills: | QT1562 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Now combine with your ready-made Bracer:<end>
 
 Complete Crystalised Memories
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Modified Ancient Combat Bracer
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://84062>
 #L "Masterpiece Ancient Defensive Bracer" "267798"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Amazingly similar to #L "Masterpiece Ancient Defensive Bracer" "/tell recipebot show me 595" recipe :P

@@ -1,8 +1,8 @@
 Name: Ancient Damage Generation Device
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Ancient Medical Device" "267736" #L "Recipe" "/tell {myname} recipe 598"
 <img src=rdb://218775>
@@ -27,33 +27,33 @@ and <highlight>one<end> of the following items:
 #L "Venom Gland Sample" "267745"
 <img src=rdb://253010>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 a gland sample (eg: Acid Gland Sample)
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19860>
 a sample of compound
 (eg: #L "Sample of a chemical based compound" "267732")
-#C16Skills: | PT1750 |#C20
+</font><font color=#FFFF00>Skills: | PT1750 |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Damage Generation Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 sample of compound (eg: Sample of a chemical based compound)
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19860>
 Ancient Generation Device
 (eg: #L "Ancient Chemical Generation Device" "267722")
-#C16Skills: | CL1250 |#C20
+</font><font color=#FFFF00>Skills: | CL1250 |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Acid Gland Sample = #L "Ancient Chemical Generation Device" "267722"
 Fire Gland Sample = #L "Ancient Fire Generation Device" "267720"
@@ -61,8 +61,8 @@ Frost Gland Sample = #L "Ancient Cold Generation Device" "267721"
 Radioactive Gland Sample = #L "Ancient Radiation Generation Device" "267723"
 Venom Gland Sample = #L "Ancient Poison Generation Device" "267724"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Final product is used to change your damage type as well as give you 500 ACs of that type. :D

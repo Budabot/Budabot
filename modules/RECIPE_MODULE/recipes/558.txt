@@ -1,8 +1,8 @@
 Name: Fantaghiro BBI-Viral
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Viral Weapon Upgrade" "248517"
 <img src=rdb://100335>
@@ -10,20 +10,20 @@ Author:
 #L "BBI AS-90" "124382"
 <img src=rdb://84025>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Viral Weapon Upgrade
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 BBI AS-90 Gold Star
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://84025>
 #L "Fantaghiro BBI-Viral" "248588"
-#C16Skills: |  WS  |#C20
+</font><font color=#FFFF00>Skills: |  WS  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Some nice mods.

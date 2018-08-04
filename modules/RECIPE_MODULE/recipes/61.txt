@@ -1,8 +1,8 @@
 Name: Standard Weapons
 Author: 
-#C16------------------------------
-#C12Information#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Information</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Some standard weapons can be built. In order to know how, just go to a Generals Store and buy a manual which is sold in Weapon Recipes Shop.
 

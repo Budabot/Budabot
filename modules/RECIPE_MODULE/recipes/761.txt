@@ -1,14 +1,14 @@
 Name: Ancient Spirit Stims
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 The Ancient Spirit Purge helps get rid of debuffs. The Ancient Spirit Remedy will heal both your health and nano. All of the parts drop from Albtraum#C20
+</font><font color=#FFFF00> The Ancient Spirit Purge helps get rid of debuffs. The Ancient Spirit Remedy will heal both your health and nano. All of the parts drop from Albtraum</font><font color=#009B00>
 
 #L "Ancient Medical Device" "267736"
 <img src=rdb://218775>
-#C16Note:To build your Ancient Medical Device, go here: #L "Ancient Medical Device" "/tell {myname} recipe 598"#C20
+</font><font color=#FFFF00>Note:To build your Ancient Medical Device, go here: #L "Ancient Medical Device" "/tell {myname} recipe 598"</font><font color=#009B00>
 
 #L "Acid Gland Sample" "267743"
 <img src=rdb://144703>
@@ -25,102 +25,102 @@ Author:
 #L "Venom Gland Sample" "267745"
 <img src=rdb://253010>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Acid Gland Sample
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19860>
 #L "Sample of a chemical based compound" "267732"
-#C16Skills: | PT 1750 |#C20
+</font><font color=#FFFF00>Skills: | PT 1750 |</font><font color=#009B00>
 
 Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Fire Gland Sample
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19857>
 #L "Sample of a fire based compound" "267730"
-#C16Skills: | PT 1750 |#C20
+</font><font color=#FFFF00>Skills: | PT 1750 |</font><font color=#009B00>
 
 Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Frost Gland Sample
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19852>
 #L "Sample of a cold based compound" "267731"
-#C16Skills: | PT 1750 |#C20
+</font><font color=#FFFF00>Skills: | PT 1750 |</font><font color=#009B00>
 
 Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Radioactive Gland Sample
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19862>
 #L "Sample of a radioactive based compound" "267733"
-#C16Skills: | PT 1750 |#C20
+</font><font color=#FFFF00>Skills: | PT 1750 |</font><font color=#009B00>
 
 Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Venom Gland Sample
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://19862>
 #L "Sample of a poisonous based compound" "267734"
-#C16Skills: | PT 1750 |#C20
+</font><font color=#FFFF00>Skills: | PT 1750 |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Ancient Spirit Purge #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ancient Spirit Purge </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Sample of a fire based compound
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Sample of a cold based compound
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://100323>
 #L "Combined Bio Samples - Stage One" "267774"
-#C16Skills: | 5.5 x QL in PT |#C20
+</font><font color=#FFFF00>Skills: | 5.5 x QL in PT |</font><font color=#009B00>
 
 Combined Bio Samples - Stage One
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Sample of a chemical based compound
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://100323>
 #L "Combined Bio Samples - Stage Two" "267775"
-#C16Skills: | 5.5 x QL in PT |#C20
+</font><font color=#FFFF00>Skills: | 5.5 x QL in PT |</font><font color=#009B00>
 
 Combined Bio Samples - Stage Two
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Sample of a radioactive based compound
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://100323>
 #L "Combined Bio Samples - Stage Three" "267776"
-#C16Skills: | 5.5 x QL in PT |#C20
+</font><font color=#FFFF00>Skills: | 5.5 x QL in PT |</font><font color=#009B00>
 
 Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Combined Bio Samples - Stage Three
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218305>
 #L "Ancient Spirit Purge" "267793"
-#C16Skills: | 5.5 x QL in PT |#C20
+</font><font color=#FFFF00>Skills: | 5.5 x QL in PT |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Ancient Spirit Remedy #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ancient Spirit Remedy </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Combined Bio Samples - Stage Three
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Sample of a radioactive based compound
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://100323>
 #L "Combined Bio Samples - Stage Four" "267777"
-#C16Skills: | 6 x QL in PT |#C20
+</font><font color=#FFFF00>Skills: | 6 x QL in PT |</font><font color=#009B00>
 
 Ancient Medical Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Combined Bio Samples - Stage Four
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://231393>
 #L "Ancient Spirit Purge" "267773"
-#C16Skills: | 6 x QL in PT |#C20
+</font><font color=#FFFF00>Skills: | 6 x QL in PT |</font><font color=#009B00>

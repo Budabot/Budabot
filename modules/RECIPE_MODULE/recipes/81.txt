@@ -1,8 +1,8 @@
 Name: Personalized Basic Robot Brain
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Screwdriver" "150922"
 <img src=rdb://151011>
@@ -16,40 +16,40 @@ Author:
 #L "MasterComm - Personalization Device" "156024"
 <img src=rdb://11618>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Robot Junk
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://149940>
 #L "Nano Sensor" "150924"
-#C16Skills: |  ME  |#C20
+</font><font color=#FFFF00>Skills: |  ME  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Bio Analyzing Computer
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Nano Sensor
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156085>
 #L "Basic Robot Brain" "156023"
-#C16Skills: |  EE  |#C20
+</font><font color=#FFFF00>Skills: |  EE  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 MasterComm - Personalization Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Basic Robot Brain
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156087>
 #L "Personalized Basic Robot Brain" "156027"
-#C16Skills: |  EE  |#C20
+</font><font color=#FFFF00>Skills: |  EE  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 This nifty little thing costs quite a lot to make and only gives a little bit of sense when equipped. However, it can useful for equipping Sense/Agi armors.

@@ -1,8 +1,8 @@
 Name: Crepuscule Armor
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 a Patch of Novictum Spangled Hide
 ( ie : #L "Large Patch of Hard Novictum Spangled Hide" "223432" )
@@ -15,33 +15,33 @@ A Spirit Baube of Expertise
 ( ie : #L "Spirit Bauble of Infantry Expertise" "223435" )
 <img src=rdb://25801>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Canister of Pure Liquid Notum
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Patch of Novictum Spangled Hide
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://161075>
 Patch of Living Hide
 ( ie #L "Large Patch of Hard Living Hide" "223460" )
-#C16Skills: |  NP  |#C20
+</font><font color=#FFFF00>Skills: |  NP  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 A Spirit Baube of Expertise
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Patch of Living Hide
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13279>
 Crepuscule Armor
 ( ie #L "Infantry Crepuscule Leather Gloves" "223086" )
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Large Patch of Soft Novictum Spangled Hide" "223430" for Pants 
 #L "Large Patch of Hard Novictum Spangled Hide" "223432" for Jacket 
@@ -57,8 +57,8 @@ ie :
 #L "Support Unit Crepuscule Jacket" "223401"
 #L "Control Unit Crepuscule Jacket" "223416"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Very nice armor if you can get your hands on the ingredients. A nice alternative to Alien Armor if you cant afford that.

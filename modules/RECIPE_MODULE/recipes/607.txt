@@ -1,37 +1,37 @@
 Name: Photon Embedded Cloak
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C12 *** #C16 Your shining light in the darkness!
-#C12 *** #C20
+</font><font color=#FF0000> *** </font><font color=#FFFF00> Your shining light in the darkness!
+</font><font color=#FF0000> *** </font><font color=#009B00>
 
 #L "Light Bar" "252157"
 <img src=rdb://37996>
-#C15or#C20
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 #L "A Never-ending Being of Light" "262604"
 <img src=rdb://262646>
 
 #L "White Trenchcoat" "81969"
 <img src=rdb://82001>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Light Bar
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 White Trenchcoat
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281785>
 #L "Photon Embedded Cloak" "281777"
-#C16Skills: | None | #C20
-#C15or#C20
+</font><font color=#FFFF00>Skills: | None | </font><font color=#009B00>
+</font><font color=#FFFFFF>or</font><font color=#009B00>
 A Never-ending Being of Light
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 White Trenchcoat
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281785>
 #L "Photon Embedded Cloak" "281777"
-#C16Skills: | None | #C20
+</font><font color=#FFFF00>Skills: | None | </font><font color=#009B00>

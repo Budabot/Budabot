@@ -2,9 +2,9 @@ Name: Charged Liquid Bombs
 Author: 
 <highlight>Single Charged Liquid Bomb<end>
 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Flamethrower Ammunition" "21601"
 <img src=rdb://32168>
@@ -18,44 +18,44 @@ Author:
 #L "Screwdriver" "150922"
 <img src=rdb://151011>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Flamethrower Ammunition
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://32171>
 #L "Container of Liquid Ammo" "156074"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Container of Liquid Ammo
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Active Tube
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156207>
 #L "Liquid Explosive Charge" "156031"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Key Detonator
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Liquid Explosive Charge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://131257>
 #L "Single Charged Liquid Bomb" "156038"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
 
 <highlight>Double Charged Liquid Bomb<end>
 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Flamethrower Ammunition" "21601" x 2
 <img src=rdb://32168>
@@ -69,64 +69,64 @@ Liquid Explosive Charge
 #L "Screwdriver" "150922"
 <img src=rdb://151011>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Flamethrower Ammunition
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://32171>
 #L "Container of Liquid Ammo" "156074"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Container of Liquid Ammo
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Active Tube
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156207>
 #L "Liquid Explosive Charge" "156031"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Flamethrower Ammunition
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://32171>
 #L "Container of Liquid Ammo" "156074"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Container of Liquid Ammo
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Liquid Explosive Charge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156210>
 #L "Liquid Explosive Double Charge" "156303"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Key Detonator
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Liquid Explosive Double Charge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://131249>
 #L "Twice Charged Liquid Bomb" "156047"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
 
 <highlight>Complete Liquid Explosive<end>
 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Flamethrower Ammunition" "21601" x 3
 <img src=rdb://32168>
@@ -140,80 +140,80 @@ Liquid Explosive Double Charge
 #L "Screwdriver" "150922"
 <img src=rdb://151011>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Flamethrower Ammunition
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://32171>
 #L "Container of Liquid Ammo" "156074"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Container of Liquid Ammo
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Active Tube
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156207>
 #L "Liquid Explosive Charge" "156031"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Flamethrower Ammunition
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://32171>
 #L "Container of Liquid Ammo" "156074"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Container of Liquid Ammo
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Liquid Explosive Charge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156210>
 #L "Liquid Explosive Double Charge" "156303"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Flamethrower Ammunition
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://32171>
 #L "Container of Liquid Ammo" "156074"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Container of Liquid Ammo
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Liquid Explosive Double Charge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156205>
 #L "Liquid Explosive Triple Charge" "156305"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Key Detonator
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Liquid Explosive Triple Charge
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://131248>
 #L "Complete Liquid Explosive" "156049"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Snippet from auno.org: "Due to the QL of certain KEY COMPONENTS... the best you could ever do is making single charged liquid explosives at whatever QL or you could make a fantastic TRIPLE CHARGED LIQUID EXPLOSIVE at an astounding... quality level of three."

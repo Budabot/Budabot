@@ -1,6 +1,6 @@
 Name: First-Rate Blackened Miniblaster
 Author: 
-#C20
+</font><font color=#009B00>
 
 This Instruction Manual will teach you how to assemble a:
   'First-Rate Blackened Miniblaster'

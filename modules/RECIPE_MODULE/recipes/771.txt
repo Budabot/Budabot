@@ -1,8 +1,8 @@
 Name: Adapting Notum Lever
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Viral Weapon Upgrade" "248517"
 <img src=rdb://100335>
@@ -10,14 +10,14 @@ Author:
 #L "Premium Notum Lever" "130124"
 <img src=rdb://33163>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Viral Weapon Upgrade
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Premium Notum Lever
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://33163>
 #L "Premium Adapting Notum Lever" "250163"
-#C16Skills: |  |#C20
+</font><font color=#FFFF00>Skills: |  |</font><font color=#009B00>

@@ -1,8 +1,8 @@
 Name: Eye-Mutant Orb Laser
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Eyemutant Eye" "204974"
 <img src=rdb://144708>
@@ -13,30 +13,30 @@ Author:
 #L "Field Quantum Physics All-Purpose Tool" "164558"
 <img src=rdb://20410>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Drum of Hydrochloric Acid
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Eyemutant Eye
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://152424>
 #L "Inactive Eyemutant Orb Laser" "204976"
-#C16Skills: |  CH  |#C20
+</font><font color=#FFFF00>Skills: |  CH  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Field Quantum Physics All-Purpose Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Inactive Eyemutant Orb Laser
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://152424>
 #L "Eyemutant Orb Laser" "204972"
-#C16Skills: |  CH  |#C20
+</font><font color=#FFFF00>Skills: |  CH  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Another reason to kill those annoying eyemutants :)

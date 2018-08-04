@@ -1,8 +1,8 @@
 Name: Upgrading Alien Weapons
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Kyr'Ozch Bio-Material
 ( ie : #L "Kyr'Ozch Bio-Material - Type 1" "247684" )
@@ -12,22 +12,22 @@ AI Weapon
 ( ie : #L "Kyr'Ozch Shotgun" "254583" )
 <img src=rdb://255471>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Kyr'Ozch Bio-Material
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 AI Weapon
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://255471>
 Upgrading AI Weapon
 ( ie : #L "Kyr'Ozch Shotgun - Type 1" "247458" )
-#C16Skills: |  WS  |#C20
+</font><font color=#FFFF00>Skills: |  WS  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Kyr'Ozch Bio-Material - Type 1" "247684"
 #L "Kyr'Ozch Grenade Gun - Type 1" "254576"
@@ -81,9 +81,9 @@ Upgrading AI Weapon
 #L "Kyr'Ozch Bio-Material - Type 992" "247682" 
 #L "Kyr'Ozch Energy Rapier - Type 992" "254723"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Upgrade your alien weapons with specials
 

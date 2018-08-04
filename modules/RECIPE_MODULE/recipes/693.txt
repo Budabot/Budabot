@@ -1,11 +1,11 @@
 Name: Professional Stellar Nanodeck
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 Most of these items can only be acquired if you have access to Mitaar Hero, Ground Chief Vortexx and the 12-Man encounters,
-as well as a few key items from various high-level encounters/quests bits! #C20
+</font><font color=#FFFF00> Most of these items can only be acquired if you have access to Mitaar Hero, Ground Chief Vortexx and the 12-Man encounters,
+as well as a few key items from various high-level encounters/quests bits! </font><font color=#009B00>
 
 #L "Unknown Mixture" "281095"
 <img src=rdb://281093>
@@ -25,43 +25,43 @@ as well as a few key items from various high-level encounters/quests bits! #C20
 #L "Star of xxx" "244691"
 <img src=rdb://131260>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16Note: for demonstration purposes we'll show how to build MA nanodeck:#C20
+</font><font color=#FFFF00>Note: for demonstration purposes we'll show how to build MA nanodeck:</font><font color=#009B00>
 
 Unknown Mixture
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Kenneth's Polishing Gel
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281092>
 #L "Grostad's Polishing Gel" "281094"
 
 Grostad's Polishing Gel
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 A piece of cloth
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281097>
 #L "Grostad's piece of polishing cloth" "281099"
 
 Grostad's piece of polishing cloth
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Star of Equanimity
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281044>
 #L "Stellar Equanimity" "281046"
 
 Nanodeck Activation Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Martial-Artist Nanodeck
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281042>
 #L "Activated Martial-Artist Nanodeck" "280764"
 
 Stellar Equanimity
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Activated Martial-Artist Nanodeck
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://281043>
 #L "Stellar Martial-Artist Nanodeck" "280778"

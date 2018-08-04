@@ -1,8 +1,8 @@
 Name: Prowler Armor
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 a piece of Crawler Armor ( #L "see here" "/tell {myname} recipe 37" )
 <img src=rdb://13259>
@@ -13,31 +13,31 @@ a piece of Crawler Armor ( #L "see here" "/tell {myname} recipe 37" )
 #L "Screwdriver" "150922"
 <img src=rdb://151011>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Damaged Proliferation Unit
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://205533>
 #L "Proliferation Unit" "245216"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Proliferation Unit
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 a piece of Crawler Armor
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://13259>
 a piece of Prowler Armor
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Prowler Armor Sleeves" "245176"
 #L "Prowler Body Armor" "245178"
@@ -47,8 +47,8 @@ a piece of Prowler Armor
 #L "Prowler Armor Shoulder Pad" "245186"
 #L "Prowler Armor Hood" "245188"
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Great armor if you can get 7 DPUs.. this can often prove a difficult task though, as they are well camped.

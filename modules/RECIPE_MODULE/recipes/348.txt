@@ -1,6 +1,6 @@
 Name: Omni-Tek Manual Tripler
 Author: 
-#C20
+</font><font color=#009B00>
 
 This Instruction Manual will teach you how to assemble a:
  'Omni-Tek Manual Tripler'

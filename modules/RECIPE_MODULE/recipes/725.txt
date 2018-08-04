@@ -1,10 +1,10 @@
 Name: Extruder's Molybdenum Crash Helmet
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 The Action Probability Estimator drops in Sector 13 and can be used for various tradeskill processes.#C20
+</font><font color=#FFFF00> The Action Probability Estimator drops in Sector 13 and can be used for various tradeskill processes.</font><font color=#009B00>
 
 #L "Action Probability Estimator" "257960"
 <img src=rdb://203502>
@@ -12,14 +12,14 @@ Author:
 #L "Kegern's Molybdenum Plate Helmet" "252017"
 <img src=rdb://252429>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Action Probability Estimator
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Kegern's Molybdenum Plate Helmet
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://252429>
 #L "Extruder's Molybdenum Crash Helmet" "257379"
-#C16Note: Omni Helmet#C20
+</font><font color=#FFFF00>Note: Omni Helmet</font><font color=#009B00>

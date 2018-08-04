@@ -1,6 +1,6 @@
 Name: ANEX - Mathis Multi-Energy Rifle
 Author: 
-#C20
+</font><font color=#009B00>
 
 This Instruction Manual will teach you how to assemble a:
  'ANEX - Mathis Multi-Energy Rifle'

@@ -1,6 +1,6 @@
 Name: ANEX - Blue Mathis M-E
 Author: 
-#C20
+</font><font color=#009B00>
 
 This Instruction Manual will teach you how to assemble a:
   'ANEX - Blue Mathis M-E'

@@ -1,14 +1,14 @@
 Name: Ceremonial Chief's Headwear
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C12 *** #C16 There are actually two types of them, made either from Small
+</font><font color=#FF0000> *** </font><font color=#FFFF00> There are actually two types of them, made either from Small
 Obsidian Jar or Obsidian Jar. Jars drops of random mobs in Inner Sanctum.
 Only thing needed to complete the process is Advanced Hacker Tool, available
 from Devices Terminal.
-#C12 *** #C20
+</font><font color=#FF0000> *** </font><font color=#009B00>
 
 #L "Small Obsidian Jar" "206477"
 <img src=rdb://119173>
@@ -19,35 +19,35 @@ from Devices Terminal.
 #L "Advanced Hacker Tool" "87814"
 <img src=rdb://99282>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Ceremonial Watchman's Hood<end>
 
 Small Obsidian Jar
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Advanced Hacker Tool
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://205773>
 #L "Ceremonial Watchman's Hood" "206459"
-#C16Skills: | Requires 665 in Breaking & Entering Skill.|#C20
+</font><font color=#FFFF00>Skills: | Requires 665 in Breaking & Entering Skill.|</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 <highlight>Ceremonial Chief's Headwear<end>
 
 Obsidian Jar
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Advanced Hacker Tool
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://205760>
 #L "Ceremonial Chief's Headwear" "206455"
-#C16Skills: | Requires 855 in Breaking & Entering Skill. |#C20
+</font><font color=#FFFF00>Skills: | Requires 855 in Breaking & Entering Skill. |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
-#C16Note: Both headgears are leveling items (right-click on them to upgrade
+</font><font color=#FFFF00>Note: Both headgears are leveling items (right-click on them to upgrade
 them), Watchman's between QL 140 and 180, Chief's between QL 180 and 200.
 Both are also title locked, Watchman's at title 4 to 5 and Chief's at title
-5#C20
+5</font><font color=#009B00>

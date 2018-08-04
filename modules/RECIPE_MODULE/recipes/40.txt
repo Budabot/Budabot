@@ -1,8 +1,8 @@
 Name: Enhanced Mantis Scissors
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Mantis Scissors" "157760"
 <img src=rdb://158238>
@@ -10,20 +10,20 @@ Author:
 #L "Diamond-Matrix Mesh" "202266"
 <img src=rdb://11615>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Diamond-Matrix Mesh
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Mantis Scissors
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://158238>
 #L "Enhanced Mantis Scissors" "202265"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Nice weapon if you can get the parts.

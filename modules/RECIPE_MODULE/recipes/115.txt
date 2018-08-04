@@ -1,8 +1,8 @@
 Name: Kyr'Ozch Structural Analyzer
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Kyr'Ozch Atomic Re-Structuralizing Tool" "247099"
 <img src=rdb://247098>
@@ -10,20 +10,20 @@ Author:
 #L "Field Quantum Physics All-Purpose Tool" "164558"
 <img src=rdb://20410>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Field Quantum Physics All-Purpose Tool
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Kyr'Ozch Atomic Re-Structuralizing Tool
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://247097>
 #L "Kyr'Ozch Structural Analyzer" "247100"
-#C16Skills: |  QT  |#C20
+</font><font color=#FFFF00>Skills: |  QT  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Handy Tool for AI Tradeskilling.

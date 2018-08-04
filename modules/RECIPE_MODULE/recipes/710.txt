@@ -1,11 +1,11 @@
 Name: Sector 7 Tradeskills
 Author: 
-#C16 The parts listed drop in Sector 7 and can be used for various tradeskill processes.
-Click on the recipe name to go to the corresponding recipe.#C20
+</font><font color=#FFFF00> The parts listed drop in Sector 7 and can be used for various tradeskill processes.
+Click on the recipe name to go to the corresponding recipe.</font><font color=#009B00>
 
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
 #L "Power Core" "/tell {myname} recipe 708"
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <img src=rdb://287971>
 #L "Power Core Stabilizer" "287976"
@@ -16,23 +16,23 @@ Click on the recipe name to go to the corresponding recipe.#C20
 <img src=rdb://287970>
 #L "Inactive Power Core" "287974"
 
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
 #L "Viral Communications Larvae" "/tell {myname} recipe 707"
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <img src=rdb://288096>
 #L "Kyr'Ozch Storage Box" "288137"
 
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
 #L "Kyr'Ozch Nano Protection Ring" "/tell {myname} recipe 709"
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <img src=rdb://288095>
 #L "Kyr'Ozch Storage Container" "288138"
 
-#C16------------------------------
+</font><font color=#FFFF00>------------------------------
 #L "Viral Component Belt" "/tell {myname} recipe 706"
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <img src=rdb://288090>
 #L "Viral Belt Control Component" "288130"

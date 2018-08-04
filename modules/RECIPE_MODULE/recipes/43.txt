@@ -1,8 +1,8 @@
 Name: Eyemutant Sinew Armor
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Short" "204767", #L "Long" "204769" or #L "Eyemutant Sinews" "204768"
 <img src=rdb://156557>
@@ -17,63 +17,63 @@ Author:
 or #L "Patch of hard bronto hide" "162228"
 <img src=rdb://161086>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 <highlight>Example: making of a sleeve<end>
 
 B.B.I. - Nano Enhanced B-12 Tanning Acid
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Patch of soft bronto hide
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://161081>
 #L "Patch of Soft Bronto Hide - Tanned" "162242"
-#C16Skills: | CH,AG |#C20
+</font><font color=#FFFF00>Skills: | CH,AG |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 XXX-Plumbo Beer Can
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Long Eyemutant Sinews
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://156557>
 #L "Long Eyemutant Sinews - Preserved" "204772"
-#C16Skills: |  ??  |#C20
+</font><font color=#FFFF00>Skills: |  ??  |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Long Eyemutant Sinews - Preserved
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Patch of Hard Bronto Hide - Tanned
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://37423>
 #L "Eyemutant Sinew Sleeves - 1 Bundle" "204791"
-#C16Skills: |  CH  |#C20
+</font><font color=#FFFF00>Skills: |  CH  |</font><font color=#009B00>
 
 You can apply 11 other "Long Eyemutant Sinews - Preserved" on the piece of armor you made to increase its QL.
 
-#C16------------------------------
-#C12Details#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Details</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Patch of Soft Bronto Hide" "162230", #L "Long Eyemutant Sinews" "204769"
-#C15->#C20
+</font><font color=#FFFFFF>-></font><font color=#009B00>
 Eyemutant Sinew Sleeves
 ( ie : #L "Eyemutant Sinew Sleeves - 12 Bundles" "204802" )
 
 #L "Patch of Hard Bronto Hide" "162228", #L "Eyemutant Sinews" "204768"
-#C15->#C20
+</font><font color=#FFFFFF>-></font><font color=#009B00>
 Eyemutant Sinew Boots
 ( ie : #L "Eyemutant Sinew Boots - 12 Bundles" "204814" )
 
 #L "Small Patch of Soft Bronto Hide" "162234", #L "Short Eyemutant Sinews" "204767"
-#C15->#C20
+</font><font color=#FFFFFF>-></font><font color=#009B00>
 Eyemutant Sinew Gloves
 ( ie : #L "Eyemutant Sinew Gloves - 12 Bundles" "204826" )
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Enforcer only. Interesting Cold and Fire damage bonuses !

@@ -1,10 +1,10 @@
 Name: Ancient Skills Library
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 Both parts required for this process can be found in Albtraum#C20
+</font><font color=#FFFF00> Both parts required for this process can be found in Albtraum</font><font color=#009B00>
 
 #L "Empty Ancient Device" "267709"
 <img src=rdb://218753>
@@ -12,14 +12,14 @@ Author:
 #L "Crystalised Memories of a Engineer" "267714"
 <img src=rdb://72771>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Empty Ancient Device
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Crystalised Memories of a Engineer
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://218759>
 #L "Ancient Skills Library" "267652"
-#C16Skills: | 1250 CL |#C20
+</font><font color=#FFFF00>Skills: | 1250 CL |</font><font color=#009B00>

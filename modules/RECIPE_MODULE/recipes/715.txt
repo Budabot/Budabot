@@ -1,10 +1,10 @@
 Name: Blades of Boltar
 Author: 
-#C16------------------------------
-#C12Ingredients #C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients </font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
-#C16 The Energy Redistribution Unit drops in Alien Playfields and can be used for various tradeskill processes.#C20
+</font><font color=#FFFF00> The Energy Redistribution Unit drops in Alien Playfields and can be used for various tradeskill processes.</font><font color=#009B00>
 
 #L "Energy Redistribution Unit" "257961"
 <img src=rdb://257197>
@@ -12,14 +12,14 @@ Author:
 #L "Kyr'Ozch Energy Rapier - Type 992" "254721"
 <img src=rdb://255469>
 
-#C16------------------------------
-#C12Recipe #C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe </font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Energy Redistribution Unit
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Kyr'Ozch Energy Rapier - Type 992
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://257716>
 #L "Blades of Boltar" "257147"
-#C16Note: Rapier needs to be QL250+#C20
+</font><font color=#FFFF00>Note: Rapier needs to be QL250+</font><font color=#009B00>

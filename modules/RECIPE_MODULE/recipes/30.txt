@@ -1,14 +1,14 @@
 Name: Carbonum Armor
 Author: 
-#C16------------------------------
-#C12Forward#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Forward</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 You need a different HSR - Sketch and Etch for each piece of this armor.
 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Sheet of Curved Carbonum Plating" "156017"
 <img src=rdb://156091>
@@ -23,41 +23,41 @@ HSR - Sketch and Etch
 #L "Mass Relocating Robot" "155592"
 <img src=rdb://155928>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Programmed Photon Particle Emitter (Shape Hard Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Mass Relocating Robot
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://163856>
 #L "Mass Relocating Robot (Shape Hard Armor)" "162218"
-#C16Skills: | 2.5EE,2.5ME,2.5NP |#C20
+</font><font color=#FFFF00>Skills: | 2.5EE,2.5ME,2.5NP |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Sheet of Curved Carbonum Plating
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 HSR - Sketch and Etch - Chestpiece
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://162297>
 #L "Etched Pattern for Carbonum Breastplate" "162299"
-#C16Skills: | 4.5ME,CH |#C20
+</font><font color=#FFFF00>Skills: | 4.5ME,CH |</font><font color=#009B00>
 
-#C14------------------------------#C20
+</font><font color=#FFFFFF>------------------------------</font><font color=#009B00>
 
 Mass Relocating Robot (Shape Hard Armor)
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Etched Pattern for Carbonum Breastplate
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://162421>
 #L "Carbonum Breastplate" "162432"
-#C16Skills: | 4.5CH,2.5EE,2.5INT |#C20
+</font><font color=#FFFF00>Skills: | 4.5CH,2.5EE,2.5INT |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 You can use...
 
@@ -67,11 +67,11 @@ You can use...
 ...instead of the Mass Relocating Robot (Shape Hard Armor), but skill's requirement is higher like this:
 
 Screwdriver
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Etched Pattern for Carbonum Breastplate
 #L "Carbonum Breastplate" "162432"
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://162421>
-#C16Skills: | 6ME,5.5EE,2.5INT |#C20
+</font><font color=#FFFF00>Skills: | 6ME,5.5EE,2.5INT |</font><font color=#009B00>
 
 Carb armor is great armor, especially when you are just starting out.  The NCU buffs can be handy for twinking also. Unfortunately, The Programmed Photon Particle Emitter (Shape Hard Armor) is a Boss-loot-only QL 60 stuff and very rare.

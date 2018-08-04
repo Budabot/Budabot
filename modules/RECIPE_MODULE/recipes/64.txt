@@ -1,8 +1,8 @@
 Name: Lock Pick of Eight
 Author: 
-#C16------------------------------
-#C12Ingredients#C20
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Ingredients</font><font color=#009B00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 #L "Chip of the Eight" "216381"
 <img src=rdb://43118>
@@ -10,20 +10,20 @@ Author:
 #L "Bomb Disarmament Tools" "95576"
 <img src=rdb://130561>
 
-#C16------------------------------
-#C12Recipe#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Recipe</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Chip of the Eight
-#C15+#C20
+</font><font color=#FFFFFF>+</font><font color=#009B00>
 Bomb Disarmament Tools
-#C15=#C20
+</font><font color=#FFFFFF>=</font><font color=#009B00>
 <img src=rdb://216401>
 #L "Lock Pick of Eight" "216380"
-#C16Skills: |  ME  |#C20
+</font><font color=#FFFF00>Skills: |  ME  |</font><font color=#009B00>
 
-#C16------------------------------
-#C12Comments#C16
-#C16------------------------------#C20
+</font><font color=#FFFF00>------------------------------
+</font><font color=#FF0000>Comments</font><font color=#FFFF00>
+</font><font color=#FFFF00>------------------------------</font><font color=#009B00>
 
 Chip of the Eight can be found on Hollow Island
