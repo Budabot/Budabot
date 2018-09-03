@@ -139,18 +139,14 @@ class BuffPerksController {
 			$msg = "Could not find any perks for level $minLevel $profession.";
 		} else {
 			$currentPerk = '';
-			$buffs = array();
 			$blob = '';
-			$numPerks = 0;
 			forEach ($data as $row) {
 				if ($row->perk_name != $currentPerk) {
 					$blob .= "\n<header2>$row->perk_name {$row->max_perk_level}<end>\n";
 					$currentPerk = $row->perk_name;
-					$numPerks += $row->max_perk_level;
 				}
 				
 				$blob .= "$row->skill <highlight>$row->buff_amount<end>\n";
-				$buffs[$row->skill] += $row->buff_amount;
 			}
 			
 			$msg = $this->text->makeBlob("Buff Perks for $minLevel $profession", $blob);

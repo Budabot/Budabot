@@ -148,7 +148,7 @@ class RecipeController {
 			$lowId = $matches[1];
 			$search = $matches[4];
 			
-			$data = $this->db->query("SELECT * FROM recipes WHERE recipe LIKE ? OR recipe LIKE ? ORDER BY name ASC", $search, "%" . $lowId . "%");
+			$data = $this->db->query("SELECT * FROM recipes WHERE recipe LIKE ? OR recipe LIKE ? ORDER BY name ASC", "%" . $search . "%", "%" . $lowId . "%");
 		} else {
 			$search = $args[1];
 			
