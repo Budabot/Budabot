@@ -21161,6 +21161,7 @@ INSERT INTO aodb VALUES (236267, 236267, 220, 220, 'Persisting Left Hand Symbian
 INSERT INTO aodb VALUES (236431, 236431, 220, 220, 'Persisting Left Wrist Symbiant, Control Unit Aban', 215196);
 INSERT INTO aodb VALUES (235983, 235983, 220, 220, 'Persisting Left Wrist Symbiant, Extermination Unit Aban', 215198);
 INSERT INTO aodb VALUES (236216, 236216, 220, 220, 'Persisting Left Wrist Symbiant, Support Unit Aban', 215198);
+INSERT INTO aodb VALUES (219140, 219140, 220, 220, 'Persisting Ocular Symbiant, Artillery Unit Aban', 230979);
 INSERT INTO aodb VALUES (236295, 236295, 220, 220, 'Persisting Ocular Symbiant, Control Unit Aban', 230979);
 INSERT INTO aodb VALUES (235626, 235626, 220, 220, 'Persisting Ocular Symbiant, Infantry Unit Aban', 230980);
 INSERT INTO aodb VALUES (235456, 235456, 220, 220, 'Persisting Right Arm Symbiant, Artillery Unit Aban', 215176);
