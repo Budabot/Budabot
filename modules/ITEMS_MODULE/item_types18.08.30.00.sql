@@ -10113,4 +10113,8 @@ INSERT INTO item_types (item_id, item_type) VALUES (200260, 'Head');
 INSERT INTO item_types (item_id, item_type) VALUES (200281, 'Legs');
 INSERT INTO item_types (item_id, item_type) VALUES (200302, 'Arms');
 INSERT INTO item_types (item_id, item_type) VALUES (200323, 'Chest');
+INSERT INTO item_types (item_id, item_type) VALUES (304143, 'Hands');
+INSERT INTO item_types (item_id, item_type) VALUES (304128, 'Chest');
+INSERT INTO item_types (item_id, item_type) VALUES (304129, 'Legs');
+INSERT INTO item_types (item_id, item_type) VALUES (304130, 'Back');
 CREATE INDEX idx_item_type ON item_types(item_type);
