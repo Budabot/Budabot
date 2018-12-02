@@ -173,13 +173,13 @@ class SkillsController {
 	}
 	
 	public function getInitsNeededFullAgg($AttTim, $RechT) {
-		$Initatta1 = round((((100 - 87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
-		$Initrech1 = round((((100 - 87.5) * 0.02) + 1 - $RechT) * (-300), 0);
+		$Initatta1 = round((((100 - 87.5) * 0.02) + 1 - $AttTim) * -600, 0);
+		$Initrech1 = round((((100 - 87.5) * 0.02) + 1 - $RechT) * -300, 0);
 		if ($Initatta1 > 1200) {
-			$Initatta1 = round(((((100 - 87.5) * 0.02) + 1 - $AttTim + 2) * (-1800)) + 1200, 0);
+			$Initatta1 = round(((((100 - 87.5) * 0.02) + 1 - $AttTim + 2) * -1800) + 1200, 0);
 		}
 		if ($Initrech1 > 1200) {
-			$Initrech1 = round(((((100 - 87.5) * 0.02) + 1 - $AttTim + 4) * (-900)) + 1200, 0);
+			$Initrech1 = round(((((100 - 87.5) * 0.02) + 1 - $AttTim + 4) * -900) + 1200, 0);
 		}
 		if ($Initatta1 < $Initrech1) {
 			$Init1 = $Initrech1;
@@ -193,10 +193,10 @@ class SkillsController {
 		$Initatta2 = round((((87.5 - 87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
 		$Initrech2 = round((((87.5 - 87.5) * 0.02) + 1 - $RechT) * (-300), 0);
 		if ($Initatta2 > 1200) {
-			$Initatta2 = round(((((87.5 - 87.5) * 0.02) + 1 - $AttTim + 2) * (-1800)) + 1200, 0);
+			$Initatta2 = round(((((87.5 - 87.5) * 0.02) + 1 - $AttTim + 2) * -1800) + 1200, 0);
 		}
 		if ($Initrech2 > 1200) {
-			$Initrech2 = round(((((87.5 - 87.5) * 0.02) + 1 - $AttTim + 4) * (-900)) + 1200, 0);
+			$Initrech2 = round(((((87.5 - 87.5) * 0.02) + 1 - $AttTim + 4) * -900) + 1200, 0);
 		}
 		if ($Initatta2 < $Initrech2) {
 			$Init2 = $Initrech2;
@@ -207,13 +207,13 @@ class SkillsController {
 	}
 	
 	public function getInitsNeededFullDef($AttTim, $RechT) {
-		$Initatta3 = round((((-87.5) * 0.02) + 1 - $AttTim) * (-600), 0);
-		$Initrech3 = round((((-87.5) * 0.02) + 1 - $RechT) * (-300), 0);
+		$Initatta3 = round(((-87.5 * 0.02) + 1 - $AttTim) * -600, 0);
+		$Initrech3 = round(((-87.5 * 0.02) + 1 - $RechT) * -300, 0);
 		if ($Initatta3 > 1200) {
-			$Initatta3 = round(((((-87.5) * 0.02) + 1 - $AttTim + 2) * (-1800)) + 1200, 0);
+			$Initatta3 = round((((-87.5 * 0.02) + 1 - $AttTim + 2) * -1800) + 1200, 0);
 		}
 		if ($Initrech3 > 1200) {
-			$Initrech3 = round(((((-87.5) * 0.02) + 1 - $AttTim + 4) * (-900)) + 1200, 0);
+			$Initrech3 = round((((-87.5 * 0.02) + 1 - $AttTim + 4) * -900) + 1200, 0);
 		}
 		if ($Initatta3 < $Initrech3) {
 			$Init3 = $Initrech3;
@@ -500,7 +500,7 @@ class SkillsController {
 			$speed = 1.25 + (0.2 * (($fistql - 200) / 300));
 		} else if ($fistql <= 1000)	{
 			$speed = 1.45 + (0.2 * (($fistql - 500) / 500));
-		} else if ($fistql <= 1500)	{
+		} else { //} else if ($fistql <= 1500)	{
 			$speed = 1.65 + (0.2 * (($fistql - 1000) / 500));
 		}
 		$speed = round($speed,2);
@@ -566,7 +566,7 @@ class SkillsController {
 		$blob .= "Def/Agg: <highlight>". $bar_setting ."%<end>\n";
 		$blob .= "You must set your AGG bar at <highlight>". $bar_setting ."% (". round($bar_setting * 8 / 100,2) .") <end>to instacast your nano.\n\n";
 		$blob .= "NanoC. Init needed to instacast at Full Agg (100%):<highlight> ". $Init1 ." <end>inits\n";
-		$blob .= "NanoC. Init needed to instacast at Neutral (88%):<highlight> ". $Init2 ." <end>inits\n";
+		$blob .= "NanoC. Init needed to instacast at Half (50%):<highlight> ". $Init2 ." <end>inits\n";
 		$blob .= "NanoC. Init needed to instacast at Full Def (0%):<highlight> ". $Init3 ." <end>inits";
 
 		$msg = $this->text->makeBlob("Nano Init Results", $blob);
