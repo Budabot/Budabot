@@ -1,4 +1,9 @@
 *****************************
+	Version 4+:
+*****************************
+updated !nano (thanks Saavick)
+
+*****************************
 	Version 4:
 *****************************
 now includes DEV_MODULE which includes !cache, !cmdhandlers, !createblob, !demo, !htmldecode, !makeitem, !mdb, !msginfo, !silence, !unsilence, !timezone, and several commands for testing different things on the bot
