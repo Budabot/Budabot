@@ -72,7 +72,10 @@ class NewsController {
 				}
 				$sticky = $row->sticky;
 			}
-			$msg = $this->text->makeBlob("News [Last updated at " . $this->util->date($data[0]->time) . "]", $blob);
+
+			$sql = "SELECT time FROM `news` WHERE deleted = 0 ORDER BY `time` DESC LIMIT 1";
+			$row = $this->db->queryRow($sql);
+			$msg = $this->text->makeBlob("News [Last updated at " . $this->util->date($row->time) . "]", $blob);
 		}
 		return $msg;
 	}
