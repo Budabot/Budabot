@@ -27,7 +27,7 @@ $vars['password']   = "";
 $vars['name']       = "";
 $vars['my_guild']   = "";
 
-// 5 for Live, 4 for Test.
+// 6 for Live (new), 5 for Live (old), 4 for Test.
 $vars['dimension']  = 5;
 
 // Character name of the Super Administrator.

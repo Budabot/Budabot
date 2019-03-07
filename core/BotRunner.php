@@ -214,8 +214,11 @@ In-Game Contact:  Tyrence
 		} else if ($vars["dimension"] == 5) {
 			$server = "chat.d1.funcom.com";
 			$port = 7105;
+		} else if ($vars["dimension"] == 6) {
+			$server = "chat.d1.funcom.com";
+			$port = 7106;
 		} else {
-			LegacyLogger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are 4 and 5.");
+			LegacyLogger::log('ERROR', 'StartUp', "No valid server to connect with! Available dimensions are 4, 5, and 6.");
 			sleep(10);
 			die();
 		}

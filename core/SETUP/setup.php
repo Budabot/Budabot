@@ -76,9 +76,9 @@ do {
 	echo "             Enter the dimension that the bot will run on.\n";
 	echo "             **************************************************\n";
 	echo "             \n\n\n\n\n\n\n\n\n";
-	$msg = "Choose a Dimension (5 = Rubi-Ka, 4 = Test): \n";
+	$msg = "Choose a Dimension (6 = Live (new), 5 = Live (old), 4 = Test): \n";
 	$vars["dimension"] = read_input($msg);
-} while ($vars["dimension"] != 4 && $vars["dimension"] != 5);
+} while ($vars["dimension"] != 4 && $vars["dimension"] != 5 && $vars["dimension"] != 6);
 
 do {
 	echo "             \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
