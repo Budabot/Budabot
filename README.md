@@ -1,6 +1,6 @@
 Note: Budabot is no longer supported, although it should continue to work for the forseeable future.  If you need a new bot, especially a bot that will work on RK6 (RK2019) then I recommend using Tyrbot (https://github.com/Budabot/Tyrbot), which is a new bot I have written.  Feel free to join the discord channel if you need help with this new bot: https://discord.gg/2x9WesJ
 
-- Tyrence
+-- Tyrence
 
 # Budabot #
 Budabot is a next-generation chatbot for Anarchy Online.
